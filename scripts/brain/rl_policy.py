@@ -218,13 +218,13 @@ class RLBrain:
     def __init__(self, checkpoint: Path, temperature: float = 0.0,
                  device: str = "cpu", min_confidence: float = 0.0):
         import torch
-        from sim.train_ppo import build_network
+        from sim.train_ppo import build_network, load_policy_state
         self.torch = torch
         self.device = torch.device(device)
         blob = torch.load(Path(checkpoint), map_location=self.device,
                           weights_only=False)
         self.network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
-        self.network.load_state_dict(blob["state_dict"])
+        load_policy_state(self.network, blob["state_dict"])
         self.network.to(self.device).eval()
         self.step_trained = int(blob.get("step", 0))
         self.temperature = temperature

@@ -47,11 +47,11 @@ def wilson_ci(wins: int, n: int, z: float = 1.96) -> tuple[float, float]:
 def evaluate_one(ckpt: Path, opponent: str, episodes: int, seed: int, device: str = "cpu") -> dict:
     import torch
     from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS, ClashEnv
-    from sim.train_ppo import build_network, masked_distribution
+    from sim.train_ppo import build_network, load_policy_state, masked_distribution
 
     blob = torch.load(str(ckpt), map_location=device, weights_only=False)
     net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
-    net.load_state_dict(blob["state_dict"])
+    load_policy_state(net, blob["state_dict"])
     net.eval()
 
     env = ClashEnv(seed=seed, opponent=opponent)

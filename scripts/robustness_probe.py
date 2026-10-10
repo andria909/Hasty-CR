@@ -32,13 +32,13 @@ def eval_at_scale(ckpt: Path, episodes: int, seed: int, device: str = "cpu",
     """Evaluate with monkey-patched entity speed/radius if possible."""
     import torch
     from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS, ClashEnv
-    from sim.train_ppo import build_network, masked_distribution
+    from sim.train_ppo import build_network, load_policy_state, masked_distribution
 
     # Try to patch game data speed/radius before env creation
     # This is best-effort; if patching fails, falls back to nominal.
     blob = torch.load(str(ckpt), map_location=device, weights_only=False)
     net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
-    net.load_state_dict(blob["state_dict"])
+    load_policy_state(net, blob["state_dict"])
     net.eval()
 
     # Attempt to scale entity speeds via gamedata patch

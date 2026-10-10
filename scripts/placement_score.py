@@ -86,12 +86,12 @@ def policy_placements(checkpoint: Path, episodes: int, seed: int,
     import torch
 
     from sim.env import ClashEnv, CARD_ACTIONS, GRID_W, DECK_26
-    from sim.train_ppo import build_network, masked_distribution
+    from sim.train_ppo import build_network, load_policy_state, masked_distribution
     from sim.env import NUM_PLANES, NUM_SCALARS, ACTIONS
 
     blob = torch.load(checkpoint, map_location="cpu", weights_only=False)
     net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
-    net.load_state_dict(blob["state_dict"])
+    load_policy_state(net, blob["state_dict"])
     net.eval()
 
     found = collections.defaultdict(list)

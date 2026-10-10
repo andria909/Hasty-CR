@@ -83,11 +83,11 @@ def compare_games(baseline: list[dict], candidate: list[dict]) -> dict:
 def _load_network(path: Path, device):
     import torch
     from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS
-    from sim.train_ppo import build_network
+    from sim.train_ppo import build_network, load_policy_state
 
     blob = torch.load(path, map_location=device, weights_only=False)
     network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
-    network.load_state_dict(blob["state_dict"])
+    load_policy_state(network, blob["state_dict"])
     network.eval()
     return network
 

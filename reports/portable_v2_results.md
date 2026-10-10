@@ -72,8 +72,9 @@ python -m sim.eval_checkpoints \
 - Kiting credit is awarded only when Ice Golem, Ice Spirit or Skeletons really
   retarget a threat; displacement and absorbed damage add credit, and tower
   damage removes it.
-- The old roughly 20M-parameter flattening policy was replaced by a 332k
-  parameter factorised spatial network with per-card placement maps.
+- The old roughly 20M-parameter flattening policy was replaced by a 404,050
+  parameter factorised spatial network with hand-conditioned placement queries
+  and absolute coordinate bases.
 - Behaviour-clone loss downweights hold rows and checkpoint selection includes
   play accuracy, preventing an always-hold majority-class model from winning.
 - A versioned RoyaleAPI fallback makes 2.6 training possible without the
@@ -103,5 +104,52 @@ a reliable improvement over v2:
 | rule brain | 7/60 | 9/60 | 8 / 6 / 46 | 0.3953 |
 | meta pool | 11/60 | 10/60 | 5 / 6 / 49 | 0.7256 |
 
-Accordingly v2 remains the accepted candidate; v3 is retained only as a
-negative experiment. Raw results are in `reports/portable_v3_paired_eval.json`.
+Accordingly v2 remained the accepted candidate at that stage; v3 is retained
+only as a negative experiment. Raw results are in
+`reports/portable_v3_paired_eval.json`.
+
+## Conditioned behaviour clone v6
+
+Inspection of the imitation stage found that a static per-slot placement map
+could not express different geography for cards occupying the same slot. Card
+identity reached the old spatial head only as one constant bias, so Cannon,
+Hog and Ice Spirit had to share essentially the same location ranking. The v6
+head adds feature-conditioned queries over the spatial tensor plus learned
+coefficients over fixed board-coordinate bases. Old v2 checkpoints migrate
+with zero-initialised new heads and preserve their logits exactly.
+
+The cloning objective also now contains:
+
+- a separate greedy-compatible play-versus-hold gate loss;
+- soft credit for nearby legal placements of the same card;
+- checkpoint selection on gate accuracy plus near-placement accuracy;
+- cached teacher datasets and meta-opponent state collection.
+
+On 30,193 cached teacher states, play exact accuracy rose from roughly 1% to
+18.5%, within-one-cell accuracy reached 41.5%, and play/hold accuracy reached
+85.6%. The internal evaluation was 8–8 with a 26–26 crown score.
+
+Most importantly, a fresh paired evaluation at seed 950000 beat the previously
+accepted PPO v2 checkpoint:
+
+| Opponent | PPO v2 wins | conditioned clone v6 wins | Paired better / worse / tied | One-sided exact p |
+| --- | ---: | ---: | ---: | ---: |
+| rule brain | 8/60 | 12/60 | 9 / 5 / 46 | 0.2120 |
+| meta pool | 18/60 | 34/60 | 24 / 8 / 28 | **0.00350** |
+
+The meta win rate improved from 30.0% to 56.7%, with a mean crown-differential
+gain of +1.083 per match. v6 is therefore the accepted local candidate. The
+raw paired rows and Wilson intervals are in
+`reports/portable_bc_meta_v6_paired_eval.json`. v5's negative comparison is
+retained in `reports/portable_bc_meta_v5_paired_eval.json`.
+
+Reproduce v6 from the cached/collected teacher set with:
+
+```bash
+python -m sim.clone \
+  --episodes 400 --epochs 12 --batch 256 \
+  --hold-share 0.10 --hold-loss-weight 0.10 \
+  --placement-radius 1 --act-loss-weight 1.0 --opponent meta \
+  --data-cache tmp/rl/portable_bc_meta_v4_data.npz \
+  --name portable_bc_meta_v6_conditioned --device cpu
+```

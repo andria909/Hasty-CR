@@ -34,11 +34,11 @@ for p in (str(ROOT), str(ROOT / "scripts")):
 def load_policy(ckpt: Path, device: str = "cpu"):
     import torch
     from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS
-    from sim.train_ppo import build_network
+    from sim.train_ppo import build_network, load_policy_state
 
     blob = torch.load(str(ckpt), map_location=device, weights_only=False)
     net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
-    net.load_state_dict(blob["state_dict"])
+    load_policy_state(net, blob["state_dict"])
     net.eval()
     meta = {k: v for k, v in blob.items() if k != "state_dict"}
     return net, meta

@@ -84,12 +84,12 @@ class _LeagueSeat:
     def _network(self, path: str):
         import torch
         from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS
-        from sim.train_ppo import build_network
+        from sim.train_ppo import build_network, load_policy_state
         if path in self._cache:
             return self._cache[path]
         blob = torch.load(path, map_location="cpu", weights_only=False)
         net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
-        net.load_state_dict(blob["state_dict"])
+        load_policy_state(net, blob["state_dict"])
         net.eval()
         self._cache[path] = net
         self._order.append(path)

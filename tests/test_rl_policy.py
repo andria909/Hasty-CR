@@ -249,10 +249,10 @@ def _checkpoint():
 def _network(checkpoint):
     import torch
     from sim.env import NUM_PLANES, NUM_SCALARS
-    from sim.train_ppo import build_network
+    from sim.train_ppo import build_network, load_policy_state
     blob = torch.load(checkpoint, map_location="cpu", weights_only=False)
     net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
-    net.load_state_dict(blob["state_dict"])
+    load_policy_state(net, blob["state_dict"])
     net.eval()
     return net
 

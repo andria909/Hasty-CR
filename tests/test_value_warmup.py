@@ -31,7 +31,7 @@ if str(ROOT) not in sys.path:
 torch = pytest.importorskip("torch")
 
 from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS      # noqa: E402
-from sim.train_ppo import build_network                   # noqa: E402
+from sim.train_ppo import build_network, load_policy_state  # noqa: E402
 
 
 def freeze_for_warmup(network, active: bool) -> None:
@@ -43,7 +43,7 @@ def freeze_for_warmup(network, active: bool) -> None:
 def test_the_clone_script_still_does_not_train_the_value_head():
     """If this ever changes, the warmup default should be revisited."""
     source = (ROOT / "sim" / "clone.py").read_text(encoding="utf-8")
-    assert "criterion(logits, target)" in source, (
+    assert "logits, _value = network" in source, (
         "sim/clone.py no longer fits only the action head; if it now trains "
         "the critic too, --value-warmup may no longer be needed")
 
@@ -147,3 +147,28 @@ def test_the_critic_actually_improves_during_warmup():
     assert last < first * 0.6, (
         f"value loss went {first:.3f} -> {last:.3f}; the critic is barely "
         f"fitting, so the warmup would not buy anything")
+
+
+def test_v2_checkpoint_migration_preserves_logits_exactly():
+    torch.manual_seed(4)
+    old = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
+    planes = torch.randn(3, NUM_PLANES, 32, 18)
+    scalars = torch.randn(3, NUM_SCALARS)
+    with torch.no_grad():
+        expected, _ = old(planes, scalars)
+    old_state = {
+        name: value for name, value in old.state_dict().items()
+        if not name.startswith(("slot_query.", "coordinate."))}
+
+    torch.manual_seed(999)
+    migrated = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
+    assert load_policy_state(migrated, old_state)
+    with torch.no_grad():
+        actual, _ = migrated(planes, scalars)
+    assert torch.equal(actual, expected)
+
+
+def test_current_checkpoint_needs_no_migration():
+    network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
+    clone = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
+    assert not load_policy_state(clone, network.state_dict())

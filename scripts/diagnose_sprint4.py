@@ -56,12 +56,12 @@ def run(ckpt: Path, episodes: int, seed: int, out_dir: Path,
         device: str = "cpu") -> dict:
     import torch
     from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS, ClashEnv
-    from sim.train_ppo import build_network, masked_distribution
+    from sim.train_ppo import build_network, load_policy_state, masked_distribution
 
     out_dir.mkdir(parents=True, exist_ok=True)
     blob = torch.load(str(ckpt), map_location=device, weights_only=False)
     net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
-    net.load_state_dict(blob["state_dict"])
+    load_policy_state(net, blob["state_dict"])
     net.eval()
 
     env = ClashEnv(seed=seed, opponent="brain")

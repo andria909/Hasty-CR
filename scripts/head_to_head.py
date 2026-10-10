@@ -48,10 +48,10 @@ def wilson(wins: int, n: int, z: float = 1.96) -> tuple[float, float]:
 def load(path: Path, device: str):
     import torch
     from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS
-    from sim.train_ppo import build_network
+    from sim.train_ppo import build_network, load_policy_state
     blob = torch.load(str(path), map_location=device, weights_only=False)
     net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
-    net.load_state_dict(blob["state_dict"])
+    load_policy_state(net, blob["state_dict"])
     net.eval()
     return net, int(blob.get("step", 0))
 

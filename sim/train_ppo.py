@@ -106,6 +106,7 @@ def next_eval_boundary(step: int, interval: int) -> int:
 
 
 def build_network(num_planes: int, num_scalars: int, num_actions: int):
+    import torch
     import torch.nn as nn
 
     class Policy(nn.Module):
@@ -113,6 +114,7 @@ def build_network(num_planes: int, num_scalars: int, num_actions: int):
             super().__init__()
             cells = 32 * 18
             card_slots = 4
+            self.card_slots = card_slots
             ability_actions = num_actions - 1 - card_slots * cells
             if ability_actions < 0:
                 raise ValueError("action space is smaller than four placement maps")
@@ -132,6 +134,24 @@ def build_network(num_planes: int, num_scalars: int, num_actions: int):
             self.trunk = nn.Sequential(
                 nn.Linear(64 * 4 * 3 + 128, 256), nn.ReLU())
             self.card_bias = nn.Linear(256, card_slots)
+            # A static per-slot 1x1 convolution cannot choose a different map
+            # when that slot contains Hog rather than Cannon: card identity is
+            # in the scalar trunk, but only reached the old map as one constant
+            # bias. Dynamic slot queries condition local board scoring on the
+            # actual hand; coordinate coefficients supply absolute geography
+            # (bridge, centre pull, tower pocket) that a shallow convolution
+            # over an empty board cannot infer from padding several cells away.
+            self.slot_query = nn.Linear(256, card_slots * 64)
+            self.coordinate = nn.Linear(256, card_slots * 6)
+            nn.init.zeros_(self.slot_query.weight)
+            nn.init.zeros_(self.slot_query.bias)
+            nn.init.zeros_(self.coordinate.weight)
+            nn.init.zeros_(self.coordinate.bias)
+            y, x = torch.meshgrid(
+                torch.linspace(-1.0, 1.0, 32),
+                torch.linspace(-1.0, 1.0, 18), indexing="ij")
+            basis = torch.stack((x, y, x * y, x.square(), y.square(), x.abs()))
+            self.register_buffer("coordinate_basis", basis, persistent=False)
             self.hold = nn.Linear(256, 1)
             self.abilities = (nn.Linear(256, ability_actions)
                               if ability_actions else None)
@@ -143,6 +163,12 @@ def build_network(num_planes: int, num_scalars: int, num_actions: int):
                 self.pool(spatial), self.scalar(scalars)]))
             placements = self.placement(spatial)
             placements = placements + self.card_bias(features)[:, :, None, None]
+            queries = self.slot_query(features).view(-1, self.card_slots, 64)
+            placements = placements + torch.einsum(
+                "bsc,bchw->bshw", queries, spatial) / 8.0
+            coefficients = self.coordinate(features).view(-1, self.card_slots, 6)
+            placements = placements + torch.einsum(
+                "bsq,qhw->bshw", coefficients, self.coordinate_basis)
             pieces = [self.hold(features), placements.flatten(1)]
             if self.abilities is not None:
                 pieces.append(self.abilities(features))
@@ -150,6 +176,25 @@ def build_network(num_planes: int, num_scalars: int, num_actions: int):
             return logits, self.value(features).squeeze(-1)
 
     return Policy()
+
+
+def load_policy_state(network, state_dict) -> bool:
+    """Load current weights or migrate factorized_spatial_v2 in place.
+
+    Returns True when the checkpoint predates the conditioned placement heads.
+    Those heads are zero-initialised, so loading an old checkpoint preserves
+    its logits exactly while making it possible to continue training.
+    """
+    incompatible = network.load_state_dict(state_dict, strict=False)
+    allowed = ("slot_query.", "coordinate.")
+    unexpected = list(incompatible.unexpected_keys)
+    missing = [name for name in incompatible.missing_keys
+               if not name.startswith(allowed)]
+    if missing or unexpected:
+        raise RuntimeError(
+            f"incompatible policy checkpoint: missing={missing}, "
+            f"unexpected={unexpected}")
+    return bool(incompatible.missing_keys)
 
 
 def torch_cat(tensors):
@@ -402,7 +447,9 @@ def main() -> int:
         # supervised objective at a different learning rate, and carrying that
         # momentum into PPO is not resuming anything - it is noise.
         blob = torch.load(args.init, map_location=device, weights_only=False)
-        network.load_state_dict(blob["state_dict"])
+        migrated = load_policy_state(network, blob["state_dict"])
+        if migrated:
+            log("migrated checkpoint to conditioned spatial placement heads")
         log(f"initialised from {args.init} (weights only, step counter at 0)")
     anchor_net = None
     if args.anchor and args.anchor_coef > 0:
@@ -411,7 +458,7 @@ def main() -> int:
         anchor_net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
         anchor_blob = torch.load(args.anchor, map_location=device,
                                  weights_only=False)
-        anchor_net.load_state_dict(anchor_blob["state_dict"])
+        load_policy_state(anchor_net, anchor_blob["state_dict"])
         anchor_net.eval()
         for parameter in anchor_net.parameters():
             parameter.requires_grad_(False)
@@ -419,7 +466,7 @@ def main() -> int:
 
     if args.resume and args.resume.exists():
         blob = torch.load(args.resume, map_location=device, weights_only=False)
-        network.load_state_dict(blob["state_dict"])
+        load_policy_state(network, blob["state_dict"])
         optimiser.load_state_dict(blob["optimiser"])
         start_step = int(blob.get("step", 0))
         log(f"resumed {args.resume} at {start_step:,} steps")
@@ -718,7 +765,8 @@ def main() -> int:
                     f"{extra}")
                 blob = {"state_dict": network.state_dict(),
                         "optimiser": optimiser.state_dict(),
-                        "step": step, "eval": result, "hyper": asdict(hyper)}
+                        "step": step, "eval": result, "hyper": asdict(hyper),
+                        "architecture": "factorized_spatial_v3_conditioned"}
                 torch.save(blob, OUT / f"{args.name}_last.pt")
                 if args.league:
                     # Written whole, then moved into place: a worker that
@@ -746,7 +794,8 @@ def main() -> int:
     finally:
         vec.close()
         torch.save({"state_dict": network.state_dict(),
-                    "optimiser": optimiser.state_dict(), "step": step},
+                    "optimiser": optimiser.state_dict(), "step": step,
+                    "architecture": "factorized_spatial_v3_conditioned"},
                    OUT / f"{args.name}_last.pt")
         log(f"stopped at {step:,} steps")
     return 0
