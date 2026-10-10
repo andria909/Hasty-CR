@@ -90,3 +90,18 @@ graphs that the public JSON fallback does not contain; they require the full
 improvement inside the locally reproducible simulator, not that it beats the
 repository author's reported 94% checkpoint (those weights are not shipped)
 and not yet that it wins on a live Clash Royale client.
+
+## Follow-up mixed-opponent run
+
+A further 100,096-step run started from v2, trained on an even brain/meta mix,
+and selected on the worse of the two evaluation scores. Its 50k checkpoint was
+the best periodic snapshot. A fresh paired test at seed 930000 did **not** show
+a reliable improvement over v2:
+
+| Opponent | v2 wins | mixed v3 wins | Paired better / worse / tied | One-sided exact p |
+| --- | ---: | ---: | ---: | ---: |
+| rule brain | 7/60 | 9/60 | 8 / 6 / 46 | 0.3953 |
+| meta pool | 11/60 | 10/60 | 5 / 6 / 49 | 0.7256 |
+
+Accordingly v2 remains the accepted candidate; v3 is retained only as a
+negative experiment. Raw results are in `reports/portable_v3_paired_eval.json`.

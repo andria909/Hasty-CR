@@ -99,6 +99,12 @@ def entropy_schedule(step: int, start: float, final: Optional[float],
     return start + travelled * (final - start)
 
 
+def next_eval_boundary(step: int, interval: int) -> int:
+    """Next absolute evaluation boundary strictly after ``step``."""
+    interval = max(1, interval)
+    return (step // interval + 1) * interval
+
+
 def build_network(num_planes: int, num_scalars: int, num_actions: int):
     import torch.nn as nn
 
@@ -461,7 +467,11 @@ def main() -> int:
     obs, masks = vec.reset()
     step = start_step
     best = -1e9
-    next_eval = step + args.eval_every
+    # Keep evaluations aligned to absolute step boundaries. Using
+    # `step + interval` after each slightly overshot rollout drifts the final
+    # boundary past --steps (100k ended at 100,096 without a 100k eval).
+    eval_interval = max(1, args.eval_every)
+    next_eval = next_eval_boundary(step, eval_interval)
     started = time.time()
     finished_episodes = 0
     recent_returns: list[float] = []
@@ -645,7 +655,7 @@ def main() -> int:
                 for group in optimiser.param_groups:
                     group["lr"] = hyper.lr
                 log(f"value warmup done at {step:,} steps "
-                    f"(value_loss {float(loss_value):.2f}); policy unfrozen "
+                    f"(value_loss {float(loss_value.detach()):.2f}); policy unfrozen "
                     f"at lr {hyper.lr}")
                 next_eval = min(next_eval, step + 1)   # check the clone survived
 
@@ -653,13 +663,13 @@ def main() -> int:
             mean_return = float(np.mean(recent_returns[-40:])) if recent_returns else 0.0
             log(f"step {step:>9,}{'  warmup' if in_warmup else '        '}  "
                 f"{rate:6.0f}/s  episodes {finished_episodes:>5d}  "
-                f"return {mean_return:7.2f}  entropy {float(entropy):5.2f}  "
+                f"return {mean_return:7.2f}  entropy {float(entropy.detach()):5.2f}  "
                 f"ecoef {entropy_coef:5.3f}  "
-                f"value_loss {float(loss_value):8.2f}  "
+                f"value_loss {float(loss_value.detach()):8.2f}  "
                 f"kl {approx_kl:6.4f}{' STOP' if stopped_early else ''}")
 
             if step >= next_eval:
-                next_eval = step + args.eval_every
+                next_eval = next_eval_boundary(step, eval_interval)
                 network.eval()
                 # Both halves of the per-opponent score on purpose. Crown
                 # differential alone is what a chip policy scores nothing on,
