@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "name": "portable_bc_meta_v6_conditioned",
+  "status": "accepted_local_live_candidate",
+  "checkpoint": "portable_bc_meta_v6_conditioned.pt",
+  "sha256": "5e0e7eddada35db179a7f3162edc38735bfd58c6cf2b5281bc29d41076c42fb7",
+  "size_bytes": 4875285,
+  "architecture": "factorized_spatial_v3_conditioned",
+  "training": {
+    "method": "conditioned_behavior_clone",
+    "teacher_episodes": 400,
+    "teacher_rows": 30193,
+    "opponent": "meta",
+    "epochs": 12,
+    "validation_action_gate_accuracy": 0.8562913907284768,
+    "validation_exact_play_accuracy": 0.185,
+    "validation_near_play_accuracy": 0.41523922031896043
+  },
+  "acceptance": {
+    "baseline": "tmp/rl/portable_ppo_v2_best.pt",
+    "episodes_per_opponent": 60,
+    "seed": 950000,
+    "meta": {
+      "baseline_wins": 18,
+      "candidate_wins": 34,
+      "paired_better": 24,
+      "paired_worse": 8,
+      "paired_tied": 28,
+      "one_sided_exact_p": 0.0035001833457499743
+    },
+    "brain": {
+      "baseline_wins": 8,
+      "candidate_wins": 12,
+      "paired_better": 9,
+      "paired_worse": 5,
+      "paired_tied": 46,
+      "one_sided_exact_p": 0.21197509765625
+    },
+    "report": "reports/portable_bc_meta_v6_paired_eval.json"
+  },
+  "live_policy": {
+    "temperature": 0.0,
+    "required_first_stage": "shadow_or_friendly",
+    "ladder_promoted": false
+  }
+}

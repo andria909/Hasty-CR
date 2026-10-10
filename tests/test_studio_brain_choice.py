@@ -437,6 +437,14 @@ def test_the_launcher_can_play_without_queueing_for_a_friendly():
     assert '"--no-queue"' in bot, "the runner no longer accepts --no-queue"
 
 
+def test_shadow_mode_never_queues_or_taps():
+    """A new checkpoint must be observable live before it drives a match."""
+    text = read_launcher()
+    assert "[switch]$Shadow" in text
+    assert "if ($NoQueue -or $Shadow) { $botArgs += '--no-queue' }" in text
+    assert "if ($Shadow)     { $botArgs += '--dry-run' }" in text
+
+
 def test_the_launcher_default_checkpoint_is_a_vetted_one():
     """It pointed at tmp\\rl\\hog26v6_best.pt, which won 1 of 59."""
     text = read_launcher()

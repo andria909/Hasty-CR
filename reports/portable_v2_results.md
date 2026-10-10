@@ -153,3 +153,26 @@ python -m sim.clone \
   --data-cache tmp/rl/portable_bc_meta_v4_data.npz \
   --name portable_bc_meta_v6_conditioned --device cpu
 ```
+
+### Live promotion state
+
+The accepted weights were copied out of scratch storage to
+`checkpoints/portable_v6/portable_bc_meta_v6_conditioned.pt`. Its SHA-256 is
+`5e0e7eddada35db179a7f3162edc38735bfd58c6cf2b5281bc29d41076c42fb7`;
+the local manifest records the training and paired-evaluation evidence. It is
+an accepted **shadow/friendly candidate**, not yet a ladder release.
+
+The first real-client gate is deliberately tap-free. With MuMu and Clash
+Royale already open on the Windows host, run:
+
+```powershell
+.\run.ps1 -Brain rl -Shadow -Matches 1 `
+  -Checkpoint 'checkpoints\portable_v6\portable_bc_meta_v6_conditioned.pt'
+```
+
+`-Shadow` implies both `--no-queue` and `--dry-run`: the user starts a friendly
+match, the live detector feeds observations into v6, and recommendations are
+logged without pressing Battle, selecting a card, or placing it. Only after
+the shadow trace passes orientation, hand, latency and illegal-action checks
+should the same checkpoint be tried in one bounded friendly match without
+`-Shadow`.

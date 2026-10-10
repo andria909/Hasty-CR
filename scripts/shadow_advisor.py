@@ -12,7 +12,9 @@ Usage:
     python -m scripts.shadow_advisor --ckpt tmp/rl/pilot_best.pt --top 5
     python -m scripts.shadow_advisor --ckpt tmp/rl/pilot_best.pt --interactive
 
-The interactive demo runs a sim match and logs recommendations per decision.
+The interactive demo runs a sim match.  Use ``--log-every 1`` to print every
+decision; the compact default samples the trace so a complete match remains
+readable.
 """
 
 from __future__ import annotations
@@ -44,7 +46,8 @@ def load_policy(ckpt: Path, device: str = "cpu"):
     return net, meta
 
 
-def recommend(net, obs: dict, mask: np.ndarray, device: str = "cpu", top_k: int = 5) -> list[dict]:
+def recommend(net, obs: dict, mask: np.ndarray, device: str = "cpu",
+              top_k: int = 5) -> tuple[list[dict], float]:
     import torch
     from sim.train_ppo import masked_distribution
     from sim.env import ClashEnv
@@ -78,10 +81,11 @@ def recommend(net, obs: dict, mask: np.ndarray, device: str = "cpu", top_k: int 
             "prob": float(probs[idx]),
             "logit": float(logits_np[idx]),
         })
-    return out, float(value[0].cpu().numpy()) if 'value' in locals() else 0.0
+    return out, float(value[0].item())
 
 
-def interactive_demo(ckpt: Path, episodes: int = 2, top_k: int = 5) -> None:
+def interactive_demo(ckpt: Path, episodes: int = 2, top_k: int = 5,
+                     log_every: int = 20) -> None:
     import torch
     from sim.env import ClashEnv
 
@@ -98,11 +102,15 @@ def interactive_demo(ckpt: Path, episodes: int = 2, top_k: int = 5) -> None:
             recs, value = recommend(net, obs, info["action_mask"], device, top_k)
             ts = time.strftime("%H:%M:%S")
             # Log in shadow format
-            best = recs[0] if recs else {"label": "HOLD", "prob": 1.0}
-            print(f"[{ts}] step={step:3d}  elixir={obs['scalars'][0]*10:.1f}  "
-                  f"value={value:+.2f}  -> {best['label']}  p={best['prob']:.2%}")
-            top_str = ", ".join(f"{r['label']} {r['prob']:.0%}" for r in recs[:3])
-            print(f"         top {top_k}: {top_str}")
+            best = (recs[0] if recs else
+                    {"action": 0, "label": "HOLD", "prob": 1.0})
+            if step % max(1, log_every) == 0 or best["action"] != 0:
+                print(f"[{ts}] step={step:3d}  elixir={obs['scalars'][0]*10:.1f}  "
+                      f"value={value:+.2f}  -> {best['label']}  "
+                      f"p={best['prob']:.2%}")
+                top_str = ", ".join(
+                    f"{r['label']} {r['prob']:.0%}" for r in recs[:3])
+                print(f"         top {top_k}: {top_str}")
             # Execute greedy for demo continuity
             action = recs[0]["action"] if recs else 0
             obs, _, term, trunc, info = env.step(action)
@@ -112,16 +120,14 @@ def interactive_demo(ckpt: Path, episodes: int = 2, top_k: int = 5) -> None:
                 break
         env.close()
 
-    print("\n--- Shadow bridge status ---")
-    print("Current perception (src/hastycr/observation.py) provides:")
-    print("  - GameState with allies/enemies boxes, elixir, hand, tower_hp")
-    print("Missing bridge to full policy input (sim.env.observe):")
-    print("  - Plane encoder expects sim Battle entities with exact positions/HP")
-    print("  - Live detector boxes must be mapped to 32x18 grid planes")
-    print("  - Tower fractions from HP OCR need calibration")
-    print("  - Hand OCR -> DECK_26 one-hot must match training deck exactly")
-    print("Recommendation: implement GameState -> env.observe adapter via")
-    print("  arena homography + entity box->tile projection + HP normalization.")
+    print("\n--- Live bridge status ---")
+    print("READY: scripts/brain/rl_policy.py maps detected units, tower HP,")
+    print("elixir, hand, next card, opponent cycle and legal placements into")
+    print("the same tensor/action convention used by sim.env.observe.")
+    print("KNOWN GAP: live vision sees unit class and position but not remaining")
+    print("unit HP, so detected troops are encoded at full health.")
+    print("FIRST LIVE GATE: run cr_bot.py with --dry-run --no-queue --rl <ckpt>;")
+    print("this reads a manually started friendly match and logs advice without taps.")
 
 
 def main() -> int:
@@ -130,12 +136,14 @@ def main() -> int:
     parser.add_argument("--top", type=int, default=5)
     parser.add_argument("--interactive", action="store_true")
     parser.add_argument("--episodes", type=int, default=2)
+    parser.add_argument("--log-every", type=int, default=20,
+                        help="print every Nth hold (plays are always printed)")
     args = parser.parse_args()
 
     if args.interactive:
-        interactive_demo(args.ckpt, args.episodes, args.top)
+        interactive_demo(args.ckpt, args.episodes, args.top, args.log_every)
     else:
-        interactive_demo(args.ckpt, 1, args.top)
+        interactive_demo(args.ckpt, 1, args.top, args.log_every)
     return 0
 
 

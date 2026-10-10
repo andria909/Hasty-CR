@@ -4,6 +4,9 @@
 #   .\run.ps1 -Matches 20     play 20 matches
 #   .\run.ps1 -Brain rl -NoQueue -Matches 3
 #                             friendly 1v1: you start the battle, it plays
+#   .\run.ps1 -Brain rl -Shadow -Matches 1 -Checkpoint <path>
+#                             reads a manually started match and only logs
+#                             recommendations; never queues or taps
 #   .\run.ps1 -Forever        run the supervisor loop: blocks of 5, reviewed
 #                             and tuned between blocks, until stopped
 #   .\run.ps1 -Stop           stop everything
@@ -51,6 +54,9 @@ param(
     # emulator watchdog restarts Clash Royale on its own schedule.
     [switch]$Watchdogs,
     [ValidateSet('rules', 'rl')][string]$Brain = 'rules',
+    # Observe a manually started match without sending any taps. This also
+    # implies -NoQueue, so it is the required first gate for a new checkpoint.
+    [switch]$Shadow,
     # Play, but never press Battle. For a friendly 1v1: you start the match
     # from your side and the bot plays whatever it finds itself in, because
     # the runner decides it is in a game from the screen rather than from
@@ -206,7 +212,8 @@ $botArgs = @(
 # from our own detector, so training on them would only teach it its own errors.
 $botArgs += '--harvest-sprites'
 if ($useAdvisor) { $botArgs += '--advisor' }
-if ($NoQueue)    { $botArgs += '--no-queue' }
+if ($NoQueue -or $Shadow) { $botArgs += '--no-queue' }
+if ($Shadow)     { $botArgs += '--dry-run' }
 if ($Brain -eq 'rl') { $botArgs += @('--rl', $checkpointPath) }
 
 $who = if ($Brain -eq 'rl') {
@@ -214,7 +221,11 @@ $who = if ($Brain -eq 'rl') {
 } else {
     "rules (advisor: $(if($useAdvisor){'on'}else{'off'}))"
 }
-Write-Host "playing $MatchCount matches - brain: $who" -ForegroundColor Green
+$mode = if ($Shadow) { 'shadowing' } else { 'playing' }
+Write-Host "$mode $MatchCount matches - brain: $who" -ForegroundColor Green
+if ($Shadow) {
+    Write-Host 'shadow mode: start a friendly match manually; no taps will be sent' -ForegroundColor Cyan
+}
 $env:PYTHONIOENCODING = 'utf-8'
 # finally, so Ctrl+C leaves the emulator as it was found. A crash or an
 # interrupt is exactly when the old code left the display at 540x960 for
