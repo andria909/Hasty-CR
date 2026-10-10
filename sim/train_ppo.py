@@ -17,10 +17,11 @@ moment cannot be learned by rejection. Illegal logits are set to -inf before the
 softmax, so the policy only ever assigns probability to legal moves and the
 entropy term measures something real.
 
-**A small network on purpose.** The observation is 8x32x18 planes plus 47
-scalars - closer to a board game than to pixels - and this shares a GPU with the
-detector the live bot is using. Three conv layers is enough, and keeps a rollout
-step cheaper than the environment step that produced it.
+**A small network on purpose.** The observation is 8x32x18 planes plus compact
+hand, tower and public-opponent features - closer to a board game than to
+pixels - and this shares a GPU with the detector the live bot is using. Three
+conv layers are enough, and keep a rollout step cheaper than the environment
+step that produced it.
 
 **Evaluation is greedy and against the brain.** Training reward is shaped by
 tower damage, so it does not directly answer "does this win". Every eval runs
@@ -104,21 +105,43 @@ def build_network(num_planes: int, num_scalars: int, num_actions: int):
     class Policy(nn.Module):
         def __init__(self):
             super().__init__()
+            cells = 32 * 18
+            card_slots = 4
+            ability_actions = num_actions - 1 - card_slots * cells
+            if ability_actions < 0:
+                raise ValueError("action space is smaller than four placement maps")
             self.conv = nn.Sequential(
                 nn.Conv2d(num_planes, 32, 3, padding=1), nn.ReLU(),
                 nn.Conv2d(32, 64, 3, padding=1), nn.ReLU(),
                 nn.Conv2d(64, 64, 3, padding=1), nn.ReLU(),
-                nn.Flatten(),
             )
+            # One spatial map per hand slot. The old network flattened all
+            # 36,864 cells into a dense layer (about 19M weights) before asking
+            # for 2,304 placement logits. A convolutional placement head keeps
+            # the board geometry intact and shares what "good tile" means
+            # across locations.
+            self.placement = nn.Conv2d(64, card_slots, 1)
+            self.pool = nn.Sequential(nn.AdaptiveAvgPool2d((4, 3)), nn.Flatten())
             self.scalar = nn.Sequential(nn.Linear(num_scalars, 128), nn.ReLU())
             self.trunk = nn.Sequential(
-                nn.Linear(64 * 32 * 18 + 128, 512), nn.ReLU())
-            self.policy = nn.Linear(512, num_actions)
-            self.value = nn.Linear(512, 1)
+                nn.Linear(64 * 4 * 3 + 128, 256), nn.ReLU())
+            self.card_bias = nn.Linear(256, card_slots)
+            self.hold = nn.Linear(256, 1)
+            self.abilities = (nn.Linear(256, ability_actions)
+                              if ability_actions else None)
+            self.value = nn.Linear(256, 1)
 
         def forward(self, planes, scalars):
-            features = self.trunk(torch_cat([self.conv(planes), self.scalar(scalars)]))
-            return self.policy(features), self.value(features).squeeze(-1)
+            spatial = self.conv(planes)
+            features = self.trunk(torch_cat([
+                self.pool(spatial), self.scalar(scalars)]))
+            placements = self.placement(spatial)
+            placements = placements + self.card_bias(features)[:, :, None, None]
+            pieces = [self.hold(features), placements.flatten(1)]
+            if self.abilities is not None:
+                pieces.append(self.abilities(features))
+            logits = torch_cat(pieces)
+            return logits, self.value(features).squeeze(-1)
 
     return Policy()
 
@@ -141,7 +164,8 @@ def masked_distribution(logits, mask):
 
 
 def evaluate(network, device, episodes: int = 12, seed: int = 900_000,
-             opponent: str = "brain", rewards=None) -> dict:
+             opponent: str = "brain", rewards=None,
+             include_games: bool = False) -> dict:
     """Greedy rollouts against whatever the run is training on.
 
     Evaluating on a different opponent than training would report a number that
@@ -154,8 +178,10 @@ def evaluate(network, device, episodes: int = 12, seed: int = 900_000,
     wins = losses = draws = 0
     crowns_for = crowns_against = 0
     hog = plays = 0
+    games = []
     for episode in range(episodes):
-        obs, info = env.reset(seed=seed + episode)
+        game_seed = seed + episode
+        obs, info = env.reset(seed=game_seed)
         while True:
             with torch.no_grad():
                 planes = torch.from_numpy(obs["planes"]).unsqueeze(0).to(device)
@@ -175,11 +201,24 @@ def evaluate(network, device, episodes: int = 12, seed: int = 900_000,
         stats = info["stats"]
         plays += stats.plays
         hog += stats.cards.get("hog_rider", 0)
+        if include_games:
+            games.append({
+                "seed": game_seed,
+                "result": info["result"],
+                "crowns_for": mine,
+                "crowns_against": theirs,
+                "hog_plays": stats.cards.get("hog_rider", 0),
+                "plays": stats.plays,
+                "opponent_deck": getattr(env, "opponent_deck_name", opponent),
+            })
     env.close()
-    return {"wins": wins, "losses": losses, "draws": draws,
-            "crowns_for": crowns_for, "crowns_against": crowns_against,
-            "hog_share": hog / plays if plays else 0.0,
-            "plays_per_match": plays / max(1, episodes)}
+    result = {"wins": wins, "losses": losses, "draws": draws,
+              "crowns_for": crowns_for, "crowns_against": crowns_against,
+              "hog_share": hog / plays if plays else 0.0,
+              "plays_per_match": plays / max(1, episodes)}
+    if include_games:
+        result["games"] = games
+    return result
 
 
 def main() -> int:
@@ -324,16 +363,28 @@ def main() -> int:
     parser.add_argument("--init", type=Path,
                         help="start from these weights without their optimiser "
                              "state - for beginning PPO from a behaviour clone")
+    parser.add_argument("--device", choices=("auto", "cpu", "cuda", "mps"),
+                        default="auto",
+                        help="PyTorch backend; auto prefers CUDA, then Apple MPS")
+    parser.add_argument("--spell-quality", type=float, default=0.15,
+                        help="reward per effective target-HP fraction from Fireball/Log")
+    parser.add_argument("--spell-prediction", type=float, default=0.25,
+                        help="extra reward for hitting a unit deployed after the cast")
+    parser.add_argument("--spell-miss", type=float, default=-0.05,
+                        help="penalty when Fireball/Log hits no enemy unit")
+    parser.add_argument("--kite-quality", type=float, default=0.15,
+                        help="reward for cheap units that retarget and displace threats")
     args = parser.parse_args()
 
     import torch
     import torch.nn as nn
     from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS
+    from sim.device import torch_device
     from sim.vecenv import VecClashEnv
 
     hyper = Hyper(envs=args.envs, rollout=args.rollout, lr=args.lr,
                   entropy_coef=args.entropy)
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = torch_device(args.device)
     OUT.mkdir(parents=True, exist_ok=True)
 
     network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
@@ -375,7 +426,10 @@ def main() -> int:
     reward_weights = RewardWeights(
         tower_damage_dealt=args.chip, tower_damage_taken=-args.chip,
         crown_for=args.crown, crown_against=-args.crown,
-        win=args.win, loss=-args.win, elixir_traded=args.elixir)
+        win=args.win, loss=-args.win, elixir_traded=args.elixir,
+        spell_quality=args.spell_quality,
+        spell_prediction=args.spell_prediction, spell_miss=args.spell_miss,
+        kite_quality=args.kite_quality)
     log(f"rewards: chip {args.chip}  crown {args.crown}  win {args.win}  elixir {args.elixir}  lr {args.lr}")
     vec = VecClashEnv(num_envs=hyper.envs, base_seed=1234,
                       opponent=args.opponent, rewards=reward_weights,

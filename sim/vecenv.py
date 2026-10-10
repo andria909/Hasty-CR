@@ -38,10 +38,9 @@ for path in (str(ROOT), str(ROOT / "scripts")):
 class _LeagueSeat:
     """Picks who plays the top seat for the next episode, inside a worker.
 
-    Snapshots are passed as *paths*, not weights. The network is 20M
-    parameters - eighty megabytes - and broadcasting a pool of eight to twelve
-    workers would be several gigabytes of duplicated tensors. Each worker loads
-    what it samples and keeps a couple cached.
+    Snapshots are passed as *paths*, not weights. Even with the compact spatial
+    policy, broadcasting a whole league to every worker needlessly duplicates
+    tensors. Each worker loads what it samples and keeps a couple cached.
     """
 
     CACHE = 2
@@ -132,8 +131,8 @@ class _LeagueSeat:
 def _worker(remote, seed: int, kwargs: dict) -> None:
     from sim.env import ClashEnv
 
-    # One thread per worker. With a learned opponent each worker runs a 20M
-    # parameter forward pass every step, and torch defaults to a thread per
+    # One thread per worker. With a learned opponent each worker runs a policy
+    # forward pass every step, and torch defaults to a thread per
     # core *per process* - twelve workers then fight for the same cores and
     # every one of them gets slower. Pinning to one thread each is roughly a
     # threefold speedup at this worker count.

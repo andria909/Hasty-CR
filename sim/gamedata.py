@@ -2647,9 +2647,10 @@ def load_gamedata(level: int = 11, root: Path | None = None) -> dict[str, CardSp
     # slightly-wrong numbers are this project's signature failure, so both of
     # these are made loud.
     if not root.is_dir():
-        raise FileNotFoundError(
-            f"no extracted client data at {root}; every card stat is read "
-            f"from there")
+        from .public_gamedata import load_public_gamedata
+        cards, characters = load_public_gamedata(level)
+        _CHARACTER_CACHE[level] = characters
+        return cards
 
     rarities_dict = {}
     rarities_csv = root / "rarities.csv"

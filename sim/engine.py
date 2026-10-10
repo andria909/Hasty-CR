@@ -243,6 +243,10 @@ class Battle:
     # before these resolve, so a cast can genuinely miss.
     spell_impacts: List[list] = field(default_factory=list)
     resolved_spell_damage: Dict[int, int] = field(default_factory=dict)
+    # Compact event telemetry consumed by RL reward shaping. Unlike
+    # ``damage_log`` it retains spell ownership and target state, so effective
+    # damage, kills and genuine pre-deploy predictions can be attributed.
+    spell_cast_log: List[dict] = field(default_factory=list)
     spell_spawn_events: List[list] = field(default_factory=list)
     rolling_spells: List[list] = field(default_factory=list)
     spell_pulse_events: List[list] = field(default_factory=list)
@@ -1877,10 +1881,27 @@ class Battle:
                 if entity.pos.y < low_y - margin or entity.pos.y > high_y + margin:
                     continue
                 hit_uids.add(entity.uid)
+                before_hp = entity.hitpoints
                 dealt = entity.take_damage(spec.damage_to(entity))
                 self.resolved_spell_damage[side] = (
                     self.resolved_spell_damage.get(side, 0) + dealt)
                 self.damage_log.append((self.now_ms, 0, entity.uid, dealt))
+                reward_event = next((event for event in reversed(self.spell_cast_log)
+                                     if not event["resolved"]
+                                     and event["side"] == side
+                                     and event["spell"] == spec.name), None)
+                if reward_event is not None:
+                    reward_event["hits"].append({
+                        "target_uid": entity.uid,
+                        "target_side": entity.side,
+                        "damage": max(0, before_hp - entity.hitpoints),
+                        "max_hp": entity.max_hitpoints,
+                        "killed": not entity.alive,
+                        "elixir_milli": entity.elixir_value,
+                        "spawned_ms": entity.spawned_at_ms,
+                        "hit_ms": self.now_ms,
+                        "is_tower": entity.is_tower,
+                    })
                 if (spec.target_buff and spec.buff_time_ms > 0 and entity.alive):
                     from .gamedata import load_buffs
                     speed_pct, hit_pct, _ = load_buffs().get(
@@ -1916,6 +1937,13 @@ class Battle:
                         self.now_ms + spec.rolling_release_slow_ms)
                     captured.buff_speed_pct = spec.rolling_release_slow_pct
                     captured.buff_hit_speed_pct = spec.rolling_release_slow_pct
+            reward_event = next((event for event in reversed(self.spell_cast_log)
+                                 if not event["resolved"]
+                                 and event["side"] == side
+                                 and event["spell"] == spec.name), None)
+            if reward_event is not None:
+                reward_event["resolved"] = True
+                reward_event["impact_ms"] = self.now_ms
             if spec.spawn_character and self.unit_lookup is not None:
                 unit_spec = self.unit_lookup(spec.spawn_character)
                 if unit_spec is not None:

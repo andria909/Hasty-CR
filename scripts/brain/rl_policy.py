@@ -39,9 +39,10 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from sim.env import (ACTIONS, CARD_ACTIONS, DECK_26, GRID_H, GRID_W,
+from sim.env import (ACTIONS, BASE_SCALARS, CARD_ACTIONS, DECK_26, GRID_H, GRID_W,
                      NUM_PLANES, NUM_SCALARS, NUM_SLOTS, SPELLS, TILES,
                      _placeable)
+from sim.public_state import vector_from_events, vector_from_live
 
 _CARDS = None
 # Detected unit names are not always the card key. A Skeletons card puts three
@@ -123,7 +124,7 @@ def ally_cells_with_names(state):
     return out
 
 
-def observation_from_live(obs, allies=None) -> dict:
+def observation_from_live(obs, allies=None, opponent=None, economy=None) -> dict:
     """A live `brain.policy.Observation` in the simulator's own frame.
 
     `obs.tracks` are the enemies. `allies` is an optional list of
@@ -179,6 +180,12 @@ def observation_from_live(obs, allies=None) -> dict:
     nxt = getattr(obs, "next_card", "")
     if nxt in DECK_26:
         scalars[base + NUM_SLOTS * len(DECK_26) + DECK_26.index(nxt)] = 1.0
+    if opponent is not None and economy is not None:
+        scalars[BASE_SCALARS:] = vector_from_live(
+            opponent, economy, float(getattr(obs, "now", 0.0)))
+    elif hasattr(obs, "opponent_events"):
+        scalars[BASE_SCALARS:] = vector_from_events(
+            list(obs.opponent_events), int(float(obs.elapsed) * 1000))
     return {"planes": planes, "scalars": scalars}
 
 
@@ -334,7 +341,9 @@ class RLBrain:
         obs = self._observer.observe(state, elapsed, now, frame)
         self.last_obs = obs
 
-        view = observation_from_live(obs, ally_cells_with_names(state))
+        view = observation_from_live(
+            obs, ally_cells_with_names(state),
+            opponent=self._observer.opponent, economy=self._observer.enemy)
         mask = mask_from_live(obs)
         if not mask[1:].any():
             self.holds += 1

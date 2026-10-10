@@ -92,7 +92,8 @@ def live_view_of(match):
         # The card detector reads this every frame as slot 0:
         # CARD_CONFIG[0] is its own crop, separate from the four
         # evenly spaced hand slots.
-        next_card=player.next_card)
+        next_card=player.next_card,
+        opponent_events=[event for event in match.play_log if event["side"] == -1])
     return obs, allies
 
 
@@ -168,8 +169,9 @@ def test_the_next_card_is_supplied_live():
     obs, allies = live_view_of(env.match)
     from_live = observation_from_live(obs, allies)["scalars"]
     tail = 3 + 4 + 4 * len(DECK_26)
-    assert from_live[tail:].sum() == 1.0, "exactly one next card must be set"
-    assert (from_live[tail:].argmax()
+    next_card = from_live[tail:tail + len(DECK_26)]
+    assert next_card.sum() == 1.0, "exactly one next card must be set"
+    assert (next_card.argmax()
             == DECK_26.index(env.match.players[1].next_card))
 
 
@@ -230,7 +232,15 @@ def _checkpoint():
     for root in (ROOT / "checkpoints", ROOT / "tmp" / "rl"):
         if not root.is_dir():
             continue
-        found = sorted(root.glob("**/*.pt"))
+        found = sorted(
+            root.glob("**/*.pt"),
+            # Scratch may contain behaviour clones and interrupted/last
+            # snapshots alongside the evaluated policy.  Prefer the artefact
+            # explicitly selected as best; alphabetical order picked a clone
+            # that holds on every board and made this live-policy test depend
+            # on unrelated leftovers in tmp/rl.
+            key=lambda path: (not path.name.endswith("_best.pt"),
+                              "ppo" not in path.name.lower(), str(path)))
         if found:
             return found[0]
     pytest.skip("no trained checkpoint on disk (expected in a fresh clone)")

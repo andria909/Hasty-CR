@@ -39,7 +39,18 @@ from . import arena
 from .arena import Cell
 from . import advisor as advisor_mod
 from . import push
-from .cards import CardClassifier
+try:
+    from .cards import CardClassifier
+except ModuleNotFoundError as exc:
+    if exc.name != "PIL":
+        raise
+
+    class CardClassifier:  # type: ignore[no-redef]
+        """Headless simulator fallback; live classification needs Pillow."""
+        ready = False
+
+        def __init__(self, *_args, **_kwargs):
+            pass
 from . import experience
 from .economy import EnemyEconomy
 from .hand import HandTracker

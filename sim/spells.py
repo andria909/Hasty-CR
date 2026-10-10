@@ -436,6 +436,9 @@ def load_spells(level: int = 11, root: Path | None = None,
     """
     directory = Path(root or GAMEDATA) / "characters"
     data_root = Path(root or GAMEDATA)
+    if not data_root.is_dir():
+        from .public_gamedata import load_public_spells
+        return load_public_spells(level)
     out: Dict[str, SpellSpec] = {}
     missing: list = []
     verified_rules = _verified_rules()
@@ -763,6 +766,9 @@ def apply_spell(battle, spec: SpellSpec, at: Point, side: int) -> int:
     do nothing at all.
     """
     dealt = 0
+    reward_event = next((event for event in reversed(battle.spell_cast_log)
+                         if not event["resolved"] and event["side"] == side
+                         and event["spell"] == spec.name), None)
 
     if spec.pulse_events:
         for delay_ms, radius_mt, damage_pct in spec.pulse_events:
@@ -902,8 +908,21 @@ def apply_spell(battle, spec: SpellSpec, at: Point, side: int) -> int:
         candidates = candidates[:spec.target_limit]
 
     for entity in candidates:
+        before_hp = entity.hitpoints
         if spec.initial_damage:
             dealt += entity.take_damage(spec.damage_to(entity))
+        if reward_event is not None:
+            reward_event["hits"].append({
+                "target_uid": entity.uid,
+                "target_side": entity.side,
+                "damage": max(0, before_hp - entity.hitpoints),
+                "max_hp": entity.max_hitpoints,
+                "killed": not entity.alive,
+                "elixir_milli": entity.elixir_value,
+                "spawned_ms": entity.spawned_at_ms,
+                "hit_ms": battle.now_ms,
+                "is_tower": entity.is_tower,
+            })
 
         # Freeze, Snowball and Lightning hand out a buff where they land, the
         # same timed percentages a unit's attack applies.
@@ -932,6 +951,9 @@ def apply_spell(battle, spec: SpellSpec, at: Point, side: int) -> int:
             entity.pos = arena.clamp_to_arena(Point(
                 entity.pos.x + ox * spec.pushback_mt // span,
                 entity.pos.y + oy * spec.pushback_mt // span))
+    if reward_event is not None:
+        reward_event["resolved"] = True
+        reward_event["impact_ms"] = battle.now_ms
     return dealt
 
 
@@ -998,6 +1020,7 @@ def cast_spell(battle, spec: SpellSpec, at: Point, side: int,
     policy concern. `apply_spell` remains the landing primitive for isolated
     mechanic tests and delayed resolution.
     """
+    caster_side = side
     bounced = reflect_target(battle, spec, at, side)
     if bounced is not None:
         # Reflection changes whose spell it is, not just where it lands. Moving
@@ -1009,6 +1032,17 @@ def cast_spell(battle, spec: SpellSpec, at: Point, side: int,
             and origin is not None):
         travel = arena.distance(origin, at) * 1000 // spec.projectile_speed_mt_per_sec
         delay = max(delay, travel)
+    if spec.name in {"fireball", "the_log", "log"}:
+        battle.spell_cast_log.append({
+            "spell": spec.name,
+            "caster_side": caster_side,
+            "side": side,
+            "cast_ms": battle.now_ms,
+            "due_ms": battle.now_ms + delay,
+            "aim": (at.x, at.y),
+            "hits": [],
+            "resolved": False,
+        })
     if delay <= 0:
         dealt = apply_spell(battle, spec, at, side)
         battle.resolved_spell_damage[side] = (

@@ -55,7 +55,7 @@ def test_only_the_value_head_is_trainable_during_warmup():
     assert trainable, "nothing is trainable during warmup"
     assert all(n.startswith("value") for n in trainable), sorted(trainable)
     frozen = {n for n, p in network.named_parameters() if not p.requires_grad}
-    assert any(n.startswith("policy") for n in frozen)
+    assert any(n.startswith(("placement", "card_bias", "hold")) for n in frozen)
     assert any(n.startswith("conv") for n in frozen), (
         "the shared trunk is trainable during warmup, so value gradients "
         "still move the features the policy reads")

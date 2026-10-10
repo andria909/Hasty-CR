@@ -132,12 +132,19 @@ def main() -> int:
     parser.add_argument("--batch", type=int, default=256)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--hold-share", type=float, default=0.25)
+    parser.add_argument("--hold-loss-weight", type=float, default=0.15,
+                        help="loss weight for hold rows; prevents the majority "
+                             "class from erasing all placement learning")
     parser.add_argument("--name", default="clone")
+    parser.add_argument("--device", choices=("auto", "cpu", "cuda", "mps"),
+                        default="auto",
+                        help="PyTorch backend; auto prefers CUDA, then Apple MPS")
     args = parser.parse_args()
 
     import torch
     import torch.nn as nn
     from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS
+    from sim.device import torch_device
     from sim.train_ppo import build_network, masked_distribution
 
     started = time.time()
@@ -146,7 +153,7 @@ def main() -> int:
     log(f"dataset {len(actions)} samples ({played} plays, "
         f"{len(actions) - played} holds) in {time.time() - started:.0f}s")
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = torch_device(args.device)
     network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
     optimiser = torch.optim.AdamW(network.parameters(), lr=args.lr, weight_decay=1e-4)
 
@@ -161,7 +168,7 @@ def main() -> int:
                 torch.from_numpy(data["masks"][index]).to(device),
                 torch.from_numpy(actions[index]).to(device))
 
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.CrossEntropyLoss(reduction="none")
     best = 0.0
     for epoch in range(args.epochs):
         network.train()
@@ -171,12 +178,17 @@ def main() -> int:
             planes, scalars, masks, target = batch_of(train_idx[start:start + args.batch])
             logits, value = network(planes, scalars)
             logits = logits.masked_fill(~masks, float("-inf"))
-            loss = criterion(logits, target)
+            per_row = criterion(logits, target)
+            weights = torch.where(
+                target == 0,
+                torch.full_like(per_row, args.hold_loss_weight),
+                torch.ones_like(per_row))
+            loss = (per_row * weights).sum() / weights.sum().clamp_min(1.0)
             optimiser.zero_grad(set_to_none=True)
             loss.backward()
             nn.utils.clip_grad_norm_(network.parameters(), 1.0)
             optimiser.step()
-            total += float(loss) * len(target)
+            total += float(loss.detach()) * len(target)
 
         network.eval()
         correct = play_correct = play_total = 0
@@ -193,15 +205,21 @@ def main() -> int:
         play_accuracy = play_correct / max(1, play_total)
         log(f"epoch {epoch + 1}/{args.epochs}  loss {total / len(train_idx):.4f}  "
             f"val {accuracy:.3f}  on plays {play_accuracy:.3f}")
-        if accuracy > best:
-            best = accuracy
+        # A model that always holds has high aggregate accuracy and is useless.
+        # Select checkpoints equally on deciding *whether* to act and on the
+        # exact action when the teacher acts.
+        selection = accuracy + play_accuracy
+        if selection > best:
+            best = selection
             OUT.mkdir(parents=True, exist_ok=True)
             torch.save({"state_dict": network.state_dict(),
                         "optimiser": optimiser.state_dict(),
-                        "step": 0, "val_accuracy": accuracy},
+                        "step": 0, "val_accuracy": accuracy,
+                        "val_play_accuracy": play_accuracy,
+                        "architecture": "factorized_spatial_v2"},
                        OUT / f"{args.name}.pt")
 
-    log(f"best val accuracy {best:.3f} -> {OUT / (args.name + '.pt')}")
+    log(f"best selection score {best:.3f} -> {OUT / (args.name + '.pt')}")
 
     from sim.train_ppo import evaluate
     blob = torch.load(OUT / f"{args.name}.pt", map_location=device, weights_only=False)

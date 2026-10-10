@@ -38,6 +38,9 @@ def test_action_encoding_round_trips():
 
 
 def test_a_legal_champion_button_is_exposed_as_an_rl_action(env):
+    from sim.gamedata import GAMEDATA_ROOT
+    if not GAMEDATA_ROOT.is_dir():
+        pytest.skip("portable public snapshot does not contain ability action graphs")
     from sim.entities import make_unit
     from sim.gamedata import load_gamedata
     from sim.arena import Point

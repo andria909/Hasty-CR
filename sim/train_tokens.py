@@ -139,14 +139,19 @@ def main() -> int:
     ap.add_argument("--d", type=int, default=192)
     ap.add_argument("--layers", type=int, default=4)
     ap.add_argument("--heads", type=int, default=6)
+    ap.add_argument("--device", choices=("auto", "cpu", "cuda", "mps"),
+                    default="auto",
+                    help="PyTorch backend; auto prefers CUDA, then Apple MPS")
     ap.add_argument("--phase-balance", type=float, default=0.0,
                     help="0 = rows as they come; >0 = draw rare game phases (overtime, "
                          "a tower down) more often, weight (1/phase rows)**this")
     args = ap.parse_args()
 
+    from sim.device import torch_device
+
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = torch_device(args.device)
     meta = json.loads((args.data / "vocab.json").read_text())
     t0 = time.time()
     train = load("train", args.wait_keep, not args.all_rows, args.finetune_hog, args.seed, args.data)

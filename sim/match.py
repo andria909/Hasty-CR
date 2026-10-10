@@ -160,6 +160,10 @@ class Match:
     towers: Dict[int, Dict[str, Entity]] = field(default_factory=dict)
     spells: Dict[str, object] = field(default_factory=dict)
     spell_damage: Dict[int, int] = field(default_factory=dict)
+    # Successful card plays are public information. Keeping this separate
+    # from hands/elixir lets the policy learn deck, cycle and an honest elixir
+    # estimate without seeing simulator-only hidden state.
+    play_log: List[dict] = field(default_factory=list)
     # Fractional elixir left over between ticks, so income is not truncated.
     # The level the card pool was built at, so Mirror knows what a level up is.
     level: int = 11
@@ -418,6 +422,9 @@ class Match:
         player.elixir -= cost * 1000
         player.elixir_spent += cost
         player.play(card)
+        self.play_log.append({"at_ms": self.elapsed_ms, "side": side,
+                              "card": card, "resolved_card": resolved_card,
+                              "cost": cost, "x": at.x, "y": at.y})
         # Mirror copies the last card; it does not become the last card, or a
         # second Mirror would copy itself.
         if card != "mirror":
@@ -798,8 +805,13 @@ class Match:
 
     def crowns_for(self, side: int) -> int:
         enemy = self.towers[-side]
-        return sum(1 for lane in ("left", "right") if not enemy[lane].alive) + \
-            (2 if not enemy["king"].alive else 0)
+        # Destroying the King Tower ends the match with three crowns no matter
+        # how many Princess Towers were taken first.  Adding two to the fallen
+        # princess count incorrectly reported a direct King takedown as 2 and
+        # a one-lane King takedown as 3.
+        if not enemy["king"].alive:
+            return 3
+        return sum(1 for lane in ("left", "right") if not enemy[lane].alive)
 
     def _check_end(self) -> None:
         for side in (1, -1):
@@ -821,7 +833,8 @@ class Match:
 
     def _tiebreak(self) -> str:
         def lowest(side: int) -> float:
-            towers = [self.towers[side][lane] for lane in ("left", "right")]
+            towers = [self.towers[side][lane]
+                      for lane in ("left", "right", "king")]
             alive = [t.hp_fraction for t in towers if t.alive]
             return min(alive) if alive else 0.0
         bottom, top = lowest(1), lowest(-1)

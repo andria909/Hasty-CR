@@ -1,0 +1,92 @@
+# Portable PPO v2 — local training result
+
+Date: 2026-10-11
+
+This run tests whether the new public-state features, event rewards and
+factorised spatial policy can improve on the behaviour-clone baseline on a
+clean checkout, without downloaded Clash Royale client assets.
+
+## Result
+
+The candidate is statistically better than the locally reproduced baseline
+against the nine-deck meta pool.
+
+| Opponent | Baseline wins | PPO wins | Paired better / worse / tied | One-sided exact p | Mean crown-differential gain |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| rule brain | 4/60 | 10/60 | 8 / 2 / 50 | 0.05469 | +0.583 |
+| meta pool | 0/60 | 15/60 | 15 / 0 / 45 | 0.0000305 | +1.917 |
+
+The 95% Wilson win-rate intervals against meta are 0–6.0% for the clone and
+15.8–37.2% for PPO. The paired exact sign test is the primary test because both
+policies face the same deck and match seed. Against the rule brain the result
+is an improvement trend, but narrowly misses the predeclared 5% threshold.
+
+Raw per-game results, deck names, Wilson intervals and the paired tests are in
+`reports/portable_v2_paired_eval.json`.
+
+## Reproduction
+
+Behaviour clone:
+
+```bash
+python -m sim.clone \
+  --episodes 150 --epochs 10 --batch 256 \
+  --hold-share 0.10 --hold-loss-weight 0.10 \
+  --name portable_bc_balanced_v2 --device cpu
+```
+
+PPO:
+
+```bash
+python -m sim.train_ppo \
+  --steps 50000 --envs 4 --rollout 64 --lr 0.0001 \
+  --entropy 0.02 --entropy-final 0.005 \
+  --entropy-hold 10000 --entropy-anneal 50000 \
+  --eval-every 10000 --eval-episodes 20 \
+  --name portable_ppo_v2 --opponent brain --eval-opponent brain \
+  --init tmp/rl/portable_bc_balanced_v2.pt \
+  --anchor tmp/rl/portable_bc_balanced_v2.pt --anchor-coef 0.05 \
+  --value-warmup 5000 --value-warmup-lr 0.001 \
+  --elixir 0.05 --device cpu
+```
+
+Paired held-out evaluation:
+
+```bash
+python -m sim.eval_checkpoints \
+  --baseline tmp/rl/portable_bc_balanced_v2.pt \
+  --candidate tmp/rl/portable_ppo_v2_best.pt \
+  --opponents brain,meta --episodes 60 --seed 920000 --device cpu \
+  --output reports/portable_v2_paired_eval.json
+```
+
+## What changed
+
+- Public opponent memory: revealed cards, known cycle exclusions, inferred
+  elixir interval/recent spend, and known Hog counters. The simulator and live
+  bridge share one feature layout, and no hidden hand or exact internal state
+  is exposed to training.
+- Spell rewards use resolved Fireball/Log hit events. They score effective
+  unit-HP damage, kill value and genuine pre-cast prediction, while excluding
+  tower chip already covered by the main reward and penalising misses.
+- Kiting credit is awarded only when Ice Golem, Ice Spirit or Skeletons really
+  retarget a threat; displacement and absorbed damage add credit, and tower
+  damage removes it.
+- The old roughly 20M-parameter flattening policy was replaced by a 332k
+  parameter factorised spatial network with per-card placement maps.
+- Behaviour-clone loss downweights hold rows and checkpoint selection includes
+  play accuracy, preventing an always-hold majority-class model from winning.
+- A versioned RoyaleAPI fallback makes 2.6 training possible without the
+  untracked extracted client dump. Full client data remains preferred when it
+  is present.
+
+## Verification and limits
+
+The focused training/serving/reward suite passes. A broad dependency-reduced
+run produced 1062 passed, 18 skipped, 2 xfailed and 359 failed tests. The failed
+tests mostly cover champions, evolutions, exotic spells and exact client action
+graphs that the public JSON fallback does not contain; they require the full
+`tmp/gamedata/csv_logic` extraction. The portable result therefore proves an
+improvement inside the locally reproducible simulator, not that it beats the
+repository author's reported 94% checkpoint (those weights are not shipped)
+and not yet that it wins on a live Clash Royale client.

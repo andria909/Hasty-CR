@@ -69,6 +69,7 @@ MAX_MS = 310_000
 DECK_26 = ["cannon", "fireball", "hog_rider", "ice_golem",
            "ice_spirit", "musketeer", "skeletons", "the_log"]
 SPELLS = {"fireball", "the_log"}
+KITE_CARDS = {"ice_golem", "ice_spirit", "skeletons"}
 
 # Spatial planes. Kept small deliberately: one plane per card type would be 100+
 # channels of almost entirely zeros, which costs memory and learns slower than
@@ -81,7 +82,10 @@ NUM_PLANES = len(PLANES)
 # their two, hand one-hot (4 slots x 8 cards), next card one-hot (8).
 LANES = ("left", "right")
 RIVER_ROW = 16                 # our half is y >= 16 in the policy's grid
-NUM_SCALARS = 3 + 2 * len(LANES) + NUM_SLOTS * len(DECK_26) + len(DECK_26)
+from sim.public_state import public_feature_count, vector_from_events  # noqa: E402
+
+BASE_SCALARS = 3 + 2 * len(LANES) + NUM_SLOTS * len(DECK_26) + len(DECK_26)
+NUM_SCALARS = BASE_SCALARS + public_feature_count()
 
 
 # --------------------------------------------------------------- both seats
@@ -152,6 +156,8 @@ def observe(match, side: int = 1) -> dict:
     nxt = player.next_card
     if nxt in DECK_26:
         scalars[base + NUM_SLOTS * len(DECK_26) + DECK_26.index(nxt)] = 1.0
+    public = [event for event in match.play_log if event["side"] == -side]
+    scalars[BASE_SCALARS:] = vector_from_events(public, match.elapsed_ms)
     return {"planes": planes, "scalars": scalars}
 
 
@@ -239,6 +245,10 @@ class RewardWeights:
     loss: float = -10.0
     draw: float = 0.0
     elixir_traded: float = 0.0
+    spell_quality: float = 0.0
+    spell_prediction: float = 0.0
+    spell_miss: float = 0.0
+    kite_quality: float = 0.0
     illegal_action: float = -0.01
     step_cost: float = 0.0
 
@@ -308,6 +318,8 @@ class ClashEnv:
         self._turn = 0
         self._last_towers: Tuple[float, float] = (1.0, 1.0)
         self._last_elixir: Tuple[int, int] = (0, 0)
+        self._spell_reward_cursor = 0
+        self._kite_events: List[dict] = []
         self._episodes = 0
 
     # ------------------------------------------------------------- spaces
@@ -433,6 +445,8 @@ class ClashEnv:
         self._turn = 0
         self._last_towers = self._tower_totals()
         self._last_elixir = (0, 0)
+        self._spell_reward_cursor = 0
+        self._kite_events = []
         return self._observe(), self._info()
 
     # --------------------------------------------------------------- step
@@ -458,11 +472,14 @@ class ClashEnv:
                 else:
                     card = hand[slot]
                     point = grid_to_point(x, y, 1)
+                    first_uid = match.battle.next_uid
                     if not match.play_card(1, card, point):
                         illegal = True
                     else:
                         self.stats.plays += 1
                         self.stats.cards[card] = self.stats.cards.get(card, 0) + 1
+                        if card in KITE_CARDS:
+                            self._start_kite(first_uid)
         if illegal:
             reward += self.rewards.illegal_action
             self.stats.illegal += 1
@@ -507,6 +524,97 @@ class ClashEnv:
                   + taken * self.rewards.tower_damage_taken)
         if self.rewards.elixir_traded:
             reward += self._elixir_trade() * self.rewards.elixir_traded
+        if (self.rewards.spell_quality or self.rewards.spell_prediction
+                or self.rewards.spell_miss):
+            reward += self._spell_reward()
+        if self.rewards.kite_quality:
+            reward += self._kite_reward() * self.rewards.kite_quality
+        return reward
+
+    def _spell_reward(self) -> float:
+        from sim.reward_events import score_spell_cast
+
+        events = self.match.battle.spell_cast_log
+        reward = 0.0
+        # Casts are ordered. Keep the cursor on an airborne spell until it
+        # resolves, then score it exactly once.
+        while self._spell_reward_cursor < len(events):
+            event = events[self._spell_reward_cursor]
+            if not event.get("resolved"):
+                break
+            score = score_spell_cast(event)
+            reward += score.quality * self.rewards.spell_quality
+            reward += score.prediction * self.rewards.spell_prediction
+            if score.missed:
+                reward += self.rewards.spell_miss
+            self._spell_reward_cursor += 1
+        return reward
+
+    def _start_kite(self, first_uid: int) -> None:
+        """Start measuring a cheap defence only when a real threat exists."""
+        match = self.match
+        cheap = [uid for uid in range(first_uid, match.battle.next_uid)
+                 if match.battle.get(uid) is not None]
+        if not cheap:
+            return
+        towers = tuple(match.towers[1][lane] for lane in ("left", "right", "king"))
+        threats = {}
+        for entity in match.battle.entities.values():
+            if not entity.alive or entity.side != -1 or entity.is_tower:
+                continue
+            nearest = min(sim_arena.distance(entity.pos, tower.pos) for tower in towers)
+            if entity.pos.y >= sim_arena.RIVER_Y or nearest <= 8000:
+                threats[entity.uid] = nearest
+        if not threats:
+            return
+        self._kite_events.append({
+            "started_ms": match.elapsed_ms,
+            "expires_ms": match.elapsed_ms + 4000,
+            "cheap": set(cheap),
+            "cheap_max_hp": sum(match.battle.get(uid).max_hitpoints for uid in cheap),
+            "threats": threats,
+            "retargeted": set(),
+            "damage_cursor": len(match.battle.damage_log),
+            "tower_total": self._tower_totals()[0],
+        })
+
+    def _kite_reward(self) -> float:
+        from sim.reward_events import score_kite
+
+        match = self.match
+        towers = tuple(match.towers[1][lane] for lane in ("left", "right", "king"))
+        pending = []
+        reward = 0.0
+        for event in self._kite_events:
+            for uid in event["threats"]:
+                entity = match.battle.get(uid)
+                if entity is not None and entity.target_uid in event["cheap"]:
+                    event["retargeted"].add(uid)
+            done = (match.elapsed_ms >= event["expires_ms"] or match.finished
+                    or all(not (match.battle.get(uid) and match.battle.get(uid).alive)
+                           for uid in event["threats"]))
+            if not done:
+                pending.append(event)
+                continue
+            displaced = 0
+            for uid in event["retargeted"]:
+                entity = match.battle.get(uid)
+                if entity is None:
+                    continue
+                current = min(sim_arena.distance(entity.pos, tower.pos) for tower in towers)
+                displaced += max(0, current - event["threats"][uid])
+            absorbed = sum(
+                max(0, int(amount))
+                for _at, source, target, amount
+                in match.battle.damage_log[event["damage_cursor"]:]
+                if source in event["threats"] and target in event["cheap"])
+            tower_lost = max(0.0, event["tower_total"] - self._tower_totals()[0])
+            reward += score_kite(
+                retargeted=len(event["retargeted"]),
+                threats=len(event["threats"]), displaced_mt=displaced,
+                absorbed_hp=absorbed, cheap_max_hp=event["cheap_max_hp"],
+                tower_fraction_lost=tower_lost)
+        self._kite_events = pending
         return reward
 
     def _elixir_trade(self) -> float:
