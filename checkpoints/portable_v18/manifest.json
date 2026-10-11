@@ -1,11 +1,12 @@
 {
   "schema_version": 1,
   "name": "portable_v18_hog_spirit_attack",
-  "status": "accepted_offline_candidate",
+  "status": "experimental_not_promoted",
   "checkpoint": "portable_v18_hog_spirit_attack.pt",
   "sha256": "8f45c1013faf103f5a29e30d9a0120d6bcb5296e50a7c8c59d42c32a8ad0e7e8",
   "size_bytes": 4885931,
   "baseline": "../portable_v11/portable_v11_buildings.pt",
+  "recommended_checkpoint": "../portable_v11/portable_v11_buildings.pt",
   "training": {
     "method": "anchored_ppo",
     "requested_steps": 150000,
@@ -40,11 +41,45 @@
       "paired_better_worse_tied": [14, 3, 43],
       "one_sided_exact_p": 0.0063629150390625
     },
-    "report": "reports/portable_v18_vs_v11_paired_eval.json"
+    "report": "reports/portable_v18_vs_v11_paired_eval.json",
+    "independent_confirmation": {
+      "episodes_per_opponent": 60,
+      "seed": 950000,
+      "brain_wins": [18, 18],
+      "brain_paired_better_worse_tied": [12, 12, 36],
+      "meta_wins": [32, 25],
+      "meta_paired_better_worse_tied": [3, 10, 47],
+      "report": "reports/portable_v18_vs_v11_confirmatory_2.json"
+    },
+    "combined": {
+      "episodes_per_opponent": 120,
+      "brain_wins": [38, 42],
+      "brain_paired_better_worse_tied": [22, 18, 80],
+      "brain_one_sided_exact_p": 0.3179140013144206,
+      "meta_wins": [47, 51],
+      "meta_paired_better_worse_tied": [17, 13, 90],
+      "meta_one_sided_exact_p": 0.292332355864346
+    },
+    "decision": "Not promoted: four-win aggregate gains on both opponents were not statistically separated and the second meta batch regressed."
+  },
+  "soup_followup": {
+    "screen_weights": [0.25, 0.5, 0.75],
+    "selected_weight": 0.75,
+    "confirmatory_seed": 970000,
+    "episodes_per_opponent": 60,
+    "brain_wins": [21, 23],
+    "meta_wins": [30, 27],
+    "decision": "Not retained: the conservative blend gained two brain wins but lost three meta wins.",
+    "reports": [
+      "reports/portable_v18_soup_a025_screen.json",
+      "reports/portable_v18_soup_a05_screen.json",
+      "reports/portable_v18_soup_a075_screen.json",
+      "reports/portable_v18_soup_a075_confirmatory.json"
+    ]
   },
   "live_policy": {
     "temperature": 0.0,
     "ladder_promoted": false,
-    "next_stage": "five supervised live matches"
+    "next_stage": "offline robustness work before supervised live matches"
   }
 }

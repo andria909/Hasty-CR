@@ -263,6 +263,35 @@ def test_live_safety_reserves_spirit_for_hog_and_defenders_for_defence():
     assert not spirit[17, 13], "Spirit must follow the Hog's lane"
 
 
+def test_live_safety_places_cannon_only_in_the_central_pull_pocket():
+    giant = SimpleNamespace(cell=SimpleNamespace(x=4, y=22), name="giant")
+    obs = _live_obs({"cannon": 0}, tracks=[giant], threats=[giant])
+    cannon = apply_live_safety_mask(mask_from_live(obs), obs)[
+        1:1 + TILES].reshape(32, 18)
+    assert cannon[19:22, 5:8].any()
+    assert not cannon[:, :5].any()
+    assert not cannon[:, 8:].any()
+
+
+def test_live_safety_keeps_ground_cards_out_of_a_pure_air_defence():
+    balloon = SimpleNamespace(cell=SimpleNamespace(x=13, y=21), name="balloon")
+    obs = _live_obs({"musketeer": 0, "cannon": 1,
+                     "knight": 2, "skeletons": 3},
+                    tracks=[balloon], threats=[balloon])
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    assert mask[1:1 + TILES].any(), "Musketeer must remain available"
+    for slot in (1, 2, 3):
+        assert not mask[1 + slot * TILES:1 + (slot + 1) * TILES].any()
+
+
+def test_hog_without_spirit_waits_until_elixir_is_full():
+    obs = _live_obs({"hog_rider": 0})
+    obs.elixir = 9.9
+    assert not apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
+    obs.elixir = 10.0
+    assert apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
+
+
 def test_live_safety_does_not_cast_fireball_on_one_moving_unit():
     one = SimpleNamespace(cell=SimpleNamespace(x=4, y=20), name="knight")
     obs = _live_obs({"fireball": 0}, tracks=[one])

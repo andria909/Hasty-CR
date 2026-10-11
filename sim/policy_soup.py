@@ -68,17 +68,27 @@ def main() -> int:
 
     import torch
 
-    baseline = torch.load(args.baseline, map_location="cpu", weights_only=False)
-    candidates = [torch.load(path, map_location="cpu", weights_only=False)
-                  for path in args.candidate]
+    from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS
+    from sim.train_ppo import build_network, load_policy_state
+
+    def current_state(path: Path):
+        """Load through the same migration bridge used by evaluation/live."""
+        checkpoint = torch.load(path, map_location="cpu", weights_only=False)
+        network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
+        load_policy_state(network, checkpoint["state_dict"])
+        return checkpoint, network.state_dict()
+
+    baseline, baseline_state = current_state(args.baseline)
+    loaded = [current_state(path) for path in args.candidate]
+    candidate_states = [state for _blob, state in loaded]
     blob = dict(baseline)
     blob["state_dict"] = task_vector_soup(
-        baseline["state_dict"], [item["state_dict"] for item in candidates],
-        args.weight)
+        baseline_state, candidate_states, args.weight)
     blob["task_vector_soup"] = {
         "baseline": str(args.baseline),
         "candidates": [str(path) for path in args.candidate],
         "weights": args.weight,
+        "migrated_to_current_architecture": True,
     }
     # Optimiser moments no longer correspond to the blended weights.
     blob.pop("optimiser", None)
