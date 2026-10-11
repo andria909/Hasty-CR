@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "name": "portable_v18_hog_spirit_attack",
+  "status": "accepted_offline_candidate",
+  "checkpoint": "portable_v18_hog_spirit_attack.pt",
+  "sha256": "8f45c1013faf103f5a29e30d9a0120d6bcb5296e50a7c8c59d42c32a8ad0e7e8",
+  "size_bytes": 4885931,
+  "baseline": "../portable_v11/portable_v11_buildings.pt",
+  "training": {
+    "method": "anchored_ppo",
+    "requested_steps": 150000,
+    "stopped_steps": 107520,
+    "best_step": 75264,
+    "anchor_coefficient": 0.25,
+    "learning_rate": 0.00002,
+    "features": [
+      "hog_electro_spirit_same_lane_combo_reward",
+      "hold_at_full_elixir_penalty",
+      "defence_first_action_mask",
+      "central_cannon_pull_mask",
+      "value_aware_spell_mask"
+    ]
+  },
+  "evaluation_vs_v11": {
+    "episodes_per_opponent": 60,
+    "seed": 940000,
+    "brain": {
+      "baseline_wins": 20,
+      "candidate_wins": 24,
+      "baseline_hog_spirit_combo_rate": 0.4423,
+      "candidate_hog_spirit_combo_rate": 0.5393,
+      "paired_better_worse_tied": [10, 6, 44],
+      "one_sided_exact_p": 0.2272491455078125
+    },
+    "meta": {
+      "baseline_wins": 15,
+      "candidate_wins": 26,
+      "baseline_hog_spirit_combos": 86,
+      "candidate_hog_spirit_combos": 89,
+      "paired_better_worse_tied": [14, 3, 43],
+      "one_sided_exact_p": 0.0063629150390625
+    },
+    "report": "reports/portable_v18_vs_v11_paired_eval.json"
+  },
+  "live_policy": {
+    "temperature": 0.0,
+    "ladder_promoted": false,
+    "next_stage": "five supervised live matches"
+  }
+}

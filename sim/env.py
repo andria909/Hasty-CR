@@ -268,18 +268,124 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
                and not getattr(entity, "is_tower", False)
                and (getattr(entity, "side", 1) > 0) != (side > 0)]
     cells = [(entity, *_policy_cell(entity, side)) for entity in enemies]
-    pressure = [(entity, x, y) for entity, x, y in cells if y >= RIVER_ROW]
+    pressure = [(entity, x, y) for entity, x, y in cells
+                if y >= RIVER_ROW and not getattr(entity, "is_building", False)]
+    ground_pressure = [(entity, x, y) for entity, x, y in pressure
+                       if not getattr(entity, "flying", False)]
+    air_pressure = [(entity, x, y) for entity, x, y in pressure
+                    if getattr(entity, "flying", False)]
+    pure_air = bool(air_pressure) and not ground_pressure
+    player = match.players[side]
+    elixir = player.elixir / 1000.0
+    allied_hogs = [entity for entity in match.battle.entities.values()
+                   if getattr(entity, "alive", True)
+                   and (getattr(entity, "side", 1) > 0) == (side > 0)
+                   and str(getattr(entity, "name", "")) == "hog_rider"
+                   and _policy_cell(entity, side)[1] <= 21]
+    hog_inbound = bool(allied_hogs)
+    hog_lane_left = (_policy_cell(allied_hogs[-1], side)[0] < GRID_W / 2
+                     if allied_hogs else None)
+    ours = match.tower_fractions(side)
+    theirs = match.tower_fractions(-side)
+    crown_lead = (sum(float(ours.get(lane, 0.0)) <= 0.0
+                      for lane in ("left", "right"))
+                  < sum(float(theirs.get(lane, 0.0)) <= 0.0
+                        for lane in ("left", "right")))
+
+    def entity_card(entity):
+        direct = match.cards.get(str(getattr(entity, "name", "")))
+        if direct is not None:
+            return direct
+        for spec in match.cards.values():
+            unit = getattr(spec, "unit", None)
+            if unit is not None and unit.name == getattr(entity, "name", ""):
+                return spec
+        return None
+
+    def slot_grid(card):
+        try:
+            slot = list(hand).index(card)
+        except ValueError:
+            return None
+        return safe[1 + slot * TILES:1 + (slot + 1) * TILES].reshape(
+            GRID_H, GRID_W)
+
+    if not pressure:
+        for card in ("cannon", "musketeer", "knight"):
+            grid = slot_grid(card)
+            if grid is not None:
+                grid[:] = False
+        skeletons = slot_grid("skeletons")
+        if skeletons is not None:
+            combo_ready = "hog_rider" in hand and "electro_spirit" in hand
+            if elixir < 10.0 or combo_ready:
+                skeletons[:] = False
+            else:
+                back = np.zeros_like(skeletons)
+                back[28:32, 6:12] = True
+                skeletons &= back
+        spirit = slot_grid("electro_spirit")
+        if spirit is not None:
+            if not hog_inbound:
+                spirit[:] = False
+            else:
+                allowed = np.zeros_like(spirit)
+                xs = slice(2, 7) if hog_lane_left else slice(11, 16)
+                allowed[15:21, xs] = True
+                spirit &= allowed
+
+    if pure_air:
+        for card in ("cannon", "knight", "skeletons", "hog_rider"):
+            grid = slot_grid(card)
+            if grid is not None:
+                grid[:] = False
+        musketeer = slot_grid("musketeer")
+        if musketeer is not None:
+            lane_left = sum(x for _entity, x, _y in air_pressure) / len(air_pressure) < 8.5
+            x = 9 if lane_left else 8
+            y = int(np.clip(max(y for _entity, _x, y in air_pressure) + 4, 21, 26))
+            allowed = np.zeros_like(musketeer)
+            allowed[max(16, y - 1):min(GRID_H, y + 2), max(0, x - 1):x + 2] = True
+            musketeer &= allowed
+
+    cannon = slot_grid("cannon")
+    if cannon is not None and ground_pressure:
+        cannon_spec = match.cards.get("cannon")
+        cannon_range = float(getattr(getattr(cannon_spec, "unit", None),
+                                     "range_mt", 5500) or 5500)
+        pullable = [(entity, x, y) for entity, x, y in ground_pressure
+                    if not getattr(entity, "range_mt", 0)
+                    or getattr(entity, "range_mt", 0) <= cannon_range]
+        if not pullable:
+            cannon[:] = False
+        else:
+            _entity, focus_x, _focus_y = max(pullable, key=lambda item: item[2])
+            x = 6 if focus_x < 8.5 else 11
+            allowed = np.zeros_like(cannon)
+            allowed[19:22, x - 1:x + 2] = True
+            cannon &= allowed
 
     for slot, card in enumerate(hand):
         grid = safe[1 + slot * TILES:1 + (slot + 1) * TILES].reshape(
             GRID_H, GRID_W)
         if card == "hog_rider":
-            if pressure:
+            combo_ready = "electro_spirit" in hand
+            minimum = (8.0 if crown_lead else 5.0) if combo_ready else 10.0
+            if pressure or elixir < minimum:
                 grid[:] = False
             else:
                 allowed = np.zeros_like(grid)
                 allowed[RIVER_ROW:RIVER_ROW + 3, 2:6] = True
                 allowed[RIVER_ROW:RIVER_ROW + 3, 12:16] = True
+                alive = {lane: float(theirs.get(lane, 1.0))
+                         for lane in ("left", "right")
+                         if float(theirs.get(lane, 1.0)) > 0.0}
+                if len(alive) == 2 and abs(alive["left"] - alive["right"]) > 0.03:
+                    target = min(alive, key=alive.get)
+                    if target == "left":
+                        allowed[:, 9:] = False
+                    else:
+                        allowed[:, :9] = False
                 grid &= allowed
         elif card in ("fireball", "zap"):
             radius, minimum = ((3.0, 2) if card == "fireball" else (2.0, 2))
@@ -292,7 +398,30 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
                         any(key in str(getattr(entity, "name", ""))
                             for key in ("inferno", "sparky"))
                         for entity, _ex, _ey in hit))
-                    if len(hit) >= minimum or reset:
+                    light = [(entity, ex, ey) for entity, ex, ey in hit
+                             if not getattr(entity, "is_building", False)
+                             # Live vision cannot estimate current HP, so the
+                             # training guard must use the same public nominal
+                             # HP or deployment would admit different casts.
+                             and 0 < getattr(entity, "max_hitpoints", 0) <= 1800]
+                    light_value = sum(float(getattr(entity_card(entity), "cost", 0) or 0)
+                                      for entity, _ex, _ey in light)
+                    building = any(getattr(entity, "is_building", False)
+                                   for entity, _ex, _ey in hit)
+                    building_support = building and hog_inbound and any(
+                        (ex < GRID_W / 2) == hog_lane_left
+                        for entity, ex, _ey in hit
+                        if getattr(entity, "is_building", False))
+                    defensive_air = any(
+                        getattr(entity, "flying", False) and ey >= RIVER_ROW
+                        and float(getattr(entity_card(entity), "cost", 0) or 0) >= 4
+                        for entity, _ex, ey in light)
+                    valuable_cast = ((card == "fireball" and
+                                      (light_value >= 4 or building_support
+                                       or defensive_air))
+                                     or (card == "zap" and
+                                         (len(light) >= minimum or reset)))
+                    if valuable_cast:
                         valuable[y, x] = True
             if card == "fireball":
                 for lane, (x, y) in (("left", (4, 7)), ("right", (14, 7))):
@@ -338,6 +467,8 @@ class RewardWeights:
     spell_prediction: float = 0.0
     spell_miss: float = 0.0
     kite_quality: float = 0.0
+    hog_spirit_combo: float = 0.0
+    hold_at_cap: float = 0.0
     illegal_action: float = -0.01
     step_cost: float = 0.0
 
@@ -359,6 +490,7 @@ class EpisodeStats:
     spell_casts: int = 0
     spell_misses: int = 0
     kite_quality: float = 0.0
+    hog_spirit_combos: int = 0
     reward_total: float = 0.0
 
     @property
@@ -421,6 +553,7 @@ class ClashEnv:
         self._last_elixir: Tuple[int, int] = (0, 0)
         self._spell_reward_cursor = 0
         self._kite_events: List[dict] = []
+        self._last_hog_play: Optional[Tuple[int, bool]] = None
         self._episodes = 0
 
     # ------------------------------------------------------------- spaces
@@ -548,6 +681,7 @@ class ClashEnv:
         self._last_elixir = (0, 0)
         self._spell_reward_cursor = 0
         self._kite_events = []
+        self._last_hog_play = None
         return self._observe(), self._info()
 
     # --------------------------------------------------------------- step
@@ -559,6 +693,11 @@ class ClashEnv:
         illegal = False
 
         decoded = self.decode(int(action))
+        if decoded is None and match.players[1].elixir >= 9_950:
+            # Banking is good until the bar is full; after that, continued
+            # holding throws regeneration away. Kept separately weighted so
+            # it cannot silently turn every training run hyper-aggressive.
+            reward += self.rewards.hold_at_cap
         if decoded is not None:
             if decoded[0] == "ability":
                 rank = decoded[1]
@@ -579,6 +718,18 @@ class ClashEnv:
                     else:
                         self.stats.plays += 1
                         self.stats.cards[card] = self.stats.cards.get(card, 0) + 1
+                        lane_left = x < GRID_W / 2
+                        if card == "hog_rider":
+                            self._last_hog_play = (match.elapsed_ms, lane_left)
+                        elif (card == "electro_spirit" and self._last_hog_play
+                              and match.elapsed_ms - self._last_hog_play[0] <= 4500
+                              and lane_left == self._last_hog_play[1]):
+                            # Small shaping term: it teaches ordering and lane
+                            # coordination, while tower damage still decides
+                            # whether the push was actually good.
+                            reward += self.rewards.hog_spirit_combo
+                            self.stats.hog_spirit_combos += 1
+                            self._last_hog_play = None
                         if card in KITE_CARDS:
                             self._start_kite(first_uid)
         if illegal:

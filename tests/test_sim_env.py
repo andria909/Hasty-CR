@@ -21,7 +21,7 @@ for path in (str(ROOT), str(ROOT / "scripts")):
         sys.path.insert(0, path)
 
 from sim.env import (ACTIONS, DECK_26, ClashEnv, GRID_W, NUM_PLANES,
-                     building_lane_risks)  # noqa: E402
+                     RewardWeights, building_lane_risks)  # noqa: E402
 
 
 @pytest.fixture(scope="module")
@@ -129,6 +129,20 @@ def test_losing_tower_health_is_penalised(env):
     env.reset(seed=8)
     env.match.towers[-1]["left"].hitpoints //= 2
     assert env._shaping_reward() > 0
+
+
+def test_hog_spirit_same_lane_combo_is_rewarded():
+    combo = ClashEnv(seed=81, rewards=RewardWeights(hog_spirit_combo=0.7))
+    combo.reset(seed=81)
+    player = combo.match.players[1]
+    player.hand = ["hog_rider", "electro_spirit", "cannon", "knight"]
+    player.elixir = 10_000
+    combo.step(ClashEnv.encode(0, 4, 16))
+    spirit_slot = player.hand.index("electro_spirit")
+    _obs, reward, _done, _truncated, _info = combo.step(
+        ClashEnv.encode(spirit_slot, 4, 17))
+    assert combo.stats.hog_spirit_combos == 1
+    assert reward >= 0.7
 
 
 def test_an_episode_terminates_and_reports_a_result(env):

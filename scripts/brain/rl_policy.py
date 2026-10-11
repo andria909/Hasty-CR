@@ -14,9 +14,9 @@ match filtering) is untouched.
 **Why the coordinates line up.** The simulator's action grid and the live grid
 are the same convention, checked rather than assumed: both are 18x32 with the
 river at row 16, our half at y >= 16, enemy princess towers at y=7 and ours at
-y=24. So a decoded action `(slot, x, y)` is already a live grid cell and needs
-no transform. The *observation* is the one that flips - `sim.env.observe` bins
-a unit at tile y into plane row 31-y - and that flip is applied here too.
+y=24. BuildABot's bottom-up tile coordinate is already flipped once by
+`brain.arena.to_grid`; the resulting live cell is therefore the plane row and
+must not be flipped a second time here.
 `tests/test_rl_policy.py` asserts both, because a silent mirror is the single
 most expensive bug this project has hit.
 
@@ -57,7 +57,13 @@ _UNIT_TO_CARD = {
     "royal_recruit": "royal_recruits", "royal_hog": "royal_hogs",
     "bat": "bats", "elite_barbarian": "elite_barbarians",
     "three_musketeer": "three_musketeers", "guard": "guards",
+    "lava_pup": "lava_hound",
 }
+
+
+def _card_key(name: str) -> str:
+    """Prefer an exact resolved key before applying plural/unit aliases."""
+    return name if name in _cards() else _UNIT_TO_CARD.get(name, name)
 
 
 def _cards():
@@ -94,7 +100,7 @@ def card_cost(card: str) -> float:
 
 def _unit_traits(name: str):
     """(max_hp, flying, is_building) for a detected unit name."""
-    spec = _cards().get(_UNIT_TO_CARD.get(name, name))
+    spec = _cards().get(_card_key(name))
     unit = getattr(spec, "unit", None) if spec else None
     if unit is None:
         return 0.0, False, False
@@ -105,6 +111,21 @@ def _unit_traits(name: str):
                 or bool(getattr(unit, "from_building_card", False)))
     return (float(getattr(unit, "hitpoints", 0) or 0),
             bool(getattr(unit, "flying", False)), building)
+
+
+def _unit_profile(name: str) -> dict:
+    """Public tactical facts used by the live action guard."""
+    key = _card_key(name)
+    spec = _cards().get(key)
+    unit = getattr(spec, "unit", None) if spec else None
+    hp, flying, building = _unit_traits(name)
+    return {
+        "hp": hp,
+        "flying": flying,
+        "building": building,
+        "cost": float(getattr(spec, "cost", 0) or 0),
+        "range": float(getattr(unit, "range_mt", 0) or 0) if unit else 0.0,
+    }
 
 
 def ally_cells_with_names(state):
@@ -136,9 +157,10 @@ def observation_from_live(obs, allies=None, opponent=None, economy=None) -> dict
     enemy_building_cells = []
 
     def place(cell_x: float, cell_y: float, base: int, name: Optional[str]):
-        # Same flip `sim.env.observe` applies: tile y -> plane row 31-y.
+        # `cell_y` is already in the top-down policy grid. The perception path
+        # applied tile-y -> 31-y in brain.arena.to_grid.
         col = int(np.clip(round(cell_x), 0, GRID_W - 1))
-        row = int(np.clip(round(31 - cell_y), 0, GRID_H - 1))
+        row = int(np.clip(round(cell_y), 0, GRID_H - 1))
         planes[base, row, col] += 1.0
         hp, flying, building = _unit_traits(name) if name else (0.0, False, False)
         planes[2 + base, row, col] += hp / 1000.0
@@ -217,7 +239,7 @@ def mask_from_live(obs) -> np.ndarray:
     return mask
 
 
-def apply_live_safety_mask(mask: np.ndarray, obs) -> np.ndarray:
+def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None) -> np.ndarray:
     """Remove strategically unsafe live actions before PPO sees the logits.
 
     Simulation exploration is allowed to make a bad choice and learn from it;
@@ -234,8 +256,93 @@ def apply_live_safety_mask(mask: np.ndarray, obs) -> np.ndarray:
     for track in tracks:
         cell = getattr(track, "cell", None)
         if cell is not None:
-            enemy_cells.append((float(cell.x), float(cell.y),
-                                str(getattr(track, "name", ""))))
+            name = str(getattr(track, "name", ""))
+            enemy_cells.append({"x": float(np.clip(round(cell.x), 0, GRID_W - 1)),
+                                "y": float(np.clip(round(cell.y), 0, GRID_H - 1)),
+                                "name": name, **_unit_profile(name)})
+
+    pressure = [unit for unit in enemy_cells
+                if unit["y"] >= GRID_H // 2 and not unit["building"]]
+    ground_pressure = [unit for unit in pressure if not unit["flying"]]
+    air_pressure = [unit for unit in pressure if unit["flying"]]
+    pure_air = bool(air_pressure) and not ground_pressure
+    elixir = float(getattr(obs, "elixir", 0.0) or 0.0)
+    allied_hogs = [(cell, name) for cell, name in (allies_named or ())
+                   if name == "hog_rider" and cell.y <= 21]
+    hog_inbound = bool(allied_hogs)
+    hog_lane_left = (allied_hogs[-1][0].x < GRID_W / 2) if allied_hogs else None
+    ours = getattr(obs, "ally_hp", {})
+    theirs = getattr(obs, "enemy_hp", {})
+    crown_lead = (sum(float(ours.get(lane, 0.0)) <= 0.0
+                      for lane in ("left", "right"))
+                  < sum(float(theirs.get(lane, 0.0)) <= 0.0
+                        for lane in ("left", "right")))
+
+    def card_grid(card: str):
+        slot = hand.get(card)
+        if slot is None:
+            return None
+        return safe[1 + slot * TILES:1 + (slot + 1) * TILES].reshape(
+            GRID_H, GRID_W)
+
+    # Empty board: preserve every defender.  The only attacking package is
+    # Hog + Electro Spirit; Skeletons may cycle only at full elixir when that
+    # package is not in hand.  A one-crown lead raises the commitment bar.
+    if not pressure:
+        for card in ("cannon", "musketeer", "knight"):
+            grid = card_grid(card)
+            if grid is not None:
+                grid[:] = False
+        skeletons = card_grid("skeletons")
+        if skeletons is not None:
+            combo_ready = "hog_rider" in hand and "electro_spirit" in hand
+            if elixir < 10.0 or combo_ready:
+                skeletons[:] = False
+            else:
+                back = np.zeros_like(skeletons)
+                back[28:32, 6:12] = True
+                skeletons &= back
+        spirit = card_grid("electro_spirit")
+        if spirit is not None:
+            if not hog_inbound:
+                spirit[:] = False
+            else:
+                allowed = np.zeros_like(spirit)
+                xs = slice(2, 7) if hog_lane_left else slice(11, 16)
+                allowed[15:21, xs] = True
+                spirit &= allowed
+
+    # Against a pure air push, ground-only defenders only burn elixir. The
+    # Musketeer is the real answer; Spirit/Zap/Fireball may support it below.
+    if pure_air:
+        for card in ("cannon", "knight", "skeletons", "hog_rider"):
+            grid = card_grid(card)
+            if grid is not None:
+                grid[:] = False
+        musketeer = card_grid("musketeer")
+        if musketeer is not None:
+            lane_left = sum(unit["x"] for unit in air_pressure) / len(air_pressure) < 8.5
+            x = 9 if lane_left else 8
+            y = int(np.clip(max(unit["y"] for unit in air_pressure) + 4, 21, 26))
+            allowed = np.zeros_like(musketeer)
+            allowed[max(16, y - 1):min(GRID_H, y + 2), max(0, x - 1):x + 2] = True
+            musketeer &= allowed
+
+    # Cannon is a pull building, not a card to drop on the edge or into a
+    # ranged unit. Keep it in the 4-3 centre pocket, shifted toward the lane.
+    cannon = card_grid("cannon")
+    if cannon is not None and ground_pressure:
+        cannon_range = _unit_profile("cannon")["range"] or 5500.0
+        pullable = [unit for unit in ground_pressure
+                    if not unit["range"] or unit["range"] <= cannon_range]
+        if not pullable:
+            cannon[:] = False
+        else:
+            focus = max(pullable, key=lambda unit: unit["y"])
+            x = 6 if focus["x"] < 8.5 else 11
+            allowed = np.zeros_like(cannon)
+            allowed[19:22, x - 1:x + 2] = True
+            cannon &= allowed
 
     hog_slot = hand.get("hog_rider")
     threats = list(getattr(obs, "threats", ()) or ())
@@ -243,8 +350,10 @@ def apply_live_safety_mask(mask: np.ndarray, obs) -> np.ndarray:
     if hog_slot is not None:
         grid = safe[1 + hog_slot * TILES:1 + (hog_slot + 1) * TILES].reshape(
             GRID_H, GRID_W)
-        if threats or threat_score >= 5.0 or any(y >= GRID_H // 2
-                                                 for _x, y, _name in enemy_cells):
+        combo_ready = "electro_spirit" in hand
+        minimum = (8.0 if crown_lead else 5.0) if combo_ready else 10.0
+        if (threats or threat_score >= 5.0 or pressure
+                or elixir < minimum):
             grid[:] = False
         else:
             allowed = np.zeros_like(grid)
@@ -252,6 +361,17 @@ def apply_live_safety_mask(mask: np.ndarray, obs) -> np.ndarray:
             # on top of defenders in the middle of our half.
             allowed[GRID_H // 2:GRID_H // 2 + 3, 2:6] = True
             allowed[GRID_H // 2:GRID_H // 2 + 3, 12:16] = True
+            # Focus the more damaged surviving princess tower instead of
+            # splitting damage across both lanes.
+            alive = {lane: float(theirs.get(lane, 1.0))
+                     for lane in ("left", "right")
+                     if float(theirs.get(lane, 1.0)) > 0.0}
+            if len(alive) == 2 and abs(alive["left"] - alive["right"]) > 0.03:
+                target = min(alive, key=alive.get)
+                if target == "left":
+                    allowed[:, 9:] = False
+                else:
+                    allowed[:, :9] = False
             grid &= allowed
 
     for spell, radius, minimum in (("fireball", 3.0, 2), ("zap", 2.0, 2)):
@@ -263,12 +383,26 @@ def apply_live_safety_mask(mask: np.ndarray, obs) -> np.ndarray:
         valuable = np.zeros_like(grid)
         for y in range(GRID_H):
             for x in range(GRID_W):
-                hit = [(name, ex, ey) for ex, ey, name in enemy_cells
-                       if (ex - x) ** 2 + (ey - y) ** 2 <= radius ** 2]
+                hit = [unit for unit in enemy_cells
+                       if (unit["x"] - x) ** 2 + (unit["y"] - y) ** 2 <= radius ** 2]
                 reset = (spell == "zap" and any(
-                    any(key in name for key in ("inferno", "sparky"))
-                    for name, _ex, _ey in hit))
-                if len(hit) >= minimum or reset:
+                    any(key in unit["name"] for key in ("inferno", "sparky"))
+                    for unit in hit))
+                light = [unit for unit in hit
+                         if not unit["building"] and 0 < unit["hp"] <= 1800]
+                light_value = sum(unit["cost"] for unit in light)
+                building = any(unit["building"] for unit in hit)
+                building_support = building and hog_inbound and any(
+                    (unit["x"] < GRID_W / 2) == hog_lane_left
+                    for unit in hit if unit["building"])
+                defensive_air = any(unit["flying"] and unit["y"] >= 16
+                                     and unit["cost"] >= 4 for unit in light)
+                valuable_cast = ((spell == "fireball" and
+                                  (light_value >= 4 or building_support
+                                   or defensive_air))
+                                 or (spell == "zap" and
+                                     (len(light) >= minimum or reset)))
+                if valuable_cast:
                     valuable[y, x] = True
         # Fireball may always finish a princess tower, even without troops.
         if spell == "fireball":
@@ -413,10 +547,11 @@ class RLBrain:
         obs = self._observer.observe(state, elapsed, now, frame)
         self.last_obs = obs
 
+        allies_named = ally_cells_with_names(state)
         view = observation_from_live(
-            obs, ally_cells_with_names(state),
+            obs, allies_named,
             opponent=self._observer.opponent, economy=self._observer.enemy)
-        mask = apply_live_safety_mask(mask_from_live(obs), obs)
+        mask = apply_live_safety_mask(mask_from_live(obs), obs, allies_named)
         if not mask[1:].any():
             self.holds += 1
             self._note_hold(obs)

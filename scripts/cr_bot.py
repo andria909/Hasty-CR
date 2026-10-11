@@ -214,6 +214,7 @@ def main() -> int:
     hp_trace: list[tuple[int, str]] = []
     last_towers = "?"
     hp_filter = tower_hp.TowerHpFilter()
+    hp_filter_needs_reset = True
     last_decision = last_idle_log = time.monotonic()
     guard_blocked_since = None
     last_guard_report = 0.0
@@ -243,6 +244,7 @@ def main() -> int:
                 # on the first frame of the next battle, one second before
                 # MATCH_START - an alarm about nothing.
                 guard_blocked_since = None
+                hp_filter_needs_reset = True
 
             if screen == "lobby":
                 in_match = False
@@ -365,6 +367,14 @@ def main() -> int:
                 continue
             unknown_since = now
 
+            # A new battle starts with four fresh towers. Reset before reading
+            # its first frame; resetting later at MATCH_START lets one stale
+            # frame from the previous match reach the policy and also logs a
+            # false BARS_DEGRADED warning at t=0.
+            if hp_filter_needs_reset:
+                hp_filter.reset()
+                hp_filter_needs_reset = False
+
             # Calibrate the tower bars BEFORE the guard reads them. The guard
             # needs two of four princess bars above 10% to believe it is looking
             # at a battle, and upstream's reader is exactly what this function
@@ -458,9 +468,6 @@ def main() -> int:
                 match_started = now
                 match_log = []
                 hp_trace = []
-                # Both towers are full again; without this the filter's
-                # never-rise rule would hold last match's zeros all game.
-                hp_filter.reset()
                 last_decision = last_idle_log = now
                 log("MATCH_START")
 

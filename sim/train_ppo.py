@@ -266,7 +266,7 @@ def evaluate(network, device, episodes: int = 12, seed: int = 900_000,
     env = ClashEnv(seed=seed, opponent=opponent, rewards=rewards)
     wins = losses = draws = 0
     crowns_for = crowns_against = 0
-    hog = plays = 0
+    hog = hog_spirit_combos = plays = 0
     games = []
     for episode in range(episodes):
         game_seed = seed + episode
@@ -290,6 +290,7 @@ def evaluate(network, device, episodes: int = 12, seed: int = 900_000,
         stats = info["stats"]
         plays += stats.plays
         hog += stats.cards.get("hog_rider", 0)
+        hog_spirit_combos += stats.hog_spirit_combos
         if include_games:
             games.append({
                 "seed": game_seed,
@@ -297,6 +298,7 @@ def evaluate(network, device, episodes: int = 12, seed: int = 900_000,
                 "crowns_for": mine,
                 "crowns_against": theirs,
                 "hog_plays": stats.cards.get("hog_rider", 0),
+                "hog_spirit_combos": stats.hog_spirit_combos,
                 "plays": stats.plays,
                 "opponent_deck": getattr(env, "opponent_deck_name", opponent),
             })
@@ -304,6 +306,8 @@ def evaluate(network, device, episodes: int = 12, seed: int = 900_000,
     result = {"wins": wins, "losses": losses, "draws": draws,
               "crowns_for": crowns_for, "crowns_against": crowns_against,
               "hog_share": hog / plays if plays else 0.0,
+              "hog_spirit_combos": hog_spirit_combos,
+              "hog_spirit_combo_rate": hog_spirit_combos / hog if hog else 0.0,
               "plays_per_match": plays / max(1, episodes)}
     if include_games:
         result["games"] = games
@@ -463,6 +467,10 @@ def main() -> int:
                         help="penalty when Fireball/Log hits no enemy unit")
     parser.add_argument("--kite-quality", type=float, default=0.15,
                         help="reward for cheap units that retarget and displace threats")
+    parser.add_argument("--hog-spirit-combo", type=float, default=0.20,
+                        help="reward for Electro Spirit following Hog in the same lane")
+    parser.add_argument("--hold-at-cap", type=float, default=-0.02,
+                        help="penalty per decision spent holding at effectively 10 elixir")
     parser.add_argument("--feature-only", type=int, default=0, metavar="N",
                         help="after critic warmup, update only the final N appended "
                              "scalar input columns (plus the value head). Useful for "
@@ -524,7 +532,9 @@ def main() -> int:
         win=args.win, loss=-args.win, elixir_traded=args.elixir,
         spell_quality=args.spell_quality,
         spell_prediction=args.spell_prediction, spell_miss=args.spell_miss,
-        kite_quality=args.kite_quality)
+        kite_quality=args.kite_quality,
+        hog_spirit_combo=args.hog_spirit_combo,
+        hold_at_cap=args.hold_at_cap)
     log(f"rewards: chip {args.chip}  crown {args.crown}  win {args.win}  elixir {args.elixir}  lr {args.lr}")
     vec = VecClashEnv(num_envs=hyper.envs, base_seed=1234,
                       opponent=args.opponent, rewards=reward_weights,
