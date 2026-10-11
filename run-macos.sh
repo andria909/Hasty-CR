@@ -42,6 +42,10 @@ if [[ ! -x "$PYTHON" ]]; then
   echo "  .venv-live/bin/pip install -e '.[live,dev]'" >&2
   exit 1
 fi
+if [[ ! -d "$ROOT/vendor/ClashRoyaleBuildABot/clashroyalebuildabot" ]]; then
+  echo "Live perception vendor is missing. Follow the macOS setup in README.md." >&2
+  exit 1
+fi
 if [[ ! -f "$CHECKPOINT" ]]; then
   echo "Checkpoint not found: $CHECKPOINT" >&2
   exit 1

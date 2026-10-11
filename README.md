@@ -275,6 +275,9 @@ emulator's Play Store, and install ADB plus the live Python environment:
 brew install --cask android-platform-tools
 python3.12 -m venv .venv-live
 .venv-live/bin/pip install -e '.[live,dev]'
+git clone https://github.com/Pbatch/ClashRoyaleBuildABot.git vendor/ClashRoyaleBuildABot
+git -C vendor/ClashRoyaleBuildABot checkout f89ecbf309e698cb9fccdfb64a6ff2a930e6541e
+.venv-live/bin/pip install -e 'vendor/ClashRoyaleBuildABot[cpu]'
 adb devices
 ```
 

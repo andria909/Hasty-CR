@@ -19,6 +19,7 @@ import os
 import json
 import sys
 import time
+import types
 from datetime import datetime
 from pathlib import Path
 
@@ -26,6 +27,21 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "vendor" / "ClashRoyaleBuildABot"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+# ClashRoyaleBuildABot exports its interactive desktop Bot from package
+# __init__, and that class imports the third-party `keyboard` hook. On macOS
+# the hook initialises PyObjC/Accessibility while merely importing Detector and
+# can abort the process inside CoreFoundation. This runner never instantiates
+# that desktop Bot: capture and input both go through ADB. Keep the unused hook
+# inert so importing the detector is safe; any accidental call fails loudly.
+if sys.platform == "darwin":
+    keyboard_stub = types.ModuleType("keyboard")
+
+    def _unsupported_keyboard_hook(*_args, **_kwargs):
+        raise RuntimeError("desktop keyboard hooks are disabled in HastyCR on macOS")
+
+    keyboard_stub.wait = _unsupported_keyboard_hook
+    sys.modules["keyboard"] = keyboard_stub
 
 from loguru import logger  # noqa: E402
 
