@@ -20,7 +20,7 @@ import time
 from typing import List, Tuple, Optional
 
 BRIDGE_Y = 16
-SPELLS = {"fireball", "the_log"}
+SPELLS = {"fireball", "zap"}
 BUILDINGS = {"cannon"}
 
 # Canonical 2.6 defensive pocket ranges

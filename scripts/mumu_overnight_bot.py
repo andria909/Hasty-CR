@@ -20,8 +20,8 @@ from clashroyalebuildabot.namespaces.cards import Cards  # noqa: E402
 
 
 DECK = [
-    Cards.CANNON, Cards.FIREBALL, Cards.HOG_RIDER, Cards.ICE_GOLEM,
-    Cards.ICE_SPIRIT, Cards.MUSKETEER, Cards.SKELETONS, Cards.THE_LOG,
+    Cards.CANNON, Cards.FIREBALL, Cards.HOG_RIDER, Cards.KNIGHT,
+    Cards.ELECTRO_SPIRIT, Cards.MUSKETEER, Cards.SKELETONS, Cards.ZAP,
 ]
 CARD_CENTRES = ((334, 1711), (538, 1711), (742, 1711), (946, 1711))
 HOME_BATTLE = (540, 1490)
@@ -248,21 +248,21 @@ def choose(state):
 
     if enemies:
         deep = [enemy for enemy in enemies if 31 - enemy.position.tile_y >= 20]
-        order = ["cannon", "musketeer", "ice_golem", "skeletons", "ice_spirit"]
+        order = ["cannon", "musketeer", "knight", "skeletons", "electro_spirit"]
         if len(enemies) >= 2 or deep:
-            order = ["cannon", "musketeer", "fireball", "the_log", "ice_golem", "skeletons", "ice_spirit"]
+            order = ["cannon", "musketeer", "fireball", "zap", "knight", "skeletons", "electro_spirit"]
         name = next((item for item in order if item in by_name), None)
         if name is None:
             return None
         targets = {
-            "cannon": (540, 1130), "the_log": (lane_x, 1090),
+            "cannon": (540, 1130), "zap": (lane_x, 1090),
             "fireball": (lane_x, 930),
         }
         target = targets.get(name, (lane_x, 1230))
     elif "hog_rider" in by_name and elixir >= 5:
         name, target = "hog_rider", (300 if lane_x < 540 else 780, 880)
     elif elixir >= 9:
-        order = ["skeletons", "ice_spirit", "ice_golem", "musketeer", "cannon"]
+        order = ["skeletons", "electro_spirit", "knight", "musketeer", "cannon"]
         name = next((item for item in order if item in by_name), None)
         if name is None:
             return None

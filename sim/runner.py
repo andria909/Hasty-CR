@@ -32,8 +32,8 @@ from sim.arena import TICK_MS, Point  # noqa: E402
 from sim.gamedata import load_gamedata  # noqa: E402
 from sim.match import Match  # noqa: E402
 
-DECK_26 = ["cannon", "fireball", "hog_rider", "ice_golem",
-           "ice_spirit", "musketeer", "skeletons", "the_log"]
+DECK_26 = ["cannon", "fireball", "hog_rider", "knight",
+           "electro_spirit", "musketeer", "skeletons", "zap"]
 
 # The client names a card after the thing it summons, which does not always
 # match the name players (or our policy) use. Resolved here rather than in the

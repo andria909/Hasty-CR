@@ -217,6 +217,69 @@ def mask_from_live(obs) -> np.ndarray:
     return mask
 
 
+def apply_live_safety_mask(mask: np.ndarray, obs) -> np.ndarray:
+    """Remove strategically unsafe live actions before PPO sees the logits.
+
+    Simulation exploration is allowed to make a bad choice and learn from it;
+    ladder control is not.  In particular, the transferred policy repeatedly
+    sent Hog into a push and aimed spells at cells whose targets had already
+    gone.  This mask is deliberately conservative and leaves the network to
+    choose among the remaining legal actions.
+    """
+    safe = mask.copy()
+    hand = getattr(obs, "hand", {})
+
+    tracks = list(getattr(obs, "tracks", ()) or ())
+    enemy_cells = []
+    for track in tracks:
+        cell = getattr(track, "cell", None)
+        if cell is not None:
+            enemy_cells.append((float(cell.x), float(cell.y),
+                                str(getattr(track, "name", ""))))
+
+    hog_slot = hand.get("hog_rider")
+    threats = list(getattr(obs, "threats", ()) or ())
+    threat_score = float(getattr(obs, "threat_score", 0.0) or 0.0)
+    if hog_slot is not None:
+        grid = safe[1 + hog_slot * TILES:1 + (hog_slot + 1) * TILES].reshape(
+            GRID_H, GRID_W)
+        if threats or threat_score >= 5.0 or any(y >= GRID_H // 2
+                                                 for _x, y, _name in enemy_cells):
+            grid[:] = False
+        else:
+            allowed = np.zeros_like(grid)
+            # Hog belongs at either bridge, not behind our towers or directly
+            # on top of defenders in the middle of our half.
+            allowed[GRID_H // 2:GRID_H // 2 + 3, 2:6] = True
+            allowed[GRID_H // 2:GRID_H // 2 + 3, 12:16] = True
+            grid &= allowed
+
+    for spell, radius, minimum in (("fireball", 3.0, 2), ("zap", 2.0, 2)):
+        slot = hand.get(spell)
+        if slot is None:
+            continue
+        grid = safe[1 + slot * TILES:1 + (slot + 1) * TILES].reshape(
+            GRID_H, GRID_W)
+        valuable = np.zeros_like(grid)
+        for y in range(GRID_H):
+            for x in range(GRID_W):
+                hit = [(name, ex, ey) for ex, ey, name in enemy_cells
+                       if (ex - x) ** 2 + (ey - y) ** 2 <= radius ** 2]
+                reset = (spell == "zap" and any(
+                    any(key in name for key in ("inferno", "sparky"))
+                    for name, _ex, _ey in hit))
+                if len(hit) >= minimum or reset:
+                    valuable[y, x] = True
+        # Fireball may always finish a princess tower, even without troops.
+        if spell == "fireball":
+            for side, point in (("left", (4, 7)), ("right", (14, 7))):
+                if 0.0 < float(getattr(obs, "enemy_hp", {}).get(side, 1.0)) <= 0.18:
+                    x, y = point
+                    valuable[max(0, y - 1):y + 2, max(0, x - 1):x + 2] = True
+        grid &= valuable
+    return safe
+
+
 class RLBrain:
     """A trained checkpoint behind the `Brain.decide` interface.
 
@@ -353,7 +416,7 @@ class RLBrain:
         view = observation_from_live(
             obs, ally_cells_with_names(state),
             opponent=self._observer.opponent, economy=self._observer.enemy)
-        mask = mask_from_live(obs)
+        mask = apply_live_safety_mask(mask_from_live(obs), obs)
         if not mask[1:].any():
             self.holds += 1
             self._note_hold(obs)

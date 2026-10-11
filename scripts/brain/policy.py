@@ -61,14 +61,14 @@ from .tracker import Track, Tracker
 
 CONFIG_PATH = Path(__file__).with_name("config.json")
 
-SPELLS = frozenset({"fireball", "the_log"})
+SPELLS = frozenset({"fireball", "zap"})
 OUR_DECK = frozenset({
-    "cannon", "fireball", "hog_rider", "ice_golem", "ice_spirit",
-    "musketeer", "skeletons", "the_log",
+    "cannon", "fireball", "hog_rider", "knight", "electro_spirit",
+    "musketeer", "skeletons", "zap",
 })
 COSTS = {
-    "cannon": 3, "fireball": 4, "hog_rider": 4, "ice_golem": 2,
-    "ice_spirit": 1, "musketeer": 4, "skeletons": 1, "the_log": 2,
+    "cannon": 3, "fireball": 4, "hog_rider": 4, "knight": 3,
+    "electro_spirit": 1, "musketeer": 4, "skeletons": 1, "zap": 2,
 }
 
 

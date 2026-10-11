@@ -10,7 +10,7 @@ def test_a_clean_clone_can_build_the_complete_hog_deck(tmp_path: Path):
     """An absent client dump must select the versioned public fallback."""
     cards = load_gamedata(level=11, root=tmp_path / "missing-client-data")
     assert set(DECK_26) <= cards.keys()
-    assert [cards[name].cost for name in DECK_26] == [3, 4, 4, 2, 1, 4, 1, 2]
+    assert [cards[name].cost for name in DECK_26] == [3, 4, 4, 3, 1, 4, 1, 2]
     assert cards["skeletons"].summon_number == 3
     assert cards["fireball"].unit is None
     assert cards["the_log"].unit is None

@@ -21,8 +21,8 @@ DEFEND_Y = shims.DEFENDER_Y
 CANNON_SPOT = shims.CANNON_SPOT
 CYCLE_SPOT = (9, 26)                 # behind the king tower
 
-DEFEND_PRIORITY = ("cannon", "musketeer", "ice_golem", "skeletons", "ice_spirit")
-CYCLE_PRIORITY = ("skeletons", "ice_spirit", "ice_golem")
+DEFEND_PRIORITY = ("cannon", "musketeer", "knight", "skeletons", "electro_spirit")
+CYCLE_PRIORITY = ("skeletons", "electro_spirit", "knight")
 
 PUSH_ELIXIR = 7
 SUPPORT_ELIXIR = 4
@@ -107,7 +107,7 @@ def decide(state):
         # Spells first when the push is a cluster worth hitting.
         for spell, radius, minimum in (
             ("fireball", shims.FIREBALL_RADIUS, shims.FIREBALL_MIN_ENEMIES),
-            ("the_log", shims.LOG_RADIUS, shims.LOG_MIN_ENEMIES),
+            ("zap", shims.LOG_RADIUS, shims.LOG_MIN_ENEMIES),
         ):
             found = shims.hand_slot(state, spell)
             if found is None or not _afford(state, found, elixir):
@@ -143,7 +143,7 @@ def decide(state):
                 state.numbers.left_enemy_princess_hp.number,
                 state.numbers.right_enemy_princess_hp.number,
             )
-            golem = shims.hand_slot(state, "ice_golem")
+            golem = shims.hand_slot(state, "knight")
             if golem is not None and elixir >= shims.TANK_MIN_ELIXIR:
                 _tank_at, _tank_lane = now, lane
                 return golem + 1, lane, BRIDGE_Y, f"tank_lane{lane}"

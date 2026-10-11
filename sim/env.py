@@ -66,10 +66,13 @@ ACTIONS = CARD_ACTIONS + ABILITY_SLOTS
 DECIDE_EVERY_MS = 500
 MAX_MS = 310_000
 
-DECK_26 = ["cannon", "fireball", "hog_rider", "ice_golem",
-           "ice_spirit", "musketeer", "skeletons", "the_log"]
-SPELLS = {"fireball", "the_log"}
-KITE_CARDS = {"ice_golem", "ice_spirit", "skeletons"}
+# The deck actually used by the live account.  Keep the order stable: the
+# policy's hand/next-card one-hots use these indices, so the three replacements
+# deliberately inherit the closest 2.6 semantics from the old checkpoint.
+DECK_26 = ["cannon", "fireball", "hog_rider", "knight",
+           "electro_spirit", "musketeer", "skeletons", "zap"]
+SPELLS = {"fireball", "zap"}
+KITE_CARDS = {"knight", "electro_spirit", "skeletons"}
 
 # Spatial planes. Kept small deliberately: one plane per card type would be 100+
 # channels of almost entirely zeros, which costs memory and learns slower than
@@ -233,10 +236,72 @@ def legal_mask(match, cards, side: int = 1) -> np.ndarray:
         grid = _placeable(side, tuple(enemy_down), card in SPELLS)
         base = 1 + slot * TILES
         mask[base:base + TILES] = grid.reshape(-1)
+    mask = strategic_action_mask(match, player.hand[:NUM_SLOTS], mask, side)
     for rank, entity in enumerate(ability_entities(match, side)[:ABILITY_SLOTS]):
         if match.can_activate_ability(side, entity.uid):
             mask[CARD_ACTIONS + rank] = True
     return mask
+
+
+def _policy_cell(entity, side: int) -> tuple[int, int]:
+    """Entity position in the same bottom-oriented grid the policy acts on."""
+    x, y = sim_arena.to_tiles(entity.pos)
+    gx = int(np.clip(round(x), 0, GRID_W - 1))
+    gy = int(np.clip(round(31 - y), 0, GRID_H - 1))
+    if side < 0:
+        gx, gy = GRID_W - 1 - gx, GRID_H - 1 - gy
+    return gx, gy
+
+
+def strategic_action_mask(match, hand, mask: np.ndarray,
+                          side: int = 1) -> np.ndarray:
+    """Training-time counterpart of the live ladder safety mask.
+
+    PPO must never be rewarded for actions deployment will remove.  Hog is
+    withheld while enemies are on our half and otherwise constrained to the
+    two bridge pockets.  Area spells require a current cluster (or a reset
+    target for Zap), with Fireball tower finishing retained.
+    """
+    safe = mask.copy()
+    enemies = [entity for entity in match.battle.entities.values()
+               if getattr(entity, "alive", True)
+               and not getattr(entity, "is_tower", False)
+               and (getattr(entity, "side", 1) > 0) != (side > 0)]
+    cells = [(entity, *_policy_cell(entity, side)) for entity in enemies]
+    pressure = [(entity, x, y) for entity, x, y in cells if y >= RIVER_ROW]
+
+    for slot, card in enumerate(hand):
+        grid = safe[1 + slot * TILES:1 + (slot + 1) * TILES].reshape(
+            GRID_H, GRID_W)
+        if card == "hog_rider":
+            if pressure:
+                grid[:] = False
+            else:
+                allowed = np.zeros_like(grid)
+                allowed[RIVER_ROW:RIVER_ROW + 3, 2:6] = True
+                allowed[RIVER_ROW:RIVER_ROW + 3, 12:16] = True
+                grid &= allowed
+        elif card in ("fireball", "zap"):
+            radius, minimum = ((3.0, 2) if card == "fireball" else (2.0, 2))
+            valuable = np.zeros_like(grid)
+            for y in range(GRID_H):
+                for x in range(GRID_W):
+                    hit = [(entity, ex, ey) for entity, ex, ey in cells
+                           if (ex - x) ** 2 + (ey - y) ** 2 <= radius ** 2]
+                    reset = (card == "zap" and any(
+                        any(key in str(getattr(entity, "name", ""))
+                            for key in ("inferno", "sparky"))
+                        for entity, _ex, _ey in hit))
+                    if len(hit) >= minimum or reset:
+                        valuable[y, x] = True
+            if card == "fireball":
+                for lane, (x, y) in (("left", (4, 7)), ("right", (14, 7))):
+                    hp = float(match.tower_fractions(-side).get(lane, 1.0))
+                    if 0.0 < hp <= 0.18:
+                        valuable[max(0, y - 1):y + 2,
+                                 max(0, x - 1):x + 2] = True
+            grid &= valuable
+    return safe
 
 
 @dataclass

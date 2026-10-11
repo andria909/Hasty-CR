@@ -148,7 +148,7 @@ def load_public_gamedata(level: int = 11) -> tuple[dict[str, CardSpec], dict]:
             deploy_time_ms=int(row.get("custom_deploy_time") or unit.deploy_time_ms))
 
     catalogue = _rows("cards.json")["cards"]
-    for raw_key in ("fireball", "the-log"):
+    for raw_key in ("fireball", "the-log", "zap"):
         row = next(item for item in catalogue if item["key"] == raw_key)
         key = raw_key.replace("-", "_")
         cards[key] = CardSpec(
@@ -197,5 +197,17 @@ def load_public_spells(level: int = 11):
         deflect_behaviour=str(log.get("deflect_behaviour") or ""),
         rolling_range_mt=int(log["projectile_range"]),
         rolling_speed_mt_per_sec=speed_to_mt_per_sec(int(log["speed"])))
-    return {"fireball": fire, "the_log": rolling,
+    spell_rows = {row.get("key"): row for row in _rows("cards_stats_spell.json")}
+    zap_row = spell_rows["zap"]
+    zap = SpellSpec(
+        name="zap",
+        damage=int(_at_level(zap_row, "damage_per_level", level)),
+        radius_mt=int(zap_row["radius"]),
+        radius_y_mt=int(zap_row["radius"]),
+        crown_tower_percent=100 + int(zap_row["crown_tower_damage_percent"]),
+        pushback_mt=0,
+        target_buff=str(zap_row.get("buff") or ""),
+        buff_time_ms=int(zap_row.get("buff_time") or 0),
+    )
+    return {"fireball": fire, "zap": zap, "the_log": rolling,
             "log": SpellSpec(**{**rolling.__dict__, "name": "log"})}

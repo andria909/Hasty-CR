@@ -80,20 +80,20 @@ def test_troops_are_masked_out_of_the_enemy_half(env):
     mask = env.action_mask()
     hand = env.match.players[1].hand
     for slot, card in enumerate(hand[:4]):
-        if card in ("fireball", "the_log"):
+        if card in ("fireball", "zap"):
             continue
         for y in range(0, 16):
             assert not mask[ClashEnv.encode(slot, 5, y)], f"{card} at y={y}"
 
 
-def test_spells_may_be_aimed_at_the_enemy_tower(env):
+def test_spells_are_not_wasted_on_a_healthy_enemy_tower(env):
     env.reset(seed=7)
     player = env.match.players[1]
     player.hand = ["fireball", "hog_rider", "cannon", "skeletons"]
     player.elixir = 10_000
     mask = env.action_mask()
     # (4, 7) is the enemy left princess tower in the policy's grid convention.
-    assert mask[ClashEnv.encode(0, 4, 7)]
+    assert not mask[ClashEnv.encode(0, 4, 7)]
 
 
 def test_every_masked_action_is_actually_accepted(env):

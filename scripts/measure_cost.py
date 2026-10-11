@@ -26,7 +26,7 @@ from brain.advisor import KEEP_ALIVE, NUM_CTX, SCHEMA, Advisor  # noqa: E402
 SNAPSHOT = {
     "elixir": 7.0, "enemy_elixir": 2.0, "multiplier": 1.0, "elapsed": 42,
     "ally_hp": [1.0, 0.5], "enemy_hp": [0.3, 1.0],
-    "hand": ["hog_rider", "ice_golem", "cannon", "musketeer"],
+    "hand": ["hog_rider", "knight", "cannon", "musketeer"],
     "enemies": [
         {"name": "giant", "lane": "left", "depth": 3},
         {"name": "musketeer", "lane": "left", "depth": 1},

@@ -25,7 +25,8 @@ for path in (str(ROOT), str(ROOT / "scripts")):
         sys.path.insert(0, path)
 
 from brain import arena as live_arena                              # noqa: E402
-from brain.rl_policy import (mask_from_live, observation_from_live)  # noqa: E402
+from brain.rl_policy import (apply_live_safety_mask, mask_from_live,
+                             observation_from_live)  # noqa: E402
 from sim import arena as sim_arena                                 # noqa: E402
 from sim.env import (ACTIONS, DECK_26, GRID_W, RIVER_ROW, TILES,   # noqa: E402
                      ClashEnv, legal_mask, observe)
@@ -181,7 +182,7 @@ def test_the_live_mask_matches_the_simulators():
     env = played_out_match()
     obs, _allies = live_view_of(env.match)
     from_sim = legal_mask(env.match, env._cards, 1)
-    from_live = mask_from_live(obs)
+    from_live = apply_live_safety_mask(mask_from_live(obs), obs)
     # Abilities are not reachable live, so compare the card actions only.
     assert np.array_equal(from_sim[:1 + 4 * TILES], from_live[:1 + 4 * TILES]), (
         "the live mask allows a different set of placements than the "
@@ -193,7 +194,11 @@ def test_the_live_mask_opens_the_enemy_half_after_a_crown():
     obs, _allies = live_view_of(env.match)
     obs.elixir = 10.0
     before = mask_from_live(obs)
-    obs.enemy_hp = dict(obs.enemy_hp, left=0.0)
+    alive = next((lane for lane in ("left", "right")
+                  if obs.enemy_hp.get(lane, 0.0) > 0.0), None)
+    if alive is None:
+        pytest.skip("both enemy princess towers are already down")
+    obs.enemy_hp = dict(obs.enemy_hp, **{alive: 0.0})
     after = mask_from_live(obs)
     def enemy_half(mask):
         total = 0
@@ -212,6 +217,51 @@ def test_an_empty_hand_leaves_only_hold():
     mask = mask_from_live(obs)
     assert mask[0] and mask.sum() == 1
     assert len(mask) == ACTIONS
+
+
+def _live_obs(hand, tracks=(), threats=(), threat_score=0.0):
+    return SimpleNamespace(
+        allies=[], tracks=list(tracks), threats=list(threats),
+        threat_score=threat_score, elixir=10.0, elapsed=30.0,
+        multiplier=1.0, ally_hp={"left": 1.0, "right": 1.0},
+        enemy_hp={"left": 1.0, "right": 1.0}, hand=hand,
+    )
+
+
+def test_live_safety_blocks_hog_while_a_push_is_active():
+    threat = SimpleNamespace(cell=SimpleNamespace(x=4, y=22), name="knight")
+    obs = _live_obs({"hog_rider": 0, "knight": 1}, tracks=[threat],
+                    threats=[threat], threat_score=6.0)
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    hog = mask[1:1 + TILES]
+    knight = mask[1 + TILES:1 + 2 * TILES]
+    assert not hog.any()
+    assert knight.any()
+
+
+def test_live_safety_keeps_hog_at_the_two_bridges():
+    obs = _live_obs({"hog_rider": 0})
+    grid = apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].reshape(32, 18)
+    assert grid[16, 4] and grid[18, 13]
+    assert not grid[25, 4] and not grid[20, 9]
+
+
+def test_live_safety_does_not_cast_fireball_on_one_moving_unit():
+    one = SimpleNamespace(cell=SimpleNamespace(x=4, y=20), name="knight")
+    obs = _live_obs({"fireball": 0}, tracks=[one])
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    assert not mask[1:1 + TILES].any()
+
+
+def test_live_safety_allows_spell_on_a_real_cluster():
+    tracks = [
+        SimpleNamespace(cell=SimpleNamespace(x=4, y=20), name="archer"),
+        SimpleNamespace(cell=SimpleNamespace(x=5, y=20), name="archer"),
+    ]
+    obs = _live_obs({"fireball": 0, "zap": 1}, tracks=tracks)
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    assert mask[1:1 + TILES].any()
+    assert mask[1 + TILES:1 + 2 * TILES].any()
 
 
 # ----------------------------------------------------- the whole live decision
@@ -302,7 +352,7 @@ def test_the_same_board_gets_the_same_action_given_the_same_information():
             continue
         obs, allies = live_view_of(env.match)
         sim_mask = legal_mask(env.match, env._cards, 1)
-        live_mask = mask_from_live(obs)
+        live_mask = apply_live_safety_mask(mask_from_live(obs), obs)
         assert np.array_equal(sim_mask, live_mask), f"masks differ at seed {seed}"
         from_sim = _greedy(net, _blind_hp(observe(env.match, 1)), sim_mask)
         from_live = _greedy(net, _blind_hp(observation_from_live(obs, allies)),

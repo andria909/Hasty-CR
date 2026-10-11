@@ -60,8 +60,8 @@ from clashroyalebuildabot.detectors.detector import Detector  # noqa: E402
 from clashroyalebuildabot.namespaces.cards import Cards  # noqa: E402
 
 DECK = [
-    Cards.CANNON, Cards.FIREBALL, Cards.HOG_RIDER, Cards.ICE_GOLEM,
-    Cards.ICE_SPIRIT, Cards.MUSKETEER, Cards.SKELETONS, Cards.THE_LOG,
+    Cards.CANNON, Cards.FIREBALL, Cards.HOG_RIDER, Cards.KNIGHT,
+    Cards.ELECTRO_SPIRIT, Cards.MUSKETEER, Cards.SKELETONS, Cards.ZAP,
 ]
 IDLE_REPORT_SECONDS = 8
 UNKNOWN_POPUP_SECONDS = 15

@@ -27,8 +27,8 @@ if str(ROOT) not in sys.path:
 # The eight the policy encodes. Anything else is priced at 99 elixir by
 # `mask_from_live` and can never be played, so a wrong deck does not fail
 # loudly - the bot just stands there holding.
-DECK_26 = ("cannon", "fireball", "hog_rider", "ice_golem",
-           "ice_spirit", "musketeer", "skeletons", "the_log")
+DECK_26 = ("cannon", "fireball", "hog_rider", "knight",
+           "electro_spirit", "musketeer", "skeletons", "zap")
 
 # Cards whose detected name is not the card name. A Skeletons card puts three
 # `skeleton` on the board; the hand is logged by card, but a play can be

@@ -27,7 +27,7 @@ for path in (str(ROOT), str(ROOT / "scripts")):
 
 from studio import coach                                       # noqa: E402
 
-GOOD_HAND = ["hog_rider", "cannon", "ice_spirit", "the_log"]
+GOOD_HAND = ["hog_rider", "cannon", "electro_spirit", "zap"]
 
 
 def advise(**overrides):
@@ -60,7 +60,7 @@ def test_a_foreign_card_is_caught_and_blocks_the_first_step():
 
 def test_the_detected_name_is_resolved_before_judging_it():
     """A Skeletons card puts three `skeleton` on the board."""
-    assert coach.foreign_cards(["skeleton", "log"]) == []
+    assert coach.foreign_cards(["skeleton", "zap"]) == []
     assert coach.normalise("skeleton") == "skeletons"
 
 
