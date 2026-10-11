@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "name": "portable_v14_lane_risk",
+  "status": "experimental_not_promoted",
+  "recommended_checkpoint": "../portable_v11/portable_v11_buildings.pt",
+  "checkpoints": {
+    "best_at_first_eval": {
+      "file": "portable_v14_lane_risk_best.pt",
+      "step": 25088,
+      "sha256": "bcf47030fa94845e39d139ec0afd4d2e4c15ba5600c7eea45fe23e9847ae4683",
+      "size_bytes": 1946060
+    },
+    "last": {
+      "file": "portable_v14_lane_risk_last.pt",
+      "step": 125440,
+      "sha256": "eea8969fe163e476e99ef2a87427e6dcf1488ae97f3107ac53bd18da37daa095",
+      "size_bytes": 1945612
+    }
+  },
+  "feature": "left_and_right_active_enemy_building_lane_risk",
+  "training": {
+    "method": "feature_only_ppo",
+    "baseline": "checkpoints/portable_v11/portable_v11_buildings.pt",
+    "steps": 125440,
+    "feature_columns_updated": 2
+  },
+  "evaluation": {
+    "direct_vs_v11": {
+      "games": 60,
+      "seed": 1006000,
+      "v11_wins": 25,
+      "v14_wins": 35,
+      "statistically_separated": false,
+      "report": "reports/portable_v14_vs_v11.json"
+    },
+    "fixed_opponents": {
+      "episodes_per_opponent": 60,
+      "seed": 1006000,
+      "brain_wins": 14,
+      "meta_wins": 29,
+      "report": "reports/portable_v14_fixed.json"
+    }
+  },
+  "promotion_decision": "Retained for reproducibility but not promoted: direct head-to-head was promising while fixed brain performance regressed."
+}

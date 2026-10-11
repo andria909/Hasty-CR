@@ -85,7 +85,8 @@ RIVER_ROW = 16                 # our half is y >= 16 in the policy's grid
 from sim.public_state import public_feature_count, vector_from_events  # noqa: E402
 
 BASE_SCALARS = 3 + 2 * len(LANES) + NUM_SLOTS * len(DECK_26) + len(DECK_26)
-NUM_SCALARS = BASE_SCALARS + public_feature_count()
+ACTIVE_BUILDING_FEATURES = 2
+NUM_SCALARS = BASE_SCALARS + public_feature_count() + ACTIVE_BUILDING_FEATURES
 
 
 # --------------------------------------------------------------- both seats
@@ -106,11 +107,29 @@ def ability_entities(match, side: int):
                   key=lambda entity: entity.uid)
 
 
+def building_lane_risks(building_cells) -> tuple[float, float]:
+    """Public pull risk at the left/right bridge from active buildings.
+
+    A central building can threaten both lanes; an off-centre one should make
+    the opposite lane preferable. Distances use the same bottom-oriented grid
+    the policy acts on and a conservative ten-tile Hog acquisition radius.
+    """
+    anchors = ((4.0, float(RIVER_ROW)), (13.0, float(RIVER_ROW)))
+    risks = []
+    for anchor_x, anchor_y in anchors:
+        risk = max((max(0.0, 1.0 - (((x - anchor_x) ** 2
+                                     + (y - anchor_y) ** 2) ** 0.5) / 10.0)
+                    for x, y in building_cells), default=0.0)
+        risks.append(risk)
+    return risks[0], risks[1]
+
+
 def observe(match, side: int = 1) -> dict:
     """The board as `side` sees it, always oriented as the bottom player."""
     planes = np.zeros((NUM_PLANES, GRID_H, GRID_W), dtype=np.float32)
     if match is None:
         return {"planes": planes, "scalars": np.zeros(NUM_SCALARS, dtype=np.float32)}
+    enemy_building_cells = []
     for entity in match.battle.entities.values():
         if not getattr(entity, "alive", True):
             continue
@@ -135,6 +154,8 @@ def observe(match, side: int = 1) -> dict:
             planes[4 + base, grid_y, grid_x] += 1.0
         if getattr(entity, "is_building", False):
             planes[6 + base, grid_y, grid_x] += 1.0
+            if not ours:
+                enemy_building_cells.append((grid_x, grid_y))
 
     scalars = np.zeros(NUM_SCALARS, dtype=np.float32)
     player = match.players[side]
@@ -157,7 +178,10 @@ def observe(match, side: int = 1) -> dict:
     if nxt in DECK_26:
         scalars[base + NUM_SLOTS * len(DECK_26) + DECK_26.index(nxt)] = 1.0
     public = [event for event in match.play_log if event["side"] == -side]
-    scalars[BASE_SCALARS:] = vector_from_events(public, match.elapsed_ms)
+    public_end = BASE_SCALARS + public_feature_count()
+    scalars[BASE_SCALARS:public_end] = vector_from_events(
+        public, match.elapsed_ms)
+    scalars[public_end:] = building_lane_risks(enemy_building_cells)
     return {"planes": planes, "scalars": scalars}
 
 

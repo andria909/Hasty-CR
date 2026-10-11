@@ -63,16 +63,17 @@ param(
     # having queued one. Without this it would keep tapping Battle in the
     # lobby and drag itself into ladder between your friendlies.
     [switch]$NoQueue,
-    # The frozen Sprint 3 winner: step 4,392,960, 43.3% against the rule engine
-    # over 300 held-out games (Wilson 37.8-49.0), 91% vs meta decks, 100% vs
-    # simple, 0% illegal actions. checkpoints/sprint4_baseline/manifest.json has
-    # the hyperparameters, the sha256 and the full eval.
+    # The accepted portable v11 offline champion.  It adds public opponent-
+    # building count and cycle availability features without changing any of
+    # the established policy weights.  It improved the paired brain result
+    # from 44 to 56 wins and building-deck matches from 36 to 43 wins.  It has
+    # not played ladder yet, so always pass -Shadow first on a new device.
     #
     # This used to point at tmp\rl\hog26v6_best.pt, which was a collapsed run -
     # one win in fifty-nine. Checkpoints under tmp\ are scratch and get
     # overwritten by whatever is training; anything meant to touch a real ladder
     # match lives under checkpoints\ with a manifest saying what it scored.
-    [string]$Checkpoint = 'checkpoints\sprint4_baseline\pilot_best_4392960.pt'
+    [string]$Checkpoint = 'checkpoints\portable_v11\portable_v11_buildings.pt'
 )
 
 $ErrorActionPreference = 'Continue'

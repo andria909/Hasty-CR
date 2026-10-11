@@ -41,8 +41,9 @@ if str(ROOT) not in sys.path:
 
 from sim.env import (ACTIONS, BASE_SCALARS, CARD_ACTIONS, DECK_26, GRID_H, GRID_W,
                      NUM_PLANES, NUM_SCALARS, NUM_SLOTS, SPELLS, TILES,
-                     _placeable)
-from sim.public_state import vector_from_events, vector_from_live
+                     _placeable, building_lane_risks)
+from sim.public_state import (public_feature_count, vector_from_events,
+                              vector_from_live)
 
 _CARDS = None
 # Detected unit names are not always the card key. A Skeletons card puts three
@@ -132,6 +133,7 @@ def observation_from_live(obs, allies=None, opponent=None, economy=None) -> dict
     back to `obs.allies`, which carries positions but no identity.
     """
     planes = np.zeros((NUM_PLANES, GRID_H, GRID_W), dtype=np.float32)
+    enemy_building_cells = []
 
     def place(cell_x: float, cell_y: float, base: int, name: Optional[str]):
         # Same flip `sim.env.observe` applies: tile y -> plane row 31-y.
@@ -144,6 +146,8 @@ def observation_from_live(obs, allies=None, opponent=None, economy=None) -> dict
             planes[4 + base, row, col] += 1.0
         if building:
             planes[6 + base, row, col] += 1.0
+            if base == 1:
+                enemy_building_cells.append((col, row))
 
     if allies is not None:
         for cell, name in allies:
@@ -181,11 +185,16 @@ def observation_from_live(obs, allies=None, opponent=None, economy=None) -> dict
     if nxt in DECK_26:
         scalars[base + NUM_SLOTS * len(DECK_26) + DECK_26.index(nxt)] = 1.0
     if opponent is not None and economy is not None:
-        scalars[BASE_SCALARS:] = vector_from_live(
+        public_end = BASE_SCALARS + public_feature_count()
+        scalars[BASE_SCALARS:public_end] = vector_from_live(
             opponent, economy, float(getattr(obs, "now", 0.0)))
     elif hasattr(obs, "opponent_events"):
-        scalars[BASE_SCALARS:] = vector_from_events(
+        public_end = BASE_SCALARS + public_feature_count()
+        scalars[BASE_SCALARS:public_end] = vector_from_events(
             list(obs.opponent_events), int(float(obs.elapsed) * 1000))
+    else:
+        public_end = BASE_SCALARS + public_feature_count()
+    scalars[public_end:] = building_lane_risks(enemy_building_cells)
     return {"planes": planes, "scalars": scalars}
 
 

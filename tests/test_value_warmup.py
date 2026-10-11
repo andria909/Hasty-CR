@@ -166,8 +166,6 @@ def test_v2_checkpoint_migration_preserves_logits_exactly():
     with torch.no_grad():
         actual, _ = migrated(planes, scalars)
     assert torch.equal(actual, expected)
-
-
 def test_current_checkpoint_needs_no_migration():
     network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
     clone = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)

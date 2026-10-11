@@ -20,7 +20,8 @@ for path in (str(ROOT), str(ROOT / "scripts")):
     if path not in sys.path:
         sys.path.insert(0, path)
 
-from sim.env import ACTIONS, DECK_26, ClashEnv, GRID_W, NUM_PLANES  # noqa: E402
+from sim.env import (ACTIONS, DECK_26, ClashEnv, GRID_W, NUM_PLANES,
+                     building_lane_risks)  # noqa: E402
 
 
 @pytest.fixture(scope="module")
@@ -64,6 +65,14 @@ def test_reset_returns_the_advertised_shapes(env):
     assert obs["scalars"].shape == env.observation_shape["scalars"]
     assert info["action_mask"].shape == (ACTIONS,)
     assert info["action_mask"][0], "holding elixir must always be legal"
+
+
+def test_active_building_risk_prefers_the_opposite_bridge():
+    left, right = building_lane_risks([(4, 14)])
+    assert left > right
+    left, right = building_lane_risks([(13, 14)])
+    assert right > left
+    assert building_lane_risks([]) == (0.0, 0.0)
 
 
 def test_troops_are_masked_out_of_the_enemy_half(env):

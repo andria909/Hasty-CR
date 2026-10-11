@@ -260,3 +260,17 @@ not one paired outcome changed. A separate direct comparison against v6 gave
 33 vs 24 wins on brain and 56 vs 56 on meta. v11 is therefore the accepted
 offline champion, but still requires shadow/friendly validation before any
 ladder use.
+
+## v14 active-building lane-risk experiment
+
+v14 appends two live public features describing how strongly active enemy
+buildings threaten the left and right bridge. The simulator and live
+observation bridge compute the same values, and feature-only PPO leaves the
+established v11 policy weights untouched.
+
+The final 125,440-step checkpoint beat v11 35–25 in a 60-game direct paired
+screen, but the confidence interval still contained an even split. Against
+fixed opponents it scored 14/60 versus brain and 29/60 versus meta. That
+combination is not robust enough to replace v11. The code, both checkpoints,
+manifest, and raw reports are retained for reproducibility, while v11 remains
+the live shadow/friendly default.

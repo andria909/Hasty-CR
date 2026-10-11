@@ -247,8 +247,15 @@ Needs `pip install -e ".[live,dev]"`, an Android emulator (MuMu, at 1080×1920) 
 The same trained network drives it. Vision reads the screen, the observation is assembled into **the same planes the simulator produces**, the policy picks an action, and taps go back to the device.
 
 ```powershell
-.\run.ps1 -Brain rl -Checkpoint checkpoints\...\best.pt -Matches 5
+.\run.ps1 -Brain rl -Shadow -Matches 1
+.\run.ps1 -Brain rl -NoQueue -Matches 3
 ```
+
+The first command is the mandatory tap-free check for the bundled v11
+checkpoint. Start a friendly match yourself and inspect the recommendations.
+The second command lets the bot tap, but still never presses Battle; start each
+friendly yourself. Only remove `-NoQueue` if you deliberately accept the
+account-ban risk of automatic ladder play.
 
 | flag | what it does |
 |---|---|
@@ -257,6 +264,36 @@ The same trained network drives it. Vision reads the screen, the observation is 
 | `-FullRes` | keep the emulator at native 1080×1920 instead of dropping to 540×960 for capture speed. Slower per decision; use it when the run is going into a video |
 | `-Vision yolo\|buildabot` | the detector trained here (0.959 mAP50), or the upstream one |
 | `-Matches N` / `-Forever` / `-Stop` | how long to run |
+
+### macOS
+
+The PowerShell launcher is Windows/MuMu-specific. On macOS, install Android
+Studio with an ARM64 Google Play emulator, install Clash Royale from that
+emulator's Play Store, and install ADB plus the live Python environment:
+
+```bash
+brew install --cask android-platform-tools
+python3.12 -m venv .venv-live
+.venv-live/bin/pip install -e '.[live,dev]'
+adb devices
+```
+
+With Clash Royale open and exactly one emulator connected, start tap-free
+shadow mode. The launcher uses the bundled v11 checkpoint by default:
+
+```bash
+./run-macos.sh --shadow --matches 1
+```
+
+After checking the log, start a friendly battle yourself and allow match taps:
+
+```bash
+./run-macos.sh --tap-friendly --matches 3
+```
+
+`--ladder` is deliberately explicit because it allows the bot to press Battle
+and carries an account-ban risk. If several devices appear in `adb devices`,
+pass the intended one with `--serial DEVICE_ID`.
 
 ### The studio
 

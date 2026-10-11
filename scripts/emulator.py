@@ -57,7 +57,8 @@ def verify(serial: str = DEFAULT_SERIAL, adb: str | Path = DEFAULT_ADB) -> None:
         raise SystemExit(
             f"cannot reach {serial}. Start the emulator, or run:\n"
             f'  "{adb}" connect {serial}\n'
-            f"Ports come from: MuMuManager.exe adb -v <instance index>")
+            "Use `adb devices` to find the device ID. On Windows/MuMu, ports "
+            "come from: MuMuManager.exe adb -v <instance index>.")
     if FORBIDDEN_PACKAGE in found and REQUIRED_PACKAGE not in found:
         raise SystemExit(
             f"refusing to run: {serial} is the CLASH OF CLANS instance.\n"
