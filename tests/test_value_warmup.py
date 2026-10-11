@@ -172,3 +172,20 @@ def test_current_checkpoint_needs_no_migration():
     network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
     clone = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
     assert not load_policy_state(clone, network.state_dict())
+
+
+def test_appended_public_features_preserve_old_checkpoint_logits():
+    torch.manual_seed(41)
+    network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
+    old_state = dict(network.state_dict())
+    old_state["scalar.0.weight"] = old_state["scalar.0.weight"][:, :-2]
+    migrated = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
+    assert load_policy_state(migrated, old_state)
+
+    planes = torch.randn(3, NUM_PLANES, 32, 18)
+    old_scalars = torch.randn(3, NUM_SCALARS - 2)
+    new_scalars = torch.cat((old_scalars, torch.zeros(3, 2)), dim=1)
+    with torch.no_grad():
+        expected, _ = network(planes, new_scalars)
+        actual, _ = migrated(planes, new_scalars)
+    assert torch.equal(actual, expected)

@@ -233,3 +233,30 @@ forced placements, or a good prediction that the opponent avoided. Policy
 selection therefore remains based on paired match outcomes and crowns across
 brain and meta opponents; prediction reward stays bounded and subordinate to
 the actual game result.
+
+## v11 building-cycle policy
+
+The policy already had a spatial `enemy_buildings` plane and public one-hot
+cards, but the compact counter summary mixed buildings with troops and spells.
+v11 appends two honest public features: the number of revealed building
+counters and whether cycle tracking says one may be available. It never sees
+the opponent's hidden hand. Old checkpoints migrate with zero weights for the
+new columns and therefore preserve their logits exactly.
+
+To avoid catastrophic forgetting, PPO updated only those two appended input
+columns and the critic. Every established policy parameter remained bit-exact.
+Three task-vector soups with the higher-accuracy v8 clone were also screened
+first and rejected because their meta or brain result regressed.
+
+Against v10, a 60-game screen improved brain 12 to 17 and meta 23 to 26. Two
+independent 120-game-per-opponent confirmations combined to:
+
+- brain: 56 wins vs 44, paired 40 better / 28 worse / 172 tied;
+- meta: 132 wins vs 125, paired 17 better / 10 worse / 213 tied.
+
+The causal split is especially useful: among 130 meta matches against decks
+with a building, wins improved 36 to 43; among 110 matches without a building,
+not one paired outcome changed. A separate direct comparison against v6 gave
+33 vs 24 wins on brain and 56 vs 56 on meta. v11 is therefore the accepted
+offline champion, but still requires shadow/friendly validation before any
+ladder use.

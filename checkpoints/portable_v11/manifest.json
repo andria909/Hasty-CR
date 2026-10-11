@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "name": "portable_v11_buildings",
+  "status": "accepted_offline_champion",
+  "checkpoint": "portable_v11_buildings.pt",
+  "sha256": "6fa9fe02998dc0144a3e82181a5a7c82bc8b8abac636fe28f00f904ffd5d35ee",
+  "size_bytes": 1942988,
+  "architecture": "factorized_spatial_v3_conditioned_plus_building_cycle",
+  "training": {
+    "method": "feature_only_ppo",
+    "baseline": "checkpoints/portable_v10/portable_v10_soup_a10.pt",
+    "baseline_sha256": "b5fe8af7d55e1db75b628e2095f49a00c914333b7826e5a092a80fbdf0a32266",
+    "steps": 150016,
+    "critic_warmup_steps": 25000,
+    "policy_parameters_changed": ["scalar.0.weight:last_2_columns"],
+    "other_policy_parameters_changed": false,
+    "value_head_updated": true,
+    "features": [
+      "known_opponent_building_count",
+      "known_opponent_building_may_be_available"
+    ]
+  },
+  "acceptance_vs_v10": {
+    "screen": {
+      "episodes_per_opponent": 60,
+      "seed": 1002000,
+      "brain_wins": [12, 17],
+      "meta_wins": [23, 26],
+      "report": "reports/portable_v11_buildings_screen.json"
+    },
+    "confirmations_combined": {
+      "episodes_per_opponent": 240,
+      "seeds": [1003000, 1005000],
+      "brain_wins": [44, 56],
+      "brain_paired_better_worse_tied": [40, 28, 172],
+      "brain_one_sided_exact_p": 0.09090502726779671,
+      "meta_wins": [125, 132],
+      "meta_paired_better_worse_tied": [17, 10, 213],
+      "meta_one_sided_exact_p": 0.12389428168535233,
+      "reports": [
+        "reports/portable_v11_buildings_confirmatory.json",
+        "reports/portable_v11_buildings_confirmatory_2.json"
+      ]
+    },
+    "building_stratum": {
+      "meta_episodes": 130,
+      "baseline_wins": 36,
+      "candidate_wins": 43,
+      "paired_better_worse_tied": [17, 10, 103],
+      "no_building_episodes": 110,
+      "no_building_outcomes_changed": 0
+    }
+  },
+  "acceptance_vs_v6": {
+    "episodes_per_opponent": 120,
+    "seed": 1004000,
+    "brain_wins": [24, 33],
+    "meta_wins": [56, 56],
+    "report": "reports/portable_v11_vs_v6_confirmatory.json"
+  },
+  "live_policy": {
+    "temperature": 0.0,
+    "required_first_stage": "shadow_or_friendly",
+    "ladder_promoted": false
+  }
+}

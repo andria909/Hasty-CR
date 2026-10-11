@@ -34,6 +34,29 @@ def test_card_returns_after_four_other_public_plays():
     assert vector[width + card_vocab().index("cannon")] == 0
 
 
+def test_building_counter_summary_tracks_seen_and_cycle_availability():
+    width = len(card_vocab()) + 1
+    base = 2 * width
+    recent = vector_from_events([_play(1000, "cannon", 3)], 1500)
+    assert recent[base + 7] == 1 / 8
+    assert recent[base + 8] == 0  # definitely out of their hand
+
+    cycled = vector_from_events([_play(1000, "cannon", 3)] + [
+        _play(2000 + i * 1000, card, 1)
+        for i, card in enumerate(("skeletons", "ice_spirits", "log", "knight"))
+    ], 6500)
+    assert cycled[base + 7] == 1 / 8
+    assert cycled[base + 8] == 1
+
+
+def test_no_revealed_building_is_unknown_not_claimed_ready():
+    width = len(card_vocab()) + 1
+    base = 2 * width
+    vector = vector_from_events([_play(1000, "fireball", 4)], 1500)
+    assert vector[base + 7] == 0
+    assert vector[base + 8] == 0
+
+
 def test_unknown_cards_use_a_bucket_instead_of_changing_shape():
     vector = vector_from_events([_play(1000, "future_card", 5)], 1200)
     unknown = len(card_vocab())

@@ -12,7 +12,7 @@ DECK_SIZE = 8
 CYCLE_GAP = 4
 MAX_ELIXIR = 10.0
 START_ELIXIR = 5.0
-SUMMARY_FEATURES = 7
+SUMMARY_FEATURES = 9
 
 ALIASES = {
     "the_log": "log",
@@ -27,6 +27,17 @@ HOG_ANSWERS = frozenset({
     "guards", "barbarians", "minipekka", "valkyrie", "knight", "bomber",
     "tornado", "electro_spirit", "ice_spirits", "bats", "minions",
     "mega_minion",
+})
+
+# Buildings are strategically different from the other Hog answers above.
+# A troop can often be logged, tanked or out-damaged; a building changes the
+# Hog's path and is best attacked by outcycling it or switching lane. Keep the
+# subset explicit so the policy does not have to infer this category from a
+# sparse one-hot during a short fine-tune.
+BUILDING_ANSWERS = frozenset({
+    "cannon", "tesla", "inferno_tower", "bomb_tower", "goblin_cage",
+    "tombstone", "furnace", "goblin_hut", "barbarian_hut",
+    "elixir_collector",
 })
 
 
@@ -45,7 +56,7 @@ def card_vocab() -> tuple[str, ...]:
 
 def public_feature_count() -> int:
     # seen one-hot, definitely-unavailable one-hot, unknown bucket for each,
-    # then compact elixir/deck/counter summaries.
+    # then compact elixir/deck/counter/building summaries.
     return 2 * (len(card_vocab()) + 1) + SUMMARY_FEATURES
 
 
@@ -122,6 +133,9 @@ def vector_from_events(events: list[dict], now_ms: int) -> np.ndarray:
     answers = [card for card in seen_order if card in HOG_ANSWERS]
     answer_ready = (not answers or any(plays - last_play[card] >= CYCLE_GAP
                                        for card in answers))
+    buildings = [card for card in seen_order if card in BUILDING_ANSWERS]
+    building_ready = bool(buildings) and any(
+        plays - last_play[card] >= CYCLE_GAP for card in buildings)
     base = 2 * width
     out[base:] = (
         (low + high) / 2 / MAX_ELIXIR,
@@ -131,6 +145,8 @@ def vector_from_events(events: list[dict], now_ms: int) -> np.ndarray:
         recent / MAX_ELIXIR,
         len(answers) / DECK_SIZE,
         float(answer_ready),
+        len(buildings) / DECK_SIZE,
+        float(building_ready),
     )
     return out
 
@@ -160,4 +176,9 @@ def vector_from_live(opponent, economy, now: float) -> np.ndarray:
     )
     out[base + 5] = len(opponent.known_answers()) / DECK_SIZE
     out[base + 6] = float(opponent.answer_ready())
+    buildings = [raw for raw in opponent.deck
+                 if _canon(raw) in BUILDING_ANSWERS]
+    out[base + 7] = len(buildings) / DECK_SIZE
+    out[base + 8] = float(bool(buildings) and any(
+        not opponent.definitely_unavailable(raw) for raw in buildings))
     return out

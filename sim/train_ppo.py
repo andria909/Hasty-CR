@@ -105,6 +105,25 @@ def next_eval_boundary(step: int, interval: int) -> int:
     return (step // interval + 1) * interval
 
 
+def parameter_is_trainable(name: str, *, warmup: bool,
+                           feature_only: bool) -> bool:
+    """Training-mode policy used by critic and appended-feature fine-tunes."""
+    if warmup:
+        return name.startswith("value")
+    if feature_only:
+        return name.startswith("value") or name == "scalar.0.weight"
+    return True
+
+
+def keep_appended_feature_gradients(gradient, count: int):
+    """Zero updates to established scalar columns during feature-only PPO."""
+    if count <= 0 or count > gradient.shape[1]:
+        raise ValueError("feature count is outside the scalar input width")
+    masked = gradient.new_zeros(gradient.shape)
+    masked[:, -count:] = gradient[:, -count:]
+    return masked
+
+
 def build_network(num_planes: int, num_scalars: int, num_actions: int):
     import torch
     import torch.nn as nn
@@ -185,7 +204,26 @@ def load_policy_state(network, state_dict) -> bool:
     Those heads are zero-initialised, so loading an old checkpoint preserves
     its logits exactly while making it possible to continue training.
     """
-    incompatible = network.load_state_dict(state_dict, strict=False)
+    import torch
+
+    # Public-state summaries grow only by appending features. Preserve old
+    # checkpoints exactly by assigning zero weights to appended inputs; future
+    # fine-tuning can then learn them without invalidating the accepted policy.
+    incoming = dict(state_dict)
+    migrated_scalars = False
+    scalar_key = "scalar.0.weight"
+    expected = network.state_dict().get(scalar_key)
+    current = incoming.get(scalar_key)
+    if (expected is not None and current is not None
+            and current.ndim == 2 and expected.ndim == 2
+            and current.shape[0] == expected.shape[0]
+            and current.shape[1] < expected.shape[1]):
+        padding = current.new_zeros(
+            current.shape[0], expected.shape[1] - current.shape[1])
+        incoming[scalar_key] = torch.cat((current, padding), dim=1)
+        migrated_scalars = True
+
+    incompatible = network.load_state_dict(incoming, strict=False)
     allowed = ("slot_query.", "coordinate.")
     unexpected = list(incompatible.unexpected_keys)
     missing = [name for name in incompatible.missing_keys
@@ -194,7 +232,7 @@ def load_policy_state(network, state_dict) -> bool:
         raise RuntimeError(
             f"incompatible policy checkpoint: missing={missing}, "
             f"unexpected={unexpected}")
-    return bool(incompatible.missing_keys)
+    return bool(incompatible.missing_keys) or migrated_scalars
 
 
 def torch_cat(tensors):
@@ -425,6 +463,10 @@ def main() -> int:
                         help="penalty when Fireball/Log hits no enemy unit")
     parser.add_argument("--kite-quality", type=float, default=0.15,
                         help="reward for cheap units that retarget and displace threats")
+    parser.add_argument("--feature-only", type=int, default=0, metavar="N",
+                        help="after critic warmup, update only the final N appended "
+                             "scalar input columns (plus the value head). Useful for "
+                             "adding public features without forgetting the policy")
     args = parser.parse_args()
 
     import torch
@@ -533,7 +575,19 @@ def main() -> int:
         `network.value` frozen, the policy is bit-identical when warmup ends.
         """
         for name, parameter in network.named_parameters():
-            parameter.requires_grad_(not active or name.startswith("value"))
+            parameter.requires_grad_(parameter_is_trainable(
+                name, warmup=active, feature_only=args.feature_only > 0))
+
+    feature_hook = None
+    if args.feature_only:
+        scalar_weight = dict(network.named_parameters())["scalar.0.weight"]
+        if args.feature_only > scalar_weight.shape[1]:
+            parser.error("--feature-only exceeds the scalar input width")
+        feature_hook = scalar_weight.register_hook(
+            lambda gradient: keep_appended_feature_gradients(
+                gradient, args.feature_only))
+        log(f"feature-only PPO: final {args.feature_only} scalar columns and "
+            "critic are trainable; established policy weights are frozen")
 
     def entropy_coef_at(at_step: int) -> float:
         return entropy_schedule(at_step, hyper.entropy_coef, args.entropy_final,
@@ -793,6 +847,8 @@ def main() -> int:
         log("interrupted")
     finally:
         vec.close()
+        if feature_hook is not None:
+            feature_hook.remove()
         torch.save({"state_dict": network.state_dict(),
                     "optimiser": optimiser.state_dict(), "step": step,
                     "architecture": "factorized_spatial_v3_conditioned"},
