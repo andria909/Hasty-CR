@@ -30,6 +30,7 @@ from brain.rl_policy import (apply_live_safety_mask, mask_from_live,
 from sim import arena as sim_arena                                 # noqa: E402
 from sim.env import (ACTIONS, DECK_26, GRID_W, RIVER_ROW, TILES,   # noqa: E402
                      ClashEnv, legal_mask, observe)
+from sim.public_state import vector_from_events                    # noqa: E402
 
 
 # --------------------------------------------------------- the two grids agree
@@ -97,6 +98,8 @@ def live_view_of(match):
         # evenly spaced hand slots.
         next_card=player.next_card,
         opponent_events=[event for event in match.play_log if event["side"] == -1])
+    obs.enemy_elixir = float(vector_from_events(
+        obs.opponent_events, match.elapsed_ms)[-9]) * 10.0
     return obs, allies
 
 
@@ -225,6 +228,7 @@ def _live_obs(hand, tracks=(), threats=(), threat_score=0.0):
     return SimpleNamespace(
         allies=[], tracks=list(tracks), threats=list(threats),
         threat_score=threat_score, elixir=10.0, elapsed=30.0,
+        enemy_elixir=5.0, now=100.0,
         multiplier=1.0, ally_hp={"left": 1.0, "right": 1.0},
         enemy_hp={"left": 1.0, "right": 1.0}, hand=hand,
     )
@@ -268,9 +272,32 @@ def test_live_safety_places_cannon_only_in_the_central_pull_pocket():
     obs = _live_obs({"cannon": 0}, tracks=[giant], threats=[giant])
     cannon = apply_live_safety_mask(mask_from_live(obs), obs)[
         1:1 + TILES].reshape(32, 18)
-    assert cannon[19:22, 5:8].any()
-    assert not cannon[:, :5].any()
-    assert not cannon[:, 8:].any()
+    assert cannon[21, 7:10].any()
+    assert not cannon[:21].any() and not cannon[22:].any()
+    assert not cannon[:, :7].any()
+    assert not cannon[:, 10:].any()
+
+
+def test_live_safety_places_musketeer_behind_the_central_screen():
+    giant = SimpleNamespace(cell=SimpleNamespace(x=4, y=22), name="giant")
+    obs = _live_obs({"musketeer": 0}, tracks=[giant], threats=[giant])
+    musketeer = apply_live_safety_mask(mask_from_live(obs), obs)[
+        1:1 + TILES].reshape(32, 18)
+    assert musketeer[23:28, 7:12].any()
+    assert not musketeer[:23].any()
+    assert not musketeer[:, :7].any()
+    assert not musketeer[:, 12:].any()
+
+
+def test_live_safety_establishes_cannon_before_small_ground_defenders():
+    giant = SimpleNamespace(cell=SimpleNamespace(x=4, y=22), name="giant")
+    obs = _live_obs({"cannon": 0, "knight": 1, "skeletons": 2,
+                     "electro_spirit": 3}, tracks=[giant], threats=[giant],
+                    threat_score=10.0)
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    assert mask[1:1 + TILES].any()
+    for slot in (1, 2, 3):
+        assert not mask[1 + slot * TILES:1 + (slot + 1) * TILES].any()
 
 
 def test_live_safety_keeps_ground_cards_out_of_a_pure_air_defence():
@@ -292,6 +319,14 @@ def test_hog_without_spirit_waits_until_elixir_is_full():
     assert apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
 
 
+def test_hog_waits_for_an_elixir_advantage_even_on_an_empty_board():
+    obs = _live_obs({"hog_rider": 0, "electro_spirit": 1})
+    obs.enemy_elixir = 9.0
+    assert not apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
+    obs.enemy_elixir = 6.0
+    assert apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
+
+
 def test_live_safety_does_not_cast_fireball_on_one_moving_unit():
     one = SimpleNamespace(cell=SimpleNamespace(x=4, y=20), name="knight")
     obs = _live_obs({"fireball": 0}, tracks=[one])
@@ -299,7 +334,7 @@ def test_live_safety_does_not_cast_fireball_on_one_moving_unit():
     assert not mask[1:1 + TILES].any()
 
 
-def test_live_safety_allows_spell_on_a_real_cluster():
+def test_live_safety_uses_fireball_not_zap_on_two_ranged_units():
     tracks = [
         SimpleNamespace(cell=SimpleNamespace(x=4, y=20), name="archer"),
         SimpleNamespace(cell=SimpleNamespace(x=5, y=20), name="archer"),
@@ -307,7 +342,29 @@ def test_live_safety_allows_spell_on_a_real_cluster():
     obs = _live_obs({"fireball": 0, "zap": 1}, tracks=tracks)
     mask = apply_live_safety_mask(mask_from_live(obs), obs)
     assert mask[1:1 + TILES].any()
-    assert mask[1 + TILES:1 + 2 * TILES].any()
+    assert not mask[1 + TILES:1 + 2 * TILES].any()
+
+
+def test_live_safety_does_not_stack_zap_and_fireball_on_recent_target():
+    tracks = [
+        SimpleNamespace(cell=SimpleNamespace(x=4, y=20), name="archer"),
+        SimpleNamespace(cell=SimpleNamespace(x=5, y=20), name="archer"),
+    ]
+    obs = _live_obs({"fireball": 0, "zap": 1}, tracks=tracks)
+    recent = [(98.0, 4, 20)]
+    mask = apply_live_safety_mask(mask_from_live(obs), obs,
+                                  recent_spells=recent)
+    assert not mask[1:1 + TILES].any()
+    assert not mask[1 + TILES:1 + 2 * TILES].any()
+
+
+def test_live_safety_does_not_zap_two_tanks_as_if_they_were_a_swarm():
+    tracks = [
+        SimpleNamespace(cell=SimpleNamespace(x=4, y=20), name="knight"),
+        SimpleNamespace(cell=SimpleNamespace(x=5, y=20), name="minipekka"),
+    ]
+    obs = _live_obs({"zap": 0}, tracks=tracks)
+    assert not apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
 
 
 # ----------------------------------------------------- the whole live decision
@@ -345,9 +402,11 @@ def _checkpoint():
 def _network(checkpoint):
     import torch
     from sim.env import NUM_PLANES, NUM_SCALARS
-    from sim.train_ppo import build_network, load_policy_state
+    from sim.train_ppo import (build_network, checkpoint_architecture,
+                               load_policy_state)
     blob = torch.load(checkpoint, map_location="cpu", weights_only=False)
-    net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
+    net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS,
+                        checkpoint_architecture(blob))
     load_policy_state(net, blob["state_dict"])
     net.eval()
     return net

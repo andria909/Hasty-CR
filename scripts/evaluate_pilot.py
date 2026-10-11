@@ -17,6 +17,7 @@ Training seeds are drawn from rollout RNG; eval seeds are disjoint by design.
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import math
 import sys
@@ -47,10 +48,12 @@ def wilson_ci(wins: int, n: int, z: float = 1.96) -> tuple[float, float]:
 def evaluate_one(ckpt: Path, opponent: str, episodes: int, seed: int, device: str = "cpu") -> dict:
     import torch
     from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS, ClashEnv
-    from sim.train_ppo import build_network, load_policy_state, masked_distribution
+    from sim.train_ppo import (build_network, checkpoint_architecture,
+                               load_policy_state, masked_distribution)
 
     blob = torch.load(str(ckpt), map_location=device, weights_only=False)
-    net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
+    net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS,
+                        checkpoint_architecture(blob)).to(device)
     load_policy_state(net, blob["state_dict"])
     net.eval()
 
@@ -58,6 +61,9 @@ def evaluate_one(ckpt: Path, opponent: str, episodes: int, seed: int, device: st
     wins = losses = draws = 0
     cf = ca = 0
     hog = plays = 0
+    cards = Counter()
+    spell_casts = spell_misses = hog_spirit_combos = 0
+    spell_quality = spell_prediction = kite_quality = 0.0
     illegal_total = 0
     tower_for = 0.0
     tower_against = 0.0
@@ -88,6 +94,13 @@ def evaluate_one(ckpt: Path, opponent: str, episodes: int, seed: int, device: st
         draws += info["result"] not in ("bottom", "top")
         hog += info["stats"].cards.get("hog_rider", 0)
         plays += info["stats"].plays
+        cards.update(info["stats"].cards)
+        spell_casts += info["stats"].spell_casts
+        spell_misses += info["stats"].spell_misses
+        spell_quality += info["stats"].spell_quality
+        spell_prediction += info["stats"].spell_prediction
+        kite_quality += info["stats"].kite_quality
+        hog_spirit_combos += info["stats"].hog_spirit_combos
         illegal_total += info["stats"].illegal
         if env.match:
             ours = sum(env.match.tower_fractions(1).values())
@@ -99,6 +112,13 @@ def evaluate_one(ckpt: Path, opponent: str, episodes: int, seed: int, device: st
     env.close()
     n = episodes
     lo, hi = wilson_ci(wins, n)
+    card_counts = {card: cards[card] for card in sorted(cards)}
+    card_share = {card: count / max(1, plays)
+                  for card, count in card_counts.items()}
+    card_per_match = {card: count / max(1, n)
+                      for card, count in card_counts.items()}
+    defensive_core = sum(cards[card] for card in
+                         ("cannon", "musketeer", "knight", "skeletons"))
     return {
         "opponent": opponent,
         "episodes": n,
@@ -116,6 +136,17 @@ def evaluate_one(ckpt: Path, opponent: str, episodes: int, seed: int, device: st
         "tower_against": tower_against / n,
         "tower_diff": (tower_for - tower_against) / n,
         "hog_share": hog / max(1, plays),
+        "card_counts": card_counts,
+        "card_share": card_share,
+        "card_per_match": card_per_match,
+        "defensive_core_share": defensive_core / max(1, plays),
+        "defensive_core_per_match": defensive_core / max(1, n),
+        "spell_casts_per_match": spell_casts / max(1, n),
+        "spell_miss_rate": spell_misses / max(1, spell_casts),
+        "spell_quality_per_cast": spell_quality / max(1, spell_casts),
+        "spell_prediction_per_cast": spell_prediction / max(1, spell_casts),
+        "kite_quality_per_match": kite_quality / max(1, n),
+        "hog_spirit_combo_rate": hog_spirit_combos / max(1, hog),
         "plays_per_match": plays / max(1, n),
         "illegal_total": illegal_total,
         "illegal_rate": illegal_total / max(1, plays),
@@ -155,7 +186,13 @@ def main() -> int:
                   f"win={r['win_rate']:.1%} [{r['wilson_lo']:.1%}-{r['wilson_hi']:.1%}]  "
                   f"crowns {r['crowns_for']:3d}-{r['crowns_against']:3d} "
                   f"diff={r['crown_diff']:+.2f}  tower_diff={r['tower_diff']:+.2f}  "
-                  f"hog={r['hog_share']:.0%}  illegal={r['illegal_rate']:.1%}  dur={r['duration_s']:.0f}s")
+                  f"hog={r['hog_share']:.0%}  def={r['defensive_core_share']:.0%}  "
+                  f"spell_miss={r['spell_miss_rate']:.0%}  "
+                  f"illegal={r['illegal_rate']:.1%}  dur={r['duration_s']:.0f}s")
+            card_line = " ".join(
+                f"{card}={per_match:.1f}/g"
+                for card, per_match in sorted(r["card_per_match"].items()))
+            print(f"    cards: {card_line}")
         all_results[str(ckpt)] = rows
 
     blob = {"seed": args.seed, "episodes": args.episodes,

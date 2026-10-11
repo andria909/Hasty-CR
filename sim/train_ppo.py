@@ -124,35 +124,81 @@ def keep_appended_feature_gradients(gradient, count: int):
     return masked
 
 
-def build_network(num_planes: int, num_scalars: int, num_actions: int):
+COMPACT_ARCHITECTURE = "factorized_spatial_v3_conditioned"
+WIDE_ARCHITECTURE = "factorized_spatial_v4_wide"
+
+
+def checkpoint_architecture(blob: dict) -> str:
+    """Return a supported architecture name for old and new checkpoints."""
+    name = str(blob.get("architecture", COMPACT_ARCHITECTURE))
+    return WIDE_ARCHITECTURE if name == WIDE_ARCHITECTURE else COMPACT_ARCHITECTURE
+
+
+def build_network(num_planes: int, num_scalars: int, num_actions: int,
+                  architecture: str = COMPACT_ARCHITECTURE):
     import torch
     import torch.nn as nn
+
+    if architecture in {"compact", COMPACT_ARCHITECTURE}:
+        architecture = COMPACT_ARCHITECTURE
+        spatial_channels, scalar_width, trunk_width = 64, 128, 256
+        wide = False
+    elif architecture in {"wide", WIDE_ARCHITECTURE}:
+        architecture = WIDE_ARCHITECTURE
+        spatial_channels, scalar_width, trunk_width = 96, 256, 512
+        wide = True
+    else:
+        raise ValueError(f"unsupported policy architecture: {architecture}")
+
+    class ResidualBlock(nn.Module):
+        def __init__(self, channels):
+            super().__init__()
+            self.layers = nn.Sequential(
+                nn.Conv2d(channels, channels, 3, padding=1), nn.ReLU(),
+                nn.Conv2d(channels, channels, 3, padding=1))
+            self.activation = nn.ReLU()
+
+        def forward(self, value):
+            return self.activation(value + self.layers(value))
 
     class Policy(nn.Module):
         def __init__(self):
             super().__init__()
+            self.architecture = architecture
             cells = 32 * 18
             card_slots = 4
             self.card_slots = card_slots
             ability_actions = num_actions - 1 - card_slots * cells
             if ability_actions < 0:
                 raise ValueError("action space is smaller than four placement maps")
-            self.conv = nn.Sequential(
-                nn.Conv2d(num_planes, 32, 3, padding=1), nn.ReLU(),
-                nn.Conv2d(32, 64, 3, padding=1), nn.ReLU(),
-                nn.Conv2d(64, 64, 3, padding=1), nn.ReLU(),
-            )
+            if wide:
+                self.conv = nn.Sequential(
+                    nn.Conv2d(num_planes, 64, 3, padding=1), nn.ReLU(),
+                    nn.Conv2d(64, spatial_channels, 3, padding=1), nn.ReLU(),
+                    ResidualBlock(spatial_channels),
+                    ResidualBlock(spatial_channels),
+                    ResidualBlock(spatial_channels))
+            else:
+                self.conv = nn.Sequential(
+                    nn.Conv2d(num_planes, 32, 3, padding=1), nn.ReLU(),
+                    nn.Conv2d(32, spatial_channels, 3, padding=1), nn.ReLU(),
+                    nn.Conv2d(spatial_channels, spatial_channels, 3, padding=1), nn.ReLU())
             # One spatial map per hand slot. The old network flattened all
             # 36,864 cells into a dense layer (about 19M weights) before asking
             # for 2,304 placement logits. A convolutional placement head keeps
             # the board geometry intact and shares what "good tile" means
             # across locations.
-            self.placement = nn.Conv2d(64, card_slots, 1)
+            self.placement = nn.Conv2d(spatial_channels, card_slots, 1)
             self.pool = nn.Sequential(nn.AdaptiveAvgPool2d((4, 3)), nn.Flatten())
-            self.scalar = nn.Sequential(nn.Linear(num_scalars, 128), nn.ReLU())
-            self.trunk = nn.Sequential(
-                nn.Linear(64 * 4 * 3 + 128, 256), nn.ReLU())
-            self.card_bias = nn.Linear(256, card_slots)
+            self.scalar = nn.Sequential(
+                nn.Linear(num_scalars, scalar_width), nn.ReLU())
+            trunk_layers = [
+                nn.Linear(spatial_channels * 4 * 3 + scalar_width, trunk_width),
+                nn.ReLU()]
+            if wide:
+                trunk_layers += [nn.Linear(trunk_width, trunk_width), nn.ReLU()]
+            self.trunk = nn.Sequential(*trunk_layers)
+            self.card_bias = nn.Linear(trunk_width, card_slots)
             # A static per-slot 1x1 convolution cannot choose a different map
             # when that slot contains Hog rather than Cannon: card identity is
             # in the scalar trunk, but only reached the old map as one constant
@@ -160,8 +206,9 @@ def build_network(num_planes: int, num_scalars: int, num_actions: int):
             # actual hand; coordinate coefficients supply absolute geography
             # (bridge, centre pull, tower pocket) that a shallow convolution
             # over an empty board cannot infer from padding several cells away.
-            self.slot_query = nn.Linear(256, card_slots * 64)
-            self.coordinate = nn.Linear(256, card_slots * 6)
+            self.slot_query = nn.Linear(
+                trunk_width, card_slots * spatial_channels)
+            self.coordinate = nn.Linear(trunk_width, card_slots * 6)
             nn.init.zeros_(self.slot_query.weight)
             nn.init.zeros_(self.slot_query.bias)
             nn.init.zeros_(self.coordinate.weight)
@@ -171,10 +218,10 @@ def build_network(num_planes: int, num_scalars: int, num_actions: int):
                 torch.linspace(-1.0, 1.0, 18), indexing="ij")
             basis = torch.stack((x, y, x * y, x.square(), y.square(), x.abs()))
             self.register_buffer("coordinate_basis", basis, persistent=False)
-            self.hold = nn.Linear(256, 1)
-            self.abilities = (nn.Linear(256, ability_actions)
+            self.hold = nn.Linear(trunk_width, 1)
+            self.abilities = (nn.Linear(trunk_width, ability_actions)
                               if ability_actions else None)
-            self.value = nn.Linear(256, 1)
+            self.value = nn.Linear(trunk_width, 1)
 
         def forward(self, planes, scalars):
             spatial = self.conv(planes)
@@ -182,7 +229,8 @@ def build_network(num_planes: int, num_scalars: int, num_actions: int):
                 self.pool(spatial), self.scalar(scalars)]))
             placements = self.placement(spatial)
             placements = placements + self.card_bias(features)[:, :, None, None]
-            queries = self.slot_query(features).view(-1, self.card_slots, 64)
+            queries = self.slot_query(features).view(
+                -1, self.card_slots, spatial_channels)
             placements = placements + torch.einsum(
                 "bsc,bchw->bshw", queries, spatial) / 8.0
             coefficients = self.coordinate(features).view(-1, self.card_slots, 6)
@@ -210,7 +258,7 @@ def load_policy_state(network, state_dict) -> bool:
     # checkpoints exactly by assigning zero weights to appended inputs; future
     # fine-tuning can then learn them without invalidating the accepted policy.
     incoming = dict(state_dict)
-    migrated_scalars = False
+    migrated_input = False
     scalar_key = "scalar.0.weight"
     expected = network.state_dict().get(scalar_key)
     current = incoming.get(scalar_key)
@@ -221,7 +269,24 @@ def load_policy_state(network, state_dict) -> bool:
         padding = current.new_zeros(
             current.shape[0], expected.shape[1] - current.shape[1])
         incoming[scalar_key] = torch.cat((current, padding), dim=1)
-        migrated_scalars = True
+        migrated_input = True
+
+    # Tactical planes were appended after the original eight public planes.
+    # Zero-initialising the new input slices preserves every old checkpoint's
+    # logits exactly, then PPO/BC can learn to use the richer observations.
+    conv_key = "conv.0.weight"
+    expected_conv = network.state_dict().get(conv_key)
+    current_conv = incoming.get(conv_key)
+    if (expected_conv is not None and current_conv is not None
+            and current_conv.ndim == 4 and expected_conv.ndim == 4
+            and current_conv.shape[0] == expected_conv.shape[0]
+            and current_conv.shape[2:] == expected_conv.shape[2:]
+            and current_conv.shape[1] < expected_conv.shape[1]):
+        padding = current_conv.new_zeros(
+            current_conv.shape[0], expected_conv.shape[1] - current_conv.shape[1],
+            *current_conv.shape[2:])
+        incoming[conv_key] = torch.cat((current_conv, padding), dim=1)
+        migrated_input = True
 
     incompatible = network.load_state_dict(incoming, strict=False)
     allowed = ("slot_query.", "coordinate.")
@@ -232,7 +297,7 @@ def load_policy_state(network, state_dict) -> bool:
         raise RuntimeError(
             f"incompatible policy checkpoint: missing={missing}, "
             f"unexpected={unexpected}")
-    return bool(incompatible.missing_keys) or migrated_scalars
+    return bool(incompatible.missing_keys) or migrated_input
 
 
 def torch_cat(tensors):
@@ -459,6 +524,10 @@ def main() -> int:
     parser.add_argument("--device", choices=("auto", "cpu", "cuda", "mps"),
                         default="auto",
                         help="PyTorch backend; auto prefers CUDA, then Apple MPS")
+    parser.add_argument("--architecture", choices=("compact", "wide"),
+                        default="compact",
+                        help="wide is a 1.7M-parameter residual policy for the "
+                             "richer tactical planes; compact preserves old runs")
     parser.add_argument("--spell-quality", type=float, default=0.15,
                         help="reward per effective target-HP fraction from Fireball/Log")
     parser.add_argument("--spell-prediction", type=float, default=0.25,
@@ -466,7 +535,8 @@ def main() -> int:
     parser.add_argument("--spell-miss", type=float, default=-0.05,
                         help="penalty when Fireball/Log hits no enemy unit")
     parser.add_argument("--kite-quality", type=float, default=0.15,
-                        help="reward for cheap units that retarget and displace threats")
+                        help="reward for retargeting threats into centre crossfire "
+                             "while preserving defenders")
     parser.add_argument("--hog-spirit-combo", type=float, default=0.20,
                         help="reward for Electro Spirit following Hog in the same lane")
     parser.add_argument("--hold-at-cap", type=float, default=-0.02,
@@ -488,7 +558,8 @@ def main() -> int:
     device = torch_device(args.device)
     OUT.mkdir(parents=True, exist_ok=True)
 
-    network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
+    network = build_network(
+        NUM_PLANES, NUM_SCALARS, ACTIONS, args.architecture).to(device)
     optimiser = torch.optim.Adam(network.parameters(), lr=hyper.lr, eps=1e-5)
     start_step = 0
     if args.init and args.init.exists():
@@ -505,9 +576,11 @@ def main() -> int:
     if args.anchor and args.anchor_coef > 0:
         if not args.anchor.exists():
             raise SystemExit(f"--anchor {args.anchor} does not exist")
-        anchor_net = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
         anchor_blob = torch.load(args.anchor, map_location=device,
                                  weights_only=False)
+        anchor_net = build_network(
+            NUM_PLANES, NUM_SCALARS, ACTIONS,
+            checkpoint_architecture(anchor_blob)).to(device)
         load_policy_state(anchor_net, anchor_blob["state_dict"])
         anchor_net.eval()
         for parameter in anchor_net.parameters():
@@ -830,7 +903,7 @@ def main() -> int:
                 blob = {"state_dict": network.state_dict(),
                         "optimiser": optimiser.state_dict(),
                         "step": step, "eval": result, "hyper": asdict(hyper),
-                        "architecture": "factorized_spatial_v3_conditioned"}
+                        "architecture": network.architecture}
                 torch.save(blob, OUT / f"{args.name}_last.pt")
                 if args.league:
                     # Written whole, then moved into place: a worker that
@@ -838,7 +911,8 @@ def main() -> int:
                     # seat swallows the error silently rather than crash.
                     snap = league_dir / f"step{step}.pt"
                     partial = snap.with_suffix(".part")
-                    torch.save({"state_dict": network.state_dict()}, partial)
+                    torch.save({"state_dict": network.state_dict(),
+                                "architecture": network.architecture}, partial)
                     partial.replace(snap)
                     size = vec.league_add(snap, f"self@{step//1000}k")
                     if size > args.league:
@@ -861,7 +935,7 @@ def main() -> int:
             feature_hook.remove()
         torch.save({"state_dict": network.state_dict(),
                     "optimiser": optimiser.state_dict(), "step": step,
-                    "architecture": "factorized_spatial_v3_conditioned"},
+                    "architecture": network.architecture},
                    OUT / f"{args.name}_last.pt")
         log(f"stopped at {step:,} steps")
     return 0

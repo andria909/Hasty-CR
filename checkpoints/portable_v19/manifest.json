@@ -1,0 +1,37 @@
+{
+  "name": "portable_v19_defence_tactical",
+  "parent": "checkpoints/portable_v18/portable_v18_hog_spirit_attack.pt",
+  "checkpoint": "portable_v19_defence_tactical.pt",
+  "sha256": "d75c59601d82c5cd2bab0bc97c453753dedc6050ba92421babf1bd9e7549cbd1",
+  "architecture": "factorized_spatial_v3_conditioned",
+  "parameters": 408018,
+  "training": {
+    "algorithm": "PPO",
+    "selected_step": 90624,
+    "opponents": "50% rule engine, 50% meta decks",
+    "selection": "worst score across brain and meta",
+    "anchor_coefficient": 0.03,
+    "learning_rate": 0.00001,
+    "new_observation_planes": 12,
+    "rewards": {
+      "elixir_trade": 0.05,
+      "spell_quality": 0.12,
+      "spell_prediction": 0.04,
+      "spell_miss": -0.1,
+      "kite_quality": 0.15,
+      "hog_spirit_combo": 0.03,
+      "hold_at_cap": -0.003
+    }
+  },
+  "paired_evaluation": {
+    "seed": 983000,
+    "episodes_per_opponent": 120,
+    "brain_win_rate": 0.325,
+    "meta_win_rate": 0.2166666667,
+    "parent_brain_win_rate": 0.1416666667,
+    "parent_meta_win_rate": 0.075,
+    "report": "reports/eval_portable_v19_defence_tactical_120.json",
+    "parent_report": "reports/eval_portable_v18_vs_v19_seed983000.json"
+  },
+  "status": "simulation candidate; live validation required"
+}

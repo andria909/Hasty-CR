@@ -219,6 +219,12 @@ def main() -> int:
                         help="nearby legal tiles given soft imitation credit")
     parser.add_argument("--act-loss-weight", type=float, default=1.0,
                         help="auxiliary weight for deciding play versus hold")
+    parser.add_argument("--gate-hold-weight", type=float, default=0.15,
+                        help="hold-row weight inside the binary play/hold gate; "
+                             "without class balance a 97%% hold corpus collapses")
+    parser.add_argument("--play-repeat", type=int, default=1,
+                        help="repeat action rows in TRAIN only; validation keeps "
+                             "the natural hold/play distribution")
     parser.add_argument("--opponent", default="brain",
                         choices=("meta", "brain", "simple", "mirror"),
                         help="opponent used to generate teacher states")
@@ -230,6 +236,17 @@ def main() -> int:
     parser.add_argument("--device", choices=("auto", "cpu", "cuda", "mps"),
                         default="auto",
                         help="PyTorch backend; auto prefers CUDA, then Apple MPS")
+    parser.add_argument("--architecture", choices=("compact", "wide"),
+                        default="compact",
+                        help="policy capacity; wide uses the residual v4 network")
+    parser.add_argument("--replay-rows", type=Path,
+                        help="trusted IL_Replay shards from tools/build_rows.py; "
+                             "classic Hog actions are adapted to the live deck")
+    parser.add_argument("--replay-repeat", type=int, default=1,
+                        help="repeat replay TRAIN indices without leaking copies "
+                             "into validation")
+    parser.add_argument("--replay-all-results", action="store_true",
+                        help="include losing Hog sides; default learns only wins")
     args = parser.parse_args()
 
     import torch
@@ -250,12 +267,26 @@ def main() -> int:
             args.data_cache.parent.mkdir(parents=True, exist_ok=True)
             np.savez_compressed(args.data_cache, actions=actions, **data)
             log(f"saved dataset cache {args.data_cache}")
+    teacher_count = len(actions)
+    replay_splits = np.asarray([], dtype="U5")
+    if args.replay_rows:
+        from sim.replay_bc import load_replay_rows
+        replay_data, replay_actions, replay_splits = load_replay_rows(
+            args.replay_rows, winners_only=not args.replay_all_results)
+        for key in data:
+            data[key] = np.concatenate((data[key], replay_data[key]), axis=0)
+        actions = np.concatenate((actions, replay_actions), axis=0)
+        replay_plays = int((replay_actions != 0).sum())
+        log(f"appended {len(replay_actions)} trusted winning Hog replay rows "
+            f"({replay_plays} plays, {len(replay_actions) - replay_plays} holds)")
+
     played = int((actions != 0).sum())
     log(f"dataset {len(actions)} samples ({played} plays, "
         f"{len(actions) - played} holds) in {time.time() - started:.0f}s")
 
     device = torch_device(args.device)
-    network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
+    network = build_network(
+        NUM_PLANES, NUM_SCALARS, ACTIONS, args.architecture).to(device)
     if args.init:
         if not args.init.is_file():
             raise SystemExit(f"--init {args.init} does not exist")
@@ -264,10 +295,26 @@ def main() -> int:
         log(f"initialised from {args.init} (weights only)")
     optimiser = torch.optim.AdamW(network.parameters(), lr=args.lr, weight_decay=1e-4)
 
-    count = len(actions)
-    split = int(count * 0.9)
-    order = np.random.default_rng(0).permutation(count)
+    split = int(teacher_count * 0.9)
+    order = np.random.default_rng(0).permutation(teacher_count)
     train_idx, val_idx = order[:split], order[split:]
+    if len(replay_splits):
+        replay_idx = np.arange(teacher_count, len(actions))
+        replay_train = replay_idx[replay_splits == "train"]
+        replay_val = replay_idx[replay_splits == "val"]
+        repeat = max(1, args.replay_repeat)
+        train_idx = np.concatenate((train_idx, np.tile(replay_train, repeat)))
+        val_idx = np.concatenate((val_idx, replay_val))
+        log(f"fixed replay split: {len(replay_train)} train x{repeat}, "
+            f"{len(replay_val)} val, "
+            f"{int((replay_splits == 'test').sum())} held-out test")
+    play_train = train_idx[actions[train_idx] != 0]
+    play_repeat = max(1, args.play_repeat)
+    if play_repeat > 1 and len(play_train):
+        train_idx = np.concatenate(
+            (train_idx, np.tile(play_train, play_repeat - 1)))
+        log(f"oversampled {len(play_train)} train play rows x{play_repeat}; "
+            f"validation remains natural")
 
     def batch_of(index: np.ndarray):
         return (torch.from_numpy(data["planes"][index]).to(device),
@@ -290,7 +337,13 @@ def main() -> int:
                 torch.full_like(per_row, args.hold_loss_weight),
                 torch.ones_like(per_row))
             imitation = (per_row * weights).sum() / weights.sum().clamp_min(1.0)
-            gate = action_gate_loss(logits, masks, target).mean()
+            gate_rows = action_gate_loss(logits, masks, target)
+            gate_weights = torch.where(
+                target == 0,
+                torch.full_like(gate_rows, args.gate_hold_weight),
+                torch.ones_like(gate_rows))
+            gate = ((gate_rows * gate_weights).sum()
+                    / gate_weights.sum().clamp_min(1.0))
             loss = imitation + args.act_loss_weight * gate
             optimiser.zero_grad(set_to_none=True)
             loss.backward()
@@ -332,7 +385,7 @@ def main() -> int:
                         "val_play_accuracy": play_accuracy,
                         "val_act_accuracy": act_accuracy,
                         "val_near_play_accuracy": near_accuracy,
-                        "architecture": "factorized_spatial_v3_conditioned"},
+                        "architecture": network.architecture},
                        OUT / f"{args.name}.pt")
 
     log(f"best selection score {best:.3f} -> {OUT / (args.name + '.pt')}")

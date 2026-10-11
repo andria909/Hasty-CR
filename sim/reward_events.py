@@ -14,7 +14,8 @@ class SpellReward:
 
 def score_kite(*, retargeted: int, threats: int, displaced_mt: int,
                absorbed_hp: int, cheap_max_hp: int,
-               tower_fraction_lost: float) -> float:
+               tower_fraction_lost: float, center_time_ms: int = 0,
+               defender_survival: float = 0.0) -> float:
     """Bounded outcome score for a cheap defensive kite.
 
     Merely playing a one-elixir card earns nothing. At least one dangerous
@@ -26,8 +27,11 @@ def score_kite(*, retargeted: int, threats: int, displaced_mt: int,
     retarget = min(1.0, retargeted / threats)
     displacement = min(1.0, max(0, displaced_mt) / 4000.0)
     absorbed = min(1.0, max(0, absorbed_hp) / max(1, cheap_max_hp))
+    crossfire = min(1.0, max(0, center_time_ms) / 3000.0)
+    survival = min(1.0, max(0.0, defender_survival))
     protected = max(0.0, 1.0 - max(0.0, tower_fraction_lost) * 5.0)
-    return (0.45 * retarget + 0.30 * displacement + 0.25 * absorbed) * protected
+    return (0.35 * retarget + 0.25 * displacement + 0.15 * absorbed
+            + 0.15 * crossfire + 0.10 * survival) * protected
 
 
 def score_spell_cast(event: dict, *, our_side: int = 1) -> SpellReward:

@@ -72,3 +72,14 @@ def test_kite_credit_falls_when_the_tower_still_takes_damage():
                         absorbed_hp=300, cheap_max_hp=500,
                         tower_fraction_lost=0.1)
     assert leaked < safe
+
+
+def test_kite_credit_rewards_centre_crossfire_and_surviving_defenders():
+    plain = score_kite(retargeted=1, threats=1, displaced_mt=1000,
+                       absorbed_hp=100, cheap_max_hp=500,
+                       tower_fraction_lost=0)
+    formation = score_kite(retargeted=1, threats=1, displaced_mt=1000,
+                           absorbed_hp=100, cheap_max_hp=500,
+                           tower_fraction_lost=0, center_time_ms=3000,
+                           defender_survival=1.0)
+    assert formation > plain

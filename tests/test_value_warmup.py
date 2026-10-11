@@ -31,7 +31,8 @@ if str(ROOT) not in sys.path:
 torch = pytest.importorskip("torch")
 
 from sim.env import ACTIONS, NUM_PLANES, NUM_SCALARS      # noqa: E402
-from sim.train_ppo import build_network, load_policy_state  # noqa: E402
+from sim.train_ppo import (WIDE_ARCHITECTURE, build_network,
+                           load_policy_state)  # noqa: E402
 
 
 def freeze_for_warmup(network, active: bool) -> None:
@@ -187,3 +188,37 @@ def test_appended_public_features_preserve_old_checkpoint_logits():
         expected, _ = network(planes, new_scalars)
         actual, _ = migrated(planes, new_scalars)
     assert torch.equal(actual, expected)
+
+
+def test_appended_tactical_planes_preserve_old_checkpoint_logits():
+    """Eight-plane checkpoints must remain valid after observation v2."""
+    torch.manual_seed(42)
+    old = build_network(8, NUM_SCALARS, ACTIONS)
+    old_planes = torch.randn(3, 8, 32, 18)
+    scalars = torch.randn(3, NUM_SCALARS)
+    with torch.no_grad():
+        expected, _ = old(old_planes, scalars)
+
+    migrated = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
+    assert load_policy_state(migrated, old.state_dict())
+    new_planes = torch.cat(
+        (old_planes, torch.randn(3, NUM_PLANES - 8, 32, 18)), dim=1)
+    with torch.no_grad():
+        actual, _ = migrated(new_planes, scalars)
+    assert torch.equal(actual, expected)
+
+
+def test_wide_policy_has_more_capacity_and_the_same_contract():
+    compact = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
+    wide = build_network(
+        NUM_PLANES, NUM_SCALARS, ACTIONS, WIDE_ARCHITECTURE)
+    compact_params = sum(value.numel() for value in compact.parameters())
+    wide_params = sum(value.numel() for value in wide.parameters())
+    assert wide_params > compact_params * 4
+
+    planes = torch.randn(2, NUM_PLANES, 32, 18)
+    scalars = torch.randn(2, NUM_SCALARS)
+    logits, values = wide(planes, scalars)
+    assert logits.shape == (2, ACTIONS)
+    assert values.shape == (2,)
+    assert wide.architecture == WIDE_ARCHITECTURE

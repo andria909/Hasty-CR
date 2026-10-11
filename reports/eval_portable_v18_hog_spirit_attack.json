@@ -1,0 +1,55 @@
+{
+  "seed": 981000,
+  "episodes": 20,
+  "compare_seed": 8000,
+  "final_seed": 9000,
+  "eval_mode": "eval no_grad greedy argmax deterministic",
+  "results": {
+    "checkpoints/portable_v18/portable_v18_hog_spirit_attack.pt": [
+      {
+        "opponent": "brain",
+        "episodes": 20,
+        "seed": 981000,
+        "wins": 4,
+        "losses": 16,
+        "draws": 0,
+        "win_rate": 0.2,
+        "wilson_lo": 0.0806563532712,
+        "wilson_hi": 0.41602172202575993,
+        "crowns_for": 33,
+        "crowns_against": 50,
+        "crown_diff": -0.85,
+        "tower_for": 0.0,
+        "tower_against": 0.12276785714285718,
+        "tower_diff": -0.12276785714285718,
+        "hog_share": 0.1383399209486166,
+        "plays_per_match": 25.3,
+        "illegal_total": 0,
+        "illegal_rate": 0.0,
+        "duration_s": 170.2175
+      },
+      {
+        "opponent": "meta",
+        "episodes": 20,
+        "seed": 981000,
+        "wins": 1,
+        "losses": 19,
+        "draws": 0,
+        "win_rate": 0.05,
+        "wilson_lo": 0.008881219432873136,
+        "wilson_hi": 0.23613589351256675,
+        "crowns_for": 15,
+        "crowns_against": 53,
+        "crown_diff": -1.9,
+        "tower_for": 0.07455357142857143,
+        "tower_against": 0.7777762276785714,
+        "tower_diff": -0.7032226562499999,
+        "hog_share": 0.13736263736263737,
+        "plays_per_match": 18.2,
+        "illegal_total": 0,
+        "illegal_rate": 0.0,
+        "duration_s": 150.7
+      }
+    ]
+  }
+}

@@ -74,12 +74,41 @@ DECK_26 = ["cannon", "fireball", "hog_rider", "knight",
 SPELLS = {"fireball", "zap"}
 KITE_CARDS = {"knight", "electro_spirit", "skeletons"}
 
-# Spatial planes. Kept small deliberately: one plane per card type would be 100+
-# channels of almost entirely zeros, which costs memory and learns slower than
-# a handful of planes that carry what the decision actually turns on.
+# Spatial planes. One plane per card type would be 100+ mostly-empty channels,
+# but the original eight-plane summary was too lossy: a Hog, Knight and Giant
+# could become nearly indistinguishable once their name was discarded.  The
+# tactical planes keep the representation compact while exposing the properties
+# that determine a defence: damage rate, range, speed, air targeting, building
+# targeting and splash.  They are paired ally/enemy exactly like the original
+# count/HP/air/building planes so the live adapter can reproduce them.
 PLANES = ("ally_units", "enemy_units", "ally_hp", "enemy_hp",
-          "ally_air", "enemy_air", "ally_buildings", "enemy_buildings")
+          "ally_air", "enemy_air", "ally_buildings", "enemy_buildings",
+          "ally_dps", "enemy_dps", "ally_range", "enemy_range",
+          "ally_speed", "enemy_speed", "ally_attacks_air", "enemy_attacks_air",
+          "ally_building_targeter", "enemy_building_targeter",
+          "ally_splash", "enemy_splash")
 NUM_PLANES = len(PLANES)
+
+
+def tactical_plane_values(*, damage: float, hit_speed_ms: float,
+                          range_mt: float, speed_mt_per_sec: float,
+                          attacks_air: bool, target_only_buildings: bool,
+                          splash_radius_mt: float) -> tuple[float, ...]:
+    """Normalised public unit traits for the six tactical plane pairs.
+
+    Values are clipped so a single exotic card cannot dominate a whole input
+    tensor.  These are descriptors, not hidden simulator state, and the live
+    detector can reconstruct every value from the detected unit name.
+    """
+    dps = float(damage) * 1000.0 / max(100.0, float(hit_speed_ms))
+    return (
+        min(3.0, dps / 500.0),
+        min(2.0, max(0.0, float(range_mt)) / 6000.0),
+        min(2.0, max(0.0, float(speed_mt_per_sec)) / 1000.0),
+        float(bool(attacks_air)),
+        float(bool(target_only_buildings)),
+        min(2.0, max(0.0, float(splash_radius_mt)) / 2000.0),
+    )
 
 # Scalars: elixir, elapsed, elixir multiplier, our two tower fractions and
 # their two, hand one-hot (4 slots x 8 cards), next card one-hot (8).
@@ -159,6 +188,16 @@ def observe(match, side: int = 1) -> dict:
             planes[6 + base, grid_y, grid_x] += 1.0
             if not ours:
                 enemy_building_cells.append((grid_x, grid_y))
+        for pair, value in enumerate(tactical_plane_values(
+                damage=getattr(entity, "damage", 0),
+                hit_speed_ms=getattr(entity, "hit_speed_ms", 1000),
+                range_mt=getattr(entity, "range_mt", 0),
+                speed_mt_per_sec=getattr(entity, "speed_mt_per_sec", 0),
+                attacks_air=getattr(entity, "attacks_air", False),
+                target_only_buildings=getattr(
+                    entity, "target_only_buildings", False),
+                splash_radius_mt=getattr(entity, "splash_radius_mt", 0))):
+            planes[8 + 2 * pair + base, grid_y, grid_x] += value
 
     scalars = np.zeros(NUM_SCALARS, dtype=np.float32)
     player = match.players[side]
@@ -277,6 +316,16 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
     pure_air = bool(air_pressure) and not ground_pressure
     player = match.players[side]
     elixir = player.elixir / 1000.0
+    enemy_events = [event for event in match.play_log if event["side"] == -side]
+    # Same public estimate that is fed to the policy. Do not leak the
+    # simulator's exact opponent bar through the action mask.
+    enemy_public = vector_from_events(enemy_events, match.elapsed_ms)
+    enemy_elixir = float(enemy_public[-9]) * 10.0
+    allies = [entity for entity in match.battle.entities.values()
+              if getattr(entity, "alive", True)
+              and not getattr(entity, "is_tower", False)
+              and (getattr(entity, "side", 1) > 0) == (side > 0)]
+    allied_names = {str(getattr(entity, "name", "")) for entity in allies}
     allied_hogs = [entity for entity in match.battle.entities.values()
                    if getattr(entity, "alive", True)
                    and (getattr(entity, "side", 1) > 0) == (side > 0)
@@ -348,6 +397,41 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
             allowed[max(16, y - 1):min(GRID_H, y + 2), max(0, x - 1):x + 2] = True
             musketeer &= allowed
 
+    if pressure:
+        focus_entity, focus_x, focus_y = max(pressure, key=lambda item: item[2])
+        lane_left = focus_x < GRID_W / 2
+        musketeer = slot_grid("musketeer")
+        if musketeer is not None:
+            allowed = np.zeros_like(musketeer)
+            centre_x = 10 if lane_left else 7
+            allowed[23:28, centre_x - 2:centre_x + 3] = True
+            musketeer &= allowed
+
+        knight = slot_grid("knight")
+        if knight is not None:
+            allowed = np.zeros_like(knight)
+            kite_x = 10 if lane_left else 7
+            allowed[19:23, kite_x - 1:kite_x + 2] = True
+            knight &= allowed
+
+        skeletons = slot_grid("skeletons")
+        if skeletons is not None:
+            if all(bool(getattr(entity, "splash_radius_mt", 0))
+                   for entity, _x, _y in ground_pressure):
+                skeletons[:] = False
+            else:
+                allowed = np.zeros_like(skeletons)
+                y = int(np.clip(focus_y + 1, 19, 23))
+                allowed[y - 1:y + 2, 7:11] = True
+                skeletons &= allowed
+
+        spirit = slot_grid("electro_spirit")
+        if spirit is not None:
+            allowed = np.zeros_like(spirit)
+            y = int(np.clip(focus_y, 18, 22))
+            allowed[y - 1:y + 2, 7:11] = True
+            spirit &= allowed
+
     cannon = slot_grid("cannon")
     if cannon is not None and ground_pressure:
         cannon_spec = match.cards.get("cannon")
@@ -359,19 +443,50 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
         if not pullable:
             cannon[:] = False
         else:
-            _entity, focus_x, _focus_y = max(pullable, key=lambda item: item[2])
-            x = 6 if focus_x < 8.5 else 11
+            focus_entity, focus_x, _focus_y = max(pullable, key=lambda item: item[2])
+            x = 8 if focus_x < 8.5 else 9
             allowed = np.zeros_like(cannon)
-            allowed[19:22, x - 1:x + 2] = True
+            fast_pull = any(str(getattr(entity, "name", "")) in {
+                "hog", "hog_rider", "battle_ram", "ram_rider",
+                "royal_hog", "wall_breaker",
+            } for entity, _x, _y in pullable)
+            y = 20 if fast_pull else 21
+            allowed[y:y + 1, x - 1:x + 2] = True
             cannon &= allowed
+            needs_pull = (any(bool(getattr(entity, "target_only_buildings", False))
+                              for entity, _x, _y in pullable)
+                          and "cannon" not in allied_names)
+            if needs_pull and cannon.any():
+                for card in ("knight", "skeletons", "electro_spirit"):
+                    candidate = slot_grid(card)
+                    if candidate is not None:
+                        candidate[:] = False
+
+    recent_spells = []
+    for event in reversed(match.play_log):
+        age = match.elapsed_ms - int(event.get("at_ms", 0))
+        if age > 4500:
+            break
+        if event.get("side") != side or event.get("card") not in SPELLS:
+            continue
+        tx = float(event.get("x", 0)) / sim_arena.MT
+        ty = 31.0 - float(event.get("y", 0)) / sim_arena.MT
+        if side < 0:
+            tx, ty = GRID_W - 1 - tx, GRID_H - 1 - ty
+        recent_spells.append((tx, ty))
 
     for slot, card in enumerate(hand):
         grid = safe[1 + slot * TILES:1 + (slot + 1) * TILES].reshape(
             GRID_H, GRID_W)
         if card == "hog_rider":
             combo_ready = "electro_spirit" in hand
-            minimum = (8.0 if crown_lead else 5.0) if combo_ready else 10.0
-            if pressure or elixir < minimum:
+            counterpush = any(
+                str(getattr(entity, "name", "")) in {
+                    "knight", "musketeer", "electro_spirit"}
+                and _policy_cell(entity, side)[1] <= 24 for entity in allies)
+            advantage = elixir - enemy_elixir >= (2.5 if crown_lead else 2.0)
+            minimum = 8.0 if combo_ready else 10.0
+            if pressure or elixir < minimum or not (advantage or counterpush):
                 grid[:] = False
             else:
                 allowed = np.zeros_like(grid)
@@ -394,33 +509,45 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
                 for x in range(GRID_W):
                     hit = [(entity, ex, ey) for entity, ex, ey in cells
                            if (ex - x) ** 2 + (ey - y) ** 2 <= radius ** 2]
+                    if any((cast_x - x) ** 2 + (cast_y - y) ** 2 <= 4.0 ** 2
+                           for cast_x, cast_y in recent_spells):
+                        continue
                     reset = (card == "zap" and any(
                         any(key in str(getattr(entity, "name", ""))
                             for key in ("inferno", "sparky"))
                         for entity, _ex, _ey in hit))
-                    light = [(entity, ex, ey) for entity, ex, ey in hit
-                             if not getattr(entity, "is_building", False)
-                             # Live vision cannot estimate current HP, so the
-                             # training guard must use the same public nominal
-                             # HP or deployment would admit different casts.
-                             and 0 < getattr(entity, "max_hitpoints", 0) <= 1800]
-                    light_value = sum(float(getattr(entity_card(entity), "cost", 0) or 0)
-                                      for entity, _ex, _ey in light)
+                    troops = [(entity, ex, ey) for entity, ex, ey in hit
+                              if not getattr(entity, "is_building", False)]
+                    fireball_targets = [
+                        (entity, ex, ey) for entity, ex, ey in troops
+                        if (0 < getattr(entity, "max_hitpoints", 0) <= 1500
+                            and (getattr(entity, "range_mt", 0) > 1000
+                                 or getattr(entity, "flying", False)))]
+                    fireball_value = sum(
+                        float(getattr(entity_card(entity), "cost", 0) or 0)
+                        for entity, _ex, _ey in fireball_targets)
+                    zap_targets = [
+                        (entity, ex, ey) for entity, ex, ey in troops
+                        if any(key in str(getattr(entity, "name", ""))
+                               for key in ("skeleton", "bat", "spear_goblin",
+                                           "goblin", "fire_spirit", "ice_spirit",
+                                           "electro_spirit"))]
                     building = any(getattr(entity, "is_building", False)
                                    for entity, _ex, _ey in hit)
                     building_support = building and hog_inbound and any(
                         (ex < GRID_W / 2) == hog_lane_left
                         for entity, ex, _ey in hit
                         if getattr(entity, "is_building", False))
-                    defensive_air = any(
+                    defensive_air = (len(fireball_targets) >= 2 and any(
                         getattr(entity, "flying", False) and ey >= RIVER_ROW
-                        and float(getattr(entity_card(entity), "cost", 0) or 0) >= 4
-                        for entity, _ex, ey in light)
+                        for entity, _ex, ey in fireball_targets))
                     valuable_cast = ((card == "fireball" and
-                                      (light_value >= 4 or building_support
+                                      ((len(fireball_targets) >= 2
+                                        and fireball_value >= 5)
+                                       or building_support
                                        or defensive_air))
                                      or (card == "zap" and
-                                         (len(light) >= minimum or reset)))
+                                         (len(zap_targets) >= minimum or reset)))
                     if valuable_cast:
                         valuable[y, x] = True
             if card == "fireball":
@@ -835,6 +962,11 @@ class ClashEnv:
             "cheap_max_hp": sum(match.battle.get(uid).max_hitpoints for uid in cheap),
             "threats": threats,
             "retargeted": set(),
+            "defenders": {entity.uid for entity in match.battle.entities.values()
+                          if entity.alive and entity.side == 1
+                          and not entity.is_tower},
+            "center_time_ms": 0,
+            "sampled_ms": match.elapsed_ms,
             "damage_cursor": len(match.battle.damage_log),
             "tower_total": self._tower_totals()[0],
         })
@@ -851,6 +983,18 @@ class ClashEnv:
                 entity = match.battle.get(uid)
                 if entity is not None and entity.target_uid in event["cheap"]:
                     event["retargeted"].add(uid)
+            sample_ms = max(0, match.elapsed_ms - event["sampled_ms"])
+            event["sampled_ms"] = match.elapsed_ms
+            centred = 0
+            for uid in event["retargeted"]:
+                entity = match.battle.get(uid)
+                if entity is None or not entity.alive:
+                    continue
+                x, y = sim_arena.to_tiles(entity.pos)
+                centred += int(6 <= x <= 12 and 16 <= y <= 26)
+            if event["threats"]:
+                event["center_time_ms"] += round(
+                    sample_ms * centred / len(event["threats"]))
             done = (match.elapsed_ms >= event["expires_ms"] or match.finished
                     or all(not (match.battle.get(uid) and match.battle.get(uid).alive)
                            for uid in event["threats"]))
@@ -870,11 +1014,17 @@ class ClashEnv:
                 in match.battle.damage_log[event["damage_cursor"]:]
                 if source in event["threats"] and target in event["cheap"])
             tower_lost = max(0.0, event["tower_total"] - self._tower_totals()[0])
+            defenders = event["defenders"]
+            defender_survival = (sum(
+                bool(match.battle.get(uid) and match.battle.get(uid).alive)
+                for uid in defenders) / max(1, len(defenders)))
             quality = score_kite(
                 retargeted=len(event["retargeted"]),
                 threats=len(event["threats"]), displaced_mt=displaced,
                 absorbed_hp=absorbed, cheap_max_hp=event["cheap_max_hp"],
-                tower_fraction_lost=tower_lost)
+                tower_fraction_lost=tower_lost,
+                center_time_ms=event["center_time_ms"],
+                defender_survival=defender_survival)
             self.stats.kite_quality += quality
             reward += quality
         self._kite_events = pending

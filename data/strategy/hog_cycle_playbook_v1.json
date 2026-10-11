@@ -1,0 +1,133 @@
+{
+  "schema": "hastycr.hog-cycle-playbook.v1",
+  "live_deck": [
+    "cannon",
+    "fireball",
+    "hog_rider",
+    "knight",
+    "electro_spirit",
+    "musketeer",
+    "skeletons",
+    "zap"
+  ],
+  "sources": [
+    {
+      "kind": "professional_gameplay",
+      "title": "World's Best 2.6 Hog Cycle Player - YersonCz",
+      "url": "https://www.youtube.com/watch?v=yJ1PzQ4pp8I"
+    },
+    {
+      "kind": "professional_gameplay",
+      "title": "World Best 2.6 Hog - one hour gameplay",
+      "url": "https://www.youtube.com/watch?v=sLrDLc1wsqs"
+    },
+    {
+      "kind": "matchup_guide",
+      "title": "Hog 2.6 Matchups",
+      "url": "https://github.com/thaibm/2.6-hog-guide/blob/main/hog-2.6-matchups.md"
+    },
+    {
+      "kind": "exact_action_replays",
+      "title": "IL_Replay exact Hog 2.6 subset",
+      "url": "https://huggingface.co/datasets/VanguardX101/IL_Replay",
+      "local_summary": "hog26_expert_v1_summary.json"
+    }
+  ],
+  "adaptation": {
+    "ice_golemite": {
+      "live_card": "knight",
+      "preserve": ["body_block", "cross_lane_kite", "protect_musketeer"],
+      "do_not_assume": ["two_elixir_cost", "death_slow", "throwaway_cycle"]
+    },
+    "ice_spirits": {
+      "live_card": "electro_spirit",
+      "preserve": ["cheap_stun", "hog_support", "central_distraction"],
+      "prefer": ["chains_into_swarms", "resets_inferno", "recruits_and_bats"],
+      "do_not_assume": ["full_freeze_duration", "safe_chain_near_king_tower"]
+    },
+    "log": {
+      "live_card": "zap",
+      "preserve": ["cheap_swarm_clear", "inferno_reset"],
+      "do_not_assume": ["knockback", "long_line_coverage", "barrel_denial"]
+    }
+  },
+  "rules": [
+    {
+      "id": "defence_before_cycle",
+      "scenario": ["opening", "no_enemy_pressure"],
+      "priority": 100,
+      "action": "hold",
+      "conditions": ["elixir_below_10", "no_safe_hog_window"],
+      "reason": "Do not empty the bar merely to cycle; preserve the defensive core."
+    },
+    {
+      "id": "central_fast_pull",
+      "scenario": ["hog", "battle_ram", "ram_rider", "wall_breakers", "royal_hogs"],
+      "priority": 98,
+      "sequence": ["cannon", "cheap_screen_if_needed", "musketeer_if_needed"],
+      "placement": {"card": "cannon", "y": 20, "left_x": 8, "right_x": 9, "x_tolerance": 1},
+      "reason": "Fast building-targeters need the standard central pull on time."
+    },
+    {
+      "id": "deep_slow_pull",
+      "scenario": ["giant", "golem", "goblin_giant", "electro_giant", "pekka"],
+      "priority": 96,
+      "sequence": ["cannon", "musketeer_deep", "knight_or_skeletons_kite"],
+      "placement": {"card": "cannon", "y": 21, "left_x": 8, "right_x": 9, "x_tolerance": 1},
+      "reason": "One tile deeper increases two-tower crossfire against slower pushes."
+    },
+    {
+      "id": "protect_ranged_core",
+      "scenario": ["heavy_push", "air_push", "dual_lane"],
+      "priority": 94,
+      "sequence": ["musketeer_deep_center", "cannon_center", "cheap_units_in_front"],
+      "constraints": ["separate_musketeer_and_cannon_from_spell_value", "do_not_tank_with_musketeer"]
+    },
+    {
+      "id": "kite_support_away",
+      "scenario": ["tank_plus_support", "bridge_spam", "melee_heavy"],
+      "priority": 92,
+      "action": "knight_or_skeletons_cross_lane",
+      "constraints": ["avoid_skeletons_into_splash", "keep_enemy_in_tower_and_musketeer_crossfire"]
+    },
+    {
+      "id": "air_emergency",
+      "scenario": ["balloon", "lava", "pure_air"],
+      "priority": 99,
+      "sequence": ["musketeer_early", "cannon_pull", "electro_spirit_stun", "fireball_only_if_needed"],
+      "constraints": ["do_not_spend_knight_or_skeletons_on_pure_air", "preserve_musketeer"]
+    },
+    {
+      "id": "counterpush_hog",
+      "scenario": ["surviving_defence", "opponent_invests_slow_card"],
+      "priority": 80,
+      "action": "hog_at_bridge",
+      "conditions": ["no_active_threat", "elixir_advantage_or_surviving_defender"],
+      "followups": ["electro_spirit", "zap_only_on_real_swarm_or_reset"]
+    },
+    {
+      "id": "building_memory",
+      "scenario": ["opponent_building_seen"],
+      "priority": 85,
+      "action": "outcycle_or_switch_lane",
+      "conditions": ["track_last_four_opponent_cards", "prefer_lane_with_lower_active_building_risk"],
+      "constraints": ["do_not_hog_into_ready_building_without_advantage"]
+    },
+    {
+      "id": "spell_cluster_value",
+      "scenario": ["clustered_support", "defensive_air_cluster"],
+      "priority": 88,
+      "action": "fireball",
+      "conditions": ["at_least_two_vulnerable_targets", "combined_target_cost_at_least_5"],
+      "constraints": ["do_not_fireball_tanks", "do_not_zap_same_area_within_4_5_seconds"]
+    },
+    {
+      "id": "one_crown_conversion",
+      "scenario": ["tower_lead", "late_game"],
+      "priority": 97,
+      "action": "defend_and_hold",
+      "conditions": ["raise_hog_elixir_advantage_threshold"],
+      "reason": "A one-crown win is complete; do not throw the defence chasing three crowns."
+    }
+  ]
+}

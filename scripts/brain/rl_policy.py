@@ -41,7 +41,7 @@ if str(ROOT) not in sys.path:
 
 from sim.env import (ACTIONS, BASE_SCALARS, CARD_ACTIONS, DECK_26, GRID_H, GRID_W,
                      NUM_PLANES, NUM_SCALARS, NUM_SLOTS, SPELLS, TILES,
-                     _placeable, building_lane_risks)
+                     _placeable, building_lane_risks, tactical_plane_values)
 from sim.public_state import (public_feature_count, vector_from_events,
                               vector_from_live)
 
@@ -59,6 +59,18 @@ _UNIT_TO_CARD = {
     "three_musketeer": "three_musketeers", "guard": "guards",
     "lava_pup": "lava_hound",
 }
+
+# Some detector entities are not present in the resolved training deck pool,
+# but their targeting rule is stable and essential to live Cannon priority.
+_BUILDING_TARGETERS = frozenset({
+    "balloon", "battle_ram", "electro_giant", "giant", "goblin_giant",
+    "golem", "hog", "hog_rider", "lava_hound", "ram_rider",
+    "royal_giant", "royal_hog", "wall_breaker",
+})
+_KNOWN_SPLASH = frozenset({
+    "baby_dragon", "bomber", "bowler", "dark_prince", "executioner",
+    "firecracker", "mega_knight", "valkyrie", "wizard",
+})
 
 
 def _card_key(name: str) -> str:
@@ -115,6 +127,8 @@ def _unit_traits(name: str):
 
 def _unit_profile(name: str) -> dict:
     """Public tactical facts used by the live action guard."""
+    from sim.entities import speed_to_mt_per_sec
+
     key = _card_key(name)
     spec = _cards().get(key)
     unit = getattr(spec, "unit", None) if spec else None
@@ -125,6 +139,20 @@ def _unit_profile(name: str) -> dict:
         "building": building,
         "cost": float(getattr(spec, "cost", 0) or 0),
         "range": float(getattr(unit, "range_mt", 0) or 0) if unit else 0.0,
+        "building_targeter": (bool(getattr(unit, "target_only_buildings", False))
+                                if unit else name in _BUILDING_TARGETERS),
+        "splash": (bool(getattr(unit, "splash_radius_mt", 0))
+                   if unit else name in _KNOWN_SPLASH),
+        "damage": float(getattr(unit, "damage", 0) or 0) if unit else 0.0,
+        "hit_speed_ms": float(getattr(unit, "hit_speed_ms", 1000) or 1000)
+        if unit else 1000.0,
+        "speed": float(speed_to_mt_per_sec(
+            int(getattr(unit, "speed_mt_per_sec", 0) or 0)))
+        if unit else 0.0,
+        "attacks_air": bool(getattr(unit, "attacks_air", False))
+        if unit else False,
+        "splash_radius": float(getattr(unit, "splash_radius_mt", 0) or 0)
+        if unit else (2000.0 if name in _KNOWN_SPLASH else 0.0),
     }
 
 
@@ -170,6 +198,18 @@ def observation_from_live(obs, allies=None, opponent=None, economy=None) -> dict
             planes[6 + base, row, col] += 1.0
             if base == 1:
                 enemy_building_cells.append((col, row))
+        if name:
+            profile = _unit_profile(name)
+            values = tactical_plane_values(
+                damage=profile["damage"],
+                hit_speed_ms=profile["hit_speed_ms"],
+                range_mt=profile["range"],
+                speed_mt_per_sec=profile["speed"],
+                attacks_air=profile["attacks_air"],
+                target_only_buildings=profile["building_targeter"],
+                splash_radius_mt=profile["splash_radius"])
+            for pair, value in enumerate(values):
+                planes[8 + 2 * pair + base, row, col] += value
 
     if allies is not None:
         for cell, name in allies:
@@ -239,7 +279,8 @@ def mask_from_live(obs) -> np.ndarray:
     return mask
 
 
-def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None) -> np.ndarray:
+def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
+                           recent_spells=()) -> np.ndarray:
     """Remove strategically unsafe live actions before PPO sees the logits.
 
     Simulation exploration is allowed to make a bad choice and learn from it;
@@ -267,7 +308,10 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None) -> np.ndarr
     air_pressure = [unit for unit in pressure if unit["flying"]]
     pure_air = bool(air_pressure) and not ground_pressure
     elixir = float(getattr(obs, "elixir", 0.0) or 0.0)
-    allied_hogs = [(cell, name) for cell, name in (allies_named or ())
+    enemy_elixir = float(getattr(obs, "enemy_elixir", 10.0) or 0.0)
+    allies_named = list(allies_named or ())
+    allied_names = {name for _cell, name in allies_named}
+    allied_hogs = [(cell, name) for cell, name in allies_named
                    if name == "hog_rider" and cell.y <= 21]
     hog_inbound = bool(allied_hogs)
     hog_lane_left = (allied_hogs[-1][0].x < GRID_W / 2) if allied_hogs else None
@@ -328,8 +372,46 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None) -> np.ndarr
             allowed[max(16, y - 1):min(GRID_H, y + 2), max(0, x - 1):x + 2] = True
             musketeer &= allowed
 
+    # A 2.6 defence is a formation, not eight unrelated card choices. Keep
+    # the ranged pieces protected in the middle/back and use cheap troops in
+    # front to pull attackers through their fire.
+    if pressure:
+        focus = max(pressure, key=lambda unit: unit["y"])
+        lane_left = focus["x"] < GRID_W / 2
+        musketeer = card_grid("musketeer")
+        if musketeer is not None:
+            allowed = np.zeros_like(musketeer)
+            centre_x = 9 if lane_left else 8
+            allowed[23:28, centre_x - 2:centre_x + 3] = True
+            musketeer &= allowed
+
+        knight = card_grid("knight")
+        if knight is not None:
+            allowed = np.zeros_like(knight)
+            kite_x = 10 if lane_left else 7
+            allowed[19:23, kite_x - 1:kite_x + 2] = True
+            knight &= allowed
+
+        skeletons = card_grid("skeletons")
+        if skeletons is not None:
+            if all(unit["splash"] for unit in ground_pressure):
+                skeletons[:] = False
+            else:
+                allowed = np.zeros_like(skeletons)
+                y = int(np.clip(focus["y"] + 1, 19, 23))
+                allowed[y - 1:y + 2, 7:11] = True
+                skeletons &= allowed
+
+        spirit = card_grid("electro_spirit")
+        if spirit is not None:
+            allowed = np.zeros_like(spirit)
+            y = int(np.clip(focus["y"], 18, 22))
+            allowed[y - 1:y + 2, 7:11] = True
+            spirit &= allowed
+
     # Cannon is a pull building, not a card to drop on the edge or into a
-    # ranged unit. Keep it in the 4-3 centre pocket, shifted toward the lane.
+    # ranged unit. Keep it deep in the central pocket, shifted toward the lane,
+    # so both towers and a Musketeer behind it can keep shooting.
     cannon = card_grid("cannon")
     if cannon is not None and ground_pressure:
         cannon_range = _unit_profile("cannon")["range"] or 5500.0
@@ -339,10 +421,32 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None) -> np.ndarr
             cannon[:] = False
         else:
             focus = max(pullable, key=lambda unit: unit["y"])
-            x = 6 if focus["x"] < 8.5 else 11
+            # Expert replays put Cannon almost exactly between the towers
+            # (x median 9.5, IQR 8.5-9.5), shifted only one cell toward the
+            # incoming lane.  The older x=6/11 mask was lane defence, not a
+            # central pull, and denied the crossfire the deck is built around.
+            x = 8 if focus["x"] < 8.5 else 9
             allowed = np.zeros_like(cannon)
-            allowed[19:22, x - 1:x + 2] = True
+            # Fast win conditions need the exact 4-3 row to guarantee the
+            # pull. Slow tanks can be met one tile deeper, as requested after
+            # the live review, which buys more crossfire time.
+            fast_pull = any(unit["name"] in {
+                "hog", "hog_rider", "battle_ram", "ram_rider",
+                "royal_hog", "wall_breaker",
+            } for unit in pullable)
+            y = 20 if fast_pull else 21
+            allowed[y:y + 1, x - 1:x + 2] = True
             cannon &= allowed
+
+            # Establish the pull before spending the same hand on a
+            # discretionary ground screen. Musketeer stays available for air.
+            needs_pull = (any(unit["building_targeter"] for unit in pullable)
+                          and "cannon" not in allied_names)
+            if needs_pull and cannon.any():
+                for card in ("knight", "skeletons", "electro_spirit"):
+                    grid = card_grid(card)
+                    if grid is not None:
+                        grid[:] = False
 
     hog_slot = hand.get("hog_rider")
     threats = list(getattr(obs, "threats", ()) or ())
@@ -351,9 +455,12 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None) -> np.ndarr
         grid = safe[1 + hog_slot * TILES:1 + (hog_slot + 1) * TILES].reshape(
             GRID_H, GRID_W)
         combo_ready = "electro_spirit" in hand
-        minimum = (8.0 if crown_lead else 5.0) if combo_ready else 10.0
+        counterpush = any(name in {"knight", "musketeer", "electro_spirit"}
+                          and cell.y <= 24 for cell, name in allies_named)
+        advantage = elixir - enemy_elixir >= (2.5 if crown_lead else 2.0)
+        minimum = 8.0 if combo_ready else 10.0
         if (threats or threat_score >= 5.0 or pressure
-                or elixir < minimum):
+                or elixir < minimum or not (advantage or counterpush)):
             grid[:] = False
         else:
             allowed = np.zeros_like(grid)
@@ -374,6 +481,7 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None) -> np.ndarr
                     allowed[:, :9] = False
             grid &= allowed
 
+    now = float(getattr(obs, "now", 0.0) or 0.0)
     for spell, radius, minimum in (("fireball", 3.0, 2), ("zap", 2.0, 2)):
         slot = hand.get(spell)
         if slot is None:
@@ -385,23 +493,45 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None) -> np.ndarr
             for x in range(GRID_W):
                 hit = [unit for unit in enemy_cells
                        if (unit["x"] - x) ** 2 + (unit["y"] - y) ** 2 <= radius ** 2]
+                # Vision cannot see an in-flight spell. Remember confirmed
+                # casts so Fireball and Zap cannot hit the same resolved area.
+                overlaps_cast = any(
+                    now - cast_at <= 4.5
+                    and (cast_x - x) ** 2 + (cast_y - y) ** 2 <= 4.0 ** 2
+                    for cast_at, cast_x, cast_y in recent_spells)
+                if overlaps_cast:
+                    continue
                 reset = (spell == "zap" and any(
                     any(key in unit["name"] for key in ("inferno", "sparky"))
                     for unit in hit))
-                light = [unit for unit in hit
-                         if not unit["building"] and 0 < unit["hp"] <= 1800]
-                light_value = sum(unit["cost"] for unit in light)
+                troops = [unit for unit in hit if not unit["building"]]
+                fireball_targets = [
+                    unit for unit in troops
+                    if (0 < unit["hp"] <= 1500
+                        and (unit["range"] > 1000 or unit["flying"]))
+                ]
+                fireball_value = sum(unit["cost"] for unit in fireball_targets)
+                zap_targets = [
+                    unit for unit in troops
+                    if any(key in unit["name"] for key in (
+                        "skeleton", "bat", "spear_goblin", "goblin",
+                        "fire_spirit", "ice_spirit", "electro_spirit",
+                    ))
+                ]
                 building = any(unit["building"] for unit in hit)
                 building_support = building and hog_inbound and any(
                     (unit["x"] < GRID_W / 2) == hog_lane_left
                     for unit in hit if unit["building"])
-                defensive_air = any(unit["flying"] and unit["y"] >= 16
-                                     and unit["cost"] >= 4 for unit in light)
+                defensive_air = (len(fireball_targets) >= 2
+                                  and any(unit["flying"] and unit["y"] >= 16
+                                          for unit in fireball_targets))
                 valuable_cast = ((spell == "fireball" and
-                                  (light_value >= 4 or building_support
+                                  ((len(fireball_targets) >= 2
+                                    and fireball_value >= 5)
+                                   or building_support
                                    or defensive_air))
                                  or (spell == "zap" and
-                                     (len(light) >= minimum or reset)))
+                                     (len(zap_targets) >= minimum or reset)))
                 if valuable_cast:
                     valuable[y, x] = True
         # Fireball may always finish a princess tower, even without troops.
@@ -424,12 +554,15 @@ class RLBrain:
     def __init__(self, checkpoint: Path, temperature: float = 0.0,
                  device: str = "cpu", min_confidence: float = 0.0):
         import torch
-        from sim.train_ppo import build_network, load_policy_state
+        from sim.train_ppo import (build_network, checkpoint_architecture,
+                                   load_policy_state)
         self.torch = torch
         self.device = torch.device(device)
         blob = torch.load(Path(checkpoint), map_location=self.device,
                           weights_only=False)
-        self.network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS)
+        self.network = build_network(
+            NUM_PLANES, NUM_SCALARS, ACTIONS,
+            checkpoint_architecture(blob))
         load_policy_state(self.network, blob["state_dict"])
         self.network.to(self.device).eval()
         self.step_trained = int(blob.get("step", 0))
@@ -446,6 +579,7 @@ class RLBrain:
         # is the gap worth explaining.
         self.hold_reasons = {"no_hand": 0, "no_elixir": 0,
                              "no_placement": 0}
+        self.recent_spells = []
         # Built here rather than on the first decision. `cr_bot` calls
         # `brain.reset()` the moment it sees a battle, before it ever asks for
         # a decision, and a lazily-built observer made that throw
@@ -477,10 +611,15 @@ class RLBrain:
         self.holds = 0
         for key in self.hold_reasons:
             self.hold_reasons[key] = 0
+        self.recent_spells = []
 
     def confirm(self, candidate, obs_now=None) -> None:
         """A card was actually tapped. The observer needs to know."""
         self._observer.confirm(candidate, obs_now)
+        if candidate.card in SPELLS:
+            cast_at = float(obs_now if obs_now is not None else 0.0)
+            self.recent_spells.append((cast_at, candidate.x, candidate.y))
+            self.recent_spells = self.recent_spells[-4:]
 
     @property
     def committed_elixir(self) -> float:
@@ -551,7 +690,8 @@ class RLBrain:
         view = observation_from_live(
             obs, allies_named,
             opponent=self._observer.opponent, economy=self._observer.enemy)
-        mask = apply_live_safety_mask(mask_from_live(obs), obs, allies_named)
+        mask = apply_live_safety_mask(mask_from_live(obs), obs, allies_named,
+                                      self.recent_spells)
         if not mask[1:].any():
             self.holds += 1
             self._note_hold(obs)

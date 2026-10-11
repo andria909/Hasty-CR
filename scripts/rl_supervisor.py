@@ -209,7 +209,7 @@ class Supervisor:
                                     if self.args.scripted_share is not None
                                     else rung.scripted_share),
             "--scripted-alt", self.args.scripted_alt,
-            "--chip", "10", "--crown", "3", "--win", "10", "--elixir", "0",
+            "--chip", "10", "--crown", "3", "--win", "10", "--elixir", "0.05",
             # Selection and every trigger below read this eval, so it has to be
             # the opponent we are actually trying to beat. Run against `meta`,
             # it reported a policy improving from 62% to 82% while that same
