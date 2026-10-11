@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "name": "portable_v10_soup_a10",
+  "status": "promising_offline_candidate",
+  "checkpoint": "portable_v10_soup_a10.pt",
+  "sha256": "b5fe8af7d55e1db75b628e2095f49a00c914333b7826e5a092a80fbdf0a32266",
+  "size_bytes": 4873493,
+  "architecture": "factorized_spatial_v3_conditioned",
+  "construction": {
+    "method": "linear_weight_interpolation",
+    "baseline": "checkpoints/portable_v6/portable_bc_meta_v6_conditioned.pt",
+    "baseline_sha256": "5e0e7eddada35db179a7f3162edc38735bfd58c6cf2b5281bc29d41076c42fb7",
+    "ppo_candidate": "tmp/rl/portable_v7_ppo_best.pt",
+    "ppo_candidate_sha256": "6f9167d561cedc5020168b213f6eba7cfacd824982a45213e3962274175f677a",
+    "baseline_weight": 0.9,
+    "ppo_weight": 0.1
+  },
+  "acceptance": {
+    "status": "positive_but_not_statistically_significant",
+    "screen": {
+      "episodes_per_opponent": 30,
+      "seed": 991000,
+      "brain_wins": [4, 6],
+      "meta_wins": [13, 16],
+      "report": "reports/portable_v10_soup_a10_screen.json"
+    },
+    "confirmation": {
+      "episodes_per_opponent": 120,
+      "seed": 997000,
+      "brain_wins": [22, 26],
+      "meta_wins": [57, 62],
+      "combined_paired_better": 39,
+      "combined_paired_worse": 30,
+      "combined_one_sided_exact_p": 0.16777880911700757,
+      "report": "reports/portable_v10_soup_a10_confirmatory.json"
+    }
+  },
+  "reward_audit": {
+    "spell_prediction_is_diagnostic_only": true,
+    "selection_uses_spell_prediction": false,
+    "caveat": "The prediction event is a noisy proxy for cast-before-deploy hits, not ground truth for player intent or overall spell quality.",
+    "episodes": 100,
+    "seed": 990000,
+    "baseline_wins": 50,
+    "candidate_wins": 52,
+    "spell_prediction_nonzero_episodes": [13, 21],
+    "spell_misses_per_episode": [1.91, 1.65],
+    "kite_quality_per_episode": [3.429615261368136, 3.2512643234874536],
+    "report": "reports/portable_v10_soup_a10_reward_audit.json"
+  },
+  "live_policy": {
+    "temperature": 0.0,
+    "required_first_stage": "shadow_or_friendly",
+    "ladder_promoted": false
+  }
+}

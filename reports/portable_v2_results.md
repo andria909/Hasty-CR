@@ -207,3 +207,29 @@ the original prediction coefficient was almost invisible and also shows why
 simply increasing it can over-specialise the policy. The complete audit is in
 `reports/portable_v6_reward_audit.json` and can be reproduced with
 `scripts/reward_audit.py`.
+
+### v10 conservative policy soup
+
+Direct PPO checkpoints changed too much at once, so v10 interpolates 90% of
+v6 with 10% of the best v7 PPO weights. This small move was positive on both
+opponents in both independent evaluations:
+
+- 30-game screen (seed 991000): brain 6 vs 4, meta 16 vs 13;
+- 120-game confirmation (seed 997000): brain 26 vs 22, meta 62 vs 57.
+
+The confirmatory paired outcomes combine to 39 better and 30 worse
+(`p=0.168`, one-sided), so this is a promising offline candidate rather than a
+statistically proven replacement for v6. Crown differential also improved on
+both opponents. On the same 100-game reward audit, wins rose 50 to 52,
+prediction events rose from 13 to 21 matches, and misses fell from 1.91 to
+1.65 per match. Kite quality fell from 3.43 to 3.25, which remains the main
+trade-off to watch. The portable candidate and its manifest are under
+`checkpoints/portable_v10/`; it is not approved for ladder play.
+
+`spell_prediction` is deliberately treated as a noisy diagnostic proxy, not
+an optimisation target or an acceptance metric. It detects the narrow
+cast-before-deploy-then-hit pattern, but cannot infer intent, zone denial,
+forced placements, or a good prediction that the opponent avoided. Policy
+selection therefore remains based on paired match outcomes and crowns across
+brain and meta opponents; prediction reward stays bounded and subordinate to
+the actual game result.
