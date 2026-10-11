@@ -259,6 +259,18 @@ class EpisodeStats:
     plays: int = 0
     illegal: int = 0
     cards: Dict[str, int] = field(default_factory=dict)
+    # Raw, unweighted reward events. Keeping these separate from the scalar
+    # return lets training runs answer whether a shaping term was useful,
+    # merely rare, or completely absent instead of guessing from win rate.
+    tower_fraction_dealt: float = 0.0
+    tower_fraction_taken: float = 0.0
+    elixir_trade: float = 0.0
+    spell_quality: float = 0.0
+    spell_prediction: float = 0.0
+    spell_casts: int = 0
+    spell_misses: int = 0
+    kite_quality: float = 0.0
+    reward_total: float = 0.0
 
     @property
     def hog_share(self) -> float:
@@ -505,6 +517,7 @@ class ClashEnv:
         truncated = (not terminated) and match.elapsed_ms >= self.max_ms
         if terminated or truncated:
             reward += self._terminal_reward()
+        self.stats.reward_total += reward
         return self._observe(), reward, terminated, truncated, self._info()
 
     # ------------------------------------------------------------ rewards
@@ -520,10 +533,14 @@ class ClashEnv:
         self._last_towers = (ours, theirs)
         dealt = max(0.0, was_theirs - theirs)
         taken = max(0.0, was_ours - ours)
+        self.stats.tower_fraction_dealt += dealt
+        self.stats.tower_fraction_taken += taken
         reward = (dealt * self.rewards.tower_damage_dealt
                   + taken * self.rewards.tower_damage_taken)
         if self.rewards.elixir_traded:
-            reward += self._elixir_trade() * self.rewards.elixir_traded
+            trade = self._elixir_trade()
+            self.stats.elixir_trade += trade
+            reward += trade * self.rewards.elixir_traded
         if (self.rewards.spell_quality or self.rewards.spell_prediction
                 or self.rewards.spell_miss):
             reward += self._spell_reward()
@@ -543,6 +560,10 @@ class ClashEnv:
             if not event.get("resolved"):
                 break
             score = score_spell_cast(event)
+            self.stats.spell_casts += int(event.get("caster_side") == 1)
+            self.stats.spell_quality += score.quality
+            self.stats.spell_prediction += score.prediction
+            self.stats.spell_misses += int(score.missed)
             reward += score.quality * self.rewards.spell_quality
             reward += score.prediction * self.rewards.spell_prediction
             if score.missed:
@@ -609,11 +630,13 @@ class ClashEnv:
                 in match.battle.damage_log[event["damage_cursor"]:]
                 if source in event["threats"] and target in event["cheap"])
             tower_lost = max(0.0, event["tower_total"] - self._tower_totals()[0])
-            reward += score_kite(
+            quality = score_kite(
                 retargeted=len(event["retargeted"]),
                 threats=len(event["threats"]), displaced_mt=displaced,
                 absorbed_hp=absorbed, cheap_max_hp=event["cheap_max_hp"],
                 tower_fraction_lost=tower_lost)
+            self.stats.kite_quality += quality
+            reward += quality
         self._kite_events = pending
         return reward
 

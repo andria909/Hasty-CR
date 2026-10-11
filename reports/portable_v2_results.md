@@ -176,3 +176,34 @@ logged without pressing Battle, selecting a card, or placing it. Only after
 the shadow trace passes orientation, hand, latency and illegal-action checks
 should the same checkpoint be tried in one bounded friendly match without
 `-Shadow`.
+
+## Post-v6 training experiments
+
+v6 remains the champion after three deliberately conservative follow-ups:
+
+- **v7 PPO:** 200,192 steps, 25k critic-only warmup, mixed brain/meta diet,
+  self-play league, KL guard and a 0.10 v6 anchor. The best internal snapshot
+  lost the fresh seed-960000 comparison: brain 7/60 vs 9/60 and meta 26/60 vs
+  28/60. Raw rows are in `reports/portable_v7_paired_eval.json`.
+- **v8 continued clone:** added a weights-only `--init` path and continued v6
+  for eight epochs at LR 2e-4. Validation act accuracy rose from 85.6% to
+  86.7%, exact placement from 18.5% to 19.4%, and near placement from 41.5%
+  to 43.0%. A 60-game screen suggested a meta gain (42 vs 35, p=0.0946), but
+  an independent 120-game confirmation reversed it (57 vs 64); brain was
+  neutral at 14 vs 13. v8 was therefore rejected. Both raw reports are kept.
+- **v9 prediction-focused PPO:** fixed tower-only Fireball/Log casts being
+  incorrectly counted as misses, raised prediction reward, lowered LR to
+  2e-5 and increased the v6 anchor to 0.25. Meta improved during training but
+  brain regressed, so the worst-opponent selector retained the critic-warmup
+  snapshot. Its action logits are bit-identical to v6; only the value head
+  changed, so it is not a new playing-policy champion.
+
+The new reward audit records raw unweighted event totals rather than trying to
+infer them from return. Over 100 v6 matches against the meta pool, the current
+coefficients contributed per match approximately +1.692 spell quality,
++0.514 kite quality, -0.244 elixir trade, -0.096 spell misses, but only +0.023
+spell prediction. Prediction occurred in 13/100 matches. This explains why
+the original prediction coefficient was almost invisible and also shows why
+simply increasing it can over-specialise the policy. The complete audit is in
+`reports/portable_v6_reward_audit.json` and can be reproduced with
+`scripts/reward_audit.py`.

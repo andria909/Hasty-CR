@@ -47,15 +47,20 @@ def score_spell_cast(event: dict, *, our_side: int = 1) -> SpellReward:
         return SpellReward(missed=True)
 
     quality = prediction = 0.0
-    unit_hits = 0
+    enemy_hits = 0
     cast_ms = int(event.get("cast_ms", 0))
     for hit in event.get("hits", ()):
-        if hit.get("is_tower") or hit.get("target_side") == our_side:
+        if hit.get("target_side") == our_side:
             continue
         damage = max(0, int(hit.get("damage", 0)))
         if damage <= 0:
             continue
-        unit_hits += 1
+        enemy_hits += 1
+        # Tower damage is already paid by the main symmetric reward. It still
+        # proves the cast was not a miss (important for legitimate finishers),
+        # but receives no second quality credit here.
+        if hit.get("is_tower"):
+            continue
         maximum = max(1, int(hit.get("max_hp", damage)))
         value = min(1.0, damage / maximum)
         if hit.get("killed"):
@@ -68,4 +73,4 @@ def score_spell_cast(event: dict, *, our_side: int = 1) -> SpellReward:
             timing = max(0.0, 1.0 - (hit_ms - spawned_ms) / 1500.0)
             prediction += value * timing
     return SpellReward(quality=quality, prediction=prediction,
-                       missed=(unit_hits == 0))
+                       missed=(enemy_hits == 0))

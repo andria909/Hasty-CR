@@ -24,7 +24,11 @@ def test_spell_quality_uses_effective_hp_and_kill_value():
 def test_tower_chip_is_not_counted_twice():
     score = score_spell_cast(_event(_hit(tower=True)))
     assert score.quality == 0
-    assert score.missed
+    assert not score.missed
+
+
+def test_a_cast_with_no_enemy_hit_is_a_miss():
+    assert score_spell_cast(_event()).missed
 
 
 def test_prediction_requires_cast_before_deploy_and_hit_after_it():

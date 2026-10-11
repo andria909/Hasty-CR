@@ -224,6 +224,8 @@ def main() -> int:
                         help="opponent used to generate teacher states")
     parser.add_argument("--data-cache", type=Path,
                         help="reuse/save collected teacher rows as an npz file")
+    parser.add_argument("--init", type=Path,
+                        help="continue fitting from an existing policy checkpoint")
     parser.add_argument("--name", default="clone")
     parser.add_argument("--device", choices=("auto", "cpu", "cuda", "mps"),
                         default="auto",
@@ -254,6 +256,12 @@ def main() -> int:
 
     device = torch_device(args.device)
     network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS).to(device)
+    if args.init:
+        if not args.init.is_file():
+            raise SystemExit(f"--init {args.init} does not exist")
+        blob = torch.load(args.init, map_location=device, weights_only=False)
+        load_policy_state(network, blob["state_dict"])
+        log(f"initialised from {args.init} (weights only)")
     optimiser = torch.optim.AdamW(network.parameters(), lr=args.lr, weight_decay=1e-4)
 
     count = len(actions)
@@ -286,7 +294,7 @@ def main() -> int:
             loss = imitation + args.act_loss_weight * gate
             optimiser.zero_grad(set_to_none=True)
             loss.backward()
-            nn.utils.clip_grad_norm_(network.parameters(), 1.0)
+            torch.nn.utils.clip_grad_norm_(network.parameters(), 1.0)
             optimiser.step()
             total += float(loss.detach()) * len(target)
 
