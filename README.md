@@ -267,6 +267,10 @@ account-ban risk of automatic ladder play.
 
 ### macOS
 
+For a complete new-Mac recovery checklist, including MuMu, emulator-only VPN,
+account login, offline simulation, v19 live commands, logs, and troubleshooting,
+see [`docs/MACOS_LIVE_RUNBOOK.md`](docs/MACOS_LIVE_RUNBOOK.md).
+
 The PowerShell launcher is Windows/MuMu-specific. On macOS, install Android
 Studio with an ARM64 Google Play emulator, install Clash Royale from that
 emulator's Play Store, and install ADB plus the live Python environment:
