@@ -278,6 +278,28 @@ def test_live_safety_places_cannon_only_in_the_central_pull_pocket():
     assert not cannon[:, 10:].any()
 
 
+def test_live_safety_aims_from_the_predicted_half_second_position():
+    current = SimpleNamespace(x=4, y=20)
+    future = SimpleNamespace(x=7, y=21)
+    archer = SimpleNamespace(cell=current, name="archer",
+                             predict=lambda seconds: future)
+    archer2 = SimpleNamespace(cell=SimpleNamespace(x=5, y=20), name="archer",
+                              predict=lambda seconds: SimpleNamespace(x=8, y=21))
+    obs = _live_obs({"fireball": 0}, tracks=[archer, archer2])
+    grid = apply_live_safety_mask(mask_from_live(obs), obs)[
+        1:1 + TILES].reshape(32, 18)
+    assert grid[21, 7] or grid[21, 8]
+    assert not grid[20, 2], "mask must not aim behind the delayed targets"
+
+
+def test_live_safety_does_not_offer_a_late_cannon_pull_at_the_tower():
+    giant = SimpleNamespace(cell=SimpleNamespace(x=4, y=23), name="giant")
+    obs = _live_obs({"cannon": 0}, tracks=[giant], threats=[giant])
+    cannon = apply_live_safety_mask(mask_from_live(obs), obs)[
+        1:1 + TILES]
+    assert not cannon.any()
+
+
 def test_live_safety_places_musketeer_behind_the_central_screen():
     giant = SimpleNamespace(cell=SimpleNamespace(x=4, y=22), name="giant")
     obs = _live_obs({"musketeer": 0}, tracks=[giant], threats=[giant])

@@ -28,11 +28,12 @@ brew install --cask android-platform-tools
 The current live candidate is:
 
 ```text
-checkpoints/portable_v19/portable_v19_defence_tactical.pt
+checkpoints/portable_v20/portable_v20_delay500.pt
 ```
 
 Its SHA-256 and evaluation results are recorded in
-`checkpoints/portable_v19/manifest.json`.
+`checkpoints/portable_v20/manifest.json`. This policy was trained with a
+500 ms observation-to-action delay to match the measured MuMu capture latency.
 
 ## 2. Emulator, VPN, and account
 
@@ -92,13 +93,13 @@ Run the focused regression suite:
   tests/test_public_state.py
 ```
 
-Evaluate v19 against both held-out opponent families:
+Evaluate v20 against both held-out opponent families:
 
 ```bash
 .venv-live/bin/python -m scripts.evaluate_pilot \
-  --ckpt checkpoints/portable_v19/portable_v19_defence_tactical.pt \
-  --episodes 120 --opponents brain meta --seed 983000 \
-  --out reports/eval_portable_v19_repeat.json
+  --ckpt checkpoints/portable_v20/portable_v20_delay500.pt \
+  --episodes 120 --opponents brain meta --seed 985000 \
+  --out reports/eval_portable_v20_repeat.json
 ```
 
 Run bulk headless matches with the scripted policy:
@@ -115,7 +116,7 @@ Shadow mode observes one manually started battle and never taps:
 
 ```bash
 ./run-macos.sh --serial 127.0.0.1:16480 --shadow --matches 1 \
-  --checkpoint checkpoints/portable_v19/portable_v19_defence_tactical.pt
+  --checkpoint checkpoints/portable_v20/portable_v20_delay500.pt
 ```
 
 Friendly mode taps during battles but never presses the Battle button. Start
@@ -123,7 +124,7 @@ each friendly battle yourself:
 
 ```bash
 ./run-macos.sh --serial 127.0.0.1:16480 --tap-friendly --matches 3 \
-  --checkpoint checkpoints/portable_v19/portable_v19_defence_tactical.pt
+  --checkpoint checkpoints/portable_v20/portable_v20_delay500.pt
 ```
 
 Ladder mode can press Battle automatically. It can lose trophies and automated
@@ -131,7 +132,7 @@ play may violate the game's terms or cause an account ban:
 
 ```bash
 ./run-macos.sh --serial 127.0.0.1:16480 --ladder --matches 5 \
-  --checkpoint checkpoints/portable_v19/portable_v19_defence_tactical.pt
+  --checkpoint checkpoints/portable_v20/portable_v20_delay500.pt
 ```
 
 Do not start a second bot while one is already running. Stop the foreground
@@ -145,7 +146,7 @@ The important runtime locations are:
 - `tmp/live/matches/` — completed live match traces;
 - `tmp/rl/` — training checkpoints and training logs (ignored by Git);
 - `reports/` — compact evaluations intended for Git;
-- `checkpoints/portable_v19/` — the promoted live candidate and manifest.
+- `checkpoints/portable_v20/` — the promoted live candidate and manifest.
 
 Common failures:
 

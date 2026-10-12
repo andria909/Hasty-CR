@@ -38,6 +38,21 @@ def test_action_encoding_round_trips():
     assert ClashEnv.decode(ClashEnv.encode_ability(3)) == ("ability", 3)
 
 
+def test_card_lands_after_the_configured_input_delay():
+    delayed = ClashEnv(seed=101, opponent="simple", action_delay_ms=500)
+    delayed.reset(seed=101)
+    player = delayed.match.players[1]
+    player.hand = ["hog_rider", "electro_spirit", "cannon", "knight"]
+    player.elixir = 10_000
+
+    delayed.step(ClashEnv.encode(0, 4, 16))
+
+    play = next(event for event in delayed.match.play_log
+                if event["side"] == 1 and event["card"] == "hog_rider")
+    assert play["at_ms"] == 500
+    assert delayed.match.elapsed_ms == 500
+
+
 def test_a_legal_champion_button_is_exposed_as_an_rl_action(env):
     from sim.gamedata import GAMEDATA_ROOT
     if not GAMEDATA_ROOT.is_dir():

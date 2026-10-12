@@ -64,6 +64,7 @@ ABILITY_SLOTS = 16
 ACTIONS = CARD_ACTIONS + ABILITY_SLOTS
 
 DECIDE_EVERY_MS = 500
+ACTION_DELAY_MS = 500
 MAX_MS = 310_000
 
 # The deck actually used by the live account.  Keep the order stable: the
@@ -400,6 +401,7 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
     if pressure:
         focus_entity, focus_x, focus_y = max(pressure, key=lambda item: item[2])
         lane_left = focus_x < GRID_W / 2
+        late_contact = focus_y >= 22.5
         musketeer = slot_grid("musketeer")
         if musketeer is not None:
             allowed = np.zeros_like(musketeer)
@@ -410,8 +412,10 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
         knight = slot_grid("knight")
         if knight is not None:
             allowed = np.zeros_like(knight)
-            kite_x = 10 if lane_left else 7
-            allowed[19:23, kite_x - 1:kite_x + 2] = True
+            kite_x = focus_x if late_contact else (10 if lane_left else 7)
+            y = int(np.clip(focus_y, 21, 24)) if late_contact else 20
+            allowed[max(16, y - 1):min(GRID_H, y + 2),
+                    max(0, kite_x - 1):min(GRID_W, kite_x + 2)] = True
             knight &= allowed
 
         skeletons = slot_grid("skeletons")
@@ -440,6 +444,9 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
         pullable = [(entity, x, y) for entity, x, y in ground_pressure
                     if not getattr(entity, "range_mt", 0)
                     or getattr(entity, "range_mt", 0) <= cannon_range]
+        pullable = [(entity, x, y) for entity, x, y in pullable
+                    if not (getattr(entity, "target_only_buildings", False)
+                            and y >= 22.5)]
         if not pullable:
             cannon[:] = False
         else:
@@ -632,6 +639,7 @@ class ClashEnv:
 
     def __init__(self, seed: int = 0, level: int = 11, opponent: str = "brain",
                  decide_every_ms: int = DECIDE_EVERY_MS, max_ms: int = MAX_MS,
+                 action_delay_ms: int = ACTION_DELAY_MS,
                  rewards: Optional[RewardWeights] = None,
                  opponent_config: Optional[Path] = None):
         from sim.gamedata import load_gamedata
@@ -663,6 +671,7 @@ class ClashEnv:
 
         self.seed = seed
         self.decide_every_ms = decide_every_ms
+        self.action_delay_ms = max(0, int(action_delay_ms))
         self.max_ms = max_ms
         # `or` here calls bool() on whatever is passed, which raises on a
         # numpy array - and a caller with a local named `rewards` holding
@@ -825,7 +834,22 @@ class ClashEnv:
             # holding throws regeneration away. Kept separately weighted so
             # it cannot silently turn every training run hyper-aggressive.
             reward += self.rewards.hold_at_cap
-        if decoded is not None:
+        # A live decision is based on a captured frame that is already about
+        # half a second old by the time the Android tap lands. Advance the
+        # world before applying the chosen action so PPO has to aim at where a
+        # moving enemy will be, not at the stale position in its observation.
+        # The total decision cadence stays unchanged; with the production
+        # defaults the action lands at the end of the 500 ms interval.
+        self._turn += 1
+        if self._turn % 2 == 0 and self.opponent is not None:
+            self.opponent.act(match)
+        step_started = match.elapsed_ms
+        execute_at = min(step_started + self.action_delay_ms,
+                         step_started + self.decide_every_ms)
+        while not match.finished and match.elapsed_ms < execute_at:
+            match.step()
+
+        if decoded is not None and not match.finished:
             if decoded[0] == "ability":
                 rank = decoded[1]
                 entities = self._ability_entities()
@@ -863,19 +887,15 @@ class ClashEnv:
             reward += self.rewards.illegal_action
             self.stats.illegal += 1
 
-        # The opponent acts on the same tick, and who resolves first alternates.
-        # Letting one side always go first hands it every contested tile, which
-        # showed up in self-play as a 115-72 record - three sigma from even.
-        self._turn += 1
-        if self._turn % 2 == 0 and self.opponent is not None:
+        # Alternate which side acts at the execution boundary. This retains
+        # the contested-tile fairness of the old immediate-action loop while
+        # keeping our configured input-to-tap delay explicit.
+        if self._turn % 2 == 1 and self.opponent is not None and not match.finished:
             self.opponent.act(match)
 
-        target = match.elapsed_ms + self.decide_every_ms
+        target = step_started + self.decide_every_ms
         while not match.finished and match.elapsed_ms < target:
             match.step()
-
-        if self._turn % 2 == 1 and self.opponent is not None:
-            self.opponent.act(match)
 
         reward += self._shaping_reward()
         self.stats.steps += 1
@@ -1072,6 +1092,7 @@ class ClashEnv:
         return {
             "action_mask": self.action_mask(),
             "elapsed_s": (self.match.elapsed_ms / 1000.0) if self.match else 0.0,
+            "action_delay_ms": self.action_delay_ms,
             "crowns": ((self.match.crowns_for(1), self.match.crowns_for(-1))
                        if self.match else (0, 0)),
             "result": self.match.result if self.match else None,

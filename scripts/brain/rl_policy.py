@@ -72,6 +72,12 @@ _KNOWN_SPLASH = frozenset({
     "firecracker", "mega_knight", "valkyrie", "wizard",
 })
 
+# Capture + UI parsing is about 0.5 s on the current MuMu setup. Safety masks
+# therefore reason about the unit position when the tap will land, not the
+# stale position in the frame used by the network.
+LIVE_ACTION_DELAY_SECONDS = 0.5
+LATE_PULL_ROW = 22.5
+
 
 def _card_key(name: str) -> str:
     """Prefer an exact resolved key before applying plural/unit aliases."""
@@ -295,7 +301,9 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
     tracks = list(getattr(obs, "tracks", ()) or ())
     enemy_cells = []
     for track in tracks:
-        cell = getattr(track, "cell", None)
+        predictor = getattr(track, "predict", None)
+        cell = (predictor(LIVE_ACTION_DELAY_SECONDS)
+                if callable(predictor) else getattr(track, "cell", None))
         if cell is not None:
             name = str(getattr(track, "name", ""))
             enemy_cells.append({"x": float(np.clip(round(cell.x), 0, GRID_W - 1)),
@@ -378,6 +386,7 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
     if pressure:
         focus = max(pressure, key=lambda unit: unit["y"])
         lane_left = focus["x"] < GRID_W / 2
+        late_contact = focus["y"] >= LATE_PULL_ROW
         musketeer = card_grid("musketeer")
         if musketeer is not None:
             allowed = np.zeros_like(musketeer)
@@ -388,8 +397,13 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
         knight = card_grid("knight")
         if knight is not None:
             allowed = np.zeros_like(knight)
-            kite_x = 10 if lane_left else 7
-            allowed[19:23, kite_x - 1:kite_x + 2] = True
+            # Once the attacker is at the tower, a cross-lane body cannot
+            # make it walk back to the centre. Place on the attacker instead
+            # of pretending a late kite is still available.
+            kite_x = int(round(focus["x"])) if late_contact else (10 if lane_left else 7)
+            y0 = int(np.clip(round(focus["y"]), 21, 24)) if late_contact else 20
+            allowed[max(16, y0 - 1):min(GRID_H, y0 + 2),
+                    max(0, kite_x - 1):min(GRID_W, kite_x + 2)] = True
             knight &= allowed
 
         skeletons = card_grid("skeletons")
@@ -416,7 +430,9 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
     if cannon is not None and ground_pressure:
         cannon_range = _unit_profile("cannon")["range"] or 5500.0
         pullable = [unit for unit in ground_pressure
-                    if not unit["range"] or unit["range"] <= cannon_range]
+                    if (not unit["range"] or unit["range"] <= cannon_range)
+                    and not (unit["building_targeter"]
+                             and unit["y"] >= LATE_PULL_ROW)]
         if not pullable:
             cannon[:] = False
         else:

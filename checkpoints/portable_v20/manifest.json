@@ -1,0 +1,39 @@
+{
+  "name": "portable_v20_delay500",
+  "parent": "checkpoints/portable_v19/portable_v19_defence_tactical.pt",
+  "checkpoint": "portable_v20_delay500.pt",
+  "sha256": "174187efa92370bd8afd3e9882b995c8d52a9fd72394873d00fcfc57a5574895",
+  "architecture": "factorized_spatial_v3_conditioned",
+  "parameters": 408018,
+  "training": {
+    "algorithm": "PPO",
+    "selected_step": 120576,
+    "action_delay_ms": 500,
+    "opponents": "50% rule engine, 50% meta decks",
+    "selection": "worst score across brain and meta",
+    "anchor_coefficient": 0.03,
+    "learning_rate": 0.00001,
+    "rewards": {
+      "elixir_trade": 0.05,
+      "spell_quality": 0.12,
+      "spell_prediction": 0.04,
+      "spell_miss": -0.1,
+      "kite_quality": 0.15,
+      "hog_spirit_combo": 0.03,
+      "hold_at_cap": -0.003
+    }
+  },
+  "paired_evaluation": {
+    "seed": 985000,
+    "episodes_per_opponent": 120,
+    "brain_win_rate": 0.7,
+    "meta_win_rate": 0.375,
+    "parent_brain_win_rate": 0.3083333333,
+    "parent_meta_win_rate": 0.075,
+    "brain_hog_share": 0.0739091719,
+    "meta_hog_share": 0.1144067797,
+    "report": "reports/eval_portable_v20_delay500_120.json",
+    "parent_report": "reports/eval_portable_v19_delay500_120.json"
+  },
+  "status": "promoted simulation candidate; live validation required"
+}
