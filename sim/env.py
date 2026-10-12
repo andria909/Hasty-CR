@@ -360,6 +360,18 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
         return safe[1 + slot * TILES:1 + (slot + 1) * TILES].reshape(
             GRID_H, GRID_W)
 
+    def focus_of(units):
+        lane_risk = {"left": 0.0, "right": 0.0}
+        for entity, x, y in units:
+            lane = "left" if x < GRID_W / 2 else "right"
+            depth = max(0.0, y - 16.0)
+            lane_risk[lane] += (1.0 + depth / 5.0) * (
+                1.7 if getattr(entity, "target_only_buildings", False) else 1.0)
+        lane = max(lane_risk, key=lane_risk.get)
+        return max((item for item in units
+                    if (item[1] < GRID_W / 2) == (lane == "left")),
+                   key=lambda item: item[2])
+
     if not pressure:
         for card in ("cannon", "musketeer", "knight"):
             grid = slot_grid(card)
@@ -399,13 +411,13 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
             musketeer &= allowed
 
     if pressure:
-        focus_entity, focus_x, focus_y = max(pressure, key=lambda item: item[2])
+        focus_entity, focus_x, focus_y = focus_of(pressure)
         lane_left = focus_x < GRID_W / 2
         late_contact = focus_y >= 22.5
         musketeer = slot_grid("musketeer")
         if musketeer is not None:
             allowed = np.zeros_like(musketeer)
-            centre_x = 10 if lane_left else 7
+            centre_x = 9 if lane_left else 8
             allowed[23:28, centre_x - 2:centre_x + 3] = True
             musketeer &= allowed
 
@@ -450,7 +462,7 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
         if not pullable:
             cannon[:] = False
         else:
-            focus_entity, focus_x, _focus_y = max(pullable, key=lambda item: item[2])
+            focus_entity, focus_x, _focus_y = focus_of(pullable)
             x = 8 if focus_x < 8.5 else 9
             allowed = np.zeros_like(cannon)
             fast_pull = any(str(getattr(entity, "name", "")) in {
@@ -486,14 +498,15 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
         grid = safe[1 + slot * TILES:1 + (slot + 1) * TILES].reshape(
             GRID_H, GRID_W)
         if card == "hog_rider":
-            combo_ready = "electro_spirit" in hand
-            counterpush = any(
-                str(getattr(entity, "name", "")) in {
-                    "knight", "musketeer", "electro_spirit"}
-                and _policy_cell(entity, side)[1] <= 24 for entity in allies)
+            counter_units = [entity for entity in allies
+                             if str(getattr(entity, "name", "")) in {
+                                 "knight", "musketeer", "electro_spirit"}
+                             and _policy_cell(entity, side)[1] <= 24]
+            counterpush = bool(counter_units)
             advantage = elixir - enemy_elixir >= (2.5 if crown_lead else 2.0)
-            minimum = 8.0 if combo_ready else 10.0
-            if pressure or elixir < minimum or not (advantage or counterpush):
+            minimum = 7.0 if crown_lead else 6.0
+            if (pressure or elixir < minimum
+                    or (elixir < 9.5 and not (advantage or counterpush))):
                 grid[:] = False
             else:
                 allowed = np.zeros_like(grid)
@@ -505,6 +518,13 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
                 if len(alive) == 2 and abs(alive["left"] - alive["right"]) > 0.03:
                     target = min(alive, key=alive.get)
                     if target == "left":
+                        allowed[:, 9:] = False
+                    else:
+                        allowed[:, :9] = False
+                elif counter_units:
+                    lead = min(counter_units,
+                               key=lambda entity: _policy_cell(entity, side)[1])
+                    if _policy_cell(lead, side)[0] < GRID_W / 2:
                         allowed[:, 9:] = False
                     else:
                         allowed[:, :9] = False

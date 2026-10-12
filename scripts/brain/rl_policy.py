@@ -76,6 +76,7 @@ _KNOWN_SPLASH = frozenset({
 # therefore reason about the unit position when the tap will land, not the
 # stale position in the frame used by the network.
 LIVE_ACTION_DELAY_SECONDS = 0.5
+SPELL_FLIGHT_SECONDS = 0.75
 LATE_PULL_ROW = 22.5
 
 
@@ -300,15 +301,22 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
 
     tracks = list(getattr(obs, "tracks", ()) or ())
     enemy_cells = []
+    spell_cells = []
     for track in tracks:
         predictor = getattr(track, "predict", None)
         cell = (predictor(LIVE_ACTION_DELAY_SECONDS)
                 if callable(predictor) else getattr(track, "cell", None))
         if cell is not None:
             name = str(getattr(track, "name", ""))
-            enemy_cells.append({"x": float(np.clip(round(cell.x), 0, GRID_W - 1)),
-                                "y": float(np.clip(round(cell.y), 0, GRID_H - 1)),
-                                "name": name, **_unit_profile(name)})
+            profile = {"x": float(np.clip(round(cell.x), 0, GRID_W - 1)),
+                       "y": float(np.clip(round(cell.y), 0, GRID_H - 1)),
+                       "name": name, **_unit_profile(name)}
+            enemy_cells.append(profile)
+            impact = (predictor(LIVE_ACTION_DELAY_SECONDS + SPELL_FLIGHT_SECONDS)
+                      if callable(predictor) and not profile["building"] else cell)
+            spell_cells.append({**profile,
+                                "x": float(np.clip(round(impact.x), 0, GRID_W - 1)),
+                                "y": float(np.clip(round(impact.y), 0, GRID_H - 1))})
 
     pressure = [unit for unit in enemy_cells
                 if unit["y"] >= GRID_H // 2 and not unit["building"]]
@@ -329,6 +337,21 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
                       for lane in ("left", "right"))
                   < sum(float(theirs.get(lane, 0.0)) <= 0.0
                         for lane in ("left", "right")))
+
+    def focus_of(units):
+        # A single fast unit near a tower should not redirect the whole
+        # defence away from a larger building-targeting push in the other
+        # lane. Score both lanes, then pick the lead unit in the riskier one.
+        lane_risk = {"left": 0.0, "right": 0.0}
+        for unit in units:
+            lane = "left" if unit["x"] < GRID_W / 2 else "right"
+            depth = max(0.0, unit["y"] - 16.0)
+            lane_risk[lane] += (1.0 + depth / 5.0) * (
+                1.7 if unit["building_targeter"] else 1.0)
+        lane = max(lane_risk, key=lane_risk.get)
+        return max((unit for unit in units
+                    if (unit["x"] < GRID_W / 2) == (lane == "left")),
+                   key=lambda unit: unit["y"])
 
     def card_grid(card: str):
         slot = hand.get(card)
@@ -384,7 +407,7 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
     # the ranged pieces protected in the middle/back and use cheap troops in
     # front to pull attackers through their fire.
     if pressure:
-        focus = max(pressure, key=lambda unit: unit["y"])
+        focus = focus_of(pressure)
         lane_left = focus["x"] < GRID_W / 2
         late_contact = focus["y"] >= LATE_PULL_ROW
         musketeer = card_grid("musketeer")
@@ -436,7 +459,7 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
         if not pullable:
             cannon[:] = False
         else:
-            focus = max(pullable, key=lambda unit: unit["y"])
+            focus = focus_of(pullable)
             # Expert replays put Cannon almost exactly between the towers
             # (x median 9.5, IQR 8.5-9.5), shifted only one cell toward the
             # incoming lane.  The older x=6/11 mask was lane defence, not a
@@ -470,13 +493,17 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
     if hog_slot is not None:
         grid = safe[1 + hog_slot * TILES:1 + (hog_slot + 1) * TILES].reshape(
             GRID_H, GRID_W)
-        combo_ready = "electro_spirit" in hand
-        counterpush = any(name in {"knight", "musketeer", "electro_spirit"}
-                          and cell.y <= 24 for cell, name in allies_named)
+        counter_units = [(cell, name) for cell, name in allies_named
+                         if name in {"knight", "musketeer", "electro_spirit"}
+                         and cell.y <= 24]
+        counterpush = bool(counter_units)
         advantage = elixir - enemy_elixir >= (2.5 if crown_lead else 2.0)
-        minimum = 8.0 if combo_ready else 10.0
+        # Save enough for a cheap answer, but do not idle at 9 elixir merely
+        # because Spirit is out of hand. Full-bar attacks are always offered.
+        minimum = 7.0 if crown_lead else 6.0
         if (threats or threat_score >= 5.0 or pressure
-                or elixir < minimum or not (advantage or counterpush)):
+                or elixir < minimum
+                or (elixir < 9.5 and not (advantage or counterpush))):
             grid[:] = False
         else:
             allowed = np.zeros_like(grid)
@@ -495,6 +522,12 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
                     allowed[:, 9:] = False
                 else:
                     allowed[:, :9] = False
+            elif counter_units:
+                lead = min(counter_units, key=lambda item: item[0].y)[0]
+                if lead.x < GRID_W / 2:
+                    allowed[:, 9:] = False
+                else:
+                    allowed[:, :9] = False
             grid &= allowed
 
     now = float(getattr(obs, "now", 0.0) or 0.0)
@@ -507,7 +540,7 @@ def apply_live_safety_mask(mask: np.ndarray, obs, allies_named=None,
         valuable = np.zeros_like(grid)
         for y in range(GRID_H):
             for x in range(GRID_W):
-                hit = [unit for unit in enemy_cells
+                hit = [unit for unit in spell_cells
                        if (unit["x"] - x) ** 2 + (unit["y"] - y) ** 2 <= radius ** 2]
                 # Vision cannot see an in-flight spell. Remember confirmed
                 # casts so Fireball and Zap cannot hit the same resolved area.

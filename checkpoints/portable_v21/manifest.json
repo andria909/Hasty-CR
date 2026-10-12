@@ -1,0 +1,34 @@
+{
+  "name": "portable_v21_lane_hog_spell",
+  "parent": "checkpoints/portable_v20/portable_v20_delay500.pt",
+  "checkpoint": "portable_v21_lane_hog_spell.pt",
+  "sha256": "dbeafc6835a9a4c7721a64c68e1819af9e53fbad30c7fb671609cd422b7f5ba0",
+  "architecture": "factorized_spatial_v3_conditioned",
+  "training": {
+    "algorithm": "PPO",
+    "selected_step": 30208,
+    "total_steps": 60160,
+    "action_delay_ms": 500,
+    "opponents": "50% rule engine, 50% meta decks",
+    "anchor_coefficient": 0.03,
+    "learning_rate": 0.00001,
+    "changes": "lane-risk defence, earlier Hog with elixir reserve, same-lane survivor counterpush, 750 ms live spell-flight forecast"
+  },
+  "paired_evaluation": {
+    "seed": 986000,
+    "episodes_per_opponent": 80,
+    "v20_brain_wins": 59,
+    "v21_brain_wins": 69,
+    "v20_meta_wins": 30,
+    "v21_meta_wins": 47,
+    "v20_brain_hog_share": 0.14,
+    "v21_brain_hog_share": 0.10,
+    "v20_meta_hog_share": 0.15,
+    "v21_meta_hog_share": 0.12,
+    "reports": [
+      "reports/eval_portable_v20_newmask_80.json",
+      "reports/eval_portable_v21_80.json"
+    ]
+  },
+  "status": "stronger simulation candidate; live validation pending"
+}

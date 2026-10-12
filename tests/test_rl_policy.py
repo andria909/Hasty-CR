@@ -278,6 +278,17 @@ def test_live_safety_places_cannon_only_in_the_central_pull_pocket():
     assert not cannon[:, 10:].any()
 
 
+def test_defence_prioritises_the_building_targeting_lane_from_the_start():
+    giant = SimpleNamespace(cell=SimpleNamespace(x=4, y=20), name="giant")
+    knight = SimpleNamespace(cell=SimpleNamespace(x=13, y=23), name="knight")
+    obs = _live_obs({"knight": 0}, tracks=[giant, knight],
+                    threats=[giant, knight])
+    grid = apply_live_safety_mask(mask_from_live(obs), obs)[
+        1:1 + TILES].reshape(32, 18)
+    assert grid[20, 10], "the Giant's left-lane push needs a central kite"
+    assert not grid[23, 13], "a lone later unit must not flip the defence"
+
+
 def test_live_safety_aims_from_the_predicted_half_second_position():
     current = SimpleNamespace(x=4, y=20)
     future = SimpleNamespace(x=7, y=21)
@@ -333,20 +344,49 @@ def test_live_safety_keeps_ground_cards_out_of_a_pure_air_defence():
         assert not mask[1 + slot * TILES:1 + (slot + 1) * TILES].any()
 
 
-def test_hog_without_spirit_waits_until_elixir_is_full():
+def test_hog_without_spirit_preserves_two_elixir_but_does_not_wait_for_full_bar():
     obs = _live_obs({"hog_rider": 0})
-    obs.elixir = 9.9
+    obs.elixir = 5.9
+    assert not apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
+    obs.elixir = 7.0
+    assert apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
+
+
+def test_hog_can_attack_at_full_elixir_without_a_measured_advantage():
+    obs = _live_obs({"hog_rider": 0, "electro_spirit": 1})
+    obs.enemy_elixir = 9.0
+    obs.elixir = 9.0
     assert not apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
     obs.elixir = 10.0
     assert apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
 
 
-def test_hog_waits_for_an_elixir_advantage_even_on_an_empty_board():
-    obs = _live_obs({"hog_rider": 0, "electro_spirit": 1})
-    obs.enemy_elixir = 9.0
-    assert not apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
-    obs.enemy_elixir = 6.0
-    assert apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
+def test_hog_joins_surviving_counterpush_in_its_lane():
+    obs = _live_obs({"hog_rider": 0})
+    obs.elixir = 6.0
+    obs.enemy_elixir = 10.0
+    allies = [(SimpleNamespace(x=13, y=19), "musketeer")]
+    grid = apply_live_safety_mask(mask_from_live(obs), obs, allies)[
+        1:1 + TILES].reshape(32, 18)
+    assert grid[16, 14]
+    assert not grid[:, :9].any()
+
+
+def test_fireball_uses_extra_flight_time_after_the_tap():
+    calls = []
+    def moving(x):
+        def predict(seconds):
+            calls.append(seconds)
+            return SimpleNamespace(x=x + 4 if seconds >= 1.25 else x,
+                                   y=20)
+        return SimpleNamespace(cell=SimpleNamespace(x=x, y=20),
+                               name="archer", predict=predict)
+    obs = _live_obs({"fireball": 0}, tracks=[moving(3), moving(4)])
+    grid = apply_live_safety_mask(mask_from_live(obs), obs)[
+        1:1 + TILES].reshape(32, 18)
+    assert 1.25 in calls
+    assert grid[20, 8]
+    assert not grid[20, 3]
 
 
 def test_live_safety_does_not_cast_fireball_on_one_moving_unit():
