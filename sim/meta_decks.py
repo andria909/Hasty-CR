@@ -79,12 +79,36 @@ def observed_decks() -> List[List[str]]:
     return [list(deck) for deck in blob.get("decks", ()) if len(deck) == 8]
 
 
+def live_case_decks() -> List[Tuple[str, str, List[str]]]:
+    """Synthetic opponents reconstructed from live failures, not exact replays.
+
+    Match summaries do not contain the opponent's complete deck or the
+    observation at every decision. Keep that provenance explicit in each case
+    file; only its playable approximation enters the simulator's deck pool.
+    """
+    directory = Path(__file__).resolve().parents[1] / "data" / "live_cases"
+    cases = []
+    for path in sorted(directory.glob("*.json")):
+        try:
+            case = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        deck = case.get("synthetic_opponent_deck")
+        if (case.get("not_exact_replay") is not True or
+                not isinstance(deck, list) or len(deck) != 8 or
+                not all(isinstance(card, str) for card in deck) or
+                len(set(deck)) != 8):
+            continue
+        cases.append((f"live_case_{path.stem}", "beatdown", deck))
+    return cases
+
+
 def deck_pool(cards: Dict[str, object],
               observed: bool = True) -> List[Tuple[str, str, List[str]]]:
     """(name, style, deck) for every deck this card data can actually build.
 
-    Real observed decks first when they are available, then the hand-written
-    archetypes for anything they do not cover. A deck naming a card the
+    Real observed decks first when they are available, then reconstructed live
+    failure cases and hand-written archetypes. A deck naming a card the
     simulator cannot build is dropped rather than half-played, which is why
     this filters rather than trusting the file.
     """
@@ -102,7 +126,7 @@ def deck_pool(cards: Dict[str, object],
             pool.append((f"ladder_{index:03d}", classify_style(cards, deck),
                          list(deck)))
 
-    for name, style, deck in ARCHETYPES:
+    for name, style, deck in [*live_case_decks(), *ARCHETYPES]:
         if any(card not in cards or cards[card] is None for card in deck):
             continue
         key = tuple(sorted(deck))

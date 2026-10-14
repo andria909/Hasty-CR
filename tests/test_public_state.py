@@ -1,7 +1,7 @@
 import numpy as np
 
 from sim.public_state import (_elixir_interval, card_vocab, public_feature_count,
-                              vector_from_events)
+                              vector_from_events, vector_from_live)
 
 
 def _play(at, card, cost):
@@ -16,6 +16,54 @@ def test_public_vector_reveals_cards_without_hidden_hand_or_exact_elixir():
     assert vector[vocab.index("fireball")] == 1
     assert vector.shape == (public_feature_count(),)
     assert np.isfinite(vector).all()
+
+
+def test_client_and_detector_names_use_the_real_card_vocabulary():
+    vocab = card_vocab()
+    assert len(vocab) == 123, "changing this shifts saved checkpoint inputs"
+    events = [_play(1000, "hog_rider", 4),
+              _play(2000, "barbarian", 5),
+              _play(3000, "ice_spirits", 1)]
+    vector = vector_from_events(events, 3500)
+    for card in ("hog-rider", "barbarians", "ice-spirit"):
+        assert vector[vocab.index(card)] == 1
+    assert vector[len(vocab)] == 0, "known cards must not land in unknown"
+
+
+def test_live_opponent_cards_and_estimated_elixir_reach_the_model():
+    from brain.economy import EnemyEconomy
+    from brain.opponent import OpponentModel
+    opponent = OpponentModel()
+    opponent.observe(["barbarian", "hog_rider"], 100.0)
+    economy = EnemyEconomy()
+    economy.reset(100.0)
+    economy.elixir = 3.5
+    vector = vector_from_live(opponent, economy, 100.0)
+    vocab = card_vocab()
+    assert vector[vocab.index("barbarians")] == 1
+    assert vector[vocab.index("hog-rider")] == 1
+    assert vector[2 * (len(vocab) + 1)] == 0.35
+
+
+def test_building_and_hog_counter_use_canonical_card_names():
+    vocab = card_vocab()
+    base = 2 * (len(vocab) + 1)
+    events = [_play(1000, "inferno_tower", 5),
+              _play(2000, "skeleton_army", 3)]
+    simulated = vector_from_events(events, 2500)
+    assert simulated[vocab.index("inferno-tower")] == 1
+    assert simulated[vocab.index("skeleton-army")] == 1
+    assert simulated[base + 5] == 2 / 8
+    assert simulated[base + 7] == 1 / 8
+    from brain.economy import EnemyEconomy
+    from brain.opponent import OpponentModel
+    opponent = OpponentModel()
+    opponent.observe(["inferno_tower", "skeleton_army"], 2.5)
+    economy = EnemyEconomy()
+    economy.reset(2.5)
+    live = vector_from_live(opponent, economy, 2.5)
+    assert live[base + 5] == simulated[base + 5]
+    assert live[base + 7] == simulated[base + 7]
 
 
 def test_recently_played_counter_is_definitely_unavailable():

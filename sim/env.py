@@ -52,6 +52,7 @@ for path in (str(ROOT), str(ROOT / "scripts")):
 from sim import arena as sim_arena          # noqa: E402
 from sim.adapter import grid_to_point       # noqa: E402
 from sim.match import Match                 # noqa: E402
+from brain import spellinfo                 # noqa: E402
 
 GRID_W, GRID_H = 18, 32
 TILES = GRID_W * GRID_H
@@ -309,7 +310,10 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
                and (getattr(entity, "side", 1) > 0) != (side > 0)]
     cells = [(entity, *_policy_cell(entity, side)) for entity in enemies]
     pressure = [(entity, x, y) for entity, x, y in cells
-                if y >= RIVER_ROW and not getattr(entity, "is_building", False)]
+                if not getattr(entity, "is_building", False)
+                and (y >= RIVER_ROW or
+                     (getattr(entity, "target_only_buildings", False)
+                      and y >= RIVER_ROW - 2))]
     ground_pressure = [(entity, x, y) for entity, x, y in pressure
                        if not getattr(entity, "flying", False)]
     air_pressure = [(entity, x, y) for entity, x, y in pressure
@@ -424,8 +428,9 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
         knight = slot_grid("knight")
         if knight is not None:
             allowed = np.zeros_like(knight)
-            kite_x = focus_x if late_contact else (10 if lane_left else 7)
-            y = int(np.clip(focus_y, 21, 24)) if late_contact else 20
+            kite_x = focus_x if late_contact else (9 if lane_left else 8)
+            y = (int(np.clip(focus_y, 21, 24)) if late_contact
+                 else int(np.clip(focus_y + 1, 20, 22)))
             allowed[max(16, y - 1):min(GRID_H, y + 2),
                     max(0, kite_x - 1):min(GRID_W, kite_x + 2)] = True
             knight &= allowed
@@ -437,8 +442,12 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
                 skeletons[:] = False
             else:
                 allowed = np.zeros_like(skeletons)
-                y = int(np.clip(focus_y + 1, 19, 23))
-                allowed[y - 1:y + 2, 7:11] = True
+                targeter = (bool(getattr(focus_entity, "target_only_buildings", False))
+                            and not bool(getattr(focus_entity, "flying", False)))
+                y = int(np.clip(focus_y + 1, 19, 24 if targeter else 23))
+                x = focus_x if targeter else 9
+                allowed[y - 1:y + 2,
+                        max(0, x - 1):min(GRID_W, x + 2)] = True
                 skeletons &= allowed
 
         spirit = slot_grid("electro_spirit")
@@ -459,7 +468,15 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
         pullable = [(entity, x, y) for entity, x, y in pullable
                     if not (getattr(entity, "target_only_buildings", False)
                             and y >= 22.5)]
-        if not pullable:
+        cheap_ranged = (len(pullable) == 1
+                        and not getattr(pullable[0][0], "target_only_buildings", False)
+                        and getattr(pullable[0][0], "range_mt", 0) > 1000
+                        and float(getattr(entity_card(pullable[0][0]), "cost", 99)) <= 3)
+        cheaper_answer = any(
+            grid is not None and grid.any()
+            for grid in (slot_grid("knight"), slot_grid("skeletons"),
+                         slot_grid("electro_spirit")))
+        if not pullable or (cheap_ranged and cheaper_answer):
             cannon[:] = False
         else:
             focus_entity, focus_x, _focus_y = focus_of(pullable)
@@ -553,6 +570,23 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
                     fireball_value = sum(
                         float(getattr(entity_card(entity), "cost", 0) or 0)
                         for entity, _ex, _ey in fireball_targets)
+                    push_support = [entity for entity, _ex, _ey in troops
+                                    if getattr(entity, "max_hitpoints", 0) <= 1000
+                                    and float(getattr(entity_card(entity),
+                                                      "cost", 0) or 0) >= 3
+                                    and (getattr(entity, "range_mt", 0) > 1000
+                                         or getattr(entity, "flying", False))]
+                    incoming_push = (
+                        len(troops) >= 2
+                        and sum(float(getattr(entity_card(entity), "cost", 0) or 0)
+                                for entity, _ex, _ey in troops) >= 6
+                        and push_support
+                        and any(ey >= RIVER_ROW for _entity, _ex, ey in troops))
+                    medium_ground_pack = sum(
+                        300 <= getattr(entity, "max_hitpoints", 0) <= 1000
+                        and not getattr(entity, "flying", False)
+                        and ey >= RIVER_ROW
+                        for entity, _ex, ey in troops) >= 3
                     zap_targets = [
                         (entity, ex, ey) for entity, ex, ey in troops
                         if any(key in str(getattr(entity, "name", ""))
@@ -571,19 +605,30 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
                     valuable_cast = ((card == "fireball" and
                                       ((len(fireball_targets) >= 2
                                         and fireball_value >= 5)
+                                       or incoming_push
+                                       or medium_ground_pack
                                        or building_support
                                        or defensive_air))
                                      or (card == "zap" and
                                          (len(zap_targets) >= minimum or reset)))
                     if valuable_cast:
                         valuable[y, x] = True
-            if card == "fireball":
+            if card in ("fireball", "zap"):
                 for lane, (x, y) in (("left", (4, 7)), ("right", (14, 7))):
                     hp = float(match.tower_fractions(-side).get(lane, 1.0))
-                    if 0.0 < hp <= 0.18:
+                    if spellinfo.can_finish(card, hp):
                         valuable[max(0, y - 1):y + 2,
                                  max(0, x - 1):x + 2] = True
             grid &= valuable
+    if not safe[1:].any() and ground_pressure and "cannon" in hand:
+        slot = list(hand).index("cannon")
+        base = mask[1 + slot * TILES:1 + (slot + 1) * TILES].reshape(
+            GRID_H, GRID_W)
+        cannon = slot_grid("cannon")
+        _entity, focus_x, focus_y = focus_of(ground_pressure)
+        x = 8 if focus_x < GRID_W / 2 else 9
+        y = 22 if focus_y >= 22.5 else 21
+        cannon[y, x - 1:x + 2] = base[y, x - 1:x + 2]
     return safe
 
 

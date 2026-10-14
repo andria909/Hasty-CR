@@ -1458,7 +1458,7 @@ class Brain:
         if obs.hand.get(candidate.card) != candidate.slot:
             return False
         if candidate.card in self.last_play_index:
-            if self.plays - self.last_play_index[candidate.card] < 4:
+            if self.plays - self.last_play_index[candidate.card] <= 4:
                 return False
         if obs.elixir < candidate.cost:
             return False

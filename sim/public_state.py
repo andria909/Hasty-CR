@@ -16,8 +16,28 @@ SUMMARY_FEATURES = 9
 
 ALIASES = {
     "the_log": "log",
-    "ice_spirit": "ice_spirits",
-    "ice_golem": "ice_golemite",
+    "ice_spirits": "ice-spirit",
+    "ice_golemite": "ice-golem",
+    "ice_spirit": "ice-spirit",
+    "ice_golem": "ice-golem",
+    # Live vision reports troop entities, while the snapshot contains card
+    # keys. A singular child is evidence of the parent card only when the
+    # observer has accepted it as a new deployment.
+    "archer": "archers",
+    "barbarian": "barbarians",
+    "bat": "bats",
+    "elite_barbarian": "elite-barbarians",
+    "goblin": "goblins",
+    "guard": "guards",
+    "minion": "minions",
+    "royal_hog": "royal-hogs",
+    "royal_recruit": "royal-recruits",
+    "skeleton": "skeletons",
+    "skeleton_dragon": "skeleton-dragons",
+    "spear_goblin": "spear-goblins",
+    "wall_breaker": "wall-breakers",
+    "zappy": "zappies",
+    "minipekka": "mini-pekka",
 }
 
 HOG_ANSWERS = frozenset({
@@ -51,6 +71,9 @@ def card_vocab() -> tuple[str, ...]:
     except (OSError, KeyError, TypeError, ValueError):
         names = set()
     names.update(ALIASES.values())
+    # Keep the two old synthetic slots so checkpoint input dimensions and
+    # indices do not shift. New observations use the real snapshot keys.
+    names.update(("ice_golemite", "ice_spirits"))
     return tuple(sorted(names))
 
 
@@ -60,8 +83,18 @@ def public_feature_count() -> int:
     return 2 * (len(card_vocab()) + 1) + SUMMARY_FEATURES
 
 
+@lru_cache(maxsize=256)
 def _canon(card: str) -> str:
-    return ALIASES.get(card, card)
+    name = ALIASES.get(card, card)
+    slug = name.replace("_", "-")
+    return slug if slug in card_vocab() else name
+
+
+# The summary counters must use the same keys as the seen-card one-hot.
+# Otherwise Inferno Tower, Skeleton Army, etc. appear as known cards while
+# silently disappearing from the Hog-answer and building counters.
+HOG_ANSWERS = frozenset(_canon(card) for card in HOG_ANSWERS)
+BUILDING_ANSWERS = frozenset(_canon(card) for card in BUILDING_ANSWERS)
 
 
 def _regen_period_ms(at_ms: int) -> int:
@@ -174,8 +207,11 @@ def vector_from_live(opponent, economy, now: float) -> np.ndarray:
         confidence,
         min(MAX_ELIXIR, economy.recent_spend(now)) / MAX_ELIXIR,
     )
-    out[base + 5] = len(opponent.known_answers()) / DECK_SIZE
-    out[base + 6] = float(opponent.answer_ready())
+    answers = [raw for raw in opponent.deck
+               if _canon(raw) in HOG_ANSWERS]
+    out[base + 5] = len(answers) / DECK_SIZE
+    out[base + 6] = float(not answers or any(
+        not opponent.definitely_unavailable(raw) for raw in answers))
     buildings = [raw for raw in opponent.deck
                  if _canon(raw) in BUILDING_ANSWERS]
     out[base + 7] = len(buildings) / DECK_SIZE

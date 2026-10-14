@@ -1,0 +1,18 @@
+{
+  "case_id": "20261013_225020_m009",
+  "source_local_log": "data/live_cases/20261013_225020_m009_source.json",
+  "source_checkpoint": "portable_v25_cannon_economy_best.pt",
+  "result": "loss_1_3",
+  "duration_s": 150,
+  "not_exact_replay": true,
+  "observed_failure": "An early tower fell by 24s; another by 51s. Later pressure included Giant, Mini P.E.K.K.A, Baby Dragon, Musketeer and Valkyrie. The log has actions and tower HP snapshots, not per-decision observations.",
+  "observed_enemy_cards": [
+    "hog_rider", "minipekka", "baby_dragon", "musketeer",
+    "giant", "archer", "valkyrie", "cannon"
+  ],
+  "synthetic_opponent_deck": [
+    "giant", "minipekka", "baby_dragon", "musketeer",
+    "valkyrie", "hog_rider", "archer", "cannon"
+  ],
+  "training_use": "Approximate beatdown pressure in the meta opponent pool; never treat the original bot actions as expert demonstrations."
+}

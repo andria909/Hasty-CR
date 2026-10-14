@@ -27,6 +27,9 @@ from __future__ import annotations
 # Derived from the extracted client data, not recalled - see the module note.
 TOWER_FRACTION = {
     "fireball": 0.052,
+    # 192 damage at tournament level, reduced to 30% against crown towers:
+    # about 58 / 3346. Keep a margin for level/HP-reading differences.
+    "zap": 0.015,
     "the_log": 0.010,
 }
 

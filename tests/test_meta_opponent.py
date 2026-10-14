@@ -33,7 +33,7 @@ if str(ROOT) not in sys.path:
 
 from sim.env import DECK_26, ClashEnv                            # noqa: E402
 from sim.gamedata import load_gamedata                           # noqa: E402
-from sim.meta_decks import classify_style, deck_pool             # noqa: E402
+from sim.meta_decks import classify_style, deck_pool, live_case_decks  # noqa: E402
 
 CARDS = load_gamedata(11)
 POOL = deck_pool(CARDS)
@@ -41,6 +41,12 @@ POOL = deck_pool(CARDS)
 
 def test_there_is_a_pool_at_all():
     assert POOL, "no opponent decks; run scripts/sync_meta_decks.py"
+
+
+def test_recorded_live_failure_is_in_training_pool():
+    cases = live_case_decks()
+    assert any(name == "live_case_20261013_225020_m009" for name, _, _ in cases)
+    assert any(name == "live_case_20261013_225020_m009" for name, _, _ in POOL)
 
 
 def test_every_deck_is_eight_distinct_playable_cards():

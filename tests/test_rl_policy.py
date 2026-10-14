@@ -25,8 +25,9 @@ for path in (str(ROOT), str(ROOT / "scripts")):
         sys.path.insert(0, path)
 
 from brain import arena as live_arena                              # noqa: E402
-from brain.rl_policy import (apply_live_safety_mask, mask_from_live,
-                             observation_from_live)  # noqa: E402
+from brain.rl_policy import (apply_live_cycle_guard, apply_live_safety_mask, mask_from_live,
+                             observation_from_live, priority_spell_decision,
+                             _unit_profile)  # noqa: E402
 from sim import arena as sim_arena                                 # noqa: E402
 from sim.env import (ACTIONS, DECK_26, GRID_W, RIVER_ROW, TILES,   # noqa: E402
                      ClashEnv, legal_mask, observe)
@@ -48,6 +49,15 @@ def test_the_live_and_simulator_grids_are_the_same_convention():
         sim_point = sim_arena.ALLY_PRINCESS[lane]
         assert abs(sim_point.x / sim_arena.MT - live_x) <= 0.5, lane
         assert abs(sim_point.y / sim_arena.MT - live_y) <= 0.5, lane
+
+
+def test_live_unit_speed_is_already_in_millitiles_per_second():
+    from sim.gamedata import load_gamedata
+    cards = load_gamedata(11)
+    for name in ("giant", "knight", "hog_rider"):
+        assert _unit_profile(name)["speed"] == cards[name].unit.speed_mt_per_sec
+    assert _unit_profile("giant")["speed"] < _unit_profile("knight")["speed"]
+    assert _unit_profile("knight")["speed"] < _unit_profile("hog_rider")["speed"]
 
 
 def test_our_half_means_the_same_thing_on_both_sides():
@@ -126,6 +136,16 @@ def test_air_and_building_planes_agree_too():
     for plane in (4, 5, 6, 7):
         assert np.array_equal(from_sim[plane], from_live[plane]), (
             f"plane {plane} (air/building) differs")
+
+
+def test_tactical_planes_including_speed_match_the_simulator():
+    env = played_out_match()
+    obs, allies = live_view_of(env.match)
+    from_sim = observe(env.match, 1)["planes"]
+    from_live = observation_from_live(obs, allies)["planes"]
+    for plane in range(8, len(from_sim)):
+        assert np.allclose(from_sim[plane], from_live[plane]), (
+            f"tactical plane {plane} differs between live and simulator")
 
 
 def test_recovering_ally_names_is_what_fills_the_ally_planes():
@@ -278,6 +298,36 @@ def test_live_safety_places_cannon_only_in_the_central_pull_pocket():
     assert not cannon[:, 10:].any()
 
 
+def test_cannon_is_ready_before_a_building_targeter_crosses_the_river():
+    hog = SimpleNamespace(cell=SimpleNamespace(x=4, y=14), name="hog_rider")
+    obs = _live_obs({"cannon": 0, "knight": 1, "hog_rider": 2},
+                    tracks=[hog])
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    cannon = mask[1:1 + TILES].reshape(32, 18)
+    knight = mask[1 + TILES:1 + 2 * TILES]
+    our_hog = mask[1 + 2 * TILES:1 + 3 * TILES]
+    assert cannon[20, 7:10].any()
+    assert not knight.any(), "establish the pull before a ground screen"
+    assert not our_hog.any(), "defend the incoming Hog before counterattacking"
+
+
+def test_cannon_is_saved_when_a_cheaper_answer_handles_one_archer():
+    archer = SimpleNamespace(cell=SimpleNamespace(x=4, y=20), name="archer")
+    obs = _live_obs({"cannon": 0, "knight": 1}, tracks=[archer])
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    assert not mask[1:1 + TILES].any()
+    assert mask[1 + TILES:1 + 2 * TILES].any()
+
+
+def test_early_kite_is_one_cell_closer_to_the_attacker():
+    threat = SimpleNamespace(cell=SimpleNamespace(x=4, y=21), name="knight")
+    obs = _live_obs({"knight": 0}, tracks=[threat])
+    grid = apply_live_safety_mask(mask_from_live(obs), obs)[
+        1:1 + TILES].reshape(32, 18)
+    assert grid[22, 8]
+    assert not grid[19, 10]
+
+
 def test_defence_prioritises_the_building_targeting_lane_from_the_start():
     giant = SimpleNamespace(cell=SimpleNamespace(x=4, y=20), name="giant")
     knight = SimpleNamespace(cell=SimpleNamespace(x=13, y=23), name="knight")
@@ -303,12 +353,24 @@ def test_live_safety_aims_from_the_predicted_half_second_position():
     assert not grid[20, 2], "mask must not aim behind the delayed targets"
 
 
-def test_live_safety_does_not_offer_a_late_cannon_pull_at_the_tower():
+def test_late_cannon_can_support_defence_when_it_is_the_only_legal_answer():
     giant = SimpleNamespace(cell=SimpleNamespace(x=4, y=23), name="giant")
     obs = _live_obs({"cannon": 0}, tracks=[giant], threats=[giant])
     cannon = apply_live_safety_mask(mask_from_live(obs), obs)[
-        1:1 + TILES]
-    assert not cannon.any()
+        1:1 + TILES].reshape(32, 18)
+    assert cannon[22, 7:10].any(), "late damage is preferable to waiting"
+    assert not cannon[20].any(), "this is support, not a pretend early pull"
+
+
+@pytest.mark.parametrize("x", [4, 13])
+def test_skeletons_meet_building_targeter_on_its_own_path(x):
+    giant = SimpleNamespace(cell=SimpleNamespace(x=x, y=22), name="giant")
+    obs = _live_obs({"skeletons": 0}, tracks=[giant], threats=[giant])
+    skeletons = apply_live_safety_mask(mask_from_live(obs), obs)[
+        1:1 + TILES].reshape(32, 18)
+    assert skeletons[23, x], "Skeletons must intercept the Giant's path"
+    assert not skeletons[23, 9 if x == 4 else 8], (
+        "a building-targeter will ignore an off-lane kite")
 
 
 def test_live_safety_places_musketeer_behind_the_central_screen():
@@ -352,6 +414,18 @@ def test_hog_without_spirit_preserves_two_elixir_but_does_not_wait_for_full_bar(
     assert apply_live_safety_mask(mask_from_live(obs), obs)[1:1 + TILES].any()
 
 
+def test_live_cycle_guard_rejects_impossible_repeat_from_stale_hand_reading():
+    obs = _live_obs({"electro_spirit": 0, "knight": 1})
+    mask = mask_from_live(obs)
+    guarded = apply_live_cycle_guard(mask, obs, {"electro_spirit": 5}, 7)
+    assert not guarded[1:1 + TILES].any()
+    assert guarded[1 + TILES:1 + 2 * TILES].any()
+    assert not apply_live_cycle_guard(mask, obs, {"electro_spirit": 5}, 9)[
+        1:1 + TILES].any(), "three other plays are not a full cycle"
+    assert apply_live_cycle_guard(mask, obs, {"electro_spirit": 5}, 10)[
+        1:1 + TILES].any(), "the card can return after four other plays"
+
+
 def test_hog_can_attack_at_full_elixir_without_a_measured_advantage():
     obs = _live_obs({"hog_rider": 0, "electro_spirit": 1})
     obs.enemy_elixir = 9.0
@@ -377,16 +451,29 @@ def test_fireball_uses_extra_flight_time_after_the_tap():
     def moving(x):
         def predict(seconds):
             calls.append(seconds)
-            return SimpleNamespace(x=x + 4 if seconds >= 1.25 else x,
+            return SimpleNamespace(x=x + 4 if seconds >= 1.1 else x,
                                    y=20)
         return SimpleNamespace(cell=SimpleNamespace(x=x, y=20),
                                name="archer", predict=predict)
     obs = _live_obs({"fireball": 0}, tracks=[moving(3), moving(4)])
     grid = apply_live_safety_mask(mask_from_live(obs), obs)[
         1:1 + TILES].reshape(32, 18)
-    assert 1.25 in calls
+    assert 1.1 in calls
     assert grid[20, 8]
     assert not grid[20, 3]
+
+
+def test_zap_keeps_its_own_flight_window():
+    calls = []
+    def moving(x):
+        def predict(seconds):
+            calls.append(seconds)
+            return SimpleNamespace(x=x, y=20)
+        return SimpleNamespace(cell=SimpleNamespace(x=x, y=20),
+                               name="skeleton", predict=predict)
+    obs = _live_obs({"zap": 0}, tracks=[moving(3), moving(4)])
+    apply_live_safety_mask(mask_from_live(obs), obs)
+    assert 1.25 in calls
 
 
 def test_live_safety_does_not_cast_fireball_on_one_moving_unit():
@@ -394,6 +481,74 @@ def test_live_safety_does_not_cast_fireball_on_one_moving_unit():
     obs = _live_obs({"fireball": 0}, tracks=[one])
     mask = apply_live_safety_mask(mask_from_live(obs), obs)
     assert not mask[1:1 + TILES].any()
+
+
+def test_live_spell_finishes_tower_before_answering_a_push():
+    giant = SimpleNamespace(cell=SimpleNamespace(x=4, y=21), name="giant")
+    obs = _live_obs({"fireball": 0, "knight": 1}, tracks=[giant],
+                    threats=[giant], threat_score=10.0)
+    obs.enemy_hp["right"] = 0.04
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    choice = priority_spell_decision(mask, obs)
+    assert (choice.card, choice.x, choice.y) == ("fireball", 14, 7)
+    assert choice.weight_key == "finish_tower"
+
+
+def test_live_spell_does_not_guess_a_fireball_finish_at_ten_percent():
+    obs = _live_obs({"fireball": 0})
+    obs.enemy_hp["right"] = 0.10
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    assert priority_spell_decision(mask, obs) is None
+    assert not mask[1:1 + TILES].any()
+
+
+def test_live_zap_can_finish_tower_cheaply():
+    obs = _live_obs({"fireball": 0, "zap": 1})
+    obs.enemy_hp["left"] = 0.012
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    choice = priority_spell_decision(mask, obs)
+    assert (choice.card, choice.x, choice.y) == ("zap", 4, 7)
+
+
+def test_live_fireball_is_forced_on_tank_and_support_push():
+    tracks = [SimpleNamespace(cell=SimpleNamespace(x=4, y=19), name="giant"),
+              SimpleNamespace(cell=SimpleNamespace(x=5, y=19), name="musketeer")]
+    obs = _live_obs({"fireball": 0, "knight": 1}, tracks=tracks,
+                    threats=tracks, threat_score=14.0)
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    choice = priority_spell_decision(mask, obs)
+    assert choice is not None and choice.card == "fireball"
+    assert (choice.x - 5) ** 2 + (choice.y - 19) ** 2 <= 9
+    assert choice.weight_key == "defend_spell"
+
+
+def test_fireball_hits_medium_health_barbarian_pack_not_skeletons():
+    barbarians = [SimpleNamespace(cell=SimpleNamespace(x=4 + i, y=19),
+                                  name="barbarian") for i in range(3)]
+    obs = _live_obs({"fireball": 0}, tracks=barbarians,
+                    threats=barbarians, threat_score=12.0)
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    choice = priority_spell_decision(mask, obs)
+    assert choice is not None and choice.card == "fireball"
+
+    skeletons = [SimpleNamespace(cell=SimpleNamespace(x=4 + i, y=19),
+                                 name="skeleton") for i in range(3)]
+    obs = _live_obs({"fireball": 0}, tracks=skeletons,
+                    threats=skeletons, threat_score=3.0)
+    mask = apply_live_safety_mask(mask_from_live(obs), obs)
+    assert not mask[1:1 + TILES].any()
+    assert priority_spell_decision(mask, obs) is None
+
+
+def test_live_fireball_does_not_repeat_on_recent_push_target():
+    tracks = [SimpleNamespace(cell=SimpleNamespace(x=4, y=19), name="giant"),
+              SimpleNamespace(cell=SimpleNamespace(x=5, y=19), name="musketeer")]
+    obs = _live_obs({"fireball": 0}, tracks=tracks, threats=tracks,
+                    threat_score=14.0)
+    recent = [(98.0, 5, 19)]
+    mask = apply_live_safety_mask(mask_from_live(obs), obs,
+                                  recent_spells=recent)
+    assert priority_spell_decision(mask, obs, recent_spells=recent) is None
 
 
 def test_live_safety_uses_fireball_not_zap_on_two_ranged_units():
