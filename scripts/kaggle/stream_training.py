@@ -49,7 +49,9 @@ def main():
                 progress['checked_host_ns']=time.time_ns()
                 (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
                 print(json.dumps(progress),flush=True)
-                if type(error).__name__ not in ('SSLError','ConnectionError','ReadTimeout','Timeout') or attempt>=args.reconnects:
+                transient=(type(error).__name__ in ('SSLError','ConnectionError','ReadTimeout','Timeout')
+                           or progress['http_status'] in (404,429,500,502,503,504))
+                if not transient or attempt>=args.reconnects:
                     break
                 time.sleep(2)
         progress['checked_host_ns']=time.time_ns()
