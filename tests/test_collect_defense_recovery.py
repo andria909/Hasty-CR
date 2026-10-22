@@ -75,3 +75,19 @@ def test_separate_account_grpo_result_and_selected_artifact(monkeypatch,tmp_path
     assert receipt['complete'] and receipt['files']['selected/grpo.pt']['reported_hash_verified']
     assert (tmp_path/'out/account2_result.json').is_file()
     assert (tmp_path/'out/grpo/updates.jsonl').is_file()
+
+
+def test_joint_strategy_collects_trainer_result_and_checkpoint(monkeypatch,tmp_path):
+    report=dict(schema='joint-strategy-account-v1',status='trainer_completed')
+    data={'strategy/strategy_result.json':json.dumps(report).encode(),
+          'strategy/ppo/update_002000.pt':b'final',
+          'strategy/ppo/training_result.json':b'{"target_met":true}',
+          'strategy/project/secret.py':b'excluded'}
+    monkeypatch.setattr(collector,'list_outputs',lambda api,kernel:({k:NS(url=k)for k in data},[]))
+    def fetch(url,path):
+        with path.open('xb')as stream:stream.write(data[url])
+    receipt=collector.collect(NS(kernels_status=lambda kernel:'COMPLETE'),'owner/kernel',tmp_path/'out',fetch,profile='strategy')
+    assert receipt['complete'] and not receipt['quality_accepted']
+    assert (tmp_path/'out/ppo/training_result.json').is_file()
+    assert (tmp_path/'out/ppo/update_002000.pt').is_file()
+    assert not (tmp_path/'out/project').exists()

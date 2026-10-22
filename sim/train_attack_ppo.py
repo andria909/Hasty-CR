@@ -1,0 +1,349 @@
+"""Finite attack PPO, explicit timer inputs and exact same-source resume."""
+from __future__ import annotations
+
+import argparse
+from dataclasses import replace
+import hashlib
+import json
+from pathlib import Path
+import random
+import time
+
+import numpy as np
+import torch
+
+from sim.attack_env import AttackEnv, OBSERVATION_CONTRACT
+from sim.attack_sampler import AttackScenarioCycle
+from sim.env import NUM_PLANES, NUM_SCALARS, ACTIONS
+from sim.train_ppo import (build_network, checkpoint_architecture, load_policy_state,
+                           masked_distribution, COMPACT_ARCHITECTURE)
+from sim.train_defense_ppo import (generalized_advantage,normalize_advantages,require_finite,
+    tensor_observations,action_masks,rng_state,restore_rng,validate_transition)
+
+
+def build_attack_network(architecture=COMPACT_ARCHITECTURE,device='cpu',*,num_scalars=None,
+                         num_planes=NUM_PLANES,num_actions=ACTIONS):
+    return build_network(num_planes,NUM_SCALARS+2 if num_scalars is None else num_scalars,
+                         num_actions,architecture).to(device)
+
+
+def load_attack_state(network,blob,*,exact=False,observation_contract=OBSERVATION_CONTRACT):
+    incoming=blob['state_dict']['scalar.0.weight'].shape[1]
+    target=network.state_dict()['scalar.0.weight'].shape[1]
+    if incoming not in (NUM_SCALARS,NUM_SCALARS+2,target) or incoming>target or (exact and incoming!=target):
+        raise ValueError('Unsupported attack scalar input shape')
+    if exact and blob.get('config',{}).get('observation_contract')!=observation_contract:
+        raise ValueError('Attack observation contract missing/mismatched')
+    load_policy_state(network,blob['state_dict'])
+    return dict(source_scalar_count=incoming,target_scalar_count=target,
+        appended_scalar_columns=target-incoming,
+        appended_timer_columns_zero_initialized=incoming==NUM_SCALARS,
+        observation_contract=observation_contract,exact_weight_shape=incoming==target)
+
+
+def initialize_attack_policy(blob=None,device='cpu',architecture=COMPACT_ARCHITECTURE,*,
+                             num_scalars=None,num_planes=NUM_PLANES,num_actions=ACTIONS,
+                             observation_contract=OBSERVATION_CONTRACT):
+    architecture=checkpoint_architecture(blob)if blob is not None else architecture
+    network=build_attack_network(architecture,device,num_scalars=num_scalars,
+                                 num_planes=num_planes,num_actions=num_actions)
+    metadata=load_attack_state(network,blob,observation_contract=observation_contract)if blob is not None else dict(
+        fresh_initialization=True,source_scalar_count=None,
+        target_scalar_count=NUM_SCALARS+2 if num_scalars is None else num_scalars,
+        observation_contract=observation_contract)
+    return network,architecture,metadata
+
+
+def make_attack_env(*,split='train',seed=0,deadline_scale=1.,**options):
+    """Shared PPO/GRPO preparation: scale all families, never select on test."""
+    if split not in ('train','validation'):
+        raise ValueError('Attack training/evaluation forbids test split')
+    if not np.isfinite(deadline_scale) or deadline_scale<=0:
+        raise ValueError('deadline-scale must be finite and positive')
+    env=AttackEnv(seed=seed,split=split,**options)
+    scaled=[]
+    for scenario in env.scenarios:
+        low,high=[round(value*deadline_scale)for value in scenario.deadline_ms_range]
+        if not 50<=low<high or high+scenario.opportunity_start_ms>600000:
+            raise ValueError('Scaled deadline outside finite engine bounds')
+        scaled.append(replace(scenario,deadline_ms_range=(low,high)))
+    env.scenarios=scaled
+    return env
+
+
+def make_training_env(*,task_mode='joint',split='train',seed=0,**options):
+    if task_mode=='attack':return make_attack_env(split=split,seed=seed,**options)
+    if task_mode!='joint':raise ValueError('Unknown strategy task mode')
+    if split not in ('train','validation'):raise ValueError('Training forbids test split')
+    from sim.strategy_env import StrategyEnv
+    return StrategyEnv(split=split,seed=seed,**options)
+
+
+def training_sampler(env,seed=42,initial_hand_mode='shuffle',task_mode='joint'):
+    if task_mode=='attack':return AttackScenarioCycle(env.scenarios,seed=seed,initial_hand_mode=initial_hand_mode)
+    from sim.strategy_sampler import StrategyScenarioCycle
+    return StrategyScenarioCycle(env.scenarios,seed=seed,initial_hand_mode=initial_hand_mode)
+
+
+def observation_contract(task_mode):
+    if task_mode=='attack':return OBSERVATION_CONTRACT
+    from sim.strategy_env import OBSERVATION_CONTRACT as contract
+    return contract
+
+
+def summarize_tasks(records):
+    from sim.defense_log_summary import summarize_episodes
+    attacks=[r for r in records if r.get('task')=='attack' or
+             (not r.get('task') and 'goal_kind'in r)]
+    defenses=[r for r in records if r.get('task')=='defense' or
+              (not r.get('task') and 'own_tower_hp_loss'in r and 'goal_kind'not in r)]
+    return dict(attack=summarize_attack(attacks),defense=summarize_episodes(
+        defenses,returns=[r.get('episode_return')for r in defenses]))
+
+
+def summarize_attack(records):
+    """Completed-episode outcomes, including known counts instead of fake zeros."""
+    def summary(rows):
+        result={'episodes':len(rows)}
+        for key in ('attack_success','goal_success','goal_window_missed','successful_spell_finish'):
+            known=[r.get(key)for r in rows if isinstance(r.get(key),bool)]
+            result[key]=dict(known=len(known),count=sum(known),rate=sum(known)/len(known)if known else None)
+        for key in ('episode_return','time_to_first_goal_card_ms','anticipatory_goal_card_ms',
+                    'hog_target_tower_damage','elixir_spent','redundant_spells','missed_resolved_spells'):
+            values=[r[key]for r in rows if isinstance(r.get(key),(int,float))]
+            result[key]=dict(known=len(values),mean=float(np.mean(values))if values else None)
+        return result
+    result=summary(records)
+    result['by']={}
+    for field in ('timer_visible','goal_kind','setup_kind'):
+        result['by'][field]={str(value):summary([r for r in records if r.get(field)==value])
+                             for value in sorted({r.get(field)for r in records},key=str)}
+    return result
+
+
+def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode='attack'):
+    if episodes<1:raise ValueError('Positive validation episode count required')
+    records=[]
+    was_training=network.training
+    network.eval()
+    try:
+        with torch.no_grad():
+            tasks=('attack','defense')if task_mode=='joint'else ('attack',)
+            for task_index in range(episodes*len(tasks)):
+                task=tasks[task_index//episodes]
+                index=task_index%episodes
+                env=make_training_env(task_mode=task_mode,split='validation',seed=seed+index,**(env_options or {}))
+                if task_mode=='joint':
+                    candidates=[getattr(s,'scenario_id',s)for s in env.scenarios
+                                if getattr(s,'scenario_id',s).startswith(task+'::')]
+                    if not candidates:raise ValueError('Missing validation task coverage')
+                    chosen=random.Random(seed+index).choice(sorted(candidates))
+                    obs,info=env.reset(seed=seed+index,scenario_id=chosen)
+                else:obs,info=env.reset(seed=seed+index)
+                total=0.
+                for _ in range(1202):
+                    logits,_=network(*tensor_observations([obs],device))
+                    mask=action_masks([info],device)
+                    require_finite(logits=logits)
+                    action=int(logits.masked_fill(~mask,-torch.inf).argmax(-1).item())
+                    obs,reward,terminal,truncated,info=env.step(action)
+                    total+=reward
+                    if terminal or truncated:
+                        records.append(dict(info['metrics'],episode_return=total))
+                        break
+                else:raise RuntimeError('Attack validation exceeded finite step bound')
+    finally:network.train(was_training)
+    return dict(mean_reward=float(np.mean([r['episode_return']for r in records])),
+                records=records,summary=summarize_attack(records),by_task=summarize_tasks(records),
+                split='validation',seed=seed,episodes_per_task=episodes,
+                selection_metric='equal_task_mean_episode_return_provisional')
+
+
+def code_fingerprint(task_mode='attack'):
+    root=Path(__file__).resolve().parents[1]
+    names=('sim/attack_env.py','sim/attack_scenarios.py','sim/attack_sampler.py',
+           'sim/train_attack_ppo.py','sim/engine.py','sim/match.py','sim/env.py',
+           'sim/defense_env.py','sim/defense_assets.py','sim/defense_scenarios.py',
+           'sim/public_gamedata.py','sim/public_scenario_spells.py','sim/spells.py','sim/arena.py')
+    if task_mode=='joint':names+=('sim/strategy_env.py','sim/strategy_sampler.py')
+    return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
+                                     for name in names},sort_keys=True).encode()).hexdigest()
+
+
+def validate_resume(blob,config):
+    if blob.get('schema')!='attack-ppo-boundary-v1' or not blob.get('exact_resume_available'):
+        raise ValueError('Attack exact-resume boundary state required')
+    keys=('envs','rollout','epochs','minibatch_size','seed','lr','gamma','gae_lambda','clip',
+          'value_coef','entropy_coef','max_grad_norm','action_delay_ms','max_ms','deadline_scale',
+          'visible_fraction','initial_hand_mode','geometry','geometry_sha256','coordinate_mode',
+          'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device')
+    for key in keys:
+        if blob['config'].get(key)!=config.get(key):
+            raise ValueError(f'Attack resume configuration mismatch: {key}')
+    required=('optimiser','rng','sampler','environment_states','observations','infos',
+              'episode_returns','episode_counters','step','update')
+    if any(key not in blob for key in required):raise ValueError('Incomplete attack resume state')
+
+
+def train(args):
+    if args.device.startswith('cuda') and not torch.cuda.is_available():
+        raise RuntimeError('CUDA requested but unavailable; CPU fallback forbidden')
+    if min(args.updates,args.envs,args.rollout,args.epochs,args.minibatch_size,args.checkpoint_every,
+           args.target_environment_steps,args.eval_episodes)<1:
+        raise ValueError('Positive training counts required')
+    for name in ('lr','gamma','gae_lambda','clip','value_coef','entropy_coef','max_grad_norm'):
+        if not np.isfinite(getattr(args,name)):
+            raise ValueError(f'Nonfinite attack hyperparameter: {name}')
+    if args.lr<=0 or not 0<args.clip<1 or not 0<=args.gamma<=1 or not 0<=args.gae_lambda<=1 or args.max_grad_norm<=0:
+        raise ValueError('Invalid attack optimizer/GAE bounds')
+    if not np.isfinite(args.wallclock_seconds) or args.wallclock_seconds<=0:
+        raise ValueError('Finite positive wallclock required')
+    output=Path(args.output)
+    output.mkdir(parents=True,exist_ok=False)
+    random.seed(args.seed);np.random.seed(args.seed);torch.manual_seed(args.seed)
+    device=torch.device(args.device)
+    options={key:getattr(args,key)for key in ('action_delay_ms','max_ms','deadline_scale',
+        'visible_fraction','initial_hand_mode','geometry','coordinate_mode')}
+    envs=[make_training_env(task_mode=args.task_mode,split='train',seed=args.seed+i,**options)for i in range(args.envs)]
+    sampler=training_sampler(envs[0],seed=args.seed,initial_hand_mode=args.initial_hand_mode,task_mode=args.task_mode)
+    observations,infos=map(list,zip(*[env.reset(**sampler.next())for env in envs]))
+    num_scalars=len(observations[0]['scalars'])
+    expected_scalars=NUM_SCALARS+(3 if args.task_mode=='joint'else 2)
+    if num_scalars!=expected_scalars or any(len(obs['scalars'])!=num_scalars for obs in observations):
+        raise ValueError('Attack timer feature dimension mismatch')
+    blob=torch.load(args.resume or args.init,map_location='cpu',weights_only=False)if args.resume or args.init else None
+    architecture=checkpoint_architecture(blob)if blob else args.architecture
+    contract=observation_contract(args.task_mode)
+    network=build_attack_network(architecture,device,num_scalars=num_scalars)
+    initialization=load_attack_state(network,blob,exact=bool(args.resume),observation_contract=contract)if blob else {'fresh_initialization':True}
+    optimizer=torch.optim.Adam(network.parameters(),lr=args.lr)
+    config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,
+        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode),
+        catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
+        initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
+            hashlib.sha256(Path(args.init).read_bytes()).hexdigest()if args.init else None))
+    step,start_update,best=0,0,-float('inf')
+    counters=[0]*args.envs
+    episode_returns=[0.]*args.envs
+    if args.resume:
+        validate_resume(blob,config)
+        optimizer.load_state_dict(blob['optimiser'])
+        sampler.load_state_dict(blob['sampler'])
+        if len(blob['environment_states'])!=args.envs:raise ValueError('Attack environment count mismatch')
+        for env,state in zip(envs,blob['environment_states']):env.restore(state)
+        observations,infos=blob['observations'],blob['infos']
+        episode_returns,counters=blob['episode_returns'],blob['episode_counters']
+        step,start_update,best=blob['step'],blob['update'],blob['best_validation']
+        restore_rng(blob['rng'])
+    (output/'config.json').write_text(json.dumps(config,indent=2)+'\n')
+    started=time.monotonic()
+    actual_cuda=torch.cuda.get_device_name(device)if device.type=='cuda'else None
+    def checkpoint(update,best_save=False):
+        state=dict(schema='attack-ppo-boundary-v1',state_dict=network.state_dict(),
+            optimiser=optimizer.state_dict(),architecture=architecture,config=config,
+            step=step,update=update,best_validation=best,rng=rng_state(),sampler=sampler.state_dict(),
+            environment_states=[env.snapshot()for env in envs],observations=observations,infos=infos,
+            episode_returns=episode_returns,episode_counters=counters,exact_resume_available=True)
+        torch.save(state,output/(f'best_validation_{update:06d}.pt'if best_save else f'update_{update:06d}.pt'))
+    last_update=start_update
+    for update in range(start_update+1,args.updates+1):
+        if step>=args.target_environment_steps:break
+        last_update=update
+        rows,episodes=[],[]
+        for _ in range(args.rollout):
+            planes,scalars=tensor_observations(observations,device)
+            masks=action_masks(infos,device)
+            with torch.no_grad():
+                logits,values=network(planes,scalars)
+                require_finite(logits=logits,values=values)
+                distribution=masked_distribution(logits,masks)
+                actions=distribution.sample();log_prob=distribution.log_prob(actions)
+            final_obs,rewards,terminals,truncations,final_infos=map(list,zip(*[
+                env.step(int(action))for env,action in zip(envs,actions.cpu().tolist())]))
+            for info in final_infos:validate_transition(info)
+            with torch.no_grad():_,next_values=network(*tensor_observations(final_obs,device))
+            rows.append((planes,scalars,masks,actions,log_prob,values.reshape(-1),
+                torch.tensor(rewards,device=device),next_values.reshape(-1),
+                torch.tensor(terminals,device=device),torch.tensor(truncations,device=device)))
+            observations,infos=final_obs,final_infos
+            for index,(terminal,truncated)in enumerate(zip(terminals,truncations)):
+                episode_returns[index]+=float(rewards[index])
+                if terminal or truncated:
+                    episodes.append(dict(final_infos[index]['metrics'],episode_return=episode_returns[index]))
+                    episode_returns[index]=0.;counters[index]+=1
+                    observations[index],infos[index]=envs[index].reset(**sampler.next())
+            step+=args.envs
+        planes,scalars,masks,actions,old_log,values,rewards,next_values,terminals,truncations=[torch.stack(x)for x in zip(*rows)]
+        advantages,returns=generalized_advantage(rewards,values,next_values,terminals,truncations,args.gamma,args.gae_lambda)
+        advantages=normalize_advantages(advantages).flatten()
+        require_finite(advantages=advantages,returns=returns)
+        planes,scalars=planes.flatten(0,1),scalars.flatten(0,1)
+        masks,actions,old_log,returns=masks.flatten(0,1),actions.flatten(),old_log.flatten(),returns.flatten()
+        losses=[]
+        for _ in range(args.epochs):
+            for indices in torch.randperm(len(actions),device=device).split(args.minibatch_size):
+                logits,predicted=network(planes[indices],scalars[indices])
+                dist=masked_distribution(logits,masks[indices])
+                ratio=(dist.log_prob(actions[indices])-old_log[indices]).exp()
+                policy=-torch.minimum(ratio*advantages[indices],ratio.clamp(1-args.clip,1+args.clip)*advantages[indices]).mean()
+                loss=policy+args.value_coef*(predicted.reshape(-1)-returns[indices]).square().mean()-args.entropy_coef*dist.entropy().mean()
+                require_finite(loss=loss,ratio=ratio)
+                optimizer.zero_grad(set_to_none=True);loss.backward()
+                norm=torch.nn.utils.clip_grad_norm_(network.parameters(),args.max_grad_norm,error_if_nonfinite=True)
+                optimizer.step();losses.append(float(loss.detach()))
+        record=dict(update=update,step=step,target_environment_steps=args.target_environment_steps,
+            percent=min(100.,100*step/args.target_environment_steps),elapsed_seconds=time.monotonic()-started,
+            actual_cuda=actual_cuda,loss=float(np.mean(losses)),gradient_norm=float(norm),episodes=episodes,
+            train_summary=summarize_attack(episodes),by_task=summarize_tasks(episodes))
+        is_best=False
+        if args.eval_every>0 and update%args.eval_every==0:
+            record['validation']=evaluate(network,device,episodes=args.eval_episodes,seed=900000,env_options=options,task_mode=args.task_mode)
+            score=record['validation']['mean_reward'];is_best=score>best;best=max(best,score)
+        budget_stop=time.monotonic()-started>=args.wallclock_seconds
+        stop=budget_stop or step>=args.target_environment_steps or update==args.updates
+        if update%args.checkpoint_every==0 or stop:checkpoint(update)
+        if is_best:checkpoint(update,True)
+        with (output/'metrics.jsonl').open('a')as stream:stream.write(json.dumps(record)+'\n')
+        print(json.dumps({key:record[key]for key in ('update','step','percent','elapsed_seconds','actual_cuda','loss')},
+              default=str),flush=True)
+        concise_keys=('episodes','attack_success','goal_window_missed','episode_return',
+                      'time_to_first_goal_card_ms','elixir_spent','redundant_spells')
+        print(json.dumps(dict(train={k:record['train_summary'][k]for k in concise_keys})),flush=True)
+        if 'validation'in record:
+            print(json.dumps(dict(validation={k:record['validation']['summary'][k]for k in concise_keys})),flush=True)
+        if args.task_mode=='joint':
+            defense=record['by_task']['defense']
+            print(json.dumps(dict(defense={key:defense[key]for key in
+                ('n','no_damage','no_damage_pct','mean_hp_loss','princess_deaths','king_deaths','timeouts','invalid','mean_return')})),flush=True)
+        if stop:break
+    if last_update==start_update:
+        checkpoint(start_update)
+    result=dict(status='target_completed'if step>=args.target_environment_steps else 'incomplete_budget',
+        step=step,update=last_update,target_environment_steps=args.target_environment_steps,
+        target_met=step>=args.target_environment_steps,quality_accepted=False,
+        best_validation=None if not np.isfinite(best)else best,observation_contract=contract,task_mode=args.task_mode)
+    (output/'training_result.json').write_text(json.dumps(result,indent=2)+'\n')
+    return output
+
+
+def parser():
+    p=argparse.ArgumentParser(description=__doc__)
+    source=p.add_mutually_exclusive_group()
+    source.add_argument('--init');source.add_argument('--resume')
+    p.add_argument('--output',required=True)
+    p.add_argument('--device',default='cuda')
+    p.add_argument('--task-mode',choices=('joint','attack'),default='joint')
+    p.add_argument('--architecture',default=COMPACT_ARCHITECTURE)
+    p.add_argument('--initial-hand-mode',choices=('scenario','shuffle'),default='shuffle')
+    p.add_argument('--geometry',choices=('legacy_v1','native_anchors_candidate_v1'),default='legacy_v1')
+    p.add_argument('--coordinate-mode',choices=('physical_live','legacy_training','physical_live_cells_v2'),default='physical_live_cells_v2')
+    for name,value in (('updates',100000),('target-environment-steps',1000000),('envs',8),('rollout',128),
+        ('epochs',3),('minibatch-size',256),('seed',42),('checkpoint-every',50),('eval-every',100),('eval-episodes',32),('max-ms',240000)):
+        p.add_argument('--'+name,type=int,default=value)
+    for name,value in (('deadline-scale',1.),('visible-fraction',.5),('wallclock-seconds',21600.),('action-delay-ms',150.),
+        ('lr',5e-5),('gamma',.997),('gae-lambda',.95),('clip',.2),('value-coef',.5),('entropy-coef',.01),('max-grad-norm',.5)):
+        p.add_argument('--'+name,type=float,default=value)
+    return p
+
+
+if __name__=='__main__':train(parser().parse_args())

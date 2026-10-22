@@ -14,7 +14,8 @@ def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 def collect(api,kernel,output,fetch=None,profile='recovery'):
     layouts={'recovery':('recovery','recovery_result.json','defense-semantic-recovery-v1'),
-             'grpo-account2':('account2','account2_result.json','defense-grpo-account2-v1')}
+             'grpo-account2':('account2','account2_result.json','defense-grpo-account2-v1'),
+             'strategy':('strategy','strategy_result.json','joint-strategy-account-v1')}
     prefix,result_file,schema=layouts[profile]
     prefix+='/'
     state=terminal_state(api.kernels_status(kernel))
@@ -74,7 +75,7 @@ def collect(api,kernel,output,fetch=None,profile='recovery'):
                 if match:found.append((tuple(map(int,match.groups())),local))
             if found:planned.setdefault(max(found)[1],None)
         for local in ('ppo/metrics.jsonl','grpo/updates.jsonl','ppo/config.json','grpo/config.json',
-                      'ppo.log','grpo.log'):
+                      'ppo/training_result.json','ppo.log','grpo.log'):
             if prefix+local in items:planned[local]=None
         for local,expected in sorted(planned.items()):download(prefix+local,local,expected)
         (output/'kernel_log_receipt.json').write_text(json.dumps(logs)+'\n')
@@ -90,9 +91,11 @@ def main():
     parser.add_argument('--kernel',required=True)
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--watch-seconds',type=int,default=28800)
-    parser.add_argument('--profile',choices=('recovery','grpo-account2'),default='recovery')
+    parser.add_argument('--profile',choices=('recovery','grpo-account2','strategy'),default='recovery')
+    parser.add_argument('--poll-seconds',type=int,default=1200)
     args=parser.parse_args()
     if args.watch_seconds<0:parser.error('Negative observation window')
+    if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     from kaggle.api.kaggle_api_extended import KaggleApi
     api=KaggleApi();api.authenticate()
     args.output.parent.mkdir(parents=True,exist_ok=True)
@@ -106,7 +109,7 @@ def main():
         except Exception as error:
             print(json.dumps(dict(observation_error=type(error).__name__,remote_job_changed=False)),flush=True)
         if time.monotonic()>=deadline:raise TimeoutError('Observation ended; remote job unchanged')
-        time.sleep(30)
+        time.sleep(args.poll_seconds)
     print(json.dumps(collect(api,args.kernel,args.output,profile=args.profile),indent=2),flush=True)
 
 

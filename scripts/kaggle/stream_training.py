@@ -29,7 +29,8 @@ def main():
                         match=re.search(r'\b'+name+r':\s*\{[^\n]*?"update":\s*(\d+)',line)
                         if not match:continue
                         update=int(match.group(1))
-                        step=re.search(r'"(?:step|environment_steps)":\s*(\d+)',line)
+                        step=re.search(r'"(?:step|steps|environment_steps)":\s*(\d+)',line)
+                        if not step:continue
                         previous=progress['trainers'].get(name,{}).get('update',-1)
                         if update<=previous:continue
                         progress['trainers'][name]={'update':update,'steps':int(step.group(1))if step else None,

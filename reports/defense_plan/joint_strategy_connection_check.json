@@ -1,0 +1,110 @@
+{
+  "schema": "joint-strategy-connection-check-v1",
+  "checked_host_ns": 1792707531000471000,
+  "accounts": {
+    "andreiperelaiko": {
+      "algorithm": "ppo",
+      "target_steps": 2048000,
+      "runtime": {
+        "schema": "joint-strategy-account-v1",
+        "status": "training",
+        "owner": "andreiperelaiko",
+        "algorithm": "ppo",
+        "target_steps": 2048000,
+        "quality_accepted": false,
+        "scope": "One shared policy trained on balanced attack and defense skill episodes; full-match acceptance pending",
+        "source_archive_sha256": "331a84e3c89b190f209f27d8fa09cfc2294da1bafa2de146fd4e72543770b7b2",
+        "gpu_names": [
+          "Tesla T4",
+          "Tesla T4"
+        ],
+        "torch_version": "2.11.0+cu128"
+      },
+      "task_mode": "ppo joint",
+      "progress_samples": [
+        {
+          "update": 1,
+          "actual_cuda": "Tesla T4",
+          "loss": 14.683565855026245,
+          "elapsed_seconds": 8.814118452999992,
+          "environment_steps": 1024,
+          "target_steps": 2048000,
+          "training_percent": 0.05
+        },
+        {
+          "update": 2,
+          "actual_cuda": "Tesla T4",
+          "loss": 2.605185886224111,
+          "elapsed_seconds": 14.627995001999977,
+          "environment_steps": 2048,
+          "target_steps": 2048000,
+          "training_percent": 0.1
+        },
+        {
+          "update": 5,
+          "actual_cuda": "Tesla T4",
+          "loss": 9.154559254646301,
+          "elapsed_seconds": 33.17264053100001,
+          "environment_steps": 5120,
+          "target_steps": 2048000,
+          "training_percent": 0.25
+        }
+      ],
+      "increasing_steps_verified": true,
+      "log_prefix_bytes": 5905,
+      "log_prefix_sha256": "1cbf9d2744963e5328cf29f960eaa05c5fc79804205f6237128fcebbbb3f5831"
+    },
+    "demjanklimov": {
+      "algorithm": "grpo",
+      "target_steps": 1000000,
+      "runtime": {
+        "schema": "joint-strategy-account-v1",
+        "status": "training",
+        "owner": "demjanklimov",
+        "algorithm": "grpo",
+        "target_steps": 1000000,
+        "quality_accepted": false,
+        "scope": "One shared policy trained on balanced attack and defense skill episodes; full-match acceptance pending",
+        "source_archive_sha256": "331a84e3c89b190f209f27d8fa09cfc2294da1bafa2de146fd4e72543770b7b2",
+        "gpu_names": [
+          "Tesla T4",
+          "Tesla T4"
+        ],
+        "torch_version": "2.11.0+cu128"
+      },
+      "task_mode": "grpo joint",
+      "progress_samples": [
+        {
+          "event": "train",
+          "update": 1,
+          "loss": -0.0012,
+          "elapsed_seconds": 6.6884,
+          "environment_steps": 592,
+          "target_steps": 1000000,
+          "training_percent": 0.06
+        },
+        {
+          "event": "train",
+          "update": 2,
+          "loss": -0.0016,
+          "elapsed_seconds": 8.3687,
+          "environment_steps": 783,
+          "target_steps": 1000000,
+          "training_percent": 0.08
+        },
+        {
+          "event": "train",
+          "update": 7,
+          "loss": 0.0281,
+          "elapsed_seconds": 39.3918,
+          "environment_steps": 5013,
+          "target_steps": 1000000,
+          "training_percent": 0.5
+        }
+      ],
+      "increasing_steps_verified": true,
+      "log_prefix_bytes": 2319,
+      "log_prefix_sha256": "51f81f766ee35544e6ca429b167a082daa7ab925b1149d4f1582f017e978feff"
+    }
+  }
+}

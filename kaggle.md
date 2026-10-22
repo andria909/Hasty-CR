@@ -199,3 +199,29 @@ SHA проверяем локально и по закреплённым manifes
 - Live-счётчики: `live_stream/progress.json` внутри этой папки, проценты есть в `events.jsonl`.
 - Для collector используется `--profile grpo-account2` и аутентификация вторым токеном только в окружении его дочернего процесса. Сборщик уже запущен.
 - Проверка реального обучения, GPU и роста шагов: [grpo_account2_connection_check.json](reports/defense_plan/grpo_account2_connection_check.json).
+# Совместные модели на аккаунтах 3 и 4
+
+По дополнительному запросу запускаются две общие политики: одна PPO для
+атаки и защиты на `andreiperelaiko`, одна GRPO для обеих задач на
+`demjanklimov`. Это отдельные модели от исходной защиты на аккаунтах1/2.
+Номера токенов в приватном JSON: индексы2 и3. Значения в пакеты не включать.
+
+Версии1 отправлены в `andreiperelaiko/hastycr-joint-ppo-20261023` и
+`demjanklimov/hastycr-joint-grpo-20261023`. Пакеты по владельцам:
+`tmp/kaggle/joint_strategy_20261023/`. `launch_config.json` закрепляет SHA,
+`submission_receipt.json` хранит фактический URL, `observers.json` — PID
+локальных наблюдателей. Не создавать дубликаты при RUNNING/QUEUED.
+
+Runner: `scripts/kaggle/run_strategy_account.py`. Один CUDA:0 subprocess
+на аккаунт, `--task-mode joint`,309 признаков, warmstart v25 без замены
+оригинала, новый optimizer. Цели PPO2048000 и GRPO1000000 шагов.
+Обучение смешанным навыкам не заменяет итоговую проверку стратегии.
+
+Collector запускается с `--profile strategy --poll-seconds1200`, только
+читает статус и после завершения сохраняет результаты/веса. Streaming
+логи доставляются сервером; отдельные API-проверки делать раз в20мин.
+Процент считать по фактическим завершённым шагам и указанной цели,
+не по группам GRPO или validation. `trainer_completed` сам по себе не
+доказывает достижения цели: проверить training_result.json у PPO,
+environment_steps и checkpoint_phase финального GRPO, конечность весов.
+
