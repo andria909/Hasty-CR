@@ -141,3 +141,9 @@ def test_legitimate_timeout_and_normal_terminal_pass_validation():
     with pytest.raises(ValueError, match='nested-scenario'):
         validate_transition({'terminal_reason': 'timeout', 'metrics': {
             'terminal_reason': 'invalid_script_trigger_timeout', 'scenario_id': 'nested-scenario'}})
+
+
+def test_trainer_has_finite_wallclock_and_optional_curriculum_filter():
+    args=parser().parse_args(['--init','baseline.pt','--output','new','--wallclock-seconds','900','--difficulty','complex'])
+    assert args.wallclock_seconds==900
+    assert args.difficulty=='complex'

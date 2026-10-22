@@ -4,11 +4,13 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import time
 from pathlib import Path
 
 import numpy as np
 import torch
 
+from sim.defense_sampler import ScenarioCycle
 from sim.train_ppo import (build_network, checkpoint_architecture,
                            load_policy_state, masked_distribution)
 
@@ -104,6 +106,8 @@ def train(args):
     from sim.defense_env import DefenseEnv
     if args.device.startswith('cuda') and not torch.cuda.is_available():
         raise RuntimeError('CUDA requested but unavailable; CPU training fallback forbidden')
+    if not np.isfinite(args.wallclock_seconds) or args.wallclock_seconds <= 0:
+        raise ValueError('wallclock-seconds must be finite and positive')
     if min(args.updates, args.envs, args.rollout, args.epochs, args.minibatch_size) < 1:
         raise ValueError('training sizes must be positive')
     output = Path(args.output)
@@ -113,10 +117,11 @@ def train(args):
     torch.manual_seed(args.seed)
     device = torch.device(args.device)
     options = {'action_delay_ms': args.action_delay_ms, 'max_ms': args.max_ms,
-               'initial_elixir': args.initial_elixir}
+               'initial_elixir': args.initial_elixir, 'difficulty': args.difficulty}
     counters = [0] * args.envs
     envs = [DefenseEnv(seed=args.seed + i, split='train', **options) for i in range(args.envs)]
-    reset = [e.reset(seed=args.seed + i) for i, e in enumerate(envs)]
+    sampler = ScenarioCycle([s.scenario_id for s in envs[0].scenarios], seed=args.seed)
+    reset = [e.reset(**sampler.next()) for e in envs]
     observations, infos = map(list, zip(*reset))
     blob = torch.load(args.resume or args.init, map_location='cpu', weights_only=False)
     architecture = checkpoint_architecture(blob)
@@ -129,12 +134,15 @@ def train(args):
     exact_resume = False
     if args.resume:
         old_config = blob['config']
-        for key in ('envs', 'rollout', 'seed', 'action_delay_ms', 'max_ms', 'initial_elixir'):
+        for key in ('envs', 'rollout', 'seed', 'action_delay_ms', 'max_ms', 'initial_elixir', 'difficulty'):
             if old_config[key] != vars(args)[key]:
                 raise ValueError(f'resume configuration mismatch: {key}')
         optimizer.load_state_dict(blob['optimiser'])
         step, start_update, best = blob['step'], blob['update'], blob['best_validation']
         counters = blob['episode_counters']
+        if 'sampler' not in blob:
+            raise ValueError('Resume checkpoint lacks scenario-cycle state')
+        sampler.load_state_dict(blob['sampler'])
         if blob.get('environment_states') is not None:
             for env, state in zip(envs, blob['environment_states']):
                 env.restore(state)
@@ -143,12 +151,15 @@ def train(args):
         else:
             # Explicit fresh-episode fallback: optimizer/steps restored, trajectory is not.
             counters = [n + 1 for n in counters]
-            reset = [e.reset(seed=args.seed + i + args.envs * counters[i]) for i, e in enumerate(envs)]
+            reset = [e.reset(**sampler.next()) for e in envs]
             observations, infos = map(list, zip(*reset))
         restore_rng(blob['rng'])
     config = dict(vars(args), architecture=architecture, exact_resume=exact_resume)
     (output / 'config.json').write_text(json.dumps(config, indent=2))
     network.train()
+    started = time.monotonic()
+    actual_cuda = torch.cuda.get_device_name(device) if device.type == 'cuda' else None
+    print(json.dumps(dict(event='START', device=str(device), cuda_available=torch.cuda.is_available(), actual_cuda=actual_cuda, step=step)), flush=True)
     for update in range(start_update + 1, start_update + args.updates + 1):
         rows, episodes = [], []
         for _ in range(args.rollout):
@@ -174,7 +185,7 @@ def train(args):
                 if terminal or truncated:
                     episodes.append(final_infos[i].get('metrics', {}))
                     counters[i] += 1
-                    observations[i], infos[i] = envs[i].reset(seed=args.seed + i + args.envs * counters[i])
+                    observations[i], infos[i] = envs[i].reset(**sampler.next())
             step += args.envs
         planes, scalars, masks, actions, old_log, values, rewards, next_values, terminals, truncations = [torch.stack(x) for x in zip(*rows)]
         advantages, returns = generalized_advantage(rewards, values, next_values, terminals, truncations, args.gamma, args.gae_lambda)
@@ -198,7 +209,7 @@ def train(args):
                 norm = torch.nn.utils.clip_grad_norm_(network.parameters(), args.max_grad_norm, error_if_nonfinite=True)
                 optimizer.step()
                 losses.append(float(loss.detach()))
-        record = {'update': update, 'step': step, 'loss': float(np.mean(losses)), 'gradient_norm': float(norm), 'episodes': episodes}
+        record = {'update': update, 'step': step, 'elapsed_seconds': time.monotonic()-started, 'actual_cuda': actual_cuda, 'loss': float(np.mean(losses)), 'gradient_norm': float(norm), 'episodes': episodes}
         is_best = False
         if args.eval_every > 0 and update % args.eval_every == 0:
             record['validation'] = evaluate(network, device, episodes=args.eval_episodes, seed=900000, env_options=options)
@@ -209,7 +220,7 @@ def train(args):
         checkpoint = {'state_dict': network.state_dict(), 'optimiser': optimizer.state_dict(),
                       'architecture': architecture, 'step': step, 'update': update,
                       'best_validation': best, 'config': vars(args), 'rng': rng_state(),
-                      'episode_counters': counters, 'environment_states': snapshot,
+                      'episode_counters': counters, 'sampler': sampler.state_dict(), 'environment_states': snapshot,
                       'observations': observations, 'infos': infos,
                       'exact_resume_available': snapshot is not None}
         torch.save(checkpoint, output / f'update_{update:06d}.pt')
@@ -218,6 +229,9 @@ def train(args):
         with (output / 'metrics.jsonl').open('a') as stream:
             stream.write(json.dumps(record, default=lambda x: x.item() if isinstance(x, np.generic) else str(x)) + '\n')
         print(json.dumps({k: v for k, v in record.items() if k != 'episodes'}), flush=True)
+        if time.monotonic() - started >= args.wallclock_seconds:
+            print(json.dumps(dict(event='STOP', reason='wallclock_update_boundary', update=update, step=step, elapsed_seconds=time.monotonic()-started)), flush=True)
+            break
     return output
 
 
@@ -227,6 +241,8 @@ def parser():
     p.add_argument('--resume')
     p.add_argument('--output', required=True)
     p.add_argument('--device', default='cuda')
+    p.add_argument('--wallclock-seconds', type=float, default=3600.)
+    p.add_argument('--difficulty', choices=('simple','medium','complex','impossible'))
     for name, default in [('updates', 5), ('envs', 2), ('rollout', 8), ('epochs', 4), ('minibatch-size', 64), ('seed', 42), ('eval-every', 5), ('eval-episodes', 8), ('max-ms', 180000)]:
         p.add_argument('--' + name, type=int, default=default)
     for name, default in [('lr', 3e-4), ('gamma', .997), ('gae-lambda', .95), ('clip', .2), ('value-coef', .5), ('entropy-coef', .01), ('max-grad-norm', .5), ('action-delay-ms', 150), ('initial-elixir', 10)]:
