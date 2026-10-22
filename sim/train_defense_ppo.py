@@ -10,6 +10,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
+from sim.eval_defense import environment_contract, GEOMETRIES, COORDINATE_MODES
 from sim.defense_sampler import ScenarioCycle
 from sim.defense_log_summary import compact_stdout_lines
 from sim.train_ppo import (build_network, checkpoint_architecture,
@@ -120,8 +121,15 @@ def train(args):
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     device = torch.device(args.device)
+    blob = torch.load(args.resume or args.init, map_location='cpu', weights_only=False)
     options = {'action_delay_ms': args.action_delay_ms, 'max_ms': args.max_ms,
                'initial_elixir': args.initial_elixir, 'difficulty': args.difficulty}
+    contract = environment_contract(geometry=getattr(args, 'geometry', 'legacy_v1'),
+                                    coordinate_mode=getattr(args, 'coordinate_mode', 'physical_live'))
+    if args.resume:
+        environment_contract(blob.get('config', {}), geometry=contract['geometry'],
+                             coordinate_mode=contract['coordinate_mode'])
+    options.update({key: contract[key] for key in ('geometry', 'coordinate_mode')})
     counters = [0] * args.envs
     envs = [DefenseEnv(seed=args.seed + i, split='train', **options) for i in range(args.envs)]
     curriculum=None
@@ -130,7 +138,6 @@ def train(args):
     sampler = ScenarioCycle([s.scenario_id for s in envs[0].scenarios], seed=args.seed)
     reset = [e.reset(**sampler.next()) for e in envs]
     observations, infos = map(list, zip(*reset))
-    blob = torch.load(args.resume or args.init, map_location='cpu', weights_only=False)
     architecture = checkpoint_architecture(blob)
     network = build_network(observations[0]['planes'].shape[0],
                             observations[0]['scalars'].shape[0],
@@ -166,6 +173,7 @@ def train(args):
         restore_rng(blob['rng'])
     config = dict(vars(args), architecture=architecture, exact_resume=exact_resume)
     config.update(curriculum)
+    config.update(contract)
     (output / 'config.json').write_text(json.dumps(config, indent=2))
     network.train()
     started = time.monotonic()
@@ -256,6 +264,8 @@ def parser():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--init', required=True)
     p.add_argument('--resume')
+    p.add_argument('--geometry', choices=GEOMETRIES, default='legacy_v1')
+    p.add_argument('--coordinate-mode', choices=COORDINATE_MODES, default='physical_live')
     p.add_argument('--output', required=True)
     p.add_argument('--device', default='cuda')
     p.add_argument('--checkpoint-every',type=int,default=1)

@@ -413,7 +413,9 @@ class DefenseEnv(ClashEnv):
                     illegal_actions=self._illegal,no_tower_damage=not any(losses.values()),
                     unavoidable_tower_damage=self.scenario.unavoidable_tower_damage,
                     script_plays_completed=self._script_index,script_plays_total=len(self.scenario.plays),
-                    public_history_mode=self.public_history_mode,coverage_flags=flags)
+                    public_history_mode=self.public_history_mode,coverage_flags=flags,
+                    geometry=self.geometry.profile_id,geometry_sha256=self.geometry.fingerprint,
+                    coordinate_mode=self.coordinate_mode)
 
     def _reward(self,before,after):
         w=self.rewards

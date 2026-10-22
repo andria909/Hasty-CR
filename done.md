@@ -37,6 +37,8 @@
 
 ## PPO, GRPO и оценка
 
+- PPO/GRPO и evaluator получили явные geometry/coordinate CLI. ID и SHA профиля сохраняются в config/метриках, несовместимый resume запрещён; evaluator наследует контракт чекпойнта и отвергает противоречащие флаги. Исторические чекпойнты используют прежние defaults. Совместная проверка новых контрактов, тренеров, checkpoint и evaluator:54 теста прошли. Новый контракт ещё не подключён к live runner.
+
 - Добавлены компактные логи [sim/defense_log_summary.py](sim/defense_log_summary.py) для будущих PPO/GRPO: train и validation отдельно, число завершённых атак, доля без урона, потери HP, гибель башен и причины завершения. Полные JSONL и алгоритмы обновления весов не менялись; активный Kaggle-код заморожен.
 - Создан [scripts/defense/summarize_training.py](scripts/defense/summarize_training.py): сводка полных JSONL текущего/будущих запусков, по сложности и окнам обновлений, с SHA источника. Неизвестная награда PPO train остаётся null. Повторы атак не выдаются за независимую оценку. Вместе с тестами тренеров прошли 29 тестов.
 
@@ -79,7 +81,7 @@
 - Реализованы opt-in [PolicyCoordinates](sim/policy_coordinates.py) и `observe(...,coordinate_mode='physical_live_cells_v2')`: все576 action-cell центров различаются и проходят roundtrip с обоих мест; прежний encoder остаётся default.
 - Реализован immutable `ArenaGeometry` в [sim/arena.py](sim/arena.py), отдельный `native_anchors_candidate_v1` в Match/Battle и DefenseEnv. Башни, deployment/pocket, burrow home, ability/drill anchors используют профиль экземпляра, cache постановок разделён между профилями. Native hitbox/pocket/terrain остаются непроверенными.
 - DefenseEnv принимает отдельные geometry/coordinate контракты, запрещает незаметную смену при restore. Проверены две независимые среды, все клетки маски с обоих мест, фактическая постановка в изменённом pocket и совместимость старых snapshot.
-- Интеграционная проверка:78 тестов прошли; все9 сохранённых до изменений default наблюдений/scalars/masks/якорей совпали побитово. Смена контрактов ещё не подключена к live runner/CLI тренеров; текущие frozen Kaggle-пакеты остаются прежними.
+- Интеграционная проверка:78 тестов прошли; все9 сохранённых до изменений default наблюдений/scalars/masks/якорей совпали побитово. Текущие frozen Kaggle-пакеты остаются прежними.
 
 - Проведён отдельный [аудит геометрии](reports/geometry_contract_design_20261022/report.md): подтверждены асимметрия королей по X на1000mt и слияние576 центров клеток в160/170 observation bins старого encoder. Native positions — игровые якоря, связь с центрами хитбоксов не доказана. Отчёт содержит план отдельной versioned миграции; runtime-исправления этим аудитом не объявляются выполненными.
 

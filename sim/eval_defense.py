@@ -16,6 +16,37 @@ from sim.train_ppo import (build_network, checkpoint_architecture,
 TOWERS = ('left','right','king')
 
 
+GEOMETRIES = ('legacy_v1', 'native_anchors_candidate_v1')
+COORDINATE_MODES = ('physical_live', 'legacy_training', 'physical_live_cells_v2')
+
+
+def environment_contract(config=None, *, geometry=None, coordinate_mode=None):
+    """Resolve new options or verify checkpoint identity before constructing envs.
+
+    Missing historical metadata means legacy geometry plus physical_live only.
+    Explicit evaluation overrides must agree with the checkpoint, including SHA.
+    """
+    from sim.arena import resolve_geometry
+    stored = config if config is not None else {}
+    saved_geometry = stored.get('geometry', 'legacy_v1')
+    saved_mode = stored.get('coordinate_mode', 'physical_live')
+    geometry = geometry if geometry is not None else saved_geometry
+    coordinate_mode = coordinate_mode if coordinate_mode is not None else saved_mode
+    if geometry not in GEOMETRIES or coordinate_mode not in COORDINATE_MODES:
+        raise ValueError('Unsupported geometry/coordinate contract')
+    profile = resolve_geometry(geometry)
+    if config is not None:
+        if (geometry, coordinate_mode) != (saved_geometry, saved_mode):
+            raise ValueError('Checkpoint geometry/coordinate contract mismatch')
+        complete = all(k in stored for k in ('geometry', 'coordinate_mode', 'geometry_sha256'))
+        if not complete and (geometry, coordinate_mode) != ('legacy_v1', 'physical_live'):
+            raise ValueError('Checkpoint lacks complete geometry/coordinate metadata')
+        if 'geometry_sha256' in stored and stored['geometry_sha256'] != profile.fingerprint:
+            raise ValueError('Checkpoint geometry SHA mismatch')
+    return dict(geometry=profile.profile_id, coordinate_mode=coordinate_mode,
+                geometry_sha256=profile.fingerprint)
+
+
 def describe(values):
     values = np.asarray([v for v in values if v is not None],dtype=float)
     values = values[np.isfinite(values)]
@@ -122,7 +153,7 @@ def evaluate_episode(env,network,device,seed,scenario_id=None):
             return metrics
 
 
-def main(argv=None):
+def parser():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--init',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
@@ -134,6 +165,13 @@ def main(argv=None):
     p.add_argument('--action-delay-ms',type=int,default=150)
     p.add_argument('--max-ms',type=int,default=240000)
     p.add_argument('--initial-elixir',type=float,default=10)
+    p.add_argument('--geometry', choices=GEOMETRIES, default=None)
+    p.add_argument('--coordinate-mode', choices=COORDINATE_MODES, default=None)
+    return p
+
+
+def main(argv=None):
+    p=parser()
     args=p.parse_args(argv)
     if args.output.exists():
         p.error('output already exists; choose a new path')
@@ -151,11 +189,16 @@ def main(argv=None):
             raise ValueError('empty scenario catalog')
     device=torch.device(args.device)
     blob=torch.load(args.init,map_location=device,weights_only=False)
+    contract=environment_contract(blob.get('config', {}), geometry=args.geometry,
+                                  coordinate_mode=args.coordinate_mode)
+    args.geometry=contract['geometry']
+    args.coordinate_mode=contract['coordinate_mode']
     network=build_network(NUM_PLANES,NUM_SCALARS,ACTIONS,checkpoint_architecture(blob)).to(device)
     load_policy_state(network,blob['state_dict'])
     network.eval().requires_grad_(False)
     env=DefenseEnv(split=args.split,action_delay_ms=args.action_delay_ms,max_ms=args.max_ms,
-                   initial_elixir=args.initial_elixir)
+                   initial_elixir=args.initial_elixir, geometry=contract['geometry'],
+                   coordinate_mode=contract['coordinate_mode'])
     records=[]
     for scenario in expected if expected is not None else [None]:
         for seed in seeds:
@@ -167,6 +210,7 @@ def main(argv=None):
     report.update(checkpoint_sha256=hashlib.sha256(args.init.read_bytes()).hexdigest(),
         config={k:str(v) if isinstance(v,Path) else v for k,v in vars(args).items()},
         records=records,policy_mode='argmax public observation with stored legal mask; side1')
+    report['config'].update(contract)
     args.output.parent.mkdir(parents=True,exist_ok=True)
     # Exclusive create protects against a competing process creating the output.
     with args.output.open('x') as stream:

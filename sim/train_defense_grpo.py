@@ -21,6 +21,7 @@ import numpy as np
 import torch
 
 from sim.defense_log_summary import compact_stdout_lines
+from sim.eval_defense import environment_contract,GEOMETRIES,COORDINATE_MODES
 
 from sim.train_ppo import (build_network, checkpoint_architecture,
                            load_policy_state, masked_distribution)
@@ -109,7 +110,40 @@ RESUME_KEYS = ('group_size','epochs','batch_steps','seed','lr','clip','beta','en
                'action_delay_ms','max_ms','initial_elixir','difficulty',
                'validation_every','validation_episodes','architecture','device_name',
                'init_sha256','trajectory_weighting','torch_version','environment_code_sha256',
-               'scenario_ids','scenario_ids_sha256')
+               'scenario_ids','scenario_ids_sha256','geometry','geometry_sha256','coordinate_mode')
+
+
+def coordinate_contract_metadata(geometry='legacy_v1',coordinate_mode='physical_live'):
+    return environment_contract(geometry=geometry,coordinate_mode=coordinate_mode)
+
+
+def resume_config_differences(previous,current):
+    """Missing coordinate metadata means only the historical default contract.
+
+    This does not bypass the independent exact environment-code hash guard.
+    """
+    coordinate_keys=('geometry','geometry_sha256','coordinate_mode')
+    defaults=coordinate_contract_metadata()
+    missing=any(key not in previous for key in coordinate_keys)
+    requested={key:current.get(key,defaults[key])for key in coordinate_keys}
+    differences=[]
+    # Validate resolved contracts before state mutation; every persisted key
+    # additionally undergoes exact comparison below.
+    if all(requested.get(key) is not None for key in coordinate_keys):
+        try:
+            environment_contract(previous,geometry=requested['geometry'],coordinate_mode=requested['coordinate_mode'])
+        except ValueError:
+            differences.append('geometry_coordinate_contract')
+    if missing and requested!=defaults:
+        differences.append('missing_geometry_coordinate_metadata_for_nondefault_contract')
+    for key in RESUME_KEYS:
+        if key in coordinate_keys:
+            before=previous.get(key,defaults[key]);after=current.get(key,defaults[key])
+        else:
+            before=previous.get(key);after=current.get(key)
+        if before!=after:
+            differences.append(key)
+    return differences
 
 
 def restore_training_state(blob,network,reference,optimizer,sampler,generator,config):
@@ -117,7 +151,7 @@ def restore_training_state(blob,network,reference,optimizer,sampler,generator,co
         raise ValueError('Checkpoint is inside an unfinished group/validation; exact resume unsupported. Use a boundary checkpoint.')
     if blob.get('resume_schema')!='defense-grpo-boundary-v1':
         raise ValueError('Checkpoint lacks supported exact-resume metadata')
-    differences=[key for key in RESUME_KEYS if blob['config'].get(key)!=config.get(key)]
+    differences=resume_config_differences(blob['config'],config)
     if differences:
         raise ValueError(f'Resume configuration mismatch: {differences}')
     load_policy_state(network,blob['state_dict'])
@@ -166,6 +200,8 @@ def main(argv=None):
     p.add_argument('--max-ms', type=int, default=240000)
     p.add_argument('--initial-elixir', type=float, default=10)
     p.add_argument('--scenario-ids',type=Path,help='Explicit audited train curriculum JSON; validation unaffected')
+    p.add_argument('--geometry',choices=GEOMETRIES,default='legacy_v1')
+    p.add_argument('--coordinate-mode',choices=COORDINATE_MODES,default='physical_live')
     p.add_argument('--difficulty', choices=('simple','medium','complex','impossible'))
     p.add_argument('--checkpoint-every',type=int,default=1)
     p.add_argument('--save-seconds', type=float, default=300)
@@ -204,17 +240,20 @@ def main(argv=None):
     config['init_sha256'] = (blob['config']['init_sha256'] if args.resume else
                              hashlib.sha256(args.init.read_bytes()).hexdigest())
     config['architecture'] = architecture
+    config.update(coordinate_contract_metadata(args.geometry,args.coordinate_mode))
     config['device_name'] = torch.cuda.get_device_name(device) if device.type=='cuda' else str(device)
     config['trajectory_weighting'] = 'mean steps per trajectory, then mean group'
     config['torch_version'] = str(torch.__version__)
     contract_files=('defense_env.py','defense_scenarios.py','defense_assets.py',
                     'public_scenario_spells.py','engine.py','entities.py','match.py','env.py',
-                    'gamedata.py','spells.py','defense_sampler.py','defense_curriculum.py')
+                    'gamedata.py','spells.py','defense_sampler.py','defense_curriculum.py',
+                    'arena.py','policy_coordinates.py','eval_defense.py')
     contract=hashlib.sha256()
     for filename in contract_files:
         contract.update(filename.encode()); contract.update(Path(__file__).with_name(filename).read_bytes())
     config['environment_code_sha256'] = contract.hexdigest()
-    env_kwargs = dict(action_delay_ms=args.action_delay_ms,max_ms=args.max_ms,initial_elixir=args.initial_elixir)
+    env_kwargs = dict(action_delay_ms=args.action_delay_ms,max_ms=args.max_ms,initial_elixir=args.initial_elixir,
+        geometry=config['geometry'],coordinate_mode=config['coordinate_mode'])
     env = DefenseEnv(seed=args.seed, split='train', difficulty=args.difficulty, **env_kwargs)
     env.scenarios,curriculum=curriculum_selection(env.scenarios,args.scenario_ids)
     config.update(curriculum)
