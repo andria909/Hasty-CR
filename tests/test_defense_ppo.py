@@ -68,3 +68,50 @@ def test_rng_checkpoint_roundtrip(tmp_path):
 def test_defaults_are_finite_cuda_smoke_and_explicit_paths():
     args = parser().parse_args(['--init', 'baseline.pt', '--output', 'new-output'])
     assert (args.updates, args.envs, args.rollout, args.device) == (5, 2, 8, 'cuda')
+
+
+def test_environment_snapshot_serialization_and_timeout_bootstrap(tmp_path):
+    """Public API integration, with one action and no optimizer/training."""
+    from sim.defense_env import DefenseEnv
+    env = DefenseEnv(seed=42, split='train', max_ms=550)
+    observations, info = env.reset(seed=42)
+    action = int(np.flatnonzero(info['action_mask'])[1])
+    path = tmp_path / 'environment.pt'
+    torch.save(env.snapshot(), path)
+    expected = env.step(action)
+    restored_obs, restored_info = env.restore(torch.load(path, weights_only=False))
+    assert all(np.array_equal(observations[k], restored_obs[k]) for k in observations)
+    assert np.array_equal(info['action_mask'], restored_info['action_mask'])
+    assert env.match.battle.unit_lookup.match is env.match
+    actual = env.step(action)
+    assert all(np.array_equal(expected[0][k], actual[0][k]) for k in observations)
+    assert actual[1:4] == expected[1:4]
+    assert actual[4]['metrics'] == expected[4]['metrics']
+    assert np.array_equal(actual[4]['action_mask'], expected[4]['action_mask'])
+    final_obs, _, terminated, truncated, final_info = env.step(0)
+    assert truncated and not terminated
+    assert final_info['terminal_reason'] == 'timeout'
+    assert np.flatnonzero(final_info['action_mask']).tolist() == [0]
+    assert all(np.isfinite(v).all() for v in final_obs.values())
+
+
+def test_v25_loads_defense_observations_without_head_migration():
+    """Inference only; the private baseline is optional in clean clones."""
+    from pathlib import Path
+    from sim.defense_env import DefenseEnv
+    from sim.train_ppo import build_network, checkpoint_architecture, load_policy_state
+    from sim.train_defense_ppo import tensor_observations
+    path = Path(__file__).resolve().parents[1] / 'checkpoints/portable_v25/portable_v25_cannon_economy_best.pt'
+    if not path.exists():
+        pytest.skip('private v25 checkpoint not present')
+    env = DefenseEnv(seed=42)
+    obs, info = env.reset(seed=42)
+    blob = torch.load(path, map_location='cpu', weights_only=False)
+    network = build_network(obs['planes'].shape[0], obs['scalars'].shape[0],
+                            len(info['action_mask']), checkpoint_architecture(blob))
+    assert not load_policy_state(network, blob['state_dict'])
+    with torch.no_grad():
+        logits, values = network(*tensor_observations([obs], 'cpu'))
+    assert logits.shape == (1, len(info['action_mask']))
+    assert values.shape == (1,)
+    require_finite(logits=logits, values=values)
