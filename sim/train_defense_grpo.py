@@ -136,6 +136,12 @@ def restore_training_state(blob,network,reference,optimizer,sampler,generator,co
                 best_validation=blob['best_validation'])
 
 
+def environment_steps_target_reached(completed_steps,target):
+    if target is not None and (not isinstance(target,int) or isinstance(target,bool) or target<1):
+        raise ValueError('target-environment-steps must be a positive integer')
+    return target is not None and completed_steps>=target
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     source=p.add_mutually_exclusive_group(required=True)
@@ -144,6 +150,8 @@ def main(argv=None):
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--device', default='cuda')
     p.add_argument('--updates', type=int, default=100)
+    p.add_argument('--target-environment-steps',type=int,default=None,
+        help='Stop at a completed-group boundary after at least this many training steps; wallclock may stop earlier')
     p.add_argument('--group-size', type=int, default=8)
     p.add_argument('--epochs', type=int, default=2)
     p.add_argument('--batch-steps', type=int, default=32)
@@ -163,6 +171,7 @@ def main(argv=None):
     p.add_argument('--validation-every', type=int, default=10)
     p.add_argument('--validation-episodes', type=int, default=8)
     args = p.parse_args(argv)
+    environment_steps_target_reached(0,args.target_environment_steps)
     if args.group_size < 2 or min(args.updates,args.epochs,args.validation_every,args.validation_episodes,args.batch_steps) < 1:
         p.error('positive updates/epochs/validation settings and group-size >=2 required')
     if args.save_seconds <= 0 or args.wallclock_seconds <= 0 or not 0 < args.clip < 1 or args.beta < 0:
@@ -248,8 +257,13 @@ def main(argv=None):
             python_rng=random.getstate()),args.output/f'{label}_u{completed:06d}_s{save_sequence:06d}.pt')
 
     save('boundary')
+    stop_reason='updates_target'
     for update in range(completed,args.updates):
         if time.monotonic()-start >= args.wallclock_seconds:
+            stop_reason='wallclock_boundary'
+            break
+        if environment_steps_target_reached(steps,args.target_environment_steps):
+            stop_reason='environment_steps_target'
             break
         # Preserve an exact recovery point before entering a potentially long group.
         if checkpoint_phase!='boundary':
@@ -263,6 +277,7 @@ def main(argv=None):
                 deadline=start+args.wallclock_seconds,on_step=count_train) for _ in range(args.group_size)]
         except TimeoutError:
             # Incomplete groups are not optimized or mixed with complete returns.
+            stop_reason='wallclock_incomplete_group'
             break
         returns = [t['return'] for t in trajectories]
         advantages, degenerate = group_advantages(returns)
@@ -326,7 +341,12 @@ def main(argv=None):
         if checkpoint_due(completed,args.checkpoint_every):
             save('boundary')
         maybe_save()
+    if environment_steps_target_reached(steps,args.target_environment_steps):
+        stop_reason='environment_steps_target'
     save('final')
+    print(json.dumps(dict(event='STOP',reason=stop_reason,completed_groups=completed,
+        environment_steps=steps,actual_environment_steps=actual_steps,
+        target_environment_steps=args.target_environment_steps,checkpoint_phase=checkpoint_phase)),flush=True)
 
 
 if __name__ == '__main__':
