@@ -30,8 +30,10 @@ def summarize(records):
         known=[r[key] for r in records if isinstance(r.get(key),bool)]
         return dict(count=len(known),rate=sum(known)/len(known) if known else None)
     result = dict(episodes=len(records),no_damage=rate('no_tower_damage'),
-        timeout_rate=sum(r.get('terminal_reason')=='timeout' or r.get('truncated',False)
-                         for r in records)/len(records) if records else None,
+        timeout_rate=sum(r.get('terminal_reason')=='timeout' for r in records)/len(records) if records else None,
+        invalid_script_rate=sum(str(r.get('terminal_reason','')).startswith('invalid_script')
+                                for r in records)/len(records) if records else None,
+        truncated_rate=sum(bool(r.get('truncated',False)) for r in records)/len(records) if records else None,
         terminal_reasons=dict(Counter(r.get('terminal_reason','unknown') for r in records)))
     for field in ('own_tower_hp_loss','own_tower_fraction_loss','enemy_tower_hp_damage'):
         result[field]={tower:describe([r.get(field,{}).get(tower) for r in records]) for tower in TOWERS}

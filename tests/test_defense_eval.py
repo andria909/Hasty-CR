@@ -63,3 +63,10 @@ def test_empty_stats_and_quantiles_are_serializable():
     assert values['mean']==1
     assert values['p95']==pytest.approx(1.9)
     assert describe([])['mean'] is None
+
+
+def test_invalid_script_truncation_is_not_a_gameplay_timeout():
+    result=aggregate([record(terminal_reason='invalid_script_trigger_timeout',truncated=True)])
+    assert result['overall']['timeout_rate']==0
+    assert result['overall']['invalid_script_rate']==1
+    assert result['overall']['truncated_rate']==1
