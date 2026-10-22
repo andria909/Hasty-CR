@@ -552,6 +552,7 @@ class CardSpec:
     secondary_summon_deploy_delay_ms: int = 0
     secondary_offset_toward_centre_mt: int = 0
     additional_summons: tuple[tuple[UnitSpec, int, int], ...] = ()
+    mirror_units_only: bool = False
 
 
 def _merge_character_overlay(base: dict, overlay: dict) -> dict:

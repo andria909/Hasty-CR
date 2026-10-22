@@ -369,7 +369,15 @@ class Match:
         if original is None:
             return None, 0
         higher = _levelled_cards(self.level + self.MIRROR_LEVEL_BONUS)
-        spec = higher.get(player.last_card, original)
+        mirror = self.cards.get('mirror')
+        if getattr(mirror, 'mirror_units_only', False):
+            # The portable Mirror supports audited unit profiles, not empty
+            # effects for spells whose higher-level implementation is absent.
+            spec = higher.get(player.last_card)
+            if original.unit is None or spec is None or spec.unit is None:
+                return None, 0
+        else:
+            spec = higher.get(player.last_card, original)
         return spec, original.cost + 1
 
     def can_play(self, side: int, card: str) -> bool:

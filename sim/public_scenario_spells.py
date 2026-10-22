@@ -274,11 +274,18 @@ def load_public_scenario_spells(level=11, *, root=DATA,
                       'Initial hand excludes Collector and Mirror; scenario scripts must cycle cards legally.'))
         report['elixir_collector']['supported'] = True
         report['elixir_collector']['representation'] = 'building'
-    status('mirror', missing=('audited_level_12_spell_and_unit_coverage', 'mechanical_mask_resolved_card_rules'),
-           sources=('cards.json:mirror',),
-           notes=('Mirror is dynamic: last card +1 elixir, higher level, copied deployment restrictions.',
-                  'Match.mirrored exists but portable scenario spell overrides currently accept only level11.',
-                  'Mirror alone has no prior card to copy; cannot be a valid solo scenario.'))
+    if 'mirror_units_and_opening_rules' not in engine_capabilities:
+        status('mirror', missing=('engine_mirror_units_and_opening_rules_capability',),
+               sources=('cards.json:mirror',))
+    else:
+        status('mirror', sources=('cards.json:mirror', 'cards_stats_characters.json:level_arrays',
+                                 'sim/match.py:Match.mirrored'),
+               notes=('Portable Mirror supports unit copies only; arbitrary spell copies fail closed.',
+                      'Unit profiles are loaded at one level higher and actual price is copied-card cost plus one.',
+                      'Starting hand excludes Mirror; a scenario must legally play a prior unit and draw Mirror.',
+                      'Unit-specific mechanics retain their underlying public-profile limitations.'))
+        report['mirror']['supported'] = True
+        report['mirror']['representation'] = 'dynamic_unit_copy'
     status('party_rocket', missing=('projectile_or_action_definition', 'standard_mode_admission'),
            sources=('cards.json:party-rocket',),
            notes=('Public catalogue entry exists but no GoblinPartyRocket projectile/action stats are present.',

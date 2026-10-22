@@ -267,6 +267,11 @@ def load_public_gamedata(level: int = 11) -> tuple[dict[str, CardSpec], dict]:
         name='elixir_collector', cost=int(collector['elixir']), rarity=collector['rarity'],
         unit=by_source['ElixirCollector'], summon_number=1, summon_radius_mt=0,
         summon_deploy_delay_ms=0, deploy_time_ms=by_source['ElixirCollector'].deploy_time_ms)
+    mirror = next(row for row in catalogue if row['key'] == 'mirror')
+    cards['mirror'] = CardSpec(
+        name='mirror', cost=int(mirror['elixir']), rarity=mirror['rarity'],
+        unit=None, summon_number=0, summon_radius_mt=0,
+        summon_deploy_delay_ms=0, deploy_time_ms=0, mirror_units_only=True)
     for source, alias in aliases.items():
         if source in cards and alias not in cards:
             spec = cards[source]
