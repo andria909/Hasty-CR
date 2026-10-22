@@ -20,6 +20,8 @@ from pathlib import Path
 import numpy as np
 import torch
 
+from sim.defense_log_summary import compact_stdout_lines
+
 from sim.train_ppo import (build_network, checkpoint_architecture,
                            load_policy_state, masked_distribution)
 
@@ -337,7 +339,8 @@ def main(argv=None):
                 best_validation = record['validation']['mean_return']; save('best_validation')
         with (args.output/'updates.jsonl').open('a') as stream:
             stream.write(json.dumps(record,default=str)+'\n')
-        print(json.dumps(record,default=str),flush=True)
+        for line in compact_stdout_lines(record, 'GRPO'):
+            print(line, flush=True)
         if checkpoint_due(completed,args.checkpoint_every):
             save('boundary')
         maybe_save()
