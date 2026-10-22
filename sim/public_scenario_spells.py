@@ -12,7 +12,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Mapping
 
-from .entities import speed_to_mt_per_sec
 from .spells import SpellSpec
 
 DATA = Path(__file__).resolve().parents[1] / 'data' / 'royaleapi'
@@ -117,7 +116,7 @@ def load_public_scenario_spells(level=11, *, root=DATA,
         name='rocket', damage=_level_damage(p, level), radius_mt=int(p['radius']),
         radius_y_mt=int(p['radius']), crown_tower_percent=100+int(p['crown_tower_damage_percent']),
         pushback_mt=int(p['pushback']), tower_damage_override=int(r['tower_damage_override']),
-        projectile_speed_mt_per_sec=speed_to_mt_per_sec(int(p['speed'])),
+        projectile_speed_mt_per_sec=int(p['speed']) * 1000 // 60,
         travels_from_king=bool(r['travels_from_king']),
         deflect_behaviour=str(p['deflect_behaviour'])),
         sources=('cards_stats_projectile.json:RocketSpell', 'combat_rules.json:rocket'),
@@ -129,7 +128,7 @@ def load_public_scenario_spells(level=11, *, root=DATA,
         radius_y_mt=int(p['radius']), crown_tower_percent=0, pushback_mt=0,
         spawn_character=str(p['spawn_character']), spawn_count=int(p['spawn_character_count']),
         spawn_deploy_time_ms=int(p['spawn_character_deploy_time']),
-        projectile_speed_mt_per_sec=speed_to_mt_per_sec(int(p['speed'])),
+        projectile_speed_mt_per_sec=int(p['speed']) * 1000 // 60,
         travels_from_king=bool(r['travels_from_king']),
         can_place_on_water=bool(r['can_place_on_water'])),
         sources=('cards_stats_projectile.json:GoblinBarrelSpell', 'combat_rules.json:goblin_barrel'),
@@ -214,7 +213,7 @@ def load_public_scenario_spells(level=11, *, root=DATA,
         spawn_count=int(p.get('spawn_character_count') or 1),
         spawn_deploy_time_ms=int(p['spawn_character_deploy_time']),
         rolling_range_mt=int(p['projectile_range']),
-        rolling_speed_mt_per_sec=speed_to_mt_per_sec(int(p['speed'])),
+        rolling_speed_mt_per_sec=int(p['speed']) * 1000 // 60,
         deflect_behaviour=str(p['deflect_behaviour']), deploy_own_side_only=True),
         sources=('cards.json:barbarian-barrel', 'cards_stats_projectile.json:BarbLogProjectileRolling'),
         notes=('Requires battle.unit_lookup("Barbarian").',
@@ -233,7 +232,7 @@ def load_public_scenario_spells(level=11, *, root=DATA,
             crown_tower_percent=100+int(p['crown_tower_damage_percent']),
             pushback_mt=int(p['pushback']), target_buff=buff,
             buff_time_ms=int(p['buff_time']), tower_damage_override=int(r['tower_damage_override']),
-            projectile_speed_mt_per_sec=speed_to_mt_per_sec(int(p['speed'])),
+            projectile_speed_mt_per_sec=int(p['speed']) * 1000 // 60,
             travels_from_king=bool(r['travels_from_king']),
             deflect_behaviour=str(p['deflect_behaviour'])),
             sources=('cards_stats_projectile.json:SnowballSpell', 'combat_rules.json:snowball'),

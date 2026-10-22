@@ -162,3 +162,16 @@ def test_barbarian_barrel_rolls_ground_only_once_and_spawns_one_barbarian():
     spawned=[e for e in battle.entities.values() if e.side==1]
     assert len(spawned)==1 and spawned[0].name=='barbarian'
     assert spawned[0].deploy_remaining_ms==500
+
+
+def test_projectile_rates_use_client_sixtieths_not_walking_speed_multiplier():
+    from sim.arena import Point
+    from sim.engine import Battle
+    from sim.spells import cast_spell
+    catalog=load_public_scenario_spells()
+    assert catalog.spells['rocket'].projectile_speed_mt_per_sec==350*1000//60
+    assert catalog.spells['goblin_barrel'].projectile_speed_mt_per_sec==400*1000//60
+    assert catalog.spells['barbarian_barrel'].rolling_speed_mt_per_sec==200*1000//60
+    battle=Battle()
+    cast_spell(battle,catalog.spells['rocket'],Point(9000,22000),1,Point(9000,28000))
+    assert battle.spell_impacts[0][0]==6000*1000//(350*1000//60)
