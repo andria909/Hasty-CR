@@ -244,7 +244,7 @@ def train(args):
         with (output / 'metrics.jsonl').open('a') as stream:
             stream.write(json.dumps(record, default=lambda x: x.item() if isinstance(x, np.generic) else str(x)) + '\n')
         print(json.dumps({k: v for k, v in record.items() if k != 'episodes'}), flush=True)
-        if time.monotonic() - started >= args.wallclock_seconds:
+        if budget_stop:
             print(json.dumps(dict(event='STOP', reason='wallclock_update_boundary', update=update, step=step, elapsed_seconds=time.monotonic()-started)), flush=True)
             break
     return output
