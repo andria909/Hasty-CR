@@ -831,7 +831,10 @@ def apply_spell(battle, spec: SpellSpec, at: Point, side: int) -> int:
             if arena.distance(entity.pos, at) <= spec.radius_mt + entity.collision_radius_mt:
                 originals.append(entity)
         for entity in originals:
-            clone = replace(entity, uid=0, hitpoints=1, shield_hitpoints=1,
+            has_shield = entity.shield_hitpoints > 0
+            clone = replace(entity, uid=0, hitpoints=1, max_hitpoints=1,
+                            shield_hitpoints=1 if has_shield else 0,
+                            shield_max_hitpoints=1 if has_shield else 0,
                             target_uid=None, windup_remaining_ms=0,
                             attack_cooldown_ms=0, dashing=False,
                             deploy_remaining_ms=0, is_clone=True)
