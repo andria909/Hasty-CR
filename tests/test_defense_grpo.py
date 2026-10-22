@@ -107,3 +107,44 @@ def test_scenario_cycle_keeps_real_hand_until_all_attacks_complete():
     for key in obs_a:
         np.testing.assert_array_equal(obs_a[key],obs_b[key])
     np.testing.assert_array_equal(info_a['action_mask'],info_b['action_mask'])
+
+
+def test_boundary_resume_restores_rng_sampler_and_counters_without_training():
+    import copy
+    import random
+    from sim.defense_sampler import ScenarioCycle
+    from sim.train_defense_grpo import restore_training_state,RESUME_KEYS
+    network=torch.nn.Linear(2,2)
+    reference=copy.deepcopy(network).requires_grad_(False)
+    optimizer=torch.optim.Adam(network.parameters(),lr=3e-5)
+    sampler=ScenarioCycle(['a','b'],seed=42)
+    sampler.next()
+    generator=torch.Generator().manual_seed(19)
+    config={key:None for key in RESUME_KEYS}
+    config['seed']=42
+    blob=dict(resume_supported=True,checkpoint_phase='boundary',
+        resume_schema='defense-grpo-boundary-v1',config=config,
+        state_dict=copy.deepcopy(network.state_dict()),
+        reference_state_dict=copy.deepcopy(reference.state_dict()),
+        optimizer=copy.deepcopy(optimizer.state_dict()),sampler=sampler.state_dict(),
+        torch_rng=torch.get_rng_state(),cuda_rng=[],action_rng=generator.get_state(),
+        numpy_rng=np.random.get_state(),python_rng=random.getstate(),updates=3,
+        environment_steps=123,degenerate_groups=1,actual_environment_steps={'train':123,'validation':4},
+        best_validation=5.)
+    expected=(torch.rand(2),torch.rand(2,generator=generator),np.random.rand(2),random.random(),sampler.next())
+    with torch.no_grad():
+        network.weight.zero_()
+    restored=restore_training_state(blob,network,reference,optimizer,sampler,generator,config)
+    actual=(torch.rand(2),torch.rand(2,generator=generator),np.random.rand(2),random.random(),sampler.next())
+    torch.testing.assert_close(expected[0],actual[0],rtol=0,atol=0)
+    torch.testing.assert_close(expected[1],actual[1],rtol=0,atol=0)
+    np.testing.assert_array_equal(expected[2],actual[2])
+    assert expected[3:]==actual[3:]
+    assert restored==dict(completed=3,steps=123,degenerate_count=1,actual_steps={'train':123,'validation':4},best_validation=5.)
+    torch.testing.assert_close(network.weight,blob['state_dict']['weight'])
+    with pytest.raises(ValueError,match='configuration mismatch'):
+        restore_training_state(blob,network,reference,optimizer,sampler,generator,dict(config,seed=99))
+    for phase in ('collection','update','validation'):
+        with pytest.raises(ValueError,match='unfinished'):
+            restore_training_state(dict(blob,checkpoint_phase=phase,resume_supported=False),
+                network,reference,optimizer,sampler,generator,config)

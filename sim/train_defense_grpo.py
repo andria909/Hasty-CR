@@ -103,9 +103,43 @@ def rollout(env, network, device, generator, seed, scenario_id=None, greedy=Fals
             return result
 
 
+RESUME_KEYS = ('group_size','epochs','batch_steps','seed','lr','clip','beta','entropy',
+               'action_delay_ms','max_ms','initial_elixir','difficulty',
+               'validation_every','validation_episodes','architecture','device_name',
+               'init_sha256','trajectory_weighting','torch_version','environment_code_sha256')
+
+
+def restore_training_state(blob,network,reference,optimizer,sampler,generator,config):
+    if not blob.get('resume_supported',False) or blob.get('checkpoint_phase')!='boundary':
+        raise ValueError('Checkpoint is inside an unfinished group/validation; exact resume unsupported. Use a boundary checkpoint.')
+    if blob.get('resume_schema')!='defense-grpo-boundary-v1':
+        raise ValueError('Checkpoint lacks supported exact-resume metadata')
+    differences=[key for key in RESUME_KEYS if blob['config'].get(key)!=config.get(key)]
+    if differences:
+        raise ValueError(f'Resume configuration mismatch: {differences}')
+    load_policy_state(network,blob['state_dict'])
+    load_policy_state(reference,blob['reference_state_dict'])
+    optimizer.load_state_dict(blob['optimizer'])
+    sampler.load_state_dict(blob['sampler'])
+    torch.set_rng_state(blob['torch_rng'].cpu())
+    if blob['cuda_rng']:
+        if not torch.cuda.is_available():
+            raise ValueError('CUDA RNG cannot be restored without CUDA')
+        torch.cuda.set_rng_state_all([state.cpu() for state in blob['cuda_rng']])
+    generator.set_state(blob['action_rng'].cpu())
+    np.random.set_state(blob['numpy_rng'])
+    random.setstate(blob['python_rng'])
+    return dict(completed=blob['updates'],steps=blob['environment_steps'],
+                degenerate_count=blob['degenerate_groups'],
+                actual_steps=dict(blob['actual_environment_steps']),
+                best_validation=blob['best_validation'])
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--init', type=Path, required=True)
+    source=p.add_mutually_exclusive_group(required=True)
+    source.add_argument('--init', type=Path)
+    source.add_argument('--resume', type=Path, help='Exact continuation from a completed-group checkpoint; updates is total target')
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--device', default='cuda')
     p.add_argument('--updates', type=int, default=100)
@@ -139,7 +173,7 @@ def main(argv=None):
     device = torch.device(args.device)
     torch.manual_seed(args.seed); np.random.seed(args.seed); random.seed(args.seed)
     generator = torch.Generator(device=device).manual_seed(args.seed+1)
-    blob = torch.load(args.init, map_location=device, weights_only=False)
+    blob = torch.load(args.resume or args.init, map_location=device, weights_only=False)
     architecture = checkpoint_architecture(blob)
     network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS, architecture).to(device)
     load_policy_state(network, blob['state_dict'])
@@ -150,10 +184,19 @@ def main(argv=None):
     network.eval()  # no stochastic hidden layers; action sampling has its own RNG
     optimizer = torch.optim.Adam([p for p in network.parameters() if p.requires_grad], lr=args.lr)
     config = {k:str(v) if isinstance(v,Path) else v for k,v in vars(args).items()}
-    config['init_sha256'] = hashlib.sha256(args.init.read_bytes()).hexdigest()
+    config['init_sha256'] = (blob['config']['init_sha256'] if args.resume else
+                             hashlib.sha256(args.init.read_bytes()).hexdigest())
     config['architecture'] = architecture
     config['device_name'] = torch.cuda.get_device_name(device) if device.type=='cuda' else str(device)
     config['trajectory_weighting'] = 'mean steps per trajectory, then mean group'
+    config['torch_version'] = str(torch.__version__)
+    contract_files=('defense_env.py','defense_scenarios.py','defense_assets.py',
+                    'public_scenario_spells.py','engine.py','entities.py','match.py','env.py',
+                    'gamedata.py','spells.py','defense_sampler.py')
+    contract=hashlib.sha256()
+    for filename in contract_files:
+        contract.update(filename.encode()); contract.update(Path(__file__).with_name(filename).read_bytes())
+    config['environment_code_sha256'] = contract.hexdigest()
     (args.output/'config.json').write_text(json.dumps(config, indent=2))
     env_kwargs = dict(action_delay_ms=args.action_delay_ms,max_ms=args.max_ms,initial_elixir=args.initial_elixir)
     env = DefenseEnv(seed=args.seed, split='train', difficulty=args.difficulty, **env_kwargs)
@@ -164,6 +207,12 @@ def main(argv=None):
     best_validation = -float('inf')
     actual_steps = dict(train=0,validation=0)
     save_sequence = 0
+    checkpoint_phase = 'boundary'
+    if args.resume:
+        restored=restore_training_state(blob,network,reference,optimizer,sampler,generator,config)
+        completed=restored['completed']; steps=restored['steps']
+        degenerate_count=restored['degenerate_count']; actual_steps=restored['actual_steps']
+        best_validation=restored['best_validation']
     def maybe_save():
         nonlocal last_save
         if time.monotonic()-last_save >= args.save_seconds:
@@ -181,16 +230,23 @@ def main(argv=None):
         # Unique names avoid overwriting any user's existing artifact.
         torch.save(dict(state_dict=network.state_dict(), reference_state_dict=reference.state_dict(),
             optimizer=optimizer.state_dict(),architecture=architecture,config=config,
-            sampler=sampler.state_dict(),
+            sampler=sampler.state_dict(),resume_schema='defense-grpo-boundary-v1',
+            resume_supported=checkpoint_phase=='boundary',checkpoint_phase=checkpoint_phase,
+            best_validation=best_validation,
             updates=completed,groups=completed,environment_steps=steps,
             degenerate_groups=degenerate_count, actual_environment_steps=dict(actual_steps), torch_rng=torch.get_rng_state(),
             cuda_rng=torch.cuda.get_rng_state_all() if device.type=='cuda' else [],
             action_rng=generator.get_state(), numpy_rng=np.random.get_state(),
             python_rng=random.getstate()),args.output/f'{label}_u{completed:06d}_s{save_sequence:06d}.pt')
 
-    for update in range(args.updates):
+    save('boundary')
+    for update in range(completed,args.updates):
         if time.monotonic()-start >= args.wallclock_seconds:
             break
+        # Preserve an exact recovery point before entering a potentially long group.
+        if checkpoint_phase!='boundary':
+            raise RuntimeError('Unexpected unfinished group')
+        checkpoint_phase='collection'
         group_context = sampler.next()
         seed = group_context['seed']
         try:
@@ -205,6 +261,7 @@ def main(argv=None):
         steps += sum(len(t['actions']) for t in trajectories)
         degenerate_count += int(degenerate)
         stats = []
+        checkpoint_phase='update'
         if not degenerate:
             for _ in range(args.epochs):
                 optimizer.zero_grad()
@@ -229,6 +286,7 @@ def main(argv=None):
                 torch.nn.utils.clip_grad_norm_(network.parameters(),0.5,error_if_nonfinite=True)
                 optimizer.step()
         completed = update+1
+        checkpoint_phase='boundary'
         record = dict(update=completed,groups=completed,environment_steps=steps,
             group_seed=seed,scenario_id=group_context['scenario_id'],
             sampler=sampler.state_dict(),returns=returns,degenerate=degenerate,
@@ -239,6 +297,7 @@ def main(argv=None):
             kl=float(np.mean([s[1] for s in stats])) if stats else None,
             entropy=float(np.mean([s[2] for s in stats])) if stats else None)
         if completed%args.validation_every==0 and time.monotonic()-start < args.wallclock_seconds:
+            checkpoint_phase='validation'
             evaluations = []
             for i in range(args.validation_episodes):
                 try:
@@ -250,11 +309,13 @@ def main(argv=None):
                 completed_episodes=len(evaluations),
                 metrics=[t['metrics'] for t in evaluations],split='validation',
                 environment_steps=sum(len(t['actions']) for t in evaluations))
+            checkpoint_phase='boundary'
             if len(evaluations)==args.validation_episodes and record['validation']['mean_return'] > best_validation:
                 best_validation = record['validation']['mean_return']; save('best_validation')
         with (args.output/'updates.jsonl').open('a') as stream:
             stream.write(json.dumps(record,default=str)+'\n')
         print(json.dumps(record,default=str),flush=True)
+        save('boundary')
         maybe_save()
     save('final')
 
