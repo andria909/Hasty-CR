@@ -168,13 +168,62 @@ def selected_recovery_candidates(stage2_input,result_sha,manifest):
     return selected,report
 
 
+def selected_account2_candidate(source,result_sha,manifest):
+    """Admit the separate GRPO only after its own target and fresh validation.
+
+    No PPO result or completed original parent is fabricated for this account.
+    """
+    raw=exact_file(source,'account2_result.json').read_bytes()
+    if sha(raw)!=result_sha:raise ValueError('Pinned account2 result SHA mismatch')
+    report=json.loads(raw)
+    steps=report.get('steps')
+    if (report.get('schema')!='defense-grpo-account2-v1' or
+            report.get('status')!='grpo_target_completed_validation_selected' or
+            report.get('not_exact_resume')is not True or report.get('target_steps')!=1000000 or
+            isinstance(steps,bool)or not isinstance(steps,int)or steps<1000000):
+        raise ValueError('Account2 GRPO target/schema/status incomplete')
+    source_hash=manifest.get('recovery_source_archive_sha256')
+    patch=manifest.get('evaluation_environment_patch',{})
+    repaired=patch.get('to_sha256')
+    if (not isinstance(source_hash,str)or not re_full_sha(source_hash)or
+            report.get('source_provenance',{}).get('archive_sha256')!=source_hash or
+            not isinstance(repaired,str)or not re_full_sha(repaired)or
+            manifest.get('files',{}).get('sim/defense_env.py')!=repaired or
+            manifest.get('evaluation_repaired_files')!=['sim/defense_env.py']):
+        raise ValueError('Account2 source differs from repaired evaluation environment')
+    selection=report.get('validation_selection',{})
+    choice=selection.get('selected',{});candidates=selection.get('candidates',[])
+    if (selection.get('split')!='validation'or selection.get('episodes')!=32 or
+            selection.get('seed')!=900000 or not isinstance(candidates,list)or not candidates or
+            not isinstance(choice,dict)or choice not in candidates or
+            any(not isinstance(row,dict)for row in candidates)):
+        raise ValueError('Account2 fresh validation protocol/choice incomplete')
+    scores=[row.get('mean_reward')for row in candidates]
+    if any(isinstance(v,bool)or not isinstance(v,(int,float))or not math.isfinite(v)for v in scores):
+        raise ValueError('Account2 validation scores must be finite')
+    if choice.get('mean_reward')!=max(scores):raise ValueError('Account2 choice is not validation-best')
+    artifact=report.get('selected_artifact',{})
+    if artifact.get('path')!='selected/grpo.pt':raise ValueError('Unsafe account2 selected artifact path')
+    digest=artifact.get('sha256')
+    if not isinstance(digest,str)or not re_full_sha(digest)or digest!=choice.get('sha256'):
+        raise ValueError('Account2 selected SHA disagrees with validation')
+    path=exact_file(source,'selected/grpo.pt')
+    if sha(path.read_bytes())!=digest:raise ValueError('Account2 selected content SHA mismatch')
+    return {'grpo':dict(path=path,sha256=digest,source=dict(choice),
+                        selection_mode='separate_account2_fresh_validation')},report
+
+
+def re_full_sha(value):
+    return len(value)==64 and all(c in '0123456789abcdef'for c in value)
+
+
 def commands(project,output,selected,protocol):
     seeds=','.join(map(str,protocol['defense_seeds']))
     paired=list(protocol['paired_seeds'])
     if paired!=list(range(710001,710011)):
         raise ValueError('This frozen duel CLI requires the exact contiguous paired seed schedule')
     result={}
-    for gpu,name in enumerate(('ppo','grpo')):
+    for gpu,name in enumerate(name for name in ('ppo','grpo')if name in selected):
         checkpoint=str(selected[name]['path'])
         result[name]=[
             [sys.executable,'-m','sim.eval_defense','--init',checkpoint,'--device',f'cuda:{gpu}',
@@ -216,14 +265,18 @@ def main(argv=None):
     provenance=p.add_mutually_exclusive_group(required=True)
     provenance.add_argument('--stage2-result-sha256')
     provenance.add_argument('--recovery-result-sha256')
+    provenance.add_argument('--account2-result-sha256')
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--extracted-root',type=Path)
     args=p.parse_args(argv)
     args.output=args.output.resolve()
     if args.output.exists():raise ValueError('Use a new output directory')
     members,manifest,protocol_data=frozen_members(args.evaluation_input,extracted_root=args.extracted_root)
-    recovery_mode=args.recovery_result_sha256 is not None
-    if recovery_mode:
+    account2_mode=args.account2_result_sha256 is not None
+    recovery_mode=args.recovery_result_sha256 is not None or account2_mode
+    if account2_mode:
+        selected,source_result=selected_account2_candidate(args.stage2_input,args.account2_result_sha256,manifest)
+    elif recovery_mode:
         selected,source_result=selected_recovery_candidates(args.stage2_input,args.recovery_result_sha256,manifest)
     else:
         selected,source_result=selected_candidates(args.stage2_input,args.stage2_result_sha256,manifest)
@@ -238,8 +291,8 @@ def main(argv=None):
     if protocol.fingerprint!=EXPECTED_PROTOCOL:raise ValueError('Frozen core protocol disagrees with verified protocol')
     load_baseline_allowlist(project/'data/defense/baselines.json',project_root=project)
     import torch
-    if not torch.cuda.is_available()or torch.cuda.device_count()<2:
-        raise RuntimeError('Two real CUDA GPUs are required; no CPU fallback')
+    if not torch.cuda.is_available()or torch.cuda.device_count()<len(selected):
+        raise RuntimeError('Real CUDA GPU per selected policy required; no CPU fallback')
     for row in selected.values():
         blob=torch.load(row['path'],map_location='cpu',weights_only=False)
         if not all(torch.isfinite(value).all().item()for value in blob['state_dict'].values()):
@@ -250,12 +303,15 @@ def main(argv=None):
     report=dict(status='running',protocol_fingerprint=protocol.fingerprint,
         source_archive_sha256=manifest['source_archive_sha256'],evaluation_archive_sha256=manifest['archive_sha256'],
         stage2_result_sha256=args.stage2_result_sha256,recovery_result_sha256=args.recovery_result_sha256,
-        input_result_mode='semantic_recovery'if recovery_mode else 'original_stage2',
+        account2_result_sha256=args.account2_result_sha256,
+        input_result_mode='separate_account2'if account2_mode else 'semantic_recovery'if recovery_mode else 'original_stage2',
         original_stage2_status_not_overridden=source_result.get('original_stage2_status_not_overridden')if recovery_mode else None,
         not_exact_resume=True if recovery_mode else None,
         recovery_source_archive_sha256=manifest.get('recovery_source_archive_sha256'),
         recovery_training_counters=source_result.get('training_counters')if recovery_mode else None,
-        recovery_validation_selection=source_result.get('validation_selection')if recovery_mode else None,gpu_names=[torch.cuda.get_device_name(i)for i in range(2)],
+        recovery_validation_selection=source_result.get('validation_selection')if recovery_mode else None,
+        account2_training_steps=source_result.get('steps')if account2_mode else None,
+        gpu_names=[torch.cuda.get_device_name(i)for i in range(len(selected))],
         selected={name:dict(path=str(row['path']),sha256=row['sha256'])for name,row in selected.items()},
         source_result_provenance_limitations=([
             'semantic recovery changes environment semantics; this is not an exact trajectory continuation',
@@ -272,8 +328,8 @@ def main(argv=None):
         duels=json.loads((args.output/f'{name}_duels.json').read_text())
         return name,aggregate_candidate(protocol,defense,duels,selected[name]['sha256'],acceptance_gate)
     try:
-        with ThreadPoolExecutor(max_workers=2)as pool:
-            futures=[pool.submit(run,name)for name in ('ppo','grpo')]
+        with ThreadPoolExecutor(max_workers=len(selected))as pool:
+            futures=[pool.submit(run,name)for name in selected]
             for future in futures:
                 name,result=future.result();report['candidates'][name]=result
                 (args.output/'evaluation_result.json').write_text(json.dumps(report,indent=2))

@@ -257,3 +257,13 @@ environment_steps и checkpoint_phase финального GRPO, конечно�
 20 симуляционных матчей на каждого из15 прошлых соперников, со сменой сторон.
 Quality flags и ограничения реальных механик сохраняются.
 
+Для отдельного защитного GRPO на втором аккаунте сборщик
+`scripts.kaggle.prepare_defense_evaluation_job` поддерживает
+`--result-mode account2`. Он принимает terminal `account2_result.json`,
+собственные1000000 шагов и свежую validation selection, включает только
+выбранный `grpo.pt`, а controller использует `--account2-result-sha256`.
+Не создавать для него фиктивный PPO или успешный recovery_result.json.
+Оценка сохраняет весь исходный test и15 соперников; source dataset должен
+быть доступен именно владельцу нового evaluation kernel. Оба исходных
+алгоритма в обычном режиме recovery по-прежнему оцениваются отдельно на2GPU.
+
