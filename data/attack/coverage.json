@@ -1,0 +1,44 @@
+{
+  "schema": "attack-v1",
+  "count": 236,
+  "families": 15,
+  "by_split": {
+    "train": 140,
+    "validation": 64,
+    "test": 32
+  },
+  "crown_damage_level11": {
+    "fireball": 206,
+    "zap": 57
+  },
+  "geometry": "legacy_v1",
+  "geometry_sha256": "f9e21a1ed4a561c42ce1cac59e6a6140de43ff5c69c6074fcae0ba110be570b4",
+  "calibrated": false,
+  "trained": false,
+  "quality_accepted": false,
+  "limitations": [
+    "deadline ranges require reference-action physics calibration before training",
+    "tower damage labels follow the loaded simulator profiles, not an independent current-game verification",
+    "fixed-guess and reactive-building variants are different timing conditions, not measured prediction accuracy",
+    "support bodies are synthetic initial setups, not replayed real defenses",
+    "bridge/back/pocket are setup labels; actual Hog placement is unconstrained and must be measured separately",
+    "solo Hog setup and HP variants share one family and therefore one split; held-out solo coverage is incomplete",
+    "initial hands are fixed per goal; shuffled hand/cycle curriculum coverage is not implemented"
+  ],
+  "goal_split_coverage": {
+    "train": {
+      "hog_tower_damage": 68,
+      "spell_finish": 72
+    },
+    "validation": {
+      "hog_tower_damage": 16,
+      "spell_finish": 48
+    },
+    "test": {
+      "hog_tower_damage": 8,
+      "spell_finish": 24
+    }
+  },
+  "missing_goal_split_coverage": [],
+  "full_goal_split_coverage": true
+}
