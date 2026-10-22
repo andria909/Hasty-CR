@@ -17,7 +17,9 @@ from .spells import SpellSpec
 
 DATA = Path(__file__).resolve().parents[1] / 'data' / 'royaleapi'
 REQUESTED = ('graveyard', 'goblin_barrel', 'rage', 'freeze', 'heal', 'heal_spirit',
-             'arrows', 'poison', 'rocket', 'lightning')
+             'arrows', 'poison', 'rocket', 'lightning', 'barbarian_barrel', 'clone',
+             'earthquake', 'elixir_collector', 'giant_snowball', 'mirror',
+             'party_rocket', 'tornado')
 
 
 @dataclass
@@ -50,7 +52,8 @@ def _buff_delta(value):
 
 
 def load_public_scenario_spells(level=11, *, root=DATA,
-                                available_buffs: Mapping | None = None):
+                                available_buffs: Mapping | None = None,
+                                engine_capabilities=()):
     """Return supported specs and explicit exclusions, with provenance.
 
     ``available_buffs`` must be the mapping actually used by engine.load_buffs,
@@ -68,7 +71,7 @@ def load_public_scenario_spells(level=11, *, root=DATA,
     fallback = {}
     # Zero-heal movement/attack buffs are representable without inventing
     # level scaling. HealSpiritBuff and Poison need level-aware healing/DPS.
-    for name in ('Freeze', 'ZapFreeze'):
+    for name in ('Freeze', 'ZapFreeze', 'IceWizardSlowDown'):
         row = buff_rows[name]
         fallback[name] = (_buff_delta(row['speed_multiplier']),
                           _buff_delta(row['hit_speed_multiplier']), 0)
@@ -183,4 +186,79 @@ def load_public_scenario_spells(level=11, *, root=DATA,
            sources=('cards.json:heal-spirit', 'cards_stats_spell.json:HealSpirit'),
            notes=('Playable Heal Spirit is a troop, not an independently cast heal area.',
                   'Raw HealSpiritBuff heal_per_second lacks exact level scaling.'))
+    # These are public card names, not source aliases (BarbLog/Snowball).
+    row = spells['Clone']
+    if 'clone_preserves_shield_presence' not in engine_capabilities:
+        status('clone', missing=('engine_clone_invents_shield_for_unshielded_troops',),
+               sources=('cards_stats_spell.json:Clone',))
+    else:
+        status('clone', spec=SpellSpec(
+            name='clone', damage=0, radius_mt=int(row['radius']),
+            radius_y_mt=int(row['radius']), crown_tower_percent=0, pushback_mt=0,
+            clone=bool(row['clone']), only_own_troops=bool(row['only_own_troops']),
+            ignore_buildings=bool(row['ignore_buildings']),
+            hits_air=bool(row['hits_air']), hits_ground=bool(row['hits_ground'])),
+            sources=('cards_stats_spell.json:Clone',),
+            notes=('Common engine copies troop state at one HP and does not model Clone displacement. '
+                   'Clone is a spell supporting another push; a solo Clone has no useful attack.'))
+
+    p = projectiles['BarbLogProjectileRolling']
+    status('barbarian_barrel', spec=SpellSpec(
+        name='barbarian_barrel', damage=_level_damage(p, level),
+        radius_mt=int(p['projectile_radius']), radius_y_mt=int(p['projectile_radius_y']),
+        crown_tower_percent=100, pushback_mt=0,
+        hits_air=bool(p['aoe_to_air']), hits_ground=bool(p['aoe_to_ground']),
+        spawn_character=str(p['spawn_character']),
+        # Named single spawn with omitted count matches the client loader's
+        # explicit default, rather than mistaking an NPC projectile for a card.
+        spawn_count=int(p.get('spawn_character_count') or 1),
+        spawn_deploy_time_ms=int(p['spawn_character_deploy_time']),
+        rolling_range_mt=int(p['projectile_range']),
+        rolling_speed_mt_per_sec=speed_to_mt_per_sec(int(p['speed'])),
+        deflect_behaviour=str(p['deflect_behaviour']), deploy_own_side_only=True),
+        sources=('cards.json:barbarian-barrel', 'cards_stats_projectile.json:BarbLogProjectileRolling'),
+        notes=('Requires battle.unit_lookup("Barbarian").',
+               'Common rolling-spell engine does not model the initial airborne BarbLogProjectile stage.',
+               'deploy_own_side_only uses the same half-arena restriction as the existing spell API.'))
+
+    p, r = projectiles['SnowballSpell'], rules['snowball']
+    buff = str(p['target_buff'])
+    if available_buffs.get(buff) != fallback[buff]:
+        status('giant_snowball', missing=('engine_load_buffs:' + buff,),
+               sources=('cards_stats_projectile.json:SnowballSpell',))
+    else:
+        status('giant_snowball', spec=SpellSpec(
+            name='giant_snowball', damage=int(r['damage_override']),
+            radius_mt=int(p['radius']), radius_y_mt=int(p['radius']),
+            crown_tower_percent=100+int(p['crown_tower_damage_percent']),
+            pushback_mt=int(p['pushback']), target_buff=buff,
+            buff_time_ms=int(p['buff_time']), tower_damage_override=int(r['tower_damage_override']),
+            projectile_speed_mt_per_sec=speed_to_mt_per_sec(int(p['speed'])),
+            travels_from_king=bool(r['travels_from_king']),
+            deflect_behaviour=str(p['deflect_behaviour'])),
+            sources=('cards_stats_projectile.json:SnowballSpell', 'combat_rules.json:snowball'),
+            notes=('Common cast_spell uses constant-speed travel; projectile gravity trajectory is not modeled.',))
+
+    status('earthquake', missing=('level_11_damage_per_second',),
+           sources=('cards_stats_spell.json:Earthquake', 'cards_stats_character_buff.json:Earthquake'),
+           notes=('Raw DPS39 has no level array; tower override147 does not specify troop/building DPS.',))
+    status('tornado', missing=('level_11_damage_per_second', 'audited_damage_tick_schedule'),
+           sources=('cards_stats_spell.json:Tornado', 'cards_stats_character_buff.json:Tornado'),
+           notes=('Raw DPS106, AEO lifetime1050/hit_speed50 and buff hit_frequency500 are not a full current damage schedule.',
+                  'AttractPercentage360 is available; damage and full timing remain unresolved.'))
+    status('elixir_collector', missing=('engine_public_elixir_income_table', 'starting_hand_exclusion'),
+           sources=('cards_stats_building.json:ElixirCollector', 'cards.json:elixir-collector'),
+           notes=('Exact public level11 profile exists: HP1070, deploy1000ms, lifetime65000ms.',
+                  'Income fields: mana_collect_amount1, mana_generate_time_ms9000, mana_on_death1.',
+                  'Match.elixir_table currently reads only client TOMLs; inert building admission would be incorrect.',
+                  'Catalogue description excludes Collector from starting hand; generic Match shuffle does not enforce it.'))
+    status('mirror', missing=('audited_level_12_spell_and_unit_coverage', 'starting_hand_exclusion', 'mechanical_mask_resolved_card_rules'),
+           sources=('cards.json:mirror',),
+           notes=('Mirror is dynamic: last card +1 elixir, higher level, copied deployment restrictions.',
+                  'Match.mirrored exists but portable scenario spell overrides currently accept only level11.',
+                  'Mirror alone has no prior card to copy; cannot be a valid solo scenario.'))
+    status('party_rocket', missing=('projectile_or_action_definition', 'standard_mode_admission'),
+           sources=('cards.json:party-rocket',),
+           notes=('Public catalogue entry exists but no GoblinPartyRocket projectile/action stats are present.',
+                  'Do not alias Party Rocket to ordinary Rocket.'))
     return PublicScenarioSpells(accepted, fallback, report)

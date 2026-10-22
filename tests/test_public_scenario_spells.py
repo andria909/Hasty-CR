@@ -3,7 +3,7 @@ from sim.public_scenario_spells import load_public_scenario_spells
 
 def test_playable_spell_subset_has_no_npc_rows_or_phantom_heal():
     catalog = load_public_scenario_spells()
-    assert set(catalog.spells) == {'rage', 'rocket', 'arrows', 'goblin_barrel'}
+    assert set(catalog.spells) == {'rage', 'rocket', 'arrows', 'goblin_barrel', 'barbarian_barrel'}
     assert not catalog.audit['heal']['playable_card']
     assert catalog.audit['heal_spirit']['playable_card']
     assert not catalog.audit['heal_spirit']['supported']
@@ -93,3 +93,72 @@ def test_freeze_requires_real_buff_consumer_and_interrupts_ramp(monkeypatch):
     assert target.buff_speed_pct == target.buff_hit_speed_pct == -100
     assert target.buff_until_ms == 4000
     assert target.ramp_target_uid is None
+
+
+def test_remaining_card_gaps_are_explicit_not_aliased_to_other_spells():
+    catalog=load_public_scenario_spells()
+    remaining={'barbarian_barrel','clone','earthquake','elixir_collector','giant_snowball',
+               'graveyard','heal_spirit','mirror','party_rocket','poison','tornado'}
+    assert remaining <= catalog.audit.keys()
+    assert catalog.audit['elixir_collector']['missing'] == ['engine_public_elixir_income_table','starting_hand_exclusion']
+    assert 'projectile_or_action_definition' in catalog.audit['party_rocket']['missing']
+    assert 'level_11_damage_per_second' in catalog.audit['tornado']['missing']
+    assert 'engine_clone_invents_shield_for_unshielded_troops' in catalog.audit['clone']['missing']
+    assert 'mirror' not in catalog.spells
+    assert 'party_rocket' not in catalog.spells
+
+
+def test_clone_requires_explicit_verified_engine_capability():
+    catalog=load_public_scenario_spells(engine_capabilities={'clone_preserves_shield_presence'})
+    clone=catalog.spells['clone']
+    assert clone.clone and clone.only_own_troops and clone.ignore_buildings
+    assert clone.radius_mt==3000
+
+
+def test_snowball_requires_real_slow_buff_and_preserves_current_override(monkeypatch):
+    from sim.arena import Point
+    from sim.engine import Battle
+    from sim.entities import make_unit
+    from sim.gamedata import load_gamedata
+    from sim.spells import cast_spell
+    raw=load_public_scenario_spells()
+    assert 'giant_snowball' not in raw.spells
+    assert raw.buff_fallback['IceWizardSlowDown']==(-35,-35,0)
+    catalog=load_public_scenario_spells(available_buffs=raw.buff_fallback)
+    monkeypatch.setattr('sim.gamedata.load_buffs',lambda:raw.buff_fallback)
+    spec=catalog.spells['giant_snowball']
+    assert spec.damage==179 and spec.tower_damage_override==45
+    battle=Battle()
+    unit=make_unit(0,load_gamedata()['knight'].unit,-1,Point(9000,20000),0)
+    battle.add(unit)
+    before=unit.hitpoints
+    cast_spell(battle,spec,unit.pos,1)
+    assert unit.hitpoints==before-179
+    assert unit.buff_speed_pct==unit.buff_hit_speed_pct==-35
+    assert unit.buff_until_ms==2500
+
+
+def test_barbarian_barrel_rolls_ground_only_once_and_spawns_one_barbarian():
+    from sim.arena import Point
+    from sim.engine import Battle
+    from sim.entities import make_unit
+    from sim.gamedata import load_gamedata
+    from sim.spells import cast_spell
+    cards=load_gamedata()
+    battle=Battle()
+    battle.unit_lookup=lambda name: cards['barbarians'].unit if name=='Barbarian' else None
+    knight=make_unit(0,cards['knight'].unit,-1,Point(9000,20000),0)
+    air=make_unit(0,cards['baby_dragon'].unit,-1,Point(9000,20000),0)
+    battle.add(knight);battle.add(air)
+    spec=load_public_scenario_spells().spells['barbarian_barrel']
+    assert spec.damage==241 and spec.rolling_range_mt==4500 and not spec.hits_air
+    before,air_before=knight.hitpoints,air.hitpoints
+    cast_spell(battle,spec,Point(9000,22000),1)
+    for _ in range(30):
+        battle.now_ms+=50
+        battle._tick_rolling_spells(50)
+    assert knight.hitpoints==before-241
+    assert air.hitpoints==air_before
+    spawned=[e for e in battle.entities.values() if e.side==1]
+    assert len(spawned)==1 and spawned[0].name=='barbarian'
+    assert spawned[0].deploy_remaining_ms==500
