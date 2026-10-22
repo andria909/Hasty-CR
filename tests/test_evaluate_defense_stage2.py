@@ -126,3 +126,78 @@ def test_budget_stop_without_requested_steps_cannot_touch_final_test(tmp_path):
     path.write_text(json.dumps(result))
     with pytest.raises(ValueError,match='step target has not been reached'):
         selected_candidates(source,sha(path.read_bytes()),manifest)
+
+
+def recovery_fixture(tmp_path):
+    source=tmp_path/'recovery-output';(source/'selected').mkdir(parents=True)
+    manifest=dict(recovery_source_archive_sha256='a'*64,
+        files={'sim/defense_env.py':'b'*64},evaluation_environment_patch={'to_sha256':'b'*64},
+        evaluation_repaired_files=['sim/defense_env.py'])
+    report=dict(schema='defense-semantic-recovery-v1',status='training_targets_completed_validation_selected',
+        not_exact_resume=True,original_stage2_status_not_overridden=True,
+        source_provenance={'archive_sha256':'a'*64},targets={'ppo_steps':2048000,'grpo_steps':1000000},
+        training_counters={},validation_selection={},selected_artifacts={})
+    for name,target in [('ppo',2048000),('grpo',1000000)]:
+        artifact=source/'selected'/f'{name}.pt';artifact.write_bytes(('self-contained-'+name).encode())
+        digest=sha(artifact.read_bytes())
+        choice=dict(checkpoint='/old/runtime/final.pt',sha256=digest,mean_reward=1.5,
+                    validation_report='/old/runtime/selection.json',validation_sha256='c'*64)
+        report['training_counters'][name]=dict(steps=target,target_met=True,not_exact_resume=True)
+        report['validation_selection'][name]=dict(split='validation',episodes=32,seed=900000,
+            selected=choice,candidates=[choice],quality_accepted=False)
+        report['selected_artifacts'][name]=dict(path=f'selected/{name}.pt',sha256=digest)
+    result=source/'recovery_result.json';result.write_text(json.dumps(report))
+    return source,manifest,report,result
+
+
+def test_semantic_recovery_selects_exact_self_contained_fresh_validation_artifacts(tmp_path):
+    from scripts.defense.evaluate_stage2 import selected_recovery_candidates
+    source,manifest,report,result=recovery_fixture(tmp_path)
+    selected,loaded=selected_recovery_candidates(source,sha(result.read_bytes()),manifest)
+    assert loaded['not_exact_resume']is True
+    assert loaded['original_stage2_status_not_overridden']is True
+    assert {name:row['path'].relative_to(source).as_posix()for name,row in selected.items()}=={
+        'ppo':'selected/ppo.pt','grpo':'selected/grpo.pt'}
+    assert all(row['source']['checkpoint']=='/old/runtime/final.pt'for row in selected.values())
+    assert all(row['selection_mode']=='semantic_recovery_fresh_validation'for row in selected.values())
+    # The original failed parent status is neither read as passed nor overwritten.
+    (source/'stage2_result.json').write_text(json.dumps({'status':'failed'}))
+    selected_recovery_candidates(source,sha(result.read_bytes()),manifest)
+    assert json.loads((source/'stage2_result.json').read_text())['status']=='failed'
+
+
+@pytest.mark.parametrize('mutation',[
+    'schema','status','nonexact','parent-status','provenance','target-counts','target-steps','target-met',
+    'validation-split','validation-episodes','validation-seed','validation-nan','nonbest','artifact-sha','artifact-path'])
+def test_semantic_recovery_malformed_targets_provenance_validation_artifacts_fail_closed(tmp_path,mutation):
+    from scripts.defense.evaluate_stage2 import selected_recovery_candidates
+    source,manifest,report,result=recovery_fixture(tmp_path)
+    if mutation=='schema':report['schema']='wrong'
+    elif mutation=='status':report['status']='failed'
+    elif mutation=='nonexact':report['not_exact_resume']=False
+    elif mutation=='parent-status':report['original_stage2_status_not_overridden']=False
+    elif mutation=='provenance':report['source_provenance']['archive_sha256']='x'*64
+    elif mutation=='target-counts':report['targets']['grpo_steps']=10
+    elif mutation=='target-steps':report['training_counters']['grpo']['steps']=999999
+    elif mutation=='target-met':report['training_counters']['grpo']['target_met']=False
+    elif mutation=='validation-split':report['validation_selection']['ppo']['split']='test'
+    elif mutation=='validation-episodes':report['validation_selection']['ppo']['episodes']=3
+    elif mutation=='validation-seed':report['validation_selection']['ppo']['seed']=1
+    elif mutation=='validation-nan':report['validation_selection']['ppo']['selected']['mean_reward']=float('nan')
+    elif mutation=='nonbest':report['validation_selection']['ppo']['candidates'].append(dict(mean_reward=99.,sha256='f'*64))
+    elif mutation=='artifact-sha':report['selected_artifacts']['ppo']['sha256']='f'*64
+    elif mutation=='artifact-path':report['selected_artifacts']['ppo']['path']='selected/../ppo.pt'
+    result.write_text(json.dumps(report))
+    with pytest.raises(ValueError):selected_recovery_candidates(source,sha(result.read_bytes()),manifest)
+
+
+def test_semantic_recovery_rejects_pin_or_content_changes_and_unrepaired_eval(tmp_path):
+    from scripts.defense.evaluate_stage2 import selected_recovery_candidates
+    source,manifest,report,result=recovery_fixture(tmp_path)
+    with pytest.raises(ValueError,match='Pinned recovery'):
+        selected_recovery_candidates(source,'bad',manifest)
+    with pytest.raises(ValueError,match='repaired evaluation'):
+        selected_recovery_candidates(source,sha(result.read_bytes()),dict(manifest,evaluation_repaired_files=[]))
+    (source/'selected/grpo.pt').write_bytes(b'changed')
+    with pytest.raises(ValueError,match='content SHA'):
+        selected_recovery_candidates(source,sha(result.read_bytes()),manifest)

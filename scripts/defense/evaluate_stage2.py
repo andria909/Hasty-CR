@@ -1,6 +1,6 @@
 """Standalone, opt-in Kaggle controller for frozen post-stage2 evaluation.
 
-Requires explicit mounted input roots and a pinned stage2_result.json SHA. Never
+Requires explicit mounted input roots and a pinned original-stage2 or recovery result SHA. Never
 trains, uploads, picks a model from test results, or searches ambiguous mounts.
 """
 from __future__ import annotations
@@ -109,6 +109,65 @@ def selected_candidates(stage2_input,result_sha,manifest):
     return selected,result
 
 
+def selected_recovery_candidates(stage2_input,result_sha,manifest):
+    raw=exact_file(stage2_input,'recovery_result.json').read_bytes()
+    if sha(raw)!=result_sha:
+        raise ValueError('Pinned recovery result SHA mismatch')
+    report=json.loads(raw)
+    if (report.get('schema')!='defense-semantic-recovery-v1' or
+            report.get('status')!='training_targets_completed_validation_selected' or
+            report.get('not_exact_resume')is not True or
+            report.get('original_stage2_status_not_overridden')is not True):
+        raise ValueError('Recovery schema/status/nonexact provenance is incomplete')
+    source_hash=manifest.get('recovery_source_archive_sha256')
+    patch=manifest.get('evaluation_environment_patch',{})
+    repaired_env_hash=patch.get('to_sha256')
+    if (not isinstance(source_hash,str)or len(source_hash)!=64 or
+            any(character not in '0123456789abcdef'for character in source_hash)or
+            not isinstance(repaired_env_hash,str)or len(repaired_env_hash)!=64 or
+            report.get('source_provenance',{}).get('archive_sha256')!=source_hash or
+            patch.get('to_sha256')!=manifest.get('files',{}).get('sim/defense_env.py') or
+            manifest.get('evaluation_repaired_files')!=['sim/defense_env.py']):
+        raise ValueError('Recovery source does not match the repaired evaluation environment provenance')
+    required={'ppo':2048000,'grpo':1000000}
+    if report.get('targets')!={name+'_steps':target for name,target in required.items()}:
+        raise ValueError('Recovery training targets differ from the requested long run')
+    selected={}
+    for name,target in required.items():
+        counters=report.get('training_counters',{}).get(name,{})
+        steps=counters.get('steps')
+        if (not isinstance(steps,int)or isinstance(steps,bool)or steps<target or
+                counters.get('target_met')is not True or counters.get('not_exact_resume')is not True):
+            raise ValueError('Recovery training step target is incomplete')
+        selection=report.get('validation_selection',{}).get(name,{})
+        if (selection.get('split')!='validation' or selection.get('episodes')!=32 or
+                selection.get('seed')!=900000):
+            raise ValueError('Recovery selection must use the explicit fresh validation protocol')
+        choice=selection.get('selected',{})
+        candidates=selection.get('candidates')
+        if (not isinstance(choice,dict)or not isinstance(candidates,list)or not candidates or
+                any(not isinstance(row,dict)for row in candidates)or choice not in candidates):
+            raise ValueError('Recovery selected checkpoint is absent from validation candidates')
+        scores=[row.get('mean_reward')for row in candidates]
+        if any(not isinstance(score,(int,float))or isinstance(score,bool)or not math.isfinite(score)for score in scores):
+            raise ValueError('Recovery validation scores must be finite')
+        if choice.get('mean_reward')!=max(scores):
+            raise ValueError('Recovery checkpoint is not the explicit validation-best choice')
+        artifact=report.get('selected_artifacts',{}).get(name,{})
+        relative=relative_path(artifact.get('path'))
+        if str(relative)!=f'selected/{name}.pt' or len(relative.parts)!=2:
+            raise ValueError('Recovery selected artifact must have the exact self-contained relative path')
+        digest=artifact.get('sha256')
+        if (not isinstance(digest,str)or len(digest)!=64 or
+                any(character not in '0123456789abcdef'for character in digest) or digest!=choice.get('sha256')):
+            raise ValueError('Recovery selected artifact SHA does not match validation selection')
+        path=exact_file(stage2_input,str(relative))
+        if sha(path.read_bytes())!=digest:
+            raise ValueError('Recovery selected artifact content SHA mismatch')
+        selected[name]=dict(path=path,sha256=digest,source=dict(choice),selection_mode='semantic_recovery_fresh_validation')
+    return selected,report
+
+
 def commands(project,output,selected,protocol):
     seeds=','.join(map(str,protocol['defense_seeds']))
     paired=list(protocol['paired_seeds'])
@@ -154,14 +213,20 @@ def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--evaluation-input',type=Path,required=True)
     p.add_argument('--stage2-input',type=Path,required=True)
-    p.add_argument('--stage2-result-sha256',required=True)
+    provenance=p.add_mutually_exclusive_group(required=True)
+    provenance.add_argument('--stage2-result-sha256')
+    provenance.add_argument('--recovery-result-sha256')
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--extracted-root',type=Path)
     args=p.parse_args(argv)
     args.output=args.output.resolve()
     if args.output.exists():raise ValueError('Use a new output directory')
     members,manifest,protocol_data=frozen_members(args.evaluation_input,extracted_root=args.extracted_root)
-    selected,stage2=selected_candidates(args.stage2_input,args.stage2_result_sha256,manifest)
+    recovery_mode=args.recovery_result_sha256 is not None
+    if recovery_mode:
+        selected,source_result=selected_recovery_candidates(args.stage2_input,args.recovery_result_sha256,manifest)
+    else:
+        selected,source_result=selected_candidates(args.stage2_input,args.stage2_result_sha256,manifest)
     # Do not import any bundled project code until all frozen bytes and selections validate.
     args.output.mkdir(parents=True,exist_ok=False)
     project=args.output/'project';project.mkdir()
@@ -179,14 +244,23 @@ def main(argv=None):
         blob=torch.load(row['path'],map_location='cpu',weights_only=False)
         if not all(torch.isfinite(value).all().item()for value in blob['state_dict'].values()):
             raise ValueError('Selected checkpoint contains nonfinite policy weights')
-        if not math.isfinite(float(blob['best_validation'])):
+        if not recovery_mode and not math.isfinite(float(blob['best_validation'])):
             raise ValueError('Selected checkpoint lacks a finite validation best score')
     command_sets=commands(project,args.output,selected,protocol_data)
     report=dict(status='running',protocol_fingerprint=protocol.fingerprint,
         source_archive_sha256=manifest['source_archive_sha256'],evaluation_archive_sha256=manifest['archive_sha256'],
-        stage2_result_sha256=args.stage2_result_sha256,gpu_names=[torch.cuda.get_device_name(i)for i in range(2)],
+        stage2_result_sha256=args.stage2_result_sha256,recovery_result_sha256=args.recovery_result_sha256,
+        input_result_mode='semantic_recovery'if recovery_mode else 'original_stage2',
+        original_stage2_status_not_overridden=source_result.get('original_stage2_status_not_overridden')if recovery_mode else None,
+        not_exact_resume=True if recovery_mode else None,
+        recovery_source_archive_sha256=manifest.get('recovery_source_archive_sha256'),
+        recovery_training_counters=source_result.get('training_counters')if recovery_mode else None,
+        recovery_validation_selection=source_result.get('validation_selection')if recovery_mode else None,gpu_names=[torch.cuda.get_device_name(i)for i in range(2)],
         selected={name:dict(path=str(row['path']),sha256=row['sha256'])for name,row in selected.items()},
-        source_result_provenance_limitations=['stage2 result lacks source archive hash; pinned result plus warmstart/v25 hashes do not prove its full source provenance'],
+        source_result_provenance_limitations=([
+            'semantic recovery changes environment semantics; this is not an exact trajectory continuation',
+            'pinned recovery report and source hashes are provenance evidence, not a signed source attestation']if recovery_mode else [
+            'stage2 result lacks source archive hash; pinned result plus warmstart/v25 hashes do not prove its full source provenance']),
         candidates={},quality_passed=None)
     (args.output/'evaluation_result.json').write_text(json.dumps(report,indent=2))
     environment=dict(os.environ,OMP_NUM_THREADS='2',MKL_NUM_THREADS='2',OPENBLAS_NUM_THREADS='2',PYTHONUNBUFFERED='1')
