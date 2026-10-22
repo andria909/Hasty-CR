@@ -24,20 +24,35 @@ from sim.match import Match
 from sim.selfplay import decode_for
 from sim.train_ppo import build_network,checkpoint_architecture,load_policy_state,masked_distribution
 
-MODES=('physical_live','legacy_training')
+MODES=('physical_live','legacy_training','physical_live_cells_v2')
+JOINT_MODE='joint_enemy_presence_v1'
+CANDIDATE_MODES=MODES+(JOINT_MODE,)
+
+
+def joint_attack_task(match,side):
+    """Fixed public deployment rule, not a learned strategy or future schedule.
+
+    Defend while any living enemy troop/building is visible. Otherwise attack.
+    Spell deadlines and training scenario labels do not exist in regular games.
+    """
+    return not any(getattr(e,'alive',True)and getattr(e,'side',0)==-side
+                   and not getattr(e,'is_tower',False)
+                   and getattr(e,'object_role','')!='pickup_effect_carrier'
+                   for e in match.battle.entities.values())
 
 
 def policy_observation(match,side,mode):
-    if mode not in MODES:
+    if mode not in CANDIDATE_MODES:
         raise ValueError('Explicit known observation mode required')
     if mode=='legacy_training':
         return observe(match,side)
     view=copy(match)
-    view.battle=copy(match.battle)
-    view.battle.entities={}
-    for uid,entity in match.battle.entities.items():
-        e=copy(entity);e.pos=arena.Point(entity.pos.x,31000-entity.pos.y)
-        view.battle.entities[uid]=e
+    if mode=='physical_live':
+        view.battle=copy(match.battle)
+        view.battle.entities={}
+        for uid,entity in match.battle.entities.items():
+            e=copy(entity);e.pos=arena.Point(entity.pos.x,31000-entity.pos.y)
+            view.battle.entities[uid]=e
     # Match the current live parser's unavailable public-history features.
     view.play_log=[]
     if side<0:
@@ -45,7 +60,12 @@ def policy_observation(match,side,mode):
             original=match.tower_fractions(target)
             return dict(original,left=original['right'],right=original['left'])
         view.tower_fractions=fractions
-    return observe(view,side)
+    if mode=='physical_live':return observe(view,side)
+    result=observe(view,side,coordinate_mode='physical_live_cells_v2')
+    if mode==JOINT_MODE:
+        result=dict(result,scalars=np.concatenate((result['scalars'],np.array(
+            [0.,0.,float(joint_attack_task(match,side))],dtype=np.float32))))
+    return result
 
 
 def mechanical_mask(match,cards,spells,side,pending=False):
@@ -130,6 +150,7 @@ def run_match(candidate,baseline,device,candidate_mode,baseline_mode,seed,candid
     if match.missing_spawns:flags.append('missing_spawn_profiles')
     if match.battle.unmodelled_projectiles:flags.append('unmodelled_projectiles')
     if not match.finished:flags.append('evaluation_time_cap_unknown_result')
+    if candidate_mode==JOINT_MODE:flags.append('joint_task_switch_is_public_heuristic')
     return dict(seed=seed,candidate_side=candidate_side,result=match.result,
         outcome=outcome(match.result,candidate_side,match.finished),elapsed_ms=match.elapsed_ms,
         candidate_mode=candidate_mode,baseline_mode=baseline_mode,
@@ -138,9 +159,22 @@ def run_match(candidate,baseline,device,candidate_mode,baseline_mode,seed,candid
         missing_spawns=sorted(match.missing_spawns),quality_flags=flags)
 
 
-def load_network(path,device):
+def load_network(path,device,mode=None):
     blob=torch.load(path,map_location=device,weights_only=False)
-    net=build_network(NUM_PLANES,NUM_SCALARS,ACTIONS,checkpoint_architecture(blob)).to(device)
+    count=NUM_SCALARS
+    if mode==JOINT_MODE:
+        from sim.strategy_env import OBSERVATION_CONTRACT
+        config=blob.get('config',{})
+        if (config.get('task_mode')!='joint'or config.get('observation_contract')!=OBSERVATION_CONTRACT
+                or config.get('coordinate_mode')!='physical_live_cells_v2'
+                or config.get('geometry')!='legacy_v1'):
+            raise ValueError('Joint duel checkpoint contract mismatch')
+        count+=3
+    incoming=blob['state_dict']['scalar.0.weight'].shape[1]
+    allowed=(count,)if mode==JOINT_MODE else (NUM_SCALARS-2,NUM_SCALARS)
+    if incoming not in allowed:
+        raise ValueError('Duel policy scalar shape differs from explicit mode')
+    net=build_network(NUM_PLANES,count,ACTIONS,checkpoint_architecture(blob)).to(device)
     load_policy_state(net,blob['state_dict'])
     return net.eval().requires_grad_(False)
 
@@ -195,7 +229,7 @@ def approved_baselines(manifest,project_root=None,default_mode=None):
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--candidate',type=Path,required=True)
-    p.add_argument('--candidate-mode',choices=MODES,required=True)
+    p.add_argument('--candidate-mode',choices=CANDIDATE_MODES,required=True)
     source=p.add_mutually_exclusive_group(required=True)
     source.add_argument('--baseline',type=Path)
     source.add_argument('--baseline-manifest',type=Path)
@@ -221,7 +255,9 @@ def main(argv=None):
     from sim.defense_assets import load_defense_assets
     from sim.runner import resolve_deck
     cards,spells,_,spell_audit=load_defense_assets();cards.update(resolve_deck(cards,DECK_26))
-    device=torch.device(args.device);candidate=load_network(args.candidate,device)
+    device=torch.device(args.device)
+    candidate=(load_network(args.candidate,device,args.candidate_mode)if args.candidate_mode==JOINT_MODE
+               else load_network(args.candidate,device))
     report=dict(schema='defense-duel-v1',candidate_sha256=hashlib.sha256(args.candidate.read_bytes()).hexdigest(),
         config={k:str(v)if isinstance(v,Path)else v for k,v in vars(args).items()},
         deck=list(DECK_26),spell_asset_audit=spell_audit,
