@@ -82,21 +82,24 @@
     },
     {
       "requirement": "full_heldout_defense_evaluation",
-      "status": "not_run",
+      "status": "intermediate_evaluated_final_pending",
       "evidence": [
         "data/defense/evaluation_protocol.json",
-        "scripts/defense/evaluate_stage2.py"
+        "scripts/defense/evaluate_stage2.py",
+        "reports/defense_plan/ppo300_intermediate_evaluation.md",
+        "reports/defense_plan/ppo300_intermediate_evaluation_summary.json"
       ],
-      "assessment": "708 episodes/candidate scheduled, fixed before final selected weights. Medium tolerance unconfirmed; do not tune on test."
+      "assessment": "Explicit user-requested PPO300 completed708 heldout episodes with267/708 no damage. This is an intermediate checkpoint, not final trained-policy acceptance; final candidates remain pending. No tuning on these test outcomes."
     },
     {
       "requirement": "paired_matches_against_each_prior_model",
-      "status": "not_run",
+      "status": "intermediate_v25_done_full15_pending",
       "evidence": [
         "data/defense/baselines.json",
-        "scripts/defense/evaluate_stage2.py"
+        "scripts/defense/evaluate_stage2.py",
+        "reports/defense_plan/ppo300_intermediate_evaluation_summary.json"
       ],
-      "assessment": "15 available SHA-pinned checkpoints ×20 paired matches =300/candidate. No final winrate evidence yet."
+      "assessment": "PPO300 vs canonicalv25 completed20 paired-seat games:6wins14losses. The all15-baseline comparison of final candidates remains pending. Simulator quality flags remain unresolved."
     },
     {
       "requirement": "required_quality_gates",

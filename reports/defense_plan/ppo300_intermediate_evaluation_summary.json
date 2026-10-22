@@ -1,0 +1,901 @@
+{
+  "schema": "intermediate-ppo-evaluation-v1",
+  "status": "completed",
+  "checkpoint_sha256": "d4a583bc730b1b0373135c99c409f18ef475d8c3247dd29f639e74441e579cea",
+  "quality_accepted": false,
+  "scope": "User-requested intermediate validation-best PPO; not final training-target acceptance",
+  "evaluation_source_sha256": "4adabac41bb8122dde4a5540784a804c5ec13bd436f1cf4417ed2d2eba101a00",
+  "test_used_for_selection": false,
+  "expected_defense_episodes": 708,
+  "expected_v25_matches": 20,
+  "update": 300,
+  "training_steps": 307200,
+  "gpu_names": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "defense_summary": {
+    "episodes": 708,
+    "no_damage": {
+      "count": 708,
+      "rate": 0.3771186440677966
+    },
+    "timeout_rate": 0.0,
+    "invalid_script_rate": 0.0,
+    "truncated_rate": 0.0,
+    "terminal_reasons": {
+      "cleared": 608,
+      "enemy_king_destroyed": 80,
+      "own_king_destroyed": 20
+    },
+    "own_tower_hp_loss": {
+      "left": {
+        "count": 708,
+        "mean": 468.6257062146893,
+        "median": 0.0,
+        "p90": 1950.0000000000048,
+        "p95": 3584.0,
+        "max": 3584.0
+      },
+      "right": {
+        "count": 708,
+        "mean": 481.5494350282486,
+        "median": 0.0,
+        "p90": 1927.2000000000016,
+        "p95": 3584.0,
+        "max": 3584.0
+      },
+      "king": {
+        "count": 708,
+        "mean": 323.0381355932203,
+        "median": 0.0,
+        "p90": 81.0,
+        "p95": 2937.2499999999995,
+        "max": 6144.0
+      },
+      "total": {
+        "count": 708,
+        "mean": 1273.2132768361582,
+        "median": 318.0,
+        "p90": 3584.0,
+        "p95": 6521.249999999999,
+        "max": 9728.0
+      }
+    },
+    "own_tower_fraction_loss": {
+      "left": {
+        "count": 708,
+        "mean": 0.13075494035008073,
+        "median": 0.0,
+        "p90": 0.5440848214285727,
+        "p95": 1.0,
+        "max": 1.0
+      },
+      "right": {
+        "count": 708,
+        "mean": 0.13436089146993543,
+        "median": 0.0,
+        "p90": 0.5377232142857148,
+        "p95": 1.0,
+        "max": 1.0
+      },
+      "king": {
+        "count": 708,
+        "mean": 0.0525778215483757,
+        "median": 0.0,
+        "p90": 0.01318359375,
+        "p95": 0.4780680338541666,
+        "max": 1.0
+      },
+      "total": {
+        "count": 708,
+        "mean": 0.31769365336839184,
+        "median": 0.08872767857142858,
+        "p90": 1.0,
+        "p95": 1.4780680338541665,
+        "max": 2.0
+      }
+    },
+    "enemy_tower_hp_damage": {
+      "left": {
+        "count": 708,
+        "mean": 1206.816384180791,
+        "median": 0.0,
+        "p90": 3584.0,
+        "p95": 3584.0,
+        "max": 3584.0
+      },
+      "right": {
+        "count": 708,
+        "mean": 1180.4887005649719,
+        "median": 0.0,
+        "p90": 3584.0,
+        "p95": 3584.0,
+        "max": 3584.0
+      },
+      "king": {
+        "count": 708,
+        "mean": 1345.6285310734463,
+        "median": 0.0,
+        "p90": 6144.0,
+        "p95": 6144.0,
+        "max": 6144.0
+      },
+      "total": {
+        "count": 708,
+        "mean": 3732.933615819209,
+        "median": 3176.5,
+        "p90": 9728.0,
+        "p95": 9728.0,
+        "max": 13312.0
+      }
+    },
+    "elixir_spent": {
+      "count": 708,
+      "mean": 23.862994350282484,
+      "median": 18.0,
+      "p90": 43.0,
+      "p95": 51.0,
+      "max": 138.0
+    },
+    "spell_quality": {
+      "count": 708,
+      "mean": 1.0656618903558805,
+      "median": 0.3611111111111111,
+      "p90": 3.036832581043447,
+      "p95": 4.990614183646622,
+      "max": 16.691605896412177
+    },
+    "spell_misses": {
+      "count": 708,
+      "mean": 0.24152542372881355,
+      "median": 0.0,
+      "p90": 1.0,
+      "p95": 1.0,
+      "max": 4.0
+    },
+    "illegal_actions": {
+      "count": 708,
+      "mean": 0.0,
+      "median": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "elapsed_ms": {
+      "count": 708,
+      "mean": 46806.6384180791,
+      "median": 44500.0,
+      "p90": 73150.0,
+      "p95": 83800.0,
+      "max": 143400.0
+    },
+    "tower_survival": {
+      "left": {
+        "count": 708,
+        "rate": 0.9350282485875706
+      },
+      "right": {
+        "count": 708,
+        "rate": 0.9307909604519774
+      },
+      "king": {
+        "count": 708,
+        "rate": 0.9717514124293786
+      }
+    }
+  },
+  "by_difficulty": {
+    "complex": {
+      "episodes": 252,
+      "no_damage": {
+        "count": 252,
+        "rate": 0.23809523809523808
+      },
+      "timeout_rate": 0.0,
+      "invalid_script_rate": 0.0,
+      "truncated_rate": 0.0,
+      "terminal_reasons": {
+        "cleared": 173,
+        "enemy_king_destroyed": 67,
+        "own_king_destroyed": 12
+      },
+      "own_tower_hp_loss": {
+        "left": {
+          "count": 252,
+          "mean": 646.1507936507936,
+          "median": 0.0,
+          "p90": 3522.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "right": {
+          "count": 252,
+          "mean": 697.4126984126984,
+          "median": 0.0,
+          "p90": 3584.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "king": {
+          "count": 252,
+          "mean": 506.1746031746032,
+          "median": 0.0,
+          "p90": 1422.0,
+          "p95": 5559.749999999993,
+          "max": 6144.0
+        },
+        "total": {
+          "count": 252,
+          "mean": 1849.7380952380952,
+          "median": 662.5,
+          "p90": 5006.0,
+          "p95": 9143.749999999993,
+          "max": 9728.0
+        }
+      },
+      "own_tower_fraction_loss": {
+        "left": {
+          "count": 252,
+          "mean": 0.1802876098356009,
+          "median": 0.0,
+          "p90": 0.9827008928571429,
+          "p95": 1.0,
+          "max": 1.0
+        },
+        "right": {
+          "count": 252,
+          "mean": 0.19459059665532882,
+          "median": 0.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "max": 1.0
+        },
+        "king": {
+          "count": 252,
+          "mean": 0.08238518931878307,
+          "median": 0.0,
+          "p90": 0.2314453125,
+          "p95": 0.9049072265624988,
+          "max": 1.0
+        },
+        "total": {
+          "count": 252,
+          "mean": 0.45726339580971276,
+          "median": 0.18484933035714285,
+          "p90": 1.2314453125,
+          "p95": 1.9049072265624987,
+          "max": 2.0
+        }
+      },
+      "enemy_tower_hp_damage": {
+        "left": {
+          "count": 252,
+          "mean": 1380.329365079365,
+          "median": 0.0,
+          "p90": 3584.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "right": {
+          "count": 252,
+          "mean": 1398.079365079365,
+          "median": 505.0,
+          "p90": 3584.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "king": {
+          "count": 252,
+          "mean": 2357.3531746031745,
+          "median": 606.0,
+          "p90": 6144.0,
+          "p95": 6144.0,
+          "max": 6144.0
+        },
+        "total": {
+          "count": 252,
+          "mean": 5135.761904761905,
+          "median": 4672.0,
+          "p90": 9728.0,
+          "p95": 10046.0,
+          "max": 13312.0
+        }
+      },
+      "elixir_spent": {
+        "count": 252,
+        "mean": 36.567460317460316,
+        "median": 30.0,
+        "p90": 54.70000000000002,
+        "p95": 73.0,
+        "max": 138.0
+      },
+      "spell_quality": {
+        "count": 252,
+        "mean": 1.5100637397629777,
+        "median": 0.5909114905474129,
+        "p90": 4.299095480989467,
+        "p95": 5.914755714154578,
+        "max": 16.691605896412177
+      },
+      "spell_misses": {
+        "count": 252,
+        "mean": 0.34523809523809523,
+        "median": 0.0,
+        "p90": 1.0,
+        "p95": 1.0,
+        "max": 4.0
+      },
+      "illegal_actions": {
+        "count": 252,
+        "mean": 0.0,
+        "median": 0.0,
+        "p90": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "elapsed_ms": {
+        "count": 252,
+        "mean": 62843.84920634921,
+        "median": 58350.0,
+        "p90": 86575.0,
+        "p95": 95450.0,
+        "max": 143400.0
+      },
+      "tower_survival": {
+        "left": {
+          "count": 252,
+          "rate": 0.9047619047619048
+        },
+        "right": {
+          "count": 252,
+          "rate": 0.8849206349206349
+        },
+        "king": {
+          "count": 252,
+          "rate": 0.9523809523809523
+        }
+      }
+    },
+    "impossible": {
+      "episodes": 108,
+      "no_damage": {
+        "count": 108,
+        "rate": 0.046296296296296294
+      },
+      "timeout_rate": 0.0,
+      "invalid_script_rate": 0.0,
+      "truncated_rate": 0.0,
+      "terminal_reasons": {
+        "cleared": 87,
+        "enemy_king_destroyed": 13,
+        "own_king_destroyed": 8
+      },
+      "own_tower_hp_loss": {
+        "left": {
+          "count": 108,
+          "mean": 1113.861111111111,
+          "median": 0.0,
+          "p90": 3584.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "right": {
+          "count": 108,
+          "mean": 1106.1666666666667,
+          "median": 0.0,
+          "p90": 3584.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "king": {
+          "count": 108,
+          "mean": 930.6203703703703,
+          "median": 0.0,
+          "p90": 4387.999999999998,
+          "p95": 6144.0,
+          "max": 6144.0
+        },
+        "total": {
+          "count": 108,
+          "mean": 3150.6481481481483,
+          "median": 2220.5,
+          "p90": 7971.999999999998,
+          "p95": 9728.0,
+          "max": 9728.0
+        }
+      },
+      "own_tower_fraction_loss": {
+        "left": {
+          "count": 108,
+          "mean": 0.31078714037698413,
+          "median": 0.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "max": 1.0
+        },
+        "right": {
+          "count": 108,
+          "mean": 0.3086402529761905,
+          "median": 0.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "max": 1.0
+        },
+        "king": {
+          "count": 108,
+          "mean": 0.15146815923996915,
+          "median": 0.0,
+          "p90": 0.714192708333333,
+          "p95": 1.0,
+          "max": 1.0
+        },
+        "total": {
+          "count": 108,
+          "mean": 0.7708955525931437,
+          "median": 0.6195591517857142,
+          "p90": 1.714192708333333,
+          "p95": 2.0,
+          "max": 2.0
+        }
+      },
+      "enemy_tower_hp_damage": {
+        "left": {
+          "count": 108,
+          "mean": 1169.5462962962963,
+          "median": 0.0,
+          "p90": 3584.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "right": {
+          "count": 108,
+          "mean": 1157.898148148148,
+          "median": 0.0,
+          "p90": 3584.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "king": {
+          "count": 108,
+          "mean": 1429.7592592592594,
+          "median": 0.0,
+          "p90": 6144.0,
+          "p95": 6144.0,
+          "max": 6144.0
+        },
+        "total": {
+          "count": 108,
+          "mean": 3757.203703703704,
+          "median": 2544.0,
+          "p90": 9728.0,
+          "p95": 9728.0,
+          "max": 13312.0
+        }
+      },
+      "elixir_spent": {
+        "count": 108,
+        "mean": 32.75,
+        "median": 28.0,
+        "p90": 50.3,
+        "p95": 57.19999999999993,
+        "max": 120.0
+      },
+      "spell_quality": {
+        "count": 108,
+        "mean": 1.4558943988184256,
+        "median": 0.5059797019979972,
+        "p90": 3.163927719292812,
+        "p95": 7.784992972378391,
+        "max": 15.1773683602576
+      },
+      "spell_misses": {
+        "count": 108,
+        "mean": 0.4074074074074074,
+        "median": 0.0,
+        "p90": 1.0,
+        "p95": 2.0,
+        "max": 3.0
+      },
+      "illegal_actions": {
+        "count": 108,
+        "mean": 0.0,
+        "median": 0.0,
+        "p90": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "elapsed_ms": {
+        "count": 108,
+        "mean": 59810.18518518518,
+        "median": 57650.0,
+        "p90": 76825.0,
+        "p95": 81140.0,
+        "max": 111650.0
+      },
+      "tower_survival": {
+        "left": {
+          "count": 108,
+          "rate": 0.7962962962962963
+        },
+        "right": {
+          "count": 108,
+          "rate": 0.8148148148148148
+        },
+        "king": {
+          "count": 108,
+          "rate": 0.9259259259259259
+        }
+      }
+    },
+    "medium": {
+      "episodes": 144,
+      "no_damage": {
+        "count": 144,
+        "rate": 0.2847222222222222
+      },
+      "timeout_rate": 0.0,
+      "invalid_script_rate": 0.0,
+      "truncated_rate": 0.0,
+      "terminal_reasons": {
+        "cleared": 144
+      },
+      "own_tower_hp_loss": {
+        "left": {
+          "count": 144,
+          "mean": 226.63194444444446,
+          "median": 0.0,
+          "p90": 906.3000000000009,
+          "p95": 1141.1999999999996,
+          "max": 1929.0
+        },
+        "right": {
+          "count": 144,
+          "mean": 221.98611111111111,
+          "median": 0.0,
+          "p90": 921.0,
+          "p95": 1080.0,
+          "max": 1728.0
+        },
+        "king": {
+          "count": 144,
+          "mean": 0.0,
+          "median": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        },
+        "total": {
+          "count": 144,
+          "mean": 448.61805555555554,
+          "median": 318.0,
+          "p90": 1087.0000000000002,
+          "p95": 1200.0,
+          "max": 1929.0
+        }
+      },
+      "own_tower_fraction_loss": {
+        "left": {
+          "count": 144,
+          "mean": 0.06323435949900794,
+          "median": 0.0,
+          "p90": 0.2528738839285717,
+          "p95": 0.3184151785714285,
+          "max": 0.5382254464285714
+        },
+        "right": {
+          "count": 144,
+          "mean": 0.06193808903769841,
+          "median": 0.0,
+          "p90": 0.25697544642857145,
+          "p95": 0.3013392857142857,
+          "max": 0.48214285714285715
+        },
+        "king": {
+          "count": 144,
+          "mean": 0.0,
+          "median": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        },
+        "total": {
+          "count": 144,
+          "mean": 0.12517244853670637,
+          "median": 0.08872767857142858,
+          "p90": 0.30329241071428575,
+          "p95": 0.33482142857142855,
+          "max": 0.5382254464285714
+        }
+      },
+      "enemy_tower_hp_damage": {
+        "left": {
+          "count": 144,
+          "mean": 1339.8333333333333,
+          "median": 0.0,
+          "p90": 3584.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "right": {
+          "count": 144,
+          "mean": 1259.2569444444443,
+          "median": 0.0,
+          "p90": 3584.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "king": {
+          "count": 144,
+          "mean": 1047.7222222222222,
+          "median": 0.0,
+          "p90": 3939.700000000003,
+          "p95": 4013.0,
+          "max": 4242.0
+        },
+        "total": {
+          "count": 144,
+          "mean": 3646.8125,
+          "median": 3584.0,
+          "p90": 7523.7000000000035,
+          "p95": 7597.0,
+          "max": 7826.0
+        }
+      },
+      "elixir_spent": {
+        "count": 144,
+        "mean": 13.770833333333334,
+        "median": 13.0,
+        "p90": 16.0,
+        "p95": 17.849999999999994,
+        "max": 30.0
+      },
+      "spell_quality": {
+        "count": 144,
+        "mean": 0.49032706524964936,
+        "median": 0.40625,
+        "p90": 1.2556535288069797,
+        "p95": 1.5219166494133884,
+        "max": 4.948507763975155
+      },
+      "spell_misses": {
+        "count": 144,
+        "mean": 0.013888888888888888,
+        "median": 0.0,
+        "p90": 0.0,
+        "p95": 0.0,
+        "max": 1.0
+      },
+      "illegal_actions": {
+        "count": 144,
+        "mean": 0.0,
+        "median": 0.0,
+        "p90": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "elapsed_ms": {
+        "count": 144,
+        "mean": 31786.11111111111,
+        "median": 30125.0,
+        "p90": 43265.000000000015,
+        "p95": 44475.0,
+        "max": 71300.0
+      },
+      "tower_survival": {
+        "left": {
+          "count": 144,
+          "rate": 1.0
+        },
+        "right": {
+          "count": 144,
+          "rate": 1.0
+        },
+        "king": {
+          "count": 144,
+          "rate": 1.0
+        }
+      }
+    },
+    "simple": {
+      "episodes": 204,
+      "no_damage": {
+        "count": 204,
+        "rate": 0.7892156862745098
+      },
+      "timeout_rate": 0.0,
+      "invalid_script_rate": 0.0,
+      "truncated_rate": 0.0,
+      "terminal_reasons": {
+        "cleared": 204
+      },
+      "own_tower_hp_loss": {
+        "left": {
+          "count": 204,
+          "mean": 78.55392156862744,
+          "median": 0.0,
+          "p90": 117.0,
+          "p95": 600.0,
+          "max": 2834.0
+        },
+        "right": {
+          "count": 204,
+          "mean": 67.43627450980392,
+          "median": 0.0,
+          "p90": 56.70000000000138,
+          "p95": 486.0,
+          "max": 1536.0
+        },
+        "king": {
+          "count": 204,
+          "mean": 3.176470588235294,
+          "median": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "max": 81.0
+        },
+        "total": {
+          "count": 204,
+          "mean": 149.16666666666666,
+          "median": 0.0,
+          "p90": 600.0,
+          "p95": 729.0,
+          "max": 2834.0
+        }
+      },
+      "own_tower_fraction_loss": {
+        "left": {
+          "count": 204,
+          "mean": 0.0219179468662465,
+          "median": 0.0,
+          "p90": 0.03264508928571429,
+          "p95": 0.16741071428571427,
+          "max": 0.7907366071428571
+        },
+        "right": {
+          "count": 204,
+          "mean": 0.01881592480742297,
+          "median": 0.0,
+          "p90": 0.015820312500000384,
+          "p95": 0.13560267857142858,
+          "max": 0.42857142857142855
+        },
+        "king": {
+          "count": 204,
+          "mean": 0.0005170036764705882,
+          "median": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "max": 0.01318359375
+        },
+        "total": {
+          "count": 204,
+          "mean": 0.041250875350140055,
+          "median": 0.0,
+          "p90": 0.16741071428571427,
+          "p95": 0.19398716517857142,
+          "max": 0.7907366071428571
+        }
+      },
+      "enemy_tower_hp_damage": {
+        "left": {
+          "count": 204,
+          "mean": 918.3137254901961,
+          "median": 0.0,
+          "p90": 3584.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "right": {
+          "count": 204,
+          "mean": 868.0588235294117,
+          "median": 0.0,
+          "p90": 3584.0,
+          "p95": 3584.0,
+          "max": 3584.0
+        },
+        "king": {
+          "count": 204,
+          "mean": 261.5980392156863,
+          "median": 0.0,
+          "p90": 1308.0,
+          "p95": 1526.0,
+          "max": 2280.0
+        },
+        "total": {
+          "count": 204,
+          "mean": 2047.9705882352941,
+          "median": 1212.0,
+          "p90": 4892.0,
+          "p95": 5110.0,
+          "max": 5864.0
+        }
+      },
+      "elixir_spent": {
+        "count": 204,
+        "mean": 10.588235294117647,
+        "median": 12.0,
+        "p90": 15.0,
+        "p95": 18.69999999999999,
+        "max": 21.0
+      },
+      "spell_quality": {
+        "count": 204,
+        "mean": 0.7162199190360471,
+        "median": 0.0,
+        "p90": 2.717560507246381,
+        "p95": 4.382674248120294,
+        "max": 6.819065217391303
+      },
+      "spell_misses": {
+        "count": 204,
+        "mean": 0.18627450980392157,
+        "median": 0.0,
+        "p90": 1.0,
+        "p95": 1.0,
+        "max": 1.0
+      },
+      "illegal_actions": {
+        "count": 204,
+        "mean": 0.0,
+        "median": 0.0,
+        "p90": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "elapsed_ms": {
+        "count": 204,
+        "mean": 30714.460784313724,
+        "median": 30000.0,
+        "p90": 45550.00000000003,
+        "p95": 50575.0,
+        "max": 72700.0
+      },
+      "tower_survival": {
+        "left": {
+          "count": 204,
+          "rate": 1.0
+        },
+        "right": {
+          "count": 204,
+          "rate": 1.0
+        },
+        "king": {
+          "count": 204,
+          "rate": 1.0
+        }
+      }
+    }
+  },
+  "v25_summary": {
+    "matches": 20,
+    "wins": 6,
+    "losses": 14,
+    "draws": 0,
+    "unknown": 0,
+    "win_rate_all_matches": 0.3,
+    "win_rate_known_matches": 0.3,
+    "quality_passed": null,
+    "quality_flags": [
+      "history_contract_differs",
+      "no_live_game_validation",
+      "simulator_mechanics_not_fully_validated",
+      "tick_granular_regular_match_terminal"
+    ]
+  },
+  "defense_sha256": "0fcb1a1b74b46baf5d6f73d06016dc3241122270600cda8c323d75f6c7873c7b",
+  "v25_sha256": "30a29bd82d5c93295c0206cf3682d38e083d22a35351f660a014bab5f98846f3",
+  "kernel": "andriashadrin/hastycr-ppo300-test-v25-20261023",
+  "kernel_version": 1,
+  "remote_status": "COMPLETE",
+  "artifact_directory": "tmp/kaggle/ppo300_test_v25_20261023/collected",
+  "artifact_hashes_verified": true,
+  "exact_test_schedule_verified": true,
+  "exact_paired_schedule_verified": true,
+  "canonical_v25_sha256": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972",
+  "source": "downloaded_terminal_artifacts",
+  "all_own_towers_survive": {
+    "count": 613,
+    "episodes": 708
+  }
+}
