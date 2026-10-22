@@ -120,6 +120,7 @@ def main(argv=None):
     p.add_argument('--action-delay-ms', type=int, default=150)
     p.add_argument('--max-ms', type=int, default=180000)
     p.add_argument('--initial-elixir', type=float, default=10)
+    p.add_argument('--difficulty', choices=('simple','medium','complex','impossible'))
     p.add_argument('--save-seconds', type=float, default=300)
     p.add_argument('--wallclock-seconds', type=float, default=3600)
     p.add_argument('--validation-every', type=int, default=10)
@@ -132,6 +133,7 @@ def main(argv=None):
     if args.device.startswith('cuda') and not torch.cuda.is_available():
         raise RuntimeError('CUDA was requested but is unavailable; refusing CPU fallback')
     from sim.defense_env import DefenseEnv
+    from sim.defense_sampler import ScenarioCycle
     from sim.env import NUM_PLANES, NUM_SCALARS, ACTIONS
     args.output.mkdir(parents=True, exist_ok=False)
     device = torch.device(args.device)
@@ -154,8 +156,9 @@ def main(argv=None):
     config['trajectory_weighting'] = 'mean steps per trajectory, then mean group'
     (args.output/'config.json').write_text(json.dumps(config, indent=2))
     env_kwargs = dict(action_delay_ms=args.action_delay_ms,max_ms=args.max_ms,initial_elixir=args.initial_elixir)
-    env = DefenseEnv(seed=args.seed, split='train', **env_kwargs)
-    validation = DefenseEnv(seed=900000, split='validation', **env_kwargs)
+    env = DefenseEnv(seed=args.seed, split='train', difficulty=args.difficulty, **env_kwargs)
+    sampler = ScenarioCycle([s.scenario_id for s in env.scenarios],seed=args.seed)
+    validation = DefenseEnv(seed=900000, split='validation', difficulty=args.difficulty, **env_kwargs)
     start = last_save = time.monotonic()
     steps = degenerate_count = completed = 0
     best_validation = -float('inf')
@@ -178,6 +181,7 @@ def main(argv=None):
         # Unique names avoid overwriting any user's existing artifact.
         torch.save(dict(state_dict=network.state_dict(), reference_state_dict=reference.state_dict(),
             optimizer=optimizer.state_dict(),architecture=architecture,config=config,
+            sampler=sampler.state_dict(),
             updates=completed,groups=completed,environment_steps=steps,
             degenerate_groups=degenerate_count, actual_environment_steps=dict(actual_steps), torch_rng=torch.get_rng_state(),
             cuda_rng=torch.cuda.get_rng_state_all() if device.type=='cuda' else [],
@@ -187,9 +191,11 @@ def main(argv=None):
     for update in range(args.updates):
         if time.monotonic()-start >= args.wallclock_seconds:
             break
-        seed = args.seed+update
+        group_context = sampler.next()
+        seed = group_context['seed']
         try:
             trajectories = [rollout(env,network,device,generator,seed,
+                scenario_id=group_context['scenario_id'],
                 deadline=start+args.wallclock_seconds,on_step=count_train) for _ in range(args.group_size)]
         except TimeoutError:
             # Incomplete groups are not optimized or mixed with complete returns.
@@ -224,7 +230,8 @@ def main(argv=None):
                 optimizer.step()
         completed = update+1
         record = dict(update=completed,groups=completed,environment_steps=steps,
-            group_seed=seed,returns=returns,degenerate=degenerate,
+            group_seed=seed,scenario_id=group_context['scenario_id'],
+            sampler=sampler.state_dict(),returns=returns,degenerate=degenerate,
             degenerate_groups=degenerate_count,lengths=[len(t['actions']) for t in trajectories],
             metrics=[t['metrics'] for t in trajectories],elapsed_seconds=time.monotonic()-start,
             actual_environment_steps=dict(actual_steps),

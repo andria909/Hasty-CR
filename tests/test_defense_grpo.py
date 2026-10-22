@@ -78,3 +78,32 @@ def test_invalid_script_fails_closed_before_training():
             validate_episode_info(info)
     validate_episode_info({'terminal_reason':'timeout','metrics':{'scenario_id':'s42'}})
     validate_episode_info({'metrics':{'terminal_reason':'cleared'}})
+
+
+def test_scenario_cycle_keeps_real_hand_until_all_attacks_complete():
+    from sim.defense_sampler import ScenarioCycle
+    from sim.defense_env import DefenseEnv
+    from sim.defense_scenarios import select_scenarios
+    scenarios=select_scenarios('train',difficulty='simple')[:3]
+    sampler=ScenarioCycle([s.scenario_id for s in scenarios],seed=42)
+    env=DefenseEnv(split='train',difficulty='simple')
+    hands=[]
+    contexts=[]
+    for _ in range(len(scenarios)):
+        context=sampler.next()
+        contexts.append(context)
+        env.reset(**context)
+        hands.append(tuple(env.match.players[1].hand))
+    assert len({c['scenario_id'] for c in contexts})==len(scenarios)
+    assert {c['seed'] for c in contexts}=={42}
+    assert len(set(hands))==1
+    next_context=sampler.next()
+    assert next_context['seed']==43
+    env.reset(**next_context)
+    assert tuple(env.match.players[1].hand)!=hands[0]
+    # All members of a GRPO group get exactly the same public initial state.
+    obs_a,info_a=env.reset(**next_context)
+    obs_b,info_b=env.reset(**next_context)
+    for key in obs_a:
+        np.testing.assert_array_equal(obs_a[key],obs_b[key])
+    np.testing.assert_array_equal(info_a['action_mask'],info_b['action_mask'])
