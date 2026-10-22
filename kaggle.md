@@ -241,6 +241,13 @@ environment_steps и checkpoint_phase финального GRPO, конечно�
 создаётся без перезаписи существующего. SHA receipt проверяет внутреннюю
 согласованность выгрузки, независимо подтверждённого remote SHA нет.
 
+После успешного аудита общих моделей `scripts.kaggle.select_strategy_checkpoint`
+принимает те же `--collected`, `--launch-config`, `--source-manifest` и новый
+`--output`. Он фиксирует уже выбранный тренером validation-best в policy.pt,
+подтверждая его score финальным checkpoint и полный train-target отдельным
+аудитом. Это не выбор поtest и не приёмка качества. Отсутствующий/неполный
+validation-best не заменяется случайным последним файлом.
+
 Оценка общих моделей имеет отдельный источник:
 `tmp/kaggle/joint_strategy_evaluation_20261023_v2/`, упаковщик
 `scripts/kaggle/pack_strategy_evaluation.py`. Старый defense-only пакет
