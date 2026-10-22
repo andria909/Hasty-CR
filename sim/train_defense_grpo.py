@@ -64,8 +64,18 @@ def tensors(observations, device):
             torch.as_tensor(np.stack([o['scalars'] for o in observations]), device=device))
 
 
+def validate_episode_info(info):
+    """Technical script failures are not game outcomes or training signals."""
+    metrics = info.get('metrics', {})
+    reasons = (info.get('terminal_reason'), metrics.get('terminal_reason'))
+    if any(str(reason).startswith('invalid_script') for reason in reasons):
+        scenario = metrics.get('scenario_id', info.get('scenario_id', 'unknown'))
+        raise ValueError(f'invalid scripted defense scenario {scenario}: {reasons}')
+
+
 def rollout(env, network, device, generator, seed, scenario_id=None, greedy=False, deadline=None, on_step=None):
     obs, info = env.reset(seed=seed, scenario_id=scenario_id)
+    validate_episode_info(info)
     result = dict(observations=[], masks=[], actions=[], old_logp=[], rewards=[])
     while True:
         if deadline is not None and time.monotonic() >= deadline:
@@ -82,6 +92,7 @@ def rollout(env, network, device, generator, seed, scenario_id=None, greedy=Fals
         result['actions'].append(int(action.item()))
         result['old_logp'].append(float(dist.log_prob(action).item()))
         obs, reward, terminated, truncated, info = env.step(int(action.item()))
+        validate_episode_info(info)
         if on_step is not None:
             on_step()
         result['rewards'].append(float(reward))

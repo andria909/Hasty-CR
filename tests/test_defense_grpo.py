@@ -65,3 +65,16 @@ def test_sampling_rng_is_separate_from_environment_seed():
     assert first['actions'] != second['actions']
     repeat=rollout(env,Network(),'cpu',torch.Generator().manual_seed(50),123)
     assert first['actions']==repeat['actions']
+
+
+def test_invalid_script_fails_closed_before_training():
+    from sim.train_defense_grpo import validate_episode_info
+    for info in (
+        {'terminal_reason':'invalid_script_play_timeout','metrics':{'scenario_id':'s42'}},
+        {'metrics':{'terminal_reason':'invalid_script_trigger_timeout','scenario_id':'s42'}},
+        {'terminal_reason':'cleared','metrics':{'terminal_reason':'invalid_script_hidden','scenario_id':'s42'}},
+    ):
+        with pytest.raises(ValueError,match='s42'):
+            validate_episode_info(info)
+    validate_episode_info({'terminal_reason':'timeout','metrics':{'scenario_id':'s42'}})
+    validate_episode_info({'metrics':{'terminal_reason':'cleared'}})
