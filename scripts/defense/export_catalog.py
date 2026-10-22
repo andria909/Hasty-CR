@@ -62,7 +62,7 @@ def main():
     lines += ['', '## Ограничения', '',
               'Это комбинации поддержанных карт публичного снимка. Неподдержанные карты и ограничения механик перечислены в [coverage.json](defense/coverage.json).', '',
               'Расписания всех постановок: [scenarios.json](defense/scenarios.json).', '']
-    (ROOT/'data/pushes.md').write_text('\n'.join(lines))
+    (ROOT/'data/defense.md').write_text('\n'.join(lines))
     print(json.dumps({key: report[key] for key in ('scenarios','families','by_split','by_difficulty')}, ensure_ascii=False))
     print('medium', dict(Counter(map(len, medium))), 'complex', dict(Counter(map(len, complex_pushes))))
 
