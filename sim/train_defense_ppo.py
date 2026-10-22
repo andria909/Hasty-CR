@@ -11,6 +11,7 @@ import numpy as np
 import torch
 
 from sim.defense_sampler import ScenarioCycle
+from sim.defense_log_summary import compact_stdout_lines
 from sim.train_ppo import (build_network, checkpoint_architecture,
                            load_policy_state, masked_distribution)
 
@@ -243,7 +244,8 @@ def train(args):
                 torch.save(checkpoint, output / f'best_validation_{update:06d}.pt')
         with (output / 'metrics.jsonl').open('a') as stream:
             stream.write(json.dumps(record, default=lambda x: x.item() if isinstance(x, np.generic) else str(x)) + '\n')
-        print(json.dumps({k: v for k, v in record.items() if k != 'episodes'}), flush=True)
+        for line in compact_stdout_lines(record, 'PPO'):
+            print(line, flush=True)
         if budget_stop:
             print(json.dumps(dict(event='STOP', reason='wallclock_update_boundary', update=update, step=step, elapsed_seconds=time.monotonic()-started)), flush=True)
             break
