@@ -72,3 +72,33 @@ def test_fake_match_command_delay_and_seat_swap_are_paired(monkeypatch):
     assert [m.seed for m in instances]==[42,42]
     assert all(len(m.commands)==2 and all(c[0]==100 for c in m.commands)for m in instances)
     assert results[0]['quality_flags']==results[1]['quality_flags']
+    # Actual run_match rows feed the frozen gate via the explicit adapter.
+    from sim.defense_protocol import EvaluationProtocol,acceptance_gate
+    protocol=EvaluationProtocol(test_scenario_ids=('s',),paired_seeds=(42,43,44,45,46),defense_seeds=(1,))
+    report=dict(baselines=[dict(label='v25',sha256='a'*64,matches=results)])
+    rows=duel.protocol_rows(report)
+    assert rows[0]['observed_result']=='win'
+    assert rows[0]['result']=='unknown' and rows[0]['quality_review_required']
+    gate=acceptance_gate(protocol,[],rows,coverage_complete=True)
+    assert gate['status']=='undetermined'
+    assert 'unexpected_duplicate_or_invalid_match' in gate['undetermined_reasons']
+    assert gate['head_to_head']['v25']['games']==0
+
+
+
+def test_protocol_manifest_accepts_canonical_ids_and_requires_mode(tmp_path,monkeypatch):
+    import sim.defense_protocol as protocol
+    path=tmp_path/'model.pt';path.write_bytes(b'fake')
+    digest=hashlib.sha256(path.read_bytes()).hexdigest()
+    manifest=tmp_path/'manifest.json'
+    manifest.write_text(json.dumps(dict(schema='defense-baselines-v1',checkpoints=[dict(id='v25',path='model.pt',sha256=digest)])))
+    calls=[]
+    def approved(source,project_root):
+        calls.append((source,project_root))
+        return {'v25':dict(id='v25',path=str(path),sha256=digest)}
+    monkeypatch.setattr(protocol,'load_baseline_allowlist',approved)
+    rows=duel.approved_baselines(manifest,project_root=tmp_path,default_mode='physical_live')
+    assert rows[0]['id']=='v25' and rows[0]['label']=='v25'
+    assert rows[0]['observation_mode']=='physical_live'
+    assert calls==[(manifest,tmp_path)]
+    with pytest.raises(ValueError):duel.approved_baselines(manifest,project_root=tmp_path)

@@ -145,8 +145,39 @@ def load_network(path,device):
     return net.eval().requires_grad_(False)
 
 
-def approved_baselines(manifest):
-    rows=json.loads(manifest.read_text())['baselines']
+def protocol_rows(report):
+    """Adapt raw observed results to the fail-closed frozen acceptance gate.
+
+    Keep the observed outcome separately. Unresolved quality flags produce an
+    unknown gate result, never an apparently successful acceptance decision.
+    """
+    rows=[]
+    for baseline in report['baselines']:
+        identifier=baseline.get('id',baseline['label'])
+        for match in baseline['matches']:
+            flags=list(match.get('quality_flags',[]))
+            blocking=[flag for flag in flags if flag!='shared_history_contract']
+            observed=match['outcome']
+            rows.append(dict(baseline_id=identifier,baseline_sha256=baseline['sha256'],
+                seed=match['seed'],candidate_side=match['candidate_side'],
+                result='unknown' if blocking else observed,observed_result=observed,
+                coverage_flags=flags,quality_review_required=bool(blocking),
+                candidate_mode=match['candidate_mode'],baseline_mode=match['baseline_mode']))
+    return rows
+
+
+def approved_baselines(manifest,project_root=None,default_mode=None):
+    data=json.loads(manifest.read_text())
+    if data.get('schema')=='defense-baselines-v1':
+        from sim.defense_protocol import load_baseline_allowlist
+        project_root=Path(__file__).resolve().parents[1] if project_root is None else Path(project_root)
+        allowed=load_baseline_allowlist(manifest,project_root=project_root)
+        metadata={row['id']:row for row in data['checkpoints']}
+        rows=[dict(row,path=Path(row['path']),label=identifier,approved=True,
+                   observation_mode=metadata[identifier].get('observation_mode',default_mode))
+              for identifier,row in allowed.items()]
+    else:
+        rows=data['baselines']
     result=[]
     for row in rows:
         if row.get('approved') is not True:
@@ -186,7 +217,7 @@ def main(argv=None):
         digest=hashlib.sha256(args.baseline.read_bytes()).hexdigest()
         if digest!=args.baseline_sha256:raise ValueError('Explicit baseline SHA mismatch')
         baselines=[dict(path=args.baseline,sha256=digest,observation_mode=args.baseline_mode,label=args.baseline.stem)]
-    else:baselines=approved_baselines(args.baseline_manifest)
+    else:baselines=approved_baselines(args.baseline_manifest,default_mode=args.baseline_mode)
     from sim.defense_assets import load_defense_assets
     from sim.runner import resolve_deck
     cards,spells,_,spell_audit=load_defense_assets();cards.update(resolve_deck(cards,DECK_26))
@@ -201,8 +232,11 @@ def main(argv=None):
         rows=[run_match(candidate,network,device,args.candidate_mode,baseline['observation_mode'],
             args.seed+i,seat,cards,spells,args.delay_ms,args.max_ms)
             for i in range(args.matches//2)for seat in (1,-1)]
-        report['baselines'].append(dict(label=baseline['label'],sha256=baseline['sha256'],
+        report['baselines'].append(dict(id=baseline.get('id',baseline['label']),label=baseline['label'],sha256=baseline['sha256'],
             observation_mode=baseline['observation_mode'],summary=summarize(rows),matches=rows))
+    report['head_to_head']=protocol_rows(report)
+    report['coverage_complete_for_acceptance']=all(not row['quality_review_required'] and row['result']!='unknown'
+        for row in report['head_to_head'])
     args.output.parent.mkdir(parents=True,exist_ok=True)
     with args.output.open('x')as stream:json.dump(report,stream,indent=2,allow_nan=False)
 
