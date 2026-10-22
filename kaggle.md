@@ -1,0 +1,188 @@
+# Как запускается обучение на Kaggle с ноутбука
+
+Ноутбук собирает исходники и чекпойнты, загружает приватные входные данные и отправляет задачу через Kaggle API. Само обучение выполняется на GPU Kaggle. После завершения ноутбук скачивает результаты и проверяет контрольные суммы. MuMu и живые матчи для этого не нужны.
+
+## Локальное окружение и доступ
+
+Работаем из корня проекта:
+
+```bash
+cd /Users/andriashadrin/projects/Hasty-CR
+HASTY_KAGGLE=/Users/andriashadrin/.local/share/hastycr-kaggle-cli/bin/kaggle
+HASTY_KAGGLE_PY=/Users/andriashadrin/.local/share/hastycr-kaggle-cli/bin/python
+```
+
+- `.venv-live/bin/python` — Python проекта: упаковка, локальные проверки, работа с PyTorch.
+- `$HASTY_KAGGLE` — отдельное окружение CLI для запросов к Kaggle.
+- `$HASTY_KAGGLE_PY` — Python того же окружения, для скриптов с Kaggle SDK.
+- Аккаунт: `andriashadrin`.
+- Токен уже настроен вне репозитория: `~/.kaggle/access_token`, права `0600`. Его содержимое не печатаем, не добавляем в Git, архивы, dataset или notebook.
+
+Проверка доступа без вывода токена:
+
+```bash
+"$HASTY_KAGGLE" kernels list --mine --csv
+```
+
+## Что отправляется на сервер
+
+1. **Приватный dataset с исходниками:** архив `source.tar.gz`, `manifest.json` с SHA-256 файлов, необходимые данные симулятора.
+2. **Приватный dataset с весами:** только нужные чекпойнты и документы их происхождения.
+3. **Kernel/script:** управляющий Python-файл и `kernel-metadata.json`. Скрипт проверяет входы, распаковывает проект и запускает тренеры.
+
+Dataset — входные файлы; kernel — выполняемая задача. Изменение кода на ноутбуке не меняет уже запущенный kernel.
+
+Для нового обучения текущие исходники можно собрать так:
+
+```bash
+.venv-live/bin/python scripts/kaggle/pack_defense.py \
+  --output tmp/kaggle/MY_NEW_RUN/dataset \
+  --owner andriashadrin \
+  --slug hastycr-defense-next-inputs
+```
+
+`MY_NEW_RUN` и slug нужно заменить уникальными именами. Упаковщик использует список разрешённых файлов, проверяет v25 и создаёт новую директорию. Сам по себе этот шаг не запускает обучение.
+
+Для продолжения старого обучения используются его замороженные исходники. Новый рабочий checkout может иметь другую геометрию, encoder или механику; его нельзя незаметно подставлять под старый optimizer и траектории.
+
+## Загрузка приватного dataset
+
+В директории загрузки должен быть `dataset-metadata.json`, например:
+
+```json
+{
+  "id": "andriashadrin/hastycr-defense-next-inputs",
+  "title": "hastycr defense next inputs",
+  "licenses": [{"name": "other"}],
+  "isPrivate": true
+}
+```
+
+```bash
+"$HASTY_KAGGLE" datasets create -p tmp/kaggle/MY_NEW_RUN/dataset -q
+"$HASTY_KAGGLE" datasets status andriashadrin/hastycr-defense-next-inputs
+```
+
+Дождаться `ready`. `--public` не используем. Для нового пакета создаём новый slug. Вложенные папки CLI по умолчанию пропускает: исходники передаём архивом, а чекпойнты текущего recovery загружены плоскими файлами; bootstrap восстанавливает их пути по проверенному receipt.
+
+Kaggle может автоматически распаковать `source.tar.gz` в `source/`. Контроллер получает этот известный путь явно; рекурсивно искать произвольную папку проекта не нужно.
+
+## Подготовка kernel и выбор GPU
+
+В папке задания лежит `kernel-metadata.json`:
+
+```json
+{
+  "id": "andriashadrin/hastycr-defense-next",
+  "title": "hastycr defense next",
+  "code_file": "bootstrap.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "dataset_sources": [
+    "andriashadrin/hastycr-defense-next-inputs"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}
+```
+
+`id`, `dataset_sources` и фактический bootstrap должны соответствовать новому пакету. Заголовок должен превращаться в тот же slug, что и `id`: иначе Kaggle может создать задачу по другому адресу. После отправки сохраняем **фактический URL из ответа**.
+
+Script kernel загружает `code_file`. Произвольный JSON рядом с ним не следует считать доступным на сервере: наш bootstrap встраивает конфигурацию непосредственно в Python-файл.
+
+Команда запуска новой подготовленной задачи:
+
+```bash
+"$HASTY_KAGGLE" kernels push \
+  -p tmp/kaggle/MY_NEW_RUN/job \
+  --accelerator NvidiaTeslaT4 \
+  --timeout 24000
+```
+
+В наших предыдущих запусках этот accelerator предоставлял две Tesla T4. Контроллер дополнительно проверяет `torch.cuda.is_available()` и минимум две CUDA-карты; CPU fallback запрещён. PPO получает `cuda:0`, GRPO — `cuda:1`, процессы запускаются параллельно.
+
+Перед push проверяем, нет ли уже `RUNNING`/`QUEUED` задачи с этим slug. Работающее обучение не заменяем повторным push.
+
+## Где задаётся размер обучения
+
+Конкретные параметры продолжения находятся в `commands()` файла [run_defense_recovery.py](scripts/kaggle/run_defense_recovery.py):
+
+| Параметр | PPO | GRPO |
+|---|---:|---:|
+| Общая цель этапа | 2 048 000 шагов | 1 000 000 шагов |
+| GPU | `cuda:0` | `cuda:1` |
+| Параллельные среды / размер группы | 8 сред | 8 траекторий |
+| Rollout PPO | 128 шагов на среду | — |
+| Learning rate | 0,00005 | 0,00003 |
+| Сохранение | каждые 50 обновлений | каждые 50 групп |
+| Validation | каждые 100 обновлений, 32 эпизода | каждые 100 групп, 32 эпизода |
+
+Для PPO одно обновление = `8 × 128 = 1024` шага. При продолжении передаём число **оставшихся** обновлений. Для GRPO длина группы меняется, поэтому завершение определяется фактическими `environment_steps`, а не процентом от числа групп.
+
+## Статус, логи и проценты
+
+Текущая задача продолжения:
+
+```bash
+HASTY_KERNEL=andriashadrin/hastycr-defense-semantic-recovery
+"$HASTY_KAGGLE" kernels status "$HASTY_KERNEL"
+"$HASTY_KAGGLE" kernels logs "$HASTY_KERNEL" --follow
+```
+
+Общий `RUNNING` подтверждает работу kernel, но не гарантирует, что оба дочерних тренера живы.
+
+Обновлённый локальный controller для **следующих** запусков выводит отдельно PPO/GRPO: PID, начало и завершение процесса, шаги, loss, validation reward и `training_percent`. Процент считается от полной цели с учётом checkpoint: `completed_steps / target_steps × 100`.
+
+**У текущей версии semantic-recovery старый закреплённый controller:** подробные логи пишутся в output-файлы, поэтому live stdout может быть пустым. Обновление локального файла не добавляет проценты в уже работающую задачу. Для следующей упаковки нужно включить новый `scripts/kaggle/run_defense_recovery.py` как `controller.py` и пересчитать его manifest SHA.
+
+Запись live-лога в новую локальную папку:
+
+```bash
+"$HASTY_KAGGLE_PY" scripts/kaggle/stream_training.py \
+  --kernel "$HASTY_KERNEL" \
+  --output tmp/kaggle/MY_NEW_RUN/live_stream \
+  --reconnects 100
+```
+
+SSL/404/сетевой сбой наблюдения сам по себе не означает падение обучения. Повторяем запрос статуса той же задачи, не запускаем вторую копию.
+
+## Получение результатов и продолжение после ошибки
+
+Полные output-файлы текущего API доступны после терминального статуса. Для recovery используем:
+
+```bash
+"$HASTY_KAGGLE_PY" -m scripts.kaggle.collect_defense_recovery \
+  --kernel "$HASTY_KERNEL" \
+  --output tmp/kaggle/MY_NEW_RUN/collected \
+  --watch-seconds 28800
+```
+
+Сборщик ждёт завершения, сохраняет `recovery_result.json`, метрики, логи, выбранные веса и последние точки продолжения. Каталог вывода должен быть новым. Для текущей задачи такой сборщик уже запущен; второй запуск не нужен.
+
+Если kernel упал, сохранённые веса не теряются автоматически. Для исходного stage2 отдельный инструмент [recover_defense_outputs.py](scripts/kaggle/recover_defense_outputs.py) извлекает последние PPO-checkpoints и завершённую GRPO boundary, даже если итоговый отчёт не успел перечислить веса.
+
+- **Warmstart:** загружаются веса, optimizer и среда начинают новый этап.
+- **Resume:** восстанавливаются также optimizer, RNG, sampler, счётчики и сохранённые состояния среды.
+- **Смена механики среды:** явная проверенная миграция с пометкой `not_exact_resume`; нельзя называть её точным продолжением прежних траекторий.
+
+SHA проверяем локально и по закреплённым manifest/receipt. Установленный SDK не сообщает удалённый SHA для каждого output-файла, поэтому независимую серверную проверку хеша не заявляем.
+
+## Итоговая оценка
+
+Когда достигнуты цели по шагам и закончена свежая validation selection, [prepare_defense_evaluation_job.py](scripts/kaggle/prepare_defense_evaluation_job.py) собирает отдельное приватное задание оценки. До этого он отказывает в подготовке.
+
+Протокол: 236 test-сценариев × 3 seed и по 20 парных матчей с каждой из 15 прошлых моделей. Чекпойнт выбирается на validation, test не используется для подбора весов, наград или длительности окон. Процент успешных train-эпизодов не заменяет этот протокол.
+
+## Текущие файлы и задачи
+
+- Продолжение: [hastycr-defense-semantic-recovery](https://www.kaggle.com/code/andriashadrin/hastycr-defense-semantic-recovery).
+- Подготовленный job, конфигурация и receipt отправки: `tmp/kaggle/defense_recovery_20261022/`.
+- Источник продолжения: `source_v2/` внутри этой папки; загруженная копия controller и её manifest — `source_dataset/`.
+- Проверенные сохранения исходного stage2: `tmp/kaggle/defense_train_stage2_20261022/recovered_terminal_retry_1/`.
+- Приватные входы текущего recovery: `andriashadrin/hastycr-defense-recovery-source-20261022` и `andriashadrin/hastycr-defense-stage2-recovered-20261022`.
+- Выполненные этапы и результаты: [done.md](done.md). План и критерии качества: [plan.md](plan.md).
+
+Рабочая v25 сохраняется отдельно и не заменяется результатом обучения автоматически. Живые бои остаются остановленными.
