@@ -1,0 +1,57 @@
+{
+  "scope": "GRPO subprocess failure observed in live log; parent kernel/PPO still running, not terminal job result.",
+  "last_completed_group": 378,
+  "last_logged_train_steps": 292766,
+  "scenario": "pair:firecracker:hog_rider:skeletons/back/x1/right",
+  "error": "invalid_script_trigger_timeout",
+  "evidence": [
+    {
+      "remote_seconds": 2797.474587814,
+      "line": "grpo: Traceback (most recent call last):"
+    },
+    {
+      "remote_seconds": 2797.475665451,
+      "line": "grpo:     validate_episode_info(info)"
+    },
+    {
+      "remote_seconds": 2797.475673087,
+      "line": "grpo:   File \"/kaggle/working/stage2_project/sim/train_defense_grpo.py\", line 73, in validate_episode_info"
+    },
+    {
+      "remote_seconds": 2797.475693877,
+      "line": "grpo: ValueError: invalid scripted defense scenario pair:firecracker:hog_rider:skeletons/back/x1/right: ('invalid_script_trigger_timeout', 'invalid_script_trigger_timeout')"
+    },
+    {
+      "remote_seconds": 2797.474587814,
+      "line": "grpo: Traceback (most recent call last):"
+    },
+    {
+      "remote_seconds": 2797.475665451,
+      "line": "grpo:     validate_episode_info(info)"
+    },
+    {
+      "remote_seconds": 2797.475673087,
+      "line": "grpo:   File \"/kaggle/working/stage2_project/sim/train_defense_grpo.py\", line 73, in validate_episode_info"
+    },
+    {
+      "remote_seconds": 2797.475693877,
+      "line": "grpo: ValueError: invalid scripted defense scenario pair:firecracker:hog_rider:skeletons/back/x1/right: ('invalid_script_trigger_timeout', 'invalid_script_trigger_timeout')"
+    },
+    {
+      "remote_seconds": 2797.474587814,
+      "line": "grpo: Traceback (most recent call last):"
+    },
+    {
+      "remote_seconds": 2797.475665451,
+      "line": "grpo:     validate_episode_info(info)"
+    },
+    {
+      "remote_seconds": 2797.475673087,
+      "line": "grpo:   File \"/kaggle/working/stage2_project/sim/train_defense_grpo.py\", line 73, in validate_episode_info"
+    },
+    {
+      "remote_seconds": 2797.475693877,
+      "line": "grpo: ValueError: invalid scripted defense scenario pair:firecracker:hog_rider:skeletons/back/x1/right: ('invalid_script_trigger_timeout', 'invalid_script_trigger_timeout')"
+    }
+  ]
+}
