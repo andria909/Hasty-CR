@@ -4082,10 +4082,10 @@ class Battle:
         bridge because it is the only way through, not because the movement
         code was told to detour to one. Fliers and river-jumpers ignore it.
 
-        Dynamic obstacles - a Cannon dropped mid-field - are not in the field,
-        because rebuilding it whenever anything is placed would cost more than
-        it saves. Those are handled by the steering step in _move, which is why
-        the two exist together.
+        Solid building footprints are expanded by this unit's actual body
+        radius and included in the cached field. Otherwise a cell centre inside
+        an allied tower remains an unreachable waypoint and local steering
+        circles forever. Moving troops still use the local steering step.
         """
         if entity.flying:
             return target.pos
@@ -4094,12 +4094,31 @@ class Battle:
         # have to enter the river through a bridge; otherwise a Hog Rider or
         # Prince could cross anywhere and central buildings would lose their
         # defining pull. Only flying units ignore the bridge terrain here.
+        circles = tuple((block.pos.x, block.pos.y,
+                         block.collision_radius_mt + entity.collision_radius_mt)
+                        for block in self._buildings()
+                        if block.alive and block.uid not in (entity.uid, target.uid))
         if not arena.crosses_river(entity.pos, target.pos):
-            # Same side of the river: head straight and let steering handle
-            # anything solid in the way.
-            return target.pos
+            # Keep direct movement in open space; only route around solid
+            # footprints intersecting the segment to the target.
+            dx, dy = target.pos.x-entity.pos.x, target.pos.y-entity.pos.y
+            length_sq = dx*dx+dy*dy
+            obstructed = False
+            for x, y, radius in circles:
+                projection = ((x-entity.pos.x)*dx+(y-entity.pos.y)*dy)
+                projection = max(0, min(length_sq, projection))
+                if length_sq:
+                    near_x = entity.pos.x + dx*projection//length_sq
+                    near_y = entity.pos.y + dy*projection//length_sq
+                else:
+                    near_x, near_y = entity.pos.x, entity.pos.y
+                if (near_x-x)**2+(near_y-y)**2 < radius*radius:
+                    obstructed = True
+                    break
+            if not obstructed:
+                return target.pos
 
-        step = pathfind.next_step(entity.pos, target.pos)
+        step = pathfind.next_step(entity.pos, target.pos, circles)
         return step if step is not None else target.pos
 
     # -------------------------------------------------------------- collision

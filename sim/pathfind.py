@@ -6,8 +6,9 @@ else: a unit meeting a building simply pressed into it, and the steering patch
 that followed only handled one obstacle directly ahead.
 
 This is a breadth-first flow field over the 18x32 tile grid. Cost is one BFS
-per distinct goal tile, cached, which is cheap enough to run inside a match:
-576 tiles, and every unit heading for the same tower shares one field.
+per distinct goal and expanded building footprint, cached: 576 tiles.
+Units with the same body radius and destination share a field. Buildings
+exclude unreachable waypoints; local steering still handles moving bodies.
 
 The river is impassable except on the two bridges, which falls out of the grid
 rather than being special-cased in the movement code - so a unit that has to
@@ -49,7 +50,7 @@ _STEPS = ((1, 0, _ORTHOGONAL), (-1, 0, _ORTHOGONAL),
           (1, 1, _DIAGONAL), (1, -1, _DIAGONAL),
           (-1, 1, _DIAGONAL), (-1, -1, _DIAGONAL))
 
-_FIELD_CACHE: Dict[Tuple[int, int], List[List[int]]] = {}
+_FIELD_CACHE: Dict[tuple, List[List[int]]] = {}
 
 
 def walkable(tx: int, ty: int) -> bool:
@@ -66,17 +67,23 @@ def walkable(tx: int, ty: int) -> bool:
     return True
 
 
-def distance_field(goal_tx: int, goal_ty: int) -> List[List[int]]:
+def distance_field(goal_tx: int, goal_ty: int, blocking_circles=()) -> List[List[int]]:
     """Cost from every tile to the goal, or -1 where there is no route.
 
     Dijkstra rather than a breadth-first walk, because the steps no longer all
     cost the same - see `_STEPS`.
     """
-    key = (goal_tx, goal_ty)
+    blocking_circles = tuple(sorted(blocking_circles))
+    key = (goal_tx, goal_ty, blocking_circles)
     cached = _FIELD_CACHE.get(key)
     if cached is not None:
         return cached
 
+    # Circles already include the moving body's radius. A waypoint inside a
+    # solid tower cannot be reached, even if its terrain tile is walkable.
+    blocked = {(tx, ty) for ty in range(TILES_H) for tx in range(TILES_W)
+               if any((tx*MT+MT//2-x)**2 + (ty*MT+MT//2-y)**2 < radius**2
+                      for x, y, radius in blocking_circles)}
     field = [[-1] * TILES_W for _ in range(TILES_H)]
     if not (0 <= goal_tx < TILES_W and 0 <= goal_ty < TILES_H):
         _FIELD_CACHE[key] = field
@@ -93,18 +100,23 @@ def distance_field(goal_tx: int, goal_ty: int) -> List[List[int]]:
             continue                     # a better route already settled this
         for dx, dy, step in _STEPS:
             nx, ny = tx + dx, ty + dy
-            if not walkable(nx, ny):
+            if not walkable(nx, ny) or (nx, ny) in blocked:
+                continue
+            # Prevent diagonal routes through the corner of a solid footprint.
+            if dx and dy and ((tx+dx, ty) in blocked or (tx, ty+dy) in blocked):
                 continue
             cost = here + step
             if field[ny][nx] == -1 or cost < field[ny][nx]:
                 field[ny][nx] = cost
                 heapq.heappush(heap, (cost, nx, ny))
 
+    if len(_FIELD_CACHE) >= 512:
+        _FIELD_CACHE.pop(next(iter(_FIELD_CACHE)))
     _FIELD_CACHE[key] = field
     return field
 
 
-def next_step(pos: Point, goal: Point) -> Optional[Point]:
+def next_step(pos: Point, goal: Point, blocking_circles=()) -> Optional[Point]:
     """The next tile centre to walk towards, following the flow downhill.
 
     Returns None when the goal is close enough to head for directly, or when
@@ -116,11 +128,11 @@ def next_step(pos: Point, goal: Point) -> Optional[Point]:
     if (tx, ty) == (goal_tx, goal_ty):
         return None
 
-    field = distance_field(goal_tx, goal_ty)
+    field = distance_field(goal_tx, goal_ty, blocking_circles)
     if not (0 <= tx < TILES_W and 0 <= ty < TILES_H):
         return None
     here = field[ty][tx]
-    if here <= _DIAGONAL:
+    if 0 <= here <= _DIAGONAL:
         return None                      # adjacent: just walk at it
 
     # Ties are rare now, but a remaining one must not be settled by the order
@@ -128,7 +140,7 @@ def next_step(pos: Point, goal: Point) -> Optional[Point]:
     # them on the straight-line distance to the goal instead, which never
     # prefers a compass direction.
     best = None
-    best_key = (here, 0.0)
+    best_key = (here if here >= 0 else float("inf"), 0.0, 0.0)
     for dx, dy, _step in _STEPS:
         nx, ny = tx + dx, ty + dy
         if not (0 <= nx < TILES_W and 0 <= ny < TILES_H):
@@ -136,11 +148,16 @@ def next_step(pos: Point, goal: Point) -> Optional[Point]:
         cost = field[ny][nx]
         if cost == -1:
             continue
+        if blocking_circles and dx and dy and (field[ty][nx] < 0 or field[ny][tx] < 0):
+            continue
         towards = ((nx * MT + MT // 2 - goal.x) ** 2
                    + (ny * MT + MT // 2 - goal.y) ** 2)
-        if (cost, towards) >= best_key:
+        # Equal left/right detours prefer the arena centre, preserving lane
+        # reflection instead of the first compass direction in _STEPS.
+        centrality = abs(nx*MT+MT//2 - TILES_W*MT//2) if blocking_circles else 0
+        if (cost, towards, centrality) >= best_key:
             continue
-        best_key = (cost, towards)
+        best_key = (cost, towards, centrality)
         best = (nx, ny)
     if best is None:
         return None
