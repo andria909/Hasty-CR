@@ -1,4 +1,4 @@
-"""Execute scripted attacks with a hold-only defender; no policy training."""
+"""Execute scripted attacks with deterministic legal defenders; no policy training."""
 import argparse
 import hashlib
 from collections import Counter
@@ -11,11 +11,13 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT))
 from sim.defense_env import DefenseEnv
 from sim.defense_scenarios import build_catalog
+from sim.defense_audit_policy import defender_action, DEFENDERS
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--difficulty',action='append')
+    parser.add_argument('--defender',choices=DEFENDERS,default='hold_only')
     parser.add_argument('--geometry',choices=('legacy_v1','native_anchors_candidate_v1'),default='legacy_v1')
     parser.add_argument('--coordinate-mode',choices=('physical_live','legacy_training','physical_live_cells_v2'),default='physical_live')
     args=parser.parse_args()
@@ -25,20 +27,27 @@ def main():
     counts=Counter()
     start=time.monotonic()
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    metadata={'seed':42,'defender':'hold_only','geometry':args.geometry,'coordinate_mode':args.coordinate_mode,'catalog_sha256':hashlib.sha256(json.dumps([s.to_dict()for s in scenarios],sort_keys=True).encode()).hexdigest(),
-              'source_sha256':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest()for name in ('sim/arena.py','sim/env.py','sim/policy_coordinates.py','sim/defense_env.py','sim/defense_scenarios.py','sim/public_gamedata.py','sim/public_scenario_spells.py','sim/engine.py','sim/pathfind.py','sim/defense_assets.py','sim/public_area_spells.py','sim/public_stat_scaling.py','sim/entities.py','sim/gamedata.py','sim/spells.py','sim/match.py')},'scenario_count':len(scenarios)}
+    metadata={'seed':42,'defender':args.defender,'quality_accepted':False,'geometry':args.geometry,'coordinate_mode':args.coordinate_mode,'catalog_sha256':hashlib.sha256(json.dumps([s.to_dict()for s in scenarios],sort_keys=True).encode()).hexdigest(),
+              'source_sha256':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest()for name in ('sim/defense_audit_policy.py','sim/arena.py','sim/env.py','sim/policy_coordinates.py','sim/defense_env.py','sim/defense_scenarios.py','sim/public_gamedata.py','sim/public_scenario_spells.py','sim/engine.py','sim/pathfind.py','sim/defense_assets.py','sim/public_area_spells.py','sim/public_stat_scaling.py','sim/entities.py','sim/gamedata.py','sim/spells.py','sim/match.py')},'scenario_count':len(scenarios)}
     args.output.with_suffix('.metadata.json').write_text(json.dumps(metadata,indent=2)+'\n')
     with args.output.open('x') as stream:
         for index,scenario in enumerate(scenarios):
             env=DefenseEnv(scenario=scenario,split=scenario.split,geometry=args.geometry,coordinate_mode=args.coordinate_mode)
-            env.reset(seed=42)
+            _,info=env.reset(seed=42)
+            generated_action_count=0
+            placement_action_count=0
             for _ in range(1000):
-                _,_,terminal,truncated,info=env.step(0)
+                action=defender_action(env,info,args.defender)
+                generated_action_count+=1
+                placement_action_count+=int(action!=0)
+                _,_,terminal,truncated,info=env.step(action)
                 if terminal or truncated:break
             else:raise RuntimeError('Environment exceeded step bound')
             metrics=info['metrics']
             counts[metrics['terminal_reason']]+=1
-            stream.write(json.dumps({'scenario_id':scenario.scenario_id,'metrics':metrics})+'\n')
+            stream.write(json.dumps({'scenario_id':scenario.scenario_id,'defender':args.defender,
+                                     'generated_action_count':generated_action_count,
+                                     'placement_action_count':placement_action_count,'metrics':metrics})+'\n')
             stream.flush()
             if index%50==0:print(json.dumps({'completed':index+1,'total':len(scenarios),'reasons':counts,'seconds':time.monotonic()-start}),flush=True)
     summary={'completed':len(scenarios),'reasons':dict(counts),'seconds':time.monotonic()-start,**metadata}
