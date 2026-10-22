@@ -59,6 +59,8 @@
 
 ## Проверка Kaggle
 
+- Проверенные frozen recovery-исходники и отдельно закреплённый SHA контроллера загружены в приватный [датасет](https://www.kaggle.com/datasets/andriashadrin/hastycr-defense-recovery-source-20261022). После задержки передачи загрузка штатно завершилась без дублирования задания. Обучение recovery ещё не запускалось; checkpoint-входы ожидают завершения PPO.
+
 - Контроллер итоговой оценки поддерживает отдельный semantic-recovery result: проверяет достигнутые шаги, происхождение исправленной среды, свежий validation-выбор и самодостаточные selected artifacts. Исходный неуспешный stage2 не переименовывается в passed.24 теста прошли; итоговый test ещё не выполнялся.
 
 - Создан и проверен [контроллер продолжения обучения](scripts/kaggle/run_defense_recovery.py): receipt/source/weights SHA, явный extracted-root для Kaggle, границы PPO/GRPO и исходные optimizer/RNG/sampler, достижение2.048M/1M, свежая одинаковая validation32, отдельные самодостаточные selected artifacts. Семантическое продолжение помечено not_exact_resume, исходный stage2 не выдаётся за успешный.11 тестов прошли; контроллер ещё не запускался на GPU.
