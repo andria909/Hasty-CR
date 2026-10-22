@@ -78,6 +78,8 @@
 
 ## Дополнительная проверка парсера и подготовка сравнения
 
+- Read-only [мост парсера](scripts/gamestate/model_bridge.py) получил явный v2 encoder и mechanical mask, профили geometry и проверки контрактов чекпойнта. Старые режимы сохраняют прежние defaults; v2 с неподдержанной strategic mask отклоняется. На офлайн-fixture проверены оба ID своей стороны и обе ориентации, совпадение всех planes/scalars/masks с общим encoder:33 теста прошли. Это согласование кода входа, не проверка истинных целей юнитов и не запуск live runner.
+
 - Реализованы opt-in [PolicyCoordinates](sim/policy_coordinates.py) и `observe(...,coordinate_mode='physical_live_cells_v2')`: все576 action-cell центров различаются и проходят roundtrip с обоих мест; прежний encoder остаётся default.
 - Реализован immutable `ArenaGeometry` в [sim/arena.py](sim/arena.py), отдельный `native_anchors_candidate_v1` в Match/Battle и DefenseEnv. Башни, deployment/pocket, burrow home, ability/drill anchors используют профиль экземпляра, cache постановок разделён между профилями. Native hitbox/pocket/terrain остаются непроверенными.
 - DefenseEnv принимает отдельные geometry/coordinate контракты, запрещает незаметную смену при restore. Проверены две независимые среды, все клетки маски с обоих мест, фактическая постановка в изменённом pocket и совместимость старых snapshot.

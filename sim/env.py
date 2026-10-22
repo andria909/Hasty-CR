@@ -260,7 +260,7 @@ def _placeable(side: int, enemy_down: tuple, spell: bool, *, geometry=None) -> n
     return grid
 
 
-def legal_mask(match, cards, side: int = 1) -> np.ndarray:
+def legal_mask(match, cards, side: int = 1, *, strategic: bool = True) -> np.ndarray:
     """Which actions `side` may take right now. Index 0 (hold) always is."""
     mask = np.zeros(ACTIONS, dtype=bool)
     mask[0] = True
@@ -278,7 +278,8 @@ def legal_mask(match, cards, side: int = 1) -> np.ndarray:
                           geometry=getattr(match, "geometry", None))
         base = 1 + slot * TILES
         mask[base:base + TILES] = grid.reshape(-1)
-    mask = strategic_action_mask(match, player.hand[:NUM_SLOTS], mask, side)
+    if strategic:
+        mask = strategic_action_mask(match, player.hand[:NUM_SLOTS], mask, side)
     for rank, entity in enumerate(ability_entities(match, side)[:ABILITY_SLOTS]):
         if match.can_activate_ability(side, entity.uid):
             mask[CARD_ACTIONS + rank] = True
