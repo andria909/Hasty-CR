@@ -23,7 +23,7 @@ def main():
         files.update(p for p in (root/folder).rglob('*.py')if p.is_file()and not p.is_symlink())
     files.update((root/'data/royaleapi').glob('*.json'))
     files.update((root/'tests').glob('test_defense*.py'))
-    for pattern in ('test_public_gamedata.py','test_public_miner.py','test_public_scenario_spells.py','test_public_heal_spirit.py','test_public_graveyard.py','test_public_shooter_links.py','test_public_moving_projectile_area.py','test_public_royal_delivery.py','test_public_bomb_tower_fuse.py','test_public_pickup_roles.py','test_public_area_spells.py','test_public_elixir_collector.py','test_public_mirror_units.py','test_clone_shields.py','test_flow*.py','test_tower_pathfinding.py'):
+    for pattern in ('test_public_gamedata.py','test_public_miner.py','test_public_scenario_spells.py','test_public_heal_spirit.py','test_public_graveyard.py','test_public_shooter_links.py','test_public_moving_projectile_area.py','test_public_royal_delivery.py','test_public_bomb_tower_fuse.py','test_public_pickup_roles.py','test_public_area_spells.py','test_public_elixir_collector.py','test_public_mirror_units.py','test_clone_shields.py','test_flow*.py','test_tower_pathfinding.py','test_policy_coordinates.py','test_arena_geometry.py'):
         files.update((root/'tests').glob(pattern))
     for rel in ('data/meta_decks.json','data/latency/mumu_m5_20261021.json','data/validation/graveyard_public_coverage_20261022.json','scripts/gamestate/audit_sim_alignment.py','LICENSE','README.md'):
         if (root/rel).is_file():files.add(root/rel)

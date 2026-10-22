@@ -212,7 +212,11 @@ class Match:
     _mana_clock: Dict[int, int] = field(default_factory=dict)
     _mana_watch: Dict[int, tuple] = field(default_factory=dict)
 
+    geometry: arena.ArenaGeometry = field(default_factory=lambda: arena.LEGACY_GEOMETRY)
+
     def __post_init__(self):
+        self.geometry=arena.resolve_geometry(self.geometry)
+        self.battle.geometry=self.geometry
         if self.evolution_slots:
             all_level_cards = _levelled_cards(self.level)
             for mapping in self.evolution_slots.values():
@@ -264,9 +268,14 @@ class Match:
             self.players[side] = player
             self.towers[side] = self._build_towers(side)
 
+    def __setstate__(self,state):
+        self.__dict__.update(state)
+        self.geometry=arena.resolve_geometry(state.get('geometry'))
+        self.battle.geometry=self.geometry
+
     def _build_towers(self, side: int) -> Dict[str, Entity]:
-        anchors = arena.ALLY_PRINCESS if side > 0 else arena.ENEMY_PRINCESS
-        king_pos = arena.ALLY_KING if side > 0 else arena.ENEMY_KING
+        anchors = self.geometry.princess(side)
+        king_pos = self.geometry.king(side)
         if self.tower_level is None:
             p_hp, p_dmg, p_ms, p_rng = (PRINCESS_HP, PRINCESS_DAMAGE,
                                         PRINCESS_HIT_MS, PRINCESS_RANGE)
@@ -450,7 +459,7 @@ class Match:
         else:
             down = [lane for lane, tower in self.towers[-side].items()
                     if lane != "king" and not tower.alive]
-            if not arena.deploy_area_ok(at, side, down):
+            if not arena.deploy_area_ok(at, side, down, geometry=self.geometry):
                 return False
 
         cost = mirror_cost if mirror_cost is not None else spec.cost
@@ -491,7 +500,7 @@ class Match:
             # way. The further it is sent, the longer that takes - which is
             # exactly the trade a Miner on the far tower is making.
             if unit.burrow_speed_mt_per_sec > 0:
-                home = arena.ALLY_KING if side > 0 else arena.ENEMY_KING
+                home = self.geometry.king(side)
                 travelled = arena.distance(home, pos)
                 unit.deploy_remaining_ms += (travelled * 1000
                                              // unit.burrow_speed_mt_per_sec)

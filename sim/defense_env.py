@@ -114,13 +114,18 @@ PENDING_FIELDS=(
 class DefenseEnv(ClashEnv):
     def __init__(self,seed=0,split='train',difficulty=None,scenario_id=None,
                  action_delay_ms=150,max_ms=240000,initial_elixir=10,
-                 rewards=None,scenario=None,public_history_mode='unavailable'):
+                 rewards=None,scenario=None,public_history_mode='unavailable',
+                 geometry=None,coordinate_mode='physical_live'):
         if not (math.isfinite(initial_elixir)and 0<=initial_elixir<=10):
             raise ValueError('Initial elixir must be in [0,10]')
         if not 0<=action_delay_ms<=10000 or not 50<=max_ms<=600000:
             raise ValueError('Invalid finite timing configuration')
         if public_history_mode not in ('unavailable','confirmed'):
             raise ValueError('Unknown public history mode')
+        self.geometry=arena.resolve_geometry(geometry)
+        if coordinate_mode not in ('legacy_training','physical_live','physical_live_cells_v2'):
+            raise ValueError('Unknown defense policy coordinate contract')
+        self.coordinate_mode=coordinate_mode
         self.seed=int(seed)
         self.split=split
         self.difficulty=difficulty
@@ -163,7 +168,7 @@ class DefenseEnv(ClashEnv):
         # The first legal opening play draws the first excluded card.
         deck=eligible[:4]+excluded+eligible[4:]
         self.match=DefenseMatch(cards=self._cards,decks=(list(DECK_26),deck),
-                                seed=self.seed,spells=self._spells)
+                                seed=self.seed,spells=self._spells,geometry=self.geometry)
         self.match.battle.unit_lookup=UnitLookup(self.match)
         for side in (1,-1):
             self.match.towers[side]['king'].__class__=TerminalKing
@@ -348,23 +353,26 @@ class DefenseEnv(ClashEnv):
         for slot,card in enumerate(p.hand):
             if p.elixir<self._cards[card].cost*1000:
                 continue
-            grid=_placeable(1,down,card in self._spells)
+            grid=_placeable(1,down,card in self._spells,geometry=self.geometry)
             mask[1+slot*GRID_W*GRID_H:1+(slot+1)*GRID_W*GRID_H]=grid.reshape(-1)
         return mask
 
     def _observe(self):
+        encoding=('physical_live_cells_v2' if self.coordinate_mode=='physical_live_cells_v2'
+                  else 'legacy_training')
         if self.match is None:
-            return observe(None)
-        # Same explicit physical_live conversion as the ARM64 model adapter.
+            return observe(None,coordinate_mode=encoding)
         view=copy(self.match)
-        view.battle=copy(self.match.battle)
-        entities={}
-        for uid,entity in self.match.battle.entities.items():
-            e=copy(entity);e.pos=arena.Point(entity.pos.x,31000-entity.pos.y);entities[uid]=e
-        view.battle.entities=entities
+        if self.coordinate_mode=='physical_live':
+            # Existing explicit ARM64 compatibility proxy, unchanged for v25.
+            view.battle=copy(self.match.battle)
+            entities={}
+            for uid,entity in self.match.battle.entities.items():
+                e=copy(entity);e.pos=arena.Point(entity.pos.x,31000-entity.pos.y);entities[uid]=e
+            view.battle.entities=entities
         if self.public_history_mode=='unavailable':
             view.play_log=[]
-        return observe(view)
+        return observe(view,coordinate_mode=encoding)
 
     def _metrics(self):
         towers=self.match.towers
@@ -373,6 +381,8 @@ class DefenseEnv(ClashEnv):
         damage={lane:max(0,self._initial_hp[-1][lane]-t.hitpoints)
                 for lane,t in towers[-1].items()}
         flags=['simulator_mechanics_not_fully_validated']
+        if self.geometry!=arena.LEGACY_GEOMETRY:
+            flags.extend('geometry:'+value for value in self.geometry.limitations)
         if self.public_history_mode=='unavailable':
             flags.append('opponent_play_history_unavailable')
         if self.match.missing_spawns:
@@ -491,7 +501,13 @@ class DefenseEnv(ClashEnv):
         return deepcopy(self.__dict__)
 
     def restore(self,snapshot):
+        previous_geometry=arena.resolve_geometry(snapshot.get('geometry'))
+        previous_coordinates=snapshot.get('coordinate_mode','physical_live')
+        if previous_geometry!=self.geometry or previous_coordinates!=self.coordinate_mode:
+            raise ValueError('Snapshot geometry/coordinate contract differs from this environment')
         self.__dict__=deepcopy(snapshot)
+        self.geometry=previous_geometry
+        self.coordinate_mode=previous_coordinates
         return self._observe(),self._info()
 
     def close(self):

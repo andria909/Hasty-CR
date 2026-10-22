@@ -207,7 +207,71 @@ POCKET_HALF_WIDTH_MT = 3 * MT     # unverified; see above
 POCKET_BEHIND_TOWER_MT = MT       # unverified; see above
 
 
-def deploy_area_ok(p: Point, side: int, enemy_princess_down: Iterable[str] = ()) -> bool:
+@dataclass(frozen=True)
+class ArenaGeometry:
+    """Versioned crown anchors; terrain and pocket shape stay legacy/unverified.
+
+    Coordinates are entity positions, not a claim about rendered/hitbox centres.
+    Profiles are immutable and pickle/deepcopy-safe; each Match owns its choice.
+    """
+    profile_id: str
+    bottom: tuple[Point, Point, Point]  # left princess, right princess, king
+    top: tuple[Point, Point, Point]
+    terrain_id: str = 'legacy_terrain_v1'
+    limitations: tuple[str, ...] = ('deployment_pocket_shape_unverified',)
+
+    def __post_init__(self):
+        if self.terrain_id != 'legacy_terrain_v1':
+            raise ValueError('Configurable terrain is not implemented; refusing unsupported geometry terrain')
+        for anchors in (self.bottom,self.top):
+            if not isinstance(anchors,tuple) or len(anchors)!=3 or any(not isinstance(p,Point) for p in anchors):
+                raise ValueError('Geometry anchors must be immutable triples of Points')
+        if not isinstance(self.limitations,tuple):
+            raise ValueError('Geometry limitations must be immutable')
+
+    def princess(self, side: int):
+        points=self._side(side)
+        return dict(left=points[0],right=points[1])
+
+    def king(self, side: int):
+        return self._side(side)[2]
+
+    def _side(self, side):
+        if side not in (-1,1):
+            raise ValueError('Geometry side must be -1 or +1')
+        return self.bottom if side==1 else self.top
+
+    @property
+    def fingerprint(self):
+        import hashlib
+        import json
+        payload=dict(profile_id=self.profile_id,terrain_id=self.terrain_id,
+            bottom=[(p.x,p.y) for p in self.bottom],top=[(p.x,p.y) for p in self.top],
+            limitations=self.limitations)
+        return hashlib.sha256(json.dumps(payload,sort_keys=True).encode()).hexdigest()
+
+
+LEGACY_GEOMETRY = ArenaGeometry('legacy_v1',
+    (ALLY_PRINCESS['left'],ALLY_PRINCESS['right'],ALLY_KING),
+    (ENEMY_PRINCESS['left'],ENEMY_PRINCESS['right'],ENEMY_KING))
+NATIVE_ANCHORS_CANDIDATE_GEOMETRY = ArenaGeometry('native_anchors_candidate_v1',
+    (Point(3500,25500),Point(14500,25500),Point(9000,29000)),
+    (Point(3500,6500),Point(14500,6500),Point(9000,3000)),
+    limitations=('deployment_pocket_shape_unverified','native_entity_anchor_hitbox_offset_unverified',
+                 'terrain_inherited_from_legacy_not_native_validated'))
+
+
+def resolve_geometry(value=None):
+    profiles=(LEGACY_GEOMETRY,NATIVE_ANCHORS_CANDIDATE_GEOMETRY)
+    if value is None:
+        return LEGACY_GEOMETRY
+    for profile in profiles:
+        if value==profile.profile_id or value==profile:
+            return profile
+    raise ValueError('Unknown/unsupported geometry profile')
+
+
+def deploy_area_ok(p: Point, side: int, enemy_princess_down: Iterable[str] = (), *, geometry=None) -> bool:
     """Whether `side` may deploy a troop at `p`.
 
     side is +1 for the player at the bottom (ours) and -1 for the top.
@@ -215,13 +279,16 @@ def deploy_area_ok(p: Point, side: int, enemy_princess_down: Iterable[str] = ())
     call is symmetric: passing our own downed towers with side=-1 opens their
     pocket in our half, which is what a lost tower costs you.
     """
+    profile=resolve_geometry(geometry)
+    if side not in (-1,1):
+        raise ValueError('Deployment side must be -1 or +1')
     if not (0 <= p.x < WIDTH and 0 <= p.y < HEIGHT):
         return False
     if side > 0:
         if p.y >= RIVER_Y:
             return True
         for lane in enemy_princess_down:
-            centre = ENEMY_PRINCESS[lane]
+            centre = profile.princess(-side)[lane]
             if (abs(p.x - centre.x) <= POCKET_HALF_WIDTH_MT
                     and p.y >= centre.y - POCKET_BEHIND_TOWER_MT):
                 return True
@@ -229,7 +296,7 @@ def deploy_area_ok(p: Point, side: int, enemy_princess_down: Iterable[str] = ())
     if p.y < RIVER_Y:
         return True
     for lane in enemy_princess_down:
-        centre = ALLY_PRINCESS[lane]
+        centre = profile.princess(-side)[lane]
         if (abs(p.x - centre.x) <= POCKET_HALF_WIDTH_MT
                 and p.y <= centre.y + POCKET_BEHIND_TOWER_MT):
             return True

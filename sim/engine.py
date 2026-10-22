@@ -286,6 +286,14 @@ class Battle:
         default_factory=set)
     _buildings_cache: List = field(default_factory=list)
     _buildings_stamp: int = -1
+    geometry: arena.ArenaGeometry = field(default_factory=lambda: arena.LEGACY_GEOMETRY)
+
+    def __post_init__(self):
+        self.geometry=arena.resolve_geometry(self.geometry)
+
+    def __setstate__(self,state):
+        self.__dict__.update(state)
+        self.geometry=arena.resolve_geometry(state.get('geometry'))
 
     # ------------------------------------------------------------- lifecycle
 
@@ -1533,10 +1541,9 @@ class Battle:
         towers = [unit.pos for unit in self.entities.values()
                   if unit.alive and unit.is_tower and unit.side == source.side]
         if not towers:
-            anchors = (arena.ALLY_PRINCESS if source.side > 0
-                       else arena.ENEMY_PRINCESS)
+            anchors = self.geometry.princess(source.side)
             towers = list(anchors.values())
-            towers.append(arena.ALLY_KING if source.side > 0 else arena.ENEMY_KING)
+            towers.append(self.geometry.king(source.side))
         destination = min(towers, key=lambda point: distance(target.pos, point))
         dx, dy = destination.x - target.pos.x, destination.y - target.pos.y
         span = arena.isqrt(dx * dx + dy * dy) or 1
@@ -3219,8 +3226,7 @@ class Battle:
 
     def _drill_resurface_at(self, entity: Entity) -> Point:
         """Same spot, or a quarter turn around the crown tower it is hugging."""
-        towers = (arena.ENEMY_PRINCESS if entity.side > 0
-                  else arena.ALLY_PRINCESS)
+        towers = self.geometry.princess(-entity.side)
         for centre in towers.values():
             gap = distance(centre, entity.pos)
             if gap == 0 or gap > self.DRILL_TOWER_REACH_MT:

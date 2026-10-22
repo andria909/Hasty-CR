@@ -77,3 +77,138 @@ def test_a_unit_on_the_bridge_can_cross_and_one_beside_it_cannot():
         assert arena.on_bridge(Point(centre, arena.RIVER_Y))
         # A tile and a half out is the edge; two tiles out is the river.
         assert not arena.on_bridge(Point(centre + 2 * arena.MT, arena.RIVER_Y))
+
+
+# Opt-in per-match anchor profile regressions.
+from copy import deepcopy
+from dataclasses import FrozenInstanceError,replace
+import pickle
+from types import SimpleNamespace
+
+import pytest
+
+from sim import arena
+from sim.engine import Battle
+from sim.env import DECK_26
+from sim.match import Match
+from sim.defense_assets import load_defense_assets
+from sim.runner import resolve_deck
+
+
+def make_match(profile=None):
+    cards,spells,_,_=load_defense_assets()
+    cards.update(resolve_deck(cards,DECK_26))
+    options={}if profile is None else {'geometry':profile}
+    return Match(cards=cards,decks=(list(DECK_26),list(DECK_26)),seed=42,spells=spells,**options)
+
+
+def anchors(match):
+    return {side:{lane:t.pos for lane,t in towers.items()}for side,towers in match.towers.items()}
+
+
+def test_default_geometry_keeps_exact_legacy_anchors_and_initial_state():
+    default=make_match();explicit=make_match('legacy_v1')
+    assert default.geometry is arena.LEGACY_GEOMETRY
+    assert anchors(default)==anchors(explicit)=={
+        1:dict(left=arena.Point(3500,24500),right=arena.Point(14500,24500),king=arena.Point(9500,28500)),
+        -1:dict(left=arena.Point(3500,7500),right=arena.Point(14500,7500),king=arena.Point(9500,3500))}
+    for side in (1,-1):
+        assert default.players[side]==explicit.players[side]
+        for lane in ('left','right','king'):
+            assert default.towers[side][lane]==explicit.towers[side][lane]
+    assert Battle().geometry is arena.LEGACY_GEOMETRY
+
+
+def test_native_geometry_is_per_match_and_has_measured_symmetric_anchors():
+    legacy=make_match();native=make_match('native_anchors_candidate_v1')
+    assert native.geometry is native.battle.geometry
+    assert legacy.geometry is legacy.battle.geometry is arena.LEGACY_GEOMETRY
+    assert anchors(native)=={
+        1:dict(left=arena.Point(3500,25500),right=arena.Point(14500,25500),king=arena.Point(9000,29000)),
+        -1:dict(left=arena.Point(3500,6500),right=arena.Point(14500,6500),king=arena.Point(9000,3000))}
+    for lane,other in [('left','right'),('right','left'),('king','king')]:
+        p=native.towers[1][lane].pos
+        assert arena.Point(arena.WIDTH-p.x,arena.HEIGHT-p.y)==native.towers[-1][other].pos
+    assert legacy.towers[1]['king'].pos==arena.Point(9500,28500)
+    native.geometry.princess(1)['left']=arena.Point(0,0)
+    assert native.geometry.princess(1)['left']==arena.Point(3500,25500)
+    assert 'native_entity_anchor_hitbox_offset_unverified'in native.geometry.limitations
+
+
+@pytest.mark.parametrize('side,lane,point',[
+    (1,'left',arena.Point(3500,6000)),(-1,'right',arena.Point(14500,26000))])
+def test_profile_deployment_and_match_play_share_the_same_pocket(side,lane,point):
+    legacy=make_match();native=make_match('native_anchors_candidate_v1')
+    for match in (legacy,native):
+        match.towers[-side][lane].hitpoints=0
+        match.players[side].hand[0]='knight'
+        match.players[side].elixir=10000
+    assert arena.deploy_area_ok(point,side,[lane],geometry=native.geometry)
+    assert not arena.deploy_area_ok(point,side,[lane],geometry=legacy.geometry)
+    assert not arena.deploy_area_ok(point,side,[],geometry=native.geometry)
+    assert native.play_card(side,'knight',point)
+    assert not legacy.play_card(side,'knight',point)
+
+
+def test_geometry_is_immutable_pickle_deepcopy_safe_and_rejects_unknown_terrain():
+    profile=arena.NATIVE_ANCHORS_CANDIDATE_GEOMETRY
+    with pytest.raises(FrozenInstanceError):profile.profile_id='changed'
+    assert pickle.loads(pickle.dumps(profile))==profile
+    clone=deepcopy(make_match(profile))
+    assert clone.geometry==profile and clone.battle.geometry is clone.geometry
+    assert anchors(clone)[1]['king']==arena.Point(9000,29000)
+    assert profile.fingerprint==pickle.loads(pickle.dumps(profile)).fingerprint
+    assert profile.fingerprint!=arena.LEGACY_GEOMETRY.fingerprint
+    with pytest.raises(ValueError,match='terrain'):
+        replace(profile,terrain_id='different_river')
+    with pytest.raises(ValueError,match='Unknown'):
+        Battle(geometry='not-a-profile')
+    with pytest.raises(ValueError,match='Unknown'):
+        make_match('not-a-profile')
+
+
+def test_drill_anchor_lookup_uses_battle_profile_without_global_mutation():
+    native=Battle(geometry='native_anchors_candidate_v1')
+    legacy=Battle()
+    entity=SimpleNamespace(side=1,pos=arena.Point(4500,6500))
+    assert native._drill_resurface_at(entity)==arena.Point(3500,7500)
+    assert legacy._drill_resurface_at(entity)==arena.Point(4500,8500)
+    assert arena.ENEMY_PRINCESS['left']==arena.Point(3500,7500)
+
+
+def test_older_snapshot_state_without_geometry_restores_legacy_profile():
+    battle=Battle()
+    del battle.geometry
+    restored=pickle.loads(pickle.dumps(battle))
+    assert restored.geometry is arena.LEGACY_GEOMETRY
+    match=make_match()
+    state=dict(match.__dict__)
+    state.pop('geometry')
+    match.__setstate__(state)
+    assert match.geometry is match.battle.geometry is arena.LEGACY_GEOMETRY
+
+
+def test_uppercut_fallback_reads_own_instance_king_anchor():
+    source=SimpleNamespace(side=1,uppercut_push_mt=1000,uppercut_flight_ms=100,uppercut_root_ms=0)
+    endpoints=[]
+    for profile in (arena.LEGACY_GEOMETRY,arena.NATIVE_ANCHORS_CANDIDATE_GEOMETRY):
+        battle=Battle(geometry=profile)
+        target=SimpleNamespace(pos=arena.Point(9000,28000))
+        battle._start_uppercut(source,target)
+        endpoints.append(battle.forced_moves[0][2])
+    assert endpoints==[arena.Point(9707,28707),arena.Point(9000,29000)]
+
+
+def test_burrow_travel_uses_profile_home_without_mutating_card_cache():
+    for profile in (arena.LEGACY_GEOMETRY,arena.NATIVE_ANCHORS_CANDIDATE_GEOMETRY):
+        match=make_match(profile)
+        card=match.cards['knight']
+        match.cards=dict(match.cards)
+        match.cards['knight']=replace(card,unit=replace(card.unit,burrow_speed_mt_per_sec=1000,deploy_time_ms=0))
+        match.players[1].hand[0]='knight'
+        match.players[1].elixir=10000
+        at=arena.Point(9000,27000)
+        first=match.battle.next_uid
+        assert match.play_card(1,'knight',at)
+        unit=match.battle.entities[first]
+        assert unit.deploy_remaining_ms==arena.distance(profile.king(1),unit.pos)

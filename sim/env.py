@@ -52,6 +52,7 @@ for path in (str(ROOT), str(ROOT / "scripts")):
 from sim import arena as sim_arena          # noqa: E402
 from sim.adapter import grid_to_point       # noqa: E402
 from sim.match import Match                 # noqa: E402
+from sim.policy_coordinates import policy_coordinates  # noqa: E402
 from brain import spellinfo                 # noqa: E402
 
 GRID_W, GRID_H = 18, 32
@@ -158,8 +159,15 @@ def building_lane_risks(building_cells) -> tuple[float, float]:
     return risks[0], risks[1]
 
 
-def observe(match, side: int = 1) -> dict:
-    """The board as `side` sees it, always oriented as the bottom player."""
+def observe(match, side: int = 1, *,
+            coordinate_mode: str = "legacy_training") -> dict:
+    """Encode the board with an explicit, opt-in coordinate contract.
+
+    Defaults retain legacy rounding/Y flip for existing checkpoints. V2 bins
+    physical positions with floor before mirroring the cell for the top seat.
+    This option does not change action geometry or strategic masks.
+    """
+    coordinates = policy_coordinates(coordinate_mode)
     planes = np.zeros((NUM_PLANES, GRID_H, GRID_W), dtype=np.float32)
     if match is None:
         return {"planes": planes, "scalars": np.zeros(NUM_SCALARS, dtype=np.float32)}
@@ -169,16 +177,7 @@ def observe(match, side: int = 1) -> dict:
             continue
         if getattr(entity, "is_tower", False):
             continue
-        x, y = sim_arena.to_tiles(entity.pos)
-        # Bin in the bottom frame first, then mirror the *cell*. Mirroring
-        # the coordinate instead lets rounding disagree: a unit sitting on an
-        # exact half tile rounds to even in both frames, so 16.5 and 14.5 both
-        # round down and the two seats see it one cell apart. That asymmetry
-        # would quietly favour one side of every self-play game.
-        grid_x = int(np.clip(round(x), 0, GRID_W - 1))
-        grid_y = int(np.clip(round(31 - y), 0, GRID_H - 1))
-        if side < 0:
-            grid_x, grid_y = (GRID_W - 1) - grid_x, (GRID_H - 1) - grid_y
+        grid_x, grid_y = coordinates.cell(entity.pos, side)
         ours = (getattr(entity, "side", 1) > 0) == (side > 0)
         base = 0 if ours else 1
         planes[base, grid_y, grid_x] += 1.0
@@ -237,8 +236,9 @@ def observe(match, side: int = 1) -> dict:
 _PLACEMENT_CACHE: Dict[tuple, np.ndarray] = {}
 
 
-def _placeable(side: int, enemy_down: tuple, spell: bool) -> np.ndarray:
-    key = (side, enemy_down, spell)
+def _placeable(side: int, enemy_down: tuple, spell: bool, *, geometry=None) -> np.ndarray:
+    profile = sim_arena.resolve_geometry(geometry)
+    key = (side, enemy_down, spell, profile)
     cached = _PLACEMENT_CACHE.get(key)
     if cached is not None:
         return cached
@@ -255,7 +255,7 @@ def _placeable(side: int, enemy_down: tuple, spell: bool) -> np.ndarray:
             point = grid_to_point(x, y, side)
             grid[y, x] = (sim_arena.in_arena(point) if spell
                           else sim_arena.deploy_area_ok(point, side,
-                                                        list(enemy_down)))
+                                                        list(enemy_down), geometry=profile))
     _PLACEMENT_CACHE[key] = grid
     return grid
 
@@ -274,7 +274,8 @@ def legal_mask(match, cards, side: int = 1) -> np.ndarray:
         cost = getattr(spec, "cost", 0) * 1000 if spec else 0
         if player.elixir < cost:
             continue
-        grid = _placeable(side, tuple(enemy_down), card in SPELLS)
+        grid = _placeable(side, tuple(enemy_down), card in SPELLS,
+                          geometry=getattr(match, "geometry", None))
         base = 1 + slot * TILES
         mask[base:base + TILES] = grid.reshape(-1)
     mask = strategic_action_mask(match, player.hand[:NUM_SLOTS], mask, side)
