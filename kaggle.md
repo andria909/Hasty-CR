@@ -225,3 +225,19 @@ Collector запускается с `--profile strategy --poll-seconds1200`, т�
 доказывает достижения цели: проверить training_result.json у PPO,
 environment_steps и checkpoint_phase финального GRPO, конечность весов.
 
+После terminal collection каждого совместного задания выполнить аудит
+(пример для PPO; для GRPO заменить владельца на demjanklimov):
+
+```sh
+.venv-live/bin/python -m scripts.kaggle.audit_strategy_training \
+  --collected tmp/kaggle/joint_strategy_20261023/andreiperelaiko/collected \
+  --launch-config tmp/kaggle/joint_strategy_20261023/andreiperelaiko/launch_config.json \
+  --source-manifest tmp/kaggle/joint_strategy_20261023/andreiperelaiko/dataset/manifest.json \
+  --output tmp/kaggle/joint_strategy_20261023/andreiperelaiko/training_audit.json
+```
+
+`ready_for_validation` подтверждает готовность весов к оценке, но не
+качество и не приёмку. Аудит только читает собранные данные. Файл отчёта
+создаётся без перезаписи существующего. SHA receipt проверяет внутреннюю
+согласованность выгрузки, независимо подтверждённого remote SHA нет.
+

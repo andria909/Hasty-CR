@@ -1,0 +1,132 @@
+{
+  "scope": "Requirement audit against user plan; preparation is not completion. Status is evidence scoped, not a quality acceptance decision.",
+  "goal_complete": false,
+  "requirements": [
+    {
+      "requirement": "catalog_all_requested_cards",
+      "status": "incomplete",
+      "evidence": [
+        "data/defense/coverage.json"
+      ],
+      "assessment": "Snapshot coverage 119/120; missing ['party_rocket']. Public snapshot is not a verified current all-card inventory."
+    },
+    {
+      "requirement": "family_isolated_train_validation_test",
+      "status": "implemented",
+      "evidence": [
+        "sim/defense_scenarios.py",
+        "data/defense/scenarios.json",
+        "tests/test_defense_curriculum.py"
+      ],
+      "assessment": "1868 variants; train1344/validation288/test236. Preserve family isolation across future additions."
+    },
+    {
+      "requirement": "termination_and_effect_settlement",
+      "status": "implemented_with_mechanics_limits",
+      "evidence": [
+        "sim/defense_env.py",
+        "tests/test_defense_boundaries.py",
+        "reports/defense_plan/catalog_hold_audit_v9.summary.json"
+      ],
+      "assessment": "Full hold-only audit1868, zero script invalid/timeout. Not evidence of policy quality or every real mechanic."
+    },
+    {
+      "requirement": "parser_and_model_contract",
+      "status": "partially_verified",
+      "evidence": [
+        "scripts/gamestate/model_bridge.py",
+        "tests/test_memory_model_bridge.py",
+        "reports/geometry_contract_design_20261022/report.md"
+      ],
+      "assessment": "Old contract retained; opt-in floor cells/native anchor candidate implemented. Live integration and independently verified hitbox/target labels incomplete."
+    },
+    {
+      "requirement": "real_game_targeting_and_motion",
+      "status": "partially_verified",
+      "evidence": [
+        "reports/saved_arm64_motion_20261022_v2/report.md"
+      ],
+      "assessment": "704 motion windows/174 bodies; most checked speeds close. Actual target UID labels absent, targeting accuracy unknown."
+    },
+    {
+      "requirement": "two_independent_algorithm_branches",
+      "status": "implemented",
+      "evidence": [
+        "sim/train_defense_ppo.py",
+        "sim/train_defense_grpo.py"
+      ],
+      "assessment": "Separate authorized PPO/GRPO agents/worktrees and trainer implementations."
+    },
+    {
+      "requirement": "large_kaggle_training_targets",
+      "status": "training_started_final_targets_unverified",
+      "evidence": [
+        "tmp/kaggle/defense_recovery_20261022/",
+        "reports/defense_plan/grpo_account2_connection_check.json",
+        "reports/defense_plan/joint_strategy_connection_check.json"
+      ],
+      "assessment": "Original stage2 failed; semantic recovery and separate account2 GRPO launched. Additional joint PPO/GRPO accounts3/4 have actual CUDA and increasing-step evidence. Terminal target counters and evaluation remain pending; old stage2 RUNNING claim is obsolete."
+    },
+    {
+      "requirement": "train_and_validation_metrics",
+      "status": "implemented_partial_results",
+      "evidence": [
+        "scripts/defense/summarize_training.py",
+        "reports/defense_plan/stage1_ppo_train_summary.json",
+        "reports/defense_plan/stage1_grpo_train_summary.json",
+        "reports/defense_plan/stage2_ppo_train_summary.json",
+        "reports/defense_plan/stage2_grpo_train_summary.json",
+        "scripts/kaggle/audit_strategy_training.py"
+      ],
+      "assessment": "Stage1 and partial failed stage2 summaries collected. Current final metrics pending terminal download. New joint artifact audit checks actual target steps, both tasks, finite policy/optimizer and provenance before evaluation; runtime completion does not imply acceptance."
+    },
+    {
+      "requirement": "full_heldout_defense_evaluation",
+      "status": "not_run",
+      "evidence": [
+        "data/defense/evaluation_protocol.json",
+        "scripts/defense/evaluate_stage2.py"
+      ],
+      "assessment": "708 episodes/candidate scheduled, fixed before final selected weights. Medium tolerance unconfirmed; do not tune on test."
+    },
+    {
+      "requirement": "paired_matches_against_each_prior_model",
+      "status": "not_run",
+      "evidence": [
+        "data/defense/baselines.json",
+        "scripts/defense/evaluate_stage2.py"
+      ],
+      "assessment": "15 available SHA-pinned checkpoints ×20 paired matches =300/candidate. No final winrate evidence yet."
+    },
+    {
+      "requirement": "required_quality_gates",
+      "status": "unproven",
+      "evidence": [
+        "sim/defense_protocol.py",
+        "plan.md"
+      ],
+      "assessment": "All easy avoidable pushes zero loss, medium nearzero, hard/stress survival and80–100% observed wins against every prior remain unverified. Known mechanics limits cannot be erased by passing unit tests."
+    },
+    {
+      "requirement": "attack_phase_after_acceptance",
+      "status": "parallel_joint_training_authorized_and_started",
+      "evidence": [
+        "plan.md",
+        "sim/strategy_env.py",
+        "sim/train_attack_ppo.py",
+        "sim/train_attack_grpo.py",
+        "reports/defense_plan/joint_strategy_connection_check.json"
+      ],
+      "assessment": "User explicitly authorized one joint PPO on account3 and one joint GRPO on account4 before original defense acceptance. Both are training shared skill policies. Final attack and defense evaluation, full-game adaptation and acceptance remain unproven."
+    },
+    {
+      "requirement": "v25_secrets_and_stopped_live_games",
+      "status": "preserved",
+      "evidence": [
+        "scripts/kaggle/pack_defense.py",
+        "tmp/live/memory_v25_20261022_series30/series.json"
+      ],
+      "assessment": "Canonical v25 pinned SHA; credentials outside repository; no new live matches authorized."
+    }
+  ]
+}
