@@ -12,7 +12,11 @@ from scripts.kaggle.recover_defense_outputs import TERMINAL, list_outputs, termi
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def collect(api,kernel,output,fetch=None):
+def collect(api,kernel,output,fetch=None,profile='recovery'):
+    layouts={'recovery':('recovery','recovery_result.json','defense-semantic-recovery-v1'),
+             'grpo-account2':('account2','account2_result.json','defense-grpo-account2-v1')}
+    prefix,result_file,schema=layouts[profile]
+    prefix+='/'
     state=terminal_state(api.kernels_status(kernel))
     if state not in TERMINAL:raise ValueError('Recovery kernel is not terminal')
     items,logs=list_outputs(api,kernel)
@@ -39,17 +43,20 @@ def collect(api,kernel,output,fetch=None):
             reported_sha256=expected,reported_hash_verified=expected is not None and expected==actual)
         if expected is not None and expected!=actual:raise ValueError('Reported artifact SHA mismatch')
     try:
-        result_name='recovery/recovery_result.json'
+        result_name=prefix+result_file
         result={}
         if result_name in items:
-            download(result_name,'recovery_result.json')
-            result=json.loads((output/'recovery_result.json').read_text())
-            if result.get('schema')!='defense-semantic-recovery-v1':
+            download(result_name,result_file)
+            result=json.loads((output/result_file).read_text())
+            if result.get('schema')!=schema:
                 raise ValueError('Unexpected recovery result schema')
         receipt['result_status']=result.get('status')
         receipt['result_available']=bool(result)
         planned={}
-        for algorithm,row in result.get('selected_artifacts',{}).items():
+        artifacts=result.get('selected_artifacts',{})
+        if profile=='grpo-account2' and result.get('selected_artifact'):
+            artifacts={'grpo':result['selected_artifact']}
+        for algorithm,row in artifacts.items():
             if algorithm not in ('ppo','grpo') or row.get('path')!=f'selected/{algorithm}.pt':
                 raise ValueError('Unsafe selected recovery artifact path')
             digest=row.get('sha256','')
@@ -62,14 +69,14 @@ def collect(api,kernel,output,fetch=None):
         for pattern in patterns:
             found=[]
             for remote in items:
-                local=remote.removeprefix('recovery/')
-                match=re.fullmatch(pattern,local)if remote.startswith('recovery/')else None
+                local=remote.removeprefix(prefix)
+                match=re.fullmatch(pattern,local)if remote.startswith(prefix)else None
                 if match:found.append((tuple(map(int,match.groups())),local))
             if found:planned.setdefault(max(found)[1],None)
         for local in ('ppo/metrics.jsonl','grpo/updates.jsonl','ppo/config.json','grpo/config.json',
                       'ppo.log','grpo.log'):
-            if 'recovery/'+local in items:planned[local]=None
-        for local,expected in sorted(planned.items()):download('recovery/'+local,local,expected)
+            if prefix+local in items:planned[local]=None
+        for local,expected in sorted(planned.items()):download(prefix+local,local,expected)
         (output/'kernel_log_receipt.json').write_text(json.dumps(logs)+'\n')
         receipt['complete']=True
     finally:
@@ -83,6 +90,7 @@ def main():
     parser.add_argument('--kernel',required=True)
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--watch-seconds',type=int,default=28800)
+    parser.add_argument('--profile',choices=('recovery','grpo-account2'),default='recovery')
     args=parser.parse_args()
     if args.watch_seconds<0:parser.error('Negative observation window')
     from kaggle.api.kaggle_api_extended import KaggleApi
@@ -99,7 +107,7 @@ def main():
             print(json.dumps(dict(observation_error=type(error).__name__,remote_job_changed=False)),flush=True)
         if time.monotonic()>=deadline:raise TimeoutError('Observation ended; remote job unchanged')
         time.sleep(30)
-    print(json.dumps(collect(api,args.kernel,args.output),indent=2),flush=True)
+    print(json.dumps(collect(api,args.kernel,args.output,profile=args.profile),indent=2),flush=True)
 
 
 if __name__=='__main__':main()

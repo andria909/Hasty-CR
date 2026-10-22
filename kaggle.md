@@ -17,6 +17,7 @@ HASTY_KAGGLE_PY=/Users/andriashadrin/.local/share/hastycr-kaggle-cli/bin/python
 - `$HASTY_KAGGLE_PY` — Python того же окружения, для скриптов с Kaggle SDK.
 - Аккаунт: `andriashadrin`.
 - Токен уже настроен вне репозитория: `~/.kaggle/access_token`, права `0600`. Его содержимое не печатаем, не добавляем в Git, архивы, dataset или notebook.
+- Реестр дополнительных токенов разных аккаунтов: `~/.kaggle/access_tokens.json`, также `0600`. Он не является файлом конфигурации CLI. Для отдельного дочернего процесса нужный токен передаётся через `KAGGLE_API_TOKEN`, без изменения рабочего `access_token` и без токена в аргументах команды.
 
 Проверка доступа без вывода токена:
 
@@ -186,3 +187,15 @@ SHA проверяем локально и по закреплённым manifes
 - Выполненные этапы и результаты: [done.md](done.md). План и критерии качества: [plan.md](plan.md).
 
 Рабочая v25 сохраняется отдельно и не заменяется результатом обучения автоматически. Живые бои остаются остановленными.
+
+## Отдельный GRPO на втором аккаунте
+
+По просьбе пользователя запущен [vertel0/hastycr-grpo-account2-20261023](https://www.kaggle.com/code/vertel0/hastycr-grpo-account2-20261023). Второй токен реестра относится к `vertel0`; первый рабочий токен не менялся.
+
+Это отдельное продолжение с последнего доступного completed boundary: update350,269282 шага. Живое состояние первого kernel перенести нельзя, первый kernel не остановлен. На втором аккаунте подготовлен свой приватный dataset с теми же закреплёнными исходниками и checkpoint. Тренер сохраняет прежний `cuda:1` контракт; сервер подтвердил две Tesla T4 и Torch2.11.0+cu128.
+
+- Runner: [run_grpo_account.py](scripts/kaggle/run_grpo_account.py).
+- Пакет, job и receipt: `tmp/kaggle/grpo_account2_20261023/`.
+- Live-счётчики: `live_stream/progress.json` внутри этой папки, проценты есть в `events.jsonl`.
+- Для collector используется `--profile grpo-account2` и аутентификация вторым токеном только в окружении его дочернего процесса. Сборщик уже запущен.
+- Проверка реального обучения, GPU и роста шагов: [grpo_account2_connection_check.json](reports/defense_plan/grpo_account2_connection_check.json).

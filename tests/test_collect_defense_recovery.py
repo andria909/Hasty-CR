@@ -60,3 +60,18 @@ def test_report_path_escape_refused(monkeypatch,tmp_path):
     api,fetch=environment(monkeypatch,selected={'ppo':{'path':'../escape.pt','sha256':'a'*64}})
     with pytest.raises(ValueError,match='Unsafe'):
         collector.collect(api,'owner/kernel',tmp_path/'out',fetch)
+
+
+def test_separate_account_grpo_result_and_selected_artifact(monkeypatch,tmp_path):
+    chosen=b'grpo selected'
+    report=dict(schema='defense-grpo-account2-v1',status='grpo_target_completed_validation_selected',
+        selected_artifact=dict(path='selected/grpo.pt',sha256=hashlib.sha256(chosen).hexdigest()))
+    data={'account2/account2_result.json':json.dumps(report).encode(),
+          'account2/selected/grpo.pt':chosen,'account2/grpo/updates.jsonl':b'{}\n'}
+    monkeypatch.setattr(collector,'list_outputs',lambda api,kernel:({k:NS(url=k)for k in data},[]))
+    def fetch(url,path):
+        with path.open('xb')as stream:stream.write(data[url])
+    receipt=collector.collect(NS(kernels_status=lambda kernel:'COMPLETE'),'other/kernel',tmp_path/'out',fetch,profile='grpo-account2')
+    assert receipt['complete'] and receipt['files']['selected/grpo.pt']['reported_hash_verified']
+    assert (tmp_path/'out/account2_result.json').is_file()
+    assert (tmp_path/'out/grpo/updates.jsonl').is_file()
