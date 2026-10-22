@@ -1,0 +1,1755 @@
+{
+  "schema": "bounded-arm64-mechanics-audit-v1",
+  "sources": [
+    {
+      "path": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "file_bytes": 35264229,
+      "sampled_rows": 4513,
+      "sampled_bytes": 25163488,
+      "sampled_prefix_sha256": "17a23aac64aca083eff21ba643dfa515b68d5bfafcdcbda3d188e8cb2a11a673",
+      "full_file_read": false,
+      "active_clock_rows": 3308,
+      "sampled_battle_segments": 3
+    },
+    {
+      "path": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_series30/remaining/frames.jsonl",
+      "file_bytes": 18992027,
+      "sampled_rows": 3337,
+      "sampled_bytes": 18992027,
+      "sampled_prefix_sha256": "46d62af05b7ab6bd5f7097d6adce40bc9b39bbef74d742aa8510db10bed6eff0",
+      "full_file_read": true,
+      "active_clock_rows": 2902,
+      "sampled_battle_segments": 2
+    },
+    {
+      "path": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_series30/recovery25/frames.jsonl",
+      "file_bytes": 264554010,
+      "sampled_rows": 4160,
+      "sampled_bytes": 25165763,
+      "sampled_prefix_sha256": "f6dc61ab97b85b4da78e97794272ba19320d13c313e2a73096d5512ed412bf2e",
+      "full_file_read": false,
+      "active_clock_rows": 3791,
+      "sampled_battle_segments": 3
+    }
+  ],
+  "current_profile_root": "/Users/andriashadrin/projects/Hasty-CR",
+  "profile_source_sha256": {
+    "sim/public_gamedata.py": "8c7bd1fe3bda0d04995c9d3e4b1d7d363d9dff98251ab617819c83b6012c3682",
+    "sim/entities.py": "91bd66c38c4562a47c188eb398357116010f0d9e9f4f7b6ccc639e3a3f4d826f",
+    "sim/arena.py": "1a0e91ae883908e78db934e6b34da864456050333f2f4fda1ad32a501eeec836"
+  },
+  "speed": {
+    "Archer": {
+      "nominal_current_profile_tiles_per_second": 1.2,
+      "nonoverlapping_windows": 61,
+      "body_tracks": 12,
+      "game_time_speed": {
+        "n": 61,
+        "mean": 1.188340189507512,
+        "median": 1.1859009701957035,
+        "p05": 1.1761948476024826,
+        "p95": 1.2001224427328323,
+        "min": 1.1678949859575782,
+        "max": 1.200275478583894
+      },
+      "device_time_speed": {
+        "n": 61,
+        "mean": 1.1879311697640527,
+        "median": 1.1860376615487904,
+        "p05": 1.1177929428572204,
+        "p95": 1.2529113347050307,
+        "min": 1.0819989279570277,
+        "max": 1.283855333521981
+      },
+      "equally_weighted_body_medians": {
+        "n": 12,
+        "mean": 1.1870348737958551,
+        "median": 1.1867776844208726,
+        "p05": 1.176782294244495,
+        "p95": 1.200139711675293,
+        "min": 1.176782294244495,
+        "max": 1.200139711675293
+      },
+      "body_median_vs_nominal_percent": -1.1018596315939488,
+      "game_clock_rate": {
+        "n": 61,
+        "mean": 0.9996666979139099,
+        "median": 0.9996403360709837,
+        "p05": 0.9409816320386319,
+        "p95": 1.056549693389659,
+        "min": 0.9178715899760721,
+        "max": 1.0704685299604013
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "Barbarian": {
+      "nominal_current_profile_tiles_per_second": 1.2,
+      "nonoverlapping_windows": 6,
+      "body_tracks": 1,
+      "game_time_speed": {
+        "n": 6,
+        "mean": 1.1869999644213478,
+        "median": 1.186217974578964,
+        "p05": 1.1786848430278865,
+        "p95": 1.2004348324595753,
+        "min": 1.1786848430278865,
+        "max": 1.2004348324595753
+      },
+      "device_time_speed": {
+        "n": 6,
+        "mean": 1.177517006259583,
+        "median": 1.1692540270447216,
+        "p05": 1.1519927080607943,
+        "p95": 1.2130612183499412,
+        "min": 1.1519927080607943,
+        "max": 1.2130612183499412
+      },
+      "equally_weighted_body_medians": {
+        "n": 1,
+        "mean": 1.186217974578964,
+        "median": 1.186217974578964,
+        "p05": 1.186217974578964,
+        "p95": 1.186217974578964,
+        "min": 1.186217974578964,
+        "max": 1.186217974578964
+      },
+      "body_median_vs_nominal_percent": -1.1485021184196587,
+      "game_clock_rate": {
+        "n": 6,
+        "mean": 0.9920601982111755,
+        "median": 0.9831092888364881,
+        "p05": 0.9725269243642122,
+        "p95": 1.0218093021407093,
+        "min": 0.9725269243642122,
+        "max": 1.0218093021407093
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "BattleRam": {
+      "nominal_current_profile_tiles_per_second": 1.2,
+      "nonoverlapping_windows": 12,
+      "body_tracks": 6,
+      "game_time_speed": {
+        "n": 12,
+        "mean": 1.260922867265299,
+        "median": 1.1817289974364265,
+        "p05": 1.1409038252462556,
+        "p95": 2.2047264988907904,
+        "min": 1.1409038252462556,
+        "max": 2.2047264988907904
+      },
+      "device_time_speed": {
+        "n": 12,
+        "mean": 1.2617174514308818,
+        "median": 1.1689481373380417,
+        "p05": 1.0943854948890737,
+        "p95": 2.2594950672441816,
+        "min": 1.0943854948890737,
+        "max": 2.2594950672441816
+      },
+      "equally_weighted_body_medians": {
+        "n": 6,
+        "mean": 1.1773125154701876,
+        "median": 1.1789835149512906,
+        "p05": 1.1613927820094911,
+        "p95": 1.1849090545082441,
+        "min": 1.1613927820094911,
+        "max": 1.1849090545082441
+      },
+      "body_median_vs_nominal_percent": -1.7513737540591157,
+      "game_clock_rate": {
+        "n": 12,
+        "mean": 0.9987294045714308,
+        "median": 0.9983543101238272,
+        "p05": 0.9485066460009622,
+        "p95": 1.0625216335520788,
+        "min": 0.9485066460009622,
+        "max": 1.0625216335520788
+      },
+      "profile_has_charge": true,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "Bomber": {
+      "nominal_current_profile_tiles_per_second": 1.2,
+      "nonoverlapping_windows": 17,
+      "body_tracks": 4,
+      "game_time_speed": {
+        "n": 17,
+        "mean": 1.1882864276931004,
+        "median": 1.1852116381553697,
+        "p05": 1.1776377920357215,
+        "p95": 1.200119323456024,
+        "min": 1.1776377920357215,
+        "max": 1.200119323456024
+      },
+      "device_time_speed": {
+        "n": 17,
+        "mean": 1.1851874750410774,
+        "median": 1.1835761780528515,
+        "p05": 1.1151813234935173,
+        "p95": 1.2271753214397987,
+        "min": 1.1151813234935173,
+        "max": 1.2271753214397987
+      },
+      "equally_weighted_body_medians": {
+        "n": 4,
+        "mean": 1.1867571720818337,
+        "median": 1.1874326274003157,
+        "p05": 1.1834276385900235,
+        "p95": 1.1887357949366801,
+        "min": 1.1834276385900235,
+        "max": 1.1887357949366801
+      },
+      "body_median_vs_nominal_percent": -1.0472810499736807,
+      "game_clock_rate": {
+        "n": 17,
+        "mean": 0.9975016593185942,
+        "median": 0.9986201113371926,
+        "p05": 0.9292253709256946,
+        "p95": 1.0380320291256209,
+        "min": 0.9292253709256946,
+        "max": 1.0380320291256209
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "DartBarrell": {
+      "nominal_current_profile_tiles_per_second": 1.8,
+      "nonoverlapping_windows": 2,
+      "body_tracks": 1,
+      "game_time_speed": {
+        "n": 2,
+        "mean": 1.7819778162659379,
+        "median": 1.7819778162659379,
+        "p05": 1.7817968458833904,
+        "p95": 1.7821587866484854,
+        "min": 1.7817968458833904,
+        "max": 1.7821587866484854
+      },
+      "device_time_speed": {
+        "n": 2,
+        "mean": 1.7483962910570439,
+        "median": 1.7483962910570439,
+        "p05": 1.7210650026799517,
+        "p95": 1.7757275794341358,
+        "min": 1.7210650026799517,
+        "max": 1.7757275794341358
+      },
+      "equally_weighted_body_medians": {
+        "n": 1,
+        "mean": 1.7819778162659379,
+        "median": 1.7819778162659379,
+        "p05": 1.7819778162659379,
+        "p95": 1.7819778162659379,
+        "min": 1.7819778162659379,
+        "max": 1.7819778162659379
+      },
+      "body_median_vs_nominal_percent": -1.001232429670118,
+      "game_clock_rate": {
+        "n": 2,
+        "mean": 0.981153366487495,
+        "median": 0.981153366487495,
+        "p05": 0.9659153941462227,
+        "p95": 0.9963913388287673,
+        "min": 0.9659153941462227,
+        "max": 0.9963913388287673
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "ElectroSpirit": {
+      "nominal_current_profile_tiles_per_second": 2.4,
+      "nonoverlapping_windows": 30,
+      "body_tracks": 12,
+      "game_time_speed": {
+        "n": 30,
+        "mean": 2.370089632119622,
+        "median": 2.372685723384772,
+        "p05": 2.343889145529415,
+        "p95": 2.400142500700456,
+        "min": 2.307027596575504,
+        "max": 2.400361662564854
+      },
+      "device_time_speed": {
+        "n": 30,
+        "mean": 2.35870770419114,
+        "median": 2.3539037853042917,
+        "p05": 2.243826831907844,
+        "p95": 2.4956107597543165,
+        "min": 2.239239016729856,
+        "max": 2.5147166998486408
+      },
+      "equally_weighted_body_medians": {
+        "n": 12,
+        "mean": 2.37030231369952,
+        "median": 2.371812829558416,
+        "p05": 2.343889145529415,
+        "p95": 2.4000004251700298,
+        "min": 2.343889145529415,
+        "max": 2.4000004251700298
+      },
+      "body_median_vs_nominal_percent": -1.1744654350659967,
+      "game_clock_rate": {
+        "n": 30,
+        "mean": 0.9952088244413917,
+        "median": 0.9943628479353303,
+        "p05": 0.9424887460876064,
+        "p95": 1.0477364152814874,
+        "min": 0.9395828917472077,
+        "max": 1.049459407312105
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "Giant": {
+      "nominal_current_profile_tiles_per_second": 0.9,
+      "nonoverlapping_windows": 35,
+      "body_tracks": 10,
+      "game_time_speed": {
+        "n": 35,
+        "mean": 0.9556606089142091,
+        "median": 0.9506657173383549,
+        "p05": 0.8759431742096312,
+        "p95": 1.0399999999999998,
+        "min": 0.8698853899888055,
+        "max": 1.0401922899156675
+      },
+      "device_time_speed": {
+        "n": 35,
+        "mean": 0.9544472288696084,
+        "median": 0.9513374852758377,
+        "p05": 0.8657552923781692,
+        "p95": 1.0327387353203301,
+        "min": 0.8253200216739501,
+        "max": 1.0725667766699791
+      },
+      "equally_weighted_body_medians": {
+        "n": 10,
+        "mean": 0.9359176165108528,
+        "median": 0.9483578547046235,
+        "p05": 0.8751954053547046,
+        "p95": 0.9835087438543562,
+        "min": 0.8751954053547046,
+        "max": 0.9835087438543562
+      },
+      "body_median_vs_nominal_percent": 5.373094967180392,
+      "game_clock_rate": {
+        "n": 35,
+        "mean": 0.9990394086652564,
+        "median": 1.0008957370119644,
+        "p05": 0.9420737896975077,
+        "p95": 1.0579035306295244,
+        "min": 0.9330207104359649,
+        "max": 1.0648137814757106
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "GoblinBrawler": {
+      "nominal_current_profile_tiles_per_second": 1.8,
+      "nonoverlapping_windows": 8,
+      "body_tracks": 3,
+      "game_time_speed": {
+        "n": 8,
+        "mean": 1.7611269364483033,
+        "median": 1.7999999999999998,
+        "p05": 1.6500303027520433,
+        "p95": 1.8002499826412997,
+        "min": 1.6500303027520433,
+        "max": 1.8002499826412997
+      },
+      "device_time_speed": {
+        "n": 8,
+        "mean": 1.7510396321146746,
+        "median": 1.7722652527600145,
+        "p05": 1.5470516671423278,
+        "p95": 1.8997055977974373,
+        "min": 1.5470516671423278,
+        "max": 1.8997055977974373
+      },
+      "equally_weighted_body_medians": {
+        "n": 3,
+        "mean": 1.7968564618233334,
+        "median": 1.7999999999999998,
+        "p05": 1.7903194028287008,
+        "p95": 1.8002499826412997,
+        "min": 1.7903194028287008,
+        "max": 1.8002499826412997
+      },
+      "body_median_vs_nominal_percent": -1.1102230246251565e-14,
+      "game_clock_rate": {
+        "n": 8,
+        "mean": 0.9944869292651048,
+        "median": 0.9966663022677467,
+        "p05": 0.9198228135502294,
+        "p95": 1.0768880084777996,
+        "min": 0.9198228135502294,
+        "max": 1.0768880084777996
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "HogRider": {
+      "nominal_current_profile_tiles_per_second": 2.4,
+      "nonoverlapping_windows": 33,
+      "body_tracks": 17,
+      "game_time_speed": {
+        "n": 33,
+        "mean": 2.4048433320321143,
+        "median": 2.3868198247332466,
+        "p05": 2.362448823666757,
+        "p95": 2.4005369221890547,
+        "min": 2.3578533080372535,
+        "max": 3.1718323899694276
+      },
+      "device_time_speed": {
+        "n": 33,
+        "mean": 2.4156144192296463,
+        "median": 2.3916814519919236,
+        "p05": 2.271662531747649,
+        "p95": 2.5363733236955843,
+        "min": 2.2346935801297505,
+        "max": 3.23667968067222
+      },
+      "equally_weighted_body_medians": {
+        "n": 17,
+        "mean": 2.379735113022852,
+        "median": 2.3790880145239632,
+        "p05": 2.362448823666757,
+        "p95": 2.3940864365051806,
+        "min": 2.362448823666757,
+        "max": 2.3940864365051806
+      },
+      "body_median_vs_nominal_percent": -0.8713327281681948,
+      "game_clock_rate": {
+        "n": 33,
+        "mean": 1.0043293726472307,
+        "median": 1.0073369651300104,
+        "p05": 0.9576478979570602,
+        "p95": 1.0465784728043643,
+        "min": 0.9357190269694751,
+        "max": 1.0688755964235745
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": true,
+      "profile_limitations": []
+    },
+    "Knight": {
+      "nominal_current_profile_tiles_per_second": 1.2,
+      "nonoverlapping_windows": 197,
+      "body_tracks": 33,
+      "game_time_speed": {
+        "n": 197,
+        "mean": 1.1816285289963377,
+        "median": 1.1834859750983269,
+        "p05": 1.1612254063894933,
+        "p95": 1.200024654579077,
+        "min": 1.0664296611695596,
+        "max": 1.2003559629834069
+      },
+      "device_time_speed": {
+        "n": 197,
+        "mean": 1.1778557616519016,
+        "median": 1.1813018818644507,
+        "p05": 1.1120503464146931,
+        "p95": 1.2365530428371267,
+        "min": 1.035865303843321,
+        "max": 1.2685614444697249
+      },
+      "equally_weighted_body_medians": {
+        "n": 33,
+        "mean": 1.1803021277586156,
+        "median": 1.1837025891722417,
+        "p05": 1.1503326936684224,
+        "p95": 1.2,
+        "min": 1.1386017224722345,
+        "max": 1.2000355024334037
+      },
+      "body_median_vs_nominal_percent": -1.3581175689798552,
+      "game_clock_rate": {
+        "n": 197,
+        "mean": 0.9968210917478241,
+        "median": 0.9985852676376014,
+        "p05": 0.9458825128055177,
+        "p95": 1.04462150450567,
+        "min": 0.8976542606575456,
+        "max": 1.0677150611708484
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "MiniPekka": {
+      "nominal_current_profile_tiles_per_second": 1.8,
+      "nonoverlapping_windows": 23,
+      "body_tracks": 8,
+      "game_time_speed": {
+        "n": 23,
+        "mean": 1.770378949942754,
+        "median": 1.794439801493333,
+        "p05": 1.637265724692983,
+        "p95": 1.8001303965114428,
+        "min": 1.6270286482487706,
+        "max": 1.8003402456202544
+      },
+      "device_time_speed": {
+        "n": 23,
+        "mean": 1.767955575442386,
+        "median": 1.7641215753552502,
+        "p05": 1.5681219008815939,
+        "p95": 1.8608509118063268,
+        "min": 1.5472386275562953,
+        "max": 1.8910426530090114
+      },
+      "equally_weighted_body_medians": {
+        "n": 8,
+        "mean": 1.7686506924046381,
+        "median": 1.7873729297110297,
+        "p05": 1.640882626442665,
+        "p95": 1.8000003858023863,
+        "min": 1.640882626442665,
+        "max": 1.8000003858023863
+      },
+      "body_median_vs_nominal_percent": -0.7015039049428018,
+      "game_clock_rate": {
+        "n": 23,
+        "mean": 0.9985392597498332,
+        "median": 1.000469039896497,
+        "p05": 0.9509596706988804,
+        "p95": 1.052147727586058,
+        "min": 0.8997687027584302,
+        "max": 1.063505383278224
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "Minion": {
+      "nominal_current_profile_tiles_per_second": 1.8,
+      "nonoverlapping_windows": 3,
+      "body_tracks": 3,
+      "game_time_speed": {
+        "n": 3,
+        "mean": 1.780938536159675,
+        "median": 1.7817968458833908,
+        "p05": 1.7782119867503101,
+        "p95": 1.782806775845324,
+        "min": 1.7782119867503101,
+        "max": 1.782806775845324
+      },
+      "device_time_speed": {
+        "n": 3,
+        "mean": 1.7081047914219094,
+        "median": 1.7231303567035237,
+        "p05": 1.6411971662472589,
+        "p95": 1.7599868513149455,
+        "min": 1.6411971662472589,
+        "max": 1.7599868513149455
+      },
+      "equally_weighted_body_medians": {
+        "n": 3,
+        "mean": 1.780938536159675,
+        "median": 1.7817968458833908,
+        "p05": 1.7782119867503101,
+        "p95": 1.782806775845324,
+        "min": 1.7782119867503101,
+        "max": 1.782806775845324
+      },
+      "body_median_vs_nominal_percent": -1.0112863398116234,
+      "game_clock_rate": {
+        "n": 3,
+        "mean": 0.9591050738697767,
+        "median": 0.9690241487194964,
+        "p05": 0.9210910716555767,
+        "p95": 0.987200001234257,
+        "min": 0.9210910716555767,
+        "max": 0.987200001234257
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "Musketeer": {
+      "nominal_current_profile_tiles_per_second": 1.2,
+      "nonoverlapping_windows": 121,
+      "body_tracks": 20,
+      "game_time_speed": {
+        "n": 121,
+        "mean": 1.1842116974051773,
+        "median": 1.1870083777669342,
+        "p05": 1.1725660930640753,
+        "p95": 1.2000289348363415,
+        "min": 1.0111672382318708,
+        "max": 1.2004177513589915
+      },
+      "device_time_speed": {
+        "n": 121,
+        "mean": 1.1791835513660018,
+        "median": 1.177619859070797,
+        "p05": 1.1081131374743651,
+        "p95": 1.2515197359782095,
+        "min": 1.058884942746451,
+        "max": 1.276549966733882
+      },
+      "equally_weighted_body_medians": {
+        "n": 20,
+        "mean": 1.1859474599208206,
+        "median": 1.1862782310688158,
+        "p05": 1.18129794177663,
+        "p95": 1.188344132723252,
+        "min": 1.18129794177663,
+        "max": 1.1904491718545696
+      },
+      "body_median_vs_nominal_percent": -1.143480744265346,
+      "game_clock_rate": {
+        "n": 121,
+        "mean": 0.9957896905182105,
+        "median": 0.994144350593495,
+        "p05": 0.9377282335858391,
+        "p95": 1.0549347855440638,
+        "min": 0.9236710922686849,
+        "max": 1.0778145539216595
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "Skeleton": {
+      "nominal_current_profile_tiles_per_second": 1.8,
+      "nonoverlapping_windows": 96,
+      "body_tracks": 24,
+      "game_time_speed": {
+        "n": 96,
+        "mean": 1.7805043284742423,
+        "median": 1.7809252269004088,
+        "p05": 1.7537577575564274,
+        "p95": 1.8003402456202544,
+        "min": 1.7229045243425416,
+        "max": 1.8006048366528886
+      },
+      "device_time_speed": {
+        "n": 96,
+        "mean": 1.782658583328065,
+        "median": 1.7791032055306262,
+        "p05": 1.6824992973499973,
+        "p95": 1.8920075284954838,
+        "min": 1.6487881667124211,
+        "max": 1.9051429058626537
+      },
+      "equally_weighted_body_medians": {
+        "n": 24,
+        "mean": 1.779943276180948,
+        "median": 1.7803075862472215,
+        "p05": 1.7365844188483848,
+        "p95": 1.8002785278333397,
+        "min": 1.7229045243425416,
+        "max": 1.8003402456202544
+      },
+      "body_median_vs_nominal_percent": -1.094022986265475,
+      "game_clock_rate": {
+        "n": 96,
+        "mean": 1.001182456399375,
+        "median": 0.9989988373882135,
+        "p05": 0.9487809806575018,
+        "p95": 1.0584007255390526,
+        "min": 0.9263533035966453,
+        "max": 1.0660377590577208
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "SkeletonDragon": {
+      "nominal_current_profile_tiles_per_second": 1.8,
+      "nonoverlapping_windows": 14,
+      "body_tracks": 6,
+      "game_time_speed": {
+        "n": 14,
+        "mean": 1.7686963938487634,
+        "median": 1.779660085441903,
+        "p05": 1.6315886836617435,
+        "p95": 1.7912007146045918,
+        "min": 1.6315886836617435,
+        "max": 1.7912007146045918
+      },
+      "device_time_speed": {
+        "n": 14,
+        "mean": 1.7471942208800963,
+        "median": 1.7447005501256205,
+        "p05": 1.5520776840075472,
+        "p95": 1.849776191678414,
+        "min": 1.5520776840075472,
+        "max": 1.849776191678414
+      },
+      "equally_weighted_body_medians": {
+        "n": 6,
+        "mean": 1.7592705506228252,
+        "median": 1.7842645178215477,
+        "p05": 1.6315886836617435,
+        "p95": 1.7901393447142477,
+        "min": 1.6315886836617435,
+        "max": 1.7901393447142477
+      },
+      "body_median_vs_nominal_percent": -0.8741934543584629,
+      "game_clock_rate": {
+        "n": 14,
+        "mean": 0.9876302664037067,
+        "median": 0.9861719032628399,
+        "p05": 0.950118764845929,
+        "p95": 1.0360006526796524,
+        "min": 0.950118764845929,
+        "max": 1.0360006526796524
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "SpearGoblin": {
+      "nominal_current_profile_tiles_per_second": 2.4,
+      "nonoverlapping_windows": 4,
+      "body_tracks": 1,
+      "game_time_speed": {
+        "n": 4,
+        "mean": 2.3832448829420043,
+        "median": 2.388245654207722,
+        "p05": 2.356428559399914,
+        "p95": 2.4000596639526575,
+        "min": 2.356428559399914,
+        "max": 2.4000596639526575
+      },
+      "device_time_speed": {
+        "n": 4,
+        "mean": 2.3591505770033927,
+        "median": 2.384797554758305,
+        "p05": 2.178829867302869,
+        "p95": 2.488177331194092,
+        "min": 2.178829867302869,
+        "max": 2.488177331194092
+      },
+      "equally_weighted_body_medians": {
+        "n": 1,
+        "mean": 2.388245654207722,
+        "median": 2.388245654207722,
+        "p05": 2.388245654207722,
+        "p95": 2.388245654207722,
+        "min": 2.388245654207722,
+        "max": 2.388245654207722
+      },
+      "body_median_vs_nominal_percent": -0.4897644080115726,
+      "game_clock_rate": {
+        "n": 4,
+        "mean": 0.9896915705749784,
+        "median": 0.996553889533639,
+        "p05": 0.9246322612291407,
+        "p95": 1.041026242003495,
+        "min": 0.9246322612291407,
+        "max": 1.041026242003495
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "Valkyrie": {
+      "nominal_current_profile_tiles_per_second": 1.2,
+      "nonoverlapping_windows": 23,
+      "body_tracks": 6,
+      "game_time_speed": {
+        "n": 23,
+        "mean": 1.1873687022891553,
+        "median": 1.1849090545082441,
+        "p05": 1.1692741512649316,
+        "p95": 1.2001224427328323,
+        "min": 1.1024114980854975,
+        "max": 1.2926739407753849
+      },
+      "device_time_speed": {
+        "n": 23,
+        "mean": 1.192974827740998,
+        "median": 1.197344764449064,
+        "p05": 1.136251514927394,
+        "p95": 1.2605183782853213,
+        "min": 1.0997279817414314,
+        "max": 1.27096835959547
+      },
+      "equally_weighted_body_medians": {
+        "n": 6,
+        "mean": 1.1830345493340515,
+        "median": 1.184936285612359,
+        "p05": 1.1692741512649316,
+        "p95": 1.1880035357383238,
+        "min": 1.1692741512649316,
+        "max": 1.1880035357383238
+      },
+      "body_median_vs_nominal_percent": -1.2553095323034058,
+      "game_clock_rate": {
+        "n": 23,
+        "mean": 1.004923376362151,
+        "median": 1.0057824755547697,
+        "p05": 0.9687417300735813,
+        "p95": 1.0657898392895948,
+        "min": 0.9292253709256946,
+        "max": 1.0726294602609328
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    },
+    "Wizard": {
+      "nominal_current_profile_tiles_per_second": 1.2,
+      "nonoverlapping_windows": 19,
+      "body_tracks": 7,
+      "game_time_speed": {
+        "n": 19,
+        "mean": 1.1890956430630177,
+        "median": 1.186255780924914,
+        "p05": 1.175872834568825,
+        "p95": 1.2002603884157803,
+        "min": 1.175872834568825,
+        "max": 1.2002603884157803
+      },
+      "device_time_speed": {
+        "n": 19,
+        "mean": 1.1853763476037913,
+        "median": 1.1894581503832495,
+        "p05": 1.118400884686601,
+        "p95": 1.2425226452533735,
+        "min": 1.118400884686601,
+        "max": 1.2425226452533735
+      },
+      "equally_weighted_body_medians": {
+        "n": 7,
+        "mean": 1.186632251554591,
+        "median": 1.1862323643461352,
+        "p05": 1.175872834568825,
+        "p95": 1.1999999999999997,
+        "min": 1.175872834568825,
+        "max": 1.1999999999999997
+      },
+      "body_median_vs_nominal_percent": -1.147302971155395,
+      "game_clock_rate": {
+        "n": 19,
+        "mean": 0.9968704320117378,
+        "median": 0.9953752958317919,
+        "p05": 0.9428177128711847,
+        "p95": 1.0441272965432689,
+        "min": 0.9428177128711847,
+        "max": 1.0441272965432689
+      },
+      "profile_has_charge": false,
+      "profile_has_river_jump": false,
+      "profile_limitations": []
+    }
+  },
+  "rejected_candidate_windows": {
+    "stationary_or_turning": 9612,
+    "hp_changed": 8429,
+    "uneven_motion": 2902,
+    "unknown_profile": 476,
+    "near_other_body_or_tower": 7304,
+    "short_track": 3,
+    "capture_gap": 101,
+    "window_game_time_gap": 10
+  },
+  "sample_examples": [
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "HogRider",
+      "side": 1,
+      "entity_id": 5000006,
+      "address": "0x7d304ebea0",
+      "windows": [
+        {
+          "game_tiles_per_second": 2.367417887830811,
+          "device_tiles_per_second": 2.3907996026584035,
+          "game_seconds_per_device_second": 1.0098764628533816,
+          "start_tick": 263,
+          "end_tick": 276
+        },
+        {
+          "game_tiles_per_second": 2.3907581412171153,
+          "device_tiles_per_second": 2.46441858470127,
+          "game_seconds_per_device_second": 1.030810495722773,
+          "start_tick": 279,
+          "end_tick": 293
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Knight",
+      "side": 1,
+      "entity_id": 5000018,
+      "address": "0x7d30628010",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.1859279067464428,
+          "device_tiles_per_second": 1.1795366190313832,
+          "game_seconds_per_device_second": 0.9946107282924188,
+          "start_tick": 572,
+          "end_tick": 584
+        },
+        {
+          "game_tiles_per_second": 1.1837394608236693,
+          "device_tiles_per_second": 1.233179617948217,
+          "game_seconds_per_device_second": 1.041766080088389,
+          "start_tick": 585,
+          "end_tick": 600
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Skeleton",
+      "side": 0,
+      "entity_id": 5000020,
+      "address": "0x7d300eda50",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.7229045243425416,
+          "device_tiles_per_second": 1.6774953250003015,
+          "game_seconds_per_device_second": 0.9736438097987071,
+          "start_tick": 535,
+          "end_tick": 549
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Musketeer",
+      "side": 1,
+      "entity_id": 5000041,
+      "address": "0x7d302e4780",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.1844924858265635,
+          "device_tiles_per_second": 1.099564360457027,
+          "game_seconds_per_device_second": 0.9282999880659675,
+          "start_tick": 1069,
+          "end_tick": 1083
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Knight",
+      "side": 1,
+      "entity_id": 5000044,
+      "address": "0x7d30519270",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.1503326936684224,
+          "device_tiles_per_second": 1.2077255346708804,
+          "game_seconds_per_device_second": 1.0498923844539545,
+          "start_tick": 1095,
+          "end_tick": 1109
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Minion",
+      "side": 0,
+      "entity_id": 5000057,
+      "address": "0x7d302646a0",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.7817968458833908,
+          "device_tiles_per_second": 1.6411971662472589,
+          "game_seconds_per_device_second": 0.9210910716555767,
+          "start_tick": 1233,
+          "end_tick": 1246
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "GoblinBrawler",
+      "side": 0,
+      "entity_id": 5000058,
+      "address": "0x7d3044a2f0",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.8002499826412997,
+          "device_tiles_per_second": 1.8360593894575006,
+          "game_seconds_per_device_second": 1.0198913524018824,
+          "start_tick": 1249,
+          "end_tick": 1261
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Musketeer",
+      "side": 1,
+      "entity_id": 5000065,
+      "address": "0x7d303c1bf0",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.1879393923933999,
+          "device_tiles_per_second": 1.2189211750889062,
+          "game_seconds_per_device_second": 1.0260802721871911,
+          "start_tick": 1434,
+          "end_tick": 1448
+        },
+        {
+          "game_tiles_per_second": 1.1879393923933996,
+          "device_tiles_per_second": 1.1600540715157786,
+          "game_seconds_per_device_second": 0.97652631013318,
+          "start_tick": 1451,
+          "end_tick": 1464
+        },
+        {
+          "game_tiles_per_second": 1.1879393923933996,
+          "device_tiles_per_second": 1.1550700304139818,
+          "game_seconds_per_device_second": 0.972330775298903,
+          "start_tick": 1465,
+          "end_tick": 1477
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "MiniPekka",
+      "side": 0,
+      "entity_id": 5000066,
+      "address": "0x7d30437af0",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.7874266075984826,
+          "device_tiles_per_second": 1.8608509118063268,
+          "game_seconds_per_device_second": 1.0410782204403313,
+          "start_tick": 1540,
+          "end_tick": 1554
+        },
+        {
+          "game_tiles_per_second": 1.7823699401499946,
+          "device_tiles_per_second": 1.740624847737613,
+          "game_seconds_per_device_second": 0.9765788843987862,
+          "start_tick": 1593,
+          "end_tick": 1606
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Knight",
+      "side": 1,
+      "entity_id": 5000067,
+      "address": "0x7d3015d140",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.1690131376406045,
+          "device_tiles_per_second": 1.1992690802921262,
+          "game_seconds_per_device_second": 1.025881610460415,
+          "start_tick": 1686,
+          "end_tick": 1699
+        },
+        {
+          "game_tiles_per_second": 1.1899709110859682,
+          "device_tiles_per_second": 1.1180763097332134,
+          "game_seconds_per_device_second": 0.9395828917472077,
+          "start_tick": 1702,
+          "end_tick": 1715
+        },
+        {
+          "game_tiles_per_second": 1.1737972567696688,
+          "device_tiles_per_second": 1.150288006003903,
+          "game_seconds_per_device_second": 0.979971625738448,
+          "start_tick": 1719,
+          "end_tick": 1731
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "ElectroSpirit",
+      "side": 1,
+      "entity_id": 5000068,
+      "address": "0x7d301bf5c0",
+      "windows": [
+        {
+          "game_tiles_per_second": 2.3481267870973284,
+          "device_tiles_per_second": 2.4089000899126476,
+          "game_seconds_per_device_second": 1.025881610460415,
+          "start_tick": 1686,
+          "end_tick": 1699
+        },
+        {
+          "game_tiles_per_second": 2.3883395237012204,
+          "device_tiles_per_second": 2.2440429561533413,
+          "game_seconds_per_device_second": 0.9395828917472077,
+          "start_tick": 1702,
+          "end_tick": 1715
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Skeleton",
+      "side": 0,
+      "entity_id": 5000075,
+      "address": "0x7d3023df80",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.7654073935797712,
+          "device_tiles_per_second": 1.7952168618608373,
+          "game_seconds_per_device_second": 1.0168853197225034,
+          "start_tick": 1999,
+          "end_tick": 2013
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Knight",
+      "side": 1,
+      "entity_id": 5000088,
+      "address": "0x7d3061c4c0",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.0664296611695596,
+          "device_tiles_per_second": 1.035865303843321,
+          "game_seconds_per_device_second": 0.9713395468645173,
+          "start_tick": 2246,
+          "end_tick": 2258
+        },
+        {
+          "game_tiles_per_second": 1.1630479592671814,
+          "device_tiles_per_second": 1.1632333495826133,
+          "game_seconds_per_device_second": 1.0001594004047336,
+          "start_tick": 2259,
+          "end_tick": 2271
+        },
+        {
+          "game_tiles_per_second": 1.159184266312007,
+          "device_tiles_per_second": 1.2218035133704044,
+          "game_seconds_per_device_second": 1.054020097475635,
+          "start_tick": 2317,
+          "end_tick": 2331
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "ElectroSpirit",
+      "side": 1,
+      "entity_id": 5000090,
+      "address": "0x7d303a2ac0",
+      "windows": [
+        {
+          "game_tiles_per_second": 2.388767105438215,
+          "device_tiles_per_second": 2.4956107597543165,
+          "game_seconds_per_device_second": 1.0447275308140602,
+          "start_tick": 2242,
+          "end_tick": 2255
+        },
+        {
+          "game_tiles_per_second": 2.367658242980932,
+          "device_tiles_per_second": 2.318243590363786,
+          "game_seconds_per_device_second": 0.979129313631459,
+          "start_tick": 2258,
+          "end_tick": 2270
+        },
+        {
+          "game_tiles_per_second": 2.3723131000027045,
+          "device_tiles_per_second": 2.3617433106899735,
+          "game_seconds_per_device_second": 0.9955445217949017,
+          "start_tick": 2271,
+          "end_tick": 2283
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Skeleton",
+      "side": 1,
+      "entity_id": 5000104,
+      "address": "0x7d302c1340",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.7763148494691032,
+          "device_tiles_per_second": 1.8478346457703707,
+          "game_seconds_per_device_second": 1.0402630177429655,
+          "start_tick": 2483,
+          "end_tick": 2495
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Musketeer",
+      "side": 1,
+      "entity_id": 5000111,
+      "address": "0x7d301618f0",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.1879393923933996,
+          "device_tiles_per_second": 1.146370597709813,
+          "game_seconds_per_device_second": 0.9650076468970056,
+          "start_tick": 2801,
+          "end_tick": 2814
+        },
+        {
+          "game_tiles_per_second": 1.1879393923933999,
+          "device_tiles_per_second": 1.1302334398614629,
+          "game_seconds_per_device_second": 0.951423487678379,
+          "start_tick": 2817,
+          "end_tick": 2831
+        },
+        {
+          "game_tiles_per_second": 1.1879393923933996,
+          "device_tiles_per_second": 1.1862974420563395,
+          "game_seconds_per_device_second": 0.998617816407492,
+          "start_tick": 2835,
+          "end_tick": 2847
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Knight",
+      "side": 1,
+      "entity_id": 5000117,
+      "address": "0x7d302c1340",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.1860860002546187,
+          "device_tiles_per_second": 1.1618765270793354,
+          "game_seconds_per_device_second": 0.9795887708226163,
+          "start_tick": 2627,
+          "end_tick": 2639
+        },
+        {
+          "game_tiles_per_second": 1.0911174446898504,
+          "device_tiles_per_second": 1.086841212758561,
+          "game_seconds_per_device_second": 0.9960808692482183,
+          "start_tick": 2736,
+          "end_tick": 2749
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "HogRider",
+      "side": 1,
+      "entity_id": 5000122,
+      "address": "0x7d30553410",
+      "windows": [
+        {
+          "game_tiles_per_second": 2.3791291728911594,
+          "device_tiles_per_second": 2.3604240217806405,
+          "game_seconds_per_device_second": 0.9921378160868044,
+          "start_tick": 2856,
+          "end_tick": 2869
+        },
+        {
+          "game_tiles_per_second": 2.3881145542583075,
+          "device_tiles_per_second": 2.4806393805913127,
+          "game_seconds_per_device_second": 1.0387438810956626,
+          "start_tick": 2870,
+          "end_tick": 2883
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Skeleton",
+      "side": 1,
+      "entity_id": 5000151,
+      "address": "0x7d3023f200",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.783629701267223,
+          "device_tiles_per_second": 1.8401446717234329,
+          "game_seconds_per_device_second": 1.0316853719222423,
+          "start_tick": 3371,
+          "end_tick": 3384
+        },
+        {
+          "game_tiles_per_second": 1.7773841578129483,
+          "device_tiles_per_second": 1.7575475505159093,
+          "game_seconds_per_device_second": 0.9888394373215029,
+          "start_tick": 3387,
+          "end_tick": 3399
+        },
+        {
+          "game_tiles_per_second": 1.7807309672653464,
+          "device_tiles_per_second": 1.6824992973499973,
+          "game_seconds_per_device_second": 0.9448363218694384,
+          "start_tick": 3402,
+          "end_tick": 3414
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "Knight",
+      "side": 1,
+      "entity_id": 5000153,
+      "address": "0x7d30603260",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.1800160464258465,
+          "device_tiles_per_second": 1.1771182222180632,
+          "game_seconds_per_device_second": 0.9975442501679868,
+          "start_tick": 3374,
+          "end_tick": 3387
+        },
+        {
+          "game_tiles_per_second": 1.1808702036506054,
+          "device_tiles_per_second": 1.1839958762572975,
+          "game_seconds_per_device_second": 1.002646923088608,
+          "start_tick": 3409,
+          "end_tick": 3422
+        },
+        {
+          "game_tiles_per_second": 1.1760861780604568,
+          "device_tiles_per_second": 1.1577793846799167,
+          "game_seconds_per_device_second": 0.9844341395026589,
+          "start_tick": 3425,
+          "end_tick": 3438
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 1,
+      "name": "GoblinBrawler",
+      "side": 0,
+      "entity_id": 5000160,
+      "address": "0x7d304a8900",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.7999999999999998,
+          "device_tiles_per_second": 1.7153618481119486,
+          "game_seconds_per_device_second": 0.9529788045066382,
+          "start_tick": 3685,
+          "end_tick": 3698
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 2,
+      "name": "MiniPekka",
+      "side": 0,
+      "entity_id": 5000006,
+      "address": "0x7d301f7df0",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.7868202289576431,
+          "device_tiles_per_second": 1.7523332663847553,
+          "game_seconds_per_device_second": 0.9806992544554938,
+          "start_tick": 235,
+          "end_tick": 249
+        },
+        {
+          "game_tiles_per_second": 1.8003402456202544,
+          "device_tiles_per_second": 1.8011846770227198,
+          "game_seconds_per_device_second": 1.000469039896497,
+          "start_tick": 257,
+          "end_tick": 269
+        },
+        {
+          "game_tiles_per_second": 1.8000007716047728,
+          "device_tiles_per_second": 1.8068124515331858,
+          "game_seconds_per_device_second": 1.0037842650046978,
+          "start_tick": 284,
+          "end_tick": 296
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 2,
+      "name": "HogRider",
+      "side": 1,
+      "entity_id": 5000007,
+      "address": "0x7d301b0e80",
+      "windows": [
+        {
+          "game_tiles_per_second": 2.3705678300218898,
+          "device_tiles_per_second": 2.464511333454389,
+          "game_seconds_per_device_second": 1.0396291142749674,
+          "start_tick": 249,
+          "end_tick": 263
+        },
+        {
+          "game_tiles_per_second": 2.387933788399037,
+          "device_tiles_per_second": 2.4389195686426004,
+          "game_seconds_per_device_second": 1.021351421254333,
+          "start_tick": 266,
+          "end_tick": 278
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 2,
+      "name": "Wizard",
+      "side": 0,
+      "entity_id": 5000008,
+      "address": "0x7d3055d3a0",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.1857721347525227,
+          "device_tiles_per_second": 1.173032189910126,
+          "game_seconds_per_device_second": 0.989255992387563,
+          "start_tick": 275,
+          "end_tick": 287
+        },
+        {
+          "game_tiles_per_second": 1.1822765233978798,
+          "device_tiles_per_second": 1.1527503449420848,
+          "game_seconds_per_device_second": 0.9750259961426484,
+          "start_tick": 290,
+          "end_tick": 302
+        },
+        {
+          "game_tiles_per_second": 1.190378091196238,
+          "device_tiles_per_second": 1.1956705935633087,
+          "game_seconds_per_device_second": 1.0044460683594674,
+          "start_tick": 305,
+          "end_tick": 317
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 2,
+      "name": "Musketeer",
+      "side": 1,
+      "entity_id": 5000009,
+      "address": "0x7d304071f0",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.175085103301033,
+          "device_tiles_per_second": 1.1338207205058073,
+          "game_seconds_per_device_second": 0.9648839197439348,
+          "start_tick": 530,
+          "end_tick": 542
+        },
+        {
+          "game_tiles_per_second": 1.1876783578295955,
+          "device_tiles_per_second": 1.1728336650013023,
+          "game_seconds_per_device_second": 0.9875010833274582,
+          "start_tick": 543,
+          "end_tick": 556
+        },
+        {
+          "game_tiles_per_second": 1.1847652252886451,
+          "device_tiles_per_second": 1.185684586876009,
+          "game_seconds_per_device_second": 1.0007759863032273,
+          "start_tick": 559,
+          "end_tick": 572
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 2,
+      "name": "Knight",
+      "side": 1,
+      "entity_id": 5000010,
+      "address": "0x7d3051f5e0",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.1867286968806305,
+          "device_tiles_per_second": 1.1819289974753147,
+          "game_seconds_per_device_second": 0.9959555209055515,
+          "start_tick": 378,
+          "end_tick": 390
+        },
+        {
+          "game_tiles_per_second": 1.1815479489024368,
+          "device_tiles_per_second": 1.202995689886088,
+          "game_seconds_per_device_second": 1.0181522391906097,
+          "start_tick": 391,
+          "end_tick": 403
+        },
+        {
+          "game_tiles_per_second": 1.1800311306858622,
+          "device_tiles_per_second": 1.1390569465433955,
+          "game_seconds_per_device_second": 0.9652770311926842,
+          "start_tick": 406,
+          "end_tick": 420
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 2,
+      "name": "Skeleton",
+      "side": 1,
+      "entity_id": 5000013,
+      "address": "0x7d3030d150",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.7786011981954306,
+          "device_tiles_per_second": 1.7744009191461803,
+          "game_seconds_per_device_second": 0.9976384368494118,
+          "start_tick": 414,
+          "end_tick": 426
+        },
+        {
+          "game_tiles_per_second": 1.779924870430968,
+          "device_tiles_per_second": 1.8048127748969056,
+          "game_seconds_per_device_second": 1.013982558971667,
+          "start_tick": 427,
+          "end_tick": 440
+        },
+        {
+          "game_tiles_per_second": 1.7775629883395954,
+          "device_tiles_per_second": 1.7869566510694468,
+          "game_seconds_per_device_second": 1.0052845737627705,
+          "start_tick": 443,
+          "end_tick": 456
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 2,
+      "name": "Knight",
+      "side": 0,
+      "entity_id": 5000014,
+      "address": "0x7d304eff60",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.2,
+          "device_tiles_per_second": 1.2009311835638725,
+          "game_seconds_per_device_second": 1.0007759863032273,
+          "start_tick": 559,
+          "end_tick": 572
+        },
+        {
+          "game_tiles_per_second": 1.1999999999999997,
+          "device_tiles_per_second": 1.2349473807429339,
+          "game_seconds_per_device_second": 1.0291228172857783,
+          "start_tick": 573,
+          "end_tick": 585
+        },
+        {
+          "game_tiles_per_second": 1.2,
+          "device_tiles_per_second": 1.217477910596269,
+          "game_seconds_per_device_second": 1.014564925496891,
+          "start_tick": 587,
+          "end_tick": 600
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 2,
+      "name": "ElectroSpirit",
+      "side": 1,
+      "entity_id": 5000015,
+      "address": "0x7d30360e90",
+      "windows": [
+        {
+          "game_tiles_per_second": 2.363946154234132,
+          "device_tiles_per_second": 2.4060963349162954,
+          "game_seconds_per_device_second": 1.0178304318000928,
+          "start_tick": 453,
+          "end_tick": 466
+        },
+        {
+          "game_tiles_per_second": 2.3585453379384314,
+          "device_tiles_per_second": 2.244372842098318,
+          "game_seconds_per_device_second": 0.9515919859569416,
+          "start_tick": 467,
+          "end_tick": 479
+        },
+        {
+          "game_tiles_per_second": 2.3462712735080076,
+          "device_tiles_per_second": 2.3642073959591854,
+          "game_seconds_per_device_second": 1.0076445220353232,
+          "start_tick": 482,
+          "end_tick": 494
+        }
+      ]
+    },
+    {
+      "source": "/Users/andriashadrin/projects/Hasty-CR/tmp/live/memory_v25_20261022_final3/frames.jsonl",
+      "segment": 2,
+      "name": "GoblinBrawler",
+      "side": 0,
+      "entity_id": 5000018,
+      "address": "0x7d30611bf0",
+      "windows": [
+        {
+          "game_tiles_per_second": 1.6580964005356826,
+          "device_tiles_per_second": 1.7855841306370792,
+          "game_seconds_per_device_second": 1.0768880084777996,
+          "start_tick": 752,
+          "end_tick": 766
+        },
+        {
+          "game_tiles_per_second": 1.6500303027520433,
+          "device_tiles_per_second": 1.5470516671423278,
+          "game_seconds_per_device_second": 0.9375898518724414,
+          "start_tick": 813,
+          "end_tick": 825
+        },
+        {
+          "game_tiles_per_second": 1.7999999999999998,
+          "device_tiles_per_second": 1.809926984497741,
+          "game_seconds_per_device_second": 1.005514991387634,
+          "start_tick": 828,
+          "end_tick": 841
+        }
+      ]
+    }
+  ],
+  "observed_names": {
+    "KingTower": 21344,
+    "PrincessTower": 39682,
+    "Mortar": 4,
+    "Valkyrie": 977,
+    "Cannon_EV1": 2,
+    "HogRider": 1705,
+    "Goblin_Stab": 2131,
+    "Minion": 2478,
+    "SpearGoblin": 1676,
+    "Tombstone": 1108,
+    "Knight": 4993,
+    "Skeleton": 10978,
+    "ElectroSpirit": 894,
+    "GoblinHut_Rework": 32,
+    "SpearGoblin_Dummy": 93,
+    "Musketeer": 3987,
+    "GoblinCage": 169,
+    "GoblinBrawler": 922,
+    "MiniPekka": 1258,
+    "Cannon": 3528,
+    "Wizard": 1129,
+    "Barbarian": 2888,
+    "BattleRam": 341,
+    "Archer": 2646,
+    "Bomber": 480,
+    "Giant": 1910,
+    "SkeletonDragon": 697,
+    "GiantHero": 153,
+    "DartBarrell": 55
+  },
+  "unmapped_names": [
+    "Cannon_EV1",
+    "GiantHero",
+    "GoblinHut_Rework",
+    "Goblin_Stab",
+    "SpearGoblin_Dummy"
+  ],
+  "actual_target_fields": {},
+  "targeting": {
+    "verified_actual_target_uid_labels": 0,
+    "accuracy_percent": null,
+    "status": "not_measurable_without_actual_target_UIDs; no HP/geometry proxy labels used"
+  },
+  "native_tower_positions": [
+    {
+      "side": 0,
+      "name": "KingTower",
+      "x": 9000,
+      "y": 3000
+    },
+    {
+      "side": 0,
+      "name": "PrincessTower",
+      "x": 3500,
+      "y": 6500
+    },
+    {
+      "side": 0,
+      "name": "PrincessTower",
+      "x": 14500,
+      "y": 6500
+    },
+    {
+      "side": 1,
+      "name": "KingTower",
+      "x": 9000,
+      "y": 29000
+    },
+    {
+      "side": 1,
+      "name": "PrincessTower",
+      "x": 3500,
+      "y": 25500
+    },
+    {
+      "side": 1,
+      "name": "PrincessTower",
+      "x": 14500,
+      "y": 25500
+    }
+  ],
+  "sim_tower_positions": {
+    "enemy_king": {
+      "x": 9500,
+      "y": 3500
+    },
+    "ally_king": {
+      "x": 9500,
+      "y": 28500
+    },
+    "enemy_princess": {
+      "left": {
+        "x": 3500,
+        "y": 7500
+      },
+      "right": {
+        "x": 14500,
+        "y": 7500
+      }
+    },
+    "ally_princess": {
+      "left": {
+        "x": 3500,
+        "y": 24500
+      },
+      "right": {
+        "x": 14500,
+        "y": 24500
+      }
+    }
+  },
+  "limitations": [
+    "Bounded file prefixes; this is not all 25 matches or an independent benchmark.",
+    "Engine clock interpreted as20Hz per reader contract; no independent pixel-clock audit performed here.",
+    "Filters identify free-motion candidates, not proof of absent buffs, charge, attack state or network interpolation.",
+    "Nonoverlapping windows from one body remain dependent; body-track medians are also reported.",
+    "Native level_index and movement/status effects are not calibrated; profiles use explicit level11.",
+    "No actual attack target UID in sampled schema; targeting accuracy is unavailable.",
+    "No device access, new battles, screenshot inference, training or changes to simulator physics."
+  ]
+}
