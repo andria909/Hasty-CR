@@ -40,6 +40,8 @@ def valid_hash(value):
 
 def add_member(members,name,contents):
     safe_name(name)
+    if re.search(rb'KGAT_[A-Za-z0-9]{12,}',contents):
+        raise ValueError('Credential-like content found in explicit evaluation input')
     if name in members and digest(members[name])!=digest(contents):
         raise ValueError(f'Conflicting duplicate archive path: {name}')
     members[name]=contents
@@ -68,7 +70,7 @@ def verified_frozen_package(source):
             if name not in expected:raise ValueError(f'Unlisted frozen member: {name}')
             contents=stream.extractfile(member).read()
             if digest(contents)!=expected[name]:raise ValueError(f'Frozen file SHA256 mismatch: {name}')
-            members[name]=contents
+            add_member(members,name,contents)
     if set(members)!=set(expected):raise ValueError('Frozen manifest files are missing from archive')
     # Verify explicitly described external weights without scanning directories.
     external={}

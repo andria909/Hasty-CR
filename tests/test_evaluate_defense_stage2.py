@@ -49,12 +49,12 @@ def test_archive_and_explicit_extracted_mounts_verify_identical_bytes(tmp_path,a
 
 def candidate_fixture(tmp_path,manifest):
     source=tmp_path/'stage2';source.mkdir()
-    result=dict(status='passed',input_checkpoint_sha256=manifest['checkpoint_sha256'],warmstarts=manifest['warmstarts'])
+    result=dict(status='passed',input_checkpoint_sha256=manifest['checkpoint_sha256'],warmstarts=manifest['warmstarts'],targets={'ppo_steps':2048000,'grpo_steps':1000000})
     for name in ('ppo','grpo'):
         folder=source/name;folder.mkdir();checkpoint=folder/'best_validation_u000100.pt';checkpoint.write_bytes(name.encode())
         # Other checkpoints never affect selection.
         (folder/'final_later.pt').write_bytes(b'not-selected')
-        result[name]=dict(returncode=0,selected_checkpoint=checkpoint.relative_to(source).as_posix(),selected_sha256=sha(checkpoint.read_bytes()))
+        result[name]=dict(returncode=0,step=result['targets'][name+'_steps'],selected_checkpoint=checkpoint.relative_to(source).as_posix(),selected_sha256=sha(checkpoint.read_bytes()))
         result[name+'_validation']=dict(returncode=0)
     path=source/'stage2_result.json';path.write_text(json.dumps(result))
     return source,result,path
@@ -117,3 +117,12 @@ def test_complete_observed_evaluation_with_quality_flags_remains_undetermined():
     duels['head_to_head']=rows[:-1]
     with pytest.raises(ValueError,match='off-protocol duel'):
         aggregate_candidate(p,defense,duels,candidate,acceptance_gate)
+
+
+def test_budget_stop_without_requested_steps_cannot_touch_final_test(tmp_path):
+    _,manifest,_,_=frozen_fixture(tmp_path)
+    source,result,path=candidate_fixture(tmp_path,manifest)
+    result['grpo']['step']=999999
+    path.write_text(json.dumps(result))
+    with pytest.raises(ValueError,match='step target has not been reached'):
+        selected_candidates(source,sha(path.read_bytes()),manifest)

@@ -138,3 +138,16 @@ def test_archive_symlinks_are_rejected_even_when_manifest_names_match(tmp_path,m
     (source/'manifest.json').write_text(json.dumps(manifest))
     with pytest.raises(ValueError,match='Only regular frozen'):
         build_package(source,baseline,tmp_path/'bad',project_root=root,owner='owner',slug='frozen-eval')
+
+
+def test_credential_like_frozen_content_is_refused_before_output(tmp_path,monkeypatch):
+    root,source,baseline,members=fixture_package(tmp_path,monkeypatch)
+    members['sim/frozen.py']=b'KG'+b'AT_'+b'a'*32
+    write_tar(source/'source.tar.gz',members)
+    manifest=json.loads((source/'manifest.json').read_text())
+    manifest['files']={name:digest(data)for name,data in members.items()}
+    manifest['archive_sha256']=digest((source/'source.tar.gz').read_bytes())
+    (source/'manifest.json').write_text(json.dumps(manifest))
+    with pytest.raises(ValueError,match='Credential-like'):
+        build_package(source,baseline,tmp_path/'bad',project_root=root,owner='owner',slug='frozen-eval')
+    assert not(tmp_path/'bad').exists()

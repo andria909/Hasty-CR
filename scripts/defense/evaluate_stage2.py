@@ -89,9 +89,14 @@ def selected_candidates(stage2_input,result_sha,manifest):
         raise ValueError('Stage2 v25 provenance mismatch')
     if result.get('warmstarts')!=manifest.get('warmstarts'):
         raise ValueError('Stage2 warmstart provenance mismatch')
+    required_steps={'ppo':2048000,'grpo':1000000}
+    if result.get('targets')!={name+'_steps':steps for name,steps in required_steps.items()}:
+        raise ValueError('Stage2 training targets differ from the requested long run')
     selected={}
     for name in ('ppo','grpo'):
         row=result[name]
+        if not isinstance(row.get('step'),int) or row['step']<required_steps[name]:
+            raise ValueError('Stage2 training step target has not been reached; resume training before final test')
         if row.get('returncode')!=0 or result.get(name+'_validation',{}).get('returncode')!=0:
             raise ValueError('Candidate training/validation command failed')
         relative=relative_path(row['selected_checkpoint'])
