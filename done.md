@@ -59,6 +59,12 @@
 
 ## Проверка Kaggle
 
+- Сбой GRPO воспроизведён на всех140 SHA-проверенных файлах frozen-пакета без градиентов: легальная Cannon/cycle защита удерживает живую Firecracker боем/отдачей до45,05с, script_index1. В текущей среде добавлен latched escort_engaged: полный пуш продолжается после WINDUP/ATTACKING или фактического урона escort. Arrival/death и invalid guard сохранены, причины триггеров пишутся в метрики. Регрессия и сопутствующие проверки:51 тест прошёл. Активный frozen-код этим не исправлен и GRPO ещё не перезапущен.
+- Подготовлен и запущен terminal-only наблюдатель [восстановления outputs](scripts/kaggle/recover_defense_outputs.py): после завершения общего kernel выбирает четыре явно ограниченные роли checkpoint и полные метрики по metadata. Установленный SDK не выдаёт remote SHA; локальные SHA и этот предел проверки явно записываются в receipt. Пять синтетических тестов прошли; скачивание ещё не выполнено.
+
+- По живому логу выявлена остановка GRPO на378 группах/292766 шагах: legitimate задержка Firecracker защитой приводит к invalid_script_trigger_timeout. [Ошибка](reports/defense_plan/stage2_grpo_failure.json). PPO продолжает работать, общий kernel не перезапускался; исправление среды и восстановление обучения ещё не завершены.
+- Hold-only аудит нового anchor-профиля завершил1868 сценариев за166,16с:1298 cleared/570 own_king_destroyed, без invalid/timeout. [Сводка](reports/defense_plan/catalog_hold_audit_v10_native.summary.json). Это проверка без активной защиты; найденный policy-dependent сбой GRPO она не покрывает.
+
 - Создан и запущен наблюдатель [scripts/kaggle/collect_defense_stage2.py](scripts/kaggle/collect_defense_stage2.py): после удалённого терминального статуса скачивает полные train-JSONL и только явно указанные final/validation/resume-веса, проверяет SHA и пишет receipt. Восемь тестов прошли; скачивание и обучение ещё не завершены.
 
 - Установлен отдельный CLI, проверена авторизация API, входные данные и задание созданы приватно.

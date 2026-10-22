@@ -20,7 +20,7 @@ from sim.defense_assets import load_defense_assets
 from sim.env import (ACTIONS, CARD_ACTIONS, DECK_26, GRID_H, GRID_W,
                      ClashEnv, observe, _placeable)
 from sim.gamedata import load_characters, load_gamedata, to_snake_case
-from sim.entities import Entity
+from sim.entities import Entity, WINDUP, ATTACKING
 from sim.match import Match, SINGLE_MS
 from sim.reward_events import score_spell_cast
 from sim.runner import resolve_deck
@@ -184,6 +184,8 @@ class DefenseEnv(ClashEnv):
         self._script_index=0
         self._bridge_ready=set()
         self._script_seen_units=set()
+        self._script_engaged_units=set()
+        self._script_trigger_reasons={}
         self._pending=None
         self.phase='defense'
         self.terminal_reason=None
@@ -238,6 +240,12 @@ class DefenseEnv(ClashEnv):
             if unit.alive and unit.side==-1 and not unit.is_tower:
                 name=to_snake_case(unit.name)
                 self._script_seen_units.add(name)
+                # Ranged escorts can fight and recoil indefinitely before the
+                # bridge threshold. Once combat begins, waiting for arrival
+                # would let a legitimate defender policy deadlock the push.
+                if (unit.state in (WINDUP,ATTACKING) or
+                        0<unit.hitpoints<unit.max_hitpoints):
+                    self._script_engaged_units.add(name)
                 if unit.pos.y>=11500:
                     self._bridge_ready.add(name)
         while self._script_index<len(self.scenario.plays):
@@ -248,11 +256,17 @@ class DefenseEnv(ClashEnv):
                 name=to_snake_case(self._cards[event.near_bridge_after].unit.name)
                 units=[u for u in self.match.battle.entities.values()if u.alive and
                        u.side==-1 and not u.is_tower and to_snake_case(u.name)==name]
-                # Arrival is latched: later death must not erase the trigger.
-                # If the escort dies on approach, continue the scheduled attack
-                # rather than waiting forever for an impossible arrival.
-                ready=(name in self._bridge_ready or any(u.pos.y>=11500 for u in units)
-                       or (name in self._script_seen_units and not units))
+                # Preserve the complete push after arrival, actual engagement,
+                # or defeat of a previously seen escort. Mere target acquisition
+                # or slow movement is not evidence of combat.
+                reason=('bridge_arrival' if name in self._bridge_ready or any(u.pos.y>=11500 for u in units)
+                        else 'escort_defeated' if name in self._script_seen_units and not units
+                        else 'escort_engaged' if name in self._script_engaged_units else None)
+                ready=reason is not None
+                if ready:
+                    self._script_trigger_reasons.setdefault(self._script_index,dict(
+                        event_index=self._script_index,card=event.card,escort=event.near_bridge_after,
+                        reason=reason,at_ms=self.match.elapsed_ms))
                 if not ready:
                     if self.match.elapsed_ms>event.at_ms+event.max_wait_ms:
                         self.terminal_reason='invalid_script_trigger_timeout'
@@ -413,6 +427,7 @@ class DefenseEnv(ClashEnv):
                     illegal_actions=self._illegal,no_tower_damage=not any(losses.values()),
                     unavoidable_tower_damage=self.scenario.unavoidable_tower_damage,
                     script_plays_completed=self._script_index,script_plays_total=len(self.scenario.plays),
+                    script_trigger_reasons=list(self._script_trigger_reasons.values()),
                     public_history_mode=self.public_history_mode,coverage_flags=flags,
                     geometry=self.geometry.profile_id,geometry_sha256=self.geometry.fingerprint,
                     coordinate_mode=self.coordinate_mode)
@@ -510,6 +525,8 @@ class DefenseEnv(ClashEnv):
         self.__dict__=deepcopy(snapshot)
         self.geometry=previous_geometry
         self.coordinate_mode=previous_coordinates
+        self.__dict__.setdefault('_script_engaged_units',set())
+        self.__dict__.setdefault('_script_trigger_reasons',{})
         return self._observe(),self._info()
 
     def close(self):

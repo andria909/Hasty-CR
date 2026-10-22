@@ -16,6 +16,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--difficulty',action='append')
+    parser.add_argument('--geometry',choices=('legacy_v1','native_anchors_candidate_v1'),default='legacy_v1')
+    parser.add_argument('--coordinate-mode',choices=('physical_live','legacy_training','physical_live_cells_v2'),default='physical_live')
     args=parser.parse_args()
     if args.output.exists():raise FileExistsError(args.output)
     scenarios,_=build_catalog()
@@ -23,12 +25,12 @@ def main():
     counts=Counter()
     start=time.monotonic()
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    metadata={'seed':42,'defender':'hold_only','catalog_sha256':hashlib.sha256(json.dumps([s.to_dict()for s in scenarios],sort_keys=True).encode()).hexdigest(),
-              'source_sha256':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest()for name in ('sim/defense_env.py','sim/defense_scenarios.py','sim/public_gamedata.py','sim/public_scenario_spells.py','sim/engine.py','sim/pathfind.py','sim/defense_assets.py','sim/public_area_spells.py','sim/public_stat_scaling.py','sim/entities.py','sim/gamedata.py','sim/spells.py','sim/match.py')},'scenario_count':len(scenarios)}
+    metadata={'seed':42,'defender':'hold_only','geometry':args.geometry,'coordinate_mode':args.coordinate_mode,'catalog_sha256':hashlib.sha256(json.dumps([s.to_dict()for s in scenarios],sort_keys=True).encode()).hexdigest(),
+              'source_sha256':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest()for name in ('sim/arena.py','sim/env.py','sim/policy_coordinates.py','sim/defense_env.py','sim/defense_scenarios.py','sim/public_gamedata.py','sim/public_scenario_spells.py','sim/engine.py','sim/pathfind.py','sim/defense_assets.py','sim/public_area_spells.py','sim/public_stat_scaling.py','sim/entities.py','sim/gamedata.py','sim/spells.py','sim/match.py')},'scenario_count':len(scenarios)}
     args.output.with_suffix('.metadata.json').write_text(json.dumps(metadata,indent=2)+'\n')
     with args.output.open('x') as stream:
         for index,scenario in enumerate(scenarios):
-            env=DefenseEnv(scenario=scenario,split=scenario.split)
+            env=DefenseEnv(scenario=scenario,split=scenario.split,geometry=args.geometry,coordinate_mode=args.coordinate_mode)
             env.reset(seed=42)
             for _ in range(1000):
                 _,_,terminal,truncated,info=env.step(0)
