@@ -1,0 +1,533 @@
+{
+  "schema": "defense-v1",
+  "scenarios": 1860,
+  "families": 285,
+  "by_split": {
+    "train": 1336,
+    "validation": 288,
+    "test": 236
+  },
+  "by_difficulty": {
+    "simple": 468,
+    "medium": 696,
+    "complex": 408,
+    "impossible": 288
+  },
+  "missing_requested_families": [],
+  "supported_playable_cards": 117,
+  "snapshot_playable_cards": 120,
+  "missing_playable_cards": [
+    "elixir_collector",
+    "mirror",
+    "party_rocket"
+  ],
+  "spell_audit": {
+    "heal": {
+      "playable_card": false,
+      "supported": false,
+      "missing": [
+        "not_in_playable_card_catalogue"
+      ],
+      "limitations": [
+        "Heal row belongs to heal_spirit; not a separate playable Heal spell."
+      ],
+      "sources": [],
+      "level": 11
+    },
+    "rage": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [
+        "Engine aura does not alter spawner production cadence."
+      ],
+      "sources": [
+        "combat_rules.json:rage"
+      ],
+      "level": 11
+    },
+    "rocket": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [
+        "Common cast_spell uses constant-speed travel; projectile gravity trajectory is not modeled."
+      ],
+      "sources": [
+        "cards_stats_projectile.json:RocketSpell",
+        "combat_rules.json:rocket"
+      ],
+      "level": 11
+    },
+    "goblin_barrel": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [
+        "Requires battle.unit_lookup(\"Goblin\").",
+        "Common engine uses a fixed 0.5-tile circular spawn layout, not an audited barrel placement graph.",
+        "Common cast_spell uses constant-speed travel; projectile gravity trajectory is not modeled."
+      ],
+      "sources": [
+        "cards_stats_projectile.json:GoblinBarrelSpell",
+        "combat_rules.json:goblin_barrel"
+      ],
+      "level": 11
+    },
+    "arrows": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [
+        "Cast-to-first-wave projectile flight timing is absent from the portable rule; waves start at cast."
+      ],
+      "sources": [
+        "combat_rules.json:arrows",
+        "cards_stats_projectile.json:ArrowsSpell"
+      ],
+      "level": 11
+    },
+    "freeze": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [],
+      "sources": [
+        "cards_stats_spell.json:Freeze",
+        "combat_rules.json:freeze"
+      ],
+      "level": 11
+    },
+    "lightning": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [],
+      "sources": [
+        "cards_stats_spell.json:Lightning",
+        "cards_stats_projectile.json:LighningSpell",
+        "combat_rules.json:lightning"
+      ],
+      "level": 11
+    },
+    "graveyard": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [
+        "Explicit opt-in to an existing client-action transcription; original graveyard_rework.toml is unavailable.",
+        "Twelve offsets/delays and 500ms deploy are reused unchanged from the existing client loader.",
+        "Exact timing/positions are not independently verified against the current game.",
+        "Official June 2026 confirms the count of twelve, not this exact graph."
+      ],
+      "sources": [
+        "sim/spells.py:_GRAVEYARD_EVENTS@c1c342c",
+        "sim/spells.py:load_spells area_spawn_deploy_time_ms@c1c342c",
+        "cards_stats_spell.json:Graveyard (indicator radius only)"
+      ],
+      "level": 11,
+      "independently_verified": false
+    },
+    "poison": {
+      "supported": true,
+      "source_stats_exact": true,
+      "mechanics_verified": false,
+      "level": 11,
+      "sources": [
+        "cards_stats_spell.json",
+        "cards_stats_character_buff.json",
+        "rarities.json",
+        "combat_rules.json"
+      ],
+      "source_sha256": {
+        "cards_stats_spell.json": "4c2a3e8cb2c27f507bc07a12052749dedcca273a32c9e8e1a8837ba0c59bbed7",
+        "cards_stats_character_buff.json": "44886305e66bbdfbce04bb8c55ce2348040cbc3b89ae81f7357c1ad6171b76a2",
+        "rarities.json": "ed71f6bef50f009d517830f80330efc5bcf45aa37382ef3d19d17147b7433c9b",
+        "combat_rules.json": "2dd3929abe8aa301f153669bcf783c6fc29ed65df8d54c2fb72ad01e1ad2ad85"
+      },
+      "missing": [],
+      "limitations": [
+        "public_snapshot_is_not_verified_current_client_mechanics",
+        "per_target_buff_tick_phase_approximated_by_shared_area_clock",
+        "area_boundary_and_lingering_buff_behavior_require_live_validation",
+        "temporal_spell_reward_hits_not_logged_by_existing_area_engine",
+        "area_scan_frequency_differs_from_buff_damage_frequency"
+      ],
+      "raw_buff_damage_per_second": 57,
+      "scaled_damage_per_second": 91,
+      "area_damage_tick_ms": 1000,
+      "area_duration_ms": 8000,
+      "area_scan_ms": 250,
+      "area_buff_time_ms": 1000,
+      "initial_area_damage": false,
+      "engine_tick_count_stationary": 8,
+      "tower_total_override": 168,
+      "building_damage_percent_source": 0,
+      "combat_rule_sources": [
+        "https://supercell.com/en/games/clashroyale/blog/release-notes/june-balance-changes-2026/"
+      ]
+    },
+    "heal_spirit": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [
+        "Playable Heal Spirit is loaded as a troop, not an independently cast heal area.",
+        "Heal rate uses exact public rarity multipliers, validated against existing level arrays."
+      ],
+      "sources": [
+        "cards.json:heal-spirit",
+        "cards_stats_spell.json:HealSpirit",
+        "cards_stats_character_buff.json:HealSpiritBuff",
+        "rarities.json:Rare"
+      ],
+      "level": 11,
+      "representation": "troop"
+    },
+    "clone": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [
+        "C",
+        "o",
+        "m",
+        "m",
+        "o",
+        "n",
+        " ",
+        "e",
+        "n",
+        "g",
+        "i",
+        "n",
+        "e",
+        " ",
+        "c",
+        "o",
+        "p",
+        "i",
+        "e",
+        "s",
+        " ",
+        "t",
+        "r",
+        "o",
+        "o",
+        "p",
+        " ",
+        "s",
+        "t",
+        "a",
+        "t",
+        "e",
+        " ",
+        "a",
+        "t",
+        " ",
+        "o",
+        "n",
+        "e",
+        " ",
+        "H",
+        "P",
+        " ",
+        "a",
+        "n",
+        "d",
+        " ",
+        "d",
+        "o",
+        "e",
+        "s",
+        " ",
+        "n",
+        "o",
+        "t",
+        " ",
+        "m",
+        "o",
+        "d",
+        "e",
+        "l",
+        " ",
+        "C",
+        "l",
+        "o",
+        "n",
+        "e",
+        " ",
+        "d",
+        "i",
+        "s",
+        "p",
+        "l",
+        "a",
+        "c",
+        "e",
+        "m",
+        "e",
+        "n",
+        "t",
+        ".",
+        " ",
+        "C",
+        "l",
+        "o",
+        "n",
+        "e",
+        " ",
+        "i",
+        "s",
+        " ",
+        "a",
+        " ",
+        "s",
+        "p",
+        "e",
+        "l",
+        "l",
+        " ",
+        "s",
+        "u",
+        "p",
+        "p",
+        "o",
+        "r",
+        "t",
+        "i",
+        "n",
+        "g",
+        " ",
+        "a",
+        "n",
+        "o",
+        "t",
+        "h",
+        "e",
+        "r",
+        " ",
+        "p",
+        "u",
+        "s",
+        "h",
+        ";",
+        " ",
+        "a",
+        " ",
+        "s",
+        "o",
+        "l",
+        "o",
+        " ",
+        "C",
+        "l",
+        "o",
+        "n",
+        "e",
+        " ",
+        "h",
+        "a",
+        "s",
+        " ",
+        "n",
+        "o",
+        " ",
+        "u",
+        "s",
+        "e",
+        "f",
+        "u",
+        "l",
+        " ",
+        "a",
+        "t",
+        "t",
+        "a",
+        "c",
+        "k",
+        "."
+      ],
+      "sources": [
+        "cards_stats_spell.json:Clone"
+      ],
+      "level": 11
+    },
+    "barbarian_barrel": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [
+        "Requires battle.unit_lookup(\"Barbarian\").",
+        "Common rolling-spell engine does not model the initial airborne BarbLogProjectile stage.",
+        "deploy_own_side_only uses the same half-arena restriction as the existing spell API."
+      ],
+      "sources": [
+        "cards.json:barbarian-barrel",
+        "cards_stats_projectile.json:BarbLogProjectileRolling"
+      ],
+      "level": 11
+    },
+    "giant_snowball": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [
+        "Common cast_spell uses constant-speed travel; projectile gravity trajectory is not modeled."
+      ],
+      "sources": [
+        "cards_stats_projectile.json:SnowballSpell",
+        "combat_rules.json:snowball"
+      ],
+      "level": 11
+    },
+    "earthquake": {
+      "supported": true,
+      "source_stats_exact": true,
+      "mechanics_verified": false,
+      "level": 11,
+      "sources": [
+        "cards_stats_spell.json",
+        "cards_stats_character_buff.json",
+        "rarities.json",
+        "combat_rules.json"
+      ],
+      "source_sha256": {
+        "cards_stats_spell.json": "4c2a3e8cb2c27f507bc07a12052749dedcca273a32c9e8e1a8837ba0c59bbed7",
+        "cards_stats_character_buff.json": "44886305e66bbdfbce04bb8c55ce2348040cbc3b89ae81f7357c1ad6171b76a2",
+        "rarities.json": "ed71f6bef50f009d517830f80330efc5bcf45aa37382ef3d19d17147b7433c9b",
+        "combat_rules.json": "2dd3929abe8aa301f153669bcf783c6fc29ed65df8d54c2fb72ad01e1ad2ad85"
+      },
+      "missing": [],
+      "limitations": [
+        "public_snapshot_is_not_verified_current_client_mechanics",
+        "per_target_buff_tick_phase_approximated_by_shared_area_clock",
+        "area_boundary_and_lingering_buff_behavior_require_live_validation",
+        "temporal_spell_reward_hits_not_logged_by_existing_area_engine",
+        "area_scan_frequency_differs_from_buff_damage_frequency",
+        "building_multiplier_interpretation_follows_existing_engine_not_live_verified"
+      ],
+      "raw_buff_damage_per_second": 39,
+      "scaled_damage_per_second": 82,
+      "area_damage_tick_ms": 1000,
+      "area_duration_ms": 3000,
+      "area_scan_ms": 100,
+      "area_buff_time_ms": 1000,
+      "initial_area_damage": false,
+      "engine_tick_count_stationary": 3,
+      "tower_total_override": 147,
+      "building_damage_percent_source": 350,
+      "combat_rule_sources": [
+        "https://supercell.com/en/games/clashroyale/blog/release-notes/june-balance-changes-2026/"
+      ]
+    },
+    "tornado": {
+      "supported": true,
+      "source_stats_exact": true,
+      "mechanics_verified": false,
+      "level": 11,
+      "sources": [
+        "cards_stats_spell.json",
+        "cards_stats_character_buff.json",
+        "rarities.json",
+        "combat_rules.json"
+      ],
+      "source_sha256": {
+        "cards_stats_spell.json": "4c2a3e8cb2c27f507bc07a12052749dedcca273a32c9e8e1a8837ba0c59bbed7",
+        "cards_stats_character_buff.json": "44886305e66bbdfbce04bb8c55ce2348040cbc3b89ae81f7357c1ad6171b76a2",
+        "rarities.json": "ed71f6bef50f009d517830f80330efc5bcf45aa37382ef3d19d17147b7433c9b",
+        "combat_rules.json": "2dd3929abe8aa301f153669bcf783c6fc29ed65df8d54c2fb72ad01e1ad2ad85"
+      },
+      "missing": [],
+      "limitations": [
+        "public_snapshot_is_not_verified_current_client_mechanics",
+        "per_target_buff_tick_phase_approximated_by_shared_area_clock",
+        "area_boundary_and_lingering_buff_behavior_require_live_validation",
+        "temporal_spell_reward_hits_not_logged_by_existing_area_engine",
+        "area_scan_frequency_differs_from_buff_damage_frequency",
+        "attraction_displacement_uses_existing_uniform_pull_approximation",
+        "controlled_parent_buff_and_pull_mass_interaction_not_verified"
+      ],
+      "raw_buff_damage_per_second": 106,
+      "scaled_damage_per_second": 169,
+      "area_damage_tick_ms": 500,
+      "area_duration_ms": 1050,
+      "area_scan_ms": 50,
+      "area_buff_time_ms": 500,
+      "initial_area_damage": false,
+      "engine_tick_count_stationary": 3,
+      "tower_total_override": null,
+      "building_damage_percent_source": 0,
+      "combat_rule_sources": []
+    },
+    "elixir_collector": {
+      "playable_card": true,
+      "supported": false,
+      "missing": [
+        "engine_public_elixir_income_table",
+        "starting_hand_exclusion"
+      ],
+      "limitations": [
+        "Exact public level11 profile exists: HP1070, deploy1000ms, lifetime65000ms.",
+        "Income fields: mana_collect_amount1, mana_generate_time_ms9000, mana_on_death1.",
+        "Match.elixir_table currently reads only client TOMLs; inert building admission would be incorrect.",
+        "Catalogue description excludes Collector from starting hand; generic Match shuffle does not enforce it."
+      ],
+      "sources": [
+        "cards_stats_building.json:ElixirCollector",
+        "cards.json:elixir-collector"
+      ],
+      "level": 11
+    },
+    "mirror": {
+      "playable_card": true,
+      "supported": false,
+      "missing": [
+        "audited_level_12_spell_and_unit_coverage",
+        "starting_hand_exclusion",
+        "mechanical_mask_resolved_card_rules"
+      ],
+      "limitations": [
+        "Mirror is dynamic: last card +1 elixir, higher level, copied deployment restrictions.",
+        "Match.mirrored exists but portable scenario spell overrides currently accept only level11.",
+        "Mirror alone has no prior card to copy; cannot be a valid solo scenario."
+      ],
+      "sources": [
+        "cards.json:mirror"
+      ],
+      "level": 11
+    },
+    "party_rocket": {
+      "playable_card": true,
+      "supported": false,
+      "missing": [
+        "projectile_or_action_definition",
+        "standard_mode_admission"
+      ],
+      "limitations": [
+        "Public catalogue entry exists but no GoblinPartyRocket projectile/action stats are present.",
+        "Do not alias Party Rocket to ordinary Rocket."
+      ],
+      "sources": [
+        "cards.json:party-rocket"
+      ],
+      "level": 11
+    },
+    "royal_delivery": {
+      "playable_card": true,
+      "supported": true,
+      "missing": [],
+      "limitations": [
+        "Requires battle.unit_lookup(\"DeliveryRecruit\").",
+        "Common spawn_group uses its existing formation placement for the Recruit."
+      ],
+      "sources": [
+        "cards_stats_projectile.json:RoyalDeliveryProjectile",
+        "combat_rules.json:royal_delivery"
+      ],
+      "level": 11
+    }
+  },
+  "coverage_complete": false,
+  "note": "Coverage of loaded simulator cards is not coverage of every current game card or verified mechanics."
+}

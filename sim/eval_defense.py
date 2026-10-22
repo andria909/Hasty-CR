@@ -132,7 +132,7 @@ def main(argv=None):
     p.add_argument('--seeds',help='comma-separated paired shuffle seeds; overrides episodes')
     p.add_argument('--all-scenarios',action='store_true')
     p.add_argument('--action-delay-ms',type=int,default=150)
-    p.add_argument('--max-ms',type=int,default=180000)
+    p.add_argument('--max-ms',type=int,default=240000)
     p.add_argument('--initial-elixir',type=float,default=10)
     args=p.parse_args(argv)
     if args.output.exists():

@@ -65,6 +65,7 @@ class SpellSpec:
     # every 1000ms for 8 seconds; Tornado 60 a second every 550ms for one. The
     # numbers live in a BUFF section beside the area, not in the area itself.
     damage_per_second: int = 0
+    heal_per_second: int = 0
     hit_frequency_ms: int = 0
     tower_damage_per_hit: int = 0
     building_damage_percent: int = 100
@@ -842,7 +843,7 @@ def apply_spell(battle, spec: SpellSpec, at: Point, side: int) -> int:
 
     # A spell that lingers is registered with the battle and keeps working;
     # only its first tick happens now.
-    if spec.life_duration_ms > 0 and (spec.damage_per_second
+    if spec.life_duration_ms > 0 and (spec.damage_per_second or spec.heal_per_second
                                       or spec.area_speed_pct
                                       or spec.area_hit_speed_pct
                                       or spec.area_spawn_character):

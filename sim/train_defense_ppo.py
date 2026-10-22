@@ -104,6 +104,7 @@ def evaluate(network, device, *, episodes, seed, env_options):
 
 def train(args):
     from sim.defense_env import DefenseEnv
+    from sim.defense_curriculum import curriculum_selection
     if args.device.startswith('cuda') and not torch.cuda.is_available():
         raise RuntimeError('CUDA requested but unavailable; CPU training fallback forbidden')
     if not np.isfinite(args.wallclock_seconds) or args.wallclock_seconds <= 0:
@@ -120,6 +121,9 @@ def train(args):
                'initial_elixir': args.initial_elixir, 'difficulty': args.difficulty}
     counters = [0] * args.envs
     envs = [DefenseEnv(seed=args.seed + i, split='train', **options) for i in range(args.envs)]
+    curriculum=None
+    for env in envs:
+        env.scenarios,curriculum=curriculum_selection(env.scenarios,args.scenario_ids)
     sampler = ScenarioCycle([s.scenario_id for s in envs[0].scenarios], seed=args.seed)
     reset = [e.reset(**sampler.next()) for e in envs]
     observations, infos = map(list, zip(*reset))
@@ -137,6 +141,9 @@ def train(args):
         for key in ('envs', 'rollout', 'seed', 'action_delay_ms', 'max_ms', 'initial_elixir', 'difficulty'):
             if old_config[key] != vars(args)[key]:
                 raise ValueError(f'resume configuration mismatch: {key}')
+        for key in ('scenario_ids','scenario_ids_sha256'):
+            if old_config.get(key)!=curriculum[key]:
+                raise ValueError(f'resume curriculum configuration mismatch: {key}')
         optimizer.load_state_dict(blob['optimiser'])
         step, start_update, best = blob['step'], blob['update'], blob['best_validation']
         counters = blob['episode_counters']
@@ -155,6 +162,7 @@ def train(args):
             observations, infos = map(list, zip(*reset))
         restore_rng(blob['rng'])
     config = dict(vars(args), architecture=architecture, exact_resume=exact_resume)
+    config.update(curriculum)
     (output / 'config.json').write_text(json.dumps(config, indent=2))
     network.train()
     started = time.monotonic()
@@ -219,7 +227,7 @@ def train(args):
         snapshot = [e.snapshot() for e in envs] if all(hasattr(e, 'snapshot') and hasattr(e, 'restore') for e in envs) else None
         checkpoint = {'state_dict': network.state_dict(), 'optimiser': optimizer.state_dict(),
                       'architecture': architecture, 'step': step, 'update': update,
-                      'best_validation': best, 'config': vars(args), 'rng': rng_state(),
+                      'best_validation': best, 'config': config, 'rng': rng_state(),
                       'episode_counters': counters, 'sampler': sampler.state_dict(), 'environment_states': snapshot,
                       'observations': observations, 'infos': infos,
                       'exact_resume_available': snapshot is not None}
@@ -242,8 +250,9 @@ def parser():
     p.add_argument('--output', required=True)
     p.add_argument('--device', default='cuda')
     p.add_argument('--wallclock-seconds', type=float, default=3600.)
+    p.add_argument('--scenario-ids',help='Explicit audited train curriculum JSON; validation unaffected')
     p.add_argument('--difficulty', choices=('simple','medium','complex','impossible'))
-    for name, default in [('updates', 5), ('envs', 2), ('rollout', 8), ('epochs', 4), ('minibatch-size', 64), ('seed', 42), ('eval-every', 5), ('eval-episodes', 8), ('max-ms', 180000)]:
+    for name, default in [('updates', 5), ('envs', 2), ('rollout', 8), ('epochs', 4), ('minibatch-size', 64), ('seed', 42), ('eval-every', 5), ('eval-episodes', 8), ('max-ms', 240000)]:
         p.add_argument('--' + name, type=int, default=default)
     for name, default in [('lr', 3e-4), ('gamma', .997), ('gae-lambda', .95), ('clip', .2), ('value-coef', .5), ('entropy-coef', .01), ('max-grad-norm', .5), ('action-delay-ms', 150), ('initial-elixir', 10)]:
         p.add_argument('--' + name, type=float, default=default)

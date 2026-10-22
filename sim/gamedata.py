@@ -32,7 +32,7 @@ class UnitSpec:
     load_time_ms: int          # LoadTime (windup before the first hit)
     range_mt: int              # Range, in millitiles
     sight_range_mt: int        # SightRange
-    speed_mt_per_sec: int      # Speed (the data's Speed is already millitiles/sec)
+    speed_mt_per_sec: int      # Legacy name: raw client Speed; make_unit converts x20 to mt/s
     collision_radius_mt: int   # CollisionRadius
     mass: int
     deploy_time_ms: int        # DeployTime
@@ -518,6 +518,15 @@ class UnitSpec:
     # Cart - is exempt from being converted, because what it leaves behind is
     # its own. The rest are party-mode event buffs.
     ignored_buffs: tuple[str, ...] = ()
+
+
+    # Projectile-linked friendly healing area, with source-scaled rate.
+    object_role: str = "combat"
+    projectile_follow_area: dict | None = None
+    projectile_heal_per_second: int = 0
+    projectile_heal_radius_mt: int = 0
+    projectile_heal_duration_ms: int = 0
+    projectile_heal_tick_ms: int = 0
 
 
 @dataclass(frozen=True)
@@ -2261,6 +2270,19 @@ def load_buffs(root=None) -> dict:
                  else int(body.get("HitSpeedMultiplier", 0) or 0)),
                 int(body.get("HealPerSecond", 0) or 0),
             )
+    if not _BUFF_CACHE and root is None:
+        # Portable public snapshot: only exact non-healing freeze/slow effects.
+        # Do not infer level-dependent healing/DPS from unlevelled buff rows.
+        public_buffs = Path(__file__).resolve().parents[1] / "data" / "royaleapi" / "cards_stats_character_buff.json"
+        if public_buffs.exists():
+            import json
+            for row in json.loads(public_buffs.read_text(encoding="utf-8")):
+                if row.get("name") in ("Freeze", "ZapFreeze", "IceWizardSlowDown"):
+                    def delta(key):
+                        raw = int(row[key])
+                        return raw - 100 if raw > 0 else raw
+                    _BUFF_CACHE[row["name"]] = (
+                        delta("speed_multiplier"), delta("hit_speed_multiplier"), 0)
     return _BUFF_CACHE
 
 

@@ -18,7 +18,7 @@ DATA = Path(__file__).resolve().parents[1] / 'data' / 'royaleapi'
 REQUESTED = ('graveyard', 'goblin_barrel', 'rage', 'freeze', 'heal', 'heal_spirit',
              'arrows', 'poison', 'rocket', 'lightning', 'barbarian_barrel', 'clone',
              'earthquake', 'elixir_collector', 'giant_snowball', 'mirror',
-             'party_rocket', 'tornado')
+             'party_rocket', 'tornado', 'royal_delivery')
 
 
 @dataclass
@@ -174,17 +174,37 @@ def load_public_scenario_spells(level=11, *, root=DATA,
             sources=('cards_stats_spell.json:Lightning', 'cards_stats_projectile.json:LighningSpell',
                      'combat_rules.json:lightning'))
 
-    status('graveyard', missing=('portable_current_spawn_action_graph',),
-           sources=('cards_stats_spell.json:Graveyard',),
-           notes=('Legacy JSON interval=500ms is not the client loader current 12-spawn action list.',
-                  'Do not synthesize periodic skeletons from this stale interval.'))
+    if 'graveyard_client_transcription' not in engine_capabilities:
+        status('graveyard', missing=('portable_current_spawn_action_graph',),
+               sources=('cards_stats_spell.json:Graveyard',),
+               notes=('Legacy JSON interval=500ms is not the client loader current 12-spawn action list.',
+                      'Do not synthesize periodic skeletons from this stale interval.'))
+    else:
+        from .spells import _GRAVEYARD_EVENTS
+        row = spells['Graveyard']
+        status('graveyard', spec=SpellSpec(
+            name='graveyard', damage=0, radius_mt=int(row['radius']),
+            radius_y_mt=int(row['radius']), crown_tower_percent=0, pushback_mt=0,
+            area_spawn_character='Skeleton', area_spawn_events=_GRAVEYARD_EVENTS,
+            area_spawn_deploy_time_ms=500, initial_damage=False),
+            sources=('sim/spells.py:_GRAVEYARD_EVENTS@c1c342c',
+                     'sim/spells.py:load_spells area_spawn_deploy_time_ms@c1c342c',
+                     'cards_stats_spell.json:Graveyard (indicator radius only)'),
+            notes=('Explicit opt-in to an existing client-action transcription; original graveyard_rework.toml is unavailable.',
+                   'Twelve offsets/delays and 500ms deploy are reused unchanged from the existing client loader.',
+                   'Exact timing/positions are not independently verified against the current game.',
+                   'Official June 2026 confirms the count of twelve, not this exact graph.'))
+        report['graveyard']['independently_verified'] = False
     status('poison', missing=('level_11_damage_per_second',),
            sources=('cards_stats_spell.json:Poison', 'cards_stats_character_buff.json:Poison'),
            notes=('Buff has raw DPS=57 without a level array; tower override168 alone is insufficient.',))
-    status('heal_spirit', missing=('troop_heal_area_in_public_loader_and_engine',),
-           sources=('cards.json:heal-spirit', 'cards_stats_spell.json:HealSpirit'),
-           notes=('Playable Heal Spirit is a troop, not an independently cast heal area.',
-                  'Raw HealSpiritBuff heal_per_second lacks exact level scaling.'))
+    status('heal_spirit', sources=('cards.json:heal-spirit',
+           'cards_stats_spell.json:HealSpirit', 'cards_stats_character_buff.json:HealSpiritBuff',
+           'rarities.json:Rare'),
+           notes=('Playable Heal Spirit is loaded as a troop, not an independently cast heal area.',
+                  'Heal rate uses exact public rarity multipliers, validated against existing level arrays.'))
+    report['heal_spirit']['supported'] = True
+    report['heal_spirit']['representation'] = 'troop'
     # These are public card names, not source aliases (BarbLog/Snowball).
     row = spells['Clone']
     if 'clone_preserves_shield_presence' not in engine_capabilities:
@@ -260,4 +280,19 @@ def load_public_scenario_spells(level=11, *, root=DATA,
            sources=('cards.json:party-rocket',),
            notes=('Public catalogue entry exists but no GoblinPartyRocket projectile/action stats are present.',
                   'Do not alias Party Rocket to ordinary Rocket.'))
+    p, r = projectiles['RoyalDeliveryProjectile'], rules['royal_delivery']
+    status('royal_delivery', spec=SpellSpec(
+        name='royal_delivery', damage=int(r['damage_override']),
+        radius_mt=int(p['radius']), radius_y_mt=int(p['radius']),
+        crown_tower_percent=0, pushback_mt=0,
+        ignore_buildings=True, hits_air=bool(p['aoe_to_air']), hits_ground=bool(p['aoe_to_ground']),
+        spawn_character=str(p['spawn_character']), spawn_count=int(p['spawn_character_count']),
+        spawn_deploy_time_ms=int(r['spawn_deploy_time_ms']),
+        impact_delay_ms=int(r['impact_delay_ms']),
+        deploy_own_side_only=bool(r['deploy_own_side_only']),
+        resolves_card_as_spell=bool(r['resolves_card_as_spell']),
+        falls_from_sky=True, deflect_behaviour=str(p['deflect_behaviour'])),
+        sources=('cards_stats_projectile.json:RoyalDeliveryProjectile', 'combat_rules.json:royal_delivery'),
+        notes=('Requires battle.unit_lookup("DeliveryRecruit").',
+               'Common spawn_group uses its existing formation placement for the Recruit.'))
     return PublicScenarioSpells(accepted, fallback, report)

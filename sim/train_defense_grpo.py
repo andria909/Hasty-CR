@@ -106,7 +106,8 @@ def rollout(env, network, device, generator, seed, scenario_id=None, greedy=Fals
 RESUME_KEYS = ('group_size','epochs','batch_steps','seed','lr','clip','beta','entropy',
                'action_delay_ms','max_ms','initial_elixir','difficulty',
                'validation_every','validation_episodes','architecture','device_name',
-               'init_sha256','trajectory_weighting','torch_version','environment_code_sha256')
+               'init_sha256','trajectory_weighting','torch_version','environment_code_sha256',
+               'scenario_ids','scenario_ids_sha256')
 
 
 def restore_training_state(blob,network,reference,optimizer,sampler,generator,config):
@@ -152,8 +153,9 @@ def main(argv=None):
     p.add_argument('--beta', type=float, default=0.02)
     p.add_argument('--entropy', type=float, default=0.001)
     p.add_argument('--action-delay-ms', type=int, default=150)
-    p.add_argument('--max-ms', type=int, default=180000)
+    p.add_argument('--max-ms', type=int, default=240000)
     p.add_argument('--initial-elixir', type=float, default=10)
+    p.add_argument('--scenario-ids',type=Path,help='Explicit audited train curriculum JSON; validation unaffected')
     p.add_argument('--difficulty', choices=('simple','medium','complex','impossible'))
     p.add_argument('--save-seconds', type=float, default=300)
     p.add_argument('--wallclock-seconds', type=float, default=3600)
@@ -168,6 +170,7 @@ def main(argv=None):
         raise RuntimeError('CUDA was requested but is unavailable; refusing CPU fallback')
     from sim.defense_env import DefenseEnv
     from sim.defense_sampler import ScenarioCycle
+    from sim.defense_curriculum import curriculum_selection
     from sim.env import NUM_PLANES, NUM_SCALARS, ACTIONS
     args.output.mkdir(parents=True, exist_ok=False)
     device = torch.device(args.device)
@@ -192,14 +195,16 @@ def main(argv=None):
     config['torch_version'] = str(torch.__version__)
     contract_files=('defense_env.py','defense_scenarios.py','defense_assets.py',
                     'public_scenario_spells.py','engine.py','entities.py','match.py','env.py',
-                    'gamedata.py','spells.py','defense_sampler.py')
+                    'gamedata.py','spells.py','defense_sampler.py','defense_curriculum.py')
     contract=hashlib.sha256()
     for filename in contract_files:
         contract.update(filename.encode()); contract.update(Path(__file__).with_name(filename).read_bytes())
     config['environment_code_sha256'] = contract.hexdigest()
-    (args.output/'config.json').write_text(json.dumps(config, indent=2))
     env_kwargs = dict(action_delay_ms=args.action_delay_ms,max_ms=args.max_ms,initial_elixir=args.initial_elixir)
     env = DefenseEnv(seed=args.seed, split='train', difficulty=args.difficulty, **env_kwargs)
+    env.scenarios,curriculum=curriculum_selection(env.scenarios,args.scenario_ids)
+    config.update(curriculum)
+    (args.output/'config.json').write_text(json.dumps(config, indent=2))
     sampler = ScenarioCycle([s.scenario_id for s in env.scenarios],seed=args.seed)
     validation = DefenseEnv(seed=900000, split='validation', difficulty=args.difficulty, **env_kwargs)
     start = last_save = time.monotonic()

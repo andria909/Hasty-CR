@@ -1,0 +1,43 @@
+{
+  "schema": "public-graveyard-evidence-v1",
+  "status": "blocked_missing_current_action_graph",
+  "source_snapshot": "data/royaleapi/cards_stats_spell.json",
+  "source_sha256": "4c2a3e8cb2c27f507bc07a12052749dedcca273a32c9e8e1a8837ba0c59bbed7",
+  "raw_fields": {
+    "life_duration": 9500,
+    "spawn_character": "Skeleton",
+    "spawn_interval": 500,
+    "spawn_initial_delay": 2200,
+    "spawn_time": 400,
+    "spawn_randomize_sequence": true,
+    "spawn_max_count": 0,
+    "spawn_min_radius": 3000
+  },
+  "naive_legacy_periodic_spawn_count": 15,
+  "official_current_count": 12,
+  "official_pattern": "fixed",
+  "primary_sources": [
+    {
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/january-balance-changes-26",
+      "published": "2026-01-12",
+      "establishes": "The spawn pattern became fixed."
+    },
+    {
+      "url": "https://supercell.com/en/games/clashroyale/blog/release-notes/june-balance-changes-2026/",
+      "published": "2026-06-01",
+      "establishes": "Skeleton count reduced from 13 to 12."
+    }
+  ],
+  "existing_transcription": {
+    "location": "sim/spells.py:_GRAVEYARD_EVENTS",
+    "events": 12,
+    "original_action_file_present": false,
+    "independently_verified_here": false
+  },
+  "missing": [
+    "Current 12 spawn offsets and their coordinate expressions",
+    "Current per-spawn delays",
+    "Current per-skeleton deployment time from original action graph"
+  ],
+  "decision": "Do not derive a current spawn graph from the stale random 500ms periodic record; retain admission blocker."
+}

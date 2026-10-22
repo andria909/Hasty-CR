@@ -3,10 +3,11 @@ from sim.public_scenario_spells import load_public_scenario_spells
 
 def test_playable_spell_subset_has_no_npc_rows_or_phantom_heal():
     catalog = load_public_scenario_spells()
-    assert set(catalog.spells) == {'rage', 'rocket', 'arrows', 'goblin_barrel', 'barbarian_barrel'}
+    assert set(catalog.spells) == {'rage', 'rocket', 'arrows', 'goblin_barrel', 'barbarian_barrel', 'royal_delivery'}
     assert not catalog.audit['heal']['playable_card']
     assert catalog.audit['heal_spirit']['playable_card']
-    assert not catalog.audit['heal_spirit']['supported']
+    assert catalog.audit['heal_spirit']['supported']
+    assert 'heal_spirit' not in catalog.spells
 
 
 def test_missing_buff_integration_fails_closed():

@@ -36,3 +36,28 @@ def test_public_fallback_can_finish_a_deterministic_match(tmp_path: Path):
     assert match.result in {"bottom", "top", "draw"}
     assert match.elapsed_ms <= 310_000
     assert len(load_characters(level=11)) >= len(cards)
+
+
+def test_public_fallback_converts_movement_speed_exactly_once(tmp_path: Path):
+    from sim.arena import Point
+    from sim.entities import make_unit
+    from scripts.gamestate.audit_sim_alignment import simulate_speed
+    cards = load_gamedata(level=11, root=tmp_path / 'missing-client-data')
+    for name, expected in [('knight', 1.2), ('musketeer', 1.2),
+                           ('skeletons', 1.8), ('electro_spirit', 2.4)]:
+        spec = cards[name].unit
+        entity = make_unit(1, spec, 1, Point(3500, 12000))
+        assert entity.speed_mt_per_sec == round(expected * 1000)
+        # Measure real engine displacement too, so a correct feature value
+        # cannot hide another conversion bug in the movement procedure.
+        assert abs(simulate_speed(spec) - expected) < .01
+
+
+def test_public_spell_flight_speeds_use_projectile_units_not_walking_units():
+    import json
+    from pathlib import Path
+    from sim.public_gamedata import load_public_spells
+    rows={r['name']:r for r in json.loads((Path(__file__).resolve().parents[1]/'data/royaleapi/cards_stats_projectile.json').read_text())}
+    spells=load_public_spells(11)
+    assert spells['fireball'].projectile_speed_mt_per_sec==int(rows['FireballSpell']['speed'])*1000//60
+    assert spells['the_log'].rolling_speed_mt_per_sec==int(rows['LogProjectileRolling']['speed'])*1000//60

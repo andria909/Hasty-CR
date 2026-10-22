@@ -252,6 +252,12 @@ class Entity:
     projectile_deflect_behaviour: str = ""
     projectile_deflector_damage: int = 0
     ignored_buffs: tuple = ()
+    object_role: str = "combat"
+    projectile_follow_area: dict | None = None
+    projectile_heal_per_second: int = 0
+    projectile_heal_radius_mt: int = 0
+    projectile_heal_duration_ms: int = 0
+    projectile_heal_tick_ms: int = 0
     projectile_area_attract_percentage: int = 0
     projectile_area_attract_radius_mt: int = 0
     projectile_area_attract_duration_ms: int = 0
@@ -989,6 +995,12 @@ def make_unit(uid: int, spec, side: int, pos: Point, now_ms: int = 0) -> Entity:
         projectile_deflector_damage=int(getattr(
             spec, "projectile_deflector_damage", 0) or 0),
         ignored_buffs=tuple(getattr(spec, "ignored_buffs", ()) or ()),
+        object_role=str(getattr(spec, "object_role", "combat")),
+        projectile_follow_area=getattr(spec, "projectile_follow_area", None),
+        projectile_heal_per_second=int(getattr(spec, "projectile_heal_per_second", 0)),
+        projectile_heal_radius_mt=int(getattr(spec, "projectile_heal_radius_mt", 0)),
+        projectile_heal_duration_ms=int(getattr(spec, "projectile_heal_duration_ms", 0)),
+        projectile_heal_tick_ms=int(getattr(spec, "projectile_heal_tick_ms", 0)),
         projectile_area_attract_percentage=int(getattr(
             spec, "projectile_area_attract_percentage", 0) or 0),
         projectile_area_attract_radius_mt=int(getattr(

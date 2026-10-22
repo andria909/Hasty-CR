@@ -2595,6 +2595,36 @@ class Battle:
 
 
 
+    def _launch_projectile_follow_area(self, source: Entity, target: Entity) -> None:
+        """A damaging/pulling area attached to a moving projectile.
+
+        Linear flight is explicit here: partial public profiles retain flags
+        for unimplemented homing/angular selectors rather than fake impact HP.
+        """
+        from .spells import SpellSpec
+        cfg = source.projectile_follow_area
+        dx, dy = target.pos.x-source.pos.x, target.pos.y-source.pos.y
+        span = arena.isqrt(dx*dx+dy*dy)
+        if span <= 0:
+            return
+        period = cfg['hit_frequency_ms']
+        spec = SpellSpec(
+            name=f'{source.name}_projectile_follow_area', damage=0,
+            radius_mt=cfg['radius_mt'], radius_y_mt=cfg['radius_mt'],
+            crown_tower_percent=cfg['crown_tower_percent'], pushback_mt=0,
+            damage_per_second=cfg['damage_per_second'],
+            life_duration_ms=cfg['duration_ms'], hit_frequency_ms=period,
+            attract_percentage=cfg['attract_percentage'],
+            hits_air=cfg['hits_air'], hits_ground=cfg['hits_ground'],
+            initial_damage=False)
+        motion = dict(kind='projectile_follow_area', start=source.pos,
+                      start_ms=self.now_ms, dx=dx, dy=dy, span=span,
+                      speed=cfg['projectile_speed_mt_per_sec'],
+                      range_mt=cfg['projectile_range_mt'])
+        self.areas.append([spec, source.pos, source.side,
+                           self.now_ms+cfg['duration_ms'],
+                           self.now_ms+period, None, motion])
+
     def _tick_areas(self) -> None:
         """Keep hurting whatever is standing in a lingering spell.
 
@@ -2610,6 +2640,14 @@ class Battle:
             spec, centre, side, expires_ms, next_tick_ms, selected_uids = area[:6]
             if self.now_ms >= expires_ms:
                 continue
+            if len(area) > 6 and isinstance(area[6], dict) and area[6].get('kind') == 'projectile_follow_area':
+                motion = area[6]
+                travelled = min(motion['range_mt'],
+                                max(0, self.now_ms-motion['start_ms'])*motion['speed']//1000)
+                centre = arena.clamp_to_arena(Point(
+                    motion['start'].x+motion['dx']*travelled//motion['span'],
+                    motion['start'].y+motion['dy']*travelled//motion['span']))
+                area[1] = centre
             if self.now_ms >= next_tick_ms:
                 if getattr(spec, "volley_waves", 0):
                     remaining = area[6]
@@ -2729,6 +2767,9 @@ class Battle:
                     candidates = [entity for entity in candidates
                                   if entity.uid in selected_uids]
                 for entity in candidates:
+                    if getattr(spec, "heal_per_second", 0) > 0:
+                        if not entity.is_clone:
+                            entity.heal(spec.heal_per_second * period // 1000)
                     if per_tick > 0:
                         amount = per_tick
                         if entity.is_tower:
@@ -3537,6 +3578,9 @@ class Battle:
         # attack-sequence index 1. Index 0 is the ordinary melee strike.
         if entity.periodic_ranged_damage > 0 and not uses_sniper:
             projectile_speed = 0
+        if entity.projectile_follow_area is not None:
+            self._launch_projectile_follow_area(entity, target)
+            return
         if projectile_speed > 0:
             # A ProjectileRange of one millitile is the client's contact
             # explosion primitive (Wall Breakers), not a freely flying shot.
@@ -3716,6 +3760,27 @@ class Battle:
             if (entity.uppercut_attack_count % entity.uppercut_every_hits == 0
                     and target.alive):
                 self._start_uppercut(entity, target)
+
+        if entity.projectile_heal_per_second > 0:
+            from .spells import SpellSpec
+            period = entity.projectile_heal_tick_ms
+            duration = entity.projectile_heal_duration_ms
+            if period <= 0 or duration <= 0:
+                raise ValueError("Incomplete projectile healing area timing")
+            spec = SpellSpec(
+                name=f"{entity.name}_projectile_heal", damage=0,
+                radius_mt=entity.projectile_heal_radius_mt,
+                radius_y_mt=entity.projectile_heal_radius_mt,
+                crown_tower_percent=0, pushback_mt=0,
+                heal_per_second=entity.projectile_heal_per_second,
+                life_duration_ms=duration, hit_frequency_ms=period,
+                area_only_own_troops=True, ignore_buildings=True,
+                initial_damage=False)
+            # Buff hit_frequency is a periodic heal, not an extra impact heal.
+            # Include the final tick exactly at the source duration boundary.
+            self.areas.append([spec, target.pos, entity.side,
+                               self.now_ms+duration+1,
+                               self.now_ms+period, None])
 
         if (dealt > 0 and entity.projectile_area_damage > 0
                 and entity.projectile_area_radius_mt > 0
