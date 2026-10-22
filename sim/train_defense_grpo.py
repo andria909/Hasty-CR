@@ -157,6 +157,7 @@ def main(argv=None):
     p.add_argument('--initial-elixir', type=float, default=10)
     p.add_argument('--scenario-ids',type=Path,help='Explicit audited train curriculum JSON; validation unaffected')
     p.add_argument('--difficulty', choices=('simple','medium','complex','impossible'))
+    p.add_argument('--checkpoint-every',type=int,default=1)
     p.add_argument('--save-seconds', type=float, default=300)
     p.add_argument('--wallclock-seconds', type=float, default=3600)
     p.add_argument('--validation-every', type=int, default=10)
@@ -171,6 +172,8 @@ def main(argv=None):
     from sim.defense_env import DefenseEnv
     from sim.defense_sampler import ScenarioCycle
     from sim.defense_curriculum import curriculum_selection
+    from sim.defense_checkpointing import checkpoint_due
+    checkpoint_due(0,args.checkpoint_every)
     from sim.env import NUM_PLANES, NUM_SCALARS, ACTIONS
     args.output.mkdir(parents=True, exist_ok=False)
     device = torch.device(args.device)
@@ -320,7 +323,8 @@ def main(argv=None):
         with (args.output/'updates.jsonl').open('a') as stream:
             stream.write(json.dumps(record,default=str)+'\n')
         print(json.dumps(record,default=str),flush=True)
-        save('boundary')
+        if checkpoint_due(completed,args.checkpoint_every):
+            save('boundary')
         maybe_save()
     save('final')
 

@@ -105,12 +105,14 @@ def evaluate(network, device, *, episodes, seed, env_options):
 def train(args):
     from sim.defense_env import DefenseEnv
     from sim.defense_curriculum import curriculum_selection
+    from sim.defense_checkpointing import checkpoint_due
     if args.device.startswith('cuda') and not torch.cuda.is_available():
         raise RuntimeError('CUDA requested but unavailable; CPU training fallback forbidden')
     if not np.isfinite(args.wallclock_seconds) or args.wallclock_seconds <= 0:
         raise ValueError('wallclock-seconds must be finite and positive')
     if min(args.updates, args.envs, args.rollout, args.epochs, args.minibatch_size) < 1:
         raise ValueError('training sizes must be positive')
+    checkpoint_due(0,args.checkpoint_every)
     output = Path(args.output)
     output.mkdir(parents=True, exist_ok=False)
     random.seed(args.seed)
@@ -224,16 +226,21 @@ def train(args):
             score = record['validation']['mean_reward']
             is_best = score > best
             best = max(best, score)
-        snapshot = [e.snapshot() for e in envs] if all(hasattr(e, 'snapshot') and hasattr(e, 'restore') for e in envs) else None
-        checkpoint = {'state_dict': network.state_dict(), 'optimiser': optimizer.state_dict(),
-                      'architecture': architecture, 'step': step, 'update': update,
-                      'best_validation': best, 'config': config, 'rng': rng_state(),
-                      'episode_counters': counters, 'sampler': sampler.state_dict(), 'environment_states': snapshot,
-                      'observations': observations, 'infos': infos,
-                      'exact_resume_available': snapshot is not None}
-        torch.save(checkpoint, output / f'update_{update:06d}.pt')
-        if is_best:
-            torch.save(checkpoint, output / 'best_validation.pt')
+        budget_stop=time.monotonic()-started>=args.wallclock_seconds
+        save_update=checkpoint_due(update,args.checkpoint_every,
+            final=update==start_update+args.updates,budget_stop=budget_stop)
+        if save_update or is_best:
+            snapshot = [e.snapshot() for e in envs] if all(hasattr(e, 'snapshot') and hasattr(e, 'restore') for e in envs) else None
+            checkpoint = {'state_dict': network.state_dict(), 'optimiser': optimizer.state_dict(),
+                          'architecture': architecture, 'step': step, 'update': update,
+                          'best_validation': best, 'config': config, 'rng': rng_state(),
+                          'episode_counters': counters, 'sampler': sampler.state_dict(), 'environment_states': snapshot,
+                          'observations': observations, 'infos': infos,
+                          'exact_resume_available': snapshot is not None}
+            if save_update:
+                torch.save(checkpoint, output / f'update_{update:06d}.pt')
+            if is_best:
+                torch.save(checkpoint, output / f'best_validation_{update:06d}.pt')
         with (output / 'metrics.jsonl').open('a') as stream:
             stream.write(json.dumps(record, default=lambda x: x.item() if isinstance(x, np.generic) else str(x)) + '\n')
         print(json.dumps({k: v for k, v in record.items() if k != 'episodes'}), flush=True)
@@ -249,6 +256,7 @@ def parser():
     p.add_argument('--resume')
     p.add_argument('--output', required=True)
     p.add_argument('--device', default='cuda')
+    p.add_argument('--checkpoint-every',type=int,default=1)
     p.add_argument('--wallclock-seconds', type=float, default=3600.)
     p.add_argument('--scenario-ids',help='Explicit audited train curriculum JSON; validation unaffected')
     p.add_argument('--difficulty', choices=('simple','medium','complex','impossible'))
