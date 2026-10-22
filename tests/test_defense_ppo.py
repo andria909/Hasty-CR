@@ -115,3 +115,29 @@ def test_v25_loads_defense_observations_without_head_migration():
     assert logits.shape == (1, len(info['action_mask']))
     assert values.shape == (1,)
     require_finite(logits=logits, values=values)
+
+
+@pytest.mark.parametrize('nested', [False, True])
+def test_invalid_script_fails_closed_before_bootstrap_or_update(nested):
+    from sim.train_defense_ppo import validate_transition
+
+    class BrokenEnv:
+        def step(self, action):
+            details = {'terminal_reason': 'invalid_script_play_timeout',
+                       'scenario_id': 'broken-push-42'}
+            info = {'metrics': details} if nested else details
+            return {}, 123., False, True, info
+
+    transition = BrokenEnv().step(0)
+    with pytest.raises(ValueError, match='scenario=broken-push-42.*invalid_script_play_timeout'):
+        validate_transition(transition[4])
+
+
+def test_legitimate_timeout_and_normal_terminal_pass_validation():
+    from sim.train_defense_ppo import validate_transition
+    for reason in ('timeout', 'cleared', 'own_king_destroyed', None):
+        validate_transition({'terminal_reason': reason, 'metrics': {'terminal_reason': reason}})
+    # Neither top-level timeout nor absent top-level reason may hide a broken script.
+    with pytest.raises(ValueError, match='nested-scenario'):
+        validate_transition({'terminal_reason': 'timeout', 'metrics': {
+            'terminal_reason': 'invalid_script_trigger_timeout', 'scenario_id': 'nested-scenario'}})

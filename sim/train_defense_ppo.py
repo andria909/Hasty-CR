@@ -48,6 +48,18 @@ def action_masks(infos, device):
     return mask
 
 
+
+def validate_transition(info):
+    """Broken scripted attacks are data errors, never timeout training data."""
+    metrics = info.get('metrics') or {}
+    reasons = (info.get('terminal_reason'), metrics.get('terminal_reason'))
+    for reason in reasons:
+        if isinstance(reason, str) and reason.startswith('invalid_script'):
+            scenario = (info.get('scenario_id') or metrics.get('scenario_id')
+                        or info.get('scenario') or metrics.get('scenario') or 'unknown')
+            raise ValueError(f'Invalid scripted attack: scenario={scenario}, reason={reason}')
+
+
 def rng_state():
     return {'python': random.getstate(), 'numpy': np.random.get_state(),
             'torch': torch.get_rng_state(),
@@ -78,6 +90,7 @@ def evaluate(network, device, *, episodes, seed, env_options):
                 mask = action_masks([info], device)
                 action = int(logits.masked_fill(~mask, -torch.inf).argmax(dim=1).item())
                 obs, reward, terminal, truncated, info = env.step(action)
+                validate_transition(info)
                 total += float(reward)
                 if terminal or truncated:
                     records.append({'reward': total, 'metrics': info.get('metrics', {}),
@@ -148,6 +161,8 @@ def train(args):
                 actions = dist.sample()
                 log_probs = dist.log_prob(actions)
             transitions = [e.step(int(a)) for e, a in zip(envs, actions.cpu().tolist())]
+            for transition in transitions:
+                validate_transition(transition[4])
             final_obs, rewards, terminals, truncations, final_infos = map(list, zip(*transitions))
             with torch.no_grad():
                 _, next_values = network(*tensor_observations(final_obs, device))
