@@ -116,7 +116,7 @@ COMPLEX = (
 )
 TARGETED = {'graveyard', 'goblin_barrel', 'goblin_drill', 'miner'}
 DIRECT_DAMAGE = {'fireball', 'zap', 'arrows', 'rocket', 'lightning', 'poison',
-                 'earthquake', 'void', 'goblin_curse', 'the_log', 'log'}
+                 'earthquake', 'giant_snowball', 'tornado', 'void', 'goblin_curse', 'the_log', 'log'}
 
 
 # Fixed guesses for central defensive buildings; never inspect actual placement.
@@ -161,7 +161,8 @@ def build_catalog(cards=None):
         absent=sorted({e.card for e in events if e.card not in cards})
         unresolved=sorted({e.card for e in events if e.card in cards and
                            cards[e.card].unit is None and
-                           not getattr(cards[e.card],'additional_summons',()) and e.card not in spells})
+                           not getattr(cards[e.card],'additional_summons',()) and e.card not in spells
+                           and not (e.card=='mirror' and getattr(cards[e.card],'mirror_units_only',False))})
         if absent or unresolved:
             missing.append(dict(family=family,setup=setup,missing_cards=absent,
                                 missing_spell_implementations=unresolved))
@@ -178,7 +179,14 @@ def build_catalog(cards=None):
         family='solo:'+name
         for setup in ('bridge','back'):
             position='tower' if name in TARGETED or name in DIRECT_DAMAGE else setup
-            append(family,'simple',[ScheduledPlay(name,position=position)],setup=setup)
+            events=[ScheduledPlay(name,position=position)]
+            if name=='mirror':
+                events.insert(0,ScheduledPlay('knight',position=setup))
+            if name=='elixir_collector':
+                # Collector cannot be in the opening hand. Cycle a real card,
+                # pay for it, then draw and place the Collector legally.
+                events.insert(0,ScheduledPlay('skeletons',position=setup))
+            append(family,'simple',events,setup=setup)
     def position(card,default):
         if card in TARGETED:
             return 'tower'

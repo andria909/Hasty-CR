@@ -1,24 +1,22 @@
 {
   "schema": "defense-v1",
-  "scenarios": 1860,
-  "families": 285,
+  "scenarios": 1868,
+  "families": 287,
   "by_split": {
-    "train": 1336,
+    "train": 1344,
     "validation": 288,
     "test": 236
   },
   "by_difficulty": {
-    "simple": 468,
+    "simple": 476,
     "medium": 696,
     "complex": 408,
     "impossible": 288
   },
   "missing_requested_families": [],
-  "supported_playable_cards": 117,
+  "supported_playable_cards": 119,
   "snapshot_playable_cards": 120,
   "missing_playable_cards": [
-    "elixir_collector",
-    "mirror",
     "party_rocket"
   ],
   "spell_audit": {
@@ -462,40 +460,36 @@
     },
     "elixir_collector": {
       "playable_card": true,
-      "supported": false,
-      "missing": [
-        "engine_public_elixir_income_table",
-        "starting_hand_exclusion"
-      ],
+      "supported": true,
+      "missing": [],
       "limitations": [
-        "Exact public level11 profile exists: HP1070, deploy1000ms, lifetime65000ms.",
-        "Income fields: mana_collect_amount1, mana_generate_time_ms9000, mana_on_death1.",
-        "Match.elixir_table currently reads only client TOMLs; inert building admission would be incorrect.",
-        "Catalogue description excludes Collector from starting hand; generic Match shuffle does not enforce it."
+        "Loaded as a building; income comes from Match.elixir_table public fallback.",
+        "Initial hand excludes Collector and Mirror; scenario scripts must cycle cards legally."
       ],
       "sources": [
         "cards_stats_building.json:ElixirCollector",
         "cards.json:elixir-collector"
       ],
-      "level": 11
+      "level": 11,
+      "representation": "building"
     },
     "mirror": {
       "playable_card": true,
-      "supported": false,
-      "missing": [
-        "audited_level_12_spell_and_unit_coverage",
-        "starting_hand_exclusion",
-        "mechanical_mask_resolved_card_rules"
-      ],
+      "supported": true,
+      "missing": [],
       "limitations": [
-        "Mirror is dynamic: last card +1 elixir, higher level, copied deployment restrictions.",
-        "Match.mirrored exists but portable scenario spell overrides currently accept only level11.",
-        "Mirror alone has no prior card to copy; cannot be a valid solo scenario."
+        "Portable Mirror supports unit copies only; arbitrary spell copies fail closed.",
+        "Unit profiles are loaded at one level higher and actual price is copied-card cost plus one.",
+        "Starting hand excludes Mirror; a scenario must legally play a prior unit and draw Mirror.",
+        "Unit-specific mechanics retain their underlying public-profile limitations."
       ],
       "sources": [
-        "cards.json:mirror"
+        "cards.json:mirror",
+        "cards_stats_characters.json:level_arrays",
+        "sim/match.py:Match.mirrored"
       ],
-      "level": 11
+      "level": 11,
+      "representation": "dynamic_unit_copy"
     },
     "party_rocket": {
       "playable_card": true,

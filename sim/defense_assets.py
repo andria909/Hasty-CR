@@ -14,7 +14,7 @@ def load_defense_assets():
     cards=dict(load_gamedata(level=11))
     spells=dict(load_spells(level=11))
     public=load_public_scenario_spells(11,available_buffs=load_buffs(),
-                                       engine_capabilities={'clone_preserves_shield_presence','graveyard_client_transcription'})
+                                       engine_capabilities={'clone_preserves_shield_presence','graveyard_client_transcription','elixir_collector_income_and_starting_hand','mirror_units_and_opening_rules'})
     spells.update(public.spells)
     area=load_public_area_spells(11)
     spells.update(area.spells)

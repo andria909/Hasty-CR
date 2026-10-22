@@ -1,6 +1,6 @@
 {
   "schema": "defense-v1",
-  "count": 1860,
+  "count": 1868,
   "scenarios": [
     {
       "scenario_id": "building:archers:fireball:giant/building_guess:center/x1/left",
@@ -41919,6 +41919,118 @@
       "setup": "bridge"
     },
     {
+      "scenario_id": "solo:elixir_collector/back/x1/left",
+      "family_id": "solo:elixir_collector",
+      "difficulty": "simple",
+      "split": "train",
+      "lane": "left",
+      "plays": [
+        {
+          "card": "skeletons",
+          "at_ms": 0,
+          "position": "back",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        },
+        {
+          "card": "elixir_collector",
+          "at_ms": 0,
+          "position": "back",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        }
+      ],
+      "elixir_multiplier": 1,
+      "enemy_initial_elixir": 10,
+      "enemy_bonus_elixir": 0,
+      "unavoidable_tower_damage": false,
+      "setup": "back"
+    },
+    {
+      "scenario_id": "solo:elixir_collector/back/x1/right",
+      "family_id": "solo:elixir_collector",
+      "difficulty": "simple",
+      "split": "train",
+      "lane": "right",
+      "plays": [
+        {
+          "card": "skeletons",
+          "at_ms": 0,
+          "position": "back",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        },
+        {
+          "card": "elixir_collector",
+          "at_ms": 0,
+          "position": "back",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        }
+      ],
+      "elixir_multiplier": 1,
+      "enemy_initial_elixir": 10,
+      "enemy_bonus_elixir": 0,
+      "unavoidable_tower_damage": false,
+      "setup": "back"
+    },
+    {
+      "scenario_id": "solo:elixir_collector/bridge/x1/left",
+      "family_id": "solo:elixir_collector",
+      "difficulty": "simple",
+      "split": "train",
+      "lane": "left",
+      "plays": [
+        {
+          "card": "skeletons",
+          "at_ms": 0,
+          "position": "bridge",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        },
+        {
+          "card": "elixir_collector",
+          "at_ms": 0,
+          "position": "bridge",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        }
+      ],
+      "elixir_multiplier": 1,
+      "enemy_initial_elixir": 10,
+      "enemy_bonus_elixir": 0,
+      "unavoidable_tower_damage": false,
+      "setup": "bridge"
+    },
+    {
+      "scenario_id": "solo:elixir_collector/bridge/x1/right",
+      "family_id": "solo:elixir_collector",
+      "difficulty": "simple",
+      "split": "train",
+      "lane": "right",
+      "plays": [
+        {
+          "card": "skeletons",
+          "at_ms": 0,
+          "position": "bridge",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        },
+        {
+          "card": "elixir_collector",
+          "at_ms": 0,
+          "position": "bridge",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        }
+      ],
+      "elixir_multiplier": 1,
+      "enemy_initial_elixir": 10,
+      "enemy_bonus_elixir": 0,
+      "unavoidable_tower_damage": false,
+      "setup": "bridge"
+    },
+    {
       "scenario_id": "solo:elixir_golem/back/x1/left",
       "family_id": "solo:elixir_golem",
       "difficulty": "simple",
@@ -42852,7 +42964,7 @@
         {
           "card": "giant_snowball",
           "at_ms": 0,
-          "position": "back",
+          "position": "tower",
           "near_bridge_after": null,
           "max_wait_ms": 45000
         }
@@ -42860,7 +42972,7 @@
       "elixir_multiplier": 1,
       "enemy_initial_elixir": 10,
       "enemy_bonus_elixir": 0,
-      "unavoidable_tower_damage": false,
+      "unavoidable_tower_damage": true,
       "setup": "back"
     },
     {
@@ -42873,7 +42985,7 @@
         {
           "card": "giant_snowball",
           "at_ms": 0,
-          "position": "back",
+          "position": "tower",
           "near_bridge_after": null,
           "max_wait_ms": 45000
         }
@@ -42881,7 +42993,7 @@
       "elixir_multiplier": 1,
       "enemy_initial_elixir": 10,
       "enemy_bonus_elixir": 0,
-      "unavoidable_tower_damage": false,
+      "unavoidable_tower_damage": true,
       "setup": "back"
     },
     {
@@ -42894,7 +43006,7 @@
         {
           "card": "giant_snowball",
           "at_ms": 0,
-          "position": "bridge",
+          "position": "tower",
           "near_bridge_after": null,
           "max_wait_ms": 45000
         }
@@ -42902,7 +43014,7 @@
       "elixir_multiplier": 1,
       "enemy_initial_elixir": 10,
       "enemy_bonus_elixir": 0,
-      "unavoidable_tower_damage": false,
+      "unavoidable_tower_damage": true,
       "setup": "bridge"
     },
     {
@@ -42915,7 +43027,7 @@
         {
           "card": "giant_snowball",
           "at_ms": 0,
-          "position": "bridge",
+          "position": "tower",
           "near_bridge_after": null,
           "max_wait_ms": 45000
         }
@@ -42923,7 +43035,7 @@
       "elixir_multiplier": 1,
       "enemy_initial_elixir": 10,
       "enemy_bonus_elixir": 0,
-      "unavoidable_tower_damage": false,
+      "unavoidable_tower_damage": true,
       "setup": "bridge"
     },
     {
@@ -45518,6 +45630,118 @@
       "plays": [
         {
           "card": "minions",
+          "at_ms": 0,
+          "position": "bridge",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        }
+      ],
+      "elixir_multiplier": 1,
+      "enemy_initial_elixir": 10,
+      "enemy_bonus_elixir": 0,
+      "unavoidable_tower_damage": false,
+      "setup": "bridge"
+    },
+    {
+      "scenario_id": "solo:mirror/back/x1/left",
+      "family_id": "solo:mirror",
+      "difficulty": "simple",
+      "split": "train",
+      "lane": "left",
+      "plays": [
+        {
+          "card": "knight",
+          "at_ms": 0,
+          "position": "back",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        },
+        {
+          "card": "mirror",
+          "at_ms": 0,
+          "position": "back",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        }
+      ],
+      "elixir_multiplier": 1,
+      "enemy_initial_elixir": 10,
+      "enemy_bonus_elixir": 0,
+      "unavoidable_tower_damage": false,
+      "setup": "back"
+    },
+    {
+      "scenario_id": "solo:mirror/back/x1/right",
+      "family_id": "solo:mirror",
+      "difficulty": "simple",
+      "split": "train",
+      "lane": "right",
+      "plays": [
+        {
+          "card": "knight",
+          "at_ms": 0,
+          "position": "back",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        },
+        {
+          "card": "mirror",
+          "at_ms": 0,
+          "position": "back",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        }
+      ],
+      "elixir_multiplier": 1,
+      "enemy_initial_elixir": 10,
+      "enemy_bonus_elixir": 0,
+      "unavoidable_tower_damage": false,
+      "setup": "back"
+    },
+    {
+      "scenario_id": "solo:mirror/bridge/x1/left",
+      "family_id": "solo:mirror",
+      "difficulty": "simple",
+      "split": "train",
+      "lane": "left",
+      "plays": [
+        {
+          "card": "knight",
+          "at_ms": 0,
+          "position": "bridge",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        },
+        {
+          "card": "mirror",
+          "at_ms": 0,
+          "position": "bridge",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        }
+      ],
+      "elixir_multiplier": 1,
+      "enemy_initial_elixir": 10,
+      "enemy_bonus_elixir": 0,
+      "unavoidable_tower_damage": false,
+      "setup": "bridge"
+    },
+    {
+      "scenario_id": "solo:mirror/bridge/x1/right",
+      "family_id": "solo:mirror",
+      "difficulty": "simple",
+      "split": "train",
+      "lane": "right",
+      "plays": [
+        {
+          "card": "knight",
+          "at_ms": 0,
+          "position": "bridge",
+          "near_bridge_after": null,
+          "max_wait_ms": 45000
+        },
+        {
+          "card": "mirror",
           "at_ms": 0,
           "position": "bridge",
           "near_bridge_after": null,
@@ -48900,7 +49124,7 @@
         {
           "card": "tornado",
           "at_ms": 0,
-          "position": "back",
+          "position": "tower",
           "near_bridge_after": null,
           "max_wait_ms": 45000
         }
@@ -48908,7 +49132,7 @@
       "elixir_multiplier": 1,
       "enemy_initial_elixir": 10,
       "enemy_bonus_elixir": 0,
-      "unavoidable_tower_damage": false,
+      "unavoidable_tower_damage": true,
       "setup": "back"
     },
     {
@@ -48921,7 +49145,7 @@
         {
           "card": "tornado",
           "at_ms": 0,
-          "position": "back",
+          "position": "tower",
           "near_bridge_after": null,
           "max_wait_ms": 45000
         }
@@ -48929,7 +49153,7 @@
       "elixir_multiplier": 1,
       "enemy_initial_elixir": 10,
       "enemy_bonus_elixir": 0,
-      "unavoidable_tower_damage": false,
+      "unavoidable_tower_damage": true,
       "setup": "back"
     },
     {
@@ -48942,7 +49166,7 @@
         {
           "card": "tornado",
           "at_ms": 0,
-          "position": "bridge",
+          "position": "tower",
           "near_bridge_after": null,
           "max_wait_ms": 45000
         }
@@ -48950,7 +49174,7 @@
       "elixir_multiplier": 1,
       "enemy_initial_elixir": 10,
       "enemy_bonus_elixir": 0,
-      "unavoidable_tower_damage": false,
+      "unavoidable_tower_damage": true,
       "setup": "bridge"
     },
     {
@@ -48963,7 +49187,7 @@
         {
           "card": "tornado",
           "at_ms": 0,
-          "position": "bridge",
+          "position": "tower",
           "near_bridge_after": null,
           "max_wait_ms": 45000
         }
@@ -48971,7 +49195,7 @@
       "elixir_multiplier": 1,
       "enemy_initial_elixir": 10,
       "enemy_bonus_elixir": 0,
-      "unavoidable_tower_damage": false,
+      "unavoidable_tower_damage": true,
       "setup": "bridge"
     },
     {

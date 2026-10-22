@@ -245,3 +245,21 @@ def test_default_timeout_allows_solo_princess_to_finish_real_sustained_damage():
     assert terminal and not truncated
     assert info['terminal_reason']=='own_king_destroyed'
     assert 180000<info['metrics']['elapsed_ms']<240000
+
+
+def test_collector_scenario_cycles_and_pays_for_a_legal_opening_card(monkeypatch):
+    from sim.defense_env import DefenseMatch
+    scenario=next(s for s in build_catalog()[0]if s.family_id=='solo:elixir_collector')
+    seen=[]
+    original=DefenseMatch.play_card
+    def record(match,side,card,point):
+        if side==-1:seen.append((card,tuple(match.players[side].hand)))
+        return original(match,side,card,point)
+    monkeypatch.setattr(DefenseMatch,'play_card',record)
+    env=DefenseEnv(scenario=scenario,split=scenario.split)
+    _,info=env.reset(seed=42)
+    assert [card for card,_ in seen]==['skeletons','elixir_collector']
+    assert 'elixir_collector' not in seen[0][1]
+    assert 'elixir_collector' in seen[1][1]
+    assert info['metrics']['enemy_elixir_spent']==7
+    assert env.match.players[-1].elixir==3000

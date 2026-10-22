@@ -156,6 +156,12 @@ class DefenseEnv(ClashEnv):
             raise ValueError('Scenario attack uses more than one legal eight-card deck')
         deck=planned+[name for name in DECK_26 if name not in planned]
         deck=deck[:8]
+        from sim.match import STARTING_HAND_EXCLUSIONS
+        excluded=[card for card in deck if card in STARTING_HAND_EXCLUSIONS]
+        eligible=[card for card in deck if card not in STARTING_HAND_EXCLUSIONS]
+        # Preserve script order while obeying cards forbidden in opening hand.
+        # The first legal opening play draws the first excluded card.
+        deck=eligible[:4]+excluded+eligible[4:]
         self.match=DefenseMatch(cards=self._cards,decks=(list(DECK_26),deck),
                                 seed=self.seed,spells=self._spells)
         self.match.battle.unit_lookup=UnitLookup(self.match)
