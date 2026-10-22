@@ -103,6 +103,9 @@ def elixir_table() -> Dict[str, dict]:
             }
             if any(entry.values()):
                 table[to_snake_case(fields["Name"].strip())] = entry
+    from .public_gamedata import load_public_elixir_table
+    for name, entry in load_public_elixir_table().items():
+        table.setdefault(name, entry)
     _ELIXIR_TABLE = table
     return table
 
@@ -117,6 +120,31 @@ def _levelled_cards(level: int) -> dict:
         from .gamedata import load_gamedata
         _LEVELLED_CACHE[level] = load_gamedata(level=level)
     return _LEVELLED_CACHE[level]
+
+
+STARTING_HAND_EXCLUSIONS = frozenset({'elixir_collector', 'mirror'})
+
+
+def starting_card_order(deck, rng):
+    """Uniform shuffled order conditional on excluding restricted opening cards.
+
+    Sampling eligible hand indices then shuffling all remaining cards preserves
+    randomness throughout the draw queue, including Collector/Mirror positions.
+    Ordinary decks retain their established seeded shuffle exactly.
+    """
+    deck = list(deck)
+    if not STARTING_HAND_EXCLUSIONS.intersection(deck):
+        rng.shuffle(deck)
+        return deck
+    slots = min(4, len(deck))
+    eligible = [i for i, card in enumerate(deck) if card not in STARTING_HAND_EXCLUSIONS]
+    if len(eligible) < slots:
+        raise ValueError('Not enough eligible cards for a legal opening hand')
+    selected = rng.sample(eligible, slots)
+    chosen = set(selected)
+    remaining = [card for i, card in enumerate(deck) if i not in chosen]
+    rng.shuffle(remaining)
+    return [deck[i] for i in selected] + remaining
 
 
 @dataclass
@@ -230,8 +258,7 @@ class Match:
         self.battle.unit_lookup = lookup
         for index, side in enumerate((1, -1)):
             deck = list(self.decks[index])
-            order = deck[:]
-            rng.shuffle(order)
+            order = starting_card_order(deck, rng)
             player = PlayerState(side=side, deck=deck, queue=order)
             player.draw()
             self.players[side] = player
@@ -461,6 +488,11 @@ class Match:
                 unit.deploy_remaining_ms += (travelled * 1000
                                              // unit.burrow_speed_mt_per_sec)
             added = self.battle.add(unit)
+            # Register at placement, before a same-tick hit can remove it.
+            # Otherwise a freshly killed Collector loses its death payout.
+            income = elixir_table().get(added.name)
+            if income is not None:
+                self._mana_watch[added.uid] = (added.side, income)
             if spawn_group_uid == 0:
                 spawn_group_uid = added.uid
             added.spawn_group_uid = spawn_group_uid

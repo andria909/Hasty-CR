@@ -260,6 +260,13 @@ def load_public_gamedata(level: int = 11) -> tuple[dict[str, CardSpec], dict]:
         "spear_goblins": "spear_goblin", "guards": "guard",
         "barbarians": "barbarian", "bats": "bat", "minions": "minion",
     }
+    # The catalogue names this "Elixir Collector" while its exact public
+    # building identifier is ElixirCollector; its stats row has no card key.
+    collector = next(row for row in catalogue if row['key'] == 'elixir-collector')
+    cards['elixir_collector'] = CardSpec(
+        name='elixir_collector', cost=int(collector['elixir']), rarity=collector['rarity'],
+        unit=by_source['ElixirCollector'], summon_number=1, summon_radius_mt=0,
+        summon_deploy_delay_ms=0, deploy_time_ms=by_source['ElixirCollector'].deploy_time_ms)
     for source, alias in aliases.items():
         if source in cards and alias not in cards:
             spec = cards[source]
@@ -309,3 +316,13 @@ def load_public_spells(level: int = 11):
     )
     return {"fireball": fire, "zap": zap, "the_log": rolling,
             "log": SpellSpec(**{**rolling.__dict__, "name": "log"})}
+
+
+def load_public_elixir_table():
+    """Portable Collector economy in milli-elixir; client entries take precedence."""
+    row = next(row for row in _rows('cards_stats_building.json') if row['name']=='ElixirCollector')
+    return {'elixir_collector': dict(
+        generate_ms=int(row['mana_generate_time_ms']),
+        amount_milli=int(row['mana_collect_amount'])*1000,
+        death_milli=int(row['mana_on_death'])*1000,
+        death_opp_milli=int(row.get('mana_on_death_for_opponent') or 0)*1000)}

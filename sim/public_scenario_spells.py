@@ -265,13 +265,16 @@ def load_public_scenario_spells(level=11, *, root=DATA,
            sources=('cards_stats_spell.json:Tornado', 'cards_stats_character_buff.json:Tornado'),
            notes=('Raw DPS106, AEO lifetime1050/hit_speed50 and buff hit_frequency500 are not a full current damage schedule.',
                   'AttractPercentage360 is available; damage and full timing remain unresolved.'))
-    status('elixir_collector', missing=('engine_public_elixir_income_table', 'starting_hand_exclusion'),
-           sources=('cards_stats_building.json:ElixirCollector', 'cards.json:elixir-collector'),
-           notes=('Exact public level11 profile exists: HP1070, deploy1000ms, lifetime65000ms.',
-                  'Income fields: mana_collect_amount1, mana_generate_time_ms9000, mana_on_death1.',
-                  'Match.elixir_table currently reads only client TOMLs; inert building admission would be incorrect.',
-                  'Catalogue description excludes Collector from starting hand; generic Match shuffle does not enforce it.'))
-    status('mirror', missing=('audited_level_12_spell_and_unit_coverage', 'starting_hand_exclusion', 'mechanical_mask_resolved_card_rules'),
+    if 'elixir_collector_income_and_starting_hand' not in engine_capabilities:
+        status('elixir_collector', missing=('engine_collector_income_and_starting_hand_capability',),
+               sources=('cards_stats_building.json:ElixirCollector', 'cards.json:elixir-collector'))
+    else:
+        status('elixir_collector', sources=('cards_stats_building.json:ElixirCollector', 'cards.json:elixir-collector'),
+               notes=('Loaded as a building; income comes from Match.elixir_table public fallback.',
+                      'Initial hand excludes Collector and Mirror; scenario scripts must cycle cards legally.'))
+        report['elixir_collector']['supported'] = True
+        report['elixir_collector']['representation'] = 'building'
+    status('mirror', missing=('audited_level_12_spell_and_unit_coverage', 'mechanical_mask_resolved_card_rules'),
            sources=('cards.json:mirror',),
            notes=('Mirror is dynamic: last card +1 elixir, higher level, copied deployment restrictions.',
                   'Match.mirrored exists but portable scenario spell overrides currently accept only level11.',

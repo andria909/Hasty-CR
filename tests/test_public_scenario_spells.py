@@ -101,7 +101,7 @@ def test_remaining_card_gaps_are_explicit_not_aliased_to_other_spells():
     remaining={'barbarian_barrel','clone','earthquake','elixir_collector','giant_snowball',
                'graveyard','heal_spirit','mirror','party_rocket','poison','tornado'}
     assert remaining <= catalog.audit.keys()
-    assert catalog.audit['elixir_collector']['missing'] == ['engine_public_elixir_income_table','starting_hand_exclusion']
+    assert catalog.audit['elixir_collector']['missing'] == ['engine_collector_income_and_starting_hand_capability']
     assert 'projectile_or_action_definition' in catalog.audit['party_rocket']['missing']
     assert 'level_11_damage_per_second' in catalog.audit['tornado']['missing']
     assert 'engine_clone_invents_shield_for_unshielded_troops' in catalog.audit['clone']['missing']
