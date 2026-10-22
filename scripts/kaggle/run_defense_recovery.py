@@ -180,13 +180,39 @@ def validate_resume_states(ppo, grpo):
     ppo_remaining(ppo)
 
 
+def live_summary(line,child=None):
+    """Keep scalar progress before large sampler/episode arrays in live stdout."""
+    try:
+        record=json.loads(line)
+    except (ValueError,TypeError):
+        return line.rstrip()[:1000]
+    if not isinstance(record,dict):return line.rstrip()[:1000]
+    keys=('event','update','updates','step','environment_steps','elapsed_seconds',
+          'actual_cuda','device','cuda_available','loss','gradient_norm')
+    summary={key:record[key]for key in keys if key in record}
+    target={'ppo':PPO_STEPS,'grpo':GRPO_STEPS}.get(child)
+    completed=record.get('step'if child=='ppo'else 'environment_steps')
+    if target and isinstance(completed,int) and not isinstance(completed,bool) and completed>=0:
+        summary.update(training_percent=round(min(100.,100*completed/target),2),target_steps=target)
+    if isinstance(record.get('validation'),dict):
+        summary['validation']={key:record['validation'][key]for key in
+                               ('mean_reward','mean_return')if key in record['validation']}
+    return json.dumps(summary) if summary else line.rstrip()[:1000]
+
+
 def run_logged(command, project, log):
     environment = dict(os.environ, OMP_NUM_THREADS='2', MKL_NUM_THREADS='2',
                        OPENBLAS_NUM_THREADS='2', PYTHONUNBUFFERED='1')
     with Path(log).open('x') as stream:
+        name=Path(log).stem
         process = subprocess.Popen(command, cwd=project, env=environment,
-                                   stdout=stream, stderr=subprocess.STDOUT)
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT,text=True,bufsize=1)
+        print(json.dumps(dict(event='child_started',child=name,pid=process.pid)),flush=True)
+        for line in process.stdout:
+            stream.write(line);stream.flush()
+            print(name+': '+live_summary(line,child=name),flush=True)
         code = process.wait()
+        print(json.dumps(dict(event='child_completed',child=name,pid=process.pid,returncode=code)),flush=True)
     if code:
         raise RuntimeError(f'Child failed ({code}); inspect {log}')
 
