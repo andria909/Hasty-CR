@@ -1,0 +1,54 @@
+{
+  "source_provenance": {
+    "manifest_sha256": "9f5967ba6a1f6ab1b995ef6668da6d6e56ded6df1a3af81f4c9f6f467c25bd17",
+    "archive_sha256": "4375e1b1650e82c5b4114eda7872ef79e6321887b837a07356af48aeb5c7c5a1",
+    "source_file_count": 142,
+    "original_source_manifest_sha256": "cb9f8bc0301a52cf160f46197b475f93841ab2c73891a7483194b5d48c15df75",
+    "original_source_archive_sha256": "26d0cf56182d7cd7fca2c4ff9320485a3aa06b9b9d19a4b7a1973034346f16bd",
+    "changed_files": {
+      "sim/defense_env.py": {
+        "from_sha256": "58e305a098a068e13f53d5372da05d0d90aefedc68dc35a2194032e0eb4b3472",
+        "to_sha256": "defc163b61c0fdae7e6c10e0ac57d5bf371f185a33c26662be7db97ae3dadf9c"
+      },
+      "sim/train_defense_grpo.py": {
+        "from_sha256": "6ca56981f398ca858a6a9c49ebaf87ca52c89ee2b73f0b37732b298e07955207",
+        "to_sha256": "af0f03d552472878abdb19fdbb2aef0aac978d09e9f49dcfac8a659af59716df"
+      }
+    },
+    "baseline_sha256": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972",
+    "baseline_file_verified": false,
+    "migration_sha256": "fe6e18f28207552e1caf3e394be6b294414a346dae55cec8d8ac09bee433b818"
+  },
+  "files": {
+    "ppo_latest": {
+      "path": "ppo/update_001150.pt",
+      "sha256": "f6e17dff8b6b9e4efea76dbdcfabe56a91cd9aad14001f415525b013426b768e",
+      "update": 1150,
+      "steps": 1177600,
+      "best_validation": -2.8123228433961067
+    },
+    "ppo_best_validation": {
+      "path": "ppo/best_validation_000300.pt",
+      "sha256": "d4a583bc730b1b0373135c99c409f18ef475d8c3247dd29f639e74441e579cea",
+      "update": 300,
+      "steps": 307200,
+      "best_validation": -2.8123228433961067
+    },
+    "grpo_boundary": {
+      "path": "grpo/boundary_u000350_s000018.pt",
+      "sha256": "e75d79032fb2bd4d8a67ac8b7f87cdc81319d0f5644fbdd87794a642e7b5eedc",
+      "update": 350,
+      "steps": 269282,
+      "best_validation": -2.5354434169135467
+    },
+    "grpo_best_validation": {
+      "path": "grpo/best_validation_u000300_s000015.pt",
+      "sha256": "f9a586c58131c7c546dbfdea5b8f118999c07d03aff8862e78d5df2e72949790",
+      "update": 300,
+      "steps": 233961,
+      "best_validation": -2.5354434169135467
+    }
+  },
+  "status": "checkpoint_contents_verified_locally",
+  "quality_accepted": false
+}

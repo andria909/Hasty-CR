@@ -1,0 +1,5594 @@
+{
+  "scope": "Train-only minimum-window feasibility probes; not learned quality or optimality",
+  "reports": [
+    {
+      "schema": "attack-reference-window-audit-v1",
+      "split": "train",
+      "seed": 42,
+      "initial_hand_mode": "shuffle",
+      "source_sha256": {
+        "sim/attack_env.py": "7aa9a3ff66ab8a947282506a19fc9316a75ce0ecb81f11aaa7cfda447bf2f78a",
+        "sim/attack_scenarios.py": "78c19577c993b5e25ef58c5a4092512f3050ae933ef53cc20baab4712eb92ba5",
+        "scripts/attack/audit_windows.py": "dec293c9a72a436085d4cf1fdedba4e64349244c562d2a7fa94adc758ceca10f"
+      },
+      "catalog_count": 236,
+      "episodes": 46,
+      "goal_reached": 30,
+      "records": [
+        {
+          "scenario_id": "finisher:fireball:king/below:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 8001,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "cannon",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/below:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 8000,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "cannon",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/below:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 8000,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "cannon",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/below:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 8000,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "cannon",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 8001,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "cannon",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 8000,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "cannon",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 8001,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "cannon",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 8000,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "cannon",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 8001,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "cannon",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 8001,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "cannon",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 8001,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "cannon",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 8001,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "cannon",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 8000,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "cannon",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 8001,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "cannon",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 8001,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "cannon",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 8001,
+          "terminal_reason": "goal_window_missed",
+          "goal_reached": false,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 6150,
+              "card": "cannon",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:lower_lane/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 10650,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:lower_lane/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 10650,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:single_princess_dead/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 12350,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:single_princess_dead/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 12200,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:tie/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 12250,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:tie/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 10650,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:lower_lane/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "left",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12001,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:lower_lane/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "right",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:single_princess_dead/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "left",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 7100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:single_princess_dead/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "right",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 6950,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:tie/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "left",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:tie/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "right",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12001,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/pocket:single_princess_dead/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "pocket",
+          "lane": "left",
+          "minimum_window_ms": 10000,
+          "actual_window_ms": 10001,
+          "elapsed_ms": 5250,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/pocket:single_princess_dead/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "pocket",
+          "lane": "right",
+          "minimum_window_ms": 10000,
+          "actual_window_ms": 10001,
+          "elapsed_ms": 5000,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y18500/left/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4500,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y18500/right/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4500,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y21500/left/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y21500/right/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y18500/left/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y18500/right/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y21500/left/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y21500/right/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y18500/left/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y18500/right/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y21500/left/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y21500/right/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y18500/left/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 5150,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y18500/right/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 5150,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y21500/left/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y21500/right/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 5100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "knight",
+            "electro_spirit",
+            "skeletons",
+            "zap"
+          ],
+          "initial_queue": [
+            "hog_rider",
+            "musketeer",
+            "cannon",
+            "fireball"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        }
+      ],
+      "quality_accepted": false,
+      "all_windows_calibrated": false,
+      "trained": false,
+      "limitations": [
+        "Deterministic release plus cheap-body cycle reference; not an optimal or learned policy",
+        "No enemy defenses or multi-cast finishers in this initial timing check",
+        "One seed per scenario; no conclusion for other hands or timers",
+        "Simulator timing only; real-game mechanics remain unverified"
+      ]
+    },
+    {
+      "schema": "attack-reference-window-audit-v1",
+      "split": "train",
+      "seed": 43,
+      "initial_hand_mode": "shuffle",
+      "source_sha256": {
+        "sim/attack_env.py": "7aa9a3ff66ab8a947282506a19fc9316a75ce0ecb81f11aaa7cfda447bf2f78a",
+        "sim/attack_scenarios.py": "78c19577c993b5e25ef58c5a4092512f3050ae933ef53cc20baab4712eb92ba5",
+        "scripts/attack/audit_windows.py": "dec293c9a72a436085d4cf1fdedba4e64349244c562d2a7fa94adc758ceca10f"
+      },
+      "catalog_count": 236,
+      "episodes": 46,
+      "goal_reached": 46,
+      "records": [
+        {
+          "scenario_id": "finisher:fireball:king/below:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 3150,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/below:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 3150,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/below:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 3150,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/below:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 3150,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 3150,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 3150,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 3150,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 3150,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2850,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2850,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2850,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2850,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2850,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2850,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2850,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2850,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:lower_lane/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 12050,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:lower_lane/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 11950,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:single_princess_dead/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 13850,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:single_princess_dead/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 13500,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:tie/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 13650,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:tie/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 11950,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:lower_lane/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "left",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12001,
+          "elapsed_ms": 6100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:lower_lane/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "right",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 6100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:single_princess_dead/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "left",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 8100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:single_princess_dead/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "right",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 7950,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:tie/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "left",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 6100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:tie/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "right",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12001,
+          "elapsed_ms": 6100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/pocket:single_princess_dead/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "pocket",
+          "lane": "left",
+          "minimum_window_ms": 10000,
+          "actual_window_ms": 10001,
+          "elapsed_ms": 6250,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/pocket:single_princess_dead/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "pocket",
+          "lane": "right",
+          "minimum_window_ms": 10000,
+          "actual_window_ms": 10000,
+          "elapsed_ms": 6000,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y18500/left/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 17400,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y18500/right/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 13100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 79,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y21500/left/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 6100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y21500/right/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 6100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y18500/left/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 15250,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y18500/right/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 14800,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y21500/left/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 6050,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y21500/right/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 6050,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y18500/left/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 8500,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 104,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y18500/right/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 8500,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 104,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y21500/left/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 6050,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y21500/right/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 6050,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y18500/left/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 6100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y18500/right/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 6100,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y21500/left/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 5950,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y21500/right/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 5950,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "skeletons",
+            "zap",
+            "electro_spirit",
+            "knight"
+          ],
+          "initial_queue": [
+            "fireball",
+            "musketeer",
+            "hog_rider",
+            "cannon"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "electro_spirit",
+              "accepted": true
+            },
+            {
+              "at_ms": 650,
+              "card": "skeletons",
+              "accepted": true
+            },
+            {
+              "at_ms": 1150,
+              "card": "knight",
+              "accepted": true
+            },
+            {
+              "at_ms": 1650,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        }
+      ],
+      "quality_accepted": false,
+      "all_windows_calibrated": false,
+      "trained": false,
+      "limitations": [
+        "Deterministic release plus cheap-body cycle reference; not an optimal or learned policy",
+        "No enemy defenses or multi-cast finishers in this initial timing check",
+        "One seed per scenario; no conclusion for other hands or timers",
+        "Simulator timing only; real-game mechanics remain unverified"
+      ]
+    },
+    {
+      "schema": "attack-reference-window-audit-v1",
+      "split": "train",
+      "seed": 44,
+      "initial_hand_mode": "shuffle",
+      "source_sha256": {
+        "sim/attack_env.py": "7aa9a3ff66ab8a947282506a19fc9316a75ce0ecb81f11aaa7cfda447bf2f78a",
+        "sim/attack_scenarios.py": "78c19577c993b5e25ef58c5a4092512f3050ae933ef53cc20baab4712eb92ba5",
+        "scripts/attack/audit_windows.py": "dec293c9a72a436085d4cf1fdedba4e64349244c562d2a7fa94adc758ceca10f"
+      },
+      "catalog_count": 236,
+      "episodes": 46,
+      "goal_reached": 46,
+      "records": [
+        {
+          "scenario_id": "finisher:fireball:king/below:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2650,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/below:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2650,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/below:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2650,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/below:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2650,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2650,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2650,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2650,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:king/equal:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:king",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2650,
+          "terminal_reason": "enemy_king_destroyed",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2350,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2350,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2350,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/below:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2350,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana10/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2350,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana10/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8000,
+          "elapsed_ms": 2350,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana6/left/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "left",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2350,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "finisher:fireball:unopposed/equal:mana6/right/timer_hidden",
+          "family_id": "finisher:fireball:unopposed",
+          "goal_kind": "spell_finish",
+          "setup_kind": "spell_finisher",
+          "lane": "right",
+          "minimum_window_ms": 8000,
+          "actual_window_ms": 8001,
+          "elapsed_ms": 2350,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 0,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "fireball",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:lower_lane/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 10150,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:lower_lane/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 10150,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:single_princess_dead/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 11850,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:single_princess_dead/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 11700,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:tie/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 10150,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/back:tie/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "back",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 10150,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:lower_lane/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "left",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:lower_lane/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "right",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:single_princess_dead/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "left",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 6600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:single_princess_dead/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "right",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12001,
+          "elapsed_ms": 6450,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:tie/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "left",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12001,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/bridge:tie/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "bridge",
+          "lane": "right",
+          "minimum_window_ms": 12000,
+          "actual_window_ms": 12000,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/pocket:single_princess_dead/left/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "pocket",
+          "lane": "left",
+          "minimum_window_ms": 10000,
+          "actual_window_ms": 10001,
+          "elapsed_ms": 4750,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:solo:unopposed/pocket:single_princess_dead/right/timer_hidden",
+          "family_id": "hog:solo:unopposed",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "pocket",
+          "lane": "right",
+          "minimum_window_ms": 10000,
+          "actual_window_ms": 10001,
+          "elapsed_ms": 4500,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y18500/left/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 4150,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y18500/right/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 4150,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y21500/left/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:giant/tank_ahead:y21500/right/timer_hidden",
+          "family_id": "hog:support:giant",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y18500/left/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4250,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y18500/right/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 4250,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y21500/left/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:knight/tank_ahead:y21500/right/timer_hidden",
+          "family_id": "hog:support:knight",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "tank_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y18500/left/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 4250,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y18500/right/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 4250,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y21500/left/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:musketeer/musketeer_ahead:y21500/right/timer_hidden",
+          "family_id": "hog:support:musketeer",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "musketeer_ahead",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y18500/left/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4400,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y18500/right/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18001,
+          "elapsed_ms": 4400,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y21500/left/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "left",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        },
+        {
+          "scenario_id": "hog:support:skeletons/cheap_support:y21500/right/timer_hidden",
+          "family_id": "hog:support:skeletons",
+          "goal_kind": "hog_tower_damage",
+          "setup_kind": "cheap_support",
+          "lane": "right",
+          "minimum_window_ms": 18000,
+          "actual_window_ms": 18000,
+          "elapsed_ms": 4600,
+          "terminal_reason": "goal_success",
+          "goal_reached": true,
+          "hog_target_tower_damage": 318,
+          "initial_hand": [
+            "hog_rider",
+            "musketeer",
+            "knight",
+            "fireball"
+          ],
+          "initial_queue": [
+            "cannon",
+            "zap",
+            "electro_spirit",
+            "skeletons"
+          ],
+          "illegal_actions": 0,
+          "actions": [
+            {
+              "at_ms": 150,
+              "card": "hog_rider",
+              "accepted": true
+            }
+          ]
+        }
+      ],
+      "quality_accepted": false,
+      "all_windows_calibrated": false,
+      "trained": false,
+      "limitations": [
+        "Deterministic release plus cheap-body cycle reference; not an optimal or learned policy",
+        "No enemy defenses or multi-cast finishers in this initial timing check",
+        "One seed per scenario; no conclusion for other hands or timers",
+        "Simulator timing only; real-game mechanics remain unverified"
+      ]
+    }
+  ]
+}

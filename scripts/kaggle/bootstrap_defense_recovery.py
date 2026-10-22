@@ -5,6 +5,7 @@ import importlib.util
 import json
 from pathlib import Path
 import re
+import shutil
 from types import SimpleNamespace
 
 EMBEDDED_CONFIG = None
@@ -40,6 +41,35 @@ def validate_config(config):
             raise ValueError('Expected pinned SHA256')
     if config['source_dataset'] == config['recovered_dataset']:
         raise ValueError('Source and recovered weights require separate datasets')
+    if config.get('recovered_layout','nested') not in ('nested','flat-checkpoints-v1'):
+        raise ValueError('Unknown recovered checkpoint layout')
+
+
+def stage_flat_checkpoints(root,destination):
+    """Restore only receipt-declared checkpoint paths from explicit flat files.
+
+    Flat uploads avoid relying on Kaggle's folder archive extraction behavior.
+    Training logs remain in the local recovery receipt, outside this input subset.
+    """
+    receipt=json.loads((root/'recovery_receipt.json').read_text())
+    names=list(receipt['selected_roles'].values())
+    if not names or len({Path(name).name for name in names})!=len(names):
+        raise ValueError('Ambiguous flat checkpoint filenames')
+    checked=[]
+    for name in names:
+        if not re.fullmatch(r'(ppo|grpo)/[A-Za-z0-9_]+\.pt',name):
+            raise ValueError('Unsafe checkpoint input path')
+        source=root/Path(name).name
+        if digest(source)!=receipt['files'][name]['sha256']:
+            raise ValueError('Flat checkpoint SHA mismatch')
+        checked.append((name,source))
+    destination.mkdir(parents=True,exist_ok=False)
+    shutil.copyfile(root/'recovery_receipt.json',destination/'recovery_receipt.json')
+    for name,source in checked:
+        target=destination/name
+        target.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(source,target)
+    return destination
 
 
 def run(config, *, input_root='/kaggle/input', output='/kaggle/working/recovery'):
@@ -62,6 +92,8 @@ def run(config, *, input_root='/kaggle/input', output='/kaggle/working/recovery'
         raise ValueError('Source archive pin mismatch')
     if digest(recovered/'recovery_receipt.json') != config['recovery_receipt_sha256']:
         raise ValueError('Recovery receipt SHA mismatch')
+    if config.get('recovered_layout')=='flat-checkpoints-v1':
+        recovered=stage_flat_checkpoints(recovered,Path(output).parent/'recovered_input')
     # Import only after all bootstrap pins have been verified. The controller
     # verifies every extracted source file and weight before deserializing.
     spec = importlib.util.spec_from_file_location('pinned_recovery_controller', controller)

@@ -66,3 +66,25 @@ def test_prepare_is_private_offline_and_never_replaces_existing_job(tmp_path):
 @pytest.mark.parametrize('reference',['../source','owner/../../secret','/source','a/b/c','a/'])
 def test_nonexplicit_dataset_reference_refused(reference):
     with pytest.raises(ValueError):bootstrap.dataset_parts(reference)
+
+
+def test_flat_upload_restores_only_receipt_checkpoint_subset(tmp_path):
+    root,source,weights,config=inputs(tmp_path)
+    name='grpo/boundary_u000350_s000018.pt'
+    flat=weights/name.split('/')[-1];flat.write_bytes(b'opaque')
+    (weights/'recovery_receipt.json').write_text(json.dumps(dict(selected_roles={'grpo_boundary':name},
+        files={name:{'sha256':bootstrap.digest(flat)}})))
+    config.update(recovered_layout='flat-checkpoints-v1',
+                  recovery_receipt_sha256=bootstrap.digest(weights/'recovery_receipt.json'))
+    result=bootstrap.run(config,input_root=root,output=tmp_path/'working/recovery')
+    restored=result['recovered_input']
+    assert (restored/name).read_bytes()==b'opaque'
+    assert (restored/'recovery_receipt.json').read_bytes()==(weights/'recovery_receipt.json').read_bytes()
+
+
+@pytest.mark.parametrize('name',['../escape.pt','grpo/../escape.pt'])
+def test_flat_checkpoint_path_escape_refused(tmp_path,name):
+    root,source,weights,config=inputs(tmp_path)
+    (weights/'recovery_receipt.json').write_text(json.dumps(dict(selected_roles={'grpo_boundary':name})))
+    with pytest.raises(ValueError,match='Unsafe'):
+        bootstrap.stage_flat_checkpoints(weights,tmp_path/'out')
