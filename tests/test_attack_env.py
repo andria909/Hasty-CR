@@ -267,3 +267,61 @@ def test_real_enemy_king_spell_lethal_rewards_win_but_does_not_guess_missing_hit
     now=env.match.elapsed_ms
     with pytest.raises(RuntimeError):env.step(0)
     assert env.match.elapsed_ms==now
+
+
+def test_shuffle_mode_same_seed_cases_same_full_deck_and_scenario_override_ignored():
+    envs=[AttackEnv(scenario=scenario(scenario_id=f'case-{i}',hand_seed=i,
+             initial_hand=hand),initial_hand_mode='shuffle')for i,hand in enumerate([
+             ('fireball','zap','hog_rider','knight'),('cannon','musketeer','skeletons','electro_spirit')])]
+    for env in envs:env.reset(seed=42)
+    assert envs[0]._initial_hand==envs[1]._initial_hand
+    assert envs[0]._initial_queue==envs[1]._initial_queue
+    assert set(envs[0]._initial_hand+envs[0]._initial_queue)==set(envs[0].match.players[1].deck)
+    from sim.defense_env import DefenseMatch
+    from sim.env import DECK_26
+    expected=DefenseMatch(cards=envs[0]._cards,decks=(list(DECK_26),list(DECK_26)),
+                          spells=envs[0]._spells,seed=42)
+    assert list(envs[0]._initial_hand)==expected.players[1].hand
+    assert list(envs[0]._initial_queue)==expected.players[1].queue
+    initial=envs[0]._initial_hand+envs[0]._initial_queue
+    envs[0].reset(seed=43)
+    assert envs[0]._initial_hand+envs[0]._initial_queue!=initial
+
+
+def test_shuffle_awkward_hog_not_in_hand_is_legal_and_initial_metrics_stable():
+    env=AttackEnv(scenario=scenario(goal_kind='hog_tower_damage'),initial_hand_mode='shuffle',action_delay_ms=0)
+    for seed in range(20):
+        _,info=env.reset(seed=seed)
+        if 'hog_rider'not in env.match.players[1].hand:break
+    else:raise AssertionError('No awkward seeded starting hand found')
+    before=info['metrics']['initial_hand'],info['metrics']['initial_queue']
+    assert 'hog_rider'in before[1]
+    legal=np.flatnonzero(info['action_mask'][1:])
+    assert len(legal)>0
+    env.step(int(legal[0])+1)
+    after=env._metrics()
+    assert (after['initial_hand'],after['initial_queue'])==before
+    assert after['initial_hand_mode']=='shuffle'
+    assert after['illegal_actions']==0
+    assert env.match.players[1].hand!=list(before[0])
+    assert before[1][0] in env.match.players[1].hand
+
+
+def test_hand_mode_snapshot_mismatch_and_shuffle_visibility_twins():
+    from sim.attack_scenarios import build_catalog
+    scenarios,_=build_catalog()
+    groups={}
+    for s in scenarios:groups.setdefault(s.paired_case_id,[]).append(s)
+    twins=next(values for values in groups.values()if len(values)==2)
+    envs=[AttackEnv(scenario=s,split=s.split,initial_hand_mode='shuffle')for s in twins]
+    for env in envs:env.reset(seed=99)
+    assert envs[0]._initial_hand==envs[1]._initial_hand
+    assert envs[0]._initial_queue==envs[1]._initial_queue
+    assert envs[0]._deadline_ms==envs[1]._deadline_ms
+    other=AttackEnv(scenario=twins[0],split=twins[0].split,initial_hand_mode='scenario')
+    with pytest.raises(ValueError,match='contract'):other.restore(envs[0].snapshot())
+    snapshot=envs[0].snapshot()
+    first=envs[0].step(0)
+    envs[0].restore(snapshot)
+    second=envs[0].step(0)
+    assert first[0]['scalars'].tobytes()==second[0]['scalars'].tobytes()

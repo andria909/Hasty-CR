@@ -265,7 +265,7 @@ def build_catalog(*,spells=None,geometry='legacy_v1',deadline_ranges=None,
             'support bodies are synthetic initial setups, not replayed real defenses',
             'bridge/back/pocket are setup labels; actual Hog placement is unconstrained and must be measured separately',
             'solo Hog setup and HP variants share one family and therefore one split; held-out solo coverage is incomplete',
-            'initial hands are fixed per goal; shuffled hand/cycle curriculum coverage is not implemented']+
+            'catalog initial hands are fixed per goal; AttackEnv shuffle mode is opt-in and needs separate window calibration']+
             ([]if include_counterspell else ['counterspell races explicitly excluded from this catalog']),
         goal_split_coverage={split:{goal:sum(s.split==split and s.goal_kind==goal for s in scenarios)for goal in GOALS}for split in SPLITS})
     report['missing_goal_split_coverage']=[f'{split}:{goal}'for split in SPLITS for goal in GOALS

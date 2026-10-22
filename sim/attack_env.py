@@ -40,13 +40,17 @@ class AttackEnv:
 
     def __init__(self,seed=0,split='train',scenario=None,scenario_id=None,
                  action_delay_ms=150,max_ms=180000,geometry=None,
-                 coordinate_mode='physical_live_cells_v2',visible_fraction=.5,rewards=None):
+                 coordinate_mode='physical_live_cells_v2',visible_fraction=.5,rewards=None,
+                 initial_hand_mode='scenario'):
         if not math.isfinite(visible_fraction) or not 0<=visible_fraction<=1:
             raise ValueError('Visible fraction must be in [0,1]')
         if not 0<=action_delay_ms<=10000 or not 50<=max_ms<=600000:
             raise ValueError('Invalid finite attack timing')
         if coordinate_mode not in ('legacy_training','physical_live','physical_live_cells_v2'):
             raise ValueError('Unknown attack coordinate contract')
+        if initial_hand_mode not in ('scenario','shuffle'):
+            raise ValueError('Unknown attack initial hand mode')
+        self.initial_hand_mode=initial_hand_mode
         self.seed=int(seed)
         self.split=split
         if scenario is None:
@@ -88,7 +92,7 @@ class AttackEnv:
         self._timer_visible=context['deadline_visible']
         if self._geometry_argument is None:
             self.geometry=arena.resolve_geometry(getattr(s,'geometry','legacy_v1'))
-        self._shuffle_seed=context['hand_seed']
+        self._shuffle_seed=self.seed if self.initial_hand_mode=='shuffle' else context['hand_seed']
         enemy_plays=tuple(s.enemy_plays)
         names=list(dict.fromkeys(e.card for e in enemy_plays))
         if any(name not in self._cards for name in names) or len(names)>4:
@@ -103,12 +107,14 @@ class AttackEnv:
         if not math.isfinite(elixir) or not 0<=elixir<=10:raise ValueError('Invalid attack elixir')
         self.match.players[1].elixir=round(elixir*1000)
         initial_hand=getattr(s,'initial_hand',None)
-        if initial_hand is not None:
+        if self.initial_hand_mode=='scenario' and initial_hand is not None:
             if len(initial_hand)!=4 or len(set(initial_hand))!=4 or not set(initial_hand)<=set(DECK_26):
                 raise ValueError('Invalid attack initial hand')
             player=self.match.players[1]
             player.hand=list(initial_hand)
             player.queue=[card for card in DECK_26 if card not in initial_hand]
+        self._initial_hand=tuple(self.match.players[1].hand)
+        self._initial_queue=tuple(self.match.players[1].queue)
         self.match.players[-1].elixir=round(getattr(s,'enemy_initial_elixir',10)*1000)
         self.match.players[-1].hand=deck[:4]
         self.match.players[-1].queue=deck[4:]
@@ -376,6 +382,8 @@ class AttackEnv:
             target_lane=self._target_lane(),setup_kind=getattr(self.scenario,'setup_kind',None),
             finisher_spell=getattr(self.scenario,'finisher_spell',None),
             single_cast_sufficient=getattr(self.scenario,'single_cast_sufficient',None),timer_visible=self._timer_visible,deadline_ms=self._deadline_ms,
+            initial_hand_mode=self.initial_hand_mode,initial_hand=list(self._initial_hand),
+            initial_queue=list(self._initial_queue),
             visible_fraction=self.visible_fraction,shuffle_seed=self._shuffle_seed,seed=self.seed,elapsed_ms=self.match.elapsed_ms,
             terminal_reason=self.terminal_reason,goal_success=self.terminal_reason=='goal_success',
             attack_success=self.terminal_reason in ('goal_success','enemy_king_destroyed'),
@@ -406,7 +414,8 @@ class AttackEnv:
     def snapshot(self):return deepcopy(self.__dict__)
 
     def restore(self,snapshot):
-        if snapshot['geometry']!=self.geometry or snapshot['coordinate_mode']!=self.coordinate_mode:
+        if (snapshot['geometry']!=self.geometry or snapshot['coordinate_mode']!=self.coordinate_mode or
+                snapshot.get('initial_hand_mode','scenario')!=self.initial_hand_mode):
             raise ValueError('Attack snapshot input contract mismatch')
         self.__dict__=deepcopy(snapshot)
         return self._observe(),self._info()
