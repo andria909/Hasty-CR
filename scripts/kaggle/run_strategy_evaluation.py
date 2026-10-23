@@ -52,7 +52,7 @@ def prepare_source(source,output,expected):
 def commands(project,policy,output,protocol_sha):
     protocol=project/'data/strategy/evaluation_protocol.json'
     shared=[sys.executable,'-m','sim.eval_strategy','--checkpoint',str(policy),
-        '--checkpoint-sha256',sha(policy),'--protocol',str(protocol),'--protocol-sha256',protocol_sha,'--device','cuda:0']
+        '--checkpoint-sha256',sha(policy),'--terminal-attribution','--protocol',str(protocol),'--protocol-sha256',protocol_sha,'--device','cuda:0']
     return {'skills':[(name,[*shared,'--split',name,'--output',str(output/(name+'.json'))])for name in ('validation','test')],
         'duels':[('duels',[sys.executable,'-m','sim.eval_defense_duel','--candidate',str(policy),
             '--candidate-mode','joint_enemy_presence_v1','--baseline-manifest',str(project/'data/defense/baselines.json'),

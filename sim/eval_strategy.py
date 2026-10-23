@@ -33,13 +33,31 @@ def context_schedule(protocol,split,scenarios):
     return [dict(scenario_id=name,seed=seed)for name in sorted(configured)for seed in seeds]
 
 
-def evaluate(network,device,protocol,split,*,env_factory=StrategyEnv):
+
+def summarize_terminal_attribution(records):
+    def rate(values):
+        known=[v for v in values if isinstance(v,bool)]
+        return dict(episodes=len(values),known=len(known),unknown=len(values)-len(known),
+                    success=sum(known),rate=sum(known)/len(known) if known else None)
+    hog=[r for r in records if r.get('goal_kind')=='hog_tower_damage']
+    spell=[r for r in records if r.get('goal_kind')=='spell_finish']
+    return dict(hog_hit=rate([True if r.get('hog_target_tower_damage_v2',0)>0 else
+                        False if r.get('hog_damage_ledger_complete_v2') else None for r in hog]),
+                spell_finish=rate([r.get('successful_spell_finish_v2') for r in spell]),
+                legacy_metrics_preserved=True,used_for_training_or_selection=False)
+
+
+def evaluate(network,device,protocol,split,*,env_factory=StrategyEnv,terminal_attribution=False):
     env=env_factory(split=split,**protocol['environment'])
     schedule=context_schedule(protocol,split,env.scenarios)
     records=[]
     network.eval()
     for context in schedule:
-        record=evaluate_episode(env,network,device,**context)
+        if terminal_attribution:
+            from sim.evaluation_terminal_damage import observe_terminal_damage
+            with observe_terminal_damage(env) as observer:
+                record=observer.enrich(evaluate_episode(env,network,device,**context))
+        else:record=evaluate_episode(env,network,device,**context)
         if record.get('strategy_scenario_id')!=context['scenario_id']or record.get('split')!=split:
             raise ValueError('Environment returned a different task or split')
         records.append(record)
@@ -54,7 +72,9 @@ def evaluate(network,device,protocol,split,*,env_factory=StrategyEnv):
     ids=[s.scenario.scenario_id for s in env.scenarios if s.task=='defense']
     return dict(schema='joint-strategy-evaluation-result-v1',split=split,
         expected_episodes=len(schedule),episodes=len(records),records=records,
-        attack=dict(overall=summarize_attack(attack),by=groups),
+        attack=dict(overall=summarize_attack(attack),by=groups,
+                    terminal_attribution_v2=summarize_terminal_attribution(attack) if terminal_attribution else None),
+        terminal_attribution_enabled=terminal_attribution,
         defense=aggregate(defense,expected_scenarios=ids,expected_lanes=('left','right')),
         quality_accepted=False,full_match_evaluated=False,
         checkpoint_selection_performed=False,mechanics_parity_verified=False)
@@ -91,6 +111,7 @@ def main(argv=None):
     parser.add_argument('--protocol-sha256',required=True)
     parser.add_argument('--split',choices=('validation','test'),required=True)
     parser.add_argument('--device',default='cuda:0')
+    parser.add_argument('--terminal-attribution',action='store_true',help='Observe fatal-hit source without changing mechanics or legacy metrics')
     parser.add_argument('--output',type=Path,required=True)
     args=parser.parse_args(argv)
     if args.output.exists():raise ValueError('Use a new evaluation output')
@@ -99,7 +120,7 @@ def main(argv=None):
     if args.device.startswith('cuda')and not torch.cuda.is_available():raise RuntimeError('CUDA required')
     protocol=json.loads(args.protocol.read_text())
     network=load_selected(args.checkpoint,args.device,protocol['environment'])
-    report=evaluate(network,args.device,protocol,args.split)
+    report=evaluate(network,args.device,protocol,args.split,terminal_attribution=args.terminal_attribution)
     report.update(checkpoint_sha256=args.checkpoint_sha256,protocol_sha256=args.protocol_sha256)
     args.output.parent.mkdir(parents=True,exist_ok=True)
     with args.output.open('x')as stream:json.dump(report,stream,indent=2,allow_nan=False);stream.write('\n')

@@ -1,0 +1,46 @@
+{
+  "schema": "selected-ppo-attribution-evaluation-readiness-v2",
+  "training_source_archive_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+  "evaluation_source_archive_sha256": "0544f61b25eda77b27d40848b4d10793d3911a5f726cff0a39c15bd4448d928c",
+  "files": 163,
+  "changed_frozen_members": [],
+  "baseline_ids": [
+    "v11",
+    "v14",
+    "v14_last",
+    "v18",
+    "v19",
+    "v20",
+    "v21",
+    "v24",
+    "v25",
+    "v26",
+    "v27",
+    "v28",
+    "v28b",
+    "v28b_last",
+    "v29"
+  ],
+  "package": "tmp/kaggle/ppo_selected_evaluation_20261023_v2",
+  "isolated_load_verification": {
+    "joint_load_verified": true,
+    "defense_load_verified": true,
+    "frozen_fingerprint_verified": true,
+    "observer_import_verified": true
+  },
+  "observer_cli_verified": true,
+  "legacy_metrics_retained": true,
+  "training_or_optimizer_changed": false,
+  "test_used_for_selection": false,
+  "evaluation_executed": false,
+  "uploaded": false,
+  "quality_accepted": false,
+  "parity_test_cases": [
+    "fireball_king",
+    "zap_king",
+    "zap_princess",
+    "hog_king",
+    "knight_king"
+  ],
+  "parity_scope": "Exact observations, rewards, masks, legacy metrics and serialized environment snapshots in these five paired deterministic cases; not a claim of real-game mechanics parity."
+}

@@ -1,6 +1,6 @@
 """Freeze joint evaluation code plus all15 SHA-pinned historical opponents.
 
-Only two evaluator modules may differ from the frozen training source. No
+Only explicitly allowlisted evaluation modules may differ from training source. No
 training, uploads, weight selection or evaluation happens during packaging.
 """
 import argparse
@@ -14,7 +14,7 @@ from scripts.defense.pack_evaluation import verified_frozen_package, digest, add
 from sim.defense_protocol import load_baseline_allowlist, V25_SHA256
 
 
-EVALUATORS=('sim/eval_strategy.py','sim/eval_defense_duel.py')
+EVALUATORS=('sim/eval_strategy.py','sim/eval_defense_duel.py','sim/evaluation_terminal_damage.py')
 EXTRA=('data/strategy/evaluation_protocol.json','data/defense/baselines.json',
        'data/defense/evaluation_protocol.json')
 

@@ -30,6 +30,24 @@ full_command учитывает additionalupdates defense / finalupdate joint.
 Полныйбюджет и конечнаяприёмкакачества ещё НЕ достигнуты. v25 неизменна.
 
 
+Готова новая EVAL-only версия пакета:
+tmp/kaggle/ppo_selected_evaluation_20261023_v2/, archive0544f61b...;
+reports/defense_plan/ppo_selected_evaluation_readiness_v2.json.
+Все146 training-файлов неизменны. Новый sim/evaluation_terminal_damage.py
+добавляет opt-in terminal attribution в sim.eval_strategy --terminal-attribution:
+legacy metrics сохраняются, v2 записывает источник добивания только по
+наблюдаемому HP delta во время исходного KingDestroyed. Для5 парных случаев
+проверены побайтовые observations/rewards/masks/legacy metrics/snapshot.
+Неизвестные источники остаютсяunknown. Никакоеtraining/reward/optimizer
+не изменено. Пакет v1 сохранён, ниv1ниv2 не загружались/не оценивались наGPU.
+36тестов observer/attack/evaljob прошли; изолированно загрузились306/309
+weights, code_fingerprint иCLIflag проверены. Для новой итоговой оценки
+использоватьv2. Будущий job builder должен фиксировать конечный update2000
+из selected_full/result.json, а не старый selector истории best_validation:
+в новых fulljobs eval-every0, полных результатов пока нет.
+
+
+
 ## Завершённый подбор коэффициентов PPO (история)
 
 
