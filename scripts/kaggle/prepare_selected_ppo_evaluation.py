@@ -66,6 +66,9 @@ def prepare(collected,launch_config,source_manifest,evaluation_package,output,*,
                 config=config,code_sha256=sha(job/'evaluate.py'),training_steps=2048000,
                 common_test_episodes=804,defense_test_episodes=708,attack_test_episodes=96,opponent_games=300,
                 terminal_attribution_enabled=True,submitted=False,test_used_for_selection=False,quality_accepted=False)
+    report['input_pins']=dict(collection_receipt_sha256=sha(Path(collected)/'receipt.json'),
+                             launch_config_sha256=sha(launch_config),source_manifest_sha256=sha(source_manifest),
+                             evaluation_manifest_sha256=sha(Path(evaluation_package)/'manifest.json'))
     (output/'preparation_receipt.json').write_text(json.dumps(report,indent=2)+'\n');return report
 
 

@@ -1,3 +1,17 @@
+## Finaleval inputs ready на всех4, local preparation watcher работает
+Все4 private OWNER/hastycr-ppo-selected-eval-v3-20261023 API ready, архив одинаковый1a34b396...
+reports/defense_plan/ppo_selected_evaluation_inputs_ready.json. Upload/status receipts в
+tmp/kaggle/ppo_selected_evaluation_inputs_20261023/OWNER/.
+Кампания tmp/kaggle/ppo_selected_final_evaluations_20261023/campaign.json, monitoring.json PID92060.
+scripts.kaggle.watch_selected_ppo_preparation --wait наблюдает только локальные collected каждые1200сек,
+вызывает строгий selector/builder лишь receipt COMPLETE/completeTrue; GPUjob самНЕотправляет.
+preparation_status.json/log показывают готовность OWNER-пакетов.
+После prepared проверить input_pins, загрузить только selected_dataset, дождаться ready, отправить
+OWNER/hastycr-ppo-selected-final-eval-20261023 на2T4 сtimeout24000. evaluation_dataset ужеготов.
+Не перепушивать существующийработающий kernel; приошибке сначала проверитьегоstate.
+Для recovery коллекция collected_v2, source_manifest inputs/manifest.json; остальные originalfull.
+15тестов watcher/selector/builder прошли. GPUevaluations ещёНЕзапущены, модели продолжаютtraining.
+
 ## Общая итоговая оценка v3 готова
 Использовать tmp/kaggle/ppo_selected_evaluation_20261023_v3/ (164файла/15baselines),
 SHA1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb.
