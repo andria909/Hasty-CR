@@ -321,3 +321,39 @@ Quality flags и ограничения реальных механик сохр
 отдельно собрать новый пакет с сохранённой границей, тем же frozen source
 и настройками; текущий full runner запускает новый этап с teacher и сам
 автоматически продолжение не отправляет.
+
+## Итоговая оценка новых полных PPO
+
+После `COMPLETE` и полной проверенной выгрузки соответствующего полного
+запуска используется новый builder, а не selector старой истории best-validation.
+Фиксируется заранее заданный `train/update_002000.pt` с ровно2048000шагами.
+Пример для первого аккаунта (для остальных заменить владельца во всех ссылках):
+
+```bash
+.venv-live/bin/python -m scripts.kaggle.prepare_selected_ppo_evaluation \
+  --collected tmp/kaggle/ppo_coefficient_full_20261023/andriashadrin/collected \
+  --launch-config tmp/kaggle/ppo_coefficient_full_20261023/andriashadrin/launch_config.json \
+  --source-manifest tmp/kaggle/ppo_coefficient_study_20261023/shared/manifest.json \
+  --evaluation-package tmp/kaggle/ppo_selected_evaluation_20261023_v2 \
+  --output tmp/kaggle/ppo_selected_final_eval_20261023/andriashadrin \
+  --kernel andriashadrin/hastycr-selected-ppo-final-eval-20261023 \
+  --evaluation-dataset andriashadrin/hastycr-selected-ppo-final-inputs-20261023 \
+  --selected-dataset andriashadrin/hastycr-selected-ppo-final-weights-20261023
+```
+
+Builder проверяет terminal receipt, веса и источник, создаёт приватные
+`evaluation_dataset/`, `selected_dataset/`, `job/` и receipt. Не загружает
+данные и не запускает GPU. Перед реальной отправкой отдельно проверяются
+новые slug и готовность обоих datasets; действующие jobs не заменяются.
+
+У всех четырёх политик одинаковый heldout-каталог:1056validation и804test
+(708защиты+96атаки), плюс300игр против15старых моделей. Для306сети таймер
+иtask-признак отбрасываются, используется её native physical_live; для309
+сохраняется cells_v2. Это разные входные контракты, явно записанные в отчёте.
+Legacy-метрики сохраняются, терминальные добивания дополнительно учитываются
+наблюдателемv2; неизвестный источник не записывается как подтверждённыйуспех.
+
+Для итоговых файлов можно использовать terminal collector с
+`--profile strategy --poll-seconds 1200`: новый controller сохраняет их под
+`strategy_evaluation/`. После скачивания нужна сверка `result.json/parts`
+с SHA всех трёх отчётов; один статус COMPLETE не является приёмкой качества.

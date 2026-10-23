@@ -52,8 +52,11 @@ weights, code_fingerprint иCLIflag проверены. Для новой ито
 --source-manifest tmp/kaggle/ppo_coefficient_study_20261023/shared/manifest.json
 --output NEW_SELECTED_DIR. Сохраняет raw checkpoint какpolicy.pt, SHAне меняет;
 schema selected-full-ppo-evaluation-input-v1. Не подставлять старыйselector
-joint-strategy-selection-v1: разные контракты. Новый evaljob builder подэтот
-фиксатор ещё нужен, kernels не запускать до реальныхtarget_met результатов.
+joint-strategy-selection-v1: разные контракты. Новыйbuilder готов: scripts.kaggle.prepare_selected_ppo_evaluation,
+controller scripts.kaggle.run_selected_ppo_evaluation. Источникevaluation —
+tmp/kaggle/ppo_selected_evaluation_20261023_v2/. Всем4одинаковые
+1056val+804test и15×20duels; старые306безновых3features, joint309native.
+Не создавать/не отправлять evaljobs до реальных COMPLETE/fulltarget результатов.
 По первой20минпроверке все4RUNNING иactual10,95–12,50%; snapshot
 reports/defense_plan/ppo_selected_full_progress_20min.json. На первом SDKstatus
 былHTTPError, CLI подтвердилRUNNING в OWNER/scheduled_status_recheck.json;
