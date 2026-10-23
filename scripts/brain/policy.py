@@ -289,6 +289,9 @@ class Brain:
         # Passing None lets the hand tracker's voting system hold the previous
         # confident value.
         if frame is not None and self.classifier.ready:
+            if hasattr(self.classifier, "classify_next"):
+                next_name, _ = self.classifier.classify_next(frame)
+                next_card = next_name or ""
             scored = self.classifier.classify_hand_scored(frame)
             # A hand is four *distinct* cards: the deck holds one copy of each
             # and a card only returns after four others are played, so two slots

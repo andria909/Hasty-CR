@@ -43,3 +43,21 @@ def test_transient_stream_failure_reconnects_without_losing_or_regressing_progre
     assert progress['stream_state'] == 'ended'
     assert 'error_type' not in progress
     assert len((output/'events.jsonl').read_text().splitlines()) == 3
+
+
+def test_normal_connection_end_is_reobserved_at_twenty_minute_interval(tmp_path,monkeypatch):
+    calls=[];sleeps=[]
+    class API:
+        def authenticate(self):pass
+        def kernels_logs_stream(self,kernel):
+            calls.append(kernel)
+            yield dict(data='grpo: '+json.dumps(dict(update=len(calls),steps=100*len(calls))),time=len(calls))
+    module=types.ModuleType('kaggle.api.kaggle_api_extended');module.KaggleApi=API
+    monkeypatch.setitem(sys.modules,module.__name__,module)
+    monkeypatch.setattr('time.sleep',lambda seconds:sleeps.append(seconds))
+    output=tmp_path/'stream'
+    monkeypatch.setattr(sys,'argv',['stream_training.py','--kernel','owner/job','--output',str(output),'--reconnects','1'])
+    runpy.run_path(str(Path(__file__).resolve().parents[1]/'scripts/kaggle/stream_training.py'),run_name='__main__')
+    assert len(calls)==2 and sleeps==[1200]
+    state=json.loads((output/'progress.json').read_text())
+    assert state['trainers']['grpo']['steps']==200 and state['stream_state']=='ended'

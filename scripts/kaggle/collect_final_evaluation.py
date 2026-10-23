@@ -8,6 +8,18 @@ import time
 from scripts.kaggle.recover_defense_outputs import TERMINAL,list_outputs,terminal_state
 
 
+def configure_http_timeout():
+    """Bound HTTP in this local observer, without changing SDK files or jobs."""
+    import requests
+    original_send=requests.Session.send
+    if getattr(original_send,'_hasty_bounded',False):return
+    def bounded_send(session,request,**kwargs):
+        if kwargs.get('timeout')is None:kwargs['timeout']=(30,120)
+        return original_send(session,request,**kwargs)
+    bounded_send._hasty_bounded=True
+    requests.Session.send=bounded_send
+
+
 def collect(api,kernel,destination,profile='defense'):
     state=terminal_state(api.kernels_status(kernel))
     if state not in TERMINAL:raise ValueError('Evaluation is not terminal')
@@ -54,12 +66,7 @@ def main():
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only
     # this observer process; active jobs and the installed package are untouched.
-    import requests
-    original_send=requests.Session.send
-    def bounded_send(session,request,**kwargs):
-        kwargs.setdefault('timeout',(30,120))
-        return original_send(session,request,**kwargs)
-    requests.Session.send=bounded_send
+    configure_http_timeout()
     from kaggle.api.kaggle_api_extended import KaggleApi
     api=KaggleApi();api.authenticate()
     while True:

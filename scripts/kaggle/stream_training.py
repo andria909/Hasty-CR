@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import re
 import time
-from kaggle.api.kaggle_api_extended import KaggleApi
+import sys
 
 
 def main():
@@ -12,8 +12,14 @@ def main():
     parser.add_argument('--kernel',required=True)
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--reconnects',type=int,default=20)
+    parser.add_argument('--reconnect-seconds',type=int,default=1200)
     args=parser.parse_args()
     if args.reconnects<0:parser.error('reconnects must be nonnegative')
+    if args.reconnect_seconds<1:parser.error('reconnect-seconds must be positive')
+    if not __package__:sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
+    from scripts.kaggle.collect_final_evaluation import configure_http_timeout
+    configure_http_timeout()
+    from kaggle.api.kaggle_api_extended import KaggleApi
     args.output.mkdir(parents=True,exist_ok=False)
     api=KaggleApi();api.authenticate()
     progress={'kernel':args.kernel,'source':'kaggle_live_log_stream','trainers':{}}
@@ -40,7 +46,11 @@ def main():
                         if update==1 or update%25==0:
                             print(json.dumps(progress),flush=True)
                 progress['stream_state']='ended'
-                break
+                progress['checked_host_ns']=time.time_ns()
+                (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
+                if attempt>=args.reconnects:break
+                # A closed log connection does not prove the GPU job ended.
+                time.sleep(args.reconnect_seconds)
             except Exception as error:
                 progress['stream_state']='interrupted'
                 progress['error_type']=type(error).__name__
@@ -54,7 +64,7 @@ def main():
                            or progress['http_status'] in (404,429,500,502,503,504))
                 if not transient or attempt>=args.reconnects:
                     break
-                time.sleep(2)
+                time.sleep(args.reconnect_seconds)
         progress['checked_host_ns']=time.time_ns()
         (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
         print(json.dumps(progress),flush=True)

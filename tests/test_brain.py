@@ -1058,6 +1058,15 @@ class _StubClassifier:
         return [name for name, _score in self.classify_hand_scored(frame)]
 
 
+def test_preview_uses_independent_classifier_and_abstains(brain):
+    state = make_state(HAND_ORDER, 10)
+    brain.classifier = _StubClassifier([[(name, .9) for name in HAND_ORDER]])
+    brain.classifier.classify_next = lambda frame: ("musketeer", .9)
+    assert brain.observe(state, 30., 1000., frame=0).next_card == "musketeer"
+    brain.classifier.classify_next = lambda frame: (None, .1)
+    assert brain.observe(state, 31., 1001., frame=0).next_card == ""
+
+
 def test_a_duplicate_slot_reading_does_not_hide_the_real_card(brain):
     """Two slots cannot hold the same card, and the loser must not shadow it.
 

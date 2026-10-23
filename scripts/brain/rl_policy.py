@@ -138,6 +138,7 @@ def _unit_traits(name: str):
 
 def _unit_profile(name: str) -> dict:
     """Public tactical facts used by the live action guard."""
+    from sim.entities import speed_to_mt_per_sec
     key = _card_key(name)
     spec = _cards().get(key)
     unit = getattr(spec, "unit", None) if spec else None
@@ -155,10 +156,9 @@ def _unit_profile(name: str) -> dict:
         "damage": float(getattr(unit, "damage", 0) or 0) if unit else 0.0,
         "hit_speed_ms": float(getattr(unit, "hit_speed_ms", 1000) or 1000)
         if unit else 1000.0,
-        # UnitSpec already stores millitiles/second. Applying the raw-client
-        # x20 conversion here again made every troop look maximally fast to
-        # the network, erasing the speed distinction learned in simulation.
-        "speed": float(getattr(unit, "speed_mt_per_sec", 0) or 0)
+        # UnitSpec's historical field name is misleading: both loaders store
+        # raw client Speed. Match Entity construction's single x20 conversion.
+        "speed": float(speed_to_mt_per_sec(getattr(unit, "speed_mt_per_sec", 0) or 0))
         if unit else 0.0,
         "attacks_air": bool(getattr(unit, "attacks_air", False))
         if unit else False,
