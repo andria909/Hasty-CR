@@ -274,3 +274,50 @@ Quality flags и ограничения реальных механик сохр
 быть доступен именно владельцу нового evaluation kernel. Оба исходных
 алгоритма в обычном режиме recovery по-прежнему оцениваются отдельно на2GPU.
 
+
+## Подбор коэффициентов PPO
+
+Текущий пакет: `tmp/kaggle/ppo_coefficient_study_20261023/`. Четыре задания
+`OWNER/hastycr-ppo-coef-screen-20261023` уже отправлены, повторно их не пушить.
+Наблюдатели используют интервал 1200 секунд; подтверждение CUDA и первых
+реальных шагов — `reports/defense_plan/ppo_coefficient_screening_launch.json`.
+
+После terminal COMPLETE и скачивания всех четырёх `OWNER/collected`:
+
+```bash
+.venv-live/bin/python -m scripts.kaggle.prepare_ppo_confirmation \
+  --study tmp/kaggle/ppo_coefficient_study_20261023 \
+  --output tmp/kaggle/ppo_coefficient_confirmation_20261023
+```
+
+Команда проверяет результаты и готовит шесть прогонов seed43, ничего не
+отправляя. Используются прежние приватные datasets и те же teacher.
+Перед отправкой каждого нового kernel проверяются готовность dataset и
+отсутствие уже запущенного задания с этим slug. После отправки нужны
+подтверждение CUDA, растущие шаги и terminal collector с соответствующим
+`launch_config.json`.
+
+После скачивания всех шести повторных прогонов:
+
+```bash
+.venv-live/bin/python -m scripts.kaggle.prepare_ppo_selected_full \
+  --study tmp/kaggle/ppo_coefficient_study_20261023 \
+  --confirmation tmp/kaggle/ppo_coefficient_confirmation_20261023 \
+  --output tmp/kaggle/ppo_coefficient_full_20261023
+```
+
+Получатся четыре отдельных задания: две защиты и две общие политики.
+Каждая заново получает фиксированные начальные веса своего режима и
+2048000 train-шагов, а не наследует optimizer короткого опыта. Проверенные
+короткие результаты остаются нетронутыми. Файлы уже существующих пакетов
+не перезаписываются. Выбор использует validation и среднее двух seed,
+без test и без сравнения reward разных коэффициентов.
+
+Полный контроллер сохраняет checkpoint каждые100 обновлений и при
+лимите18000 секунд. Если точные2048000 шагов не достигнуты, результат
+`incomplete_budget` не считается завершённой моделью. Команда
+`full_command` учитывает, что у защитного тренера updates — дополнительные
+обновления, а у общего — конечный номер. Для возобновления необходимо
+отдельно собрать новый пакет с сохранённой границей, тем же frozen source
+и настройками; текущий full runner запускает новый этап с teacher и сам
+автоматически продолжение не отправляет.
