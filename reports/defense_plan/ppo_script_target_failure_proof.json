@@ -1,0 +1,128 @@
+{
+  "schema": "ppo-script-target-failure-proof-v1",
+  "kernel": "vertel0/hastycr-ppo-def700-diagnostic-20261023",
+  "status": "ERROR",
+  "source_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+  "exact_numerical_prefix_updates": 96,
+  "all_compared_updates_identical": true,
+  "failure_telemetry": {
+    "event": "SCRIPT_PLAY_DIAGNOSTIC",
+    "scenario": "pair:bandit:battle_ram:zap/back/x1/left",
+    "seed": 49,
+    "elapsed_ms": 45050,
+    "script_index": 2,
+    "card": "zap",
+    "enemy_hand": [
+      "zap",
+      "cannon",
+      "fireball",
+      "hog_rider"
+    ],
+    "enemy_elixir": 10000,
+    "cost": 2,
+    "can_play": true,
+    "target": [
+      -24,
+      21468
+    ],
+    "in_arena": false,
+    "spell_available": true,
+    "spell_can_place_on_water": true,
+    "accepted_enemy_plays": [
+      {
+        "at_ms": 0,
+        "side": -1,
+        "card": "bandit",
+        "resolved_card": "bandit",
+        "cost": 3,
+        "x": 3500,
+        "y": 1500
+      },
+      {
+        "at_ms": 7000,
+        "side": -1,
+        "card": "battle_ram",
+        "resolved_card": "battle_ram",
+        "cost": 4,
+        "x": 3500,
+        "y": 14000
+      }
+    ],
+    "defenders": [
+      {
+        "uid": 10,
+        "name": "skeleton",
+        "pos": [
+          -24,
+          21468
+        ],
+        "in_arena": false,
+        "state": "1"
+      },
+      {
+        "uid": 21,
+        "name": "cannon",
+        "pos": [
+          500,
+          20500
+        ],
+        "in_arena": true,
+        "state": "0"
+      },
+      {
+        "uid": 24,
+        "name": "hog_rider",
+        "pos": [
+          6363,
+          10649
+        ],
+        "in_arena": true,
+        "state": "1"
+      },
+      {
+        "uid": 25,
+        "name": "skeleton",
+        "pos": [
+          3191,
+          17841
+        ],
+        "in_arena": true,
+        "state": "1"
+      },
+      {
+        "uid": 26,
+        "name": "skeleton",
+        "pos": [
+          1857,
+          17957
+        ],
+        "in_arena": true,
+        "state": "1"
+      },
+      {
+        "uid": 27,
+        "name": "skeleton",
+        "pos": [
+          2458,
+          17157
+        ],
+        "in_arena": true,
+        "state": "1"
+      }
+    ]
+  },
+  "recovered_checkpoint": "tmp/kaggle/ppo_full_defense_recovery_20261023/collected/train/update_000796.pt",
+  "checkpoint_sha256": "583c6cb5454e0d4149e3f9a5bee4760fc4314ad42e0728d1a0b9a73ef085d38b",
+  "update": 796,
+  "step": 815104,
+  "percent": 39.8,
+  "fix": "Only scripted cast target is clamped to arena; unit positions and invalid-script rejection unchanged",
+  "tests": {
+    "defense_env_and_diagnostic": 24,
+    "boundaries_escort_attack_checkpoint_ppo": 52,
+    "controller_and_environment": 28,
+    "migration_guard": 6
+  },
+  "quality_accepted": false,
+  "full_budget_complete": false
+}

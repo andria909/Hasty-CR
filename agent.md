@@ -1,3 +1,35 @@
+## Recovery version2 отправлен
+Исправленный kernel version2 успешно отправлен; tmp/kaggle/ppo_full_target_recovery_20261023/launch_version2_receipt.json.
+Первый version1 ERROR/KeyError mode доказан live trace и сохранён, SDKвыгрузка timeout без данных.
+Локальные v1 observer остановлены только после подтверждённогоERROR; файлы сохранены.
+Текущийmonitoring.json указывает stream_v2/collected_v2; interval1200.
+Ждём actualCUDA и update797+; не отправлять повторно из-за404/SSL.
+
+## Исправление recovery-конфига
+Первый recovery version1 завершился ERROR до обучения: builder взял screening config безmode/selection.
+Builder исправлен на diagnostic.launch_config.original и добавлен regression test.
+Первый status/исходныйconfig/code сохранены в recoveryпапке; first_version_collection собирает kernel log.
+Текущий launch_config.json/job/recover.py исправлены и проверены. Не считать version1 обучающимся.
+Для version2 дождаться сохраненияterminalлогов, затем push и проверитьCUDA/рост797+.
+
+# Актуальное продолжение: причина сбоя доказана, перенос из796
+
+Диагностический kernel ERROR воспроизвёл тот же сбой, все96updates701–796 numerical-identical.
+reports/defense_plan/ppo_script_target_failure_proof.json. Восстановлен checkpoint796/815104
+SHA583c6cb5454e0d4149e3f9a5bee4760fc4314ad42e0728d1a0b9a73ef085d38b.
+Zap target x=-24 внеарены. Fix: только return arena.clamp_to_arena(chosen.pos)
+в DefenseEnv._target, не менять physics/позиции тел или пропускать invalidscript.
+Новый явно migrated source a55a317b...,146файлов с единственным изменением выражения.
+Recovery-пакет tmp/kaggle/ppo_full_target_recovery_20261023/. Private dataset ready.
+Первый kernels push вернул404; authenticated kernels list подтвердил отсутствие новогоjob.
+Повтор успешно создал version1 vertel0/hastycr-ppo-def796-recovery-20261023;
+launch_retry_receipt.json сохранён. stream/collector запущены, polling1200,
+monitoring.json содержит PID; CUDA/рост797+ ещё требуют проверки. Другие3 originalfull API RUNNING подтверждены.
+Controller run_ppo_selected_full поддерживает строго проверенный migration из796;
+prepare_ppo_target_recovery пакует исходники/неизменённые weights и resume.
+Будущие selector/evalbuilder пока требуют исходный40ba... и НЕ принимают миграцию: нужно
+явно добавить verified migration и общий исправленный evalsource для всех4, не обходить SHA.
+
 # Hasty-CR: рабочая карта проекта
 
 ## Сейчас:3full RUNNING + диагностика сбоя второго аккаунта

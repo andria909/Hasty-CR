@@ -215,7 +215,7 @@ class DefenseEnv(ClashEnv):
             if units:
                 # Visible-body targeting; never reads the defender's hidden hand.
                 chosen=min(units,key=lambda u:abs(u.pos.y-24000))
-                return chosen.pos
+                return arena.clamp_to_arena(chosen.pos)
             return self.match.towers[1][self.scenario.lane].pos if side==1 else arena.Point(x,14000)
         if event.position.startswith('building_guess:'):
             from sim.defense_scenarios import BUILDING_GUESSES

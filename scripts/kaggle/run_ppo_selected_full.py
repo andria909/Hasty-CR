@@ -17,6 +17,37 @@ TARGET=2048000
 UPDATES=2000
 
 
+def verify_script_target_migration(config,inputs,project,manifest):
+    """An explicit, narrowly pinned semantic change; never an exact-source resume."""
+    migration=config['migration']
+    if migration.get('schema')!='script-target-clamp-migration-v1':
+        raise ValueError('Unsupported full-training migration')
+    old=inputs/'original_manifest.json'
+    if sha(old)!=migration['original_manifest_sha256']:
+        raise ValueError('Original migration manifest differs')
+    original=json.loads(old.read_text())
+    if original['archive_sha256']!=migration['original_source_sha256']:
+        raise ValueError('Original migration source differs')
+    changed={name for name in set(original['files'])|set(manifest['files'])
+             if original['files'].get(name)!=manifest['files'].get(name)}
+    if changed!={'sim/defense_env.py'}:
+        raise ValueError('Migration must change only scripted body targeting')
+    new=(project/'sim/defense_env.py').read_text()
+    replacement=migration['replacement']
+    if replacement!='arena.clamp_to_arena(chosen.pos)' or new.count('return '+replacement)!=1:
+        raise ValueError('Unexpected target-clamp migration')
+    # Verify the whole original file, including all other environment semantics.
+    reverted=new.replace('return '+replacement,'return chosen.pos')
+    if hashlib.sha256(reverted.encode()).hexdigest()!=original['files']['sim/defense_env.py']:
+        raise ValueError('Migration changes more than the declared target expression')
+    if (migration['resume_update'],migration['resume_step'])!=(796,815104):
+        raise ValueError('Expected reproduced, committed update796 boundary')
+    boundary=inputs/'resume.pt'
+    if sha(boundary)!=migration['resume_checkpoint_sha256']:
+        raise ValueError('Migration resume checkpoint differs')
+    return boundary
+
+
 def full_command(project,inputs,output,mode,profile,device,seed,resume=None,completed_updates=0):
     if mode not in ('defense','joint') or completed_updates<0 or completed_updates>=UPDATES:
         raise ValueError('Invalid full-training mode or boundary')
@@ -40,14 +71,21 @@ def execute(config):
     if len(candidates)!=1:raise ValueError('Expected one exact full-training input mount')
     inputs=candidates[0]
     for name,digest in config['pins'].items():
-        if name not in ('manifest.json','teacher_defense.pt','teacher_joint.pt') or sha(inputs/name)!=digest:
+        if name not in ('manifest.json','teacher_defense.pt','teacher_joint.pt','original_manifest.json','resume.pt') or sha(inputs/name)!=digest:
             raise ValueError('Full-training input pin mismatch')
     output=Path('/kaggle/working/selected_full');output.mkdir(exist_ok=False)
     project=output/'project';manifest=prepare_source(inputs,project,config['pins']['manifest.json'])
     protocol=json.loads((project/'data/ppo_tuning/protocol.json').read_text())
     if protocol['full_environment_steps']!=TARGET:raise ValueError('Full-training budget differs from protocol')
     mode,profile=config['mode'],config['profile'];selection=config['selection']
-    if (selection.get('stage')!='confirmed' or selection.get('source_sha256')!=manifest['archive_sha256'] or
+    resume=None;completed_updates=0
+    selection_source=manifest['archive_sha256']
+    if 'migration'in config:
+        if (mode,profile)!=('defense','economy_soft'):raise ValueError('Unexpected migrated full-training slot')
+        resume=verify_script_target_migration(config,inputs,project,manifest)
+        completed_updates=config['migration']['resume_update']
+        selection_source=config['migration']['original_source_sha256']
+    if (selection.get('stage')!='confirmed' or selection.get('source_sha256')!=selection_source or
         selection.get('protocol_sha256')!=sha(project/'data/ppo_tuning/protocol.json') or
         selection.get('test_used_for_selection') is not False or
         profile not in selection['modes'][mode]['full_training_profiles']):
@@ -60,6 +98,14 @@ def execute(config):
                 target_environment_steps=TARGET,source_sha256=manifest['archive_sha256'],
                 selection_sha256=hashlib.sha256(json.dumps(selection,sort_keys=True).encode()).hexdigest(),
                 actual_cuda=torch.cuda.get_device_name(0),test_used_for_selection=False,quality_accepted=False)
+    if resume:
+        boundary=torch.load(resume,map_location='cpu',weights_only=False)
+        if (boundary['update'],boundary['step'])!=(796,815104)or not boundary.get('exact_resume_available'):
+            raise ValueError('Migration boundary lacks complete saved optimizer/RNG/environment state')
+        if torch.cuda.device_count()!=2 or len(boundary['rng']['cuda'])!=2 or len(boundary['environment_states'])!=8:
+            raise ValueError('Migration must retain both CUDA RNG streams and eight environment snapshots')
+        report.update(migration=config['migration'],source_unchanged=False,
+                      same_source_exact_resume=False,resumed_environment_states=True)
     def save():(output/'result.json').write_text(json.dumps(report,indent=2)+'\n')
     save();print(json.dumps(report),flush=True)
     environment=dict(os.environ,OMP_NUM_THREADS='2',MKL_NUM_THREADS='2',OPENBLAS_NUM_THREADS='2',PYTHONUNBUFFERED='1')
@@ -76,7 +122,8 @@ def execute(config):
                     print(json.dumps(dict(event='FULL_TRAINING_PROGRESS',mode=mode,profile=profile,step=step,update=row['update'],percent=min(100,100*step/TARGET))),flush=True)
             if process.wait():raise RuntimeError('Full-training subprocess failed: '+name)
     try:
-        logged(full_command(project,inputs,output/'train',mode,profile,device,seed),'train.log')
+        logged(full_command(project,inputs,output/'train',mode,profile,device,seed,
+                            resume=resume,completed_updates=completed_updates),'train.log')
         checkpoints=sorted((output/'train').glob('update_*.pt'))
         if not checkpoints:raise ValueError('Trainer produced no recoverable checkpoint')
         checkpoint=checkpoints[-1];blob=torch.load(checkpoint,map_location='cpu',weights_only=False)

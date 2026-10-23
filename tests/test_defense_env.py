@@ -17,6 +17,27 @@ def env_for(plays=None,**kwargs):
     return env
 
 
+@pytest.mark.parametrize('lane,x,expected_x', [('left',-24,0),('right',18024,17999)])
+def test_scripted_zap_targets_displaced_body_at_legal_board_edge(lane,x,expected_x):
+    event=ScheduledPlay('zap',at_ms=1000,position='defenders')
+    scenario=Scenario('edge-zap','edge-zap','medium','train',lane,(event,))
+    env=DefenseEnv(scenario=scenario)
+    env.reset(seed=49)
+    spec=env.match.cards['skeletons'].unit
+    body=env.match.battle.add(make_unit(0,spec,1,arena.Point(x,21468),0))
+    original=body.pos
+    target=env._target(event)
+    assert target==arena.Point(expected_x,21468)
+    assert arena.in_arena(target)
+    env.match.battle.now_ms=45050
+    env._process_enemy()
+    assert env._script_index==1
+    assert env.terminal_reason!='invalid_script_play_timeout'
+    assert body.pos==original  # Caster targeting must not move the body.
+    assert env.match.play_log[-1]['card']=='zap'
+    assert env.match.play_log[-1]['x']==expected_x
+
+
 def test_family_split_never_leaks_lane_or_setup():
     scenarios,_=build_catalog()
     assert scenarios

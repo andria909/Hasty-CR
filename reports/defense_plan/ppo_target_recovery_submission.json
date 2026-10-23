@@ -1,0 +1,25 @@
+{
+  "kernel": "vertel0/hastycr-ppo-def796-recovery-20261023",
+  "submitted_version": 2,
+  "first_version_status": "ERROR before training: missing full slot in launch config",
+  "corrected_configuration_prepared": true,
+  "mode": "defense",
+  "profile": "economy_soft",
+  "dataset": "vertel0/hastycr-ppo-target-recovery-20261023",
+  "migration": {
+    "schema": "script-target-clamp-migration-v1",
+    "original_manifest_sha256": "8b31a35cc7c1f4b3d41e65f3d9ba30c32691b8977a6322d5968afb2ff0f1dcc3",
+    "original_source_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+    "replacement": "arena.clamp_to_arena(chosen.pos)",
+    "resume_update": 796,
+    "resume_step": 815104,
+    "resume_checkpoint_sha256": "583c6cb5454e0d4149e3f9a5bee4760fc4314ad42e0728d1a0b9a73ef085d38b",
+    "diagnostic_kernel": "vertel0/hastycr-ppo-def700-diagnostic-20261023",
+    "exact_prefix_updates": 96,
+    "semantics": "Clamp scripted body-target cast point to board; preserve body position, rewards, schedule and invalid-play guard"
+  },
+  "gpu_growth_verified": false,
+  "quality_accepted": false,
+  "submitted": true,
+  "first_version_error_trace_preserved": true
+}
