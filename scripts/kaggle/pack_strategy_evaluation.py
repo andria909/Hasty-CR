@@ -19,6 +19,26 @@ EXTRA=('data/strategy/evaluation_protocol.json','data/defense/baselines.json',
        'data/defense/evaluation_protocol.json')
 
 
+
+def supported_training_modes(training,members):
+    if training.get('observation_contract')=='joint_attack_defense_timer_task_v1' and training.get('num_scalars')==309:
+        return ['joint']
+    if training.get('schema')!='ppo-coefficient-source-v1':
+        raise ValueError('Wrong training source contract')
+    name='data/ppo_tuning/protocol.json'
+    if name not in members or digest(members[name])!=training.get('protocol_sha256'):
+        raise ValueError('Coefficient training protocol SHA mismatch')
+    protocol=json.loads(members[name])
+    if (protocol.get('schema')!='ppo-coefficient-study-v1' or protocol.get('algorithm')!='ppo' or
+        set(protocol.get('modes',[]))!={'defense','joint'} or protocol.get('test_used_for_search') is not False or
+        training.get('test_used_for_search') is not False or
+        protocol.get('full_environment_steps')!=2048000 or protocol.get('short_environment_steps')!=102400):
+        raise ValueError('Wrong dual-regime PPO source contract')
+    if any(name not in members for name in ('sim/strategy_env.py','sim/train_defense_ppo.py','sim/train_attack_ppo.py','sim/reward_profiles.py')):
+        raise ValueError('Dual-regime training implementation missing')
+    return ['defense','joint']
+
+
 def build(source,output,*,root,owner,slug):
     import re
     if not re.fullmatch('[A-Za-z0-9_-]+',owner)or not re.fullmatch('[a-z0-9-]+',slug):
@@ -26,8 +46,7 @@ def build(source,output,*,root,owner,slug):
     root=Path(root);output=Path(output)
     if output.exists():raise ValueError('Use a new evaluation directory')
     members,training,manifest_bytes,_=verified_frozen_package(source)
-    if training.get('observation_contract')!='joint_attack_defense_timer_task_v1'or training.get('num_scalars')!=309:
-        raise ValueError('Wrong training source contract')
+    modes=supported_training_modes(training,members)
     changes={}
     for name in EVALUATORS:
         raw=(root/name).read_bytes()
@@ -61,7 +80,7 @@ def build(source,output,*,root,owner,slug):
         training_source_manifest_sha256=digest(manifest_bytes),evaluation_changes=changes,
         protocol_sha256=digest(members[EXTRA[0]]),baseline_ids=sorted(allowed),
         baseline_sha256={key:row['sha256']for key,row in allowed.items()},
-        baseline_v25_sha256=V25_SHA256,quality_accepted=False,private_dataset=True)
+        baseline_v25_sha256=V25_SHA256,supported_training_modes=modes,quality_accepted=False,private_dataset=True)
     (output/'manifest.json').write_text(json.dumps(report,indent=2)+'\n')
     (output/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug,
         title=slug.replace('-',' '),licenses=[dict(name='other')],isPrivate=True),indent=2)+'\n')
