@@ -1,6 +1,36 @@
 # Hasty-CR: рабочая карта проекта
 
-## Текущий приоритет: короткий подбор коэффициентов PPO
+## Сейчас: четыре полных PPO после подбора коэффициентов
+
+Все16 опытовseed42 и6seed43 завершены, выгружены и проверены.
+Победители среднего двухseed: defense spell_precision/economy_soft;
+joint economy_soft/tower_survival. Выбор безtest и безrawreward.
+reports/defense_plan/ppo_coefficient_confirmed_selection.json,
+ppo_coefficient_confirmed.md иppo_coefficient_confirmation_checkpoints.json.
+
+Отправленыversion1 и фактически обучаются4 kernels
+OWNER/hastycr-ppo-coef-full-20261023:
+- andriashadrin: defense spell_precision;
+- vertel0: defense economy_soft;
+- andreiperelaiko: joint economy_soft;
+- demjanklimov: joint tower_survival.
+ВездеTeslaT4 и ростsteps подтверждены:
+reports/defense_plan/ppo_selected_full_launch.json all_verified=True.
+Пакет tmp/kaggle/ppo_coefficient_full_20261023/; PID/пути observer/collector
+в OWNER/monitoring.json. Не отправлятьповторно; опрос раз1200сек.
+При старте третьего восстановлен только локальныйstream после auth/SSE404;
+kernel не перезапускался. СтарыеSSE первого/второго этапов остановлены только
+после полнойвыгрузки; файлы сохранены.
+
+Каждыйполныйrun:2048000 новых шагов, fixedteacher своего режима,
+новыйoptimizer, seed42, sourcearchive40ba4ec0..., сохранение100updates,
+trainwallclock18000сек/kernel24000сек. При incomplete_budget сохранить
+последниеweights и продолжать толькоexact same-source boundary;
+full_command учитывает additionalupdates defense / finalupdate joint.
+Полныйбюджет и конечнаяприёмкакачества ещё НЕ достигнуты. v25 неизменна.
+
+
+## Завершённый подбор коэффициентов PPO (история)
 
 
 Первый подбор ЗАВЕРШЁН: все16опытов,102400шагов каждый, API COMPLETE,
