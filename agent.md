@@ -13,7 +13,11 @@ PPO1 (SHA0aa0648d...) илиjointPPO3 (SHAd9b0a524...). Optimizer новый.
 все4 kernel hastycr-ppo-coef-screen-20261023 version1 отправлены; на каждом
 подтверждены2TeslaT4 и ростsteps у обоих workers. Всего16коротких trials,
 по102400шагов. Доказательство: reports/defense_plan/ppo_coefficient_screening_launch.json.
-Не повторятьpush: jobs активны. Terminal collectors иSSE наблюдатели запущены,
+Все4 study jobs API COMPLETE, все16train-бюджетов достигнуты. Идёт выгрузка:
+vertel0/demjanklimov collected/receipt.complete=True; оставшиеся два collector
+PID/логи вmonitoring.json, скачивание продолжалось. Не перезапускать обучение.
+При сетевых сбоях коллектор сохраняет частичные файлы и повторяет загрузку;
+cache использует только файлы, совпавшие с receipt SHA. Terminal collectors иSSE наблюдатели запущены,
 PID/пути вOWNER/monitoring.json; status раз1200сек. Затем top3/mode seed43,
 потом полное обучение2лучших/mode. Прежние eval завершены и сохранены;
 200матчей+4020skill проверены: reports/defense_plan/five_model_round_robin_verified.json.

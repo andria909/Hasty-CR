@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import shutil
 import time
 
 from scripts.kaggle.collect_final_evaluation import configure_http_timeout
@@ -24,7 +25,7 @@ def trial_ids(config):
     return result
 
 
-def collect(api,kernel,output,config,fetch=None):
+def collect(api,kernel,output,config,fetch=None,*,cache=None):
     state=terminal_state(api.kernels_status(kernel))
     if state not in TERMINAL:raise ValueError('Study is not confirmed terminal')
     files,logs=list_outputs(api,kernel)
@@ -36,21 +37,40 @@ def collect(api,kernel,output,config,fetch=None):
         for key in files:
             prefix='coefficient_study/'+name+'/train/'
             if key.startswith(prefix) and re.fullmatch(r'update_\d{6}\.pt',key[len(prefix):]):planned.add(key[len('coefficient_study/'):])
+    cached={}
+    if cache is not None:
+        cache=Path(cache);previous=json.loads((cache/'receipt.json').read_text())
+        if previous.get('kernel')!=kernel or previous.get('trial_ids')!=ids:raise ValueError('Cache provenance differs')
+        cached=previous.get('files',{})
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     receipt=dict(kernel=kernel,status=state,complete=False,files={},trial_ids=ids,remote_job_changed=False,quality_accepted=False)
     if fetch is None:
         import requests
         def fetch(url,path):
-            with requests.get(url,stream=True,timeout=(30,300)) as response:
-                response.raise_for_status()
-                with path.open('xb') as stream:
-                    for chunk in response.iter_content(1024*1024):
-                        if chunk:stream.write(chunk)
+            # Preserve partial transfers and retry into new files; never overwrite data.
+            for attempt in range(4):
+                partial=path.with_name(path.name+'.download_attempt_'+str(attempt))
+                try:
+                    with requests.get(url,stream=True,timeout=(30,300)) as response:
+                        response.raise_for_status()
+                        with partial.open('xb') as stream:
+                            for chunk in response.iter_content(1024*1024):
+                                if chunk:stream.write(chunk)
+                    partial.rename(path);return
+                except requests.RequestException:
+                    if attempt==3:raise
+                    time.sleep(2**attempt)
     try:
         for name in sorted(planned):
             key='coefficient_study/'+name
             if key not in files:continue
-            path=output/name;path.parent.mkdir(parents=True,exist_ok=True);fetch(files[key].url,path)
+            path=output/name;path.parent.mkdir(parents=True,exist_ok=True)
+            old=cache/name if cache is not None else None
+            if name in cached and old.is_file() and not old.is_symlink():
+                with old.open('rb') as stream:previous_sha=hashlib.file_digest(stream,'sha256').hexdigest()
+                if previous_sha!=cached[name]['sha256']:raise ValueError('Cached file changed; refusing reuse')
+                shutil.copyfile(old,path)
+            else:fetch(files[key].url,path)
             with path.open('rb') as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
             receipt['files'][name]={'sha256':digest,'bytes':path.stat().st_size}
         (output/'kernel_log_receipt.json').write_text(json.dumps(logs)+'\n')
@@ -76,6 +96,7 @@ def collect(api,kernel,output,config,fetch=None):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--kernel',required=True);p.add_argument('--config',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--cache',type=Path)
     p.add_argument('--poll-seconds',type=int,default=1200);p.add_argument('--once',action='store_true')
     args=p.parse_args()
     if args.poll_seconds<1:p.error('Positive observation interval required')
@@ -91,7 +112,7 @@ def main():
         record=dict(kernel=args.kernel,status=state,checked_host_ns=time.time_ns(),remote_job_changed=False)
         args.output.with_suffix('.status.json').write_text(json.dumps(record,indent=2)+'\n');print(json.dumps(record),flush=True)
         if state in TERMINAL:
-            print(json.dumps(collect(api,args.kernel,args.output,config)),flush=True);break
+            print(json.dumps(collect(api,args.kernel,args.output,config,cache=args.cache)),flush=True);break
         if args.once:break
         time.sleep(args.poll_seconds)
 

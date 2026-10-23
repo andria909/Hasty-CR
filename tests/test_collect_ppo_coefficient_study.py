@@ -47,3 +47,14 @@ def test_no_download_before_terminal(monkeypatch,tmp_path):
 def test_duplicate_and_unknown_trial_rejected():
     with pytest.raises(ValueError,match='Duplicate'):module.trial_ids({'workers':CONFIG['workers']*2})
     with pytest.raises(ValueError,match='Unexpected'):module.trial_ids({'workers':[[{'mode':'defense','profile':'../../secret'}]]})
+
+
+def test_verified_cache_avoids_repeated_download_and_retains_source(monkeypatch,tmp_path):
+    api,payload,fetch=fixture(monkeypatch)
+    cache=tmp_path/'cache';module.collect(api,'owner/study',cache,CONFIG,fetch)
+    def never_fetch(*args):raise AssertionError('Verified cached files must be reused')
+    result=module.collect(api,'owner/study',tmp_path/'recovered',CONFIG,never_fetch,cache=cache)
+    assert result['complete'] and (cache/'study_result.json').exists()
+    (cache/'defense_baseline_s42/train/update_000100.pt').write_bytes(b'changed')
+    with pytest.raises(ValueError,match='Cached file changed'):
+        module.collect(api,'owner/study',tmp_path/'corrupt-cache-result',CONFIG,fetch,cache=cache)
