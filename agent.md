@@ -70,6 +70,15 @@ reports/defense_plan/ppo_selected_full_progress_20min.json. На первом SD
 SSE переподключение сработало; эти4observer не перезапускались при40мин.
 
 
+После40мин full collectors обновлены на устойчивый транспорт/cache.
+В OWNER/monitoring.json новыеcollector_pid,collector_log,
+collector_next_observation_host_ns иinitial_delay; первыйопрос отложен до
+прежнего20минсрока, ранних API-запросов не было. Это не изменениеGPUjobs.
+При частичнойвыгрузке можно сохранить прежнююпапку, затем запускатьcollector
+в новый output с --cache OLD_DIR: проверяетсяkernel/status/SHA. Не удалять
+частичныефайлы и не считатьreceipt.complete=False завершённоймоделью.
+
+
 
 ## Завершённый подбор коэффициентов PPO (история)
 

@@ -43,3 +43,23 @@ def test_active_job_does_not_download_or_create_outputs(monkeypatch,tmp_path):
     api,payload,fetch,checkpoint=fixture(monkeypatch);api.kernels_status=lambda kernel:'RUNNING'
     with pytest.raises(ValueError,match='not confirmed terminal'):module.collect(api,'owner/full',tmp_path/'out',fetch)
     assert not (tmp_path/'out').exists()
+
+
+def test_full_collector_can_reuse_verified_cache_without_overwriting_it(monkeypatch,tmp_path):
+    api,payload,fetch,checkpoint=fixture(monkeypatch)
+    cache=tmp_path/'cache';module.collect(api,'owner/full',cache,fetch)
+    def no_fetch(*args):raise AssertionError('No repeated download expected')
+    result=module.collect(api,'owner/full',tmp_path/'recovered',no_fetch,cache=cache)
+    assert result['complete'] and (cache/checkpoint).read_bytes()==b'weights'
+
+
+def test_delayed_observer_preserves_schedule_with_bounded_waits(monkeypatch):
+    now=[100.];sleeps=[]
+    monkeypatch.setattr(module.time,'monotonic',lambda:now[0])
+    def sleep(seconds):sleeps.append(seconds);now[0]+=seconds
+    monkeypatch.setattr(module.time,'sleep',sleep)
+    module.initial_wait(149.25)
+    assert now[0]==249.25 and all(0<seconds<=60 for seconds in sleeps)
+    assert sum(sleeps)==149.25
+    with pytest.raises(ValueError):module.initial_wait(float('inf'))
+    with pytest.raises(ValueError):module.initial_wait(-1)

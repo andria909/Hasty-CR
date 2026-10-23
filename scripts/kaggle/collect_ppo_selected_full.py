@@ -2,15 +2,17 @@
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 import re
 import time
 
 from scripts.kaggle.collect_final_evaluation import configure_http_timeout
 from scripts.kaggle.recover_defense_outputs import TERMINAL,list_outputs,terminal_state
+from scripts.kaggle.local_artifact_transfer import download_preserving,copy_verified_cache
 
 
-def collect(api,kernel,output,fetch=None):
+def collect(api,kernel,output,fetch=None,*,cache=None):
     state=terminal_state(api.kernels_status(kernel))
     if state not in TERMINAL:raise ValueError('Full training is not confirmed terminal')
     files,logs=list_outputs(api,kernel)
@@ -18,21 +20,20 @@ def collect(api,kernel,output,fetch=None):
     prefix='selected_full/';planned={'result.json','train.log','validation.log','validation.json','train/config.json','train/metrics.jsonl','train/training_result.json'}
     candidates=[key[len(prefix):] for key in files if re.fullmatch(r'selected_full/train/update_\d{6}\.pt',key)]
     if candidates:planned.add(max(candidates))
+    cached={}
+    if cache is not None:
+        cache=Path(cache);previous=json.loads((cache/'receipt.json').read_text())
+        if previous.get('kernel')!=kernel or previous.get('status')!=state:raise ValueError('Cached full-training provenance differs')
+        cached=previous.get('files',{})
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     receipt=dict(kernel=kernel,status=state,complete=False,files={},remote_job_changed=False,quality_accepted=False)
-    if fetch is None:
-        import requests
-        def fetch(url,path):
-            with requests.get(url,stream=True,timeout=(30,300)) as response:
-                response.raise_for_status()
-                with path.open('xb') as stream:
-                    for chunk in response.iter_content(1024*1024):
-                        if chunk:stream.write(chunk)
+    if fetch is None:fetch=download_preserving
     try:
         for name in sorted(planned):
             key=prefix+name
             if key not in files:continue
-            path=output/name;path.parent.mkdir(parents=True,exist_ok=True);fetch(files[key].url,path)
+            path=output/name;path.parent.mkdir(parents=True,exist_ok=True)
+            if not copy_verified_cache(cache,cached,name,path):fetch(files[key].url,path)
             with path.open('rb') as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
             receipt['files'][name]=dict(sha256=digest,bytes=path.stat().st_size)
         (output/'kernel_log_receipt.json').write_text(json.dumps(logs)+'\n')
@@ -58,12 +59,21 @@ def collect(api,kernel,output,fetch=None):
     return receipt
 
 
+def initial_wait(seconds):
+    if not math.isfinite(seconds) or seconds<0:raise ValueError('Finite nonnegative initial delay required')
+    deadline=time.monotonic()+seconds
+    while (remaining:=deadline-time.monotonic())>0:time.sleep(min(60,remaining))
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--kernel',required=True);p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--cache',type=Path)
+    p.add_argument('--initial-delay-seconds',type=float,default=0)
     p.add_argument('--poll-seconds',type=int,default=1200);p.add_argument('--once',action='store_true')
     args=p.parse_args()
     if args.poll_seconds<1:p.error('Positive observation interval required')
+    initial_wait(args.initial_delay_seconds)
     configure_http_timeout()
     from kaggle.api.kaggle_api_extended import KaggleApi
     api=KaggleApi();api.authenticate()
@@ -77,7 +87,7 @@ def main():
         record=dict(kernel=args.kernel,status=state,checked_host_ns=time.time_ns(),remote_job_changed=False)
         args.output.with_suffix('.status.json').write_text(json.dumps(record,indent=2)+'\n');print(json.dumps(record),flush=True)
         if state in TERMINAL:
-            print(json.dumps(collect(api,args.kernel,args.output)),flush=True);break
+            print(json.dumps(collect(api,args.kernel,args.output,cache=args.cache)),flush=True);break
         if args.once:break
         time.sleep(args.poll_seconds)
 
