@@ -1,0 +1,32 @@
+{
+  "schema": "ppo-target-recovery-gpu-proof-v1",
+  "kernel": "vertel0/hastycr-ppo-def796-recovery-20261023",
+  "version": 2,
+  "actual_cuda": "Tesla T4",
+  "source_sha256": "a55a317ba202f7f44b66924fbee7e478cf924f1daedeaaae5b892e8467df96aa",
+  "migration": {
+    "schema": "script-target-clamp-migration-v1",
+    "original_manifest_sha256": "8b31a35cc7c1f4b3d41e65f3d9ba30c32691b8977a6322d5968afb2ff0f1dcc3",
+    "original_source_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+    "replacement": "arena.clamp_to_arena(chosen.pos)",
+    "resume_update": 796,
+    "resume_step": 815104,
+    "resume_checkpoint_sha256": "583c6cb5454e0d4149e3f9a5bee4760fc4314ad42e0728d1a0b9a73ef085d38b",
+    "diagnostic_kernel": "vertel0/hastycr-ppo-def700-diagnostic-20261023",
+    "exact_prefix_updates": 96,
+    "semantics": "Clamp scripted body-target cast point to board; preserve body position, rewards, schedule and invalid-play guard"
+  },
+  "source_unchanged": false,
+  "same_source_exact_resume": false,
+  "passed_original_failing_update": true,
+  "progress": {
+    "update": 801,
+    "steps": 820224,
+    "target_steps": 2048000,
+    "percent": 40.05,
+    "remote_log_seconds": 67.508931931
+  },
+  "checked_host_ns": 1792764048770701000,
+  "quality_accepted": false,
+  "full_budget_complete": false
+}

@@ -1,3 +1,10 @@
+## Recovery2 теперь действительно обучается
+Подтверждены TeslaT4 и update797+ (бывший сбой пройден), reports/defense_plan/ppo_target_recovery_gpu_proof.json.
+Source a55a317b..., explicit semantic migration, не exact same-source continuation.
+Не перезапускать; текущийstream_v2/collected_v2, polling1200сек.
+Далее подготовить общую исправленную evalсреду и строгую поддержку migration в selector/builder,
+после всех полных2М провести одинаковые val/test/15baseline сравнения всех4.
+
 ## Recovery version2 отправлен
 Исправленный kernel version2 успешно отправлен; tmp/kaggle/ppo_full_target_recovery_20261023/launch_version2_receipt.json.
 Первый version1 ERROR/KeyError mode доказан live trace и сохранён, SDKвыгрузка timeout без данных.
