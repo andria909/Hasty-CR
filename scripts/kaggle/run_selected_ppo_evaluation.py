@@ -23,7 +23,20 @@ def verify_selection(selection,config,manifest):
     mode=selection.get('mode')
     if mode not in ('defense','joint') or selection.get('num_scalars')!=(306 if mode=='defense' else 309):
         raise ValueError('Unexpected final policy input contract')
-    if selection.get('source_sha256')!=manifest.get('training_source_archive_sha256'):
+    source=selection.get('source_sha256');original=manifest.get('training_source_archive_sha256')
+    migration=manifest.get('environment_migration')
+    if migration is not None:
+        if (migration.get('schema')!='script-target-clamp-evaluation-v1' or migration.get('applies_to_all_candidates')is not True or
+            migration.get('original_source_sha256')!=original or
+            set(manifest.get('compatible_training_sources',[]))!={original,migration.get('migrated_training_source_sha256')} or
+            manifest.get('original_training_files',{}).get('sim/defense_env.py')!=migration.get('original_defense_env_sha256') or
+            manifest.get('files',{}).get('sim/defense_env.py')!=migration.get('evaluation_defense_env_sha256')):
+            raise ValueError('Invalid declared common evaluation migration')
+        if source not in manifest['compatible_training_sources']:
+            raise ValueError('Evaluation source does not descend from selected training source')
+        if source!=original and selection.get('environment_migration',{}).get('original_source_sha256')!=original:
+            raise ValueError('Selected migrated policy lacks original training lineage')
+    elif source!=original:
         raise ValueError('Evaluation source does not descend from selected training source')
     if selection.get('policy_optimizer_finite') is not True:raise ValueError('Final PPO audit missing')
     return mode
@@ -65,13 +78,16 @@ def execute(config,input_root=Path('/kaggle/input'),output=Path('/kaggle/working
         from sim.strategy_env import StrategyEnv
         from sim.defense_protocol import EvaluationProtocol,acceptance_gate
         joint=mode=='joint'
-        network=(load_selected(policy,'cuda:0',protocol['environment']) if joint else load_network(policy,'cuda:0','physical_live'))
+        network=(load_selected(policy,'cuda:0',protocol['environment'],
+                    original_training_files=manifest.get('original_training_files')) if joint else load_network(policy,'cuda:0','physical_live'))
         network=skill_policy(network,joint,torch).eval().requires_grad_(False)
         def factory(**options):return skill_environment(StrategyEnv,joint,**options)
         report.update(status='evaluating',mode=mode,profile=selection['profile'],training_steps=2048000,
                       source_sha256=manifest['archive_sha256'],training_source_sha256=selection['source_sha256'],
                       input_mode='joint_309_cells_v2' if joint else 'physical_live_306_timer_task_ignored',
                       gpu_names=[torch.cuda.get_device_name(i)for i in range(2)])
+        if manifest.get('environment_migration'):
+            report['evaluation_environment_migration']=manifest['environment_migration']
         save();print(json.dumps(report),flush=True)
         environment=dict(os.environ,OMP_NUM_THREADS='2',MKL_NUM_THREADS='2',OPENBLAS_NUM_THREADS='2',PYTHONUNBUFFERED='1')
         def skills():

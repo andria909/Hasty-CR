@@ -27,9 +27,33 @@ def select(collected,launch_config,source_manifest,output,profiles=Path('data/pp
     if mode not in ('defense','joint') or profile not in selection['modes'][mode]['full_training_profiles'] or selection.get('stage')!='confirmed':
         raise ValueError('Full-training profile was not confirmed before training')
     selection_sha=hashlib.sha256(json.dumps(selection,sort_keys=True).encode()).hexdigest()
+    selection_source=source['archive_sha256']
+    if 'migration'in config:
+        from scripts.defense.pack_evaluation import verified_frozen_package
+        # Re-verify the original pinned source and saved boundary, not just labels
+        # in the remote result. No source fingerprint or hash check is disabled.
+        source_root=Path(source_manifest).parent
+        members,verified,_,_=verified_frozen_package(source_root)
+        if verified!=source:raise ValueError('Migrated training manifest differs')
+        original=json.loads((source_root/'original_manifest.json').read_text())
+        name='sim/defense_env.py';expression='return arena.clamp_to_arena(chosen.pos)'
+        text=members[name].decode()
+        if text.count(expression)!=1 or hashlib.sha256(text.replace(expression,'return chosen.pos').encode()).hexdigest()!=original['files'][name]:
+            raise ValueError('Migrated environment differs from declared expression')
+        changed={n for n in set(source['files'])|set(original['files'])if source['files'].get(n)!=original['files'].get(n)}
+        migration=config['migration']
+        if ((mode,profile)!=('defense','economy_soft')or changed!={name} or migration.get('schema')!='script-target-clamp-migration-v1' or
+            sha(source_root/'original_manifest.json')!=migration.get('original_manifest_sha256') or
+            sha(source_root/'resume.pt')!=migration.get('resume_checkpoint_sha256') or
+            (migration.get('resume_update'),migration.get('resume_step'))!=(796,815104) or
+            result.get('migration')!=migration or result.get('source_unchanged')is not False or
+            result.get('same_source_exact_resume')is not False or
+            original['archive_sha256']!=migration.get('original_source_sha256')):
+            raise ValueError('Migrated full-training lineage differs')
+        selection_source=original['archive_sha256']
     if (selection.get('test_used_for_selection') is not False or result.get('test_used_for_selection') is not False or
         result.get('selection_sha256')!=selection_sha or result.get('source_sha256')!=source['archive_sha256'] or
-        selection.get('source_sha256')!=source['archive_sha256']):raise ValueError('Full-training source or selection provenance differs')
+        selection.get('source_sha256')!=selection_source):raise ValueError('Full-training source or selection provenance differs')
     if result.get('status')!='completed' or result.get('step')!=2048000 or result.get('update')!=2000:
         raise ValueError('Exact full-training budget not completed')
     if result.get('mode')!=mode or result.get('profile')!=profile or result.get('checkpoint')!='train/update_002000.pt':
@@ -69,6 +93,7 @@ def select(collected,launch_config,source_manifest,output,profiles=Path('data/pp
                 collection_receipt_sha256=sha(root/'receipt.json'),training_result_sha256=sha(root/'result.json'),
                 validation_sha256=sha(root/'validation.json'),selection_basis='preselected coefficient profile; predetermined final update2000',
                 test_used_for_selection=False,quality_accepted=False,policy_optimizer_finite=True,exact_resume_available=True)
+    if 'migration'in config:report['environment_migration']=config['migration']
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     shutil.copyfile(checkpoint,output/'policy.pt')
     if sha(output/'policy.pt')!=checkpoint_sha:raise ValueError('Copied final policy SHA mismatch')

@@ -46,3 +46,19 @@ def test_private_input_owners_and_existing_outputs_are_guarded(tmp_path):
     with pytest.raises(ValueError,match='owner'):prepare(*args,tmp_path/'new',kernel='alice/eval',evaluation_dataset='bob/input',selected_dataset='alice/weights')
     with pytest.raises(ValueError,match='new'):prepare(*args,marker,kernel='alice/eval',evaluation_dataset='alice/input',selected_dataset='alice/weights')
     assert (marker/'keep.txt').read_text()=='user file'
+
+
+def test_common_migrated_evaluation_requires_explicit_pinned_lineage():
+    selected=dict(schema='selected-full-ppo-evaluation-input-v1',test_used_for_selection=False,training_steps=2048000,
+        training_update=2000,selected_sha256='policy',mode='defense',num_scalars=306,source_sha256='old',policy_optimizer_finite=True)
+    migration=dict(schema='script-target-clamp-evaluation-v1',applies_to_all_candidates=True,original_source_sha256='old',
+        migrated_training_source_sha256='new',original_defense_env_sha256='old-env',evaluation_defense_env_sha256='new-env')
+    manifest=dict(training_source_archive_sha256='old',environment_migration=migration,
+        compatible_training_sources=['old','new'],original_training_files={'sim/defense_env.py':'old-env'},files={'sim/defense_env.py':'new-env'})
+    assert verify_selection(selected,{'policy_sha256':'policy'},manifest)=='defense'
+    selected['source_sha256']='new'
+    with pytest.raises(ValueError,match='lineage'):verify_selection(selected,{'policy_sha256':'policy'},manifest)
+    selected['environment_migration']={'original_source_sha256':'old'}
+    assert verify_selection(selected,{'policy_sha256':'policy'},manifest)=='defense'
+    manifest['compatible_training_sources'].append('unreviewed')
+    with pytest.raises(ValueError,match='migration'):verify_selection(selected,{'policy_sha256':'policy'},manifest)

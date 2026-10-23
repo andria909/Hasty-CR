@@ -1,3 +1,19 @@
+## Общая итоговая оценка v3 готова
+Использовать tmp/kaggle/ppo_selected_evaluation_20261023_v3/ (164файла/15baselines),
+SHA1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb.
+Одинаковая исправленная DefenseEnv._target для всех4;145из146training-файлов прежние.
+Две поддерживаемыеtraining-линии: original40ba... и explicit recovery a55a...;
+reports/defense_plan/ppo_selected_evaluation_readiness_v3.json.
+Для recovery selector использовать source_manifest=tmp/kaggle/ppo_full_target_recovery_20261023/inputs/manifest.json
+(рядом original_manifest.json/resume.pt); collected_v2 и launch_config.json в тойжеrecoveryпапке.
+Для остальных3 использовать исходныйshared/manifest.json и full/OWNER/collected.
+select_completed_ppo_full проверяет migration, original/resume SHA, бюджет2М/update2000;
+prepare_selected_ppo_evaluation проверяет обе source-линии; controller передаёт original_training_files
+в joint-loader. sim/evaluation_source_contract проверяет все17 fingerprint-файлов и
+побайтово обратимость единственного выражения, обычный strictloader не отключён.
+34теста и8realnetwork validationrollouts прошли; это НЕ полныйtest/приёмка.
+Ничего не загружено/не отправлено наGPU для finaleval, ждать реальногоfull2М.
+
 ## Recovery2 теперь действительно обучается
 Подтверждены TeslaT4 и update797+ (бывший сбой пройден), reports/defense_plan/ppo_target_recovery_gpu_proof.json.
 Source a55a317b..., explicit semantic migration, не exact same-source continuation.

@@ -11,6 +11,22 @@ from scripts.kaggle.select_completed_ppo_full import select,sha
 from scripts.kaggle import run_strategy_evaluation,run_five_round_robin
 
 
+def verify_evaluation_lineage(manifest,source):
+    migration=manifest.get('environment_migration')
+    if migration is None:
+        if manifest.get('training_source_archive_sha256')!=source['archive_sha256']:
+            raise ValueError('Evaluation source differs from full training')
+        return
+    original=manifest.get('original_training_files',{})
+    if not original:raise ValueError('Original training file pins missing')
+    expected=dict(original)
+    if source['archive_sha256']==migration.get('migrated_training_source_sha256'):
+        expected['sim/defense_env.py']=migration['evaluation_defense_env_sha256']
+    elif source['archive_sha256']!=manifest['training_source_archive_sha256']:
+        raise ValueError('Evaluation source differs from full training')
+    if source['files']!=expected:raise ValueError('Evaluation/training file lineage differs')
+
+
 def standalone_source(config):
     code=Path(__file__).with_name('run_selected_ppo_evaluation.py').read_text()
     replacements={
@@ -30,7 +46,7 @@ def prepare(collected,launch_config,source_manifest,evaluation_package,output,*,
     if output.exists():raise ValueError('Use a new selected-PPO evaluation directory')
     _,manifest,_,_=verified_frozen_package(evaluation_package)
     source=json.loads(Path(source_manifest).read_text());launch=json.loads(Path(launch_config).read_text())
-    if manifest.get('training_source_archive_sha256')!=source['archive_sha256']:raise ValueError('Evaluation source differs from full training')
+    verify_evaluation_lineage(manifest,source)
     if launch['mode'] not in manifest.get('supported_training_modes',[]):raise ValueError('Evaluation package does not support this policy mode')
     if 'sim/evaluation_terminal_damage.py' not in manifest['files']:raise ValueError('Terminal attribution evaluator required')
     selection=select(collected,launch_config,source_manifest,output/'selected_dataset')

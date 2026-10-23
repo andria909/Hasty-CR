@@ -14,7 +14,7 @@ from scripts.defense.pack_evaluation import verified_frozen_package, digest, add
 from sim.defense_protocol import load_baseline_allowlist, V25_SHA256
 
 
-EVALUATORS=('sim/eval_strategy.py','sim/eval_defense_duel.py','sim/evaluation_terminal_damage.py')
+EVALUATORS=('sim/eval_strategy.py','sim/eval_defense_duel.py','sim/evaluation_terminal_damage.py','sim/evaluation_source_contract.py')
 EXTRA=('data/strategy/evaluation_protocol.json','data/defense/baselines.json',
        'data/defense/evaluation_protocol.json')
 
@@ -39,7 +39,7 @@ def supported_training_modes(training,members):
     return ['defense','joint']
 
 
-def build(source,output,*,root,owner,slug):
+def build(source,output,*,root,owner,slug,script_target_recovery_source=None):
     import re
     if not re.fullmatch('[A-Za-z0-9_-]+',owner)or not re.fullmatch('[a-z0-9-]+',slug):
         raise ValueError('Invalid dataset owner/slug')
@@ -47,6 +47,19 @@ def build(source,output,*,root,owner,slug):
     if output.exists():raise ValueError('Use a new evaluation directory')
     members,training,manifest_bytes,_=verified_frozen_package(source)
     modes=supported_training_modes(training,members)
+    migration=None
+    if script_target_recovery_source is not None:
+        recovered,recovery,_,_=verified_frozen_package(script_target_recovery_source)
+        changed={name for name in set(training['files'])|set(recovery['files'])if training['files'].get(name)!=recovery['files'].get(name)}
+        if changed!={'sim/defense_env.py'}:raise ValueError('Recovery source changes unrelated training files')
+        name='sim/defense_env.py';text=recovered[name].decode();expression='return arena.clamp_to_arena(chosen.pos)'
+        if text.count(expression)!=1 or text.replace(expression,'return chosen.pos').encode()!=members[name]:
+            raise ValueError('Recovery source is not the exact declared target migration')
+        members[name]=recovered[name]
+        migration=dict(schema='script-target-clamp-evaluation-v1',original_source_sha256=training['archive_sha256'],
+                       migrated_training_source_sha256=recovery['archive_sha256'],
+                       original_defense_env_sha256=training['files'][name],evaluation_defense_env_sha256=recovery['files'][name],
+                       applies_to_all_candidates=True,changes_game_physics=False)
     changes={}
     for name in EVALUATORS:
         raw=(root/name).read_bytes()
@@ -81,6 +94,9 @@ def build(source,output,*,root,owner,slug):
         protocol_sha256=digest(members[EXTRA[0]]),baseline_ids=sorted(allowed),
         baseline_sha256={key:row['sha256']for key,row in allowed.items()},
         baseline_v25_sha256=V25_SHA256,supported_training_modes=modes,quality_accepted=False,private_dataset=True)
+    if migration is not None:
+        report.update(environment_migration=migration,original_training_files=training['files'],
+                      compatible_training_sources=[training['archive_sha256'],recovery['archive_sha256']])
     (output/'manifest.json').write_text(json.dumps(report,indent=2)+'\n')
     (output/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug,
         title=slug.replace('-',' '),licenses=[dict(name='other')],isPrivate=True),indent=2)+'\n')
@@ -94,8 +110,10 @@ def main():
     parser.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[2])
     parser.add_argument('--owner',required=True)
     parser.add_argument('--slug',required=True)
+    parser.add_argument('--script-target-recovery-source',type=Path)
     args=parser.parse_args()
-    report=build(args.source,args.output,root=args.root,owner=args.owner,slug=args.slug)
+    report=build(args.source,args.output,root=args.root,owner=args.owner,slug=args.slug,
+                 script_target_recovery_source=args.script_target_recovery_source)
     print(json.dumps(dict(files=len(report['files']),baselines=len(report['baseline_ids']),archive_sha256=report['archive_sha256'])))
 
 

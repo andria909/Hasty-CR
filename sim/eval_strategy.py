@@ -80,7 +80,7 @@ def evaluate(network,device,protocol,split,*,env_factory=StrategyEnv,terminal_at
         checkpoint_selection_performed=False,mechanics_parity_verified=False)
 
 
-def load_selected(path,device,environment):
+def load_selected(path,device,environment,*,original_training_files=None):
     blob=torch.load(path,map_location='cpu',weights_only=False)
     config=blob.get('config',{})
     if config.get('task_mode')!='joint'or config.get('num_scalars')!=309:
@@ -95,7 +95,8 @@ def load_selected(path,device,environment):
         from sim.train_attack_grpo import attack_source_hash
         expected=attack_source_hash('joint');actual=config.get('environment_code_sha256')
     else:raise ValueError('Unknown selected joint checkpoint schema')
-    if expected!=actual:raise ValueError('Evaluation/training source semantics differ')
+    from sim.evaluation_source_contract import verify_joint_source
+    verify_joint_source(actual,expected,original_training_files)
     network=build_attack_network(checkpoint_architecture(blob),device,num_scalars=309)
     load_attack_state(network,blob,exact=True,observation_contract=OBSERVATION_CONTRACT)
     if not all(bool(torch.isfinite(t).all())for t in network.state_dict().values()):

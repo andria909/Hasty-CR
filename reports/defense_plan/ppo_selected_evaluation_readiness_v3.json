@@ -1,0 +1,77 @@
+{
+  "schema": "selected-ppo-common-migration-evaluation-readiness-v1",
+  "package": "tmp/kaggle/ppo_selected_evaluation_20261023_v3",
+  "archive_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+  "files": 164,
+  "baseline_count": 15,
+  "compatible_training_sources": [
+    "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+    "a55a317ba202f7f44b66924fbee7e478cf924f1daedeaaae5b892e8467df96aa"
+  ],
+  "training_file_changes": [
+    "sim/defense_env.py"
+  ],
+  "preserved_training_file_count": 145,
+  "environment_migration": {
+    "schema": "script-target-clamp-evaluation-v1",
+    "original_source_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+    "migrated_training_source_sha256": "a55a317ba202f7f44b66924fbee7e478cf924f1daedeaaae5b892e8467df96aa",
+    "original_defense_env_sha256": "343b2b54d1670147c1ae9b954ea5c9c99d187cba9926c36405a922361816d55d",
+    "evaluation_defense_env_sha256": "d863667c900bf74a966bf2a9b7c458d66df3fcf1ec45d30cc18903a731e986f3",
+    "applies_to_all_candidates": true,
+    "changes_game_physics": false
+  },
+  "v25_sha256": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972",
+  "all_archive_files_verified": true,
+  "both_source_lineages_verified": true,
+  "cpu_preflight": {
+    "schema": "selected-ppo-evaluation-migration-preflight-v1",
+    "cases": [
+      {
+        "mode": "defense",
+        "input_scalars": 306,
+        "coordinate_mode": "physical_live",
+        "validation_contexts": [
+          "defense::building:baby_dragon:dark_prince:electro_giant:lightning/building_guess:center/x1/left",
+          "attack::finisher:zap:counterspell/above:mana10/left/timer_hidden"
+        ],
+        "episodes_per_pass": 2,
+        "legacy_records_identical_with_attribution": true,
+        "checkpoint_sha256": "664073f3be67e0a4fe058d22c51184d05fa5fa7387193dccaeb464eeb2b74859",
+        "unannounced_migration_rejected": null
+      },
+      {
+        "mode": "joint",
+        "input_scalars": 309,
+        "coordinate_mode": "physical_live_cells_v2",
+        "validation_contexts": [
+          "defense::building:baby_dragon:dark_prince:electro_giant:lightning/building_guess:center/x1/left",
+          "attack::finisher:zap:counterspell/above:mana10/left/timer_hidden"
+        ],
+        "episodes_per_pass": 2,
+        "legacy_records_identical_with_attribution": true,
+        "checkpoint_sha256": "c15da9879a9462419f6a1d7ec9de1e493575375f4b7f1e7b7e2712284e785a9b",
+        "unannounced_migration_rejected": true
+      }
+    ],
+    "total_episode_rollouts": 8,
+    "evaluation_source_archive_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+    "environment_migration": {
+      "schema": "script-target-clamp-evaluation-v1",
+      "original_source_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+      "migrated_training_source_sha256": "a55a317ba202f7f44b66924fbee7e478cf924f1daedeaaae5b892e8467df96aa",
+      "original_defense_env_sha256": "343b2b54d1670147c1ae9b954ea5c9c99d187cba9926c36405a922361816d55d",
+      "evaluation_defense_env_sha256": "d863667c900bf74a966bf2a9b7c458d66df3fcf1ec45d30cc18903a731e986f3",
+      "applies_to_all_candidates": true,
+      "changes_game_physics": false
+    },
+    "quality_accepted": false,
+    "training_performed": false,
+    "test_split_used": false,
+    "official_full_evaluation_executed": false
+  },
+  "tests_passed": 34,
+  "uploaded": false,
+  "official_full_evaluation_executed": false,
+  "quality_accepted": false
+}
