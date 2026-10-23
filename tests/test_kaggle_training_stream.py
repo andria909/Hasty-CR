@@ -61,3 +61,17 @@ def test_normal_connection_end_is_reobserved_at_twenty_minute_interval(tmp_path,
     assert len(calls)==2 and sleeps==[1200]
     state=json.loads((output/'progress.json').read_text())
     assert state['trainers']['grpo']['steps']==200 and state['stream_state']=='ended'
+
+
+def test_distinct_coefficient_trials_have_actual_percent_without_replay_regression():
+    from scripts.kaggle.stream_training import record_trial_event
+    progress={}
+    def event(trial,step,update,percent=999):return json.dumps(dict(event='TRIAL_PROGRESS',trial_id=trial,step=step,update=update,percent=percent))
+    assert record_trial_event(progress,event('defense_baseline_s42',2048,2),10)
+    assert record_trial_event(progress,event('joint_baseline_s42',1024,1),11)
+    assert progress['trials']['defense_baseline_s42']['percent']==2
+    assert progress['trials']['joint_baseline_s42']['percent']==1
+    assert not record_trial_event(progress,event('defense_baseline_s42',1024,1),9)
+    assert not record_trial_event(progress,event('defense_baseline_s42',204800,3),12)
+    assert record_trial_event(progress,json.dumps(dict(event='FULL_TRAINING_PROGRESS',mode='joint',profile='baseline',step=102400,update=100)),20)
+    assert progress['trials']['full_joint_baseline']['percent']==5

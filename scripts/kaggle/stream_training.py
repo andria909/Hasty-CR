@@ -7,6 +7,23 @@ import time
 import sys
 
 
+
+def record_trial_event(progress,line,remote_time):
+    try:row=json.loads(line)
+    except (ValueError,TypeError):return False
+    if not isinstance(row,dict):return False
+    event=row.get('event')
+    if event not in ('TRIAL_PROGRESS','FULL_TRAINING_PROGRESS'):return False
+    step,update=row.get('step'),row.get('update')
+    target=102400 if event=='TRIAL_PROGRESS' else 2048000
+    identity=row.get('trial_id') if event=='TRIAL_PROGRESS' else 'full_'+str(row.get('mode'))+'_'+str(row.get('profile'))
+    if not isinstance(identity,str) or not identity or type(step)is not int or type(update)is not int or not 0<=step<=target or update<0:return False
+    trials=progress.setdefault('trials',{});previous=trials.get(identity)
+    if previous and (update<=previous['update'] or step<previous['steps']):return False
+    trials[identity]=dict(update=update,steps=step,target_steps=target,percent=100*step/target,remote_log_seconds=remote_time)
+    return True
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--kernel',required=True)
@@ -31,6 +48,9 @@ def main():
                 for event in api.kernels_logs_stream(args.kernel):
                     stream.write(json.dumps(event)+'\n');stream.flush()
                     line=event.get('data','')
+                    if record_trial_event(progress,line,event.get('time')):
+                        progress['checked_host_ns']=time.time_ns()
+                        (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
                     for name in ('ppo','grpo'):
                         match=re.search(r'\b'+name+r':\s*\{[^\n]*?"update":\s*(\d+)',line)
                         if not match:continue
