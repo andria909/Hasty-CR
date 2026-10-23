@@ -1,3 +1,14 @@
+## Независимая сводка finaleval готова
+После finaleval collection запускать scripts.defense.summarize_selected_ppo:
+--collected EVAL/OWNER/collected --prepared EVAL/OWNER
+--evaluation-package tmp/kaggle/ppo_selected_evaluation_20261023_v3 --output NEW_REPORT.json.
+Проверяет terminalCOMPLETE, всеSHA, mode/nativecoordinates,1056val/804test exactcontexts,
+300pairedgames/all15baselines/modes/SHA, пересчитывает noDamage/HP/survival/elixir
+и terminal-v2 Hog/spell known/unknown. Invalidscript/противоречивыеHPметки отвергаются.
+Неизвестный outcome запрещает подтверждение80%дляbaseline; rawreward неиспользуется.
+Финальный quality_accepted остаётсяFalse: physics parity/medium threshold ещёне приняты.
+19тестов verifier/protocol/evalcontroller прошли; настоящиеfinalresults покаотсутствуют.
+
 ## Finaleval inputs ready на всех4, local preparation watcher работает
 Все4 private OWNER/hastycr-ppo-selected-eval-v3-20261023 API ready, архив одинаковый1a34b396...
 reports/defense_plan/ppo_selected_evaluation_inputs_ready.json. Upload/status receipts в
