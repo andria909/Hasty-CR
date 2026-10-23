@@ -9,9 +9,14 @@
 Протокол/8профилей/фиксированные128-context validation: data/ppo_tuning/.
 В каждом режиме одинаковый weights-only teacher: текущийvalidation-best
 PPO1 (SHA0aa0648d...) илиjointPPO3 (SHAd9b0a524...). Optimizer новый.
-Новый пакет: tmp/kaggle/ppo_coefficient_study_20261023/; загрузка inputs начата,
-GPU-study jobs пока не отправлены. Передpush проверить receipts/remote status.
-Подтверждение нового этапа отмечать лишь после actualCUDA/ростаsteps.
+Новый пакет: tmp/kaggle/ppo_coefficient_study_20261023/. Все4 inputs ready,
+все4 kernel hastycr-ppo-coef-screen-20261023 version1 отправлены; на каждом
+подтверждены2TeslaT4 и ростsteps у обоих workers. Всего16коротких trials,
+по102400шагов. Доказательство: reports/defense_plan/ppo_coefficient_screening_launch.json.
+Не повторятьpush: jobs активны. Terminal collectors иSSE наблюдатели запущены,
+PID/пути вOWNER/monitoring.json; status раз1200сек. Затем top3/mode seed43,
+потом полное обучение2лучших/mode. Прежние eval завершены и сохранены;
+200матчей+4020skill проверены: reports/defense_plan/five_model_round_robin_verified.json.
 
 Пользователь явно разрешил регулярныйgitpush вorigin.62 накопленныхкоммита
 уже отправлены вmain; source backup snapshot — branch

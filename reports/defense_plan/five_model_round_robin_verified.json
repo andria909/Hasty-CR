@@ -1,0 +1,595 @@
+{
+  "schema": "verified-five-model-summary-v1",
+  "tournament_matches": 200,
+  "skill_episodes": 4020,
+  "models": {
+    "ppo1": {
+      "checkpoint_sha256": "0aa0648d9469b52964003d8d7a2aba604fc2f370ceeead9e6499db7771068b39",
+      "tournament": {
+        "matches": 80,
+        "wins": 48,
+        "losses": 32,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.6,
+        "score": 48.0,
+        "score_rate_all_matches": 0.6
+      },
+      "defense": {
+        "episodes": 708,
+        "no_damage": {
+          "known": 708,
+          "unknown": 0,
+          "success": 392,
+          "rate": 0.5536723163841808
+        },
+        "mean_hp_loss": 712.117231638418,
+        "by_difficulty": {
+          "complex": {
+            "known": 252,
+            "unknown": 0,
+            "success": 130,
+            "rate": 0.5158730158730159
+          },
+          "impossible": {
+            "known": 108,
+            "unknown": 0,
+            "success": 25,
+            "rate": 0.23148148148148148
+          },
+          "medium": {
+            "known": 144,
+            "unknown": 0,
+            "success": 78,
+            "rate": 0.5416666666666666
+          },
+          "simple": {
+            "known": 204,
+            "unknown": 0,
+            "success": 159,
+            "rate": 0.7794117647058824
+          }
+        },
+        "timeouts": 1
+      },
+      "attack": {
+        "episodes": 96,
+        "episode_success": {
+          "known": 96,
+          "unknown": 0,
+          "success": 82,
+          "rate": 0.8541666666666666
+        },
+        "reported_goal_flag": {
+          "known": 96,
+          "unknown": 0,
+          "success": 16,
+          "rate": 0.16666666666666666
+        },
+        "window_missed": {
+          "known": 96,
+          "unknown": 0,
+          "success": 14,
+          "rate": 0.14583333333333334
+        },
+        "hog_episodes": 24,
+        "hog_confirmed_hits": 16,
+        "hog_incomplete_ledgers": 4,
+        "spell_episodes": 72,
+        "spell_finish_confirmed": {
+          "known": 10,
+          "unknown": 62,
+          "success": 0,
+          "rate": 0.0
+        },
+        "enemy_king_destroyed": 66
+      },
+      "skill_input_mode": "physical_live_306_timer_task_ignored",
+      "duel_input_mode": "physical_live",
+      "raw_sha256": "f11087e02bea802692be9cd25f50434fcc75a85c5d49c4c8a7edce2257f370ba"
+    },
+    "grpo2": {
+      "checkpoint_sha256": "ad05ae5fe50ec88ea397b1f4688599e1d6e0293e46d0af85143edcf641e85b4f",
+      "tournament": {
+        "matches": 80,
+        "wins": 32,
+        "losses": 48,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.4,
+        "score": 32.0,
+        "score_rate_all_matches": 0.4
+      },
+      "defense": {
+        "episodes": 708,
+        "no_damage": {
+          "known": 708,
+          "unknown": 0,
+          "success": 302,
+          "rate": 0.4265536723163842
+        },
+        "mean_hp_loss": 862.5762711864406,
+        "by_difficulty": {
+          "complex": {
+            "known": 252,
+            "unknown": 0,
+            "success": 108,
+            "rate": 0.42857142857142855
+          },
+          "impossible": {
+            "known": 108,
+            "unknown": 0,
+            "success": 10,
+            "rate": 0.09259259259259259
+          },
+          "medium": {
+            "known": 144,
+            "unknown": 0,
+            "success": 55,
+            "rate": 0.3819444444444444
+          },
+          "simple": {
+            "known": 204,
+            "unknown": 0,
+            "success": 129,
+            "rate": 0.6323529411764706
+          }
+        },
+        "timeouts": 0
+      },
+      "attack": {
+        "episodes": 96,
+        "episode_success": {
+          "known": 96,
+          "unknown": 0,
+          "success": 72,
+          "rate": 0.75
+        },
+        "reported_goal_flag": {
+          "known": 96,
+          "unknown": 0,
+          "success": 16,
+          "rate": 0.16666666666666666
+        },
+        "window_missed": {
+          "known": 96,
+          "unknown": 0,
+          "success": 24,
+          "rate": 0.25
+        },
+        "hog_episodes": 24,
+        "hog_confirmed_hits": 16,
+        "hog_incomplete_ledgers": 6,
+        "spell_episodes": 72,
+        "spell_finish_confirmed": {
+          "known": 22,
+          "unknown": 50,
+          "success": 0,
+          "rate": 0.0
+        },
+        "enemy_king_destroyed": 56
+      },
+      "skill_input_mode": "physical_live_306_timer_task_ignored",
+      "duel_input_mode": "physical_live",
+      "raw_sha256": "818e42c279b70d73bde89cdc99b21ebec88fb621108a58ab4a58b71b2d710e3f"
+    },
+    "joint_ppo3": {
+      "checkpoint_sha256": "d9b0a524c758698f8549dfc6f940a4fbad89d65d3d99e4e00930447b1a4ff2f6",
+      "tournament": {
+        "matches": 80,
+        "wins": 53,
+        "losses": 27,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.6625,
+        "score": 53.0,
+        "score_rate_all_matches": 0.6625
+      },
+      "defense": {
+        "episodes": 708,
+        "no_damage": {
+          "known": 708,
+          "unknown": 0,
+          "success": 346,
+          "rate": 0.4887005649717514
+        },
+        "mean_hp_loss": 776.2612994350283,
+        "by_difficulty": {
+          "complex": {
+            "known": 252,
+            "unknown": 0,
+            "success": 121,
+            "rate": 0.4801587301587302
+          },
+          "impossible": {
+            "known": 108,
+            "unknown": 0,
+            "success": 12,
+            "rate": 0.1111111111111111
+          },
+          "medium": {
+            "known": 144,
+            "unknown": 0,
+            "success": 55,
+            "rate": 0.3819444444444444
+          },
+          "simple": {
+            "known": 204,
+            "unknown": 0,
+            "success": 158,
+            "rate": 0.7745098039215687
+          }
+        },
+        "timeouts": 0
+      },
+      "attack": {
+        "episodes": 96,
+        "episode_success": {
+          "known": 96,
+          "unknown": 0,
+          "success": 82,
+          "rate": 0.8541666666666666
+        },
+        "reported_goal_flag": {
+          "known": 96,
+          "unknown": 0,
+          "success": 16,
+          "rate": 0.16666666666666666
+        },
+        "window_missed": {
+          "known": 96,
+          "unknown": 0,
+          "success": 14,
+          "rate": 0.14583333333333334
+        },
+        "hog_episodes": 24,
+        "hog_confirmed_hits": 16,
+        "hog_incomplete_ledgers": 0,
+        "spell_episodes": 72,
+        "spell_finish_confirmed": {
+          "known": 6,
+          "unknown": 66,
+          "success": 0,
+          "rate": 0.0
+        },
+        "enemy_king_destroyed": 66
+      },
+      "skill_input_mode": "joint_309_cells_v2",
+      "duel_input_mode": "joint_enemy_presence_v1",
+      "raw_sha256": "f4745e251db6466d038d464a1fe480891f005af90bd0de0df54af8ce7ebc0f5a"
+    },
+    "joint_grpo4": {
+      "checkpoint_sha256": "33f6496937e9b52c2a2b1ad335f1134f1f8c04db6914f6dcb50a12aa84188bc3",
+      "tournament": {
+        "matches": 80,
+        "wins": 38,
+        "losses": 42,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.475,
+        "score": 38.0,
+        "score_rate_all_matches": 0.475
+      },
+      "defense": {
+        "episodes": 708,
+        "no_damage": {
+          "known": 708,
+          "unknown": 0,
+          "success": 252,
+          "rate": 0.3559322033898305
+        },
+        "mean_hp_loss": 1131.3502824858756,
+        "by_difficulty": {
+          "complex": {
+            "known": 252,
+            "unknown": 0,
+            "success": 89,
+            "rate": 0.3531746031746032
+          },
+          "impossible": {
+            "known": 108,
+            "unknown": 0,
+            "success": 4,
+            "rate": 0.037037037037037035
+          },
+          "medium": {
+            "known": 144,
+            "unknown": 0,
+            "success": 32,
+            "rate": 0.2222222222222222
+          },
+          "simple": {
+            "known": 204,
+            "unknown": 0,
+            "success": 127,
+            "rate": 0.6225490196078431
+          }
+        },
+        "timeouts": 1
+      },
+      "attack": {
+        "episodes": 96,
+        "episode_success": {
+          "known": 96,
+          "unknown": 0,
+          "success": 78,
+          "rate": 0.8125
+        },
+        "reported_goal_flag": {
+          "known": 96,
+          "unknown": 0,
+          "success": 16,
+          "rate": 0.16666666666666666
+        },
+        "window_missed": {
+          "known": 96,
+          "unknown": 0,
+          "success": 18,
+          "rate": 0.1875
+        },
+        "hog_episodes": 24,
+        "hog_confirmed_hits": 16,
+        "hog_incomplete_ledgers": 4,
+        "spell_episodes": 72,
+        "spell_finish_confirmed": {
+          "known": 14,
+          "unknown": 58,
+          "success": 0,
+          "rate": 0.0
+        },
+        "enemy_king_destroyed": 62
+      },
+      "skill_input_mode": "joint_309_cells_v2",
+      "duel_input_mode": "joint_enemy_presence_v1",
+      "raw_sha256": "6ca1b47cc4e4879cc797d96a560d028a55a7814f945268811911ec95846b31c3"
+    },
+    "v25": {
+      "checkpoint_sha256": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972",
+      "tournament": {
+        "matches": 80,
+        "wins": 29,
+        "losses": 51,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.3625,
+        "score": 29.0,
+        "score_rate_all_matches": 0.3625
+      },
+      "defense": {
+        "episodes": 708,
+        "no_damage": {
+          "known": 708,
+          "unknown": 0,
+          "success": 261,
+          "rate": 0.3686440677966102
+        },
+        "mean_hp_loss": 996.7514124293785,
+        "by_difficulty": {
+          "complex": {
+            "known": 252,
+            "unknown": 0,
+            "success": 118,
+            "rate": 0.46825396825396826
+          },
+          "impossible": {
+            "known": 108,
+            "unknown": 0,
+            "success": 18,
+            "rate": 0.16666666666666666
+          },
+          "medium": {
+            "known": 144,
+            "unknown": 0,
+            "success": 21,
+            "rate": 0.14583333333333334
+          },
+          "simple": {
+            "known": 204,
+            "unknown": 0,
+            "success": 104,
+            "rate": 0.5098039215686274
+          }
+        },
+        "timeouts": 0
+      },
+      "attack": {
+        "episodes": 96,
+        "episode_success": {
+          "known": 96,
+          "unknown": 0,
+          "success": 78,
+          "rate": 0.8125
+        },
+        "reported_goal_flag": {
+          "known": 96,
+          "unknown": 0,
+          "success": 16,
+          "rate": 0.16666666666666666
+        },
+        "window_missed": {
+          "known": 96,
+          "unknown": 0,
+          "success": 18,
+          "rate": 0.1875
+        },
+        "hog_episodes": 24,
+        "hog_confirmed_hits": 16,
+        "hog_incomplete_ledgers": 6,
+        "spell_episodes": 72,
+        "spell_finish_confirmed": {
+          "known": 16,
+          "unknown": 56,
+          "success": 0,
+          "rate": 0.0
+        },
+        "enemy_king_destroyed": 62
+      },
+      "skill_input_mode": "physical_live_306_timer_task_ignored",
+      "duel_input_mode": "legacy_training",
+      "raw_sha256": "2a29fd6b6e9e10509f07047a4522fb32064860b9f0fc043086345ef2a19ab02a"
+    }
+  },
+  "matrix": {
+    "ppo1": {
+      "grpo2": {
+        "matches": 20,
+        "wins": 12,
+        "losses": 8,
+        "draws": 0,
+        "unknown": 0
+      },
+      "joint_ppo3": {
+        "matches": 20,
+        "wins": 9,
+        "losses": 11,
+        "draws": 0,
+        "unknown": 0
+      },
+      "joint_grpo4": {
+        "matches": 20,
+        "wins": 12,
+        "losses": 8,
+        "draws": 0,
+        "unknown": 0
+      },
+      "v25": {
+        "matches": 20,
+        "wins": 15,
+        "losses": 5,
+        "draws": 0,
+        "unknown": 0
+      }
+    },
+    "grpo2": {
+      "ppo1": {
+        "matches": 20,
+        "wins": 8,
+        "losses": 12,
+        "draws": 0,
+        "unknown": 0
+      },
+      "joint_ppo3": {
+        "matches": 20,
+        "wins": 5,
+        "losses": 15,
+        "draws": 0,
+        "unknown": 0
+      },
+      "joint_grpo4": {
+        "matches": 20,
+        "wins": 7,
+        "losses": 13,
+        "draws": 0,
+        "unknown": 0
+      },
+      "v25": {
+        "matches": 20,
+        "wins": 12,
+        "losses": 8,
+        "draws": 0,
+        "unknown": 0
+      }
+    },
+    "joint_ppo3": {
+      "ppo1": {
+        "matches": 20,
+        "wins": 11,
+        "losses": 9,
+        "draws": 0,
+        "unknown": 0
+      },
+      "grpo2": {
+        "matches": 20,
+        "wins": 15,
+        "losses": 5,
+        "draws": 0,
+        "unknown": 0
+      },
+      "joint_grpo4": {
+        "matches": 20,
+        "wins": 12,
+        "losses": 8,
+        "draws": 0,
+        "unknown": 0
+      },
+      "v25": {
+        "matches": 20,
+        "wins": 15,
+        "losses": 5,
+        "draws": 0,
+        "unknown": 0
+      }
+    },
+    "joint_grpo4": {
+      "ppo1": {
+        "matches": 20,
+        "wins": 8,
+        "losses": 12,
+        "draws": 0,
+        "unknown": 0
+      },
+      "grpo2": {
+        "matches": 20,
+        "wins": 13,
+        "losses": 7,
+        "draws": 0,
+        "unknown": 0
+      },
+      "joint_ppo3": {
+        "matches": 20,
+        "wins": 8,
+        "losses": 12,
+        "draws": 0,
+        "unknown": 0
+      },
+      "v25": {
+        "matches": 20,
+        "wins": 9,
+        "losses": 11,
+        "draws": 0,
+        "unknown": 0
+      }
+    },
+    "v25": {
+      "ppo1": {
+        "matches": 20,
+        "wins": 5,
+        "losses": 15,
+        "draws": 0,
+        "unknown": 0
+      },
+      "grpo2": {
+        "matches": 20,
+        "wins": 8,
+        "losses": 12,
+        "draws": 0,
+        "unknown": 0
+      },
+      "joint_ppo3": {
+        "matches": 20,
+        "wins": 5,
+        "losses": 15,
+        "draws": 0,
+        "unknown": 0
+      },
+      "joint_grpo4": {
+        "matches": 20,
+        "wins": 11,
+        "losses": 9,
+        "draws": 0,
+        "unknown": 0
+      }
+    }
+  },
+  "leaders": [
+    "joint_ppo3"
+  ],
+  "ranking_provisional": false,
+  "ranking_rule": "(wins + 0.5*draws)/80; equal scores remain tied; unknown gives no points",
+  "source_sha256": "c043a0fa7340c14f29a2f5f27981107e629e9d4741a030c6dab8740ad6d0c798",
+  "protocol_sha256": "55bf4f6017736b1a98770211b035163d865b4911e931c79f63249ca4e8d8efb0",
+  "quality_accepted": false,
+  "simulation_only": true,
+  "test_used_to_change_weights": false,
+  "attack_metric_note": "Episode success includes enemy king death. Goal flags and confirmed Hog/spell attribution are separate; unknown terminal spell attribution is not a confirmed spell finish."
+}
