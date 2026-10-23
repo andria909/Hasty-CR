@@ -112,10 +112,16 @@ def verify(collected,prepared,evaluation_package):
            r.get('result')not in ('win','loss','draw','unknown')for r in matches):raise ValueError('Opponent identity/outcome differs')
     opponents={}
     for baseline in frozen.baseline_ids:
-        outcomes=[r['result']for r in matches if r['baseline_id']==baseline];wins=outcomes.count('win')
+        baseline_rows=[r for r in matches if r['baseline_id']==baseline]
+        outcomes=[r['result']for r in baseline_rows];wins=outcomes.count('win')
+        observed=[r.get('observed_result',r['result'])for r in baseline_rows]
+        if any(value not in ('win','loss','draw','unknown')for value in observed):raise ValueError('Invalid observed simulator outcome')
         opponents[baseline]=dict(games=20,wins=wins,losses=outcomes.count('loss'),draws=outcomes.count('draw'),unknown=outcomes.count('unknown'),
             win_rate_all_games=wins/20,wilson_95=wilson_interval(wins,20),
-            observed_80_percent_target_met=None if 'unknown'in outcomes else wins>=16)
+            observed_80_percent_target_met=None if 'unknown'in outcomes else wins>=16,
+            observed_simulation=dict(wins=observed.count('win'),losses=observed.count('loss'),draws=observed.count('draw'),
+                unknown=observed.count('unknown'),win_rate_all_games=observed.count('win')/20,
+                acceptance_confirmed=False))
     defense=[r for r in records_by_split['test']if r['task']=='defense']
     gate=acceptance_gate(frozen,defense,matches,coverage_complete=False)
     return dict(schema='verified-selected-ppo-final-summary-v1',mode=mode,profile=selection['profile'],checkpoint_sha256=config['policy_sha256'],

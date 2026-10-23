@@ -90,3 +90,14 @@ def test_zero_hog_damage_with_incomplete_ledger_remains_unknown():
     row=dict(task='attack',goal_kind='hog_tower_damage',hog_target_tower_damage_v2=0,hog_damage_ledger_complete_v2=False)
     result=summarize_split([row])['attack']['hog_confirmed_hit']
     assert result['unknown']==1 and result['known']==0 and result['rate']is None
+
+
+def test_observed_simulation_win_is_separate_from_unknown_acceptance_result(tmp_path):
+    collected,prepared,package,receipt=fixture(tmp_path)
+    p=collected/'duels.json';r=json.loads(p.read_text())
+    for row in r['head_to_head']:row.update(result='unknown',observed_result='win')
+    p.write_text(json.dumps(r));p=collected/'result.json';r=json.loads(p.read_text());r['parts']['duels']['sha256']=sha(collected/'duels.json');p.write_text(json.dumps(r));receipt()
+    result=verify(collected,prepared,package)
+    for entry in result['opponents'].values():
+        assert entry['unknown']==20 and entry['observed_80_percent_target_met']is None
+        assert entry['observed_simulation']['wins']==20 and not entry['observed_simulation']['acceptance_confirmed']

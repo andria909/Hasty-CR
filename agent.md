@@ -1,3 +1,16 @@
+## Новое требование пользователя к done.md
+done.md теперь КОРОТКИЙ DASHBOARD, не журнал: текущийэтап, таблицы train/val/test/винрейтов.
+НЕдобавлять длиннуюисторию; подробныеfacts/proofs в reports/defense_plan и agent.md.
+Обновлять ячейки для каждой новой модели только изпроверенных rawreports.
+Новый запрос: отдельно измеритьконечныеweights наTRAIN; это ещёне запускалось.
+В первую fullоценку вошла общая2 tower_survival: report ppo_joint_tower_survival_full_metrics.json.
+Observed симуляция196W/104L/300=65.33%,v25 15W/5L/20=75%. Gate outcomes ВСЕunknown изза
+coverageflags; НЕпоказывать0% как винрейт и НЕобъявлять80%-приёмку. Verifier теперь разделяет
+observed_simulation и acceptance unknown. Test noDamage350/708=49.44%, Hog18/24=75%, spell0/72.
+Validation Hog25/48, spell0/126known+18unknown. Тест/valнеиспользоватьдляподбораweights.
+Вторая full joint economy_soft API COMPLETE и result2048000/update2000 подтверждены,
+collectorfolder ещёвыгружаетtrain/metrics (85MB), не перезапускатьGPU.
+
 ## Первая полная модель сохранена, finaleval фактически на2T4
 Demjanklimov joint tower_survival: full API COMPLETE,2048000/update2000, SHA5e01303f135fe10888b037ed1997fc43be5b012a421b798f446d5db2297cd7c2.
 full/demjanklimov/collected полный; selector finitepolicy/optimizer/8snapshots прошёл.
