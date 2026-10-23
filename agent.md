@@ -39,7 +39,10 @@ legacy metrics сохраняются, v2 записывает источник 
 наблюдаемому HP delta во время исходного KingDestroyed. Для5 парных случаев
 проверены побайтовые observations/rewards/masks/legacy metrics/snapshot.
 Неизвестные источники остаютсяunknown. Никакоеtraining/reward/optimizer
-не изменено. Пакет v1 сохранён, ниv1ниv2 не загружались/не оценивались наGPU.
+не изменено. Дополнительно пройден CPU-preflight реальных306/309сетей на
+2validation-контекстах/режим, с/безobserver:8эпизодов иидентичныеlegacyrecords.
+reports/defense_plan/ppo_selected_evaluation_cpu_preflight.json; это только
+проверкасовместимости, не полныйtest и не приёмкакачества. Пакет v1 сохранён, ниv1ниv2 не загружались/не оценивались наGPU.
 36тестов observer/attack/evaljob прошли; изолированно загрузились306/309
 weights, code_fingerprint иCLIflag проверены. Для новой итоговой оценки
 использоватьv2. Будущий job builder должен фиксировать конечный update2000

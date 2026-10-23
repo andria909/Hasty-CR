@@ -1,0 +1,40 @@
+{
+  "schema": "selected-ppo-evaluation-cpu-preflight-v1",
+  "cases": [
+    {
+      "mode": "defense",
+      "checkpoint_sha256": "d6e5bf5b7bfbe49ee42086781ef423efe4750097e4295910921847aefbcdd005",
+      "input_scalars": 306,
+      "coordinate_mode": "physical_live",
+      "validation_contexts": [
+        "defense::building:baby_dragon:dark_prince:electro_giant:lightning/building_guess:center/x1/left",
+        "attack::finisher:zap:counterspell/above:mana10/left/timer_hidden"
+      ],
+      "episodes_per_pass": 2,
+      "instrumented_legacy_records_identical": true,
+      "actual_network_forward_verified": true
+    },
+    {
+      "mode": "joint",
+      "checkpoint_sha256": "0914cb0380d03e25e86b3fc7d03f59cff1b603f06026460be08c30c38fedadcf",
+      "input_scalars": 309,
+      "coordinate_mode": "physical_live_cells_v2",
+      "validation_contexts": [
+        "defense::building:baby_dragon:dark_prince:electro_giant:lightning/building_guess:center/x1/left",
+        "attack::finisher:zap:counterspell/above:mana10/left/timer_hidden"
+      ],
+      "episodes_per_pass": 2,
+      "instrumented_legacy_records_identical": true,
+      "actual_network_forward_verified": true
+    }
+  ],
+  "training_performed": false,
+  "test_split_used": false,
+  "coefficient_selection_performed": false,
+  "official_full_evaluation_executed": false,
+  "quality_accepted": false,
+  "evaluation_source_archive_sha256": "0544f61b25eda77b27d40848b4d10793d3911a5f726cff0a39c15bd4448d928c",
+  "training_source_archive_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+  "total_episode_rollouts": 8,
+  "scope": "Two fixed validation contexts per native input mode, with and without attribution; compatibility/parity check only, not full quality acceptance."
+}
