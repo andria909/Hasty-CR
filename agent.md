@@ -1,6 +1,35 @@
 # Hasty-CR: рабочая карта проекта
 
-## Сейчас: четыре полных PPO после подбора коэффициентов
+## Сейчас:3full RUNNING + диагностика сбоя второго аккаунта
+
+Оригинальный vertel0/hastycr-ppo-coef-full-20261023 завершилсяERROR:
+invalid_script_play_timeout в pair:bandit:battle_ram:zap/back/x1/left,
+новыйконтекстseed49. Последнийcompleted796/815104, последнийсохранённый
+checkpoint700/716800 SHA c40b573d0fe80ff01e514f2a539c370d2c6efd5c5f6479a1a012b0d5da41d433.
+Всеартефакты ERROR выгружены и проверены; original/SSE остановлен только
+после сохранения. Другие3GPUjobs продолжаются, не трогать/не перезапускать.
+reports/defense_plan/ppo_full_economy_soft_failure.json.
+
+Запущен ТОЛЬКОдля второго диагностический resume100updates из700:
+vertel0/hastycr-ppo-def700-diagnostic-20261023 version1, реальныеT4/ростsteps
+подтверждены: reports/defense_plan/ppo_full_diagnostic_launch.json.
+Пакет tmp/kaggle/ppo_full_defense_recovery_20261023/, monitor/PID там.
+Source тотже40ba4ec0...,RNG/optimizer/envstates восстановлены, physics не менялись.
+Только read-only wrapper печатает SCRIPT_PLAY_DIAGNOSTIC приошибке;
+checkpoint-every1, cap100additionalupdates (до800), сравнивает701–796с
+оригинальнымиполнымиmetrics безelapsed. Диагностическийrun НЕ завершает2М.
+Послеегоterminal: собрать result/train.log/latestcheckpoint (prefix selected_full),
+проверить failure_telemetry и original_prefix_comparisons. Причинаконкретного
+отклонения карты ещё НЕ установлена; не угадывать/не пропускатьinvalid-case.
+CPU четыреэпизода seed49 сpolicy700(argmax/3sample) прошли, это неGPU-replay.
+
+Реальныйпрогрессдиагностики уже>700 наT4, но точноеnumerical совпадение
+проверитсяпослеterminal. ЕслиSSE SSLобрывается, это неостановкаGPU; один
+локальныйstream переподключён, старыефайлы сохранены. Никакихповторных
+push поверхработающихkernels. Старыеgeneric4-RUNNING таблицы ниже — история.
+
+
+## Полный этап PPO после подбора (история запуска)
 
 Все16 опытовseed42 и6seed43 завершены, выгружены и проверены.
 Победители среднего двухseed: defense spell_precision/economy_soft;
