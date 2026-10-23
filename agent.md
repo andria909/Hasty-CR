@@ -1,3 +1,19 @@
+## Первая полная модель сохранена, finaleval фактически на2T4
+Demjanklimov joint tower_survival: full API COMPLETE,2048000/update2000, SHA5e01303f135fe10888b037ed1997fc43be5b012a421b798f446d5db2297cd7c2.
+full/demjanklimov/collected полный; selector finitepolicy/optimizer/8snapshots прошёл.
+Prepared EVAL/demjanklimov; selectedprivate dataset загружен. Новый finaleval version1
+demjanklimov/hastycr-ppo-selected-final-eval-20261023 достиг evaluating на2TeslaT4,
+common1a34..., input309 и explicitclamp migration проверены.
+reports/defense_plan/ppo_selected_first_full_evaluation_launch.json.
+EVAL=tmp/kaggle/ppo_selected_final_evaluations_20261023; monitoring.json PID/логи/collectorprofile strategy.
+Не перепушивать. Новая evaluation ещёне завершена, testметрик пока нет.
+Старые fullcollector/stream демьян остановлены после COMPLETE+сохранения, файлы сохранены.
+GetDatasetStatus для готового evalinput стал404, но полный datasetsfiles165names/sizes совпал;
+GPUcontroller дополнительно проверил SHAвсех164sourcefiles. Не перезаливать/удалять dataset из-за status404.
+Stagevalidation128/10v25:score.556801, v25win.7, defenseQ.78125, attackQ.28125;
+это НЕfull1056val/804test и не80%-приёмка. Остальные3 ещёне collected, originalандрейstreamlast99.55%;
+ждатьего terminalcollector/свежегоSSE, не повторятьGPUjob из-заобрывастрима.
+
 ## Независимая сводка finaleval готова
 После finaleval collection запускать scripts.defense.summarize_selected_ppo:
 --collected EVAL/OWNER/collected --prepared EVAL/OWNER

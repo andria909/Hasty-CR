@@ -1,0 +1,70 @@
+{
+  "schema": "selected-ppo-first-full-and-evaluation-launch-v1",
+  "owner": "demjanklimov",
+  "mode": "joint",
+  "profile": "tower_survival",
+  "full_kernel": "demjanklimov/hastycr-ppo-coef-full-20261023",
+  "full_status": "COMPLETE",
+  "training_steps": 2048000,
+  "update": 2000,
+  "checkpoint_sha256": "5e01303f135fe10888b037ed1997fc43be5b012a421b798f446d5db2297cd7c2",
+  "source_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+  "collection_receipt_sha256": "a4476de6fe2cb24634ea8b005fb5fbd886ee828211a0fb51420068f29022628d",
+  "policy_optimizer_finite_audited": true,
+  "exact_boundary_snapshots_audited": true,
+  "training_stage_validation": {
+    "eligible": true,
+    "score": 0.5568014705882353,
+    "validation_win_rate": 0.7,
+    "defense_quality": 0.78125,
+    "attack_quality": 0.28125,
+    "task_quality": 0.41360294117647056,
+    "king_survival": 1.0,
+    "mean_hp_fraction_loss": 0.20677839006696427,
+    "mean_elixir_spent": 24.0625,
+    "raw_reward_used_for_selection": false
+  },
+  "training_stage_validation_scope": "Fixed128skill contexts and10paired v25 games; not the full1056/804 heldout evaluation",
+  "evaluation_kernel": "demjanklimov/hastycr-ppo-selected-final-eval-20261023",
+  "evaluation_version": 1,
+  "evaluation_gpu_proof": {
+    "schema": "selected-ppo-final-evaluation-v1",
+    "status": "evaluating",
+    "parts": {},
+    "quality_accepted": false,
+    "test_used_for_selection": false,
+    "selected_sha256": "5e01303f135fe10888b037ed1997fc43be5b012a421b798f446d5db2297cd7c2",
+    "selection_sha256": "8aa2acd4ba6a0826321c57d372e74b3349837b270ee2db357238159add62cc64",
+    "mode": "joint",
+    "profile": "tower_survival",
+    "training_steps": 2048000,
+    "source_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+    "training_source_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+    "input_mode": "joint_309_cells_v2",
+    "gpu_names": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "evaluation_environment_migration": {
+      "schema": "script-target-clamp-evaluation-v1",
+      "original_source_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+      "migrated_training_source_sha256": "a55a317ba202f7f44b66924fbee7e478cf924f1daedeaaae5b892e8467df96aa",
+      "original_defense_env_sha256": "343b2b54d1670147c1ae9b954ea5c9c99d187cba9926c36405a922361816d55d",
+      "evaluation_defense_env_sha256": "d863667c900bf74a966bf2a9b7c458d66df3fcf1ec45d30cc18903a731e986f3",
+      "applies_to_all_candidates": true,
+      "changes_game_physics": false
+    }
+  },
+  "evaluation_dataset_published_file_proof": {
+    "dataset": "demjanklimov/hastycr-ppo-selected-eval-v3-20261023",
+    "published_files": 165,
+    "exact_names_and_sizes_verified": true,
+    "status_endpoint_404": true,
+    "launch_based_on_authoritative_published_file_metadata": true,
+    "all_file_sha_verified_again_inside_gpu_controller": true,
+    "checked_host_ns": 1792767566111254000
+  },
+  "evaluation_finished": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false
+}
