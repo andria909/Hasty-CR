@@ -1,0 +1,68 @@
+{
+  "schema": "four-training-completion-v1",
+  "verified_host_ns": 1792747755733062000,
+  "quality_accepted": false,
+  "models": {
+    "ppo_account1": {
+      "steps": 2048000,
+      "updates": 2000,
+      "checkpoint": "/kaggle/working/recovery/ppo/update_002000.pt",
+      "sha256": "3e661f777568a02ec6854d162b69baedf6ab7c06866b7ef28f6b48fa675b85dc",
+      "target_met": true,
+      "not_exact_resume": true,
+      "validation_selected": {
+        "path": "selected/ppo.pt",
+        "sha256": "0aa0648d9469b52964003d8d7a2aba604fc2f370ceeead9e6499db7771068b39"
+      },
+      "source": "tmp/kaggle/defense_recovery_20261022/collected/recovery_result.json"
+    },
+    "grpo_account2": {
+      "steps": 1000650,
+      "updates": 1344,
+      "target_met": true,
+      "validation_selected": {
+        "path": "selected/grpo.pt",
+        "sha256": "ad05ae5fe50ec88ea397b1f4688599e1d6e0293e46d0af85143edcf641e85b4f"
+      },
+      "source": "tmp/kaggle/grpo_account2_20261023/collected_retry_1792746299512404000/account2_result.json"
+    },
+    "joint_ppo_account3": {
+      "schema": "joint-training-audit-v1",
+      "algorithm": "ppo",
+      "steps": 2048000,
+      "target_steps": 2048000,
+      "target_met": true,
+      "checkpoint": "ppo/update_002000.pt",
+      "checkpoint_sha256": "b01073520394bf45fe2ea7b2141c92d4b782e8548f200b1eedcee1ce31e25929",
+      "task_counts": {
+        "attack": 14644,
+        "defense": 14658
+      },
+      "source_archive_sha256": "331a84e3c89b190f209f27d8fa09cfc2294da1bafa2de146fd4e72543770b7b2",
+      "ready_for_validation": true,
+      "quality_accepted": false,
+      "evaluation_completed": false,
+      "remote_hash_verified": false,
+      "source": "tmp/kaggle/joint_strategy_20261023/andreiperelaiko/training_audit_final.json"
+    },
+    "joint_grpo_account4": {
+      "schema": "joint-training-audit-v1",
+      "algorithm": "grpo",
+      "steps": 1000297,
+      "target_steps": 1000000,
+      "target_met": true,
+      "checkpoint": "grpo/final_u001836_s000069.pt",
+      "checkpoint_sha256": "19e2f5e29fd41f9dc8b203edea88e232a22ba4b36ceac33fb71f9aaf0fe0c367",
+      "task_counts": {
+        "attack": 309578,
+        "defense": 690719
+      },
+      "source_archive_sha256": "331a84e3c89b190f209f27d8fa09cfc2294da1bafa2de146fd4e72543770b7b2",
+      "ready_for_validation": true,
+      "quality_accepted": false,
+      "evaluation_completed": false,
+      "remote_hash_verified": false,
+      "source": "tmp/kaggle/joint_strategy_20261023/demjanklimov/training_audit_final.json"
+    }
+  }
+}

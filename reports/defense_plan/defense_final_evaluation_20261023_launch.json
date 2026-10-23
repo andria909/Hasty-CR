@@ -1,0 +1,124 @@
+{
+  "event": "evaluation_started",
+  "status": "running",
+  "protocol_fingerprint": "c03b49396e95de983419211e476d732e1841ad97bb8d6a79c9b74ed97397437f",
+  "source_archive_sha256": "26d0cf56182d7cd7fca2c4ff9320485a3aa06b9b9d19a4b7a1973034346f16bd",
+  "evaluation_archive_sha256": "4adabac41bb8122dde4a5540784a804c5ec13bd436f1cf4417ed2d2eba101a00",
+  "stage2_result_sha256": null,
+  "recovery_result_sha256": "3561968b3fdf175dfbb4a92e1878ba4c72e6b0b1596e1afac952a3b7783a6ec3",
+  "account2_result_sha256": null,
+  "input_result_mode": "semantic_recovery",
+  "original_stage2_status_not_overridden": true,
+  "not_exact_resume": true,
+  "recovery_source_archive_sha256": "4375e1b1650e82c5b4114eda7872ef79e6321887b837a07356af48aeb5c7c5a1",
+  "recovery_training_counters": {
+    "ppo": {
+      "steps": 2048000,
+      "updates": 2000,
+      "checkpoint": "/kaggle/working/recovery/ppo/update_002000.pt",
+      "sha256": "3e661f777568a02ec6854d162b69baedf6ab7c06866b7ef28f6b48fa675b85dc",
+      "target_met": true,
+      "not_exact_resume": true
+    },
+    "grpo": {
+      "steps": 1000253,
+      "updates": 1353,
+      "checkpoint": "/kaggle/working/recovery/grpo/final_u001353_s000047.pt",
+      "sha256": "793b7d8927f8d0f7d884a69251b141066f88fbb87a2c28d504004d6202f8afaa",
+      "target_met": true,
+      "not_exact_resume": true
+    }
+  },
+  "recovery_validation_selection": {
+    "ppo": {
+      "selected": {
+        "checkpoint": "/kaggle/working/recovery/ppo/best_validation_001700.pt",
+        "sha256": "0aa0648d9469b52964003d8d7a2aba604fc2f370ceeead9e6499db7771068b39",
+        "mean_reward": -0.610794558918631,
+        "validation_report": "/kaggle/working/recovery/ppo_selection_1.json",
+        "validation_sha256": "cff5dc6fdb306d36c4c48ae72f664b43aabb3f6a8a5dbb66b8f550dcd837a71b"
+      },
+      "candidates": [
+        {
+          "checkpoint": "/kaggle/working/recovered_input/ppo/best_validation_000300.pt",
+          "sha256": "d4a583bc730b1b0373135c99c409f18ef475d8c3247dd29f639e74441e579cea",
+          "mean_reward": -3.378450768435459,
+          "validation_report": "/kaggle/working/recovery/ppo_selection_0.json",
+          "validation_sha256": "6513ae8b5730793ecb7afa85217ffc385e650b773cabee437c36a120dc0b525c"
+        },
+        {
+          "checkpoint": "/kaggle/working/recovery/ppo/best_validation_001700.pt",
+          "sha256": "0aa0648d9469b52964003d8d7a2aba604fc2f370ceeead9e6499db7771068b39",
+          "mean_reward": -0.610794558918631,
+          "validation_report": "/kaggle/working/recovery/ppo_selection_1.json",
+          "validation_sha256": "cff5dc6fdb306d36c4c48ae72f664b43aabb3f6a8a5dbb66b8f550dcd837a71b"
+        },
+        {
+          "checkpoint": "/kaggle/working/recovery/ppo/update_002000.pt",
+          "sha256": "3e661f777568a02ec6854d162b69baedf6ab7c06866b7ef28f6b48fa675b85dc",
+          "mean_reward": -1.7091764913603205,
+          "validation_report": "/kaggle/working/recovery/ppo_selection_2.json",
+          "validation_sha256": "7543b65f6ea9768b130905a9dccc377cf6e4da91dbb815a3983bdff015ad4444"
+        }
+      ],
+      "split": "validation",
+      "episodes": 32,
+      "seed": 900000,
+      "quality_accepted": false
+    },
+    "grpo": {
+      "selected": {
+        "checkpoint": "/kaggle/working/recovery/grpo/best_validation_u001100_s000035.pt",
+        "sha256": "93570d2a3465d88fb6b31c77284d718fc2e1ae0f8e493e688c2751cb38396023",
+        "mean_reward": 0.4186442057291671,
+        "validation_report": "/kaggle/working/recovery/grpo_selection_0.json",
+        "validation_sha256": "234a0ec05c49c71dd80376dd1d94bf768b0e620cac6b526ffc3f20bd2bcd420e"
+      },
+      "candidates": [
+        {
+          "checkpoint": "/kaggle/working/recovery/grpo/best_validation_u001100_s000035.pt",
+          "sha256": "93570d2a3465d88fb6b31c77284d718fc2e1ae0f8e493e688c2751cb38396023",
+          "mean_reward": 0.4186442057291671,
+          "validation_report": "/kaggle/working/recovery/grpo_selection_0.json",
+          "validation_sha256": "234a0ec05c49c71dd80376dd1d94bf768b0e620cac6b526ffc3f20bd2bcd420e"
+        },
+        {
+          "checkpoint": "/kaggle/working/recovery/grpo/final_u001353_s000047.pt",
+          "sha256": "793b7d8927f8d0f7d884a69251b141066f88fbb87a2c28d504004d6202f8afaa",
+          "mean_reward": -2.297594052269343,
+          "validation_report": "/kaggle/working/recovery/grpo_selection_1.json",
+          "validation_sha256": "a634235e7c783833bc77ceb3ab44f126f5179a9f5221da0916728cfc7402d8fd"
+        }
+      ],
+      "split": "validation",
+      "episodes": 32,
+      "seed": 900000,
+      "quality_accepted": false
+    }
+  },
+  "account2_training_steps": null,
+  "gpu_names": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "selected": {
+    "ppo": {
+      "path": "/kaggle/working/selected_input/selected/ppo.pt",
+      "sha256": "0aa0648d9469b52964003d8d7a2aba604fc2f370ceeead9e6499db7771068b39"
+    },
+    "grpo": {
+      "path": "/kaggle/working/selected_input/selected/grpo.pt",
+      "sha256": "93570d2a3465d88fb6b31c77284d718fc2e1ae0f8e493e688c2751cb38396023"
+    }
+  },
+  "source_result_provenance_limitations": [
+    "semantic recovery changes environment semantics; this is not an exact trajectory continuation",
+    "pinned recovery report and source hashes are provenance evidence, not a signed source attestation"
+  ],
+  "candidates": {},
+  "quality_passed": null,
+  "preparation_receipt": "tmp/kaggle/defense_final_evaluation_20261023/preparation_receipt.json",
+  "submission_receipt": "tmp/kaggle/defense_final_evaluation_20261023/submission_receipt.json",
+  "results_available": false,
+  "label": "original_recovery"
+}

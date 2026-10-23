@@ -1,5 +1,28 @@
 # Hasty-CR: рабочая карта проекта
 
+## Обучение завершено, идёт полная оценка
+
+Все4 основныхtraining kernels API COMPLETE и конечные счётчики проверены:
+PPO1 2048000,GRPO2 1000650,jointPPO3 2048000,jointGRPO4 1000297.
+Подтверждение: reports/defense_plan/four_training_completion.json.
+Старые описания RUNNING обучения ниже — история. Ничего не переобучать
+и не перепушивать поверх завершённых jobs из-за устаревшего SSE progress.
+Конечные веса сохранены в collected/ и collected_final_/collected_retry_;
+validation-best для общей оценки уже закреплены, v25 не изменена.
+
+Запущены новыеfinaleval jobs: andriashadrin/hastycr-defense-final-eval-20261023
+(PPO1+дополнительныйконтрольGRPO1),vertel0/hastycr-grpo2-final-eval-20261023,
+andreiperelaiko/hastycr-joint-ppo-final-eval-20261023 и
+demjanklimov/hastycr-joint-grpo-final-eval-20261023. Actual CUDA подтверждены.
+Defence-only:708test+15×20duels на модель; joint:1056validation+804test+15×20duels.
+Качество не принято, часть результатов ещё ожидается. Проверять раз20мин;
+естественные SSE события читать можно. Не повторять активные GPU jobs.
+
+Новый запрос — круговой турнир4основныхмоделей+v25 (200матчей), затем
+таблица всех5. Подагент ppo300_live5 готовит отдельныйnewkernel и common
+804-case skillbenchmark для всех5 на одномfrozen source. Дополнительный
+GRPO1 в эти5 не входит. LiveMuMu по-прежнему0/5 и заблокирован SVIP.
+
 ## Последний запрос: PPO300 test и5 реальных игр
 
 Пользователь явно разрешил ровно5 новых реальных матчей с

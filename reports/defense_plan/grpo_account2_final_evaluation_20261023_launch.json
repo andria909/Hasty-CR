@@ -1,0 +1,64 @@
+{
+  "event": "evaluation_started",
+  "status": "running",
+  "protocol_fingerprint": "c03b49396e95de983419211e476d732e1841ad97bb8d6a79c9b74ed97397437f",
+  "source_archive_sha256": "26d0cf56182d7cd7fca2c4ff9320485a3aa06b9b9d19a4b7a1973034346f16bd",
+  "evaluation_archive_sha256": "4adabac41bb8122dde4a5540784a804c5ec13bd436f1cf4417ed2d2eba101a00",
+  "stage2_result_sha256": null,
+  "recovery_result_sha256": null,
+  "account2_result_sha256": "e52d2507c2ec04b9c65d1e5c9b055b4115ba4eda65a7a1e4f176ea5f4e5cace7",
+  "input_result_mode": "separate_account2",
+  "original_stage2_status_not_overridden": null,
+  "not_exact_resume": true,
+  "recovery_source_archive_sha256": "4375e1b1650e82c5b4114eda7872ef79e6321887b837a07356af48aeb5c7c5a1",
+  "recovery_training_counters": null,
+  "recovery_validation_selection": {
+    "selected": {
+      "checkpoint": "/kaggle/working/account2/grpo/best_validation_u000800_s000022.pt",
+      "sha256": "ad05ae5fe50ec88ea397b1f4688599e1d6e0293e46d0af85143edcf641e85b4f",
+      "mean_reward": 0.4506190708705362,
+      "validation_report": "/kaggle/working/account2/grpo_selection_0.json",
+      "validation_sha256": "037007c000110070a475b3fbbd18ad02d93ce35478599e00e211173d306666c3"
+    },
+    "candidates": [
+      {
+        "checkpoint": "/kaggle/working/account2/grpo/best_validation_u000800_s000022.pt",
+        "sha256": "ad05ae5fe50ec88ea397b1f4688599e1d6e0293e46d0af85143edcf641e85b4f",
+        "mean_reward": 0.4506190708705362,
+        "validation_report": "/kaggle/working/account2/grpo_selection_0.json",
+        "validation_sha256": "037007c000110070a475b3fbbd18ad02d93ce35478599e00e211173d306666c3"
+      },
+      {
+        "checkpoint": "/kaggle/working/account2/grpo/final_u001344_s000047.pt",
+        "sha256": "eb95d6cba8934e47515812ea6250e36994cf1dac631eefd3ffcb59ce793f5de8",
+        "mean_reward": -1.4151603701636901,
+        "validation_report": "/kaggle/working/account2/grpo_selection_1.json",
+        "validation_sha256": "a33317a14bfcc1168a1e96503f81cfafbde0f9dd66ee703e395a1ab2717b9aaf"
+      }
+    ],
+    "split": "validation",
+    "episodes": 32,
+    "seed": 900000,
+    "quality_accepted": false
+  },
+  "account2_training_steps": 1000650,
+  "gpu_names": [
+    "Tesla T4"
+  ],
+  "selected": {
+    "grpo": {
+      "path": "/kaggle/working/selected_input/selected/grpo.pt",
+      "sha256": "ad05ae5fe50ec88ea397b1f4688599e1d6e0293e46d0af85143edcf641e85b4f"
+    }
+  },
+  "source_result_provenance_limitations": [
+    "semantic recovery changes environment semantics; this is not an exact trajectory continuation",
+    "pinned recovery report and source hashes are provenance evidence, not a signed source attestation"
+  ],
+  "candidates": {},
+  "quality_passed": null,
+  "preparation_receipt": "tmp/kaggle/grpo_account2_final_evaluation_20261023/preparation_receipt.json",
+  "submission_receipt": "tmp/kaggle/grpo_account2_final_evaluation_20261023/submission_receipt.json",
+  "results_available": false,
+  "label": "separate_grpo_account2"
+}

@@ -319,11 +319,18 @@ def main(argv=None):
             'stage2 result lacks source archive hash; pinned result plus warmstart/v25 hashes do not prove its full source provenance']),
         candidates={},quality_passed=None)
     (args.output/'evaluation_result.json').write_text(json.dumps(report,indent=2))
+    print(json.dumps(dict(event='evaluation_started',**report)),flush=True)
     environment=dict(os.environ,OMP_NUM_THREADS='2',MKL_NUM_THREADS='2',OPENBLAS_NUM_THREADS='2',PYTHONUNBUFFERED='1')
     def run(name):
         for index,command in enumerate(command_sets[name]):
             with (args.output/f'{name}_{index}.log').open('x')as stream:
                 subprocess.run(command,cwd=project,env=environment,stdout=stream,stderr=subprocess.STDOUT,check=True)
+            filename=f'{name}_defense.json' if index==0 else f'{name}_duels.json'
+            partial=json.loads((args.output/filename).read_text())
+            compact=(partial['overall'] if index==0 else
+                     {r['label']:r['summary'] for r in partial['baselines']})
+            print(json.dumps(dict(event='evaluation_part_completed',candidate=name,
+                part='defense' if index==0 else 'duels',summary=compact)),flush=True)
         defense=json.loads((args.output/f'{name}_defense.json').read_text())
         duels=json.loads((args.output/f'{name}_duels.json').read_text())
         return name,aggregate_candidate(protocol,defense,duels,selected[name]['sha256'],acceptance_gate)
@@ -338,6 +345,7 @@ def main(argv=None):
         report.update(status='failed',error_type=type(error).__name__,error=str(error));raise
     finally:
         (args.output/'evaluation_result.json').write_text(json.dumps(report,indent=2))
+    print(json.dumps(dict(event='evaluation_completed',**report)),flush=True)
     # Never select a winning algorithm or substitute another checkpoint using these TEST results.
 
 
