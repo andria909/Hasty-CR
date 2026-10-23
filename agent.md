@@ -64,7 +64,13 @@ reports/defense_plan/ppo_selected_full_progress_20min.json. На первом SD
 устаревшегоcollected.status.json. SSE теперь переподключается start-to-start1200сек.
 
 
-Свежий40минsnapshot: reports/defense_plan/ppo_selected_full_progress_40min.json,
+Свежий60минsnapshot: reports/defense_plan/ppo_selected_full_progress_60min.json.
+Все4API RUNNING ирастущиеактуальныеsteps; robustcollectors отработалипосле
+задержки, безошибок/раннихAPIзапросов. В monitoring.json next_observation
+теперь обновлён от реального свежегоstatus.checked_host_ns+1200сек.
+Не отправлятьповторно kernels и не объявлять target_met до конечных2048000.
+
+Исторический40минsnapshot: reports/defense_plan/ppo_selected_full_progress_40min.json,
 все4RUNNING/растущиеsteps, около20–23%. На третьем былReadTimeout SDK,
 подтверждён CLI в OWNER/scheduled_status_recheck.json. Автоматическое
 SSE переподключение сработало; эти4observer не перезапускались при40мин.
