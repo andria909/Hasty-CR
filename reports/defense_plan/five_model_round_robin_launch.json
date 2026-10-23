@@ -1,0 +1,60 @@
+{
+  "event": "CUDA_READY",
+  "gpu": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "total": 200,
+  "source_sha256": "c043a0fa7340c14f29a2f5f27981107e629e9d4741a030c6dab8740ad6d0c798",
+  "participants": [
+    {
+      "id": "ppo1",
+      "path": "ppo1.pt",
+      "sha256": "0aa0648d9469b52964003d8d7a2aba604fc2f370ceeead9e6499db7771068b39",
+      "mode": "physical_live",
+      "selection": "validation_best_before_test",
+      "resolved_path": "/kaggle/input/datasets/andreiperelaiko/hastycr-five-model-selected-20261023/ppo1.pt"
+    },
+    {
+      "id": "grpo2",
+      "path": "grpo2.pt",
+      "sha256": "ad05ae5fe50ec88ea397b1f4688599e1d6e0293e46d0af85143edcf641e85b4f",
+      "mode": "physical_live",
+      "selection": "validation_best_before_test",
+      "resolved_path": "/kaggle/input/datasets/andreiperelaiko/hastycr-five-model-selected-20261023/grpo2.pt"
+    },
+    {
+      "id": "joint_ppo3",
+      "path": "joint_ppo3.pt",
+      "sha256": "d9b0a524c758698f8549dfc6f940a4fbad89d65d3d99e4e00930447b1a4ff2f6",
+      "mode": "joint_enemy_presence_v1",
+      "selection": "validation_best_before_test",
+      "resolved_path": "/kaggle/input/datasets/andreiperelaiko/hastycr-five-model-selected-20261023/joint_ppo3.pt"
+    },
+    {
+      "id": "joint_grpo4",
+      "path": "joint_grpo4.pt",
+      "sha256": "33f6496937e9b52c2a2b1ad335f1134f1f8c04db6914f6dcb50a12aa84188bc3",
+      "mode": "joint_enemy_presence_v1",
+      "selection": "validation_best_before_test",
+      "resolved_path": "/kaggle/input/datasets/andreiperelaiko/hastycr-five-model-selected-20261023/joint_grpo4.pt"
+    },
+    {
+      "id": "v25",
+      "path": "checkpoints/portable_v25/portable_v25_cannon_economy_best.pt",
+      "sha256": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972",
+      "mode": "legacy_training",
+      "selection": "canonical_preserved",
+      "resolved_path": "/kaggle/working/round_robin/project/checkpoints/portable_v25/portable_v25_cannon_economy_best.pt"
+    }
+  ],
+  "kernel": "andreiperelaiko/hastycr-five-models-round-robin-20261023",
+  "log_prefix_bytes": 14844,
+  "log_prefix_sha256": "f311afae393a6df1c59072bcbe76d010de3a71a719a3f248b1fdc682ee83f1a0",
+  "checked_host_ns": 1792748046311129000,
+  "latest_progress": {
+    "event": "PROGRESS",
+    "done": 15,
+    "total": 200
+  }
+}

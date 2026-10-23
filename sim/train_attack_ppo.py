@@ -11,6 +11,7 @@ import time
 
 import numpy as np
 import torch
+from sim.reward_profiles import load_reward_profile,reward_objects
 
 from sim.attack_env import AttackEnv, OBSERVATION_CONTRACT
 from sim.attack_sampler import AttackScenarioCycle
@@ -164,7 +165,7 @@ def code_fingerprint(task_mode='attack'):
     names=('sim/attack_env.py','sim/attack_scenarios.py','sim/attack_sampler.py',
            'sim/train_attack_ppo.py','sim/engine.py','sim/match.py','sim/env.py',
            'sim/defense_env.py','sim/defense_assets.py','sim/defense_scenarios.py',
-           'sim/public_gamedata.py','sim/public_scenario_spells.py','sim/spells.py','sim/arena.py')
+           'sim/public_gamedata.py','sim/public_scenario_spells.py','sim/spells.py','sim/arena.py','sim/reward_profiles.py')
     if task_mode=='joint':names+=('sim/strategy_env.py','sim/strategy_sampler.py')
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
                                      for name in names},sort_keys=True).encode()).hexdigest()
@@ -176,7 +177,8 @@ def validate_resume(blob,config):
     keys=('envs','rollout','epochs','minibatch_size','seed','lr','gamma','gae_lambda','clip',
           'value_coef','entropy_coef','max_grad_norm','action_delay_ms','max_ms','deadline_scale',
           'visible_fraction','initial_hand_mode','geometry','geometry_sha256','coordinate_mode',
-          'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device')
+          'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
+          'reward_profile','reward_profile_sha256')
     for key in keys:
         if blob['config'].get(key)!=config.get(key):
             raise ValueError(f'Attack resume configuration mismatch: {key}')
@@ -204,6 +206,10 @@ def train(args):
     device=torch.device(args.device)
     options={key:getattr(args,key)for key in ('action_delay_ms','max_ms','deadline_scale',
         'visible_fraction','initial_hand_mode','geometry','coordinate_mode')}
+    reward_profile,reward_sha=load_reward_profile(getattr(args,'reward_profile',None))
+    defense_rewards,attack_rewards=reward_objects(reward_profile)
+    if args.task_mode=='joint':options.update(defense_rewards=defense_rewards,attack_rewards=attack_rewards)
+    else:options['rewards']=attack_rewards
     envs=[make_training_env(task_mode=args.task_mode,split='train',seed=args.seed+i,**options)for i in range(args.envs)]
     sampler=training_sampler(envs[0],seed=args.seed,initial_hand_mode=args.initial_hand_mode,task_mode=args.task_mode)
     observations,infos=map(list,zip(*[env.reset(**sampler.next())for env in envs]))
@@ -218,6 +224,7 @@ def train(args):
     initialization=load_attack_state(network,blob,exact=bool(args.resume),observation_contract=contract)if blob else {'fresh_initialization':True}
     optimizer=torch.optim.Adam(network.parameters(),lr=args.lr)
     config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,
+        reward_profile=reward_profile,reward_profile_sha256=reward_sha,
         observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode),
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
         initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
@@ -330,6 +337,7 @@ def parser():
     p=argparse.ArgumentParser(description=__doc__)
     source=p.add_mutually_exclusive_group()
     source.add_argument('--init');source.add_argument('--resume')
+    p.add_argument('--reward-profile',help='Explicit coefficient JSON; stored and checked on resume')
     p.add_argument('--output',required=True)
     p.add_argument('--device',default='cuda')
     p.add_argument('--task-mode',choices=('joint','attack'),default='joint')

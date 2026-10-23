@@ -10,8 +10,8 @@ import random
 import numpy as np
 
 from sim import arena
-from sim.attack_env import AttackEnv
-from sim.defense_env import DefenseEnv
+from sim.attack_env import AttackEnv,AttackRewards
+from sim.defense_env import DefenseEnv,DefenseRewards
 
 OBSERVATION_CONTRACT='joint_attack_defense_timer_task_v1'
 
@@ -33,7 +33,8 @@ class StrategyScenario:
 class StrategyEnv:
     def __init__(self,seed=0,split='train',action_delay_ms=150,max_ms=240000,
                  geometry='legacy_v1',coordinate_mode='physical_live_cells_v2',
-                 initial_hand_mode='shuffle',deadline_scale=3.,visible_fraction=.5):
+                 initial_hand_mode='shuffle',deadline_scale=3.,visible_fraction=.5,
+                 defense_rewards=None,attack_rewards=None):
         if not math.isfinite(deadline_scale)or not 0<deadline_scale<=5:
             raise ValueError('Invalid bounded joint deadline scale')
         if initial_hand_mode!='shuffle':
@@ -43,13 +44,15 @@ class StrategyEnv:
         self.coordinate_mode=coordinate_mode
         self.initial_hand_mode=initial_hand_mode
         self.deadline_scale=float(deadline_scale)
+        self.defense_rewards=defense_rewards if defense_rewards is not None else DefenseRewards()
+        self.attack_rewards=attack_rewards if attack_rewards is not None else AttackRewards()
         self._attack=AttackEnv(seed=seed,split=split,action_delay_ms=action_delay_ms,
             max_ms=max_ms,geometry=geometry,coordinate_mode=coordinate_mode,
-            initial_hand_mode=initial_hand_mode,visible_fraction=visible_fraction)
+            initial_hand_mode=initial_hand_mode,visible_fraction=visible_fraction,rewards=self.attack_rewards)
         self._attack.scenarios=[replace(s,deadline_ms_range=tuple(round(n*deadline_scale)
             for n in s.deadline_ms_range))for s in self._attack.scenarios]
         self._defense=DefenseEnv(seed=seed,split=split,action_delay_ms=action_delay_ms,
-            max_ms=max_ms,geometry=geometry,coordinate_mode=coordinate_mode)
+            max_ms=max_ms,geometry=geometry,coordinate_mode=coordinate_mode,rewards=self.defense_rewards)
         self.scenarios=([StrategyScenario('attack',s)for s in self._attack.scenarios]+
                         [StrategyScenario('defense',s)for s in self._defense.scenarios])
         self._active=None;self.scenario=None
@@ -87,7 +90,12 @@ class StrategyEnv:
     def snapshot(self):return deepcopy(self.__dict__)
 
     def restore(self,state):
+        if (state.get('defense_rewards',DefenseRewards())!=self.defense_rewards or
+                state.get('attack_rewards',AttackRewards())!=self.attack_rewards):
+            raise ValueError('Snapshot reward profile differs')
         for key in ('geometry','coordinate_mode','initial_hand_mode','deadline_scale'):
             if state[key]!=getattr(self,key):raise ValueError('Joint snapshot contract mismatch: '+key)
         self.__dict__=deepcopy(state)
+        self.__dict__.setdefault('defense_rewards',DefenseRewards())
+        self.__dict__.setdefault('attack_rewards',AttackRewards())
         return self._convert(self._active._observe(),self._active._info())

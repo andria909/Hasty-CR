@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import hashlib
 import random
 import time
 from pathlib import Path
@@ -13,6 +14,7 @@ import torch
 from sim.eval_defense import environment_contract, GEOMETRIES, COORDINATE_MODES
 from sim.defense_sampler import ScenarioCycle
 from sim.defense_log_summary import compact_stdout_lines
+from sim.reward_profiles import load_reward_profile,reward_objects
 from sim.train_ppo import (build_network, checkpoint_architecture,
                            load_policy_state, masked_distribution)
 
@@ -124,6 +126,8 @@ def train(args):
     blob = torch.load(args.resume or args.init, map_location='cpu', weights_only=False)
     options = {'action_delay_ms': args.action_delay_ms, 'max_ms': args.max_ms,
                'initial_elixir': args.initial_elixir, 'difficulty': args.difficulty}
+    reward_profile,reward_sha=load_reward_profile(getattr(args,'reward_profile',None))
+    options['rewards']=reward_objects(reward_profile)[0]
     contract = environment_contract(geometry=getattr(args, 'geometry', 'legacy_v1'),
                                     coordinate_mode=getattr(args, 'coordinate_mode', 'physical_live'))
     if args.resume:
@@ -148,6 +152,8 @@ def train(args):
     exact_resume = False
     if args.resume:
         old_config = blob['config']
+        previous_reward_sha=old_config.get('reward_profile_sha256',load_reward_profile()[1])
+        if previous_reward_sha!=reward_sha:raise ValueError('resume reward profile mismatch')
         for key in ('envs', 'rollout', 'seed', 'action_delay_ms', 'max_ms', 'initial_elixir', 'difficulty'):
             if old_config[key] != vars(args)[key]:
                 raise ValueError(f'resume configuration mismatch: {key}')
@@ -172,6 +178,9 @@ def train(args):
             observations, infos = map(list, zip(*reset))
         restore_rng(blob['rng'])
     config = dict(vars(args), architecture=architecture, exact_resume=exact_resume)
+    config.update(reward_profile=reward_profile,reward_profile_sha256=reward_sha)
+    config['init_sha256']=(blob['config'].get('init_sha256')if args.resume else
+                          hashlib.sha256(Path(args.init).read_bytes()).hexdigest())
     config.update(curriculum)
     config.update(contract)
     (output / 'config.json').write_text(json.dumps(config, indent=2))
@@ -264,6 +273,7 @@ def parser():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--init', required=True)
     p.add_argument('--resume')
+    p.add_argument('--reward-profile',help='Explicit coefficient JSON; stored and checked on resume')
     p.add_argument('--geometry', choices=GEOMETRIES, default='legacy_v1')
     p.add_argument('--coordinate-mode', choices=COORDINATE_MODES, default='physical_live')
     p.add_argument('--output', required=True)

@@ -1,0 +1,92 @@
+{
+  "schema": "ppo-coefficient-study-v1",
+  "algorithm": "ppo",
+  "modes": [
+    "defense",
+    "joint"
+  ],
+  "short_environment_steps": 102400,
+  "full_environment_steps": 2048000,
+  "short_updates": 100,
+  "envs": 8,
+  "rollout": 128,
+  "profiles": [
+    "baseline",
+    "tower_survival",
+    "economy_soft",
+    "economy_strong",
+    "spell_precision",
+    "tower_pressure",
+    "survival_balanced",
+    "opportunity"
+  ],
+  "screen_training_seed": 42,
+  "confirmation_training_seed": 43,
+  "confirm_top_profiles_per_mode": 3,
+  "full_winners_per_mode": 2,
+  "initial_policies": {
+    "defense": {
+      "sha256": "0aa0648d9469b52964003d8d7a2aba604fc2f370ceeead9e6499db7771068b39",
+      "mode": "physical_live",
+      "semantics": "weights-only warmstart from previously validation-selected defense PPO"
+    },
+    "joint": {
+      "sha256": "d9b0a524c758698f8549dfc6f940a4fbad89d65d3d99e4e00930447b1a4ff2f6",
+      "mode": "physical_live_cells_v2",
+      "semantics": "weights-only warmstart from previously validation-selected joint PPO"
+    }
+  },
+  "validation": {
+    "split": "validation",
+    "scenario_sampling_seed": 700042,
+    "episode_seed": 900001,
+    "defense_episodes": 128,
+    "joint_defense_episodes": 64,
+    "joint_attack_episodes": 64,
+    "games_seeds": [
+      970001,
+      970002,
+      970003,
+      970004,
+      970005
+    ],
+    "games_seats": [
+      1,
+      -1
+    ],
+    "baseline": "v25",
+    "baseline_mode": "physical_live",
+    "raw_reward_used_for_selection": false,
+    "contexts_file": "data/ppo_tuning/validation_contexts.json",
+    "contexts_sha256": "ff8abea8805c5d212cc70b938a2fe3013099d926b4e992c66b0697987fdd2c8e"
+  },
+  "ranking": {
+    "invalid_trials": "ineligible if incomplete step budget, nonfinite policy or invalid scenario",
+    "primary": "0.5 * paired v25 validation win rate + 0.5 * task_quality",
+    "defense_quality": "equal mean of simple no-damage, medium no-damage, complex princess survival, impossible 0.5*(princess+king survival)",
+    "joint_quality": "harmonic mean of defense_quality and equal-mean Hog/spell validation goal success",
+    "ties": [
+      "higher own king survival",
+      "lower normalized tower HP loss",
+      "lower elixir spent",
+      "profile id"
+    ],
+    "confirmation": "rank finalists by mean of both training seeds; no test-based parameter changes"
+  },
+  "fixed_training": {
+    "lr": 5e-05,
+    "epochs": 3,
+    "entropy_coef": 0.01,
+    "value_coef": 0.5,
+    "gamma": 0.997,
+    "gae_lambda": 0.95,
+    "clip": 0.2,
+    "action_delay_ms": 150,
+    "max_ms": 240000,
+    "geometry": "legacy_v1",
+    "joint_deadline_scale": 3,
+    "joint_visible_fraction": 0.5
+  },
+  "test_used_for_search": false,
+  "full_training_started": false
+}

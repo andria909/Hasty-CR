@@ -1,0 +1,19 @@
+{
+  "schema": "ppo-reward-profile-v1",
+  "id": "survival_balanced",
+  "defense": {
+    "own_hp_fraction": -25,
+    "own_princess_destroyed": -35,
+    "own_king_destroyed": -150,
+    "elixir_spent": -0.03,
+    "spell_quality": 0.15,
+    "enemy_hp_fraction": 1.5
+  },
+  "attack": {
+    "own_king_death": -20,
+    "missed_window": -7,
+    "success": 12,
+    "hog_damage": 0.006,
+    "elixir": -0.015
+  }
+}
