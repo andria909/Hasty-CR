@@ -1,0 +1,157 @@
+{
+  "schema": "ppo-screening-observed-throughput-v1",
+  "trials": [
+    {
+      "trial_id": "defense_economy_soft_s42",
+      "mode": "defense",
+      "training_seconds": 561.0473641640001,
+      "training_steps": 102400,
+      "steps_per_second": 182.51578483499904,
+      "linear_full_training_seconds": 11220.947283280002
+    },
+    {
+      "trial_id": "defense_survival_balanced_s42",
+      "mode": "defense",
+      "training_seconds": 562.5081464550001,
+      "training_steps": 102400,
+      "steps_per_second": 182.04180800818298,
+      "linear_full_training_seconds": 11250.162929100003
+    },
+    {
+      "trial_id": "joint_economy_soft_s42",
+      "mode": "joint",
+      "training_seconds": 579.567922165,
+      "training_steps": 102400,
+      "steps_per_second": 176.6833464790124,
+      "linear_full_training_seconds": 11591.3584433
+    },
+    {
+      "trial_id": "joint_survival_balanced_s42",
+      "mode": "joint",
+      "training_seconds": 571.63781724,
+      "training_steps": 102400,
+      "steps_per_second": 179.13440453329514,
+      "linear_full_training_seconds": 11432.7563448
+    },
+    {
+      "trial_id": "defense_baseline_s42",
+      "mode": "defense",
+      "training_seconds": 588.690505714,
+      "training_steps": 102400,
+      "steps_per_second": 173.94539066975946,
+      "linear_full_training_seconds": 11773.81011428
+    },
+    {
+      "trial_id": "defense_spell_precision_s42",
+      "mode": "defense",
+      "training_seconds": 588.0224693159998,
+      "training_steps": 102400,
+      "steps_per_second": 174.14300531595984,
+      "linear_full_training_seconds": 11760.449386319997
+    },
+    {
+      "trial_id": "joint_baseline_s42",
+      "mode": "joint",
+      "training_seconds": 602.7555487449999,
+      "training_steps": 102400,
+      "steps_per_second": 169.88644934618603,
+      "linear_full_training_seconds": 12055.110974899999
+    },
+    {
+      "trial_id": "joint_spell_precision_s42",
+      "mode": "joint",
+      "training_seconds": 588.674708667,
+      "training_steps": 102400,
+      "steps_per_second": 173.95005848285112,
+      "linear_full_training_seconds": 11773.494173340001
+    },
+    {
+      "trial_id": "defense_economy_strong_s42",
+      "mode": "defense",
+      "training_seconds": 567.236022915,
+      "training_steps": 102400,
+      "steps_per_second": 180.5245010247605,
+      "linear_full_training_seconds": 11344.7204583
+    },
+    {
+      "trial_id": "defense_opportunity_s42",
+      "mode": "defense",
+      "training_seconds": 570.045185268,
+      "training_steps": 102400,
+      "steps_per_second": 179.63488271874073,
+      "linear_full_training_seconds": 11400.903705359999
+    },
+    {
+      "trial_id": "joint_economy_strong_s42",
+      "mode": "joint",
+      "training_seconds": 573.36886536,
+      "training_steps": 102400,
+      "steps_per_second": 178.59358292101598,
+      "linear_full_training_seconds": 11467.3773072
+    },
+    {
+      "trial_id": "joint_opportunity_s42",
+      "mode": "joint",
+      "training_seconds": 569.8789374109999,
+      "training_steps": 102400,
+      "steps_per_second": 179.68728668094033,
+      "linear_full_training_seconds": 11397.57874822
+    },
+    {
+      "trial_id": "defense_tower_pressure_s42",
+      "mode": "defense",
+      "training_seconds": 624.2049738669999,
+      "training_steps": 102400,
+      "steps_per_second": 164.04867677619384,
+      "linear_full_training_seconds": 12484.099477339998
+    },
+    {
+      "trial_id": "defense_tower_survival_s42",
+      "mode": "defense",
+      "training_seconds": 634.661358009,
+      "training_steps": 102400,
+      "steps_per_second": 161.3458873898352,
+      "linear_full_training_seconds": 12693.227160179998
+    },
+    {
+      "trial_id": "joint_tower_pressure_s42",
+      "mode": "joint",
+      "training_seconds": 627.807948995,
+      "training_steps": 102400,
+      "steps_per_second": 163.1072052590649,
+      "linear_full_training_seconds": 12556.1589799
+    },
+    {
+      "trial_id": "joint_tower_survival_s42",
+      "mode": "joint",
+      "training_seconds": 634.141673759,
+      "training_steps": 102400,
+      "steps_per_second": 161.4781116544569,
+      "linear_full_training_seconds": 12682.83347518
+    }
+  ],
+  "summary": {
+    "defense": {
+      "trials": 8,
+      "short_seconds_min": 561.0473641640001,
+      "short_seconds_median": 579.0338272919998,
+      "short_seconds_max": 634.661358009,
+      "linear_full_hours_median": 3.216854596066666,
+      "linear_full_hours_max": 3.5258964333833327,
+      "all_linear_estimates_within_18000_seconds": true
+    },
+    "joint": {
+      "trials": 8,
+      "short_seconds_min": 569.8789374109999,
+      "short_seconds_median": 584.121315416,
+      "short_seconds_max": 634.141673759,
+      "linear_full_hours_median": 3.245118418977778,
+      "linear_full_hours_max": 3.523009298661111,
+      "all_linear_estimates_within_18000_seconds": true
+    }
+  },
+  "prediction_only": true,
+  "full_training_executed": false,
+  "conditions": "Observed first-seed frozen-source short runs:8envs,128rollout,3epochs;two concurrent GPU workers per account. Full jobs use one worker; runtime is not guaranteed by linear extrapolation.",
+  "training_only_excludes_validation_download_and_queue": true
+}
