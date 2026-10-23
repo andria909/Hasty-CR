@@ -64,6 +64,12 @@ reports/defense_plan/ppo_selected_full_progress_20min.json. На первом SD
 устаревшегоcollected.status.json. SSE теперь переподключается start-to-start1200сек.
 
 
+Свежий40минsnapshot: reports/defense_plan/ppo_selected_full_progress_40min.json,
+все4RUNNING/растущиеsteps, около20–23%. На третьем былReadTimeout SDK,
+подтверждён CLI в OWNER/scheduled_status_recheck.json. Автоматическое
+SSE переподключение сработало; эти4observer не перезапускались при40мин.
+
+
 
 ## Завершённый подбор коэффициентов PPO (история)
 
