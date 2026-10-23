@@ -47,6 +47,20 @@ weights, code_fingerprint иCLIflag проверены. Для новой ито
 в новых fulljobs eval-every0, полных результатов пока нет.
 
 
+Фиксатор готов: python -m scripts.kaggle.select_completed_ppo_full
+--collected FULL/OWNER/collected --launch-config FULL/OWNER/launch_config.json
+--source-manifest tmp/kaggle/ppo_coefficient_study_20261023/shared/manifest.json
+--output NEW_SELECTED_DIR. Сохраняет raw checkpoint какpolicy.pt, SHAне меняет;
+schema selected-full-ppo-evaluation-input-v1. Не подставлять старыйselector
+joint-strategy-selection-v1: разные контракты. Новый evaljob builder подэтот
+фиксатор ещё нужен, kernels не запускать до реальныхtarget_met результатов.
+По первой20минпроверке все4RUNNING иactual10,95–12,50%; snapshot
+reports/defense_plan/ppo_selected_full_progress_20min.json. На первом SDKstatus
+былHTTPError, CLI подтвердилRUNNING в OWNER/scheduled_status_recheck.json;
+при расчёте времени следующегоопроса учитывать этот свежийreceipt вместо
+устаревшегоcollected.status.json. SSE теперь переподключается start-to-start1200сек.
+
+
 
 ## Завершённый подбор коэффициентов PPO (история)
 
