@@ -1,0 +1,210 @@
+{
+  "schema": "frozen-training-real-mechanics-evidence-v1",
+  "training_source_archive_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+  "arena_sha256": "eec33eccad91593c43f2c050c3c78f5f9b464150361354a977949ee9357f71e4",
+  "engine_sha256": "fa6da95053c68839954f9c7bccc8c5a832e3bc742dfce17bbf8e4863f28e205c",
+  "raw_sources": [
+    {
+      "role": "movement",
+      "path": "tmp/android_log_probe/live_query_v6_20261022_run2/requests.jsonl",
+      "sha256": "1ddc47028b5f361c86190db0a942a171b66b995a91d94de8082ee9a8a6cf0cd7",
+      "raw_hash_verified": true,
+      "bytes": 3427444
+    },
+    {
+      "role": "inferred_projectiles",
+      "path": "tmp/android_log_probe/native_replay_01/frames.jsonl",
+      "sha256": "03bb845a75c4f734eb9195759fc097ce688682f4715217f65907c6325d93dd66",
+      "raw_hash_verified": true,
+      "bytes": 28699156
+    }
+  ],
+  "geometry": {
+    "profile": "legacy_v1",
+    "fingerprint": "f9e21a1ed4a561c42ce1cac59e6a6140de43ff5c69c6074fcae0ba110be570b4",
+    "positions": [
+      {
+        "side": -1,
+        "lane": "king",
+        "historical_native_entity_position_tiles": [
+          9.0,
+          3.0
+        ],
+        "current_frozen_entity_position_tiles": [
+          9.5,
+          3.5
+        ],
+        "native_minus_frozen_tiles": [
+          -0.5,
+          -0.5
+        ]
+      },
+      {
+        "side": -1,
+        "lane": "left",
+        "historical_native_entity_position_tiles": [
+          3.5,
+          6.5
+        ],
+        "current_frozen_entity_position_tiles": [
+          3.5,
+          7.5
+        ],
+        "native_minus_frozen_tiles": [
+          0.0,
+          -1.0
+        ]
+      },
+      {
+        "side": -1,
+        "lane": "right",
+        "historical_native_entity_position_tiles": [
+          14.5,
+          6.5
+        ],
+        "current_frozen_entity_position_tiles": [
+          14.5,
+          7.5
+        ],
+        "native_minus_frozen_tiles": [
+          0.0,
+          -1.0
+        ]
+      },
+      {
+        "side": 1,
+        "lane": "king",
+        "historical_native_entity_position_tiles": [
+          9.0,
+          29.0
+        ],
+        "current_frozen_entity_position_tiles": [
+          9.5,
+          28.5
+        ],
+        "native_minus_frozen_tiles": [
+          -0.5,
+          0.5
+        ]
+      },
+      {
+        "side": 1,
+        "lane": "left",
+        "historical_native_entity_position_tiles": [
+          3.5,
+          25.5
+        ],
+        "current_frozen_entity_position_tiles": [
+          3.5,
+          24.5
+        ],
+        "native_minus_frozen_tiles": [
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "side": 1,
+        "lane": "right",
+        "historical_native_entity_position_tiles": [
+          14.5,
+          25.5
+        ],
+        "current_frozen_entity_position_tiles": [
+          14.5,
+          24.5
+        ],
+        "native_minus_frozen_tiles": [
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "status": "entity_anchor_offsets_reproduced_against_saved_capture; hitbox_and_terrain_parity_not_certified",
+    "native_anchor_candidate_limitations": [
+      "deployment_pocket_shape_unverified",
+      "native_entity_anchor_hitbox_offset_unverified",
+      "terrain_inherited_from_legacy_not_native_validated"
+    ]
+  },
+  "historical_speed": {
+    "rows": 543,
+    "units": {
+      "barbarian": {
+        "candidate_tracks": 0,
+        "candidate_windows": 0,
+        "candidate_median_tiles_per_host_second": null,
+        "status": "historical_exploratory_host_time_measurement_not_current_speed_certification"
+      },
+      "electro_spirit": {
+        "candidate_tracks": 2,
+        "candidate_windows": 48,
+        "candidate_median_tiles_per_host_second": 2.331426630684306,
+        "status": "historical_exploratory_host_time_measurement_not_current_speed_certification"
+      },
+      "knight": {
+        "candidate_tracks": 2,
+        "candidate_windows": 53,
+        "candidate_median_tiles_per_host_second": 1.165353238305073,
+        "status": "historical_exploratory_host_time_measurement_not_current_speed_certification"
+      },
+      "mega_minion": {
+        "candidate_tracks": 1,
+        "candidate_windows": 33,
+        "candidate_median_tiles_per_host_second": 0.9593163814948541,
+        "status": "historical_exploratory_host_time_measurement_not_current_speed_certification"
+      },
+      "musketeer": {
+        "candidate_tracks": 2,
+        "candidate_windows": 131,
+        "candidate_median_tiles_per_host_second": 1.170849224085165,
+        "status": "historical_exploratory_host_time_measurement_not_current_speed_certification"
+      },
+      "skeleton": {
+        "candidate_tracks": 1,
+        "candidate_windows": 31,
+        "candidate_median_tiles_per_host_second": 1.6573957016775245,
+        "status": "historical_exploratory_host_time_measurement_not_current_speed_certification"
+      },
+      "skeleton_dragon": {
+        "candidate_tracks": 2,
+        "candidate_windows": 80,
+        "candidate_median_tiles_per_host_second": 1.7214783824944149,
+        "status": "historical_exploratory_host_time_measurement_not_current_speed_certification"
+      },
+      "wizard": {
+        "candidate_tracks": 1,
+        "candidate_windows": 21,
+        "candidate_median_tiles_per_host_second": 1.1647834065980474,
+        "status": "historical_exploratory_host_time_measurement_not_current_speed_certification"
+      }
+    },
+    "status": "not_certified; game_tick_scale_and_buffs_not_independently_verified"
+  },
+  "historical_targeting": {
+    "frames": 13716,
+    "inferred_impacts": 148,
+    "comparable": 32,
+    "historical_agreements": 25,
+    "historical_source_radius_hypothesis_agreements": 32,
+    "status": "not_a_current_targeting_accuracy_measurement",
+    "limitations": [
+      "Exploratory inferred labels, not a targeting-accuracy benchmark.",
+      "Nearby victim/HP-drop attribution can still be coincidental; manual shot review is required.",
+      "Fresh acquisition ignores prior target locks, scan phase, buffs and deployment state.",
+      "Source-radius hypothesis is exploratory and does not modify production targeting or attack reach.",
+      "Tower-source targeting is not compared because tower activation/equipment is not reconstructed.",
+      "One existing replay; melee, splash, retarget triggers and unseen mechanics are not certified."
+    ]
+  },
+  "current_targeting_accuracy": null,
+  "live_game_parity_verified": false,
+  "quality_accepted": false,
+  "training_changed": false,
+  "new_live_or_simulated_battles_executed": false,
+  "next_evidence_needed": [
+    "independently verified game ticks and unbuffed free motion on multiple bodies",
+    "verified target UID or manually adjudicated acquisition/retention/retarget events",
+    "mapping of entity anchors to actual tower hitboxes and deployment/terrain rules"
+  ]
+}

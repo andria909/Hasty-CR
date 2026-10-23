@@ -73,6 +73,16 @@ reports/defense_plan/ppo_selected_full_progress_20min.json. На первом SD
 теперь обновлён от реального свежегоstatus.checked_host_ns+1200сек.
 Не отправлятьповторно kernels и не объявлять target_met до конечных2048000.
 
+
+Свидетельства физики отдельно: reports/defense_plan/frozen_mechanics_evidence.json.
+ПодтвержденыSHA двух старыхnativeисточников и шестьтекущихlegacy anchor-координат.
+Исторические25/32по снарядам — косвенные метки, неaccuracy нынешнегодвижка;
+host-timeскорость не является игровыми тиками. Native entityanchor/hitbox/terrain
+соответствие остаётсянепроверенным. Не применятьгипотезурадиуса илиизменять
+геометрию внутриактивногоfrozenrun; синтетическийobserver-parity не доказывает
+real-game mechanics parity. Текущие4модели/сравнения относятся кзафиксированному
+симулятору, конечнаяприёмка ещё требует независимыхреальныхсвидетельств.
+
 Исторический40минsnapshot: reports/defense_plan/ppo_selected_full_progress_40min.json,
 все4RUNNING/растущиеsteps, около20–23%. На третьем былReadTimeout SDK,
 подтверждён CLI в OWNER/scheduled_status_recheck.json. Автоматическое
