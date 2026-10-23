@@ -1,0 +1,166 @@
+{
+  "schema": "ppo-coefficient-selection-v1",
+  "stage": "screen",
+  "modes": {
+    "defense": {
+      "screen_ranking": [
+        {
+          "profile": "economy_soft",
+          "score": 0.855078125,
+          "king_survival": 0.9921875,
+          "mean_hp_fraction_loss": 0.10078866141183035,
+          "mean_elixir_spent": 23.140625
+        },
+        {
+          "profile": "spell_precision",
+          "score": 0.79921875,
+          "king_survival": 0.9921875,
+          "mean_hp_fraction_loss": 0.10845638456798735,
+          "mean_elixir_spent": 24.46875
+        },
+        {
+          "profile": "economy_strong",
+          "score": 0.755078125,
+          "king_survival": 1.0,
+          "mean_hp_fraction_loss": 0.10716865176246279,
+          "mean_elixir_spent": 24.734375
+        },
+        {
+          "profile": "opportunity",
+          "score": 0.751171875,
+          "king_survival": 0.9921875,
+          "mean_hp_fraction_loss": 0.1129426502046131,
+          "mean_elixir_spent": 23.7890625
+        },
+        {
+          "profile": "baseline",
+          "score": 0.708984375,
+          "king_survival": 1.0,
+          "mean_hp_fraction_loss": 0.09229096912202381,
+          "mean_elixir_spent": 23.6484375
+        },
+        {
+          "profile": "tower_survival",
+          "score": 0.70703125,
+          "king_survival": 1.0,
+          "mean_hp_fraction_loss": 0.10727964128766741,
+          "mean_elixir_spent": 25.171875
+        },
+        {
+          "profile": "tower_pressure",
+          "score": 0.701171875,
+          "king_survival": 1.0,
+          "mean_hp_fraction_loss": 0.11284237816220238,
+          "mean_elixir_spent": 26.859375
+        },
+        {
+          "profile": "survival_balanced",
+          "score": 0.6953125,
+          "king_survival": 1.0,
+          "mean_hp_fraction_loss": 0.10555757795061384,
+          "mean_elixir_spent": 24.96875
+        }
+      ],
+      "confirmation_profiles": [
+        "economy_soft",
+        "spell_precision",
+        "economy_strong"
+      ],
+      "ineligible_screen_profiles": []
+    },
+    "joint": {
+      "screen_ranking": [
+        {
+          "profile": "economy_soft",
+          "score": 0.7661971830985916,
+          "king_survival": 1.0,
+          "mean_hp_fraction_loss": 0.21279144287109375,
+          "mean_elixir_spent": 23.34375
+        },
+        {
+          "profile": "tower_survival",
+          "score": 0.7421728971962618,
+          "king_survival": 1.0,
+          "mean_hp_fraction_loss": 0.189178466796875,
+          "mean_elixir_spent": 22.6875
+        },
+        {
+          "profile": "survival_balanced",
+          "score": 0.7237427466150871,
+          "king_survival": 1.0,
+          "mean_hp_fraction_loss": 0.19885762532552084,
+          "mean_elixir_spent": 24.0078125
+        },
+        {
+          "profile": "opportunity",
+          "score": 0.698756906077348,
+          "king_survival": 0.984375,
+          "mean_hp_fraction_loss": 0.23166547502790177,
+          "mean_elixir_spent": 23.7109375
+        },
+        {
+          "profile": "tower_pressure",
+          "score": 0.6787213740458016,
+          "king_survival": 1.0,
+          "mean_hp_fraction_loss": 0.2125149681454613,
+          "mean_elixir_spent": 23.8515625
+        },
+        {
+          "profile": "economy_strong",
+          "score": 0.6749999999999999,
+          "king_survival": 0.984375,
+          "mean_hp_fraction_loss": 0.20501527332124256,
+          "mean_elixir_spent": 23.2578125
+        },
+        {
+          "profile": "baseline",
+          "score": 0.6693181818181818,
+          "king_survival": 1.0,
+          "mean_hp_fraction_loss": 0.20731244768415177,
+          "mean_elixir_spent": 21.9296875
+        },
+        {
+          "profile": "spell_precision",
+          "score": 0.5274714828897339,
+          "king_survival": 1.0,
+          "mean_hp_fraction_loss": 0.19335501534598215,
+          "mean_elixir_spent": 23.328125
+        }
+      ],
+      "confirmation_profiles": [
+        "economy_soft",
+        "tower_survival",
+        "survival_balanced"
+      ],
+      "ineligible_screen_profiles": []
+    }
+  },
+  "evidence": [
+    {
+      "directory": "tmp/kaggle/ppo_coefficient_study_20261023/andriashadrin/collected",
+      "receipt_sha256": "0c3fa6e65e6bef92694f9d1189832de4eb1b631e56c77e2de19e76cf90935f52",
+      "study_sha256": "de45b0f397d4128c719513405e865e0b769a46cafc63950e602ca394d9d2830c"
+    },
+    {
+      "directory": "tmp/kaggle/ppo_coefficient_study_20261023/vertel0/collected",
+      "receipt_sha256": "bf82a2be82145795fe90edd39e95b273b662f2c39d4c78b5820bcea85f40d960",
+      "study_sha256": "7cee7a25c606f98924f3699635660d1872628e461b277c2015518ea719f95758"
+    },
+    {
+      "directory": "tmp/kaggle/ppo_coefficient_study_20261023/andreiperelaiko/collected",
+      "receipt_sha256": "3fd03785f07f27feb7a837e956568df38cc92d3b561e7d655f383dc497b9fdf1",
+      "study_sha256": "8da8f80f758a48c6e2fe86b5dd155a9e758dcd4148e0c0143aa171c0c31bb8ef"
+    },
+    {
+      "directory": "tmp/kaggle/ppo_coefficient_study_20261023/demjanklimov/collected",
+      "receipt_sha256": "c4c9c615d79b23e8ca8cec2e8d484326b1ed6b951d14996de04c8d588bf9608b",
+      "study_sha256": "e2eb8046914a561e847b321314fca991d8c02b0de5abbd3c7d17a2439a4cbd75"
+    }
+  ],
+  "protocol_sha256": "14d849f7abb811de9398affb644e1253e369b08582d12c7a568141be399d2c96",
+  "source_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+  "test_used_for_selection": false,
+  "raw_reward_used_for_selection": false,
+  "quality_accepted": false,
+  "full_training_started": false
+}

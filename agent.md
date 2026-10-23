@@ -2,6 +2,30 @@
 
 ## Текущий приоритет: короткий подбор коэффициентов PPO
 
+
+Первый подбор ЗАВЕРШЁН: все16опытов,102400шагов каждый, API COMPLETE,
+все4collected/receipt.complete=True. Локальныйаудит весов/optimizer/снимков
+восьми сред выполнен для всех16, v25 SHA неизменна. Отбор итаблица:
+reports/defense_plan/ppo_coefficient_screen_selection.json и
+reports/defense_plan/ppo_coefficient_screening.md.
+
+Текущий этап — seed43,6опытов на3аккаунтах. Jobs version1:
+andriashadrin,vertel0,andreiperelaiko/hastycr-ppo-coef-confirm-20261023.
+Пакет tmp/kaggle/ppo_coefficient_confirmation_20261023/. Все3фактически
+на2T4,ростsteps обоихworkers подтверждён:
+reports/defense_plan/ppo_coefficient_confirmation_launch.json all_verified=True.
+Не отправлятьповторно. Наблюдатели/collector PID и пути в OWNER/monitoring.json,
+опрос1200сек. ВторойSSEпервоначально404, переподключён только локальныйstream,
+теперь CUDA/steps подтверждены. Старыеobserver первогоэтапа остановлены только
+после terminalCOMPLETE+полнойвыгрузки; удалённыеjobs не менялись.
+
+После трёх полных confirmation collected запустить
+scripts.kaggle.prepare_ppo_selected_full: повторно проверит обаseed, выберет
+2defense+2joint и подготовит4полных job. Пока полныеjobs не отправлены.
+Финалистыseed43: defense economy_soft/spell_precision/economy_strong;
+joint economy_soft/tower_survival/survival_balanced. Никакого test-ретюна.
+
+
 Новый прямой запрос пользователя: сначала102400 шагов на конфигурацию,
 затем по2 лучших конфигурации полностью в режимахdefense иjoint (всего4PPO).
 Не запускать новыеGRPO; предыдущие модели/замеры сохранить. Выбор только
