@@ -75,3 +75,11 @@ def test_distinct_coefficient_trials_have_actual_percent_without_replay_regressi
     assert not record_trial_event(progress,event('defense_baseline_s42',204800,3),12)
     assert record_trial_event(progress,json.dumps(dict(event='FULL_TRAINING_PROGRESS',mode='joint',profile='baseline',step=102400,update=100)),20)
     assert progress['trials']['full_joint_baseline']['percent']==5
+
+
+def test_twenty_minute_reconnect_counts_from_connection_start_not_end(monkeypatch):
+    from scripts.kaggle.stream_training import reconnect_delay
+    monkeypatch.setattr('time.monotonic',lambda:400)
+    assert reconnect_delay(1200,100)==900  # Five-minute stream, then fifteen-minute wait.
+    monkeypatch.setattr('time.monotonic',lambda:1500)
+    assert reconnect_delay(1200,100)==0

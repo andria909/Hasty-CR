@@ -24,6 +24,10 @@ def record_trial_event(progress,line,remote_time):
     return True
 
 
+def reconnect_delay(interval,started):
+    return max(0,interval-int(time.monotonic()-started))
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--kernel',required=True)
@@ -42,6 +46,7 @@ def main():
     progress={'kernel':args.kernel,'source':'kaggle_live_log_stream','trainers':{}}
     with (args.output/'events.jsonl').open('x') as stream:
         for attempt in range(args.reconnects+1):
+            connection_started=time.monotonic()
             try:
                 progress['stream_state']='connected'
                 progress.pop('error_type',None);progress.pop('http_status',None)
@@ -70,7 +75,7 @@ def main():
                 (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
                 if attempt>=args.reconnects:break
                 # A closed log connection does not prove the GPU job ended.
-                time.sleep(args.reconnect_seconds)
+                time.sleep(reconnect_delay(args.reconnect_seconds,connection_started))
             except Exception as error:
                 progress['stream_state']='interrupted'
                 progress['error_type']=type(error).__name__
@@ -84,7 +89,7 @@ def main():
                            or progress['http_status'] in (404,429,500,502,503,504))
                 if not transient or attempt>=args.reconnects:
                     break
-                time.sleep(args.reconnect_seconds)
+                time.sleep(reconnect_delay(args.reconnect_seconds,connection_started))
         progress['checked_host_ns']=time.time_ns()
         (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
         print(json.dumps(progress),flush=True)
