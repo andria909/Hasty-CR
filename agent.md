@@ -1,3 +1,26 @@
+## ВСЕ4 finaleval COMPLETE, осталось2описательныхtrain-прогона
+Полные4rawколлекции EVAL/OWNER/collected сохранены и независимыйverifier прошёл.
+reports/defense_plan/ppo_selected_four_final_comparison.json:7440val/testэпизодов+1200matches,
+одинаковый common1a34/native306/309. Observedv25:SpellPrecision15/20,DefEco13/20,
+JointEco19/20,JointTower15/20. All15:219/300,197/300,219/300,196/300.
+Ниодна не80%противКАЖДОЙстарой, physicsнепринят, goalНЕcomplete.
+Отчёты: ppo_defense_spell_precision_full_metrics.json, ppo_joint_economy_soft_full_metrics.json
+плюсдвапрежних. Не использоватьtestдлявыбораweights/коэфов/teacher.
+TRAIN DefEco тожеCOMPLETE/4452records validated: ppo_defense_economy_soft_train_metrics.json;
+noDamage2629/4032=65.20%,meanHP523.74,4timeouts,0invalidscripts. Таймауты явно вdone.
+TRAIN JointTower ужеготов ранее. Новыеtrain-only0/2 version1 реально2T4 иобаworkerрастут:
+reports/defense_plan/ppo_last_two_train_evaluations_launch.json. Allfinalevalobserver0/2
+остановлены послеполнойвыгрузки, GPUнеперезапускался. Andrei firstSaveKernel404:
+послеownedlisting retryсоздал VERSION1(неversion2), новоеобучениеНЕперезапускалось.
+СледитьзаTRAIN0/2 по monitoring.json вtmp/kaggle/ppo_selected_train_evaluations_20261023/OWNER;
+приCOMPLETE collectorprofiletrain→summarize_selected_ppo_train→добавить reportфайлы.
+НОВЫЙ scripts.defense.update_done автоматическипересобираетПОНЯТНЫЙdashboard из
+проверенныхJSON, сверяетcheckpointSHAсfour_full_completion, пропускинепревращаетвнули.
+Команда .venv-live/bin/python -m scripts.defense.update_done. Не appendисториювdone.
+Послеоставшихся2train: все4таблицы; следующийtrain-onlyдиагноз/исправлениеfinisher
+целей/наград иcoverageZap, безпереносастарыхtestfamilies вtrain и безсмены4зафиксированныхweights.
+Реальныебоипо-прежнемузапрещены; v25неизменна.
+
 ## Втораяполнаяоценка готова: defense economy_soft
 EVAL/vertel0/collected COMPLETE/completeTrue и независимыйverifier прошёл.
 reports/defense_plan/ppo_defense_economy_soft_full_metrics.json.

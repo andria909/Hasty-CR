@@ -1,0 +1,98 @@
+{
+  "runs": [
+    {
+      "owner": "andriashadrin",
+      "kernel": "andriashadrin/hastycr-ppo-selected-train-eval-20261023",
+      "version": 1,
+      "initial_report": {
+        "schema": "selected-ppo-train-evaluation-v1",
+        "status": "evaluating",
+        "split": "train",
+        "training_steps": 2048000,
+        "selected_sha256": "8223973b408db304f07b6df1b6da67d58004744e2c01d919b1ac2375677dafed",
+        "selection_sha256": "d4981ef90aa87352ca08da0ae4eaf193aa161393a745e26233ed78ad48466bcc",
+        "mode": "defense",
+        "profile": "spell_precision",
+        "source_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+        "context_schedule_sha256": "b01c14fba511afaa1eea7a2615292ee2ac1bbf86cc72abdcffa220f5b60f2ff4",
+        "seeds": [
+          42,
+          43,
+          44
+        ],
+        "expected_episodes": 4452,
+        "gpu_names": [
+          "Tesla T4",
+          "Tesla T4"
+        ],
+        "training_performed": false,
+        "test_used_for_selection": false,
+        "quality_accepted": false
+      },
+      "latest_worker_progress": {
+        "0": {
+          "event": "TRAIN_EVALUATION_PROGRESS",
+          "worker": 0,
+          "done": 704,
+          "total": 2226
+        },
+        "1": {
+          "event": "TRAIN_EVALUATION_PROGRESS",
+          "worker": 1,
+          "done": 768,
+          "total": 2226
+        }
+      },
+      "complete": false,
+      "quality_accepted": false
+    },
+    {
+      "owner": "andreiperelaiko",
+      "kernel": "andreiperelaiko/hastycr-ppo-selected-train-eval-20261023",
+      "version": 1,
+      "initial_report": {
+        "schema": "selected-ppo-train-evaluation-v1",
+        "status": "evaluating",
+        "split": "train",
+        "training_steps": 2048000,
+        "selected_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+        "selection_sha256": "415d39d1263ad5f11cf0f7635897cabf1c2d6783d0645db5f02e7995b74d779a",
+        "mode": "joint",
+        "profile": "economy_soft",
+        "source_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+        "context_schedule_sha256": "b01c14fba511afaa1eea7a2615292ee2ac1bbf86cc72abdcffa220f5b60f2ff4",
+        "seeds": [
+          42,
+          43,
+          44
+        ],
+        "expected_episodes": 4452,
+        "gpu_names": [
+          "Tesla T4",
+          "Tesla T4"
+        ],
+        "training_performed": false,
+        "test_used_for_selection": false,
+        "quality_accepted": false
+      },
+      "latest_worker_progress": {
+        "0": {
+          "event": "TRAIN_EVALUATION_PROGRESS",
+          "worker": 0,
+          "done": 256,
+          "total": 2226
+        },
+        "1": {
+          "event": "TRAIN_EVALUATION_PROGRESS",
+          "worker": 1,
+          "done": 256,
+          "total": 2226
+        }
+      },
+      "complete": false,
+      "quality_accepted": false
+    }
+  ],
+  "training_performed": false,
+  "quality_accepted": false
+}

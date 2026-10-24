@@ -1,0 +1,1859 @@
+{
+  "schema": "verified-four-selected-ppo-comparison-v1",
+  "models": [
+    {
+      "id": "defense_spell_precision",
+      "mode": "defense",
+      "profile": "spell_precision",
+      "checkpoint_sha256": "8223973b408db304f07b6df1b6da67d58004744e2c01d919b1ac2375677dafed",
+      "report_sha256": "31ae751c8be1c4ad46f4513f9c49935b80be70748234035de41811aa46b65940",
+      "observed_v25": {
+        "wins": 15,
+        "losses": 5,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.75,
+        "acceptance_confirmed": false
+      },
+      "observed_all15": {
+        "games": 300,
+        "wins": 219,
+        "losses": 81,
+        "draws": 0,
+        "unknown": 0
+      },
+      "per_opponent": {
+        "v11": {
+          "wins": 16,
+          "losses": 4,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.8,
+          "acceptance_confirmed": false
+        },
+        "v14": {
+          "wins": 13,
+          "losses": 7,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.65,
+          "acceptance_confirmed": false
+        },
+        "v14_last": {
+          "wins": 10,
+          "losses": 10,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.5,
+          "acceptance_confirmed": false
+        },
+        "v18": {
+          "wins": 12,
+          "losses": 8,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.6,
+          "acceptance_confirmed": false
+        },
+        "v19": {
+          "wins": 12,
+          "losses": 8,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.6,
+          "acceptance_confirmed": false
+        },
+        "v20": {
+          "wins": 12,
+          "losses": 8,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.6,
+          "acceptance_confirmed": false
+        },
+        "v21": {
+          "wins": 16,
+          "losses": 4,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.8,
+          "acceptance_confirmed": false
+        },
+        "v24": {
+          "wins": 14,
+          "losses": 6,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.7,
+          "acceptance_confirmed": false
+        },
+        "v25": {
+          "wins": 15,
+          "losses": 5,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.75,
+          "acceptance_confirmed": false
+        },
+        "v26": {
+          "wins": 20,
+          "losses": 0,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 1.0,
+          "acceptance_confirmed": false
+        },
+        "v27": {
+          "wins": 19,
+          "losses": 1,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.95,
+          "acceptance_confirmed": false
+        },
+        "v28": {
+          "wins": 13,
+          "losses": 7,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.65,
+          "acceptance_confirmed": false
+        },
+        "v28b": {
+          "wins": 16,
+          "losses": 4,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.8,
+          "acceptance_confirmed": false
+        },
+        "v28b_last": {
+          "wins": 15,
+          "losses": 5,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.75,
+          "acceptance_confirmed": false
+        },
+        "v29": {
+          "wins": 16,
+          "losses": 4,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.8,
+          "acceptance_confirmed": false
+        }
+      },
+      "test": {
+        "defense": {
+          "overall": {
+            "episodes": 708,
+            "no_damage": {
+              "known": 708,
+              "unknown": 0,
+              "success": 407,
+              "rate": 0.5748587570621468
+            },
+            "mean_tower_hp_loss": 736.2302259887006,
+            "mean_elixir_spent": 27.141242937853107,
+            "princess_survived": {
+              "known": 708,
+              "unknown": 0,
+              "success": 655,
+              "rate": 0.9251412429378532
+            },
+            "king_survived": {
+              "known": 708,
+              "unknown": 0,
+              "success": 700,
+              "rate": 0.9887005649717514
+            },
+            "timeouts": 0,
+            "invalid_scripts": 0
+          },
+          "by_difficulty": {
+            "simple": {
+              "episodes": 204,
+              "no_damage": {
+                "known": 204,
+                "unknown": 0,
+                "success": 164,
+                "rate": 0.803921568627451
+              },
+              "mean_tower_hp_loss": 210.17156862745097,
+              "mean_elixir_spent": 14.436274509803921,
+              "princess_survived": {
+                "known": 204,
+                "unknown": 0,
+                "success": 204,
+                "rate": 1.0
+              },
+              "king_survived": {
+                "known": 204,
+                "unknown": 0,
+                "success": 204,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "medium": {
+              "episodes": 144,
+              "no_damage": {
+                "known": 144,
+                "unknown": 0,
+                "success": 73,
+                "rate": 0.5069444444444444
+              },
+              "mean_tower_hp_loss": 336.5833333333333,
+              "mean_elixir_spent": 14.38888888888889,
+              "princess_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "king_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "complex": {
+              "episodes": 252,
+              "no_damage": {
+                "known": 252,
+                "unknown": 0,
+                "success": 139,
+                "rate": 0.5515873015873016
+              },
+              "mean_tower_hp_loss": 1139.4761904761904,
+              "mean_elixir_spent": 42.23015873015873,
+              "princess_survived": {
+                "known": 252,
+                "unknown": 0,
+                "success": 211,
+                "rate": 0.8373015873015873
+              },
+              "king_survived": {
+                "known": 252,
+                "unknown": 0,
+                "success": 246,
+                "rate": 0.9761904761904762
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "impossible": {
+              "episodes": 108,
+              "no_damage": {
+                "known": 108,
+                "unknown": 0,
+                "success": 31,
+                "rate": 0.28703703703703703
+              },
+              "mean_tower_hp_loss": 1321.851851851852,
+              "mean_elixir_spent": 32.93518518518518,
+              "princess_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 96,
+                "rate": 0.8888888888888888
+              },
+              "king_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 106,
+                "rate": 0.9814814814814815
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            }
+          }
+        },
+        "attack": {
+          "episodes": 96,
+          "episode_success": {
+            "known": 96,
+            "unknown": 0,
+            "success": 82,
+            "rate": 0.8541666666666666
+          },
+          "hog_confirmed_hit": {
+            "known": 24,
+            "unknown": 0,
+            "success": 18,
+            "rate": 0.75
+          },
+          "spell_confirmed_finish": {
+            "known": 72,
+            "unknown": 0,
+            "success": 0,
+            "rate": 0.0
+          },
+          "missed_window": {
+            "known": 96,
+            "unknown": 0,
+            "success": 14,
+            "rate": 0.14583333333333334
+          }
+        }
+      },
+      "validation": {
+        "defense": {
+          "overall": {
+            "episodes": 864,
+            "no_damage": {
+              "known": 864,
+              "unknown": 0,
+              "success": 597,
+              "rate": 0.6909722222222222
+            },
+            "mean_tower_hp_loss": 447.46875,
+            "mean_elixir_spent": 23.39236111111111,
+            "princess_survived": {
+              "known": 864,
+              "unknown": 0,
+              "success": 837,
+              "rate": 0.96875
+            },
+            "king_survived": {
+              "known": 864,
+              "unknown": 0,
+              "success": 861,
+              "rate": 0.9965277777777778
+            },
+            "timeouts": 0,
+            "invalid_scripts": 0
+          },
+          "by_difficulty": {
+            "simple": {
+              "episodes": 144,
+              "no_damage": {
+                "known": 144,
+                "unknown": 0,
+                "success": 124,
+                "rate": 0.8611111111111112
+              },
+              "mean_tower_hp_loss": 195.73611111111111,
+              "mean_elixir_spent": 15.61111111111111,
+              "princess_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 143,
+                "rate": 0.9930555555555556
+              },
+              "king_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "medium": {
+              "episodes": 432,
+              "no_damage": {
+                "known": 432,
+                "unknown": 0,
+                "success": 286,
+                "rate": 0.6620370370370371
+              },
+              "mean_tower_hp_loss": 380.4884259259259,
+              "mean_elixir_spent": 16.439814814814813,
+              "princess_survived": {
+                "known": 432,
+                "unknown": 0,
+                "success": 421,
+                "rate": 0.9745370370370371
+              },
+              "king_survived": {
+                "known": 432,
+                "unknown": 0,
+                "success": 432,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "complex": {
+              "episodes": 180,
+              "no_damage": {
+                "known": 180,
+                "unknown": 0,
+                "success": 138,
+                "rate": 0.7666666666666667
+              },
+              "mean_tower_hp_loss": 354.03333333333336,
+              "mean_elixir_spent": 38.12777777777778,
+              "princess_survived": {
+                "known": 180,
+                "unknown": 0,
+                "success": 177,
+                "rate": 0.9833333333333333
+              },
+              "king_survived": {
+                "known": 180,
+                "unknown": 0,
+                "success": 180,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "impossible": {
+              "episodes": 108,
+              "no_damage": {
+                "known": 108,
+                "unknown": 0,
+                "success": 49,
+                "rate": 0.4537037037037037
+              },
+              "mean_tower_hp_loss": 1206.7592592592594,
+              "mean_elixir_spent": 37.01851851851852,
+              "princess_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 96,
+                "rate": 0.8888888888888888
+              },
+              "king_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 105,
+                "rate": 0.9722222222222222
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            }
+          }
+        },
+        "attack": {
+          "episodes": 192,
+          "episode_success": {
+            "known": 192,
+            "unknown": 0,
+            "success": 38,
+            "rate": 0.19791666666666666
+          },
+          "hog_confirmed_hit": {
+            "known": 48,
+            "unknown": 0,
+            "success": 16,
+            "rate": 0.3333333333333333
+          },
+          "spell_confirmed_finish": {
+            "known": 144,
+            "unknown": 0,
+            "success": 0,
+            "rate": 0.0
+          },
+          "missed_window": {
+            "known": 192,
+            "unknown": 0,
+            "success": 154,
+            "rate": 0.8020833333333334
+          }
+        }
+      },
+      "all15_observed_80_percent_met": false,
+      "quality_accepted": false
+    },
+    {
+      "id": "defense_economy_soft",
+      "mode": "defense",
+      "profile": "economy_soft",
+      "checkpoint_sha256": "b9b34f2b7d55b9e37080790df60ee9903a769b7037d154c3248773ee4876f6ba",
+      "report_sha256": "16bcfb407727468dcb35d81593294682cedce9b6ec94418b69a94ff9f6d7dfa6",
+      "observed_v25": {
+        "wins": 13,
+        "losses": 7,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.65,
+        "acceptance_confirmed": false
+      },
+      "observed_all15": {
+        "games": 300,
+        "wins": 197,
+        "losses": 103,
+        "draws": 0,
+        "unknown": 0
+      },
+      "per_opponent": {
+        "v11": {
+          "wins": 12,
+          "losses": 8,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.6,
+          "acceptance_confirmed": false
+        },
+        "v14": {
+          "wins": 12,
+          "losses": 8,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.6,
+          "acceptance_confirmed": false
+        },
+        "v14_last": {
+          "wins": 13,
+          "losses": 7,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.65,
+          "acceptance_confirmed": false
+        },
+        "v18": {
+          "wins": 12,
+          "losses": 8,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.6,
+          "acceptance_confirmed": false
+        },
+        "v19": {
+          "wins": 9,
+          "losses": 11,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.45,
+          "acceptance_confirmed": false
+        },
+        "v20": {
+          "wins": 13,
+          "losses": 7,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.65,
+          "acceptance_confirmed": false
+        },
+        "v21": {
+          "wins": 15,
+          "losses": 5,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.75,
+          "acceptance_confirmed": false
+        },
+        "v24": {
+          "wins": 13,
+          "losses": 7,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.65,
+          "acceptance_confirmed": false
+        },
+        "v25": {
+          "wins": 13,
+          "losses": 7,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.65,
+          "acceptance_confirmed": false
+        },
+        "v26": {
+          "wins": 19,
+          "losses": 1,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.95,
+          "acceptance_confirmed": false
+        },
+        "v27": {
+          "wins": 15,
+          "losses": 5,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.75,
+          "acceptance_confirmed": false
+        },
+        "v28": {
+          "wins": 11,
+          "losses": 9,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.55,
+          "acceptance_confirmed": false
+        },
+        "v28b": {
+          "wins": 14,
+          "losses": 6,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.7,
+          "acceptance_confirmed": false
+        },
+        "v28b_last": {
+          "wins": 14,
+          "losses": 6,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.7,
+          "acceptance_confirmed": false
+        },
+        "v29": {
+          "wins": 12,
+          "losses": 8,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.6,
+          "acceptance_confirmed": false
+        }
+      },
+      "test": {
+        "defense": {
+          "overall": {
+            "episodes": 708,
+            "no_damage": {
+              "known": 708,
+              "unknown": 0,
+              "success": 357,
+              "rate": 0.5042372881355932
+            },
+            "mean_tower_hp_loss": 809.6949152542373,
+            "mean_elixir_spent": 25.57909604519774,
+            "princess_survived": {
+              "known": 708,
+              "unknown": 0,
+              "success": 655,
+              "rate": 0.9251412429378532
+            },
+            "king_survived": {
+              "known": 708,
+              "unknown": 0,
+              "success": 700,
+              "rate": 0.9887005649717514
+            },
+            "timeouts": 0,
+            "invalid_scripts": 0
+          },
+          "by_difficulty": {
+            "simple": {
+              "episodes": 204,
+              "no_damage": {
+                "known": 204,
+                "unknown": 0,
+                "success": 167,
+                "rate": 0.8186274509803921
+              },
+              "mean_tower_hp_loss": 184.11764705882354,
+              "mean_elixir_spent": 14.122549019607844,
+              "princess_survived": {
+                "known": 204,
+                "unknown": 0,
+                "success": 204,
+                "rate": 1.0
+              },
+              "king_survived": {
+                "known": 204,
+                "unknown": 0,
+                "success": 204,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "medium": {
+              "episodes": 144,
+              "no_damage": {
+                "known": 144,
+                "unknown": 0,
+                "success": 37,
+                "rate": 0.2569444444444444
+              },
+              "mean_tower_hp_loss": 399.7083333333333,
+              "mean_elixir_spent": 14.23611111111111,
+              "princess_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "king_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "complex": {
+              "episodes": 252,
+              "no_damage": {
+                "known": 252,
+                "unknown": 0,
+                "success": 127,
+                "rate": 0.503968253968254
+              },
+              "mean_tower_hp_loss": 1130.0753968253969,
+              "mean_elixir_spent": 38.30952380952381,
+              "princess_survived": {
+                "known": 252,
+                "unknown": 0,
+                "success": 221,
+                "rate": 0.876984126984127
+              },
+              "king_survived": {
+                "known": 252,
+                "unknown": 0,
+                "success": 249,
+                "rate": 0.9880952380952381
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "impossible": {
+              "episodes": 108,
+              "no_damage": {
+                "known": 108,
+                "unknown": 0,
+                "success": 26,
+                "rate": 0.24074074074074073
+              },
+              "mean_tower_hp_loss": 1790.4351851851852,
+              "mean_elixir_spent": 32.638888888888886,
+              "princess_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 86,
+                "rate": 0.7962962962962963
+              },
+              "king_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 103,
+                "rate": 0.9537037037037037
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            }
+          }
+        },
+        "attack": {
+          "episodes": 96,
+          "episode_success": {
+            "known": 96,
+            "unknown": 0,
+            "success": 78,
+            "rate": 0.8125
+          },
+          "hog_confirmed_hit": {
+            "known": 24,
+            "unknown": 0,
+            "success": 22,
+            "rate": 0.9166666666666666
+          },
+          "spell_confirmed_finish": {
+            "known": 72,
+            "unknown": 0,
+            "success": 0,
+            "rate": 0.0
+          },
+          "missed_window": {
+            "known": 96,
+            "unknown": 0,
+            "success": 18,
+            "rate": 0.1875
+          }
+        }
+      },
+      "validation": {
+        "defense": {
+          "overall": {
+            "episodes": 864,
+            "no_damage": {
+              "known": 864,
+              "unknown": 0,
+              "success": 598,
+              "rate": 0.6921296296296297
+            },
+            "mean_tower_hp_loss": 408.7453703703704,
+            "mean_elixir_spent": 21.21759259259259,
+            "princess_survived": {
+              "known": 864,
+              "unknown": 0,
+              "success": 840,
+              "rate": 0.9722222222222222
+            },
+            "king_survived": {
+              "known": 864,
+              "unknown": 0,
+              "success": 862,
+              "rate": 0.9976851851851852
+            },
+            "timeouts": 0,
+            "invalid_scripts": 0
+          },
+          "by_difficulty": {
+            "simple": {
+              "episodes": 144,
+              "no_damage": {
+                "known": 144,
+                "unknown": 0,
+                "success": 126,
+                "rate": 0.875
+              },
+              "mean_tower_hp_loss": 162.86111111111111,
+              "mean_elixir_spent": 13.916666666666666,
+              "princess_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 142,
+                "rate": 0.9861111111111112
+              },
+              "king_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "medium": {
+              "episodes": 432,
+              "no_damage": {
+                "known": 432,
+                "unknown": 0,
+                "success": 287,
+                "rate": 0.6643518518518519
+              },
+              "mean_tower_hp_loss": 353.82175925925924,
+              "mean_elixir_spent": 15.828703703703704,
+              "princess_survived": {
+                "known": 432,
+                "unknown": 0,
+                "success": 423,
+                "rate": 0.9791666666666666
+              },
+              "king_survived": {
+                "known": 432,
+                "unknown": 0,
+                "success": 432,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "complex": {
+              "episodes": 180,
+              "no_damage": {
+                "known": 180,
+                "unknown": 0,
+                "success": 138,
+                "rate": 0.7666666666666667
+              },
+              "mean_tower_hp_loss": 302.18888888888887,
+              "mean_elixir_spent": 32.611111111111114,
+              "princess_survived": {
+                "known": 180,
+                "unknown": 0,
+                "success": 177,
+                "rate": 0.9833333333333333
+              },
+              "king_survived": {
+                "known": 180,
+                "unknown": 0,
+                "success": 180,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "impossible": {
+              "episodes": 108,
+              "no_damage": {
+                "known": 108,
+                "unknown": 0,
+                "success": 47,
+                "rate": 0.4351851851851852
+              },
+              "mean_tower_hp_loss": 1133.8796296296296,
+              "mean_elixir_spent": 33.51851851851852,
+              "princess_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 98,
+                "rate": 0.9074074074074074
+              },
+              "king_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 106,
+                "rate": 0.9814814814814815
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            }
+          }
+        },
+        "attack": {
+          "episodes": 192,
+          "episode_success": {
+            "known": 192,
+            "unknown": 0,
+            "success": 20,
+            "rate": 0.10416666666666667
+          },
+          "hog_confirmed_hit": {
+            "known": 48,
+            "unknown": 0,
+            "success": 16,
+            "rate": 0.3333333333333333
+          },
+          "spell_confirmed_finish": {
+            "known": 140,
+            "unknown": 4,
+            "success": 0,
+            "rate": 0.0
+          },
+          "missed_window": {
+            "known": 192,
+            "unknown": 0,
+            "success": 172,
+            "rate": 0.8958333333333334
+          }
+        }
+      },
+      "all15_observed_80_percent_met": false,
+      "quality_accepted": false
+    },
+    {
+      "id": "joint_economy_soft",
+      "mode": "joint",
+      "profile": "economy_soft",
+      "checkpoint_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "report_sha256": "15da6c37398f21b7af6abe6243bfca38d077740b25306cd79377b514d75cb7f2",
+      "observed_v25": {
+        "wins": 19,
+        "losses": 1,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.95,
+        "acceptance_confirmed": false
+      },
+      "observed_all15": {
+        "games": 300,
+        "wins": 219,
+        "losses": 80,
+        "draws": 1,
+        "unknown": 0
+      },
+      "per_opponent": {
+        "v11": {
+          "wins": 10,
+          "losses": 10,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.5,
+          "acceptance_confirmed": false
+        },
+        "v14": {
+          "wins": 9,
+          "losses": 11,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.45,
+          "acceptance_confirmed": false
+        },
+        "v14_last": {
+          "wins": 13,
+          "losses": 7,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.65,
+          "acceptance_confirmed": false
+        },
+        "v18": {
+          "wins": 12,
+          "losses": 8,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.6,
+          "acceptance_confirmed": false
+        },
+        "v19": {
+          "wins": 12,
+          "losses": 8,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.6,
+          "acceptance_confirmed": false
+        },
+        "v20": {
+          "wins": 15,
+          "losses": 5,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.75,
+          "acceptance_confirmed": false
+        },
+        "v21": {
+          "wins": 13,
+          "losses": 7,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.65,
+          "acceptance_confirmed": false
+        },
+        "v24": {
+          "wins": 15,
+          "losses": 5,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.75,
+          "acceptance_confirmed": false
+        },
+        "v25": {
+          "wins": 19,
+          "losses": 1,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.95,
+          "acceptance_confirmed": false
+        },
+        "v26": {
+          "wins": 19,
+          "losses": 1,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.95,
+          "acceptance_confirmed": false
+        },
+        "v27": {
+          "wins": 20,
+          "losses": 0,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 1.0,
+          "acceptance_confirmed": false
+        },
+        "v28": {
+          "wins": 17,
+          "losses": 3,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.85,
+          "acceptance_confirmed": false
+        },
+        "v28b": {
+          "wins": 10,
+          "losses": 9,
+          "draws": 1,
+          "unknown": 0,
+          "win_rate_all_games": 0.5,
+          "acceptance_confirmed": false
+        },
+        "v28b_last": {
+          "wins": 15,
+          "losses": 5,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.75,
+          "acceptance_confirmed": false
+        },
+        "v29": {
+          "wins": 20,
+          "losses": 0,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 1.0,
+          "acceptance_confirmed": false
+        }
+      },
+      "test": {
+        "defense": {
+          "overall": {
+            "episodes": 708,
+            "no_damage": {
+              "known": 708,
+              "unknown": 0,
+              "success": 361,
+              "rate": 0.5098870056497176
+            },
+            "mean_tower_hp_loss": 676.9618644067797,
+            "mean_elixir_spent": 27.8545197740113,
+            "princess_survived": {
+              "known": 708,
+              "unknown": 0,
+              "success": 662,
+              "rate": 0.9350282485875706
+            },
+            "king_survived": {
+              "known": 708,
+              "unknown": 0,
+              "success": 702,
+              "rate": 0.9915254237288136
+            },
+            "timeouts": 0,
+            "invalid_scripts": 0
+          },
+          "by_difficulty": {
+            "simple": {
+              "episodes": 204,
+              "no_damage": {
+                "known": 204,
+                "unknown": 0,
+                "success": 170,
+                "rate": 0.8333333333333334
+              },
+              "mean_tower_hp_loss": 247.07843137254903,
+              "mean_elixir_spent": 14.573529411764707,
+              "princess_survived": {
+                "known": 204,
+                "unknown": 0,
+                "success": 202,
+                "rate": 0.9901960784313726
+              },
+              "king_survived": {
+                "known": 204,
+                "unknown": 0,
+                "success": 204,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "medium": {
+              "episodes": 144,
+              "no_damage": {
+                "known": 144,
+                "unknown": 0,
+                "success": 57,
+                "rate": 0.3958333333333333
+              },
+              "mean_tower_hp_loss": 330.375,
+              "mean_elixir_spent": 14.465277777777779,
+              "princess_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "king_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "complex": {
+              "episodes": 252,
+              "no_damage": {
+                "known": 252,
+                "unknown": 0,
+                "success": 119,
+                "rate": 0.4722222222222222
+              },
+              "mean_tower_hp_loss": 1016.1904761904761,
+              "mean_elixir_spent": 43.95634920634921,
+              "princess_survived": {
+                "known": 252,
+                "unknown": 0,
+                "success": 221,
+                "rate": 0.876984126984127
+              },
+              "king_survived": {
+                "known": 252,
+                "unknown": 0,
+                "success": 248,
+                "rate": 0.9841269841269841
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "impossible": {
+              "episodes": 108,
+              "no_damage": {
+                "known": 108,
+                "unknown": 0,
+                "success": 15,
+                "rate": 0.1388888888888889
+              },
+              "mean_tower_hp_loss": 1159.5462962962963,
+              "mean_elixir_spent": 33.22222222222222,
+              "princess_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 95,
+                "rate": 0.8796296296296297
+              },
+              "king_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 106,
+                "rate": 0.9814814814814815
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            }
+          }
+        },
+        "attack": {
+          "episodes": 96,
+          "episode_success": {
+            "known": 96,
+            "unknown": 0,
+            "success": 92,
+            "rate": 0.9583333333333334
+          },
+          "hog_confirmed_hit": {
+            "known": 24,
+            "unknown": 0,
+            "success": 16,
+            "rate": 0.6666666666666666
+          },
+          "spell_confirmed_finish": {
+            "known": 72,
+            "unknown": 0,
+            "success": 4,
+            "rate": 0.05555555555555555
+          },
+          "missed_window": {
+            "known": 96,
+            "unknown": 0,
+            "success": 4,
+            "rate": 0.041666666666666664
+          }
+        }
+      },
+      "validation": {
+        "defense": {
+          "overall": {
+            "episodes": 864,
+            "no_damage": {
+              "known": 864,
+              "unknown": 0,
+              "success": 519,
+              "rate": 0.6006944444444444
+            },
+            "mean_tower_hp_loss": 531.3807870370371,
+            "mean_elixir_spent": 24.591435185185187,
+            "princess_survived": {
+              "known": 864,
+              "unknown": 0,
+              "success": 828,
+              "rate": 0.9583333333333334
+            },
+            "king_survived": {
+              "known": 864,
+              "unknown": 0,
+              "success": 862,
+              "rate": 0.9976851851851852
+            },
+            "timeouts": 0,
+            "invalid_scripts": 0
+          },
+          "by_difficulty": {
+            "simple": {
+              "episodes": 144,
+              "no_damage": {
+                "known": 144,
+                "unknown": 0,
+                "success": 123,
+                "rate": 0.8541666666666666
+              },
+              "mean_tower_hp_loss": 224.84027777777777,
+              "mean_elixir_spent": 16.3125,
+              "princess_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "king_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "medium": {
+              "episodes": 432,
+              "no_damage": {
+                "known": 432,
+                "unknown": 0,
+                "success": 245,
+                "rate": 0.5671296296296297
+              },
+              "mean_tower_hp_loss": 437.53935185185185,
+              "mean_elixir_spent": 17.01851851851852,
+              "princess_survived": {
+                "known": 432,
+                "unknown": 0,
+                "success": 428,
+                "rate": 0.9907407407407407
+              },
+              "king_survived": {
+                "known": 432,
+                "unknown": 0,
+                "success": 432,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "complex": {
+              "episodes": 180,
+              "no_damage": {
+                "known": 180,
+                "unknown": 0,
+                "success": 127,
+                "rate": 0.7055555555555556
+              },
+              "mean_tower_hp_loss": 482.60555555555555,
+              "mean_elixir_spent": 40.25555555555555,
+              "princess_survived": {
+                "known": 180,
+                "unknown": 0,
+                "success": 165,
+                "rate": 0.9166666666666666
+              },
+              "king_survived": {
+                "known": 180,
+                "unknown": 0,
+                "success": 180,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "impossible": {
+              "episodes": 108,
+              "no_damage": {
+                "known": 108,
+                "unknown": 0,
+                "success": 24,
+                "rate": 0.2222222222222222
+              },
+              "mean_tower_hp_loss": 1396.7592592592594,
+              "mean_elixir_spent": 39.81481481481482,
+              "princess_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 91,
+                "rate": 0.8425925925925926
+              },
+              "king_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 106,
+                "rate": 0.9814814814814815
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            }
+          }
+        },
+        "attack": {
+          "episodes": 192,
+          "episode_success": {
+            "known": 192,
+            "unknown": 0,
+            "success": 78,
+            "rate": 0.40625
+          },
+          "hog_confirmed_hit": {
+            "known": 48,
+            "unknown": 0,
+            "success": 36,
+            "rate": 0.75
+          },
+          "spell_confirmed_finish": {
+            "known": 105,
+            "unknown": 39,
+            "success": 0,
+            "rate": 0.0
+          },
+          "missed_window": {
+            "known": 192,
+            "unknown": 0,
+            "success": 114,
+            "rate": 0.59375
+          }
+        }
+      },
+      "all15_observed_80_percent_met": false,
+      "quality_accepted": false
+    },
+    {
+      "id": "joint_tower_survival",
+      "mode": "joint",
+      "profile": "tower_survival",
+      "checkpoint_sha256": "5e01303f135fe10888b037ed1997fc43be5b012a421b798f446d5db2297cd7c2",
+      "report_sha256": "2f1f3bd4a285d322d3fcf8da994b35bb98985f8f4fecd05d8ab6c5cf91b73911",
+      "observed_v25": {
+        "wins": 15,
+        "losses": 5,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.75,
+        "acceptance_confirmed": false
+      },
+      "observed_all15": {
+        "games": 300,
+        "wins": 196,
+        "losses": 104,
+        "draws": 0,
+        "unknown": 0
+      },
+      "per_opponent": {
+        "v11": {
+          "wins": 11,
+          "losses": 9,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.55,
+          "acceptance_confirmed": false
+        },
+        "v14": {
+          "wins": 12,
+          "losses": 8,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.6,
+          "acceptance_confirmed": false
+        },
+        "v14_last": {
+          "wins": 10,
+          "losses": 10,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.5,
+          "acceptance_confirmed": false
+        },
+        "v18": {
+          "wins": 6,
+          "losses": 14,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.3,
+          "acceptance_confirmed": false
+        },
+        "v19": {
+          "wins": 10,
+          "losses": 10,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.5,
+          "acceptance_confirmed": false
+        },
+        "v20": {
+          "wins": 15,
+          "losses": 5,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.75,
+          "acceptance_confirmed": false
+        },
+        "v21": {
+          "wins": 12,
+          "losses": 8,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.6,
+          "acceptance_confirmed": false
+        },
+        "v24": {
+          "wins": 11,
+          "losses": 9,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.55,
+          "acceptance_confirmed": false
+        },
+        "v25": {
+          "wins": 15,
+          "losses": 5,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.75,
+          "acceptance_confirmed": false
+        },
+        "v26": {
+          "wins": 19,
+          "losses": 1,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.95,
+          "acceptance_confirmed": false
+        },
+        "v27": {
+          "wins": 18,
+          "losses": 2,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.9,
+          "acceptance_confirmed": false
+        },
+        "v28": {
+          "wins": 11,
+          "losses": 9,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.55,
+          "acceptance_confirmed": false
+        },
+        "v28b": {
+          "wins": 16,
+          "losses": 4,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.8,
+          "acceptance_confirmed": false
+        },
+        "v28b_last": {
+          "wins": 16,
+          "losses": 4,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.8,
+          "acceptance_confirmed": false
+        },
+        "v29": {
+          "wins": 14,
+          "losses": 6,
+          "draws": 0,
+          "unknown": 0,
+          "win_rate_all_games": 0.7,
+          "acceptance_confirmed": false
+        }
+      },
+      "test": {
+        "defense": {
+          "overall": {
+            "episodes": 708,
+            "no_damage": {
+              "known": 708,
+              "unknown": 0,
+              "success": 350,
+              "rate": 0.4943502824858757
+            },
+            "mean_tower_hp_loss": 659.4081920903955,
+            "mean_elixir_spent": 26.823446327683616,
+            "princess_survived": {
+              "known": 708,
+              "unknown": 0,
+              "success": 674,
+              "rate": 0.9519774011299436
+            },
+            "king_survived": {
+              "known": 708,
+              "unknown": 0,
+              "success": 706,
+              "rate": 0.9971751412429378
+            },
+            "timeouts": 0,
+            "invalid_scripts": 0
+          },
+          "by_difficulty": {
+            "simple": {
+              "episodes": 204,
+              "no_damage": {
+                "known": 204,
+                "unknown": 0,
+                "success": 159,
+                "rate": 0.7794117647058824
+              },
+              "mean_tower_hp_loss": 216.11764705882354,
+              "mean_elixir_spent": 14.5,
+              "princess_survived": {
+                "known": 204,
+                "unknown": 0,
+                "success": 203,
+                "rate": 0.9950980392156863
+              },
+              "king_survived": {
+                "known": 204,
+                "unknown": 0,
+                "success": 204,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "medium": {
+              "episodes": 144,
+              "no_damage": {
+                "known": 144,
+                "unknown": 0,
+                "success": 49,
+                "rate": 0.3402777777777778
+              },
+              "mean_tower_hp_loss": 405.75,
+              "mean_elixir_spent": 14.0625,
+              "princess_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "king_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "complex": {
+              "episodes": 252,
+              "no_damage": {
+                "known": 252,
+                "unknown": 0,
+                "success": 123,
+                "rate": 0.4880952380952381
+              },
+              "mean_tower_hp_loss": 950.4603174603175,
+              "mean_elixir_spent": 41.52777777777778,
+              "princess_survived": {
+                "known": 252,
+                "unknown": 0,
+                "success": 232,
+                "rate": 0.9206349206349206
+              },
+              "king_survived": {
+                "known": 252,
+                "unknown": 0,
+                "success": 250,
+                "rate": 0.9920634920634921
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "impossible": {
+              "episodes": 108,
+              "no_damage": {
+                "known": 108,
+                "unknown": 0,
+                "success": 19,
+                "rate": 0.17592592592592593
+              },
+              "mean_tower_hp_loss": 1155.8240740740741,
+              "mean_elixir_spent": 32.80555555555556,
+              "princess_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 95,
+                "rate": 0.8796296296296297
+              },
+              "king_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 108,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            }
+          }
+        },
+        "attack": {
+          "episodes": 96,
+          "episode_success": {
+            "known": 96,
+            "unknown": 0,
+            "success": 90,
+            "rate": 0.9375
+          },
+          "hog_confirmed_hit": {
+            "known": 24,
+            "unknown": 0,
+            "success": 18,
+            "rate": 0.75
+          },
+          "spell_confirmed_finish": {
+            "known": 72,
+            "unknown": 0,
+            "success": 0,
+            "rate": 0.0
+          },
+          "missed_window": {
+            "known": 96,
+            "unknown": 0,
+            "success": 6,
+            "rate": 0.0625
+          }
+        }
+      },
+      "validation": {
+        "defense": {
+          "overall": {
+            "episodes": 864,
+            "no_damage": {
+              "known": 864,
+              "unknown": 0,
+              "success": 483,
+              "rate": 0.5590277777777778
+            },
+            "mean_tower_hp_loss": 658.7986111111111,
+            "mean_elixir_spent": 24.699074074074073,
+            "princess_survived": {
+              "known": 864,
+              "unknown": 0,
+              "success": 827,
+              "rate": 0.9571759259259259
+            },
+            "king_survived": {
+              "known": 864,
+              "unknown": 0,
+              "success": 862,
+              "rate": 0.9976851851851852
+            },
+            "timeouts": 0,
+            "invalid_scripts": 0
+          },
+          "by_difficulty": {
+            "simple": {
+              "episodes": 144,
+              "no_damage": {
+                "known": 144,
+                "unknown": 0,
+                "success": 126,
+                "rate": 0.875
+              },
+              "mean_tower_hp_loss": 181.77777777777777,
+              "mean_elixir_spent": 15.916666666666666,
+              "princess_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "king_survived": {
+                "known": 144,
+                "unknown": 0,
+                "success": 144,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "medium": {
+              "episodes": 432,
+              "no_damage": {
+                "known": 432,
+                "unknown": 0,
+                "success": 225,
+                "rate": 0.5208333333333334
+              },
+              "mean_tower_hp_loss": 629.8078703703703,
+              "mean_elixir_spent": 17.59722222222222,
+              "princess_survived": {
+                "known": 432,
+                "unknown": 0,
+                "success": 425,
+                "rate": 0.9837962962962963
+              },
+              "king_survived": {
+                "known": 432,
+                "unknown": 0,
+                "success": 432,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "complex": {
+              "episodes": 180,
+              "no_damage": {
+                "known": 180,
+                "unknown": 0,
+                "success": 114,
+                "rate": 0.6333333333333333
+              },
+              "mean_tower_hp_loss": 564.1277777777777,
+              "mean_elixir_spent": 39.8,
+              "princess_survived": {
+                "known": 180,
+                "unknown": 0,
+                "success": 165,
+                "rate": 0.9166666666666666
+              },
+              "king_survived": {
+                "known": 180,
+                "unknown": 0,
+                "success": 180,
+                "rate": 1.0
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            },
+            "impossible": {
+              "episodes": 108,
+              "no_damage": {
+                "known": 108,
+                "unknown": 0,
+                "success": 18,
+                "rate": 0.16666666666666666
+              },
+              "mean_tower_hp_loss": 1568.5740740740741,
+              "mean_elixir_spent": 39.648148148148145,
+              "princess_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 93,
+                "rate": 0.8611111111111112
+              },
+              "king_survived": {
+                "known": 108,
+                "unknown": 0,
+                "success": 106,
+                "rate": 0.9814814814814815
+              },
+              "timeouts": 0,
+              "invalid_scripts": 0
+            }
+          }
+        },
+        "attack": {
+          "episodes": 192,
+          "episode_success": {
+            "known": 192,
+            "unknown": 0,
+            "success": 53,
+            "rate": 0.2760416666666667
+          },
+          "hog_confirmed_hit": {
+            "known": 48,
+            "unknown": 0,
+            "success": 25,
+            "rate": 0.5208333333333334
+          },
+          "spell_confirmed_finish": {
+            "known": 126,
+            "unknown": 18,
+            "success": 0,
+            "rate": 0.0
+          },
+          "missed_window": {
+            "known": 192,
+            "unknown": 0,
+            "success": 139,
+            "rate": 0.7239583333333334
+          }
+        }
+      },
+      "all15_observed_80_percent_met": false,
+      "quality_accepted": false
+    }
+  ],
+  "common_source_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+  "total_heldout_skill_episodes": 7440,
+  "total_paired_games": 1200,
+  "test_used_for_selection": false,
+  "model_promoted": false,
+  "quality_accepted": false
+}

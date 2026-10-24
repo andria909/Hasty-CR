@@ -1,0 +1,5180 @@
+{
+  "schema": "verified-selected-ppo-final-summary-v1",
+  "mode": "joint",
+  "profile": "economy_soft",
+  "checkpoint_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+  "training_steps": 2048000,
+  "evaluation_source_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+  "training_source_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+  "validation": {
+    "defense": {
+      "overall": {
+        "episodes": 864,
+        "no_damage": {
+          "known": 864,
+          "unknown": 0,
+          "success": 519,
+          "rate": 0.6006944444444444
+        },
+        "mean_tower_hp_loss": 531.3807870370371,
+        "mean_elixir_spent": 24.591435185185187,
+        "princess_survived": {
+          "known": 864,
+          "unknown": 0,
+          "success": 828,
+          "rate": 0.9583333333333334
+        },
+        "king_survived": {
+          "known": 864,
+          "unknown": 0,
+          "success": 862,
+          "rate": 0.9976851851851852
+        },
+        "timeouts": 0,
+        "invalid_scripts": 0
+      },
+      "by_difficulty": {
+        "simple": {
+          "episodes": 144,
+          "no_damage": {
+            "known": 144,
+            "unknown": 0,
+            "success": 123,
+            "rate": 0.8541666666666666
+          },
+          "mean_tower_hp_loss": 224.84027777777777,
+          "mean_elixir_spent": 16.3125,
+          "princess_survived": {
+            "known": 144,
+            "unknown": 0,
+            "success": 144,
+            "rate": 1.0
+          },
+          "king_survived": {
+            "known": 144,
+            "unknown": 0,
+            "success": 144,
+            "rate": 1.0
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        },
+        "medium": {
+          "episodes": 432,
+          "no_damage": {
+            "known": 432,
+            "unknown": 0,
+            "success": 245,
+            "rate": 0.5671296296296297
+          },
+          "mean_tower_hp_loss": 437.53935185185185,
+          "mean_elixir_spent": 17.01851851851852,
+          "princess_survived": {
+            "known": 432,
+            "unknown": 0,
+            "success": 428,
+            "rate": 0.9907407407407407
+          },
+          "king_survived": {
+            "known": 432,
+            "unknown": 0,
+            "success": 432,
+            "rate": 1.0
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        },
+        "complex": {
+          "episodes": 180,
+          "no_damage": {
+            "known": 180,
+            "unknown": 0,
+            "success": 127,
+            "rate": 0.7055555555555556
+          },
+          "mean_tower_hp_loss": 482.60555555555555,
+          "mean_elixir_spent": 40.25555555555555,
+          "princess_survived": {
+            "known": 180,
+            "unknown": 0,
+            "success": 165,
+            "rate": 0.9166666666666666
+          },
+          "king_survived": {
+            "known": 180,
+            "unknown": 0,
+            "success": 180,
+            "rate": 1.0
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        },
+        "impossible": {
+          "episodes": 108,
+          "no_damage": {
+            "known": 108,
+            "unknown": 0,
+            "success": 24,
+            "rate": 0.2222222222222222
+          },
+          "mean_tower_hp_loss": 1396.7592592592594,
+          "mean_elixir_spent": 39.81481481481482,
+          "princess_survived": {
+            "known": 108,
+            "unknown": 0,
+            "success": 91,
+            "rate": 0.8425925925925926
+          },
+          "king_survived": {
+            "known": 108,
+            "unknown": 0,
+            "success": 106,
+            "rate": 0.9814814814814815
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        }
+      }
+    },
+    "attack": {
+      "episodes": 192,
+      "episode_success": {
+        "known": 192,
+        "unknown": 0,
+        "success": 78,
+        "rate": 0.40625
+      },
+      "hog_confirmed_hit": {
+        "known": 48,
+        "unknown": 0,
+        "success": 36,
+        "rate": 0.75
+      },
+      "spell_confirmed_finish": {
+        "known": 105,
+        "unknown": 39,
+        "success": 0,
+        "rate": 0.0
+      },
+      "missed_window": {
+        "known": 192,
+        "unknown": 0,
+        "success": 114,
+        "rate": 0.59375
+      }
+    }
+  },
+  "test": {
+    "defense": {
+      "overall": {
+        "episodes": 708,
+        "no_damage": {
+          "known": 708,
+          "unknown": 0,
+          "success": 361,
+          "rate": 0.5098870056497176
+        },
+        "mean_tower_hp_loss": 676.9618644067797,
+        "mean_elixir_spent": 27.8545197740113,
+        "princess_survived": {
+          "known": 708,
+          "unknown": 0,
+          "success": 662,
+          "rate": 0.9350282485875706
+        },
+        "king_survived": {
+          "known": 708,
+          "unknown": 0,
+          "success": 702,
+          "rate": 0.9915254237288136
+        },
+        "timeouts": 0,
+        "invalid_scripts": 0
+      },
+      "by_difficulty": {
+        "simple": {
+          "episodes": 204,
+          "no_damage": {
+            "known": 204,
+            "unknown": 0,
+            "success": 170,
+            "rate": 0.8333333333333334
+          },
+          "mean_tower_hp_loss": 247.07843137254903,
+          "mean_elixir_spent": 14.573529411764707,
+          "princess_survived": {
+            "known": 204,
+            "unknown": 0,
+            "success": 202,
+            "rate": 0.9901960784313726
+          },
+          "king_survived": {
+            "known": 204,
+            "unknown": 0,
+            "success": 204,
+            "rate": 1.0
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        },
+        "medium": {
+          "episodes": 144,
+          "no_damage": {
+            "known": 144,
+            "unknown": 0,
+            "success": 57,
+            "rate": 0.3958333333333333
+          },
+          "mean_tower_hp_loss": 330.375,
+          "mean_elixir_spent": 14.465277777777779,
+          "princess_survived": {
+            "known": 144,
+            "unknown": 0,
+            "success": 144,
+            "rate": 1.0
+          },
+          "king_survived": {
+            "known": 144,
+            "unknown": 0,
+            "success": 144,
+            "rate": 1.0
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        },
+        "complex": {
+          "episodes": 252,
+          "no_damage": {
+            "known": 252,
+            "unknown": 0,
+            "success": 119,
+            "rate": 0.4722222222222222
+          },
+          "mean_tower_hp_loss": 1016.1904761904761,
+          "mean_elixir_spent": 43.95634920634921,
+          "princess_survived": {
+            "known": 252,
+            "unknown": 0,
+            "success": 221,
+            "rate": 0.876984126984127
+          },
+          "king_survived": {
+            "known": 252,
+            "unknown": 0,
+            "success": 248,
+            "rate": 0.9841269841269841
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        },
+        "impossible": {
+          "episodes": 108,
+          "no_damage": {
+            "known": 108,
+            "unknown": 0,
+            "success": 15,
+            "rate": 0.1388888888888889
+          },
+          "mean_tower_hp_loss": 1159.5462962962963,
+          "mean_elixir_spent": 33.22222222222222,
+          "princess_survived": {
+            "known": 108,
+            "unknown": 0,
+            "success": 95,
+            "rate": 0.8796296296296297
+          },
+          "king_survived": {
+            "known": 108,
+            "unknown": 0,
+            "success": 106,
+            "rate": 0.9814814814814815
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        }
+      }
+    },
+    "attack": {
+      "episodes": 96,
+      "episode_success": {
+        "known": 96,
+        "unknown": 0,
+        "success": 92,
+        "rate": 0.9583333333333334
+      },
+      "hog_confirmed_hit": {
+        "known": 24,
+        "unknown": 0,
+        "success": 16,
+        "rate": 0.6666666666666666
+      },
+      "spell_confirmed_finish": {
+        "known": 72,
+        "unknown": 0,
+        "success": 4,
+        "rate": 0.05555555555555555
+      },
+      "missed_window": {
+        "known": 96,
+        "unknown": 0,
+        "success": 4,
+        "rate": 0.041666666666666664
+      }
+    }
+  },
+  "opponents": {
+    "v11": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 10,
+        "losses": 10,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.5,
+        "acceptance_confirmed": false
+      }
+    },
+    "v14": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 9,
+        "losses": 11,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.45,
+        "acceptance_confirmed": false
+      }
+    },
+    "v14_last": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 13,
+        "losses": 7,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.65,
+        "acceptance_confirmed": false
+      }
+    },
+    "v18": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 12,
+        "losses": 8,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.6,
+        "acceptance_confirmed": false
+      }
+    },
+    "v19": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 12,
+        "losses": 8,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.6,
+        "acceptance_confirmed": false
+      }
+    },
+    "v20": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 15,
+        "losses": 5,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.75,
+        "acceptance_confirmed": false
+      }
+    },
+    "v21": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 13,
+        "losses": 7,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.65,
+        "acceptance_confirmed": false
+      }
+    },
+    "v24": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 15,
+        "losses": 5,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.75,
+        "acceptance_confirmed": false
+      }
+    },
+    "v25": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 19,
+        "losses": 1,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.95,
+        "acceptance_confirmed": false
+      }
+    },
+    "v26": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 19,
+        "losses": 1,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.95,
+        "acceptance_confirmed": false
+      }
+    },
+    "v27": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 20,
+        "losses": 0,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 1.0,
+        "acceptance_confirmed": false
+      }
+    },
+    "v28": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 17,
+        "losses": 3,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.85,
+        "acceptance_confirmed": false
+      }
+    },
+    "v28b": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 10,
+        "losses": 9,
+        "draws": 1,
+        "unknown": 0,
+        "win_rate_all_games": 0.5,
+        "acceptance_confirmed": false
+      }
+    },
+    "v28b_last": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 15,
+        "losses": 5,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 0.75,
+        "acceptance_confirmed": false
+      }
+    },
+    "v29": {
+      "games": 20,
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 20,
+      "win_rate_all_games": 0.0,
+      "wilson_95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "observed_80_percent_target_met": null,
+      "observed_simulation": {
+        "wins": 20,
+        "losses": 0,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_games": 1.0,
+        "acceptance_confirmed": false
+      }
+    }
+  },
+  "acceptance": {
+    "status": "fail",
+    "failures": [
+      "simple_avoidable_tower_damage"
+    ],
+    "undetermined_reasons": [
+      "missing_coverage",
+      "not_enough_paired_games:v11",
+      "not_enough_paired_games:v14",
+      "not_enough_paired_games:v14_last",
+      "not_enough_paired_games:v18",
+      "not_enough_paired_games:v19",
+      "not_enough_paired_games:v20",
+      "not_enough_paired_games:v21",
+      "not_enough_paired_games:v24",
+      "not_enough_paired_games:v25",
+      "not_enough_paired_games:v26",
+      "not_enough_paired_games:v27",
+      "not_enough_paired_games:v28",
+      "not_enough_paired_games:v28b",
+      "not_enough_paired_games:v28b_last",
+      "not_enough_paired_games:v29",
+      "unexpected_duplicate_or_invalid_match",
+      "unresolved_simulator_mechanics",
+      "untuned_medium_threshold"
+    ],
+    "protocol_fingerprint": "c03b49396e95de983419211e476d732e1841ad97bb8d6a79c9b74ed97397437f",
+    "defense": {
+      "simple": {
+        "episodes": 204,
+        "no_damage": 170,
+        "unavoidable_episodes": 0,
+        "princess_survived": 202,
+        "king_survived": 204,
+        "timeouts": 0,
+        "hp_loss_fractions": [
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.26785714285714285,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.3013392857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.3013392857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.20089285714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.20089285714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.3013392857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.26785714285714285,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.3013392857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.3013392857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.20089285714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.20089285714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.3013392857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.45200892857142855,
+            "right": 0.0,
+            "king": 0.01318359375
+          },
+          {
+            "left": 0.9718191964285714,
+            "right": 0.0,
+            "king": 0.01318359375
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.01318359375
+          },
+          {
+            "left": 0.0,
+            "right": 0.24860491071428573,
+            "king": 0.01318359375
+          },
+          {
+            "left": 0.0,
+            "right": 0.27120535714285715,
+            "king": 0.01318359375
+          },
+          {
+            "left": 0.0,
+            "right": 0.474609375,
+            "king": 0.01318359375
+          },
+          {
+            "left": 0.45200892857142855,
+            "right": 0.0,
+            "king": 0.01318359375
+          },
+          {
+            "left": 0.9718191964285714,
+            "right": 0.0,
+            "king": 0.01318359375
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.01318359375
+          },
+          {
+            "left": 0.0,
+            "right": 0.24860491071428573,
+            "king": 0.01318359375
+          },
+          {
+            "left": 0.0,
+            "right": 0.27120535714285715,
+            "king": 0.01318359375
+          },
+          {
+            "left": 0.0,
+            "right": 0.474609375,
+            "king": 0.01318359375
+          },
+          {
+            "left": 0.45703125,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.45703125,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.7834821428571429,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.45703125,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.48660714285714285,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.7299107142857143,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.109375,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.109375,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.109375,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.109375,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          }
+        ],
+        "elixir_spent": [
+          15,
+          14,
+          11,
+          15,
+          14,
+          17,
+          11,
+          11,
+          11,
+          11,
+          11,
+          10,
+          29,
+          30,
+          26,
+          30,
+          27,
+          26,
+          13,
+          11,
+          15,
+          11,
+          12,
+          16,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          11,
+          10,
+          11,
+          11,
+          10,
+          10,
+          13,
+          12,
+          12,
+          14,
+          11,
+          11,
+          10,
+          10,
+          10,
+          10,
+          10,
+          9,
+          21,
+          21,
+          22,
+          21,
+          22,
+          20,
+          11,
+          10,
+          10,
+          11,
+          10,
+          10,
+          13,
+          12,
+          12,
+          11,
+          12,
+          12,
+          13,
+          12,
+          12,
+          11,
+          12,
+          12,
+          21,
+          17,
+          20,
+          19,
+          20,
+          20,
+          13,
+          11,
+          16,
+          11,
+          11,
+          16,
+          13,
+          14,
+          15,
+          13,
+          12,
+          12,
+          13,
+          14,
+          15,
+          13,
+          12,
+          12,
+          21,
+          14,
+          17,
+          21,
+          14,
+          15,
+          20,
+          12,
+          11,
+          18,
+          12,
+          10,
+          15,
+          12,
+          12,
+          15,
+          14,
+          14,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          20,
+          14,
+          15,
+          21,
+          14,
+          15,
+          18,
+          14,
+          11,
+          18,
+          14,
+          10,
+          35,
+          14,
+          21,
+          30,
+          14,
+          27,
+          25,
+          11,
+          10,
+          25,
+          11,
+          10,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          11,
+          10,
+          11,
+          11,
+          10,
+          10,
+          21,
+          14,
+          11,
+          21,
+          14,
+          15,
+          15,
+          12,
+          11,
+          15,
+          12,
+          10,
+          11,
+          12,
+          12,
+          11,
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          10,
+          11,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          11,
+          11,
+          12,
+          11,
+          11,
+          11,
+          18,
+          14,
+          11,
+          15,
+          14,
+          12,
+          11,
+          12,
+          11,
+          11,
+          11,
+          10
+        ]
+      },
+      "medium": {
+        "episodes": 144,
+        "no_damage": 57,
+        "unavoidable_episodes": 0,
+        "princess_survived": 144,
+        "king_survived": 144,
+        "timeouts": 0,
+        "hp_loss_fractions": [
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17745535714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17745535714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17745535714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17745535714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17745535714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17745535714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17745535714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17745535714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17745535714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17745535714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.16071428571428573,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.05357142857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.16071428571428573,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.10714285714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.10714285714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.32142857142857145,
+            "king": 0.0
+          },
+          {
+            "left": 0.10044642857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.13392857142857142,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.20842633928571427,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.033482142857142856,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.10044642857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.10044642857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.3013392857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.3013392857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.3013392857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.3013392857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.3013392857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.3013392857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.33482142857142855,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.13392857142857142,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.20842633928571427,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.33482142857142855,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.33482142857142855,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.33482142857142855,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.17131696428571427,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.25697544642857145,
+            "king": 0.0
+          },
+          {
+            "left": 0.17131696428571427,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17131696428571427,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.25697544642857145,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.17131696428571427,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08565848214285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.25697544642857145,
+            "king": 0.0
+          }
+        ],
+        "elixir_spent": [
+          11,
+          11,
+          12,
+          11,
+          11,
+          12,
+          15,
+          12,
+          12,
+          15,
+          12,
+          12,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          11,
+          11,
+          12,
+          11,
+          11,
+          12,
+          15,
+          12,
+          12,
+          15,
+          12,
+          12,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          11,
+          11,
+          12,
+          11,
+          11,
+          12,
+          15,
+          12,
+          12,
+          15,
+          12,
+          12,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          11,
+          11,
+          12,
+          11,
+          11,
+          12,
+          15,
+          12,
+          12,
+          15,
+          12,
+          12,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          11,
+          11,
+          12,
+          11,
+          11,
+          12,
+          15,
+          12,
+          12,
+          15,
+          12,
+          12,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          14,
+          15,
+          18,
+          14,
+          21,
+          14,
+          12,
+          12,
+          15,
+          12,
+          12,
+          17,
+          14,
+          15,
+          17,
+          16,
+          17,
+          15,
+          12,
+          15,
+          18,
+          12,
+          15,
+          11,
+          12,
+          12,
+          11,
+          12,
+          12,
+          14,
+          12,
+          15,
+          14,
+          11,
+          14,
+          31,
+          14,
+          30,
+          40,
+          14,
+          27,
+          15,
+          12,
+          12,
+          40,
+          12,
+          12,
+          27,
+          14,
+          27,
+          34,
+          11,
+          24
+        ]
+      },
+      "complex": {
+        "episodes": 252,
+        "no_damage": 119,
+        "unavoidable_episodes": 0,
+        "princess_survived": 221,
+        "king_survived": 248,
+        "timeouts": 0,
+        "hp_loss_fractions": [
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.08203125
+          },
+          {
+            "left": 0.40457589285714285,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.0908203125
+          },
+          {
+            "left": 0.0,
+            "right": 0.8147321428571429,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.9690290178571429,
+            "king": 0.0
+          },
+          {
+            "left": 0.05022321428571429,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08035714285714286,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.40234375,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.030133928571428572,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.06529017857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.08203125
+          },
+          {
+            "left": 0.40457589285714285,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.0908203125
+          },
+          {
+            "left": 0.0,
+            "right": 0.8147321428571429,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.9690290178571429,
+            "king": 0.0
+          },
+          {
+            "left": 0.05022321428571429,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08035714285714286,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.40234375,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.030133928571428572,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.06529017857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.08203125
+          },
+          {
+            "left": 0.40457589285714285,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.0908203125
+          },
+          {
+            "left": 0.0,
+            "right": 0.8147321428571429,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.9690290178571429,
+            "king": 0.0
+          },
+          {
+            "left": 0.05022321428571429,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08035714285714286,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.40234375,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.030133928571428572,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.06529017857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.08203125
+          },
+          {
+            "left": 0.40457589285714285,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.0908203125
+          },
+          {
+            "left": 0.0,
+            "right": 0.8147321428571429,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.9690290178571429,
+            "king": 0.0
+          },
+          {
+            "left": 0.05022321428571429,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08035714285714286,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.40234375,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.030133928571428572,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.06529017857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.08203125
+          },
+          {
+            "left": 0.40457589285714285,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.0908203125
+          },
+          {
+            "left": 0.0,
+            "right": 0.8147321428571429,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.9690290178571429,
+            "king": 0.0
+          },
+          {
+            "left": 0.05022321428571429,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08035714285714286,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.40234375,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.030133928571428572,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.06529017857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.9031808035714286,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08928571428571429,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.17857142857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.9031808035714286,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.18889508928571427,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17857142857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.36746651785714285,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 1.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.98193359375
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.21614583333333334
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 1.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 1.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.3665364583333333
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.07366071428571429,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.046549479166666664
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.13134765625
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.3911830357142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.4884440104166667
+          },
+          {
+            "left": 0.0,
+            "right": 0.7329799107142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.3911830357142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.18889508928571427,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.18889508928571427,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.5357142857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.17857142857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.5357142857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.17857142857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.35714285714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.09821428571428571,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.049107142857142856,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.4632161458333333
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.0888671875
+          },
+          {
+            "left": 0.896484375,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 1.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.13541666666666666
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.1640625,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.19698660714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.27120535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.24162946428571427,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.18024553571428573,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.34542410714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.05747767857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.18024553571428573,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.05747767857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.05747767857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.05747767857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.05747767857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.18024553571428573,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.05747767857142857,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.7052408854166666
+          },
+          {
+            "left": 0.34151785714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.14174107142857142,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.14957682291666666
+          },
+          {
+            "left": 0.0,
+            "right": 0.5379464285714286,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.5524553571428571,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.049107142857142856,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          }
+        ],
+        "elixir_spent": [
+          60,
+          24,
+          57,
+          65,
+          27,
+          37,
+          70,
+          34,
+          62,
+          55,
+          34,
+          77,
+          54,
+          45,
+          82,
+          55,
+          45,
+          55,
+          60,
+          24,
+          57,
+          65,
+          27,
+          37,
+          70,
+          34,
+          62,
+          55,
+          34,
+          77,
+          54,
+          45,
+          82,
+          55,
+          45,
+          55,
+          60,
+          24,
+          57,
+          65,
+          27,
+          37,
+          70,
+          34,
+          62,
+          55,
+          34,
+          77,
+          54,
+          45,
+          82,
+          55,
+          45,
+          55,
+          60,
+          24,
+          57,
+          65,
+          27,
+          37,
+          70,
+          34,
+          62,
+          55,
+          34,
+          77,
+          54,
+          45,
+          82,
+          55,
+          45,
+          55,
+          60,
+          24,
+          57,
+          65,
+          27,
+          37,
+          70,
+          34,
+          62,
+          55,
+          34,
+          77,
+          54,
+          45,
+          82,
+          55,
+          45,
+          55,
+          45,
+          27,
+          22,
+          55,
+          20,
+          50,
+          51,
+          24,
+          62,
+          48,
+          27,
+          57,
+          58,
+          35,
+          62,
+          55,
+          38,
+          62,
+          25,
+          34,
+          31,
+          28,
+          27,
+          30,
+          65,
+          92,
+          42,
+          55,
+          37,
+          67,
+          91,
+          65,
+          67,
+          70,
+          103,
+          82,
+          30,
+          24,
+          22,
+          35,
+          27,
+          25,
+          35,
+          32,
+          35,
+          35,
+          37,
+          30,
+          48,
+          41,
+          37,
+          50,
+          43,
+          37,
+          60,
+          21,
+          41,
+          60,
+          17,
+          22,
+          50,
+          27,
+          47,
+          41,
+          27,
+          41,
+          51,
+          35,
+          57,
+          51,
+          35,
+          47,
+          21,
+          17,
+          25,
+          21,
+          20,
+          22,
+          35,
+          24,
+          30,
+          30,
+          27,
+          27,
+          38,
+          35,
+          35,
+          35,
+          35,
+          37,
+          31,
+          30,
+          30,
+          30,
+          32,
+          37,
+          65,
+          74,
+          57,
+          41,
+          34,
+          82,
+          71,
+          65,
+          67,
+          71,
+          75,
+          72,
+          25,
+          17,
+          21,
+          25,
+          21,
+          22,
+          34,
+          27,
+          41,
+          31,
+          24,
+          32,
+          45,
+          35,
+          41,
+          41,
+          38,
+          37,
+          35,
+          24,
+          22,
+          31,
+          27,
+          27,
+          45,
+          34,
+          31,
+          48,
+          42,
+          32,
+          50,
+          48,
+          35,
+          50,
+          45,
+          41,
+          21,
+          21,
+          25,
+          21,
+          20,
+          25,
+          31,
+          27,
+          32,
+          30,
+          27,
+          27,
+          38,
+          35,
+          35,
+          35,
+          38,
+          35
+        ]
+      },
+      "impossible": {
+        "episodes": 108,
+        "no_damage": 15,
+        "unavoidable_episodes": 0,
+        "princess_survived": 95,
+        "king_survived": 106,
+        "timeouts": 0,
+        "hp_loss_fractions": [
+          {
+            "left": 0.5357142857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.6222098214285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.625,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.05747767857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.6222098214285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.4146205357142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.5033482142857143,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.05747767857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.23493303571428573,
+            "king": 0.0
+          },
+          {
+            "left": 0.14620535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 1.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.21354166666666666
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.23795572916666666
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 1.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.7898995535714286,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.861328125,
+            "king": 0.0
+          },
+          {
+            "left": 0.34849330357142855,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.3881138392857143,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.06780133928571429,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.18777901785714285,
+            "king": 0.0
+          },
+          {
+            "left": 0.18889508928571427,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.06780133928571429,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.010323660714285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.010323660714285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.06780133928571429,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.017903645833333332
+          },
+          {
+            "left": 0.3549107142857143,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.4005533854166667
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.035807291666666664
+          },
+          {
+            "left": 0.0,
+            "right": 0.265625,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.08872767857142858,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.3236607142857143,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.14620535714285715,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.08872767857142858,
+            "king": 0.0
+          },
+          {
+            "left": 0.05747767857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.05747767857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.05747767857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.05747767857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.15959821428571427,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.34012276785714285,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.5970982142857143,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.771484375,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.34012276785714285,
+            "king": 0.0
+          },
+          {
+            "left": 0.13141741071428573,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.07393973214285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.07393973214285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.13141741071428573,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.16266741071428573,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.13141741071428573,
+            "king": 0.0
+          },
+          {
+            "left": 0.13141741071428573,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.07393973214285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.07393973214285714,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.13141741071428573,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.16266741071428573,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.07393973214285714,
+            "king": 0.0
+          },
+          {
+            "left": 0.36439732142857145,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.3549107142857143,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.103515625
+          },
+          {
+            "left": 0.0,
+            "right": 0.6540178571428571,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.23493303571428573,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.2661830357142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.05747767857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.17745535714285715,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.049107142857142856,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.05747767857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.05747767857142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.05747767857142857,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.05747767857142857,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.015904017857142856,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 1.0,
+            "right": 0.0,
+            "king": 0.1552734375
+          },
+          {
+            "left": 0.0,
+            "right": 0.669921875,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.4282924107142857,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 1.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.015904017857142856,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.07338169642857142,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.28208705357142855,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.06501116071428571,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.07338169642857142,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.07338169642857142,
+            "king": 0.0
+          },
+          {
+            "left": 0.07338169642857142,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.07338169642857142,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.015904017857142856,
+            "right": 0.0,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.015904017857142856,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.015904017857142856,
+            "king": 0.0
+          },
+          {
+            "left": 0.0,
+            "right": 0.07338169642857142,
+            "king": 0.0
+          }
+        ],
+        "elixir_spent": [
+          24,
+          17,
+          22,
+          21,
+          17,
+          27,
+          60,
+          27,
+          32,
+          51,
+          30,
+          40,
+          55,
+          38,
+          42,
+          58,
+          35,
+          57,
+          31,
+          27,
+          27,
+          28,
+          30,
+          22,
+          41,
+          34,
+          27,
+          40,
+          34,
+          30,
+          48,
+          45,
+          32,
+          50,
+          45,
+          35,
+          28,
+          22,
+          25,
+          28,
+          22,
+          25,
+          38,
+          34,
+          27,
+          35,
+          31,
+          31,
+          40,
+          45,
+          37,
+          41,
+          38,
+          40,
+          21,
+          24,
+          20,
+          25,
+          24,
+          20,
+          31,
+          32,
+          30,
+          34,
+          32,
+          27,
+          41,
+          38,
+          37,
+          41,
+          45,
+          37,
+          25,
+          22,
+          22,
+          24,
+          22,
+          21,
+          38,
+          30,
+          35,
+          35,
+          27,
+          32,
+          45,
+          35,
+          42,
+          48,
+          38,
+          41,
+          25,
+          22,
+          22,
+          21,
+          22,
+          22,
+          45,
+          32,
+          32,
+          35,
+          27,
+          31,
+          45,
+          38,
+          40,
+          41,
+          41,
+          40
+        ]
+      }
+    },
+    "head_to_head": {
+      "v11": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v14": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v14_last": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v18": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v19": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v20": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v21": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v24": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v25": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v26": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v27": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v28": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v28b": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v28b_last": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      },
+      "v29": {
+        "games": 0,
+        "wins": 0,
+        "draws": 0,
+        "observed_winrate": null,
+        "wilson_95": [
+          0.0,
+          1.0
+        ],
+        "complete": false,
+        "population_80_percent_established": false,
+        "interval_assumption": "Wilson treats games as independent; paired seeds may correlate outcomes."
+      }
+    },
+    "interpretation": "Finite observed suite; not proof of >=80% population winrate. Complex/stress survival are soft targets."
+  },
+  "environment_migration": {
+    "schema": "script-target-clamp-evaluation-v1",
+    "original_source_sha256": "40ba4ec01f4217453461c0f5d6625ff74e8bba2785f7a7ed54872f368e03c00e",
+    "migrated_training_source_sha256": "a55a317ba202f7f44b66924fbee7e478cf924f1daedeaaae5b892e8467df96aa",
+    "original_defense_env_sha256": "343b2b54d1670147c1ae9b954ea5c9c99d187cba9926c36405a922361816d55d",
+    "evaluation_defense_env_sha256": "d863667c900bf74a966bf2a9b7c458d66df3fcf1ec45d30cc18903a731e986f3",
+    "applies_to_all_candidates": true,
+    "changes_game_physics": false
+  },
+  "quality_accepted": false,
+  "simulation_only": true,
+  "test_used_to_change_weights": false,
+  "raw_reward_used_to_rank_profiles": false,
+  "quality_note": "Unknown attribution/outcomes remain unknown; live mechanics parity and provisional thresholds still require acceptance."
+}
