@@ -59,6 +59,11 @@ def render(models,refinement=None):
               'Kaggle: '+state+'. Исходные веса сохранены; результаты нового кандидата ещё не проверены. '
               '[Статус](reports/defense_plan/fireball_refinement_status.json).')
         lines[2:2]=[note,'']
+        selectivity=refinement.get('selectivity')
+        if selectivity:
+            lines[4:4]=['**Коррекция лишних Fireball:** '+selectivity['observed_status']+
+                f". В train-контроле пустой полной башни: исходник {selectivity['parent_empty_tower_casts']}/{selectivity['control_episodes']}, "
+                f"первый кандидат {selectivity['candidate_empty_tower_casts']}/{selectivity['control_episodes']} бросков за первые 4 с.",'']
         candidate=refinement.get('candidate_summary')
         if candidate:
             extra=['**Fireball, validation (отбор кандидата; ещё не независимый test):**','',

@@ -1,0 +1,43 @@
+{
+  "schema": "fireball-selectivity-launch-v1",
+  "preparation": {
+    "schema": "fireball-selectivity-preparation-v1",
+    "kernel": "andriashadrin/hastycr-fireball-select-20261025",
+    "method": "impact_verified_BC_with_selectivity_and_rehearsal",
+    "pins": {
+      "manifest.json": "998ee7e7f642da4a0ae0e84be9e3faee610e025801b3c12f9c1b038d7fb9677d",
+      "parent.pt": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "init.pt": "042963aa53cec93b88326dbed62670806828000296ea8e2197b9a38775fa5c04"
+    },
+    "source_sha256": "d35786346c707cb294afb93ee8abe0c369229611c885dc66f0a45ee237ee100a",
+    "bootstrap_sha256": "509170d659b84ea8391fbd8baa5894f7f9665adb0d5baf3b38b2ec8ddd229b07",
+    "init_sha256": "042963aa53cec93b88326dbed62670806828000296ea8e2197b9a38775fa5c04",
+    "parent_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+    "basis_report_sha256": "742526cd71070849edfc45804b8c011ba4db9be8adf0f423bbd48bd48f0c53d5",
+    "basis_split": "train",
+    "test_used_for_selection": false,
+    "pending_first_candidate_test_read": false,
+    "submitted": false
+  },
+  "version": 1,
+  "observed_status": "preparing_training_data",
+  "gpu_proof": [
+    {
+      "event": "INPUTS_VERIFIED",
+      "source_sha256": "d35786346c707cb294afb93ee8abe0c369229611c885dc66f0a45ee237ee100a",
+      "init_sha256": "042963aa53cec93b88326dbed62670806828000296ea8e2197b9a38775fa5c04"
+    },
+    {
+      "event": "CUDA_READY",
+      "gpu": "Tesla T4",
+      "method": "impact_verified_BC_with_selectivity_and_rehearsal",
+      "init_sha256": "042963aa53cec93b88326dbed62670806828000296ea8e2197b9a38775fa5c04"
+    }
+  ],
+  "poll_seconds": 1200,
+  "basis": "train-only paired control: first candidate casts at full-HP empty towers in39/48 cases versus25/48 parent",
+  "protocol_fixed_before_pending_test_results": true,
+  "tests_passed": 23,
+  "results_pending": true,
+  "quality_accepted": false
+}

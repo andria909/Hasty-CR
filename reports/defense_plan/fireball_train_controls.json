@@ -1,0 +1,1769 @@
+{
+  "schema": "fireball-train-control-probe-v1",
+  "parent_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+  "candidate_sha256": "042963aa53cec93b88326dbed62670806828000296ea8e2197b9a38775fa5c04",
+  "split": "train",
+  "training_performed": false,
+  "used_for_checkpoint_selection": false,
+  "interpretation": "Counts measure cast preference, not proof that all full-HP tower chip is a mistake.",
+  "summary": {
+    "parent": {
+      "low_hp_target": {
+        "episodes": 48,
+        "first_action_fireball": 24,
+        "episodes_with_fireball_first_4s": 28,
+        "task_success_first_4s": 0
+      },
+      "full_hp_no_units": {
+        "episodes": 48,
+        "first_action_fireball": 21,
+        "episodes_with_fireball_first_4s": 25,
+        "task_success_first_4s": 0
+      }
+    },
+    "candidate": {
+      "low_hp_target": {
+        "episodes": 48,
+        "first_action_fireball": 37,
+        "episodes_with_fireball_first_4s": 38,
+        "task_success_first_4s": 28
+      },
+      "full_hp_no_units": {
+        "episodes": 48,
+        "first_action_fireball": 37,
+        "episodes_with_fireball_first_4s": 39,
+        "task_success_first_4s": 0
+      }
+    }
+  },
+  "rows": [
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850000,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850000,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850000,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850000,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850001,
+      "lane": "right",
+      "first_card": "electro_spirit",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850001,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850001,
+      "lane": "right",
+      "first_card": "electro_spirit",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850001,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850002,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850002,
+      "lane": "left",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850002,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850002,
+      "lane": "left",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850003,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850003,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850003,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850003,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850004,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850004,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850004,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850004,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850005,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850005,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850005,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850005,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850006,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850006,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850006,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850006,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850007,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850007,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850007,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850007,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850008,
+      "lane": "left",
+      "first_card": "zap",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850008,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850008,
+      "lane": "left",
+      "first_card": "zap",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850008,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850009,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850009,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850009,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850009,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850010,
+      "lane": "left",
+      "first_card": "musketeer",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850010,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850010,
+      "lane": "left",
+      "first_card": "musketeer",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850010,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850011,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850011,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850011,
+      "lane": "right",
+      "first_card": "knight",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850011,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850012,
+      "lane": "left",
+      "first_card": "zap",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850012,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850012,
+      "lane": "left",
+      "first_card": "zap",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850012,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850013,
+      "lane": "right",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850013,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850013,
+      "lane": "right",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850013,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850014,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850014,
+      "lane": "left",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850014,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850014,
+      "lane": "left",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850015,
+      "lane": "right",
+      "first_card": "electro_spirit",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850015,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850015,
+      "lane": "right",
+      "first_card": "electro_spirit",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850015,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850016,
+      "lane": "left",
+      "first_card": "skeletons",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850016,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850016,
+      "lane": "left",
+      "first_card": "skeletons",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850016,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850017,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850017,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850017,
+      "lane": "right",
+      "first_card": "cannon",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850017,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850018,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850018,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850018,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850018,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850019,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850019,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850019,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850019,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850020,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850020,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850020,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850020,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850021,
+      "lane": "right",
+      "first_card": "knight",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850021,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850021,
+      "lane": "right",
+      "first_card": "knight",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850021,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850022,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850022,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850022,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850022,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850023,
+      "lane": "right",
+      "first_card": "zap",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850023,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850023,
+      "lane": "right",
+      "first_card": "zap",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850023,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850024,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850024,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850024,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850024,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850025,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850025,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850025,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850025,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850026,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850026,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850026,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850026,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850027,
+      "lane": "right",
+      "first_card": "knight",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850027,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850027,
+      "lane": "right",
+      "first_card": "knight",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850027,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850028,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850028,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850028,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850028,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850029,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850029,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850029,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850029,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850030,
+      "lane": "left",
+      "first_card": "zap",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850030,
+      "lane": "left",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850030,
+      "lane": "left",
+      "first_card": "zap",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850030,
+      "lane": "left",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850031,
+      "lane": "right",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850031,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850031,
+      "lane": "right",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850031,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850032,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850032,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850032,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850032,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850033,
+      "lane": "right",
+      "first_card": "cannon",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850033,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850033,
+      "lane": "right",
+      "first_card": "knight",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850033,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850034,
+      "lane": "left",
+      "first_card": "skeletons",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850034,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850034,
+      "lane": "left",
+      "first_card": "skeletons",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850034,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850035,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850035,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850035,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850035,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850036,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850036,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850036,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850036,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850037,
+      "lane": "right",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850037,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850037,
+      "lane": "right",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850037,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850038,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850038,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850038,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850038,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850039,
+      "lane": "right",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850039,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850039,
+      "lane": "right",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850039,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850040,
+      "lane": "left",
+      "first_card": "musketeer",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850040,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850040,
+      "lane": "left",
+      "first_card": "musketeer",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850040,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850041,
+      "lane": "right",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850041,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850041,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850041,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850042,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850042,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850042,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850042,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850043,
+      "lane": "right",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850043,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850043,
+      "lane": "right",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850043,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850044,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850044,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850044,
+      "lane": "left",
+      "first_card": "hog_rider",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850044,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850045,
+      "lane": "right",
+      "first_card": "musketeer",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850045,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850045,
+      "lane": "right",
+      "first_card": "musketeer",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850045,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850046,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850046,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": true
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850046,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850046,
+      "lane": "left",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "low_hp_target",
+      "seed": 850047,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "low_hp_target",
+      "seed": 850047,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    },
+    {
+      "policy": "parent",
+      "control": "full_hp_no_units",
+      "seed": 850047,
+      "lane": "right",
+      "first_card": "fireball",
+      "fireball_casts_first_4s": 1,
+      "task_success": false
+    },
+    {
+      "policy": "candidate",
+      "control": "full_hp_no_units",
+      "seed": 850047,
+      "lane": "right",
+      "first_card": "wait",
+      "fireball_casts_first_4s": 0,
+      "task_success": false
+    }
+  ]
+}
