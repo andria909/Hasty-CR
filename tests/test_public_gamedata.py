@@ -53,11 +53,12 @@ def test_public_fallback_converts_movement_speed_exactly_once(tmp_path: Path):
         assert abs(simulate_speed(spec) - expected) < .01
 
 
-def test_public_spell_flight_speeds_use_projectile_units_not_walking_units():
+def test_fireball_uses_measured_native_ticks_and_log_retains_its_scale():
     import json
     from pathlib import Path
     from sim.public_gamedata import load_public_spells
     rows={r['name']:r for r in json.loads((Path(__file__).resolve().parents[1]/'data/royaleapi/cards_stats_projectile.json').read_text())}
     spells=load_public_spells(11)
-    assert spells['fireball'].projectile_speed_mt_per_sec==int(rows['FireballSpell']['speed'])*1000//60
+    # 77 recorded flight fits independently measure ~600mt per20Hz tick.
+    assert spells['fireball'].projectile_speed_mt_per_sec==int(rows['FireballSpell']['speed'])*20
     assert spells['the_log'].rolling_speed_mt_per_sec==int(rows['LogProjectileRolling']['speed'])*1000//60
