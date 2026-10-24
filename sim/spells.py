@@ -690,7 +690,10 @@ def load_spells(level: int = 11, root: Path | None = None,
                 if "tower_damage_override" in rule else 0),
             initial_damage=bool(rule.get("initial_damage", True)),
             resolves_card_as_spell=bool(rule.get("resolves_card_as_spell", False)),
-            projectile_speed_mt_per_sec=num("Speed") * 1000 // 60,
+            # Native tick traces: Fireball raw600 advances ~600mt/tick at20Hz.
+            # Other projectiles retain their previous scale until measured.
+            projectile_speed_mt_per_sec=(num("Speed") * 20 if card == "fireball"
+                                         else num("Speed") * 1000 // 60),
             travels_from_king=bool(rule.get("travels_from_king", False)),
             impact_delay_ms=int(rule.get("impact_delay_ms", 0) or 0),
             spawn_deploy_time_ms=int(rule.get(

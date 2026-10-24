@@ -295,7 +295,8 @@ def load_public_spells(level: int = 11):
         radius_y_mt=int(fireball.get("radius_y") or fireball["radius"]),
         crown_tower_percent=100 + int(fireball["crown_tower_damage_percent"]),
         pushback_mt=int(fireball.get("pushback") or 0),
-        projectile_speed_mt_per_sec=int(fireball["speed"]) * 1000 // 60,
+        # 77 native flight fits: median599.48mt/tick; client clock20Hz.
+        projectile_speed_mt_per_sec=int(fireball["speed"]) * 20,
         travels_from_king=True,
         deflect_behaviour=str(fireball.get("deflect_behaviour") or ""))
     rolling = SpellSpec(

@@ -1,0 +1,28 @@
+{
+  "schema": "fireball-native-speed-correction-v1",
+  "branch": "fix/fireball-native-speed-20261025",
+  "evidence_sha256": "2f90ed27e2bf287f77357ca51d513373796325b6021b5c6e5cfeda87fa76589c",
+  "observed_fitted_tracks": 77,
+  "native_median_mt_per_sec": 11989.52221111918,
+  "old_simulator_speed_mt_per_sec": 10000,
+  "corrected_simulator_speed_mt_per_sec": 12000,
+  "changed_semantics": "Only Fireball flight speed: raw client Speed converted at20Hz in both client-table and public fallback loaders",
+  "files": {
+    "sim/spells.py": {
+      "previous_sha256": "d32a207c59d77cad15b3c416db705e04e320373f9d28d6d74b698ef11acfd061",
+      "corrected_sha256": "f8e641b7cdade4d73ce27867ef3998d6e98429d035ef954b33bd2d8f1c5259cd"
+    },
+    "sim/public_gamedata.py": {
+      "previous_sha256": "8c7bd1fe3bda0d04995c9d3e4b1d7d363d9dff98251ab617819c83b6012c3682",
+      "corrected_sha256": "61763d0502a3a64d6e8c4e43d1ee7025e324ed6c3927f258380e6a5cb80273c3"
+    }
+  },
+  "tests": {
+    "passed": 38,
+    "command": "pytest tests/test_fireball_travel_speed.py tests/test_fireball_curriculum.py tests/test_attack_env.py tests/test_public_gamedata.py -q"
+  },
+  "existing_frozen_jobs_changed": false,
+  "old_checkpoints_changed": false,
+  "physics_accepted": false,
+  "migration_note": "Old weights and results retain their10000mt/s training/evaluation lineage; future learning/evaluation must declare the new source"
+}

@@ -1,7 +1,8 @@
 """Fireball practice on real simulator impacts, separate from frozen benchmarks.
 
 Family splits are fixed before training. No existing held-out scenario is reused.
-The policy keeps its joint 309-scalar input; task/time scalars follow AttackEnv.
+The policy keeps its joint309 input. Its task flag follows the public enemy
+presence rule used by full-match deployment, not a privileged exercise label.
 """
 from types import SimpleNamespace as NS
 import random
@@ -99,8 +100,10 @@ class FireballEnv(AttackEnv):
 
     def _observe(self):
         import numpy as np
+        from sim.eval_defense_duel import joint_attack_task
         obs=super()._observe()
-        obs['scalars']=np.concatenate((obs['scalars'],np.array([1.],dtype=np.float32)))
+        obs['scalars']=np.concatenate((obs['scalars'],np.array(
+            [float(joint_attack_task(self.match,1))],dtype=np.float32)))
         return obs
 
     def step(self,action):
