@@ -1,0 +1,23 @@
+{
+  "model": "PPO joint economy_soft",
+  "checkpoint": "checkpoints/ppo_joint_economy_soft_20261023/policy.pt",
+  "checkpoint_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+  "training_steps": 2048000,
+  "remembered_on": "2026-10-25",
+  "status": "preferred_simulation_candidate",
+  "selection_note": "Remembered at user request; descriptive comparison, no retraining or deployment. Overall win rate tied with defense spell_precision (219/300); joint economy_soft has the higher observed result against v25.",
+  "observed_simulation": {
+    "v25": {
+      "wins": 19,
+      "games": 20
+    },
+    "all_15_baselines": {
+      "wins": 219,
+      "games": 300
+    }
+  },
+  "report": "reports/defense_plan/ppo_joint_economy_soft_full_metrics.json",
+  "simulation_only": true,
+  "quality_accepted": false,
+  "live_checkpoint_changed": false
+}

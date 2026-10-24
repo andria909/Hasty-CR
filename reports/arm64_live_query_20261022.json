@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-22",
+  "mode": "live_ladder_with_v25_bot",
+  "selection": "Requests after12:57:01 local machine time, following bot MATCH_START12:57:00; pre-start frames excluded",
+  "summary": {
+    "requests": 543,
+    "accepted": 543,
+    "rejected": 0,
+    "no_battle": 0,
+    "round_trip_ms": {
+      "median": 21.712084,
+      "p95": 44.100125,
+      "max": 57.31175,
+      "under_100ms": 543,
+      "under_150ms": 543
+    },
+    "native_read_ms_median": 0.023,
+    "entity_count_range": [
+      6,
+      18
+    ],
+    "scope": "Request on Mac -> native root resolution/read -> ADB response -> JSON parsing and unit coordinate conversion. Initial ABI/version/hash attachment excluded. Not placement-event latency or screenshot recognition."
+  },
+  "all_capture_summary": {
+    "requests": 600,
+    "accepted": 600,
+    "rejected": 0,
+    "no_battle": 0,
+    "round_trip_ms": {
+      "median": 22.7118335,
+      "p95": 44.100125,
+      "max": 57.31175,
+      "under_100ms": 600,
+      "under_150ms": 600
+    },
+    "native_read_ms_median": 0.022958,
+    "entity_count_range": [
+      6,
+      18
+    ],
+    "scope": "Request on Mac -> native root resolution/read -> ADB response -> JSON parsing and unit coordinate conversion. Initial ABI/version/hash attachment excluded. Not placement-event latency or screenshot recognition."
+  },
+  "raw_requests": "tmp/android_log_probe/live_query_v6_20261022_run2/requests.jsonl",
+  "game_log": "tmp/android_log_probe/live_benchmark_20261022_game/bot.log",
+  "screenshot": "tmp/android_log_probe/live_benchmark_20261022_game/midmatch.png",
+  "limitations": [
+    "One real match, first minute only;6\u201318 active objects including towers/projectiles, not worst-case stress.",
+    "Memory reader is separate from bots screenshot/CV decision loop; bot has not been switched to memory.",
+    "Current position latency, not card placement confirmation latency.",
+    "Initial setup/hash validation excluded."
+  ]
+}

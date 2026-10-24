@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="126" skipped="3" tests="176" time="6.581" timestamp="2026-10-22T14:17:48.038907+03:00" hostname="Andrias-MacBook-Air.local"><testcase classname="tests.test_speed_units" name="test_a_named_speed_class_walks_at_its_documented_pace[Fast-90-1.8]" time="0.000" /><testcase classname="tests.test_speed_units" name="test_a_named_speed_class_walks_at_its_documented_pace[Medium-60-1.2]" time="0.000" /><testcase classname="tests.test_speed_units" name="test_a_named_speed_class_walks_at_its_documented_pace[Slow-45-0.9]" time="0.000" /><testcase classname="tests.test_speed_units" name="test_a_named_speed_class_walks_at_its_documented_pace[Very Fast-120-2.4]" time="0.000" /><testcase classname="tests.test_speed_units" name="test_a_medium_unit_covers_six_tiles_in_five_seconds" time="0.000"><failure message="assert 0.25 == 5.0 ± 0.05&#10;  &#10;  comparison failed&#10;  Obtained: 0.25&#10;  Expected: 5.0 ± 0.05">tests/test_speed_units.py:66: in test_a_medium_unit_covers_six_tiles_in_five_seconds
+    assert seconds == pytest.approx(5.0, abs=0.05)
+E   assert 0.25 == 5.0 ± 0.05
+E     
+E     comparison failed
+E     Obtained: 0.25
+E     Expected: 5.0 ± 0.05</failure></testcase><testcase classname="tests.test_speed_units" name="test_a_hog_rider_crosses_the_bridge_to_the_tower_in_under_three_seconds" time="0.000"><failure message="AssertionError: (7.2, 0.15)&#10;assert 2.5 &lt; 0.15">tests/test_speed_units.py:77: in test_a_hog_rider_crosses_the_bridge_to_the_tower_in_under_three_seconds
+    assert 2.5 &lt; seconds &lt; 3.1, (tiles, seconds)
+E   AssertionError: (7.2, 0.15)
+E   assert 2.5 &lt; 0.15</failure></testcase><testcase classname="tests.test_speed_units" name="test_every_unit_walks_at_a_plausible_pace" time="0.006"><failure message="AssertionError: [('knight', 24.0), ('archers', 24.0), ('goblins', 48.0), ('giant', 18.0), ('pekka', 18.0), ('minions', 36.0), ...]&#10;assert not [('knight', 24.0), ('archers', 24.0), ('goblins', 48.0), ('giant', 18.0), ('pekka', 18.0), ('minions', 36.0), ...]">tests/test_speed_units.py:95: in test_every_unit_walks_at_a_plausible_pace
+    assert not offenders, offenders
+E   AssertionError: [('knight', 24.0), ('archers', 24.0), ('goblins', 48.0), ('giant', 18.0), ('pekka', 18.0), ('minions', 36.0), ...]
+E   assert not [('knight', 24.0), ('archers', 24.0), ('goblins', 48.0), ('giant', 18.0), ('pekka', 18.0), ('minions', 36.0), ...]</failure></testcase><testcase classname="tests.test_speed_units" name="test_the_speed_field_really_is_reused_across_two_bands" time="0.000"><failure message="AssertionError: no walk-band speeds found&#10;assert (set() &amp; {45, 60, 90, 120})">tests/test_speed_units.py:110: in test_the_speed_field_really_is_reused_across_two_bands
+    assert values &amp; {raw for raw, _ in BANDS.values()}, "no walk-band speeds found"
+E   AssertionError: no walk-band speeds found
+E   assert (set() &amp; {45, 60, 90, 120})</failure></testcase><testcase classname="tests.test_sim_engine" name="test_a_unit_kills_a_target_on_its_stated_hit_speed" time="0.001" /><testcase classname="tests.test_sim_engine" name="test_deploy_time_delays_the_first_action" time="0.001" /><testcase classname="tests.test_sim_engine" name="test_range_is_measured_to_the_edge_not_the_centre" time="0.000" /><testcase classname="tests.test_sim_engine" name="test_a_ground_unit_uses_a_bridge_to_cross" time="0.003" /><testcase classname="tests.test_sim_engine" name="test_a_flying_unit_ignores_the_bridges" time="0.001" /><testcase classname="tests.test_sim_engine" name="test_a_building_targeter_walks_past_troops" time="0.004" /><testcase classname="tests.test_sim_engine" name="test_ground_attackers_cannot_hit_air" time="0.001" /><testcase classname="tests.test_sim_engine" name="test_splash_hits_the_neighbours_of_its_target" time="0.001" /><testcase classname="tests.test_sim_engine" name="test_the_king_tower_sleeps_until_it_is_woken" time="0.000" /><testcase classname="tests.test_sim_engine" name="test_units_do_not_stack_on_one_point" time="0.000" /><testcase classname="tests.test_sim_engine" name="test_spells_reach_the_enemy_half_but_troops_do_not" time="0.069" /><testcase classname="tests.test_sim_engine" name="test_jump_enabled_ground_units_still_cross_at_a_bridge" time="0.067" /><testcase classname="tests.test_sim_fidelity" name="test_attack_cadence_matches_the_card_data" time="0.001" /><testcase classname="tests.test_sim_fidelity" name="test_attack_reach_is_own_range_plus_the_target_hitbox[knight]" time="0.001" /><testcase classname="tests.test_sim_fidelity" name="test_attack_reach_is_own_range_plus_the_target_hitbox[giant]" time="0.001" /><testcase classname="tests.test_sim_fidelity" name="test_a_musketeer_kills_a_cannon_without_being_touched" time="0.003"><failure message="AssertionError: 0&#10;assert 0 == 720&#10; +  where 0 = Entity(uid=1, name='musketeer', side=1, pos=Point(x=9000, y=28900), hitpoints=0, max_hitpoints=720, damage=218, hit_sp...=4, target_uid=2, windup_remaining_ms=0, attack_cooldown_ms=450, crossed_river=True, spawned_at_ms=0, damage_dealt=654).hitpoints&#10; +  and   720 = Entity(uid=1, name='musketeer', side=1, pos=Point(x=9000, y=28900), hitpoints=0, max_hitpoints=720, damage=218, hit_sp...=4, target_uid=2, windup_remaining_ms=0, attack_cooldown_ms=450, crossed_river=True, spawned_at_ms=0, damage_dealt=654).max_hitpoints">tests/test_sim_fidelity.py:108: in test_a_musketeer_kills_a_cannon_without_being_touched
+    assert musketeer.hitpoints == musketeer.max_hitpoints, musketeer.hitpoints
+E   AssertionError: 0
+E   assert 0 == 720
+E    +  where 0 = Entity(uid=1, name='musketeer', side=1, pos=Point(x=9000, y=28900), hitpoints=0, max_hitpoints=720, damage=218, hit_sp...=4, target_uid=2, windup_remaining_ms=0, attack_cooldown_ms=450, crossed_river=True, spawned_at_ms=0, damage_dealt=654).hitpoints
+E    +  and   720 = Entity(uid=1, name='musketeer', side=1, pos=Point(x=9000, y=28900), hitpoints=0, max_hitpoints=720, damage=218, hit_sp...=4, target_uid=2, windup_remaining_ms=0, attack_cooldown_ms=450, crossed_river=True, spawned_at_ms=0, damage_dealt=654).max_hitpoints</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_splash_hits_inside_its_radius_and_spares_what_is_outside" time="0.001" /><testcase classname="tests.test_sim_fidelity" name="test_a_unit_cannot_act_until_its_deploy_time_has_passed" time="0.001" /><testcase classname="tests.test_sim_fidelity" name="test_movement_speed_matches_the_card_data" time="0.001"><failure message="AssertionError: (2.4, 24.0)&#10;assert 2.4 == 36.0 ± 4.32&#10;  &#10;  comparison failed&#10;  Obtained: 2.4&#10;  Expected: 36.0 ± 4.32">tests/test_sim_fidelity.py:167: in test_movement_speed_matches_the_card_data
+    assert tiles == pytest.approx(per_second * seconds, rel=0.12), (tiles, per_second)
+E   AssertionError: (2.4, 24.0)
+E   assert 2.4 == 36.0 ± 4.32
+E     
+E     comparison failed
+E     Obtained: 2.4
+E     Expected: 36.0 ± 4.32</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_prince_charges_and_its_first_hit_is_the_special_damage" time="0.000" /><testcase classname="tests.test_sim_fidelity" name="test_a_prince_stopped_short_never_gets_its_charge" time="0.001" /><testcase classname="tests.test_sim_fidelity" name="test_a_shield_absorbs_before_hitpoints" time="0.000" /><testcase classname="tests.test_sim_fidelity" name="test_a_troop_does_not_aggro_something_it_cannot_see" time="0.000" /><testcase classname="tests.test_sim_fidelity" name="test_out_of_sight_a_unit_still_walks_towards_a_building" time="0.001" /><testcase classname="tests.test_sim_fidelity" name="test_ground_troops_cannot_walk_through_a_tower" time="0.003" /><testcase classname="tests.test_sim_fidelity" name="test_contact_trace_exposes_the_simulator_assumption_for_live_comparison" time="0.000" /><testcase classname="tests.test_sim_fidelity" name="test_opponents_engaged_with_each_other_are_still_pushed_apart" time="0.000" /><testcase classname="tests.test_sim_fidelity" name="test_tower_hitboxes_match_the_building_data" time="0.000" /><testcase classname="tests.test_sim_fidelity" name="test_a_lone_ice_golem_reaches_the_tower_and_lands_one_hit" time="0.069"><failure message="AssertionError: assert False&#10; +  where False = play_card(1, 'ice_golem', Point(x=3500, y=20500))&#10; +    where play_card = Match(cards={'cannon': CardSpec(name='cannon', cost=3, rarity='Common', unit=UnitSpec(name='cannon', hitpoints=824, da...inished=False, result=None, auto_abilities=False, evolution_slots={}, tower_level=None, _mana_clock={}, _mana_watch={}).play_card&#10; +    and   Point(x=3500, y=20500) = &lt;function grid_to_point at 0x107aa4220&gt;(3, 20, 1)">tests/test_sim_fidelity.py:385: in test_a_lone_ice_golem_reaches_the_tower_and_lands_one_hit
+    assert match.play_card(1, "ice_golem", grid_to_point(3, 20, 1))
+E   AssertionError: assert False
+E    +  where False = play_card(1, 'ice_golem', Point(x=3500, y=20500))
+E    +    where play_card = Match(cards={'cannon': CardSpec(name='cannon', cost=3, rarity='Common', unit=UnitSpec(name='cannon', hitpoints=824, da...inished=False, result=None, auto_abilities=False, evolution_slots={}, tower_level=None, _mana_clock={}, _mana_watch={}).play_card
+E    +    and   Point(x=3500, y=20500) = &lt;function grid_to_point at 0x107aa4220&gt;(3, 20, 1)</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_dying_unit_explodes_on_enemies_and_spares_its_own_side" time="0.000" /><testcase classname="tests.test_sim_fidelity" name="test_a_golem_leaves_golemites_behind" time="0.000" /><testcase classname="tests.test_sim_fidelity" name="test_a_spawner_building_produces_waves_on_its_own_timer" time="0.002" /><testcase classname="tests.test_sim_fidelity" name="test_an_ice_spirit_freezes_for_exactly_its_buff_time_and_dies_doing_it" time="0.001"><failure message="AssertionError: 0&#10;assert 1200 &lt;= (2 * 50)&#10; +  where 1200 = abs((0 - 1200))&#10; +    where 1200 = UnitSpec(name='ice_spirits', hitpoints=230, damage=110, hit_speed_ms=300, load_time_ms=100, range_mt=2500, sight_range...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()).buff_time_ms">tests/test_sim_fidelity.py:503: in test_an_ice_spirit_freezes_for_exactly_its_buff_time_and_dies_doing_it
+    assert abs(frozen_ms - spec.buff_time_ms) &lt;= 2 * TICK_MS, frozen_ms
+E   AssertionError: 0
+E   assert 1200 &lt;= (2 * 50)
+E    +  where 1200 = abs((0 - 1200))
+E    +    where 1200 = UnitSpec(name='ice_spirits', hitpoints=230, damage=110, hit_speed_ms=300, load_time_ms=100, range_mt=2500, sight_range...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()).buff_time_ms</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_shot_still_lands_after_its_shooter_dies" time="0.001" /><testcase classname="tests.test_sim_fidelity" name="test_the_log_pushes_what_it_can_and_leaves_heavies_alone" time="0.001" /><testcase classname="tests.test_sim_fidelity" name="test_a_miner_tunnels_anywhere_and_cannot_be_hit_on_the_way" time="0.067"><failure message="AssertionError: assert 0 &gt; 0&#10; +  where 0 = UnitSpec(name='miner', hitpoints=1210, damage=193, hit_speed_ms=1200, load_time_ms=700, range_mt=1200, sight_range_mt=...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()).burrow_speed_mt_per_sec&#10; +    where UnitSpec(name='miner', hitpoints=1210, damage=193, hit_speed_ms=1200, load_time_ms=700, range_mt=1200, sight_range_mt=...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()) = CardSpec(name='miner', cost=3, rarity='Legendary', unit=UnitSpec(name='miner', hitpoints=1210, damage=193, hit_speed_m...ondary_summon_number=0, secondary_summon_deploy_delay_ms=0, secondary_offset_toward_centre_mt=0, additional_summons=()).unit">tests/test_sim_fidelity.py:572: in test_a_miner_tunnels_anywhere_and_cannot_be_hit_on_the_way
+    assert cards["miner"].unit.burrow_speed_mt_per_sec &gt; 0
+E   AssertionError: assert 0 &gt; 0
+E    +  where 0 = UnitSpec(name='miner', hitpoints=1210, damage=193, hit_speed_ms=1200, load_time_ms=700, range_mt=1200, sight_range_mt=...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()).burrow_speed_mt_per_sec
+E    +    where UnitSpec(name='miner', hitpoints=1210, damage=193, hit_speed_ms=1200, load_time_ms=700, range_mt=1200, sight_range_mt=...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()) = CardSpec(name='miner', cost=3, rarity='Legendary', unit=UnitSpec(name='miner', hitpoints=1210, damage=193, hit_speed_m...ondary_summon_number=0, secondary_summon_deploy_delay_ms=0, secondary_offset_toward_centre_mt=0, additional_summons=()).unit</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_an_ordinary_troop_still_cannot_be_placed_in_the_enemy_half" time="0.070" /><testcase classname="tests.test_sim_fidelity" name="test_a_dasher_crosses_untouchable_and_lands_its_dash_damage[boss_bandit]" time="0.000"><failure message="KeyError: 'boss_bandit'">tests/test_sim_fidelity.py:620: in test_a_dasher_crosses_untouchable_and_lands_its_dash_damage
+    spec = ALL[card].unit
+           ^^^^^^^^^
+E   KeyError: 'boss_bandit'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_dasher_crosses_untouchable_and_lands_its_dash_damage[mega_knight]" time="0.000"><failure message="AssertionError: assert (0 &gt; 0)&#10; +  where 0 = UnitSpec(name='mega_knight', hitpoints=3993, damage=268, hit_speed_ms=1700, load_time_ms=1200, range_mt=1200, sight_ra...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()).dash_max_range_mt">tests/test_sim_fidelity.py:621: in test_a_dasher_crosses_untouchable_and_lands_its_dash_damage
+    assert spec.dash_max_range_mt &gt; 0 and spec.dash_damage &gt; spec.damage
+E   AssertionError: assert (0 &gt; 0)
+E    +  where 0 = UnitSpec(name='mega_knight', hitpoints=3993, damage=268, hit_speed_ms=1700, load_time_ms=1200, range_mt=1200, sight_ra...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()).dash_max_range_mt</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_dasher_does_not_dash_from_point_blank" time="0.000"><failure message="KeyError: 'boss_bandit'">tests/test_sim_fidelity.py:649: in test_a_dasher_does_not_dash_from_point_blank
+    spec = ALL["boss_bandit"].unit
+           ^^^^^^^^^^^^^^^^^^
+E   KeyError: 'boss_bandit'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_the_spell_table_is_found_by_name_not_by_hand" time="0.001"><failure message="AssertionError: ['fireball', 'log', 'the_log', 'zap']&#10;assert 4 &gt;= 18&#10; +  where 4 = len({'fireball': SpellSpec(name='fireball', damage=689, radius_mt=2500, radius_y_mt=2500, crown_tower_percent=30, pushback...ase_slow_ms=0, pulse_events=(), secondary_spawn_character='', secondary_spawn_count=0, secondary_spawn_mirror_x=False)})">tests/test_sim_fidelity.py:675: in test_the_spell_table_is_found_by_name_not_by_hand
+    assert len(spells) &gt;= 18, sorted(spells)
+E   AssertionError: ['fireball', 'log', 'the_log', 'zap']
+E   assert 4 &gt;= 18
+E    +  where 4 = len({'fireball': SpellSpec(name='fireball', damage=689, radius_mt=2500, radius_y_mt=2500, crown_tower_percent=30, pushback...ase_slow_ms=0, pulse_events=(), secondary_spawn_character='', secondary_spawn_count=0, secondary_spawn_mirror_x=False)})</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_arrows_uses_the_audited_full_spell_result_not_one_projectile" time="0.001"><failure message="KeyError: 'arrows'">tests/test_sim_fidelity.py:699: in test_arrows_uses_the_audited_full_spell_result_not_one_projectile
+    arrows = load_spells(11)["arrows"]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'arrows'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_spell_combat_numbers_scale_with_the_requested_card_level" time="0.001"><failure message="KeyError: 'goblin_curse'">tests/test_sim_fidelity.py:719: in test_spell_combat_numbers_scale_with_the_requested_card_level
+    assert spells["goblin_curse"].damage_per_second == 35
+           ^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'goblin_curse'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_published_spell_overrides_scale_for_mirror_level" time="0.002"><failure message="AssertionError: assert 0 == 189&#10; +  where 0 = SpellSpec(name='fireball', damage=757, radius_mt=2500, radius_y_mt=2500, crown_tower_percent=30, pushback_mt=1000, tar...ease_slow_ms=0, pulse_events=(), secondary_spawn_character='', secondary_spawn_count=0, secondary_spawn_mirror_x=False).tower_damage_override">tests/test_sim_fidelity.py:728: in test_published_spell_overrides_scale_for_mirror_level
+    assert level_12["fireball"].tower_damage_override == 189
+E   AssertionError: assert 0 == 189
+E    +  where 0 = SpellSpec(name='fireball', damage=757, radius_mt=2500, radius_y_mt=2500, crown_tower_percent=30, pushback_mt=1000, tar...ease_slow_ms=0, pulse_events=(), secondary_spawn_character='', secondary_spawn_count=0, secondary_spawn_mirror_x=False).tower_damage_override</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_rage_damages_enemies_and_buffs_only_friendlies" time="0.001"><failure message="KeyError: 'rage'">tests/test_sim_fidelity.py:739: in test_rage_damages_enemies_and_buffs_only_friendlies
+    rage = load_spells(11)["rage"]
+           ^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'rage'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_rage_card_resolves_as_a_spell_not_a_permanent_bottle" time="0.068"><failure message="KeyError: 'rage'">tests/test_sim_fidelity.py:758: in test_rage_card_resolves_as_a_spell_not_a_permanent_bottle
+    cards["rage"] = ALL["rage"]
+                    ^^^^^^^^^^^
+E   KeyError: 'rage'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_earthquake_hits_ground_and_deals_its_building_multiplier" time="0.001"><failure message="KeyError: 'earthquake'">tests/test_sim_fidelity.py:781: in test_earthquake_hits_ground_and_deals_its_building_multiplier
+    quake = load_spells(11)["earthquake"]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'earthquake'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_launched_spell_keeps_its_cast_point_while_targets_move" time="0.002" /><testcase classname="tests.test_sim_fidelity" name="test_royal_delivery_lands_after_three_seconds_then_deploys_recruit" time="0.001"><failure message="KeyError: 'royal_delivery'">tests/test_sim_fidelity.py:816: in test_royal_delivery_lands_after_three_seconds_then_deploys_recruit
+    delivery = load_spells(11)["royal_delivery"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'royal_delivery'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_spell_that_makes_units_makes_units" time="0.001"><failure message="KeyError: 'goblin_barrel'">tests/test_sim_fidelity.py:836: in test_a_spell_that_makes_units_makes_units
+    barrel = load_spells(11)["goblin_barrel"]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'goblin_barrel'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_spell_hands_out_its_buff[freeze--100]" time="0.001"><failure message="KeyError: 'freeze'">tests/test_sim_fidelity.py:853: in test_a_spell_hands_out_its_buff
+    spec = load_spells(11)[spell]
+           ^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'freeze'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_spell_hands_out_its_buff[snowball--30]" time="0.001"><failure message="KeyError: 'snowball'">tests/test_sim_fidelity.py:853: in test_a_spell_hands_out_its_buff
+    spec = load_spells(11)[spell]
+           ^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'snowball'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_lingering_spell_keeps_hurting_what_stands_in_it[poison]" time="0.001"><failure message="KeyError: 'poison'">tests/test_sim_fidelity.py:869: in test_a_lingering_spell_keeps_hurting_what_stands_in_it
+    spec = load_spells(11)[spell]
+           ^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'poison'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_lingering_spell_keeps_hurting_what_stands_in_it[tornado]" time="0.001"><failure message="KeyError: 'tornado'">tests/test_sim_fidelity.py:869: in test_a_lingering_spell_keeps_hurting_what_stands_in_it
+    spec = load_spells(11)[spell]
+           ^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'tornado'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_lingering_spell_keeps_hurting_what_stands_in_it[earthquake]" time="0.001"><failure message="KeyError: 'earthquake'">tests/test_sim_fidelity.py:869: in test_a_lingering_spell_keeps_hurting_what_stands_in_it
+    spec = load_spells(11)[spell]
+           ^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'earthquake'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_lingering_spell_stops_when_it_expires" time="0.001"><failure message="KeyError: 'poison'">tests/test_sim_fidelity.py:890: in test_a_lingering_spell_stops_when_it_expires
+    spec = load_spells(11)["poison"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'poison'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_graveyard_drips_skeletons_for_its_whole_life" time="0.001"><failure message="KeyError: 'graveyard'">tests/test_sim_fidelity.py:906: in test_a_graveyard_drips_skeletons_for_its_whole_life
+    spec = load_spells(11)["graveyard"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'graveyard'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_three_skeletons_dropped_centrally_split_between_lanes" time="0.073" /><testcase classname="tests.test_sim_fidelity" name="test_a_unit_walks_around_a_building_in_its_way" time="0.006" /><testcase classname="tests.test_sim_fidelity" name="test_the_river_is_terrain_and_the_bridges_are_the_way_through" time="0.000" /><testcase classname="tests.test_sim_fidelity" name="test_a_path_across_the_river_goes_through_a_bridge" time="0.000" /><testcase classname="tests.test_sim_fidelity" name="test_a_royal_ghost_cannot_be_targeted_while_it_is_invisible" time="0.000"><failure message="AssertionError: assert 0 &gt; 0&#10; +  where 0 = UnitSpec(name='ghost', hitpoints=1210, damage=261, hit_speed_ms=1800, load_time_ms=1200, range_mt=1200, sight_range_mt...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()).invisible_after_ms">tests/test_sim_fidelity.py:1015: in test_a_royal_ghost_cannot_be_targeted_while_it_is_invisible
+    assert spec.invisible_after_ms &gt; 0
+E   AssertionError: assert 0 &gt; 0
+E    +  where 0 = UnitSpec(name='ghost', hitpoints=1210, damage=261, hit_speed_ms=1800, load_time_ms=1200, range_mt=1200, sight_range_mt...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()).invisible_after_ms</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_an_electro_giant_shocks_everything_around_it_not_just_its_attacker" time="0.000"><failure message="AssertionError: assert (0 &gt; 0)&#10; +  where 0 = UnitSpec(name='electro_giant', hitpoints=3856, damage=163, hit_speed_ms=2100, load_time_ms=600, range_mt=1200, sight_r...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()).reflect_damage">tests/test_sim_fidelity.py:1037: in test_an_electro_giant_shocks_everything_around_it_not_just_its_attacker
+    assert spec.reflect_damage &gt; 0 and spec.reflect_radius_mt &gt; 0
+E   AssertionError: assert (0 &gt; 0)
+E    +  where 0 = UnitSpec(name='electro_giant', hitpoints=3856, damage=163, hit_speed_ms=2100, load_time_ms=600, range_mt=1200, sight_r...eploy_ms=0, ability_drop_height_mt=0, projectile_deflect_behaviour='', projectile_deflector_damage=0, ignored_buffs=()).reflect_damage</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_a_healing_buff_puts_hitpoints_back_and_never_overfills" time="0.000"><failure message="AssertionError: no healing buffs parsed at all&#10;assert []">tests/test_sim_fidelity.py:1062: in test_a_healing_buff_puts_hitpoints_back_and_never_overfills
+    assert healing, "no healing buffs parsed at all"
+E   AssertionError: no healing buffs parsed at all
+E   assert []</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_buff_fields_are_read_from_their_own_line" time="0.000"><failure message="KeyError: 'ArcherQueenRapid'">tests/test_sim_fidelity.py:1093: in test_buff_fields_are_read_from_their_own_line
+    assert buffs["ArcherQueenRapid"][:2] == (-25, 180), buffs["ArcherQueenRapid"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'ArcherQueenRapid'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_elixir_income_is_not_truncated_away" time="0.072" /><testcase classname="tests.test_sim_fidelity" name="test_a_champion_ability_is_an_explicit_paid_action" time="0.071"><failure message="AssertionError: assert ('' == 'ArcherQueenRapid'&#10;  &#10;  - ArcherQueenRapid)">tests/test_sim_fidelity.py:1139: in test_a_champion_ability_is_an_explicit_paid_action
+    assert spec.ability_buff == "ArcherQueenRapid" and spec.ability_cost == 1
+E   AssertionError: assert ('' == 'ArcherQueenRapid'
+E     
+E     - ArcherQueenRapid)</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_mirror_replays_the_last_card_dearer_and_a_level_up" time="0.067"><failure message="KeyError: 'mirror'">tests/test_sim_fidelity.py:1175: in test_mirror_replays_the_last_card_dearer_and_a_level_up
+    cards["mirror"] = ALL["mirror"]
+                      ^^^^^^^^^^^^^
+E   KeyError: 'mirror'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_goblin_curse_turns_what_dies_in_it" time="0.001"><failure message="KeyError: 'goblin_curse'">tests/test_sim_fidelity.py:1211: in test_goblin_curse_turns_what_dies_in_it
+    curse = load_spells(11)["goblin_curse"]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'goblin_curse'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_client_hero_form_is_not_collapsed_to_its_base_card" time="0.000"><failure message="KeyError: 'knight_hero'">tests/test_sim_fidelity.py:1238: in test_client_hero_form_is_not_collapsed_to_its_base_card
+    hero = ALL["knight_hero"]
+           ^^^^^^^^^^^^^^^^^^
+E   KeyError: 'knight_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_knight_action_graph_starts_shieldless_then_rearms_shield" time="0.000"><failure message="KeyError: 'knight_hero'">tests/test_sim_fidelity.py:1252: in test_hero_knight_action_graph_starts_shieldless_then_rearms_shield
+    cards = {"knight_hero": ALL["knight_hero"]}
+                            ^^^^^^^^^^^^^^^^^^
+E   KeyError: 'knight_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolution_catalogue_uses_client_declared_variant_edges" time="0.003"><failure message="KeyError: 'archer'">tests/test_sim_fidelity.py:1270: in test_evolution_catalogue_uses_client_declared_variant_edges
+    assert variants["archer"] == ("archer_ev1",)
+           ^^^^^^^^^^^^^^^^^^
+E   KeyError: 'archer'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_public_evolutions_are_materialized_with_client_cycle_costs" time="0.000"><failure message="assert 0 &gt;= 40&#10; +  where 0 = len({})">tests/test_sim_fidelity.py:1277: in test_public_evolutions_are_materialized_with_client_cycle_costs
+    assert len(evolved) &gt;= 40
+E   assert 0 &gt;= 40
+E    +  where 0 = len({})</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_equipped_evolution_replaces_the_play_after_its_declared_cycles" time="0.000"><failure message="KeyError: 'knight_ev1'">tests/test_sim_fidelity.py:1286: in test_equipped_evolution_replaces_the_play_after_its_declared_cycles
+    cards = {"knight": ALL["knight"], "knight_ev1": ALL["knight_ev1"]}
+                                                    ^^^^^^^^^^^^^^^^^
+E   KeyError: 'knight_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_zap_evolution_uses_two_client_declared_pulses_and_radii" time="0.001"><failure message="KeyError: 'zap_ev1'">tests/test_sim_fidelity.py:1307: in test_zap_evolution_uses_two_client_declared_pulses_and_radii
+    evolved = spells["zap_ev1"]
+              ^^^^^^^^^^^^^^^^^
+E   KeyError: 'zap_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_little_prince_guardienne_ability_uses_source_delayed_guard_event" time="0.000"><failure message="KeyError: 'little_prince'">tests/test_sim_fidelity.py:1324: in test_little_prince_guardienne_ability_uses_source_delayed_guard_event
+    cards = {"little_prince": ALL["little_prince"], "knight": ALL["knight"]}
+                              ^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'little_prince'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_goblin_curse_uses_the_current_source_verified_slowdown" time="0.001"><failure message="KeyError: 'goblin_curse'">tests/test_sim_fidelity.py:1350: in test_goblin_curse_uses_the_current_source_verified_slowdown
+    curse = load_spells(11)["goblin_curse"]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'goblin_curse'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_spell_radii_are_read_from_the_right_field" time="0.001"><failure message="KeyError: 'rocket'">tests/test_sim_fidelity.py:1371: in test_spell_radii_are_read_from_the_right_field
+    assert spells["rocket"].radius_mt == 2000, spells["rocket"].radius_mt
+           ^^^^^^^^^^^^^^^^
+E   KeyError: 'rocket'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_lightning_selects_only_the_three_highest_current_hp_targets" time="0.001"><failure message="KeyError: 'lightning'">tests/test_sim_fidelity.py:1395: in test_lightning_selects_only_the_three_highest_current_hp_targets
+    lightning = load_spells(11)["lightning"]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'lightning'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_vines_selects_three_targets_and_applies_its_snare_area" time="0.001"><failure message="KeyError: 'vines'">tests/test_sim_fidelity.py:1417: in test_vines_selects_three_targets_and_applies_its_snare_area
+    vines = load_spells(11)["vines"]
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'vines'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_vines_grounds_air_targets_for_ground_attackers" time="0.001"><failure message="KeyError: 'vines'">tests/test_sim_fidelity.py:1437: in test_vines_grounds_air_targets_for_ground_attackers
+    apply_spell(battle, load_spells(11)["vines"], Point(9 * MT, 21 * MT), side=1)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'vines'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_clone_makes_one_hitpoint_friendly_troops_only_once" time="0.001"><failure message="KeyError: 'clone'">tests/test_sim_fidelity.py:1450: in test_clone_makes_one_hitpoint_friendly_troops_only_once
+    clone = load_spells(11)["clone"]
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'clone'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_void_recomputes_its_damage_tier_for_each_wave" time="0.002"><failure message="KeyError: 'dark_magic'">tests/test_sim_fidelity.py:1476: in test_void_recomputes_its_damage_tier_for_each_wave
+    void = load_spells(11)["dark_magic"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'dark_magic'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_electro_wizard_uses_client_multitarget_and_character_stun_fields" time="0.001"><failure message="AssertionError: assert ('' == 'ZapFreeze'&#10;  &#10;  - ZapFreeze)">tests/test_sim_fidelity.py:1500: in test_electro_wizard_uses_client_multitarget_and_character_stun_fields
+    assert spec.target_buff == "ZapFreeze" and spec.buff_time_ms == 500
+E   AssertionError: assert ('' == 'ZapFreeze'
+E     
+E     - ZapFreeze)</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_electro_wizard_deployment_aeo_uses_its_source_action_graph" time="0.000"><failure message="AssertionError: assert (0, '', 0) == (3000, 'ZapFreeze', 500)&#10;  &#10;  At index 0 diff: 0 != 3000&#10;  Use -v to get more diff">tests/test_sim_fidelity.py:1515: in test_electro_wizard_deployment_aeo_uses_its_source_action_graph
+    assert (spec.spawn_area_radius_mt, spec.spawn_area_buff,
+E   AssertionError: assert (0, '', 0) == (3000, 'ZapFreeze', 500)
+E     
+E     At index 0 diff: 0 != 3000
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_electro_dragon_chains_using_client_count_radius_and_stun" time="0.001"><failure message="AssertionError: assert (0, 0, 'ZapFreeze', 500) == (3, 4000, 'ZapFreeze', 500)&#10;  &#10;  At index 0 diff: 0 != 3&#10;  Use -v to get more diff">tests/test_sim_fidelity.py:1535: in test_electro_dragon_chains_using_client_count_radius_and_stun
+    assert (spec.chained_hit_count, spec.chained_hit_radius_mt,
+E   AssertionError: assert (0, 0, 'ZapFreeze', 500) == (3, 4000, 'ZapFreeze', 500)
+E     
+E     At index 0 diff: 0 != 3
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_fisherman_hook_uses_special_range_projectile_and_drag_fields" time="0.000"><failure message="assert (0, 0, 0, 0) == (3500, 7000, 1300, 200)&#10;  &#10;  At index 0 diff: 0 != 3500&#10;  Use -v to get more diff">tests/test_sim_fidelity.py:1556: in test_fisherman_hook_uses_special_range_projectile_and_drag_fields
+    assert (spec.special_min_range_mt, spec.special_range_mt,
+E   assert (0, 0, 0, 0) == (3500, 7000, 1300, 200)
+E     
+E     At index 0 diff: 0 != 3500
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_magic_archer_non_homing_pierce_lands_and_is_recorded_for_calibration" time="0.000"><failure message="KeyError: 'elite_archer'">tests/test_sim_fidelity.py:1591: in test_magic_archer_non_homing_pierce_lands_and_is_recorded_for_calibration
+    archer = _spawn(battle, "elite_archer", 1, 9, 20, 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'elite_archer'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_ram_rider_is_an_attached_ram_and_independent_troop_targeting_bola" time="0.000"><failure message="StopIteration">tests/test_sim_fidelity.py:1623: in test_ram_rider_is_an_attached_ram_and_independent_troop_targeting_bola
+    rider = next(entity for entity in battle.entities.values()
+E   StopIteration</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_mother_witch_buff_on_damage_converts_a_dead_target_to_voodoo_hog" time="0.000"><failure message="KeyError: 'witch_mother'">tests/test_sim_fidelity.py:1650: in test_mother_witch_buff_on_damage_converts_a_dead_target_to_voodoo_hog
+    witch = _spawn(battle, "witch_mother", 1, 9, 20, 1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'witch_mother'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_golden_knight_ability_is_a_source_declared_explicit_dash_chain" time="0.071"><failure message="assert (0, 0, 0) == (5500, 10, 200)&#10;  &#10;  At index 0 diff: 0 != 5500&#10;  Use -v to get more diff">tests/test_sim_fidelity.py:1684: in test_golden_knight_ability_is_a_source_declared_explicit_dash_chain
+    assert (spec.ability_dash_range_mt, spec.ability_dash_count,
+E   assert (0, 0, 0) == (5500, 10, 200)
+E     
+E     At index 0 diff: 0 != 5500
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_monk_explicit_ability_applies_its_client_damage_reduction_buff" time="0.071"><failure message="AssertionError: assert ('', 0, 0) == ('ShieldBoostMonk', 4000, 1)&#10;  &#10;  At index 0 diff: '' != 'ShieldBoostMonk'&#10;  Use -v to get more diff">tests/test_sim_fidelity.py:1708: in test_monk_explicit_ability_applies_its_client_damage_reduction_buff
+    assert (spec.ability_buff, spec.ability_buff_ms, spec.ability_cost) == ("ShieldBoostMonk", 4000, 1)
+E   AssertionError: assert ('', 0, 0) == ('ShieldBoostMonk', 4000, 1)
+E     
+E     At index 0 diff: '' != 'ShieldBoostMonk'
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_monk_reflects_homing_projectiles_from_allies_in_aura" time="0.001"><failure message="AssertionError: assert False&#10; +  where False = activate_ability(1, 7)&#10; +    where activate_ability = Match(cards={'monk': CardSpec(name='monk', cost=5, rarity='Champion', unit=UnitSpec(name='monk', hitpoints=2000, damag...inished=False, result=None, auto_abilities=False, evolution_slots={}, tower_level=None, _mana_clock={}, _mana_watch={}).activate_ability&#10; +    and   7 = Entity(uid=7, name='monk', side=1, pos=Point(x=9000, y=20000), hitpoints=2000, max_hitpoints=2000, damage=140, hit_spe...target_uid=None, windup_remaining_ms=0, attack_cooldown_ms=99999, crossed_river=False, spawned_at_ms=0, damage_dealt=0).uid">tests/test_sim_fidelity.py:1743: in test_monk_reflects_homing_projectiles_from_allies_in_aura
+    assert match.activate_ability(1, monk.uid)
+E   AssertionError: assert False
+E    +  where False = activate_ability(1, 7)
+E    +    where activate_ability = Match(cards={'monk': CardSpec(name='monk', cost=5, rarity='Champion', unit=UnitSpec(name='monk', hitpoints=2000, damag...inished=False, result=None, auto_abilities=False, evolution_slots={}, tower_level=None, _mana_clock={}, _mana_watch={}).activate_ability
+E    +    and   7 = Entity(uid=7, name='monk', side=1, pos=Point(x=9000, y=20000), hitpoints=2000, max_hitpoints=2000, damage=140, hit_spe...target_uid=None, windup_remaining_ms=0, attack_cooldown_ms=99999, crossed_river=False, spawned_at_ms=0, damage_dealt=0).uid</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_cannon_cart_transforms_at_client_health_threshold_into_broken_cannon" time="0.000"><failure message="KeyError: 'moving_cannon'">tests/test_sim_fidelity.py:1762: in test_cannon_cart_transforms_at_client_health_threshold_into_broken_cannon
+    cart = battle.add(make_unit(0, ALL["moving_cannon"].unit, 1, Point(9 * MT, 20 * MT)))
+                                   ^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'moving_cannon'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_inferno_damage_stages_are_data_driven_and_stun_resets_the_beam" time="0.000"><failure message="KeyError: 'VariableDamage2'">tests/test_sim_fidelity.py:1784: in test_inferno_damage_stages_are_data_driven_and_stun_resets_the_beam
+    assert (int(spec.raw["VariableDamage2"]), int(spec.raw["VariableDamage3"]),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'VariableDamage2'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_knight_fortification_uses_client_damage_reduction_and_range" time="0.000"><failure message="KeyError: 'knight_ev1'">tests/test_sim_fidelity.py:1802: in test_evolved_knight_fortification_uses_client_damage_reduction_and_range
+    knight = _spawn(battle, "knight_ev1", 1, 9, 20, 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'knight_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_barbarian_rages_itself_after_a_landed_hit" time="0.000"><failure message="KeyError: 'barbarians_ev1'">tests/test_sim_fidelity.py:1820: in test_evolved_barbarian_rages_itself_after_a_landed_hit
+    1, ALL["barbarians_ev1"].unit, 1, Point(9 * MT, 20 * MT)))
+       ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'barbarians_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_bat_on_hit_heal_scales_and_can_overheal_to_200_percent" time="0.000"><failure message="KeyError: 'bats_ev1'">tests/test_sim_fidelity.py:1836: in test_evolved_bat_on_hit_heal_scales_and_can_overheal_to_200_percent
+    1, ALL["bats_ev1"].unit, 1, Point(9 * MT, 20 * MT)))
+       ^^^^^^^^^^^^^^^
+E   KeyError: 'bats_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_skeleton_duplicates_on_hit_but_respects_group_cap" time="0.000"><failure message="KeyError: 'skeletons_ev1'">tests/test_sim_fidelity.py:1857: in test_evolved_skeleton_duplicates_on_hit_but_respects_group_cap
+    1, ALL["skeletons_ev1"].unit, 1, Point(9 * MT, 20 * MT)))
+       ^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'skeletons_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_goblin_barrel_spawns_real_and_current_decoy_goblins_opposite" time="0.001"><failure message="KeyError: 'goblin_barrel_ev1'">tests/test_sim_fidelity.py:1880: in test_evolved_goblin_barrel_spawns_real_and_current_decoy_goblins_opposite
+    spell = load_spells(11)["goblin_barrel_ev1"]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'goblin_barrel_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_snowball_captures_rolls_damages_and_releases_with_slow" time="0.001"><failure message="KeyError: 'snowball_ev1'">tests/test_sim_fidelity.py:1900: in test_evolved_snowball_captures_rolls_damages_and_releases_with_slow
+    spell = load_spells(11)["snowball_ev1"]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'snowball_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_pekka_heals_by_defeated_troop_max_hp_tier[skeletons-430]" time="0.000"><failure message="KeyError: 'pekka_ev1'">tests/test_sim_fidelity.py:1923: in test_evolved_pekka_heals_by_defeated_troop_max_hp_tier
+    pekka = _spawn(battle, "pekka_ev1", 1, 9, 20, 1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'pekka_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_pekka_heals_by_defeated_troop_max_hp_tier[knight-819]" time="0.000"><failure message="KeyError: 'pekka_ev1'">tests/test_sim_fidelity.py:1923: in test_evolved_pekka_heals_by_defeated_troop_max_hp_tier
+    pekka = _spawn(battle, "pekka_ev1", 1, 9, 20, 1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'pekka_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_pekka_heals_by_defeated_troop_max_hp_tier[giant-1551]" time="0.000"><failure message="KeyError: 'pekka_ev1'">tests/test_sim_fidelity.py:1923: in test_evolved_pekka_heals_by_defeated_troop_max_hp_tier
+    pekka = _spawn(battle, "pekka_ev1", 1, 9, 20, 1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'pekka_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_current_evolved_witch_only_initial_four_skeletons_heal_on_death" time="0.000"><failure message="KeyError: 'witch_ev1'">tests/test_sim_fidelity.py:1942: in test_current_evolved_witch_only_initial_four_skeletons_heal_on_death
+    0, ALL["witch_ev1"].unit, 1, Point(9 * MT, 20 * MT)))
+       ^^^^^^^^^^^^^^^^
+E   KeyError: 'witch_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_princess_death_creates_client_damage_and_slow_area" time="0.000"><failure message="KeyError: 'princess_ev1'">tests/test_sim_fidelity.py:1972: in test_evolved_princess_death_creates_client_damage_and_slow_area
+    princess = _spawn(battle, "princess_ev1", 1, 9, 20, 1)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'princess_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_royal_giant_attack_emits_source_centred_damage_push" time="0.000"><failure message="KeyError: 'royal_giant_ev1'">tests/test_sim_fidelity.py:1994: in test_evolved_royal_giant_attack_emits_source_centred_damage_push
+    royal_giant = _spawn(battle, "royal_giant_ev1", 1, 9, 20, 1)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'royal_giant_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_recruit_unlocks_client_charge_when_shield_breaks" time="0.000"><failure message="KeyError: 'royal_recruits_ev1'">tests/test_sim_fidelity.py:2013: in test_evolved_recruit_unlocks_client_charge_when_shield_breaks
+    recruit = _spawn(battle, "royal_recruits_ev1", 1, 9, 20, 1)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'royal_recruits_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_wall_breaker_death_explodes_and_spawns_contact_mini" time="0.000"><failure message="KeyError: 'wallbreakers_ev1'">tests/test_sim_fidelity.py:2034: in test_evolved_wall_breaker_death_explodes_and_spawns_contact_mini
+    0, ALL["wallbreakers_ev1"].unit, 1, Point(9 * MT, 20 * MT)))
+       ^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'wallbreakers_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_wizard_shield_break_explodes_with_current_damage_and_push" time="0.000"><failure message="KeyError: 'wizard_ev1'">tests/test_sim_fidelity.py:2062: in test_evolved_wizard_shield_break_explodes_with_current_damage_and_push
+    wizard = _spawn(battle, "wizard_ev1", 1, 9, 20, 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'wizard_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_minion_horde_first_damage_triggers_three_second_ghost_state" time="0.000"><failure message="KeyError: 'minion_horde_ev1'">tests/test_sim_fidelity.py:2081: in test_evolved_minion_horde_first_damage_triggers_three_second_ghost_state
+    minion = _spawn(battle, "minion_horde_ev1", 1, 9, 20, 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'minion_horde_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_royal_ghost_starts_with_two_guardians_and_delayed_spawn_damage" time="0.000"><failure message="KeyError: 'ghost_ev1'">tests/test_sim_fidelity.py:2108: in test_evolved_royal_ghost_starts_with_two_guardians_and_delayed_spawn_damage
+    0, ALL["ghost_ev1"].unit, 1, Point(9 * MT, 20 * MT)))
+       ^^^^^^^^^^^^^^^^
+E   KeyError: 'ghost_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_archer_uses_current_power_shot_damage_beyond_four_point_five_tiles" time="0.000"><failure message="KeyError: 'archer_ev1'">tests/test_sim_fidelity.py:2133: in test_evolved_archer_uses_current_power_shot_damage_beyond_four_point_five_tiles
+    spec = ALL["archer_ev1"].unit
+           ^^^^^^^^^^^^^^^^^
+E   KeyError: 'archer_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_ice_spirit_repeats_target_bound_area_freeze_after_three_seconds" time="0.000"><failure message="KeyError: 'ice_spirits_ev1'">tests/test_sim_fidelity.py:2158: in test_evolved_ice_spirit_repeats_target_bound_area_freeze_after_three_seconds
+    spirit = _spawn(battle, "ice_spirits_ev1", 1, 9, 20, 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'ice_spirits_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_goblin_giant_starts_permanent_goblin_stream_at_half_health" time="0.000"><failure message="KeyError: 'goblin_giant_ev1'">tests/test_sim_fidelity.py:2200: in test_evolved_goblin_giant_starts_permanent_goblin_stream_at_half_health
+    0, ALL["goblin_giant_ev1"].unit, 1, Point(9 * MT, 20 * MT)))
+       ^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'goblin_giant_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_royal_hog_descends_then_deals_current_ground_only_landing_damage" time="0.000"><failure message="KeyError: 'royal_hogs_ev1'">tests/test_sim_fidelity.py:2234: in test_evolved_royal_hog_descends_then_deals_current_ground_only_landing_damage
+    0, ALL["royal_hogs_ev1"].unit, 1, Point(9 * MT, 20 * MT)))
+       ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'royal_hogs_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_hunter_net_uses_current_cooldown_flight_snare_and_air_grounding" time="0.000"><failure message="KeyError: 'hunter_ev1'">tests/test_sim_fidelity.py:2262: in test_evolved_hunter_net_uses_current_cooldown_flight_snare_and_air_grounding
+    hunter = _spawn(battle, "hunter_ev1", 1, 9, 20, 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'hunter_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_baby_dragon_attack_refreshes_following_movement_only_wind" time="0.000"><failure message="KeyError: 'baby_dragon_ev1'">tests/test_sim_fidelity.py:2296: in test_evolved_baby_dragon_attack_refreshes_following_movement_only_wind
+    dragon = _spawn(battle, "baby_dragon_ev1", 1, 9, 20, 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'baby_dragon_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_mega_knight_every_second_hit_uppercuts_over_declared_flight_time" time="0.000"><failure message="KeyError: 'mega_knight_ev1'">tests/test_sim_fidelity.py:2335: in test_evolved_mega_knight_every_second_hit_uppercuts_over_declared_flight_time
+    mega = _spawn(battle, "mega_knight_ev1", 1, 9, 16, 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'mega_knight_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_electro_dragon_infinitely_repeats_with_reduced_fourth_bolt" time="0.000"><failure message="KeyError: 'electro_dragon_ev1'">tests/test_sim_fidelity.py:2364: in test_evolved_electro_dragon_infinitely_repeats_with_reduced_fourth_bolt
+    dragon = _spawn(battle, "electro_dragon_ev1", 1, 9, 20, 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'electro_dragon_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_inferno_dragon_retains_four_stage_heat_then_decays_or_resets" time="0.000"><failure message="KeyError: 'inferno_dragon_ev1'">tests/test_sim_fidelity.py:2394: in test_evolved_inferno_dragon_retains_four_stage_heat_then_decays_or_resets
+    dragon = _spawn(battle, "inferno_dragon_ev1", 1, 9, 20, 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'inferno_dragon_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_ice_golem_paid_single_use_blizzard_has_three_current_slow_blasts" time="0.067"><failure message="KeyError: 'ice_golemite_hero'">tests/test_sim_fidelity.py:2435: in test_hero_ice_golem_paid_single_use_blizzard_has_three_current_slow_blasts
+    cards["ice_golemite_hero"] = ALL["ice_golemite_hero"]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'ice_golemite_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_musketeer_paid_ability_deploys_current_trusty_turret" time="0.077"><failure message="KeyError: 'musketeer_hero'">tests/test_sim_fidelity.py:2476: in test_hero_musketeer_paid_ability_deploys_current_trusty_turret
+    cards["musketeer_hero"] = ALL["musketeer_hero"]
+                              ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'musketeer_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_mighty_miner_current_stages_and_explosive_escape_lane_mirror" time="0.068"><failure message="assert (2250, 0, 0, 0) == (2250, 0, 204, 409)&#10;  &#10;  At index 2 diff: 0 != 204&#10;  Use -v to get more diff">tests/test_sim_fidelity.py:2526: in test_mighty_miner_current_stages_and_explosive_escape_lane_mirror
+    assert (miner.hitpoints, miner.damage, miner.variable_damage2,
+E   assert (2250, 0, 0, 0) == (2250, 0, 204, 409)
+E     
+E     At index 2 diff: 0 != 204
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_goblinstein_group_deploy_and_current_link_survives_monster_death" time="0.000"><failure message="KeyError: 'goblinstein'">tests/test_sim_fidelity.py:2546: in test_goblinstein_group_deploy_and_current_link_survives_monster_death
+    cards = {"goblinstein": ALL["goblinstein"], "knight": ALL["knight"]}
+                            ^^^^^^^^^^^^^^^^^^
+E   KeyError: 'goblinstein'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_berserker_savage_survival_cast_and_current_bear_buff" time="0.000"><failure message="KeyError: 'berserker_hero'">tests/test_sim_fidelity.py:2591: in test_hero_berserker_savage_survival_cast_and_current_bear_buff
+    cards = {"berserker_hero": ALL["berserker_hero"], "knight": ALL["knight"]}
+                               ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'berserker_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_current_spirits_cannot_acquire_towers_but_triggered_splash_reaches_one" time="0.000"><failure message="KeyError: 'fire_spirits'">tests/test_sim_fidelity.py:2631: in test_current_spirits_cannot_acquire_towers_but_triggered_splash_reaches_one
+    assert ALL[card].unit.hitpoints == 215
+           ^^^^^^^^^
+E   KeyError: 'fire_spirits'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_dart_goblin_target_poison_stacks_and_uses_tower_rule" time="0.000"><failure message="KeyError: 'blowdart_goblin_ev1'">tests/test_sim_fidelity.py:2650: in test_evolved_dart_goblin_target_poison_stacks_and_uses_tower_rule
+    dart = _spawn(battle, "blowdart_goblin_ev1", 1, 9, 20, 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'blowdart_goblin_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_goblin_demolisher_transforms_at_half_health_and_explodes" time="0.000"><failure message="KeyError: 'goblin_demolisher'">tests/test_sim_fidelity.py:2692: in test_goblin_demolisher_transforms_at_half_health_and_explodes
+    demolisher = _spawn(battle, "goblin_demolisher", 1, 9, 20, 1)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'goblin_demolisher'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_musketeer_uses_three_forward_long_shots_not_crown_towers" time="0.000"><failure message="KeyError: 'musketeer_ev1'">tests/test_sim_fidelity.py:2721: in test_evolved_musketeer_uses_three_forward_long_shots_not_crown_towers
+    musketeer = _spawn(battle, "musketeer_ev1", 1, 9, 20, 1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'musketeer_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_skeleton_army_general_preserves_then_reaps_spectrals" time="0.000"><failure message="KeyError: 'skeleton_army_ev1'">tests/test_sim_fidelity.py:2761: in test_evolved_skeleton_army_general_preserves_then_reaps_spectrals
+    cards = {"skeleton_army_ev1": ALL["skeleton_army_ev1"]}
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'skeleton_army_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_elite_barbarians_throw_rage_spears_then_melee" time="0.000"><failure message="KeyError: 'angry_barbarians_ev1'">tests/test_sim_fidelity.py:2803: in test_evolved_elite_barbarians_throw_rage_spears_then_melee
+    cards = {"angry_barbarians_ev1": ALL["angry_barbarians_ev1"],
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'angry_barbarians_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_skeleton_barrel_drops_two_current_damage_containers" time="0.000"><failure message="KeyError: 'skeleton_balloon_ev1'">tests/test_sim_fidelity.py:2854: in test_evolved_skeleton_barrel_drops_two_current_damage_containers
+    barrel = _spawn(battle, "skeleton_balloon_ev1", 1, 9, 20, 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'skeleton_balloon_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_cannon_fires_source_timed_four_plus_five_barrage" time="0.000"><failure message="KeyError: 'cannon_ev1'">tests/test_sim_fidelity.py:2891: in test_evolved_cannon_fires_source_timed_four_plus_five_barrage
+    cannon = _spawn(battle, "cannon_ev1", 1, 9, 20, 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'cannon_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_lumberjack_evolution_drops_current_rage_and_fixed_life_ghost" time="0.000"><failure message="KeyError: 'rage_barbarian_ev1'">tests/test_sim_fidelity.py:2927: in test_lumberjack_evolution_drops_current_rage_and_fixed_life_ghost
+    lumberjack = _spawn(battle, "rage_barbarian_ev1", 1, 9, 20, 1)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'rage_barbarian_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_reworked_and_evolved_furnace_use_source_spawn_controllers" time="0.000"><failure message="KeyError: 'firespirit_hut'">tests/test_sim_fidelity.py:2971: in test_reworked_and_evolved_furnace_use_source_spawn_controllers
+    furnace = _spawn(normal_battle, "firespirit_hut", 1, 9, 20, 1,
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'firespirit_hut'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_evolved_goblin_cage_captures_damages_and_releases_one_ground_troop" time="0.000"><failure message="KeyError: 'goblin_cage_ev1'">tests/test_sim_fidelity.py:3015: in test_evolved_goblin_cage_captures_damages_and_releases_one_ground_troop
+    cage = _spawn(battle, "goblin_cage_ev1", 1, 9, 20, 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sim_fidelity.py:29: in _spawn
+    entity = battle.add(make_unit(uid, ALL[name].unit, side,
+                                       ^^^^^^^^^
+E   KeyError: 'goblin_cage_ev1'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_mini_pekka_cooks_from_time_and_hits_then_levels_once" time="0.000"><failure message="KeyError: 'mini_pekka_hero'">tests/test_sim_fidelity.py:3049: in test_hero_mini_pekka_cooks_from_time_and_hits_then_levels_once
+    cards = {"mini_pekka_hero": ALL["mini_pekka_hero"],
+                                ^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'mini_pekka_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_knight_taunt_restores_current_shield_and_forces_targets" time="0.000"><failure message="KeyError: 'knight_hero'">tests/test_sim_fidelity.py:3093: in test_hero_knight_taunt_restores_current_shield_and_forces_targets
+    cards = {"knight_hero": ALL["knight_hero"], "knight": ALL["knight"]}
+                            ^^^^^^^^^^^^^^^^^^
+E   KeyError: 'knight_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_giant_waits_then_hurls_highest_hp_troop_to_opposite_lane" time="0.000"><failure message="KeyError: 'giant_hero'">tests/test_sim_fidelity.py:3123: in test_hero_giant_waits_then_hurls_highest_hp_troop_to_opposite_lane
+    cards = {"giant_hero": ALL["giant_hero"], "knight": ALL["knight"]}
+                           ^^^^^^^^^^^^^^^^^
+E   KeyError: 'giant_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_bowler_stone_swish_uses_fixed_position_ground_impacts" time="0.000"><failure message="KeyError: 'bowler_hero'">tests/test_sim_fidelity.py:3177: in test_hero_bowler_stone_swish_uses_fixed_position_ground_impacts
+    cards = {"bowler_hero": ALL["bowler_hero"], "knight": ALL["knight"]}
+                            ^^^^^^^^^^^^^^^^^^
+E   KeyError: 'bowler_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_dark_prince_dismount_preserves_damage_and_spawns_current_rhino" time="0.000"><failure message="KeyError: 'dark_prince_hero'">tests/test_sim_fidelity.py:3235: in test_hero_dark_prince_dismount_preserves_damage_and_spawns_current_rhino
+    cards = {"dark_prince_hero": ALL["dark_prince_hero"],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'dark_prince_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_barbarian_barrel_reroll_heals_and_sweeps_once" time="0.000"><failure message="KeyError: 'BarbLogBarbarianHero'">tests/test_sim_fidelity.py:3284: in test_hero_barbarian_barrel_reroll_heals_and_sweeps_once
+    0, characters["BarbLogBarbarianHero"], 1, Point(9 * MT, 20 * MT)))
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'BarbLogBarbarianHero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_barbarian_barrel_card_rolls_before_spawning_hero" time="0.000"><failure message="KeyError: 'barb_log_hero'">tests/test_sim_fidelity.py:3316: in test_hero_barbarian_barrel_card_rolls_before_spawning_hero
+    cards = {"barb_log_hero": ALL["barb_log_hero"],
+                              ^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'barb_log_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_valkyrie_waits_then_delivers_fourteen_uninterruptible_pulses" time="0.000"><failure message="KeyError: 'valkyrie_hero'">tests/test_sim_fidelity.py:3337: in test_hero_valkyrie_waits_then_delivers_fourteen_uninterruptible_pulses
+    cards = {"valkyrie_hero": ALL["valkyrie_hero"],
+                              ^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'valkyrie_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_goblins_last_death_banner_and_current_two_unit_brigade" time="0.000"><failure message="KeyError: 'goblins_hero'">tests/test_sim_fidelity.py:3375: in test_hero_goblins_last_death_banner_and_current_two_unit_brigade
+    cards = {"goblins_hero": ALL["goblins_hero"], "knight": ALL["knight"]}
+                             ^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'goblins_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_goblins_banner_ability_expires_before_visual_cleanup" time="0.000"><failure message="KeyError: 'GoblinHero_Flag_Building'">tests/test_sim_fidelity.py:3429: in test_hero_goblins_banner_ability_expires_before_visual_cleanup
+    banner_spec = load_characters(11)["GoblinHero_Flag_Building"]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'GoblinHero_Flag_Building'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_tombstone_regal_revival_raises_current_queen_and_death_wave" time="0.000"><failure message="KeyError: 'tombstone_hero'">tests/test_sim_fidelity.py:3444: in test_hero_tombstone_regal_revival_raises_current_queen_and_death_wave
+    cards = {"tombstone_hero": ALL["tombstone_hero"],
+                               ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'tombstone_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_tombstone_ability_survives_source_death_for_1500ms_only" time="0.000"><failure message="KeyError: 'tombstone_hero'">tests/test_sim_fidelity.py:3496: in test_hero_tombstone_ability_survives_source_death_for_1500ms_only
+    cards = {"tombstone_hero": ALL["tombstone_hero"],
+                               ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'tombstone_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_ronin_parry_blocks_one_melee_hit_and_reflects_exact_damage_later" time="0.000"><failure message="KeyError: 'ronin'">tests/test_sim_fidelity.py:3519: in test_ronin_parry_blocks_one_melee_hit_and_reflects_exact_damage_later
+    0, ALL["ronin"].unit, 1, Point(9 * MT, 20 * MT)))
+       ^^^^^^^^^^^^
+E   KeyError: 'ronin'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_ronin_parry_excludes_projectiles_and_is_disabled_while_frozen" time="0.000"><failure message="KeyError: 'ronin'">tests/test_sim_fidelity.py:3544: in test_ronin_parry_excludes_projectiles_and_is_disabled_while_frozen
+    0, ALL["ronin"].unit, 1, Point(9 * MT, 20 * MT)))
+       ^^^^^^^^^^^^
+E   KeyError: 'ronin'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_boss_bandit_getaway_has_two_timed_backward_warps" time="0.000"><failure message="KeyError: 'boss_bandit'">tests/test_sim_fidelity.py:3567: in test_boss_bandit_getaway_has_two_timed_backward_warps
+    cards = {"boss_bandit": ALL["boss_bandit"], "knight": ALL["knight"]}
+                            ^^^^^^^^^^^^^^^^^^
+E   KeyError: 'boss_bandit'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_firecracker_applies_client_one_tile_self_recoil_on_launch" time="0.000"><failure message="AssertionError: assert 0 == 1000&#10; +  where 0 = Entity(uid=1, name='firecracker', side=1, pos=Point(x=9000, y=20000), hitpoints=304, max_hitpoints=304, damage=0, hit_...ate=0, target_uid=2, windup_remaining_ms=0, attack_cooldown_ms=0, crossed_river=False, spawned_at_ms=0, damage_dealt=0).attack_self_pushback_mt">tests/test_sim_fidelity.py:3612: in test_firecracker_applies_client_one_tile_self_recoil_on_launch
+    assert firecracker.attack_self_pushback_mt == 1000
+E   AssertionError: assert 0 == 1000
+E    +  where 0 = Entity(uid=1, name='firecracker', side=1, pos=Point(x=9000, y=20000), hitpoints=304, max_hitpoints=304, damage=0, hit_...ate=0, target_uid=2, windup_remaining_ms=0, attack_cooldown_ms=0, crossed_river=False, spawned_at_ms=0, damage_dealt=0).attack_self_pushback_mt</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_current_skeletrooper_stats_and_landing_damage_are_materialized" time="0.000"><failure message="KeyError: 'SkeletonTrooper'">tests/test_sim_fidelity.py:3621: in test_current_skeletrooper_stats_and_landing_damage_are_materialized
+    spec = load_characters(11)["SkeletonTrooper"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'SkeletonTrooper'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_hero_wizard_fiery_flight_changes_form_and_adds_enhanced_hit_area" time="0.000"><failure message="KeyError: 'wizard_hero'">tests/test_sim_fidelity.py:3642: in test_hero_wizard_fiery_flight_changes_form_and_adds_enhanced_hit_area
+    cards = {"wizard_hero": ALL["wizard_hero"], "knight": ALL["knight"]}
+                            ^^^^^^^^^^^^^^^^^^
+E   KeyError: 'wizard_hero'</failure></testcase><testcase classname="tests.test_sim_fidelity" name="test_coverage_has_no_unresolved_public_spell_and_counts_evo_summons_as_units" time="0.075"><failure message="assert 111 == 176">tests/test_sim_fidelity.py:3687: in test_coverage_has_no_unresolved_public_spell_and_counts_evo_summons_as_units
+    assert coverage["units"] == 176
+E   assert 111 == 176</failure></testcase><testcase classname="tests.test_stuck_units" name="test_there_are_barred_cards_to_check" time="0.000"><failure message="AssertionError: no card carries cannot_target_towers&#10;assert []">tests/test_stuck_units.py:62: in test_there_are_barred_cards_to_check
+    assert BARRED, "no card carries cannot_target_towers"
+E   AssertionError: no card carries cannot_target_towers
+E   assert []</failure></testcase><testcase classname="tests.test_stuck_units" name="test_a_barred_unit_still_advances_on_a_tower[NOTSET]" time="0.000"><skipped type="pytest.skip" message="got empty parameter set for (card)">/Users/andriashadrin/projects/Hasty-CR/tests/test_stuck_units.py:65: got empty parameter set for (card)</skipped></testcase><testcase classname="tests.test_stuck_units" name="test_a_barred_unit_still_cannot_hurt_that_tower[NOTSET]" time="0.000"><skipped type="pytest.skip" message="got empty parameter set for (card)">/Users/andriashadrin/projects/Hasty-CR/tests/test_stuck_units.py:84: got empty parameter set for (card)</skipped></testcase><testcase classname="tests.test_stuck_units" name="test_a_barred_unit_still_prefers_a_real_target" time="0.000"><failure message="IndexError: list index out of range">tests/test_stuck_units.py:110: in test_a_barred_unit_still_prefers_a_real_target
+    spirit = battle.add(make_unit(1, CARDS[BARRED[0]].unit, 1, Point(9000, 20000)))
+                                           ^^^^^^^^^
+E   IndexError: list index out of range</failure></testcase><testcase classname="tests.test_stuck_units" name="test_no_unit_freezes_across_a_batch_of_matches" time="0.817" /><testcase classname="tests.test_stuck_units" name="test_a_unit_behind_the_king_tower_gets_round_it" time="0.003"><skipped type="pytest.skip" message="it died before it could get anywhere">/Users/andriashadrin/projects/Hasty-CR/tests/test_stuck_units.py:208: it died before it could get anywhere</skipped></testcase><testcase classname="tests.test_stuck_units" name="test_the_chosen_side_is_held_until_the_building_is_cleared" time="0.003"><failure message="AssertionError: it changed its mind about which way to go round: {1, -1}&#10;assert 2 &lt;= 1&#10; +  where 2 = len({-1, 1})">tests/test_stuck_units.py:237: in test_the_chosen_side_is_held_until_the_building_is_cleared
+    assert len(turns) &lt;= 1, (
+E   AssertionError: it changed its mind about which way to go round: {1, -1}
+E   assert 2 &lt;= 1
+E    +  where 2 = len({-1, 1})</failure></testcase><testcase classname="tests.test_sim_env_contract" name="test_the_mask_does_not_hide_a_legal_action" time="0.681"><failure message="AssertionError: [(2293, (3, 6, 31)), (2081, (3, 10, 19)), (2097, (3, 8, 20)), (386, (0, 7, 21)), (372, (0, 11, 20)), (2207, (3, 10, 26)), ...]&#10;assert not [(2293, (3, 6, 31)), (2081, (3, 10, 19)), (2097, (3, 8, 20)), (386, (0, 7, 21)), (372, (0, 11, 20)), (2207, (3, 10, 26)), ...]">tests/test_sim_env_contract.py:59: in test_the_mask_does_not_hide_a_legal_action
+    assert not accepted_but_masked, accepted_but_masked[:10]
+E   AssertionError: [(2293, (3, 6, 31)), (2081, (3, 10, 19)), (2097, (3, 8, 20)), (386, (0, 7, 21)), (372, (0, 11, 20)), (2207, (3, 10, 26)), ...]
+E   assert not [(2293, (3, 6, 31)), (2081, (3, 10, 19)), (2097, (3, 8, 20)), (386, (0, 7, 21)), (372, (0, 11, 20)), (2207, (3, 10, 26)), ...]</failure></testcase><testcase classname="tests.test_sim_env_contract" name="test_a_seed_and_an_action_sequence_replay_identically" time="0.268" /><testcase classname="tests.test_sim_env_contract" name="test_the_seed_actually_changes_the_episode" time="0.273" /><testcase classname="tests.test_sim_env_contract" name="test_observations_stay_finite_and_keep_their_shape" time="0.132" /><testcase classname="tests.test_sim_env_contract" name="test_rewards_are_finite_and_bounded" time="0.144" /></testsuite></testsuites>

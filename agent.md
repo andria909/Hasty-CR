@@ -1,3 +1,9 @@
+## Лучшая модель, сохранённая по запросу пользователя 25 октября 2026
+PPO «атака + защита · economy_soft»: `checkpoints/ppo_joint_economy_soft_20261023/policy.pt`.
+Точный SHA-256 и метрики — в `best_model.json`. В симуляторе: v25 19/20 (95%),
+все 15 соперников 219/300 (73%, общий результат равен defense spell_precision).
+Это сохранённый кандидат; live не переключён, соответствие физики реальной игре не принято.
+
 ## ВСЕ4 finaleval COMPLETE, осталось2описательныхtrain-прогона
 Полные4rawколлекции EVAL/OWNER/collected сохранены и независимыйverifier прошёл.
 reports/defense_plan/ppo_selected_four_final_comparison.json:7440val/testэпизодов+1200matches,

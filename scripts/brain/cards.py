@@ -1,28 +1,10 @@
-"""A stronger card classifier for the hand.
+"""Independent card recognition with an explicit uncertainty threshold.
 
-The upstream detector reduces each card to an **8x8 greyscale hash** (64 values)
-and then assigns all five slots at once with `linear_sum_assignment`. Two
-consequences, both measured live:
-
-* 64 greyscale values is not enough to separate eight cards reliably, and
-* the one-to-one assignment couples the slots, so a single bad crop steals a
-  card and forces wrong answers in the other slots too.
-
-Live capture showed 50-96 slot flips per match - about two per card played -
-with Ice Spirit reported at 22-32% of all plays, which is impossible in an
-eight-card deck where a card cannot exceed 20%.
-
-This classifier keeps the same reference art but:
-
-* crops from the **full-resolution** frame rather than the 368x652 downscale,
-* compares at 32x32 (16x the information),
-* scores with **normalised cross-correlation**, which is invariant to the
-  linear brightness and contrast change that "greyed out because you cannot
-  afford it" applies - the exact effect the upstream multi-hash was trying to
-  approximate with a hardcoded scale and intercept,
-* scores each slot **independently**, and reports `None` when the best and
-  second-best cards are too close, so an uncertain slot holds its previous
-  value instead of inventing a new one.
+The current eight-card deck uses menu artwork captured before the validation
+battles. Compare only the upper illustration: borders, elixir badges and level
+labels differ between the menu, hand and preview. Normalised greyscale
+correlation handles linear dimming/desaturation; uncertain readings abstain.
+Legacy full-card references remain available for other decks and custom assets.
 """
 
 from __future__ import annotations
@@ -46,6 +28,19 @@ _SRC_W, _SRC_H = 368, 652
 PATCH = 32
 MIN_MARGIN = 0.04     # required gap between best and second-best correlation
 MIN_SCORE = 0.30      # below this nothing is recognised at all
+CURRENT_CARDS = Path(__file__).resolve().parents[2] / "data/card_references/current_20261021"
+
+
+def next_card_box(width: int, height: int) -> Tuple[int, int, int, int]:
+    return tuple(round(v * scale) for v, scale in zip(
+        (21, 609, 47, 642), (width / 368, height / 652) * 2))
+
+
+def _art_signature(image: Image.Image) -> np.ndarray:
+    # Exclude frame, cost badge, and deck-menu level label. The upper artwork
+    # is shared by menu, affordable/grey hand cards, and the small preview.
+    w, h = image.size
+    return _signature(image.crop((w * .08, h * .05, w * .92, h * .73)))
 
 
 def hand_boxes(width: int, height: int) -> List[Tuple[int, int, int, int]]:
@@ -77,23 +72,33 @@ class CardClassifier:
         self.deck = list(deck)
         directory = Path(cards_dir or VENDOR_CARDS)
         self.references: Dict[str, np.ndarray] = {}
+        self.art_references: Dict[str, np.ndarray] = {}
         for name in self.deck:
             path = directory / f"{name}.jpg"
             if path.exists():
                 self.references[name] = _signature(Image.open(path))
+            # A custom reference directory must remain self-contained.
+            current = CURRENT_CARDS / f"{name}.png"
+            if cards_dir is None and current.exists():
+                with Image.open(current) as image:
+                    self.art_references[name] = _art_signature(image)
 
     @property
     def ready(self) -> bool:
-        return len(self.references) == len(self.deck)
+        return bool(self.deck) and (len(self.references) == len(self.deck)
+                                   or len(self.art_references) == len(self.deck))
 
     def classify_patch(self, image: Image.Image) -> Tuple[Optional[str], float]:
         """Best matching card for one crop, or None when it is ambiguous."""
-        if not self.references:
+        return self._match(_signature(image), self.references)
+
+    @staticmethod
+    def _match(signature, references) -> Tuple[Optional[str], float]:
+        if not references:
             return None, 0.0
-        signature = _signature(image)
         scored = sorted(
             ((float(np.dot(signature, ref)), name)
-             for name, ref in self.references.items()),
+             for name, ref in references.items()),
             reverse=True,
         )
         best_score, best_name = scored[0]
@@ -112,7 +117,17 @@ class CardClassifier:
         weaker correlation is the wrong one.
         """
         boxes = hand_boxes(frame.width, frame.height)
+        if len(self.art_references) == len(self.deck):
+            return [self._match(_art_signature(frame.crop(box)), self.art_references)
+                    for box in boxes]
         return [self.classify_patch(frame.crop(box)) for box in boxes]
+
+    def classify_next(self, frame: Image.Image) -> Tuple[Optional[str], float]:
+        """Read the preview independently; abstain if current art is unavailable."""
+        if len(self.art_references) != len(self.deck):
+            return None, 0.0
+        return self._match(_art_signature(frame.crop(next_card_box(*frame.size))),
+                           self.art_references)
 
     def classify_hand(self, frame: Image.Image) -> List[Optional[str]]:
         """Four slot readings from a full-resolution frame."""

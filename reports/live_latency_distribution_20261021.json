@@ -1,0 +1,54 @@
+{
+  "selection": "Matches 1-3, action_sent only. Excludes match 4 with video recording and match 5 with control captures. Match 1 partial.",
+  "n": 149,
+  "fits": {
+    "normal": {
+      "parameters": [
+        610.7133426040375,
+        34.571580286857404
+      ],
+      "bic": 1488.6751012421423,
+      "ks_distance_descriptive_only": 0.085138057865076,
+      "p95_ms": 667.5785318283189
+    },
+    "lognormal": {
+      "parameters": [
+        0.05734637167275688,
+        0.0,
+        609.718920862964
+      ],
+      "bic": 1492.0485792959553,
+      "ks_distance_descriptive_only": 0.09260362331622463,
+      "p95_ms": 670.0313169043907
+    },
+    "gamma": {
+      "parameters": [
+        306.98609310809854,
+        0.0,
+        1.9893843933477076
+      ],
+      "bic": 1490.793222275624,
+      "ks_distance_descriptive_only": 0.09019006814835373,
+      "p95_ms": 669.154948681714
+    },
+    "skewnormal": {
+      "parameters": [
+        -3.1651763514144573,
+        652.7190056053497,
+        54.40284708387374
+      ],
+      "bic": 1487.7177431568152,
+      "ks_distance_descriptive_only": 0.08317762439750948,
+      "p95_ms": 660.6325762346322
+    }
+  },
+  "recommendation": "empirical joint block bootstrap; parametric BIC differences are small",
+  "profile": "data/latency/mumu_m5_20261021.json",
+  "sampler_validation_100000_draws": {
+    "seed": 20261021,
+    "mean_ms": 610.9792347471722,
+    "std_ms": 34.479982333373556,
+    "p95_ms": 657.023499996285
+  },
+  "integration_warning": "ClashEnv currently min-clips action delay to 500ms decision cadence; pending input scheduling is needed to actually apply >500ms samples."
+}

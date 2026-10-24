@@ -1,0 +1,50 @@
+{
+  "scope": "Identical five test files. Baseline reproduces old public-loader movement-speed conversion via runtime monkeypatch, no source rollback.",
+  "before": {
+    "passed": 47,
+    "failed": 126,
+    "skipped": 3
+  },
+  "after": {
+    "passed": 54,
+    "failed": 120,
+    "skipped": 2
+  },
+  "changed": [
+    {
+      "test": "tests.test_stuck_units.test_a_unit_behind_the_king_tower_gets_round_it",
+      "before": "skipped",
+      "after": "passed"
+    },
+    {
+      "test": "tests.test_speed_units.test_a_medium_unit_covers_six_tiles_in_five_seconds",
+      "before": "failed",
+      "after": "passed"
+    },
+    {
+      "test": "tests.test_sim_fidelity.test_movement_speed_matches_the_card_data",
+      "before": "failed",
+      "after": "passed"
+    },
+    {
+      "test": "tests.test_speed_units.test_every_unit_walks_at_a_plausible_pace",
+      "before": "failed",
+      "after": "passed"
+    },
+    {
+      "test": "tests.test_stuck_units.test_the_chosen_side_is_held_until_the_building_is_cleared",
+      "before": "failed",
+      "after": "passed"
+    },
+    {
+      "test": "tests.test_sim_fidelity.test_a_musketeer_kills_a_cannon_without_being_touched",
+      "before": "failed",
+      "after": "passed"
+    },
+    {
+      "test": "tests.test_speed_units.test_a_hog_rider_crosses_the_bridge_to_the_tower_in_under_three_seconds",
+      "before": "failed",
+      "after": "passed"
+    }
+  ]
+}

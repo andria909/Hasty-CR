@@ -51,11 +51,14 @@ def test_the_live_and_simulator_grids_are_the_same_convention():
         assert abs(sim_point.y / sim_arena.MT - live_y) <= 0.5, lane
 
 
-def test_live_unit_speed_is_already_in_millitiles_per_second():
+def test_live_unit_speed_matches_simulated_entity_speed():
     from sim.gamedata import load_gamedata
+    from sim.entities import make_unit
+    from sim.arena import tile
     cards = load_gamedata(11)
     for name in ("giant", "knight", "hog_rider"):
-        assert _unit_profile(name)["speed"] == cards[name].unit.speed_mt_per_sec
+        entity = make_unit(1, cards[name].unit, 1, tile(3, 20))
+        assert _unit_profile(name)["speed"] == entity.speed_mt_per_sec
     assert _unit_profile("giant")["speed"] < _unit_profile("knight")["speed"]
     assert _unit_profile("knight")["speed"] < _unit_profile("hog_rider")["speed"]
 

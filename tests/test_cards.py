@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sys
+import json
 from pathlib import Path
 
 import pytest
@@ -57,3 +58,30 @@ def test_hand_boxes_scale_to_the_device_resolution():
     assert 2.9 < ratio < 3.0                      # 1080/368
     for box in full:
         assert box[2] > box[0] and box[3] > box[1]
+
+
+LIVE_LABELS = json.loads((ROOT / "data/validation/card_regression_20261021/labels.json").read_text())
+LIVE_DECK = ["cannon", "fireball", "hog_rider", "knight", "electro_spirit",
+             "musketeer", "skeletons", "zap"]
+
+
+@pytest.mark.parametrize("case", LIVE_LABELS["frames"], ids=lambda f: str(f["id"]))
+def test_recorded_hand_and_preview(case):
+    """Menu-only calibration must recognise held-out battle pixels, even grey cards."""
+    classifier = CardClassifier(LIVE_DECK)
+    with Image.open(ROOT / case["path"]) as frame:
+        assert classifier.classify_hand(frame) == case["hand"]
+        assert classifier.classify_next(frame)[0] == case["next_card"]
+
+
+def test_current_art_abstains_on_blank_hand_and_preview():
+    classifier = CardClassifier(LIVE_DECK)
+    frame = Image.new("RGB", (1080, 1920), (128, 128, 128))
+    assert classifier.classify_hand(frame) == [None] * 4
+    assert classifier.classify_next(frame)[0] is None
+
+
+def test_custom_reference_directory_does_not_load_current_art(tmp_path):
+    classifier = CardClassifier(LIVE_DECK, cards_dir=tmp_path)
+    assert not classifier.ready
+    assert not classifier.art_references

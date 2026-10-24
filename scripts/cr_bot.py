@@ -156,6 +156,10 @@ def main() -> int:
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--log", type=Path, default=ROOT / "tmp" / "live" / "cr_bot.log")
     parser.add_argument("--matches-dir", type=Path, default=ROOT / "tmp" / "live" / "matches")
+    parser.add_argument("--latency-jsonl", type=Path,
+                        help="append per-frame decision and ADB input-completion timings")
+    parser.add_argument("--latency-frames-dir", type=Path,
+                        help="save decision and post-input frames for game-clock comparison; adds a capture after plays")
     args = parser.parse_args()
     if getattr(args, "stream_capture", False):
         os.environ["HASTYCR_STREAM_CAPTURE"] = "1"
@@ -171,6 +175,12 @@ def main() -> int:
         logger.add(sys.stderr, level="WARNING")
     args.log.parent.mkdir(parents=True, exist_ok=True)
     args.matches_dir.mkdir(parents=True, exist_ok=True)
+    if args.latency_jsonl:
+        args.latency_jsonl.parent.mkdir(parents=True, exist_ok=True)
+    if args.latency_frames_dir:
+        if not args.latency_jsonl:
+            parser.error("--latency-frames-dir requires --latency-jsonl")
+        args.latency_frames_dir.mkdir(parents=True, exist_ok=True)
 
     def log(message: str) -> None:
         line = f"{datetime.now():%Y-%m-%d %H:%M:%S} {message}"
@@ -191,6 +201,9 @@ def main() -> int:
                 f"side_classifier={'yes' if vision.sides.ready else 'NO'} "
                 f"side_accuracy={vision.sides.accuracy:.3f}")
     configure_unit_detection(detector, vision)
+    if vision is None:
+        log("VISION buildabot board corrections enabled: scenery filter, duplicate "
+            "suppression, building refinement and building health-bar side check")
     if args.rl:
         from brain.rl_policy import RLBrain
         brain = RLBrain(args.rl, temperature=args.rl_temperature)
@@ -223,11 +236,32 @@ def main() -> int:
     bars_frame_saved = False
     guard_frame_saved = False
 
+    def record_latency(boundaries, *, status="decision", screen="in_game",
+                       elapsed_s=0.0, decision=None):
+        if not args.latency_jsonl:
+            return
+        from latency_metrics import decision_sample
+        sample = decision_sample(
+            boundaries, match=finished + 1, tick=ticks, elapsed_s=elapsed_s,
+            decision=decision, status=status, screen=screen)
+        with args.latency_jsonl.open("a", encoding="utf-8") as stream:
+            stream.write(json.dumps(sample) + "\n")
+
     while time.monotonic() < deadline:
         try:
             loop_started = time.monotonic()
-            full, state = guarded.detect(detector, args.adb, args.serial)
+            if args.latency_jsonl:
+                full, small = guarded.capture(args.adb, args.serial)
+                after_capture = time.monotonic()
+                state = detector.run(small)
+            else:
+                full, state = guarded.detect(detector, args.adb, args.serial)
             after_detect = time.monotonic()
+            if args.latency_jsonl and (state is None or state.screen.name != "in_game"):
+                record_latency(
+                    (loop_started, after_capture, after_detect, after_detect, after_detect),
+                    status="no_state" if state is None else "outside_battle",
+                    screen=None if state is None else state.screen.name)
             if state is None:
                 time.sleep(0.4)
                 continue
@@ -388,6 +422,11 @@ def main() -> int:
                 state, full, hp_filter, now)
 
             if not guarded.battle_guard(state):
+                if args.latency_jsonl:
+                    checked = time.monotonic()
+                    record_latency(
+                        (loop_started, after_capture, after_detect, checked, checked),
+                        status="guard_blocked", elapsed_s=now - match_started if in_match else 0)
                 # Silence here is how a whole match gets thrown. Observed live:
                 # the screen read `in_game` for 68 seconds, the guard rejected
                 # every frame, nothing was logged, no MATCH_START fired and not
@@ -490,6 +529,11 @@ def main() -> int:
             before_decide = time.monotonic()
             decision = brain.decide(state, elapsed, now, frame=full)
             after_decide = time.monotonic()
+            if args.latency_jsonl:
+                record_latency(
+                    (loop_started, after_capture, after_detect,
+                     before_decide, after_decide),
+                    elapsed_s=elapsed, decision=decision)
             if ticks % 60 == 0:
                 log(f"LATENCY capture_ui_ms={(after_detect-loop_started)*1000:.0f} "
                     f"board_guard_ms={(before_decide-after_detect)*1000:.0f} "
@@ -528,9 +572,39 @@ def main() -> int:
                 time.sleep(0.25)
                 continue
 
+            select_started = time.monotonic()
             guarded.tap(args.adb, args.serial, guarded.CARD_CENTRES[decision.slot])
+            select_finished = time.monotonic()
             time.sleep(0.08)
+            placement_started = time.monotonic()
             guarded.tap(args.adb, args.serial, target)
+            placement_finished = time.monotonic()
+            if args.latency_jsonl:
+                from latency_metrics import placement_sample
+                sample = placement_sample(
+                    (loop_started, after_capture, after_detect, before_decide, after_decide),
+                    (select_started, select_finished, placement_started, placement_finished),
+                    match=finished + 1, tick=ticks, elapsed_s=elapsed, decision=decision)
+                with args.latency_jsonl.open("a", encoding="utf-8") as stream:
+                    stream.write(json.dumps(sample) + "\n")
+                if args.latency_frames_dir:
+                    # Input completion has already been timed. This diagnostic
+                    # capture is separate: its latency is NOT troop spawn time.
+                    post_capture_started = time.monotonic()
+                    post_full, _ = guarded.capture(args.adb, args.serial)
+                    post_capture_finished = time.monotonic()
+                    stem = f"m{finished + 1:02d}_tick{ticks:06d}"
+                    before_path = args.latency_frames_dir / f"{stem}_before.jpg"
+                    after_path = args.latency_frames_dir / f"{stem}_after.jpg"
+                    full.save(before_path, quality=95)
+                    post_full.save(after_path, quality=95)
+                    frame_sample = dict(sample, status="frame_pair",
+                                        before_frame=str(before_path), after_frame=str(after_path),
+                                        post_input_capture_ms=(post_capture_finished-post_capture_started)*1000,
+                                        capture_start_to_post_frame_ms=(post_capture_finished-loop_started)*1000,
+                                        capture_ready_to_post_frame_ms=(post_capture_finished-after_capture)*1000)
+                    with args.latency_jsonl.open("a", encoding="utf-8") as stream:
+                        stream.write(json.dumps(frame_sample) + "\n")
             brain.confirm(decision, now)
             match_log.append(f"{round(elapsed)}s {decision.card} ({decision.x},{decision.y}) {decision.tag}")
             log(f"PLAY #{brain.plays} {line}")
