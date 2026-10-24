@@ -1,0 +1,357 @@
+{
+  "schema": "fixed-policy-train-finisher-diagnostic-v1",
+  "policy_sha256": "5e01303f135fe10888b037ed1997fc43be5b012a421b798f446d5db2297cd7c2",
+  "evaluation_source_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+  "cases": [
+    {
+      "scenario_id": "attack::finisher:fireball:unopposed/below:mana10/left/timer_hidden",
+      "seed": 44,
+      "mode": "policy",
+      "initial_enemy_tower_hp": {
+        "left": 205,
+        "right": 3584,
+        "king": 6144
+      },
+      "final_enemy_tower_hp": {
+        "left": 205,
+        "right": 617,
+        "king": 5938
+      },
+      "terminal_reason": "goal_window_missed",
+      "confirmed_spell_finish": false,
+      "goal_success": false,
+      "goal_card_first_ms": 150,
+      "plays": [
+        {
+          "at_ms": 150,
+          "side": 1,
+          "card": "fireball",
+          "resolved_card": "fireball",
+          "cost": 4,
+          "x": 9500,
+          "y": 1500
+        },
+        {
+          "at_ms": 650,
+          "side": 1,
+          "card": "hog_rider",
+          "resolved_card": "hog_rider",
+          "cost": 4,
+          "x": 15500,
+          "y": 16500
+        },
+        {
+          "at_ms": 1150,
+          "side": 1,
+          "card": "zap",
+          "resolved_card": "zap",
+          "cost": 2,
+          "x": 14500,
+          "y": 17500
+        },
+        {
+          "at_ms": 3150,
+          "side": 1,
+          "card": "electro_spirit",
+          "resolved_card": "electro_spirit",
+          "cost": 1,
+          "x": 13500,
+          "y": 16500
+        },
+        {
+          "at_ms": 6150,
+          "side": 1,
+          "card": "skeletons",
+          "resolved_card": "skeletons",
+          "cost": 1,
+          "x": 11500,
+          "y": 16500
+        },
+        {
+          "at_ms": 17150,
+          "side": 1,
+          "card": "fireball",
+          "resolved_card": "fireball",
+          "cost": 4,
+          "x": 16500,
+          "y": 1500
+        }
+      ],
+      "spell_casts": [
+        {
+          "spell": "fireball",
+          "caster_side": 1,
+          "side": 1,
+          "cast_ms": 150,
+          "due_ms": 2850,
+          "aim": [
+            9500,
+            1500
+          ],
+          "hits": [
+            {
+              "target_uid": 6,
+              "target_side": -1,
+              "damage": 206,
+              "max_hp": 6144,
+              "killed": false,
+              "elixir_milli": 0,
+              "spawned_ms": 0,
+              "hit_ms": 2850,
+              "is_tower": true
+            }
+          ],
+          "resolved": true,
+          "impact_ms": 2850
+        },
+        {
+          "spell": "zap",
+          "caster_side": 1,
+          "side": 1,
+          "cast_ms": 1150,
+          "due_ms": 1150,
+          "aim": [
+            14500,
+            17500
+          ],
+          "hits": [],
+          "resolved": true,
+          "impact_ms": 1150
+        },
+        {
+          "spell": "fireball",
+          "caster_side": 1,
+          "side": 1,
+          "cast_ms": 17150,
+          "due_ms": 19939,
+          "aim": [
+            16500,
+            1500
+          ],
+          "hits": [],
+          "resolved": true,
+          "impact_ms": 19950
+        }
+      ],
+      "terminal_damage_events": []
+    },
+    {
+      "scenario_id": "attack::finisher:fireball:unopposed/below:mana10/left/timer_hidden",
+      "seed": 44,
+      "mode": "reference",
+      "initial_enemy_tower_hp": {
+        "left": 205,
+        "right": 3584,
+        "king": 6144
+      },
+      "final_enemy_tower_hp": {
+        "left": 0,
+        "right": 3584,
+        "king": 6144
+      },
+      "terminal_reason": "goal_success",
+      "confirmed_spell_finish": true,
+      "goal_success": true,
+      "goal_card_first_ms": 150,
+      "plays": [
+        {
+          "at_ms": 150,
+          "side": 1,
+          "card": "fireball",
+          "resolved_card": "fireball",
+          "cost": 4,
+          "x": 3500,
+          "y": 7500
+        }
+      ],
+      "spell_casts": [
+        {
+          "spell": "fireball",
+          "caster_side": 1,
+          "side": 1,
+          "cast_ms": 150,
+          "due_ms": 2334,
+          "aim": [
+            3500,
+            7500
+          ],
+          "hits": [
+            {
+              "target_uid": 4,
+              "target_side": -1,
+              "damage": 205,
+              "max_hp": 3584,
+              "killed": true,
+              "elixir_milli": 0,
+              "spawned_ms": 0,
+              "hit_ms": 2350,
+              "is_tower": true
+            }
+          ],
+          "resolved": true,
+          "impact_ms": 2350
+        }
+      ],
+      "terminal_damage_events": []
+    },
+    {
+      "scenario_id": "attack::finisher:fireball:king/below:mana10/left/timer_hidden",
+      "seed": 44,
+      "mode": "policy",
+      "initial_enemy_tower_hp": {
+        "left": 0,
+        "right": 3584,
+        "king": 205
+      },
+      "final_enemy_tower_hp": {
+        "left": 0,
+        "right": 3584,
+        "king": 0
+      },
+      "terminal_reason": "enemy_king_destroyed",
+      "confirmed_spell_finish": false,
+      "goal_success": false,
+      "goal_card_first_ms": 1150,
+      "plays": [
+        {
+          "at_ms": 150,
+          "side": 1,
+          "card": "hog_rider",
+          "resolved_card": "hog_rider",
+          "cost": 4,
+          "x": 2500,
+          "y": 6500
+        },
+        {
+          "at_ms": 650,
+          "side": 1,
+          "card": "musketeer",
+          "resolved_card": "musketeer",
+          "cost": 4,
+          "x": 1500,
+          "y": 7500
+        },
+        {
+          "at_ms": 1150,
+          "side": 1,
+          "card": "zap",
+          "resolved_card": "zap",
+          "cost": 2,
+          "x": 1500,
+          "y": 7500
+        },
+        {
+          "at_ms": 3150,
+          "side": 1,
+          "card": "electro_spirit",
+          "resolved_card": "electro_spirit",
+          "cost": 1,
+          "x": 2500,
+          "y": 7500
+        }
+      ],
+      "spell_casts": [
+        {
+          "spell": "zap",
+          "caster_side": 1,
+          "side": 1,
+          "cast_ms": 1150,
+          "due_ms": 1150,
+          "aim": [
+            1500,
+            7500
+          ],
+          "hits": [],
+          "resolved": true,
+          "impact_ms": 1150
+        }
+      ],
+      "terminal_damage_events": [
+        {
+          "source_kind": "unit",
+          "source_uid": 8,
+          "source_name": "musketeer",
+          "source_side": 1,
+          "hit_ms": 3400,
+          "target_uid": 6,
+          "target_side": -1,
+          "before_hp": 205,
+          "after_hp": 0,
+          "damage": 205,
+          "killed": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "attack::finisher:fireball:king/below:mana10/left/timer_hidden",
+      "seed": 44,
+      "mode": "reference",
+      "initial_enemy_tower_hp": {
+        "left": 0,
+        "right": 3584,
+        "king": 205
+      },
+      "final_enemy_tower_hp": {
+        "left": 0,
+        "right": 3584,
+        "king": 0
+      },
+      "terminal_reason": "enemy_king_destroyed",
+      "confirmed_spell_finish": true,
+      "goal_success": false,
+      "goal_card_first_ms": 150,
+      "plays": [
+        {
+          "at_ms": 150,
+          "side": 1,
+          "card": "fireball",
+          "resolved_card": "fireball",
+          "cost": 4,
+          "x": 9500,
+          "y": 3500
+        }
+      ],
+      "spell_casts": [
+        {
+          "spell": "fireball",
+          "caster_side": 1,
+          "side": 1,
+          "cast_ms": 150,
+          "due_ms": 2650,
+          "aim": [
+            9500,
+            3500
+          ],
+          "hits": [],
+          "resolved": false
+        }
+      ],
+      "terminal_damage_events": [
+        {
+          "source_kind": "spell",
+          "source_name": "fireball",
+          "source_side": 1,
+          "hit_ms": 2650,
+          "target_uid": 6,
+          "target_side": -1,
+          "before_hp": 205,
+          "after_hp": 0,
+          "damage": 205,
+          "killed": true
+        }
+      ]
+    }
+  ],
+  "training_performed": false,
+  "test_split_used": false,
+  "weights_changed": false,
+  "quality_accepted": false,
+  "findings": [
+    "Exact Fireball targeting succeeds in both fixed training cases; observed terminal spell attribution detects the king finisher.",
+    "The fixed policy aims its first unopposed Fireball at (9500,1500) instead of target (3500,7500), then misses the goal window.",
+    "In the king case the policy wins with other troops; enemy king death is a distinct terminal outcome, not a confirmed spell-finisher goal.",
+    "Attack training currently rewards enemy king death separately and Hog damage even inside spell-finisher tasks; this permits an alternative reward route. These two probes do not establish how often that route dominates.",
+    "Published train finisher families contain Fireball only; no Zap finisher family is present in train. No existing heldout family was moved or used to choose weights."
+  ],
+  "scope": "Two paired training-only examples; diagnostic evidence, not a new test score or a training change."
+}

@@ -1,3 +1,16 @@
+## Train-only диагностика нулевого добивания выполнена
+reports/defense_plan/ppo_train_spell_finisher_probe.json:2парныхtrain-ситуации Fireball
+unopposed/king belowHP, fixedseedс Fireballвруке, realweights tower_survival безобновления.
+Reference accuratecast2/2v2finishTrue, policy0/2. PolicyunopposedпервыйFireball
+(9500,1500) мимо princess(3500,7500), timeout; kingcase убиваетHog/войсками.
+ОтдельныйenemyKingDeathrewardиunconditionalhogDamage reward вAttackEnv допускают
+обход spellgoal; это2примера, нечастотноеобъяснениевсехошибок. Cast/атрибуцияработаютнаreference.
+Вpublished TRAIN finishers ВСЕ Fireball:3families counterspell/king/unopposed,72scenarios.
+Zapfinisher family вtrainотсутствует. Не переставлятьужеиспользованные testfamilies вtrain,
+не тюнитькоэфыпоtest. Текущие3finalevalGPUjobs/frozen1a34не менялись.
+Host-only trainpackages остальных3 подготовлены в tmp/kaggle/ppo_selected_train_evaluations_20261023/OWNER,
+ещёНЕотправлены: дождаться finalevalCOMPLETE ииспользоватьготовыеprivateinputs.
+
 ## 24октября: все4 fullбюджета иперваяtrainоценка ПРОВЕРЕНЫ
 reports/defense_plan/ppo_selected_four_full_completion.json:4×2048000/update2000,полные
 коллекции/weightsSHA проверены; all4 prepared/selector passed. Recovery checkpoint b9b34f2b...
