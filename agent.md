@@ -1,3 +1,8 @@
+## Все четыре описательных TRAIN-замера проверены
+Отчёты ppo_defense_spell_precision_train_metrics.json и ppo_joint_economy_soft_train_metrics.json добавлены после независимой проверки terminal COMPLETE, SHA весов/исходников и всех 4452 контекстов на модель. Все четыре модели: train/val/test/300 матчей готовы. done.md пересобран scripts.defense.update_done.
+Train noDamage: defense spell_precision 2492/4032 (61.81%), defense economy_soft 2629/4032 (65.20%), joint economy_soft 2174/4032 (53.92%), joint tower_survival 2137/4032 (53.00%). У всех TRAIN spell finish 0 среди известных исходов; неизвестные сохранены отдельно. Новое обучение и live не запускались; прежние веса сохранены.
+Следующее: train-only исправление/проверка целевой награды добивания и покрытия сценариев; затем validation подбор без использования test. Полная приёмка всё ещё не пройдена: 80% против каждой прошлой модели и физика реальной игры не доказаны.
+
 ## Лучшая модель, сохранённая по запросу пользователя 25 октября 2026
 PPO «атака + защита · economy_soft»: `checkpoints/ppo_joint_economy_soft_20261023/policy.pt`.
 Точный SHA-256 и метрики — в `best_model.json`. В симуляторе: v25 19/20 (95%),

@@ -1,12 +1,12 @@
 # Где мы сейчас и что получилось
 
-**Этап:** все 4 модели обучены. Val/test и матчи проверены у 4/4; отдельные train-замеры — у 2/4.
+**Этап:** все 4 модели обучены. Val/test и матчи проверены у 4/4; отдельные train-замеры — у 4/4.
 
 | Модель | Обучение | Готовые замеры | Против v25 | Против всех 15 |
 |---|---:|---|---:|---:|
-| Защита · spell_precision | 100% | Val/test и матчи готовы; train ожидает отчёта | 75,00% · 15/20 | 73,00% · 219/300 |
+| Защита · spell_precision | 100% | Val/test и матчи готовы; train готов | 75,00% · 15/20 | 73,00% · 219/300 |
 | Защита · economy_soft | 100% | Val/test и матчи готовы; train готов | 65,00% · 13/20 | 65,67% · 197/300 |
-| Атака + защита · economy_soft | 100% | Val/test и матчи готовы; train ожидает отчёта | 95,00% · 19/20 | 73,00% · 219/300 |
+| Атака + защита · economy_soft | 100% | Val/test и матчи готовы; train готов | 95,00% · 19/20 | 73,00% · 219/300 |
 | Атака + защита · tower_survival | 100% | Val/test и матчи готовы; train готов | 75,00% · 15/20 | 65,33% · 196/300 |
 
 100% — бюджет обучения, 2 048 000 шагов. Настройки награды указаны после точки. `—` — проверенного результата ещё нет.
@@ -17,13 +17,13 @@
 
 | Модель | Набор | Эпизодов | Таймаутов | Без урона | Потеря HP всех башен | Эликсир | Принцесса на линии атаки жива | Наш король жив |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| Защита · spell_precision | Train | Ждём отчёт | — | — | — | — | — | — |
+| Защита · spell_precision | Train | 4032 | 4 | 61,81% · 2492/4032 | 556,4 | 21,61 | 94,44% | 99,48% |
 | Защита · spell_precision | Val | 864 | 0 | 69,10% · 597/864 | 447,5 | 23,39 | 96,88% | 99,65% |
 | Защита · spell_precision | Test | 708 | 0 | 57,49% · 407/708 | 736,2 | 27,14 | 92,51% | 98,87% |
 | Защита · economy_soft | Train | 4032 | 4 | 65,20% · 2629/4032 | 523,7 | 19,88 | 95,09% | 99,26% |
 | Защита · economy_soft | Val | 864 | 0 | 69,21% · 598/864 | 408,7 | 21,22 | 97,22% | 99,77% |
 | Защита · economy_soft | Test | 708 | 0 | 50,42% · 357/708 | 809,7 | 25,58 | 92,51% | 98,87% |
-| Атака + защита · economy_soft | Train | Ждём отчёт | — | — | — | — | — | — |
+| Атака + защита · economy_soft | Train | 4032 | 1 | 53,92% · 2174/4032 | 556,2 | 23,79 | 95,44% | 99,73% |
 | Атака + защита · economy_soft | Val | 864 | 0 | 60,07% · 519/864 | 531,4 | 24,59 | 95,83% | 99,77% |
 | Атака + защита · economy_soft | Test | 708 | 0 | 50,99% · 361/708 | 677,0 | 27,85 | 93,50% | 99,15% |
 | Атака + защита · tower_survival | Train | 4032 | 0 | 53,00% · 2137/4032 | 615,7 | 23,10 | 94,69% | 99,36% |
@@ -45,13 +45,13 @@ Train — учебные сценарии; Val — проверочные; Test 
 
 | Модель | Набор | Хог попал | Добил заклинанием | Пропущено окно атаки |
 |---|---|---:|---:|---:|
-| Защита · spell_precision | Train | Ждём отчёт | — | — |
+| Защита · spell_precision | Train | 62,75% · 128/204 | 0,00% · 0/194; неизвестно 22 | 48,57% · 204/420 |
 | Защита · spell_precision | Val | 33,33% · 16/48 | 0,00% · 0/144 | 80,21% · 154/192 |
 | Защита · spell_precision | Test | 75,00% · 18/24 | 0,00% · 0/72 | 14,58% · 14/96 |
 | Защита · economy_soft | Train | 77,45% · 158/204 | 0,00% · 0/206; неизвестно 10 | 49,52% · 208/420 |
 | Защита · economy_soft | Val | 33,33% · 16/48 | 0,00% · 0/140; неизвестно 4 | 89,58% · 172/192 |
 | Защита · economy_soft | Test | 91,67% · 22/24 | 0,00% · 0/72 | 18,75% · 18/96 |
-| Атака + защита · economy_soft | Train | Ждём отчёт | — | — |
+| Атака + защита · economy_soft | Train | 58,33% · 119/204 | 0,00% · 0/179; неизвестно 37 | 37,86% · 159/420 |
 | Атака + защита · economy_soft | Val | 75,00% · 36/48 | 0,00% · 0/105; неизвестно 39 | 59,38% · 114/192 |
 | Атака + защита · economy_soft | Test | 66,67% · 16/24 | 5,56% · 4/72 | 4,17% · 4/96 |
 | Атака + защита · tower_survival | Train | 67,65% · 138/204 | 0,00% · 0/193; неизвестно 23 | 34,52% · 145/420 |
@@ -84,9 +84,9 @@ Train — учебные сценарии; Val — проверочные; Test 
 
 ## Подробные проверенные отчёты
 
-Защита · spell_precision: [Val/test и матчи](reports/defense_plan/ppo_defense_spell_precision_full_metrics.json).
+Защита · spell_precision: [Val/test и матчи](reports/defense_plan/ppo_defense_spell_precision_full_metrics.json), [Train](reports/defense_plan/ppo_defense_spell_precision_train_metrics.json).
 Защита · economy_soft: [Val/test и матчи](reports/defense_plan/ppo_defense_economy_soft_full_metrics.json), [Train](reports/defense_plan/ppo_defense_economy_soft_train_metrics.json).
-Атака + защита · economy_soft: [Val/test и матчи](reports/defense_plan/ppo_joint_economy_soft_full_metrics.json).
+Атака + защита · economy_soft: [Val/test и матчи](reports/defense_plan/ppo_joint_economy_soft_full_metrics.json), [Train](reports/defense_plan/ppo_joint_economy_soft_train_metrics.json).
 Атака + защита · tower_survival: [Val/test и матчи](reports/defense_plan/ppo_joint_tower_survival_full_metrics.json), [Train](reports/defense_plan/ppo_joint_tower_survival_train_metrics.json).
 
 Train: 1484 сценария × 3 шафла = 4452 эпизода, веса не меняются. Живые бои выключены; соответствие симулятора реальной игре ещё не принято.

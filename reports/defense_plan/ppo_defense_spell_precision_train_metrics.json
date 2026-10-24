@@ -1,0 +1,176 @@
+{
+  "schema": "verified-selected-ppo-train-summary-v1",
+  "mode": "defense",
+  "profile": "spell_precision",
+  "split": "train",
+  "episodes": 4452,
+  "checkpoint_sha256": "8223973b408db304f07b6df1b6da67d58004744e2c01d919b1ac2375677dafed",
+  "source_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "context_schedule_sha256": "b01c14fba511afaa1eea7a2615292ee2ac1bbf86cc72abdcffa220f5b60f2ff4",
+  "metrics": {
+    "defense": {
+      "overall": {
+        "episodes": 4032,
+        "no_damage": {
+          "known": 4032,
+          "unknown": 0,
+          "success": 2492,
+          "rate": 0.6180555555555556
+        },
+        "mean_tower_hp_loss": 556.4469246031746,
+        "mean_elixir_spent": 21.610119047619047,
+        "princess_survived": {
+          "known": 4032,
+          "unknown": 0,
+          "success": 3808,
+          "rate": 0.9444444444444444
+        },
+        "king_survived": {
+          "known": 4032,
+          "unknown": 0,
+          "success": 4011,
+          "rate": 0.9947916666666666
+        },
+        "timeouts": 4,
+        "invalid_scripts": 0
+      },
+      "by_difficulty": {
+        "simple": {
+          "episodes": 1080,
+          "no_damage": {
+            "known": 1080,
+            "unknown": 0,
+            "success": 870,
+            "rate": 0.8055555555555556
+          },
+          "mean_tower_hp_loss": 59.108333333333334,
+          "mean_elixir_spent": 11.341666666666667,
+          "princess_survived": {
+            "known": 1080,
+            "unknown": 0,
+            "success": 1080,
+            "rate": 1.0
+          },
+          "king_survived": {
+            "known": 1080,
+            "unknown": 0,
+            "success": 1080,
+            "rate": 1.0
+          },
+          "timeouts": 2,
+          "invalid_scripts": 0
+        },
+        "medium": {
+          "episodes": 1512,
+          "no_damage": {
+            "known": 1512,
+            "unknown": 0,
+            "success": 857,
+            "rate": 0.5667989417989417
+          },
+          "mean_tower_hp_loss": 390.4107142857143,
+          "mean_elixir_spent": 15.432539682539682,
+          "princess_survived": {
+            "known": 1512,
+            "unknown": 0,
+            "success": 1480,
+            "rate": 0.9788359788359788
+          },
+          "king_survived": {
+            "known": 1512,
+            "unknown": 0,
+            "success": 1512,
+            "rate": 1.0
+          },
+          "timeouts": 2,
+          "invalid_scripts": 0
+        },
+        "complex": {
+          "episodes": 792,
+          "no_damage": {
+            "known": 792,
+            "unknown": 0,
+            "success": 539,
+            "rate": 0.6805555555555556
+          },
+          "mean_tower_hp_loss": 825.1729797979798,
+          "mean_elixir_spent": 34.246212121212125,
+          "princess_survived": {
+            "known": 792,
+            "unknown": 0,
+            "success": 706,
+            "rate": 0.8914141414141414
+          },
+          "king_survived": {
+            "known": 792,
+            "unknown": 0,
+            "success": 783,
+            "rate": 0.9886363636363636
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        },
+        "impossible": {
+          "episodes": 648,
+          "no_damage": {
+            "known": 648,
+            "unknown": 0,
+            "success": 226,
+            "rate": 0.3487654320987654
+          },
+          "mean_tower_hp_loss": 1444.3194444444443,
+          "mean_elixir_spent": 37.69444444444444,
+          "princess_survived": {
+            "known": 648,
+            "unknown": 0,
+            "success": 542,
+            "rate": 0.8364197530864198
+          },
+          "king_survived": {
+            "known": 648,
+            "unknown": 0,
+            "success": 636,
+            "rate": 0.9814814814814815
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        }
+      }
+    },
+    "attack": {
+      "episodes": 420,
+      "episode_success": {
+        "known": 420,
+        "unknown": 0,
+        "success": 216,
+        "rate": 0.5142857142857142
+      },
+      "hog_confirmed_hit": {
+        "known": 204,
+        "unknown": 0,
+        "success": 128,
+        "rate": 0.6274509803921569
+      },
+      "spell_confirmed_finish": {
+        "known": 194,
+        "unknown": 22,
+        "success": 0,
+        "rate": 0.0
+      },
+      "missed_window": {
+        "known": 420,
+        "unknown": 0,
+        "success": 204,
+        "rate": 0.4857142857142857
+      }
+    }
+  },
+  "training_performed": false,
+  "used_for_checkpoint_selection": false,
+  "quality_accepted": false
+}
