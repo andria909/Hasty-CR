@@ -2,8 +2,8 @@
   "schema": "fireball-refinement-launch-v1",
   "kernel": "andreiperelaiko/hastycr-fireball-refine-20261025",
   "version": 1,
-  "remote_status": "RUNNING",
-  "phase": "generating_verified_demonstrations",
+  "remote_status": "COMPLETE",
+  "phase": "independent_evaluation_running",
   "method": "impact_verified_BC_with_policy_rehearsal",
   "parent_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
   "preparation": {
@@ -35,5 +35,59 @@
   },
   "epochs": 40,
   "results_pending": true,
-  "live_checkpoint_changed": false
+  "live_checkpoint_changed": false,
+  "candidate_summary": {
+    "schema": "verified-fireball-candidate-v1",
+    "checkpoint_sha256": "042963aa53cec93b88326dbed62670806828000296ea8e2197b9a38775fa5c04",
+    "parent_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+    "source_sha256": "78419cfc9c9715430d9eac3ceb5f2293c929998fd668c797e28e4971fe2d36e0",
+    "epoch": 40,
+    "method": "impact_verified_BC_with_policy_rehearsal",
+    "validation_before": {
+      "tower_finish": {
+        "successes": 1,
+        "episodes": 32
+      },
+      "building_finish": {
+        "successes": 9,
+        "episodes": 32
+      },
+      "tower_unit": {
+        "successes": 6,
+        "episodes": 32
+      }
+    },
+    "validation_after": {
+      "tower_finish": {
+        "successes": 23,
+        "episodes": 32
+      },
+      "building_finish": {
+        "successes": 32,
+        "episodes": 32
+      },
+      "tower_unit": {
+        "successes": 32,
+        "episodes": 32
+      }
+    },
+    "rehearsal_action_agreement": 0.9446614980697632,
+    "independent_test_pending": true,
+    "defense_regression_pending": true,
+    "matches_pending": true,
+    "quality_accepted": false,
+    "live_checkpoint_changed": false
+  },
+  "checkpoint": "checkpoints/ppo_joint_economy_soft_fireball_20261025/policy.pt",
+  "evaluation": {
+    "kernel": "andreiperelaiko/hastycr-fireball-eval-20261025",
+    "observed_status": "RUNNING",
+    "fireball_test_episodes_per_model": 384,
+    "old_test_episodes": 804,
+    "games": 320,
+    "gpu": [
+      "Tesla T4",
+      "Tesla T4"
+    ]
+  }
 }

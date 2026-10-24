@@ -1,0 +1,64 @@
+{
+  "schema": "fireball-evaluation-launch-v1",
+  "preparation": {
+    "schema": "fireball-evaluation-preparation-v1",
+    "kernel": "andreiperelaiko/hastycr-fireball-eval-20261025",
+    "pins": {
+      "candidate.pt": "042963aa53cec93b88326dbed62670806828000296ea8e2197b9a38775fa5c04",
+      "selection.json": "ae97fed26989a7f9fc527dfb0bffa07e26b0b0c5988d30a84d43427ab572a40e",
+      "extensions.tar.gz": "04fa184f952a5c3c6b9d35e2766b7196b2adbfe31d246ad45ca73ea011ac380f"
+    },
+    "extensions": {
+      "sim/fireball_curriculum.py": "e0f3ec03303f470d4fe600a65077c8b5be558d47061fda6dbaaa1721077deaba",
+      "scripts/attack/train_fireball_refinement.py": "9f27fd8763646cf6464594add28b94d122e901dc29fb7be0ca8ff4aa396e4e41",
+      "scripts/attack/evaluate_fireball_refinement.py": "669aceb792e5519c0eea502cbee64a782d7381edc585b08b92b399a82a5cb355"
+    },
+    "source_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+    "source_manifest_sha256": "0c19e442e7f8f51c9c986332e5d7c7733023d892347b9101d7b0592781f1e4a7",
+    "bootstrap_sha256": "e634457a6bc8a8392ac6e71f508cbfa3dd744a9d2cd2eaad0e2c1ed5e7388c5c",
+    "candidate_sha256": "042963aa53cec93b88326dbed62670806828000296ea8e2197b9a38775fa5c04",
+    "fireball_test_episodes_per_model": 384,
+    "old_test_episodes": 804,
+    "games": 320,
+    "submitted": false
+  },
+  "version": 1,
+  "observed_status": "evaluating",
+  "gpu_proof": [
+    {
+      "event": "INPUTS_VERIFIED",
+      "common_source_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+      "candidate_sha256": "042963aa53cec93b88326dbed62670806828000296ea8e2197b9a38775fa5c04"
+    },
+    {
+      "event": "CUDA_READY",
+      "gpu": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "candidate_sha256": "042963aa53cec93b88326dbed62670806828000296ea8e2197b9a38775fa5c04",
+      "epoch": 40
+    }
+  ],
+  "cpu_preflight": {
+    "validation_smoke": {
+      "tower_finish": {
+        "successes": 2,
+        "episodes": 2
+      },
+      "building_finish": {
+        "successes": 2,
+        "episodes": 2
+      },
+      "tower_unit": {
+        "successes": 2,
+        "episodes": 2
+      }
+    },
+    "baseline_networks_verified": 15,
+    "common_source_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb"
+  },
+  "poll_seconds": 1200,
+  "results_pending": true,
+  "quality_accepted": false
+}

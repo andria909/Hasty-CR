@@ -52,11 +52,21 @@ def render(models,refinement=None):
         f'**Этап:** все 4 модели обучены. Val/test и матчи проверены у {ready}/4; отдельные train-замеры — у {trained}/4.','',
         '| Модель | Обучение | Готовые замеры | Против v25 | Против всех 15 |','|---|---:|---|---:|---:|']
     if refinement:
+        state=('обучение завершено; независимая проверка '+refinement['evaluation']['observed_status']
+               if refinement.get('evaluation') else refinement['remote_status'])
         note=('**Сейчас:** дообучение сохранённой PPO «атака + защита · economy_soft» на Fireball: '
               'добивание башни/здания и попадание по башне с юнитом одним шаром. '
-              'Kaggle: '+refinement['remote_status']+'. Исходные веса сохранены; результаты нового кандидата ещё не проверены. '
+              'Kaggle: '+state+'. Исходные веса сохранены; результаты нового кандидата ещё не проверены. '
               '[Статус](reports/defense_plan/fireball_refinement_status.json).')
         lines[2:2]=[note,'']
+        candidate=refinement.get('candidate_summary')
+        if candidate:
+            extra=['**Fireball, validation (отбор кандидата; ещё не независимый test):**','',
+                   '| Задача | Исходник | После дообучения |','|---|---:|---:|']
+            for key,label in (('tower_finish','Добить башню'),('building_finish','Добить здание'),('tower_unit','Башня + юнит одним шаром')):
+                before=candidate['validation_before'][key];after=candidate['validation_after'][key]
+                extra.append(f"| {label} | {before['successes']}/{before['episodes']} | {after['successes']}/{after['episodes']} |")
+            lines[4:4]=extra+['']
     for m in models:
         state=('Val/test и матчи готовы'if m['full']else'Val/test и матчи ожидают отчёта')+('; train готов'if m['train']else'; train ожидает отчёта')
         lines.append(f"| {m['label']} | 100% | {state} | {winrate(m['full'],'v25')} | {winrate(m['full'])} |")

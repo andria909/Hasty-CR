@@ -34,6 +34,10 @@ def collect(api,kernel,destination,profile='defense'):
         prefix='train_evaluation/'
         result_file='result.json'
         allowed={result_file,'train.json','worker_0.jsonl','worker_1.jsonl','worker_0.log','worker_1.log'}
+    elif profile=='fireball-evaluation':
+        prefix='fireball_evaluation/'
+        result_file='result.json'
+        allowed={result_file,'fireball_test.json','regression_test.json','duels.json','duels_raw.jsonl'}
     elif profile=='fireball':
         prefix='fireball_refinement/'
         result_file='result.json'
@@ -69,7 +73,7 @@ def main():
     parser.add_argument('--kernel',required=True);parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--poll-seconds',type=int,default=1200)
     parser.add_argument('--once',action='store_true')
-    parser.add_argument('--profile',choices=('defense','strategy','train','fireball'),default='defense')
+    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only

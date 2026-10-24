@@ -8,7 +8,9 @@ from scripts.kaggle import collect_final_evaluation as collector
 
 
 @pytest.mark.parametrize('profile,prefix,result', [('defense','evaluation/','evaluation_result.json'),
-                                                  ('strategy','strategy_evaluation/','result.json')])
+                                                  ('strategy','strategy_evaluation/','result.json'),
+                                                  ('fireball','fireball_refinement/','result.json'),
+                                                  ('fireball-evaluation','fireball_evaluation/','result.json')])
 def test_only_declared_terminal_report_files_are_collected(monkeypatch,tmp_path,profile,prefix,result):
     data={prefix+result:b'{"status":"completed"}',prefix+'project/secret.py':b'never',prefix+'policy.pt':b'never'}
     if profile=='strategy':data[prefix+'test.json']=b'{"episodes":804}'
