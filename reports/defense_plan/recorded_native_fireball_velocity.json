@@ -1,0 +1,57 @@
+{
+  "schema": "recorded-fireball-native-velocity-v1",
+  "sources": [
+    {
+      "path": "tmp/live/memory_v25_20261022_series30/remaining/frames.jsonl",
+      "sha256": "46d62af05b7ab6bd5f7097d6adce40bc9b39bbef74d742aa8510db10bed6eff0",
+      "bytes": 18992027
+    },
+    {
+      "path": "tmp/live/memory_v25_20261022_series30/recovery25/frames.jsonl",
+      "sha256": "2f3cf35bc4d7ea40c0dfd91af06365fd088b552ed3ffb09ddec28a878e90d4e6",
+      "bytes": 264554010
+    }
+  ],
+  "clock_evidence_sha256": "c1093fdf329659692da11f64d54290df421a550346f4dacbbad5cb012f4b531b",
+  "measured_tick_rate_hz": {
+    "n": 4389,
+    "p10": 19.43340161333585,
+    "median": 20.009592918998855,
+    "p90": 20.62778856453478
+  },
+  "declared_tick_rate_hz": 20,
+  "counts": {
+    "fireball_observations": 720,
+    "tracks": 80,
+    "linearly_fitted_tracks": 77
+  },
+  "speed_millitiles_per_tick": {
+    "n": 77,
+    "p10": 599.2492992524449,
+    "median": 599.4761105559589,
+    "p90": 599.7960712586786
+  },
+  "speed_millitiles_per_second_at_20hz": {
+    "n": 77,
+    "p10": 11984.985985048897,
+    "median": 11989.52221111918,
+    "p90": 11995.921425173572
+  },
+  "fit_residual_millitiles": {
+    "n": 77,
+    "p10": 0.39298522573826633,
+    "median": 1.128856624319269,
+    "p90": 2.3013067384290604
+  },
+  "original_simulator_speed_millitiles_per_second": 10000,
+  "simulator_spells_source_sha256": "d32a207c59d77cad15b3c416db705e04e320373f9d28d6d74b698ef11acfd061",
+  "simulator_changed": false,
+  "live_games_started": false,
+  "physics_accepted": false,
+  "limitations": [
+    "Tick is read after coordinates; fits with >10mt residual are rejected",
+    "Fits prove XY travel speed, not exact birth/impact/render or AOE/hitbox semantics",
+    "Flight tracks are correlated within matches; no independent-match confidence claim",
+    "No change to other projectile speeds is justified by Fireball-only data"
+  ]
+}

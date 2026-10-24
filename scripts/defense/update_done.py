@@ -46,7 +46,7 @@ def load_models(reports):
     return models
 
 
-def render(models,refinement=None):
+def render(models,refinement=None,mechanics=None):
     ready=sum(m['full']is not None for m in models);trained=sum(m['train']is not None for m in models)
     lines=['# Где мы сейчас и что получилось','',
         f'**Этап:** все 4 модели обучены. Val/test и матчи проверены у {ready}/4; отдельные train-замеры — у {trained}/4.','',
@@ -108,6 +108,16 @@ def render(models,refinement=None):
             if m[key]:links.append(f"[{label}](reports/defense_plan/ppo_{m['key']}_{key}_metrics.json)")
         if links:lines.append(m['label']+': '+', '.join(links)+'.')
     lines+=['','Train: 1484 сценария × 3 шафла = 4452 эпизода, веса не меняются. Живые бои выключены; соответствие симулятора реальной игре ещё не принято.']
+    if mechanics:
+        clock=mechanics['device_clock_tick_rate_hz']['median'];speeds=[]
+        for key,label in (('HogRider','хог'),('Knight','рыцарь')):
+            row=mechanics['units'][key]
+            measured=row['speed_millitiles_per_second_at_20hz']['median']/1000
+            expected=row['simulator_unbuffed_speed_millitiles_per_second']/1000
+            speeds.append(label+' '+number(measured,3)+' против '+number(expected,1)+' клетки/с')
+        lines+=['','**Скорости по сохранённому парсеру:** часы ≈'+number(clock,2)+' тиков/с; на ровных участках '+
+            ', '.join(speeds)+' в симуляторе. Таргетинг/бафы/разгон не приняты. '
+            '[Замер и ограничения](reports/defense_plan/recorded_native_tick_speeds.json).']
     return '\n'.join(lines)+'\n'
 
 
@@ -117,4 +127,6 @@ if __name__=='__main__':
     parser.add_argument('--output',type=Path,default=Path('done.md'))
     args=parser.parse_args()
     status=args.reports/'fireball_refinement_status.json'
-    args.output.write_text(render(load_models(args.reports),json.loads(status.read_text()) if status.exists() else None))
+    mechanics=args.reports/'recorded_native_tick_speeds.json'
+    args.output.write_text(render(load_models(args.reports),json.loads(status.read_text()) if status.exists() else None,
+        json.loads(mechanics.read_text())if mechanics.exists()else None))

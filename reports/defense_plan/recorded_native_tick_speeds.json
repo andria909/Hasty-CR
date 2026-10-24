@@ -1,0 +1,555 @@
+{
+  "schema": "recorded-native-tick-speed-audit-v1",
+  "sources": [
+    {
+      "path": "tmp/live/memory_v25_20261022_series30/remaining/frames.jsonl",
+      "sha256": "46d62af05b7ab6bd5f7097d6adce40bc9b39bbef74d742aa8510db10bed6eff0",
+      "bytes": 18992027
+    },
+    {
+      "path": "tmp/live/memory_v25_20261022_series30/recovery25/frames.jsonl",
+      "sha256": "2f3cf35bc4d7ea40c0dfd91af06365fd088b552ed3ffb09ddec28a878e90d4e6",
+      "bytes": 264554010
+    }
+  ],
+  "source_fingerprints": {
+    "sim/entities.py": "91bd66c38c4562a47c188eb398357116010f0d9e9f4f7b6ccc639e3a3f4d826f",
+    "sim/gamedata.py": "c58fe70c2f512042a7ab9dbc783e7152e850a1960a7263f14840ce6030135a65",
+    "scripts/gamestate/native/arm64_entities.c": "dad10a7091c8884a0b45245625c4dac8efdd2dd67349fc52246f82023c95a124",
+    "scripts/gamestate/audit_recorded_tick_speeds.py": "1c91ad1e48434053e0dfd57c15195f69a7b26a52d881368b1098f4391f139a65"
+  },
+  "counters": {
+    "rows": 45321,
+    "rejected_clock_frame": 8190,
+    "valid_clock_frames": 35759,
+    "conflicting_same_tick_samples": 10
+  },
+  "recording_segments": 28,
+  "device_clock_tick_rate_hz": {
+    "n": 4389,
+    "p10": 19.43340161333585,
+    "median": 20.009592918998855,
+    "p90": 20.62778856453478
+  },
+  "declared_tick_rate_hz": 20,
+  "clock_median_compatible_with_20hz": true,
+  "motion_windows": {
+    "duration_ticks_min": 20,
+    "duration_ticks_max": 25,
+    "min_samples": 6,
+    "max_gap_ticks": 5,
+    "max_interval_speed_cv": 0.08,
+    "max_path_length_over_chord": 1.01,
+    "hp_change_allowed": false
+  },
+  "units": {
+    "Archer": {
+      "speed_millitiles_per_tick": {
+        "n": 141,
+        "p10": 58.470502152180686,
+        "median": 59.17624239844139,
+        "p90": 60.00759249482346
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 141,
+        "p10": 1169.4100430436138,
+        "median": 1183.5248479688278,
+        "p90": 1200.1518498964692
+      },
+      "constant_motion_tracks": 38,
+      "recording_segments": 10,
+      "modal_50_millitile_per_second_bin": 1200,
+      "simulator_unbuffed_speed_millitiles_per_second": 1200,
+      "simulator_speed_candidates": [
+        1200
+      ],
+      "median_over_simulator": 0.9862707066406898
+    },
+    "Barbarian": {
+      "speed_millitiles_per_tick": {
+        "n": 231,
+        "p10": 58.49231978578814,
+        "median": 59.52564573358277,
+        "p90": 65.8102195711274
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 231,
+        "p10": 1169.8463957157628,
+        "median": 1190.5129146716554,
+        "p90": 1316.204391422548
+      },
+      "constant_motion_tracks": 109,
+      "recording_segments": 11,
+      "modal_50_millitile_per_second_bin": 1200,
+      "simulator_unbuffed_speed_millitiles_per_second": 1200,
+      "simulator_speed_candidates": [
+        1200
+      ],
+      "median_over_simulator": 0.9920940955597128
+    },
+    "Bat": {
+      "speed_millitiles_per_tick": {
+        "n": 14,
+        "p10": 118.71394189394941,
+        "median": 118.8726324043671,
+        "p90": 119.75288597294082
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 14,
+        "p10": 2374.2788378789883,
+        "median": 2377.452648087342,
+        "p90": 2395.0577194588163
+      },
+      "constant_motion_tracks": 10,
+      "recording_segments": 1,
+      "modal_50_millitile_per_second_bin": 2400,
+      "simulator_unbuffed_speed_millitiles_per_second": 2400,
+      "simulator_speed_candidates": [
+        2400
+      ],
+      "median_over_simulator": 0.9906052700363924
+    },
+    "BattleRam": {
+      "speed_millitiles_per_tick": {
+        "n": 40,
+        "p10": 58.82338863520764,
+        "median": 59.23635560165185,
+        "p90": 117.18310952878747
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 40,
+        "p10": 1176.4677727041528,
+        "median": 1184.727112033037,
+        "p90": 2343.6621905757493
+      },
+      "constant_motion_tracks": 27,
+      "recording_segments": 10,
+      "modal_50_millitile_per_second_bin": 1200,
+      "simulator_unbuffed_speed_millitiles_per_second": 1200,
+      "simulator_speed_candidates": [
+        1200
+      ],
+      "median_over_simulator": 0.9872725933608641
+    },
+    "Bomber": {
+      "speed_millitiles_per_tick": {
+        "n": 57,
+        "p10": 58.79625029341332,
+        "median": 59.181888004427464,
+        "p90": 60.000258332394395
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 57,
+        "p10": 1175.9250058682665,
+        "median": 1183.6377600885494,
+        "p90": 1200.0051666478878
+      },
+      "constant_motion_tracks": 16,
+      "recording_segments": 10,
+      "modal_50_millitile_per_second_bin": 1200,
+      "simulator_unbuffed_speed_millitiles_per_second": 1200,
+      "simulator_speed_candidates": [
+        1200
+      ],
+      "median_over_simulator": 0.9863648000737911
+    },
+    "DartBarrell": {
+      "speed_millitiles_per_tick": {
+        "n": 1,
+        "p10": 89.09986750503049,
+        "median": 89.09986750503049,
+        "p90": 89.09986750503049
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 1,
+        "p10": 1781.9973501006098,
+        "median": 1781.9973501006098,
+        "p90": 1781.9973501006098
+      },
+      "constant_motion_tracks": 1,
+      "recording_segments": 1,
+      "modal_50_millitile_per_second_bin": 1800,
+      "simulator_unbuffed_speed_millitiles_per_second": 1800,
+      "simulator_speed_candidates": [
+        1800
+      ],
+      "median_over_simulator": 0.989998527833672
+    },
+    "ElectroSpirit": {
+      "speed_millitiles_per_tick": {
+        "n": 60,
+        "p10": 117.97814710635781,
+        "median": 118.79393923933999,
+        "p90": 119.87490453402624
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 60,
+        "p10": 2359.5629421271565,
+        "median": 2375.8787847867998,
+        "p90": 2397.498090680525
+      },
+      "constant_motion_tracks": 36,
+      "recording_segments": 18,
+      "modal_50_millitile_per_second_bin": 2400,
+      "simulator_unbuffed_speed_millitiles_per_second": 2400,
+      "simulator_speed_candidates": [
+        2400
+      ],
+      "median_over_simulator": 0.9899494936611666
+    },
+    "GoblinBrawler": {
+      "speed_millitiles_per_tick": {
+        "n": 19,
+        "p10": 88.82835563753261,
+        "median": 89.43380734203151,
+        "p90": 90.00099401823591
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 19,
+        "p10": 1776.5671127506523,
+        "median": 1788.6761468406303,
+        "p90": 1800.0198803647183
+      },
+      "constant_motion_tracks": 8,
+      "recording_segments": 4,
+      "modal_50_millitile_per_second_bin": 1800,
+      "simulator_unbuffed_speed_millitiles_per_second": null,
+      "simulator_speed_candidates": [],
+      "median_over_simulator": null
+    },
+    "Goblin_Stab": {
+      "speed_millitiles_per_tick": {
+        "n": 49,
+        "p10": 118.02988539834942,
+        "median": 119.28626283021863,
+        "p90": 123.30704443746096
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 49,
+        "p10": 2360.5977079669883,
+        "median": 2385.7252566043726,
+        "p90": 2466.1408887492194
+      },
+      "constant_motion_tracks": 33,
+      "recording_segments": 7,
+      "modal_50_millitile_per_second_bin": 2400,
+      "simulator_unbuffed_speed_millitiles_per_second": null,
+      "simulator_speed_candidates": [],
+      "median_over_simulator": null
+    },
+    "HogRider": {
+      "speed_millitiles_per_tick": {
+        "n": 50,
+        "p10": 118.54707694604897,
+        "median": 119.0764802702441,
+        "p90": 119.87410446207201
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 50,
+        "p10": 2370.9415389209794,
+        "median": 2381.529605404882,
+        "p90": 2397.4820892414405
+      },
+      "constant_motion_tracks": 40,
+      "recording_segments": 19,
+      "modal_50_millitile_per_second_bin": 2400,
+      "simulator_unbuffed_speed_millitiles_per_second": 2400,
+      "simulator_speed_candidates": [
+        2400
+      ],
+      "median_over_simulator": 0.9923040022520343
+    },
+    "Knight": {
+      "speed_millitiles_per_tick": {
+        "n": 345,
+        "p10": 58.74510180341741,
+        "median": 59.210683157687,
+        "p90": 60.0
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 345,
+        "p10": 1174.9020360683483,
+        "median": 1184.21366315374,
+        "p90": 1200.0
+      },
+      "constant_motion_tracks": 99,
+      "recording_segments": 22,
+      "modal_50_millitile_per_second_bin": 1200,
+      "simulator_unbuffed_speed_millitiles_per_second": 1200,
+      "simulator_speed_candidates": [
+        1200
+      ],
+      "median_over_simulator": 0.9868447192947833
+    },
+    "MegaMinion": {
+      "speed_millitiles_per_tick": {
+        "n": 33,
+        "p10": 58.96536643961562,
+        "median": 59.00847396772772,
+        "p90": 59.3733395625114
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 33,
+        "p10": 1179.3073287923123,
+        "median": 1180.1694793545544,
+        "p90": 1187.466791250228
+      },
+      "constant_motion_tracks": 13,
+      "recording_segments": 3,
+      "modal_50_millitile_per_second_bin": 1200,
+      "simulator_unbuffed_speed_millitiles_per_second": 1200,
+      "simulator_speed_candidates": [
+        1200
+      ],
+      "median_over_simulator": 0.9834745661287954
+    },
+    "MegaMinionHero": {
+      "speed_millitiles_per_tick": {
+        "n": 5,
+        "p10": 58.79665912242801,
+        "median": 58.89821729050889,
+        "p90": 59.08417566606831
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 5,
+        "p10": 1175.9331824485603,
+        "median": 1177.9643458101777,
+        "p90": 1181.6835133213663
+      },
+      "constant_motion_tracks": 2,
+      "recording_segments": 1,
+      "modal_50_millitile_per_second_bin": 1200,
+      "simulator_unbuffed_speed_millitiles_per_second": null,
+      "simulator_speed_candidates": [],
+      "median_over_simulator": null
+    },
+    "MiniPekka": {
+      "speed_millitiles_per_tick": {
+        "n": 62,
+        "p10": 88.58855261002218,
+        "median": 89.35639931458888,
+        "p90": 90.00475594407924
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 62,
+        "p10": 1771.7710522004436,
+        "median": 1787.1279862917777,
+        "p90": 1800.095118881585
+      },
+      "constant_motion_tracks": 40,
+      "recording_segments": 14,
+      "modal_50_millitile_per_second_bin": 1800,
+      "simulator_unbuffed_speed_millitiles_per_second": 1800,
+      "simulator_speed_candidates": [
+        1800
+      ],
+      "median_over_simulator": 0.9928488812732098
+    },
+    "Minion": {
+      "speed_millitiles_per_tick": {
+        "n": 86,
+        "p10": 88.70729529566376,
+        "median": 89.02246907382427,
+        "p90": 90.44973003503449
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 86,
+        "p10": 1774.1459059132749,
+        "median": 1780.4493814764853,
+        "p90": 1808.9946007006902
+      },
+      "constant_motion_tracks": 54,
+      "recording_segments": 10,
+      "modal_50_millitile_per_second_bin": 1800,
+      "simulator_unbuffed_speed_millitiles_per_second": 1800,
+      "simulator_speed_candidates": [
+        1800
+      ],
+      "median_over_simulator": 0.989138545264714
+    },
+    "Musketeer": {
+      "speed_millitiles_per_tick": {
+        "n": 429,
+        "p10": 58.83012110083045,
+        "median": 59.25420849601989,
+        "p90": 59.63027754421406
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 429,
+        "p10": 1176.6024220166091,
+        "median": 1185.084169920398,
+        "p90": 1192.6055508842812
+      },
+      "constant_motion_tracks": 106,
+      "recording_segments": 27,
+      "modal_50_millitile_per_second_bin": 1200,
+      "simulator_unbuffed_speed_millitiles_per_second": 1200,
+      "simulator_speed_candidates": [
+        1200
+      ],
+      "median_over_simulator": 0.9875701416003316
+    },
+    "Prince": {
+      "speed_millitiles_per_tick": {
+        "n": 5,
+        "p10": 59.264566654703394,
+        "median": 60.0,
+        "p90": 120.0
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 5,
+        "p10": 1185.291333094068,
+        "median": 1200.0,
+        "p90": 2400.0
+      },
+      "constant_motion_tracks": 2,
+      "recording_segments": 1,
+      "modal_50_millitile_per_second_bin": 1200,
+      "simulator_unbuffed_speed_millitiles_per_second": 1200,
+      "simulator_speed_candidates": [
+        1200
+      ],
+      "median_over_simulator": 1.0
+    },
+    "Skeleton": {
+      "speed_millitiles_per_tick": {
+        "n": 699,
+        "p10": 88.37165047150074,
+        "median": 89.095454429505,
+        "p90": 91.00784320288916
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 699,
+        "p10": 1767.4330094300149,
+        "median": 1781.9090885901,
+        "p90": 1820.1568640577832
+      },
+      "constant_motion_tracks": 294,
+      "recording_segments": 24,
+      "modal_50_millitile_per_second_bin": 1800,
+      "simulator_unbuffed_speed_millitiles_per_second": 1800,
+      "simulator_speed_candidates": [
+        1800
+      ],
+      "median_over_simulator": 0.9899494936611667
+    },
+    "SkeletonDragon": {
+      "speed_millitiles_per_tick": {
+        "n": 53,
+        "p10": 88.68483523128404,
+        "median": 89.1403387922662,
+        "p90": 89.54317998753565
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 53,
+        "p10": 1773.696704625681,
+        "median": 1782.8067758453242,
+        "p90": 1790.863599750713
+      },
+      "constant_motion_tracks": 19,
+      "recording_segments": 5,
+      "modal_50_millitile_per_second_bin": 1800,
+      "simulator_unbuffed_speed_millitiles_per_second": 1800,
+      "simulator_speed_candidates": [
+        1800
+      ],
+      "median_over_simulator": 0.9904482088029579
+    },
+    "SpearGoblin": {
+      "speed_millitiles_per_tick": {
+        "n": 37,
+        "p10": 118.06506680640129,
+        "median": 118.88310537567638,
+        "p90": 122.54134660097228
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 37,
+        "p10": 2361.301336128026,
+        "median": 2377.6621075135276,
+        "p90": 2450.8269320194454
+      },
+      "constant_motion_tracks": 24,
+      "recording_segments": 7,
+      "modal_50_millitile_per_second_bin": 2400,
+      "simulator_unbuffed_speed_millitiles_per_second": 2400,
+      "simulator_speed_candidates": [
+        2400
+      ],
+      "median_over_simulator": 0.9906925447973032
+    },
+    "SpearGoblin_Dummy": {
+      "speed_millitiles_per_tick": {
+        "n": 17,
+        "p10": 116.68091834092934,
+        "median": 118.94234596440441,
+        "p90": 127.73945905470146
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 17,
+        "p10": 2333.6183668185868,
+        "median": 2378.8469192880884,
+        "p90": 2554.789181094029
+      },
+      "constant_motion_tracks": 13,
+      "recording_segments": 3,
+      "modal_50_millitile_per_second_bin": 2400,
+      "simulator_unbuffed_speed_millitiles_per_second": null,
+      "simulator_speed_candidates": [],
+      "median_over_simulator": null
+    },
+    "Valkyrie": {
+      "speed_millitiles_per_tick": {
+        "n": 66,
+        "p10": 58.776828461471936,
+        "median": 59.24000444829061,
+        "p90": 60.000329954516985
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 66,
+        "p10": 1175.5365692294386,
+        "median": 1184.8000889658122,
+        "p90": 1200.00659909034
+      },
+      "constant_motion_tracks": 26,
+      "recording_segments": 10,
+      "modal_50_millitile_per_second_bin": 1200,
+      "simulator_unbuffed_speed_millitiles_per_second": 1200,
+      "simulator_speed_candidates": [
+        1200
+      ],
+      "median_over_simulator": 0.9873334074715101
+    },
+    "Wizard": {
+      "speed_millitiles_per_tick": {
+        "n": 54,
+        "p10": 59.01004151837211,
+        "median": 59.22355258302549,
+        "p90": 60.01046991396088
+      },
+      "speed_millitiles_per_second_at_20hz": {
+        "n": 54,
+        "p10": 1180.2008303674422,
+        "median": 1184.4710516605096,
+        "p90": 1200.2093982792178
+      },
+      "constant_motion_tracks": 19,
+      "recording_segments": 9,
+      "modal_50_millitile_per_second_bin": 1200,
+      "simulator_unbuffed_speed_millitiles_per_second": 1200,
+      "simulator_speed_candidates": [
+        1200
+      ],
+      "median_over_simulator": 0.9870592097170914
+    }
+  },
+  "physics_accepted": false,
+  "simulator_changed": false,
+  "live_games_started": false,
+  "limitations": [
+    "Entity reads precede tick read; no atomic tick bracketing for coordinates",
+    "Own clock metadata validated by reader, but world/hand consistency is not targeting evidence",
+    "Unknown buffs, charge and attack state; constant motion is not necessarily unbuffed motion",
+    "Correlated windows/tracks are not independent match trials; segments may split one match",
+    "Coordinates/targets/hitboxes and pathing parity require separate validation"
+  ]
+}

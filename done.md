@@ -102,3 +102,5 @@ Train — учебные сценарии; Val — проверочные; Test 
 Атака + защита · tower_survival: [Val/test и матчи](reports/defense_plan/ppo_joint_tower_survival_full_metrics.json), [Train](reports/defense_plan/ppo_joint_tower_survival_train_metrics.json).
 
 Train: 1484 сценария × 3 шафла = 4452 эпизода, веса не меняются. Живые бои выключены; соответствие симулятора реальной игре ещё не принято.
+
+**Скорости по сохранённому парсеру:** часы ≈20,01 тиков/с; на ровных участках хог 2,382 против 2,4 клетки/с, рыцарь 1,184 против 1,2 клетки/с в симуляторе. Таргетинг/бафы/разгон не приняты. [Замер и ограничения](reports/defense_plan/recorded_native_tick_speeds.json).
