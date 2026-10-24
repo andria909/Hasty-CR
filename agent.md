@@ -1,3 +1,17 @@
+## Втораяполнаяоценка готова: defense economy_soft
+EVAL/vertel0/collected COMPLETE/completeTrue и независимыйverifier прошёл.
+reports/defense_plan/ppo_defense_economy_soft_full_metrics.json.
+Observed: v25 13/20=65%,all15 197/300=65.67%; testdefnoDamage357/708=50.42%,
+meanHPloss809.69, princess655/708, king700/708. Непромоутить по1победеобщейразницы.
+Tower_survival по-прежнемуv25 15/20/all15 196/300.
+Defecon TRAIN-only version1 отправлен наосвободившийсяvertel0,2T4/bootstrap
+и обаworker растут; reports/defense_plan/ppo_defense_economy_soft_train_launch.json.
+Пакет tmp/kaggle/ppo_selected_train_evaluations_20261023/vertel0, monitoring.json текущийPID/log;
+collectorprofile train. Finalevalobserververtel0 остановлен послесохранения.
+Оставшиесяfinaleval andriashadrin/andreiperelaiko продолжаются потемжеkernels;
+не перепушивать. ПослеихCOMPLETE коллекция+верификация+trainjobready.
+done.md теперьсравнивает2модели иихtrain/val/test, таблица73строки, безappendистории.
+
 ## Текущие3finaleval: skillsчасти завершены, duelsещёидут
 reports/defense_plan/ppo_remaining_evaluations_skill_parts_complete.json:все3реально
 evaluating на2T4/common1a34, liveparts validation1056/test804 завершены.

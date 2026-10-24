@@ -1,0 +1,45 @@
+{
+  "kernel": "vertel0/hastycr-ppo-selected-train-eval-20261023",
+  "version": 1,
+  "initial_report": {
+    "schema": "selected-ppo-train-evaluation-v1",
+    "status": "evaluating",
+    "split": "train",
+    "training_steps": 2048000,
+    "selected_sha256": "b9b34f2b7d55b9e37080790df60ee9903a769b7037d154c3248773ee4876f6ba",
+    "selection_sha256": "04f793794045f46efa96743b6b2898f63c38a0a6a367e1a0295e8e51405b75f2",
+    "mode": "defense",
+    "profile": "economy_soft",
+    "source_sha256": "1a34b396650d0f0a51c5276cbc40fbb864b4f86db0019fbdc3edb874164453fb",
+    "context_schedule_sha256": "b01c14fba511afaa1eea7a2615292ee2ac1bbf86cc72abdcffa220f5b60f2ff4",
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "expected_episodes": 4452,
+    "gpu_names": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "training_performed": false,
+    "test_used_for_selection": false,
+    "quality_accepted": false
+  },
+  "latest_worker_progress": {
+    "0": {
+      "event": "TRAIN_EVALUATION_PROGRESS",
+      "worker": 0,
+      "done": 704,
+      "total": 2226
+    },
+    "1": {
+      "event": "TRAIN_EVALUATION_PROGRESS",
+      "worker": 1,
+      "done": 704,
+      "total": 2226
+    }
+  },
+  "complete": false,
+  "quality_accepted": false
+}
