@@ -1,0 +1,27 @@
+{
+  "schema": "fireball-deployment-observation-audit-v1",
+  "training_env_sha256": "e0f3ec03303f470d4fe600a65077c8b5be558d47061fda6dbaaa1721077deaba",
+  "deployment_policy_sha256": "cad14ce48de4a3a64a56276811250742df53c3dde1a03b668ffe26683dd4e540",
+  "rows": [
+    {
+      "task": "tower_finish",
+      "training_task_scalar": 1.0,
+      "deployment_task_scalar": 1.0,
+      "matches_deployment": true
+    },
+    {
+      "task": "building_finish",
+      "training_task_scalar": 1.0,
+      "deployment_task_scalar": 0.0,
+      "matches_deployment": false
+    },
+    {
+      "task": "tower_unit",
+      "training_task_scalar": 1.0,
+      "deployment_task_scalar": 0.0,
+      "matches_deployment": false
+    }
+  ],
+  "weights_changed": false,
+  "live_games_started": false
+}

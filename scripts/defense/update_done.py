@@ -52,11 +52,13 @@ def render(models,refinement=None,mechanics=None):
         f'**Этап:** все 4 модели обучены. Val/test и матчи проверены у {ready}/4; отдельные train-замеры — у {trained}/4.','',
         '| Модель | Обучение | Готовые замеры | Против v25 | Против всех 15 |','|---|---:|---|---:|---:|']
     if refinement:
+        evaluated=refinement.get('evaluation_summary')
         state=('обучение завершено; независимая проверка '+refinement['evaluation']['observed_status']
                if refinement.get('evaluation') else refinement['remote_status'])
         note=('**Сейчас:** дообучение сохранённой PPO «атака + защита · economy_soft» на Fireball: '
               'добивание башни/здания и попадание по башне с юнитом одним шаром. '
-              'Kaggle: '+state+'. Исходные веса сохранены; результаты нового кандидата ещё не проверены. '
+              'Kaggle: '+state+'. Исходные веса сохранены; '+
+              ('первый кандидат не принят из-за снижения винрейта. 'if evaluated else 'результаты нового кандидата ещё не проверены. ')+
               '[Статус](reports/defense_plan/fireball_refinement_status.json).')
         lines[2:2]=[note,'']
         selectivity=refinement.get('selectivity')
@@ -64,14 +66,28 @@ def render(models,refinement=None,mechanics=None):
             lines[4:4]=['**Коррекция лишних Fireball:** '+selectivity['observed_status']+
                 f". В train-контроле пустой полной башни: исходник {selectivity['parent_empty_tower_casts']}/{selectivity['control_episodes']}, "
                 f"первый кандидат {selectivity['candidate_empty_tower_casts']}/{selectivity['control_episodes']} бросков за первые 4 с.",'']
+            if selectivity.get('negative_validation'):
+                negative=selectivity['negative_validation'];tower=selectivity['validation']['tower_finish']
+                lines[6:6]=[f"Validation коррекции: лишний первый Fireball {round(negative['first_action_fireball_rate']*negative['episodes'])}/{negative['episodes']}, "
+                    f"добивание башни {tower['successes']}/{tower['episodes']}. Этот кандидат тоже не принят.",'']
         candidate=refinement.get('candidate_summary')
-        if candidate:
-            extra=['**Fireball, validation (отбор кандидата; ещё не независимый test):**','',
+        if candidate or evaluated:
+            extra=[('**Fireball, независимый test:**'if evaluated else '**Fireball, validation (отбор кандидата; ещё не независимый test):**'),'',
                    '| Задача | Исходник | После дообучения |','|---|---:|---:|']
             for key,label in (('tower_finish','Добить башню'),('building_finish','Добить здание'),('tower_unit','Башня + юнит одним шаром')):
-                before=candidate['validation_before'][key];after=candidate['validation_after'][key]
+                before=evaluated['fireball_test']['before'][key]if evaluated else candidate['validation_before'][key]
+                after=evaluated['fireball_test']['after'][key]if evaluated else candidate['validation_after'][key]
                 extra.append(f"| {label} | {before['successes']}/{before['episodes']} | {after['successes']}/{after['episodes']} |")
             lines[4:4]=extra+['']
+            if evaluated:
+                matches=evaluated['matches'];v25=matches['by_opponent']['v25'];historical=matches['historical'];parent=matches['parent']
+                before=evaluated['old_test_before']['defense']['overall']['no_damage']
+                after=evaluated['old_test_after']['defense']['overall']['no_damage']
+                lines[4+len(extra)+1:4+len(extra)+1]=[
+                    f"**Регрессия первого кандидата:** все 15 соперников: 219/300 → {historical['wins']}/300; "
+                    f"v25: 19/20 → {v25['wins']}/20; против исходника: {parent['wins']}/20. "
+                    f"Защита без урона: {before['success']}/708 → {after['success']}/708. "
+                    '[Проверенный отчёт](reports/defense_plan/fireball_refinement_full_metrics.json).','']
     for m in models:
         state=('Val/test и матчи готовы'if m['full']else'Val/test и матчи ожидают отчёта')+('; train готов'if m['train']else'; train ожидает отчёта')
         lines.append(f"| {m['label']} | 100% | {state} | {winrate(m['full'],'v25')} | {winrate(m['full'])} |")
