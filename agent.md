@@ -1,3 +1,25 @@
+## 24октября: все4 fullбюджета иперваяtrainоценка ПРОВЕРЕНЫ
+reports/defense_plan/ppo_selected_four_full_completion.json:4×2048000/update2000,полные
+коллекции/weightsSHA проверены; all4 prepared/selector passed. Recovery checkpoint b9b34f2b...
+train-only tower_survival COMPLETE,4452records/1484×3seeds verified;
+reports/defense_plan/ppo_joint_tower_survival_train_metrics.json. Новый verifier
+scripts/defense/summarize_selected_ppo_train.py проверяетcatalog/contextSHA/nativecontract.11тестов.
+Train: noDamage2137/4032=53%,Hog138/204=67.65%,spell0/193known+23unknown.
+done.md актуализирован:4/4,train-строки заполнены; НЕappendжурнал.
+НОВЫЕversion1 finaleval отправлены наandriashadrin/andreiperelaiko/vertel0,
+OWNER/hastycr-ppo-selected-final-eval-20261023. Всеpublishedinputsmetadata проверены,
+контроллерпроверяетsource/weightsSHAдооценки. EVAL/OWNER/monitoring.json PID/логи.
+Andrei ужеSSE evaluating2T4; Andria SDKstatusRUNNING ноstartupSSE404, этоНЕсбойGPU;
+ждатьscheduledreconnect/проверитьтотжеkernel послеинтервала, не перепушивать.
+Vertel толькоотправлен, проверитьегоSSE/GPU. Allsource одинаковыйcommon1a34...
+Selecteddatasets для0/2 теперьуспешносозданы послеNo datasetsfound-audit;
+раннийcreate404 Андрея не создалdataset. Для recoveryтожеprivateinputsготовы.
+Старые fullobserver0/1/2 иtrainobserver3 остановлены толькопосле verified COMPLETE/полнойколлекции.
+Далее собрать3finaleval, независимыйsummarize_selected_ppo, обновитьdoneтаблицы;
+потомtrain-only техже3моделей изихEVAL preparedчерез prepare_selected_ppo_train_evaluation
+наосвободившихсяаккаунтах. Ниtestниноваяtrainописательнаяоценкане меняютweights/профили.
+80%-цельпротивкаждойисторическоймоделииphysics parity ещёне достигнуты; goalНЕcomplete.
+
 ## Текущий этап после запроса пояснить таблицы
 done.md переписан с понятными названиями/знаменателями и краткими определениями. Это dashboard,
 НЕ appendжурнал. Пользователь просит понятность, ане одниаббревиатуры; писатьwins/total рядомс%.
