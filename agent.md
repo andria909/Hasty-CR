@@ -1,3 +1,15 @@
+## Текущие3finaleval: skillsчасти завершены, duelsещёидут
+reports/defense_plan/ppo_remaining_evaluations_skill_parts_complete.json:все3реально
+evaluating на2T4/common1a34, liveparts validation1056/test804 завершены.
+Andria startupSSE404 восстановилсяавтоматически; ниодинGPUjob не перезапущен.
+Все3 API RUNNING по20минпроверке; уAndreiSDKHTTPError перепроверенCLI
+в EVAL/andreiperelaiko/scheduled_status_recheck.json. Ждатьтотжеkernel, не повторять.
+Числовыеval/test reportпокане выгружены: finalcollectorнамеренноterminal-only;
+не выдумыватьwinrates/процентduels изчислазавершённыхчастей.
+ПослеCOMPLETE: collectprofile strategy, verify/summarize_selected_ppo, обновитьdone,
+наосвободившемсяаккаунте отправитьУЖЕprepared trainjob4452.
+Пути preparedtrainpackages: tmp/kaggle/ppo_selected_train_evaluations_20261023/OWNER/job.
+
 ## Train-only диагностика нулевого добивания выполнена
 reports/defense_plan/ppo_train_spell_finisher_probe.json:2парныхtrain-ситуации Fireball
 unopposed/king belowHP, fixedseedс Fireballвруке, realweights tower_survival безобновления.
