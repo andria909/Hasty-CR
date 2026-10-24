@@ -1,0 +1,39 @@
+{
+  "schema": "fireball-refinement-launch-v1",
+  "kernel": "andreiperelaiko/hastycr-fireball-refine-20261025",
+  "version": 1,
+  "remote_status": "RUNNING",
+  "phase": "generating_verified_demonstrations",
+  "method": "impact_verified_BC_with_policy_rehearsal",
+  "parent_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+  "preparation": {
+    "kernel": "andreiperelaiko/hastycr-fireball-refine-20261025",
+    "source_sha256": "78419cfc9c9715430d9eac3ceb5f2293c929998fd668c797e28e4971fe2d36e0",
+    "parent_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+    "bootstrap_sha256": "3726cebc36d86eb27ab7d41a64672408e28d2270eb50129dceb1fa9838ff712f",
+    "submitted": false
+  },
+  "gpu_proof": [
+    {
+      "event": "CUDA_READY",
+      "gpu": "Tesla T4",
+      "source_sha256": "78419cfc9c9715430d9eac3ceb5f2293c929998fd668c797e28e4971fe2d36e0"
+    },
+    {
+      "phase": "ready",
+      "device": "cuda:0",
+      "gpu": "Tesla T4",
+      "parent_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "contract": "fireball_finish_and_splash_v1",
+      "method": "impact_verified_BC_with_policy_rehearsal"
+    }
+  ],
+  "tests_passed": 34,
+  "reference_train_probe": {
+    "episodes": 96,
+    "successes": 96
+  },
+  "epochs": 40,
+  "results_pending": true,
+  "live_checkpoint_changed": false
+}

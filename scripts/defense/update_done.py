@@ -46,11 +46,17 @@ def load_models(reports):
     return models
 
 
-def render(models):
+def render(models,refinement=None):
     ready=sum(m['full']is not None for m in models);trained=sum(m['train']is not None for m in models)
     lines=['# Где мы сейчас и что получилось','',
         f'**Этап:** все 4 модели обучены. Val/test и матчи проверены у {ready}/4; отдельные train-замеры — у {trained}/4.','',
         '| Модель | Обучение | Готовые замеры | Против v25 | Против всех 15 |','|---|---:|---|---:|---:|']
+    if refinement:
+        note=('**Сейчас:** дообучение сохранённой PPO «атака + защита · economy_soft» на Fireball: '
+              'добивание башни/здания и попадание по башне с юнитом одним шаром. '
+              'Kaggle: '+refinement['remote_status']+'. Исходные веса сохранены; результаты нового кандидата ещё не проверены. '
+              '[Статус](reports/defense_plan/fireball_refinement_status.json).')
+        lines[2:2]=[note,'']
     for m in models:
         state=('Val/test и матчи готовы'if m['full']else'Val/test и матчи ожидают отчёта')+('; train готов'if m['train']else'; train ожидает отчёта')
         lines.append(f"| {m['label']} | 100% | {state} | {winrate(m['full'],'v25')} | {winrate(m['full'])} |")
@@ -94,4 +100,6 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--reports',type=Path,default=Path('reports/defense_plan'))
     parser.add_argument('--output',type=Path,default=Path('done.md'))
-    args=parser.parse_args();args.output.write_text(render(load_models(args.reports)))
+    args=parser.parse_args()
+    status=args.reports/'fireball_refinement_status.json'
+    args.output.write_text(render(load_models(args.reports),json.loads(status.read_text()) if status.exists() else None))
