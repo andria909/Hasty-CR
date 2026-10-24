@@ -30,6 +30,10 @@ def collect(api,kernel,destination,profile='defense'):
         prefix='strategy_evaluation/'
         result_file='result.json'
         allowed={result_file,'validation.json','test.json','duels.json','validation.log','test.log','duels.log'}
+    elif profile=='train':
+        prefix='train_evaluation/'
+        result_file='result.json'
+        allowed={result_file,'train.json','worker_0.jsonl','worker_1.jsonl','worker_0.log','worker_1.log'}
     elif profile=='defense':
         prefix='evaluation/'
         result_file='evaluation_result.json'
@@ -61,7 +65,7 @@ def main():
     parser.add_argument('--kernel',required=True);parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--poll-seconds',type=int,default=1200)
     parser.add_argument('--once',action='store_true')
-    parser.add_argument('--profile',choices=('defense','strategy'),default='defense')
+    parser.add_argument('--profile',choices=('defense','strategy','train'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only

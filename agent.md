@@ -1,3 +1,22 @@
+## Текущий этап после запроса пояснить таблицы
+done.md переписан с понятными названиями/знаменателями и краткими определениями. Это dashboard,
+НЕ appendжурнал. Пользователь просит понятность, ане одниаббревиатуры; писатьwins/total рядомс%.
+Обучены3/4: andriashadrin spell_precision иandreiperelaiko joint economy_soft теперьCOMPLETE,
+обе коллекции+selector+prepared проверены. Оставшийся recovery defense economy_soft ещёRUNNING.
+Andrei selected_dataset upload вернулошибку ПОСЛЕuploadфайлов: проверитьlaststderr иdatasetsfiles
+передповтором, не создаватьдубликатыblind. Andria selected_dataset ещёНЕзагружен; оба finaleval надоотправить.
+Tower_survival finaleval COMPLETE, rawreports сохранены, независимыйverifiedmetrics JSONготов.
+НОВЫЙ train-only evaluator: scripts/kaggle/run_selected_ppo_train_evaluation.py +prepare_selected_ppo_train_evaluation.py.
+Он безобновленияweights на2workerprocess/2T4 оценивает1484train сценария×3seeds42,43,44=4452episodes.
+Version1 demjanklimov/hastycr-ppo-selected-train-eval-20261023 реальноevaluating на2T4,
+обаworker растут: reports/defense_plan/ppo_selected_train_evaluation_first_launch.json.
+Пакет tmp/kaggle/ppo_selected_train_evaluations_20261023/demjanklimov, monitoring.json текущийPID/log.
+Collector profile train добавлен. Первыйlocalcollector умер приauthenticate ReadTimeout,
+проверенmissingPID и заменёнтолькоobserver; GPUjob НЕперезапущен.
+12тестов traincontroller/collector/summary прошли. Исходники и GPU-доказательство сохраняются в Git вместе с понятным dashboard.
+Для train послеCOMPLETE проверить4452contexts/3seeds/source/policySHA, пересчитатьsummarize_split
+по rawtrain.json и дополнитьtrain-строкиdone, не подменятьроднымиtrainingreward.
+
 ## Новое требование пользователя к done.md
 done.md теперь КОРОТКИЙ DASHBOARD, не журнал: текущийэтап, таблицы train/val/test/винрейтов.
 НЕдобавлять длиннуюисторию; подробныеfacts/proofs в reports/defense_plan и agent.md.
