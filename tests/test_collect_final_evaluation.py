@@ -13,6 +13,7 @@ from scripts.kaggle import collect_final_evaluation as collector
                                                   ('fireball-selectivity','fireball_selectivity/','result.json'),
                                                   ('fireball-balanced','fireball_balanced/','result.json'),
                                                   ('balanced-match-validation','balanced_match_validation/','result.json'),
+                                                  ('native-fireball-evaluation','native_fireball_evaluation/','result.json'),
                                                   ('fireball-evaluation','fireball_evaluation/','result.json')])
 def test_only_declared_terminal_report_files_are_collected(monkeypatch,tmp_path,profile,prefix,result):
     data={prefix+result:b'{"status":"completed"}',prefix+'project/secret.py':b'never',prefix+'policy.pt':b'never'}

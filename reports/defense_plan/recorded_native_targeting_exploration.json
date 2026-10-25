@@ -1,0 +1,89 @@
+{
+  "schema": "recorded-native-targeting-exploration-v1",
+  "sources": [
+    {
+      "source": "tmp/live/memory_v25_20261022_series30/remaining/frames.jsonl",
+      "source_sha256": "46d62af05b7ab6bd5f7097d6adce40bc9b39bbef74d742aa8510db10bed6eff0",
+      "frames": 3061,
+      "eligible_projectile_appearances": {
+        "TowerPrincessProjectile": 509,
+        "TowerCannonball": 29,
+        "MusketeerProjectile": 92,
+        "ArcherArrow": 52
+      },
+      "inferred_isolated_impacts": 22,
+      "fresh_acquisition_comparable": 3,
+      "fresh_acquisition_agreements": 3,
+      "fresh_disagreements_explained_by_retaining_previous_inferred_target": 0,
+      "source_radius_hypothesis_agreements": 3,
+      "limitations": [
+        "Exploratory inferred labels, not a targeting-accuracy benchmark.",
+        "Nearby victim/HP-drop attribution can still be coincidental; manual shot review is required.",
+        "Fresh acquisition ignores prior target locks, scan phase, buffs and deployment state.",
+        "Source-radius hypothesis is exploratory and does not modify production targeting or attack reach.",
+        "Tower-source targeting is not compared because tower activation/equipment is not reconstructed.",
+        "One existing replay; melee, splash, retarget triggers and unseen mechanics are not certified."
+      ]
+    },
+    {
+      "source": "tmp/live/memory_v25_20261022_series30/recovery25/frames.jsonl",
+      "source_sha256": "2f3cf35bc4d7ea40c0dfd91af06365fd088b552ed3ffb09ddec28a878e90d4e6",
+      "frames": 40888,
+      "eligible_projectile_appearances": {
+        "TowerCannonball": 494,
+        "TowerPrincessProjectile": 5187,
+        "ArcherArrow": 472,
+        "MusketeerProjectile": 1564
+      },
+      "inferred_isolated_impacts": 540,
+      "fresh_acquisition_comparable": 100,
+      "fresh_acquisition_agreements": 73,
+      "fresh_disagreements_explained_by_retaining_previous_inferred_target": 0,
+      "source_radius_hypothesis_agreements": 83,
+      "limitations": [
+        "Exploratory inferred labels, not a targeting-accuracy benchmark.",
+        "Nearby victim/HP-drop attribution can still be coincidental; manual shot review is required.",
+        "Fresh acquisition ignores prior target locks, scan phase, buffs and deployment state.",
+        "Source-radius hypothesis is exploratory and does not modify production targeting or attack reach.",
+        "Tower-source targeting is not compared because tower activation/equipment is not reconstructed.",
+        "One existing replay; melee, splash, retarget triggers and unseen mechanics are not certified."
+      ]
+    }
+  ],
+  "comparable": 103,
+  "fresh_agreements": 76,
+  "by_source": {
+    "Archer": {
+      "inferred_comparable": 20,
+      "fresh_agreements": 18,
+      "source_radius_hypothesis_agreements": 18
+    },
+    "Cannon": {
+      "inferred_comparable": 15,
+      "fresh_agreements": 13,
+      "source_radius_hypothesis_agreements": 13
+    },
+    "Musketeer": {
+      "inferred_comparable": 68,
+      "fresh_agreements": 45,
+      "source_radius_hypothesis_agreements": 55
+    }
+  },
+  "rejected_inference_warning": "Labels inferred from homing disappearance and isolated HP loss; not verified engine target IDs. These counts cannot be called targeting accuracy.",
+  "fresh_acquisition_does_not_reconstruct": [
+    "prior target lock",
+    "scan phase",
+    "buffs",
+    "deployment state",
+    "tower activation",
+    "melee target decisions"
+  ],
+  "source_radius_hypothesis_only": true,
+  "production_targeting_changed": false,
+  "physics_live_parity_accepted": false,
+  "raw_event_evidence_local_only": [
+    "tmp/native_projectile_target_remaining_20261025.json",
+    "tmp/native_projectile_target_recovery25_20261025.json"
+  ],
+  "next_action": "Review mismatches against launch snapshots and native target evidence before altering targeting or reach"
+}

@@ -108,6 +108,10 @@ def audit(path: Path):
     frames = 0
     for index, line in enumerate(path.open()):
         row = json.loads(line)
+        # Later live logs wrap the same read-only native frame in host timing
+        # metadata. Keep the raw-frame format supported for older recordings.
+        if isinstance(row.get('frame'), dict):
+            row = row['frame']
         entities = row.get('entities')
         if not isinstance(entities, list):
             previous_bodies, previous_shots, active = {}, {}, {}

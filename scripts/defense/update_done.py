@@ -151,6 +151,9 @@ def render(models,refinement=None,mechanics=None):
             '[Проверенный отчёт](reports/defense_plan/fireball_balanced_match_validation.json).','',
             '**Далее:** независимые упражнения и турнир против 19 соперников с новой контрольной оценкой исходной модели.','',
             '## Ранее завершённые этапы','']
+        if refinement.get('native_evaluation',{}).get('gpu_jobs_submitted')is False:
+            current[2:2]=['Независимый тест подготовлен, GPU ещё не запущены: Kaggle не подтвердил загрузки данных; ответы проверки доступа 401/403. '+
+                '[Статус запуска](reports/defense_plan/fireball_native_evaluation_launch_status.json).','']
         lines[2:2]=current
     return '\n'.join(lines)+'\n'
 
