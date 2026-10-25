@@ -78,7 +78,7 @@ def mechanical_mask(match,cards,spells,side,pending=False):
         if not match.can_play(side,card):
             continue
         spell=spells.get(card)
-        grid=_placeable(side,down,spell is not None).copy()
+        grid=_placeable(side,down,spell is not None,geometry=match.geometry).copy()
         if spell is not None:
             for y,x in np.argwhere(grid):
                 point=grid_to_point(int(x),int(y),side)

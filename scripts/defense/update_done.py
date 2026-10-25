@@ -55,6 +55,7 @@ def render(models,refinement=None,mechanics=None):
         evaluated=refinement.get('evaluation_summary')
         state=('обучение завершено; независимая проверка '+refinement['evaluation']['observed_status']
                if refinement.get('evaluation') else refinement['remote_status'])
+        if refinement.get('balanced'):state='новая фаза: '+refinement['balanced']['observed_status']
         note=('**Сейчас:** дообучение сохранённой PPO «атака + защита · economy_soft» на Fireball: '
               'добивание башни/здания и попадание по башне с юнитом одним шаром. '
               'Kaggle: '+state+'. Исходные веса сохранены; '+
@@ -72,7 +73,7 @@ def render(models,refinement=None,mechanics=None):
                     f"добивание башни {tower['successes']}/{tower['episodes']}. Этот кандидат тоже не принят.",'']
         candidate=refinement.get('candidate_summary')
         if candidate or evaluated:
-            extra=[('**Fireball, независимый test:**'if evaluated else '**Fireball, validation (отбор кандидата; ещё не независимый test):**'),'',
+            extra=[('**Первый Fireball-кандидат, независимый test прежней среды (10 клеток/с):**'if evaluated else '**Fireball, validation (отбор кандидата; ещё не независимый test):**'),'',
                    '| Задача | Исходник | После дообучения |','|---|---:|---:|']
             for key,label in (('tower_finish','Добить башню'),('building_finish','Добить здание'),('tower_unit','Башня + юнит одним шаром')):
                 before=evaluated['fireball_test']['before'][key]if evaluated else candidate['validation_before'][key]

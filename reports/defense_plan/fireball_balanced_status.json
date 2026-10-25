@@ -1,0 +1,113 @@
+{
+  "schema": "fireball-balanced-stage-status-v1",
+  "preparation": {
+    "schema": "fireball-balanced-preparation-v1",
+    "kernel": "andriashadrin/hastycr-fireball-balanced-20261025",
+    "pins": {
+      "manifest.json": "3325d51f7978c8805e851624cd8d2bb7e70d133811545a01ceb6b20f9d7c9f44",
+      "parent.pt": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "v25.pt": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972"
+    },
+    "source_sha256": "3be0c6dea28b48099de2f78623536f1057206b1fe54be27a7473c7e341a8e5a1",
+    "protocol_sha256": "c8f5b600398831f1185d026cd2eb7f95a139341cef85a636686789c8c8185855",
+    "bootstrap_sha256": "e7656ef4f0cf1a26238b50b643a674504e00c5c0696863801c1bf80625007488",
+    "previous_source_sha256": "d35786346c707cb294afb93ee8abe0c369229611c885dc66f0a45ee237ee100a",
+    "migration": {
+      "schema": "native-fireball-public-task-v1",
+      "changed_files": [
+        "sim/eval_defense_duel.py",
+        "sim/public_gamedata.py",
+        "sim/spells.py",
+        "sim/fireball_curriculum.py"
+      ],
+      "fireball_speed_mt_per_sec": 12000,
+      "public_task_rule": "joint_enemy_presence_v1",
+      "default_match_geometry": "native_anchors_candidate_v1",
+      "old_optimizer_resumed": false
+    },
+    "init_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+    "protocol": {
+      "schema": "fireball-balanced-protocol-v1",
+      "method": "impact_verified_BC_balanced_pairs_public_presence_v3",
+      "init_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "teacher_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "geometry": "native_anchors_candidate_v1",
+      "coordinate_mode": "physical_live_cells_v2",
+      "deployment_task": "joint_enemy_presence_v1",
+      "fireball_speed_mt_per_sec": 12000,
+      "epochs": 80,
+      "batch_size": 128,
+      "learning_rate": 3e-05,
+      "demonstrations": 3072,
+      "pairs": 1024,
+      "rehearsal_states": 2048,
+      "validation_positive": 96,
+      "validation_negative": 96,
+      "validation_every": 10,
+      "weights": {
+        "demonstration_ce": 1.0,
+        "paired_positive_ce": 1.0,
+        "paired_negative_mass": 1.0,
+        "paired_log_odds_margin": 0.5,
+        "rehearsal_kl": 2.0
+      },
+      "pair_log_odds_margin": 2.0,
+      "skill_floors": {
+        "tower_finish": 0.7,
+        "building_finish": 0.95,
+        "tower_unit": 0.95
+      },
+      "rehearsal_action_agreement_floor": 0.95,
+      "negative_cast_rate_margin_over_teacher": 0.05,
+      "shortlist_size": 3,
+      "shortlist_order": [
+        "minimum_skill_rate_desc",
+        "macro_skill_rate_minus_quarter_negative_desc",
+        "epoch_asc"
+      ],
+      "validation_match_seeds": [
+        910001,
+        910002,
+        910003,
+        910004,
+        910005,
+        910006,
+        910007,
+        910008,
+        910009,
+        910010
+      ],
+      "rehearsal_match_seed_start": 880001,
+      "match_delay_ms": 150,
+      "match_max_ms": 400000,
+      "minimum_score_vs_teacher": 0.45,
+      "score_margin_vs_v25_teacher_reference": 0.05,
+      "final_selection": "passing_match_guards_then_validation_game_score_desc_then_minimum_skill_desc_then_epoch_asc",
+      "test_used_for_selection": false,
+      "resume_old_optimizer": false,
+      "physics_live_parity_accepted": false
+    },
+    "submitted": false,
+    "native_speed_evidence_sha256": "2f90ed27e2bf287f77357ca51d513373796325b6021b5c6e5cfeda87fa76589c"
+  },
+  "observed_status": "prepared_upload_confirmation_pending",
+  "cpu_preflight": {
+    "source_sha256": "3be0c6dea28b48099de2f78623536f1057206b1fe54be27a7473c7e341a8e5a1",
+    "fireball_speed": 12000,
+    "reference_impact_audit": {
+      "accepted": {
+        "tower_finish": 2,
+        "building_finish": 2,
+        "tower_unit": 2
+      },
+      "rejected": []
+    },
+    "rehearsal_states": 12,
+    "scalar_count": 309,
+    "training_performed": false
+  },
+  "tests_passed": 15,
+  "gpu_job_submitted": false,
+  "quality_accepted": false,
+  "live_checkpoint_changed": false
+}
