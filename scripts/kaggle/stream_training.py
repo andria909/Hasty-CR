@@ -28,6 +28,44 @@ def reconnect_delay(interval,started):
     return max(0,interval-int(time.monotonic()-started))
 
 
+def record_evaluation_event(progress,line,remote_time):
+    """Track completed games only; this percentage is not quality acceptance."""
+    try:row=json.loads(line)
+    except (ValueError,TypeError):return False
+    if not isinstance(row,dict):return False
+    event=row.get('event')
+    if event=='CUDA_READY'and row.get('role')in ('candidate','parent'):
+        evaluation=progress.setdefault('evaluation',{})
+        if evaluation.get('role')not in (None,row['role']):return False
+        evaluation.update(role=row['role'],checkpoint_sha256=row.get('checkpoint_sha256'))
+        return True
+    if event=='heldout_game_progress':
+        completed,total=row.get('completed'),row.get('total')
+        if (type(completed)is not int or type(total)is not int or total<=0 or not 0<=completed<=total):return False
+        evaluation=progress.setdefault('evaluation',{})
+        previous=evaluation.get('games',{})
+        if previous and (total!=previous['total']or completed<=previous['completed']):return False
+        evaluation['games']=dict(completed=completed,total=total,percent=100*completed/total,
+            remote_log_seconds=remote_time,quality_verified=False)
+        return True
+    if event=='heldout_part_complete'and row.get('part')in ('fixed_regression','fresh_seeds','king_finish','strategy_test','duels'):
+        evaluation=progress.setdefault('evaluation',{})
+        parts=evaluation.setdefault('completed_parts',[])
+        if row['part']in parts:return False
+        parts.append(row['part'])
+        return True
+    return False
+
+
+def replay_evaluation_progress(path):
+    """Read saved SSE events without reconnecting or touching the remote job."""
+    progress={'source':'saved_kaggle_live_log_stream'}
+    for line in Path(path).read_text().splitlines():
+        event=json.loads(line)
+        record_evaluation_event(progress,event.get('data',''),event.get('time'))
+    return progress
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--kernel',required=True)
@@ -53,7 +91,8 @@ def main():
                 for event in api.kernels_logs_stream(args.kernel):
                     stream.write(json.dumps(event)+'\n');stream.flush()
                     line=event.get('data','')
-                    if record_trial_event(progress,line,event.get('time')):
+                    if (record_trial_event(progress,line,event.get('time'))or
+                            record_evaluation_event(progress,line,event.get('time'))):
                         progress['checked_host_ns']=time.time_ns()
                         (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
                     for name in ('ppo','grpo'):
