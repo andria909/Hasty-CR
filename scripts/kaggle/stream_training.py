@@ -34,15 +34,15 @@ def main():
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--reconnects',type=int,default=20)
     parser.add_argument('--reconnect-seconds',type=int,default=1200)
+    parser.add_argument('--api-user',help='Known owner; bearer token remains in environment')
     args=parser.parse_args()
     if args.reconnects<0:parser.error('reconnects must be nonnegative')
     if args.reconnect_seconds<1:parser.error('reconnect-seconds must be positive')
     if not __package__:sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
-    from scripts.kaggle.collect_final_evaluation import configure_http_timeout
+    from scripts.kaggle.collect_final_evaluation import configure_http_timeout,make_api_client
     configure_http_timeout()
-    from kaggle.api.kaggle_api_extended import KaggleApi
     args.output.mkdir(parents=True,exist_ok=False)
-    api=KaggleApi();api.authenticate()
+    api=make_api_client(args.api_user)
     progress={'kernel':args.kernel,'source':'kaggle_live_log_stream','trainers':{}}
     with (args.output/'events.jsonl').open('x') as stream:
         for attempt in range(args.reconnects+1):

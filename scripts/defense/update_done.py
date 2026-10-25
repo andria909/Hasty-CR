@@ -135,6 +135,23 @@ def render(models,refinement=None,mechanics=None):
         lines+=['','**Скорости по сохранённому парсеру:** часы ≈'+number(clock,2)+' тиков/с; на ровных участках '+
             ', '.join(speeds)+' в симуляторе. Таргетинг/бафы/разгон не приняты. '
             '[Замер и ограничения](reports/defense_plan/recorded_native_tick_speeds.json).']
+    recovery=(refinement or {}).get('balanced_match_validation')
+    if recovery:
+        current=['**Текущий этап:** Fireball v3 обучен на 100% (80 эпох). Чекпойнт эпохи 50 прошёл validation-матчи; независимый test ещё не выполнен. Основная модель сохранена.','',
+            '| Fireball · validation | Успех |','|---|---:|']
+        for key,label in (('tower_finish','Добивание башни'),('building_finish','Добивание здания'),('tower_unit','Башня и юнит одним шаром')):
+            row=recovery['validation'][key]
+            current.append(f"| {label} | {row['successes']}/{row['episodes']} |")
+        current+=['','Лишний первый Fireball: 0/96 контрольных ситуаций.','',
+            '| Симуляционные validation-матчи | Победы | Поражения |','|---|---:|---:|']
+        for key,label in (('candidate_v25','Новая против v25'),('teacher_v25','Исходная против v25'),('candidate_parent','Новая против исходной')):
+            row=recovery['game_summaries'][key]
+            current.append(f"| {label} | {row['wins']} | {row['losses']} |")
+        current+=['','Все три серии — по 20 матчей, ничьих нет. Среда: Fireball 12 клеток/с и native geometry; прежние таблицы ниже относятся к старой среде. Кандидат не принят окончательно, живые бои выключены. '+
+            '[Проверенный отчёт](reports/defense_plan/fireball_balanced_match_validation.json).','',
+            '**Далее:** независимые упражнения и турнир против 19 соперников с новой контрольной оценкой исходной модели.','',
+            '## Ранее завершённые этапы','']
+        lines[2:2]=current
     return '\n'.join(lines)+'\n'
 
 

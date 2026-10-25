@@ -2,10 +2,30 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import time
 
 from scripts.kaggle.recover_defense_outputs import TERMINAL,list_outputs,terminal_state
+
+
+def make_api_client(api_user=None,api_class=None):
+    """Use explicit environment bearer credentials or the normal SDK login.
+
+    The explicit path avoids an optional token-introspection round trip.
+    Kaggle still authenticates and authorizes every resource API request.
+    """
+    if api_class is None:
+        from kaggle.api.kaggle_api_extended import KaggleApi
+        api_class=KaggleApi
+    api=api_class()
+    if api_user is None:api.authenticate()
+    else:
+        token=os.environ.get('KAGGLE_API_TOKEN')
+        if not token:raise ValueError('Explicit bearer credentials require KAGGLE_API_TOKEN')
+        api.config_values[api.CONFIG_NAME_USER]=api_user
+        api.config_values[api.CONFIG_NAME_TOKEN]=token
+    return api
 
 
 def configure_http_timeout():
@@ -34,6 +54,10 @@ def collect(api,kernel,destination,profile='defense'):
         prefix='train_evaluation/'
         result_file='result.json'
         allowed={result_file,'train.json','worker_0.jsonl','worker_1.jsonl','worker_0.log','worker_1.log'}
+    elif profile=='balanced-match-validation':
+        prefix='balanced_match_validation/'
+        result_file='result.json'
+        allowed={result_file,'teacher_v25.json','candidate_v25.json','candidate_parent.json'}
     elif profile=='fireball-balanced':
         prefix='fireball_balanced/'
         result_file='result.json'
@@ -85,14 +109,14 @@ def main():
     parser.add_argument('--kernel',required=True);parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--poll-seconds',type=int,default=1200)
     parser.add_argument('--once',action='store_true')
-    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced'),default='defense')
+    parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
+    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only
     # this observer process; active jobs and the installed package are untouched.
     configure_http_timeout()
-    from kaggle.api.kaggle_api_extended import KaggleApi
-    api=KaggleApi();api.authenticate()
+    api=make_api_client(args.api_user)
     while True:
         try:
             state=terminal_state(api.kernels_status(args.kernel))

@@ -92,7 +92,7 @@
   },
   "selectivity": {
     "kernel": "andriashadrin/hastycr-fireball-select-20261025",
-    "observed_status": "COMPLETE; \u043d\u0435 \u043f\u0440\u0438\u043d\u044f\u0442: \u043f\u043e\u0442\u0435\u0440\u044f \u0434\u043e\u0431\u0438\u0432\u0430\u043d\u0438\u044f \u0431\u0430\u0448\u043d\u0438",
+    "observed_status": "COMPLETE; не принят: потеря добивания башни",
     "parent_empty_tower_casts": 25,
     "candidate_empty_tower_casts": 39,
     "control_episodes": 48,
@@ -1116,9 +1116,9 @@
   },
   "current_results_fireball_speed_mt_per_sec": 10000,
   "fireball_speed_correction_branch": "fix/fireball-native-speed-20261025",
-  "next_stage": "Correct native flight speed and deployment task feature; paired positive/negative training with per-task validation floors",
+  "next_stage": "Independent native held-out evaluation of frozen epoch50 and original parent; no further validation selection",
   "balanced": {
-    "observed_status": "\u0437\u0430\u043f\u0443\u0449\u0435\u043d\u0430 \u043d\u0430 2 Tesla T4; \u043f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430 \u0434\u0430\u043d\u043d\u044b\u0445",
+    "observed_status": "COMPLETE; 80/80 epochs; epoch50 passed separate validation games",
     "epochs": 80,
     "init": "original_joint_economy_soft",
     "source_sha256": "3be0c6dea28b48099de2f78623536f1057206b1fe54be27a7473c7e341a8e5a1",
@@ -1126,5 +1126,96 @@
     "geometry": "native_anchors_candidate_v1",
     "gpu_job_submitted": true,
     "kernel_version": 1
+  },
+  "balanced_match_validation": {
+    "schema": "verified-balanced-match-validation-v1",
+    "epoch": 50,
+    "checkpoint_sha256": "485442030cbb47d4edcd21af1bb1304023ce60e722d34f1ff2a2529faf9adab0",
+    "parent_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+    "source_sha256": "3be0c6dea28b48099de2f78623536f1057206b1fe54be27a7473c7e341a8e5a1",
+    "validation": {
+      "tower_finish": {
+        "successes": 23,
+        "episodes": 32
+      },
+      "building_finish": {
+        "successes": 32,
+        "episodes": 32
+      },
+      "tower_unit": {
+        "successes": 31,
+        "episodes": 32
+      }
+    },
+    "negative_validation": {
+      "episodes": 96,
+      "first_action_fireball_rate": 0.0,
+      "mean_fireball_probability": 0.07551594823598862
+    },
+    "rehearsal_action_agreement": 0.92333984375,
+    "rehearsal_agreement_role": "diagnostic_only",
+    "game_summaries": {
+      "teacher_v25": {
+        "matches": 20,
+        "wins": 16,
+        "losses": 4,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.8,
+        "win_rate_known_matches": 0.8,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "candidate_v25": {
+        "matches": 20,
+        "wins": 16,
+        "losses": 4,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.8,
+        "win_rate_known_matches": 0.8,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "candidate_parent": {
+        "matches": 20,
+        "wins": 9,
+        "losses": 11,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.45,
+        "win_rate_known_matches": 0.45,
+        "quality_passed": null,
+        "quality_flags": [
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "shared_history_contract",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      }
+    },
+    "scores": {
+      "teacher_v25": 0.8,
+      "candidate_v25": 0.8,
+      "candidate_parent": 0.45
+    },
+    "candidate_passes_validation_games": true,
+    "independent_test_required": true,
+    "original_phase_rejection_preserved": true,
+    "quality_accepted": false,
+    "live_checkpoint_changed": false
   }
 }
