@@ -62,8 +62,9 @@ def verify(collected,prepared):
             json.loads((prepared/'dataset/manifest.json').read_text())['files']!=protocol['training_files']):
         raise ValueError('Frozen source identity differs')
     result=checked('result.json');role=config['role']
+    policy_file=config.get('policy_file','policy.pt')
     if (result.get('schema')!='native-fireball-heldout-result-v1'or result.get('status')!='complete'or
-            result.get('role')!=role or result.get('checkpoint_sha256')!=config['pins']['policy.pt']or
+            result.get('role')!=role or result.get('checkpoint_sha256')!=config['pins'][policy_file]or
             result.get('selection_sha256')!=config['pins']['selection.json']or
             result.get('protocol_sha256')!=config['extensions']['data/fireball/native_evaluation_protocol.json']or
             result.get('training_source_sha256')!=protocol['training_source_sha256']or

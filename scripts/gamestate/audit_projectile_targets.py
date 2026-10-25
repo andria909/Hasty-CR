@@ -106,6 +106,7 @@ def audit(path: Path):
     last_launch = {}
     evidence, launched = [], Counter()
     frames = 0
+    segment = 0
     for index, line in enumerate(path.open()):
         row = json.loads(line)
         # Later live logs wrap the same read-only native frame in host timing
@@ -117,12 +118,14 @@ def audit(path: Path):
             previous_bodies, previous_shots, active = {}, {}, {}
             previous_time = None
             last_launch = {}
+            segment += 1
             continue
         timestamp = row['device_start_ns']
         bodies = {e['entity_id']: e for e in entities if e['entity_id'] // 1_000_000 == 5}
         shots = {e['entity_id']: e for e in entities if e['entity_id'] // 1_000_000 == 4}
         key = tuple(sorted((e['entity_id'], e.get('address')) for e in bodies.values() if e['name'] == 'KingTower'))
         if key != identity or (previous_time is not None and not 0 < timestamp - previous_time <= 150_000_000):
+            segment += 1
             previous_bodies, previous_shots, active = {}, {}, {}
             previous_time = None
             identity = key
@@ -147,6 +150,7 @@ def audit(path: Path):
                 continue
             prediction, scope = predict_fresh_target(event['bodies'], event['source']['entity_id'], profiles)
             evidence.append({
+                'trace_segment': segment,
                 'projectile_id': uid, 'projectile_name': last['name'],
                 'source_id': event['source']['entity_id'], 'source_name': event['source']['name'],
                 'inferred_target_id': victim['entity_id'], 'inferred_target_name': victim['name'],
@@ -164,7 +168,9 @@ def audit(path: Path):
         previous_bodies, previous_shots, previous_time = bodies, shots, timestamp
         frames += 1
     comparable = [e for e in evidence if e['fresh_prediction_agrees'] is not None]
-    by_shot = {e['projectile_id']: e for e in evidence}
+    # Native entity IDs restart across battles. Never infer an old target lock
+    # from a projectile with the same numeric ID in a different trace segment.
+    by_shot = {(e['trace_segment'], e['projectile_id']): e for e in evidence}
     for event in comparable:
         hypothesis, _ = predict_fresh_target(
             event['launch_bodies'], event['source_id'], profiles,
@@ -180,7 +186,7 @@ def audit(path: Path):
         event['target_radius_millitiles'] = (target_profile.collision_radius_mt
                                             if target_profile is not None else None)
         event['source_range_millitiles'] = source_profile.range_mt
-        previous = by_shot.get(event['previous_projectile_id'])
+        previous = by_shot.get((event['trace_segment'], event['previous_projectile_id']))
         if previous is None or previous['impact_frame'] > event['launch_frame']:
             continue
         previous_target = previous['inferred_target_id']

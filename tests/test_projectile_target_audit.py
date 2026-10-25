@@ -1,6 +1,7 @@
 from scripts.gamestate.audit_projectile_targets import (
     isolated_impact, predict_fresh_target, unique_shooter)
 from scripts.gamestate.audit_sim_alignment import unit_profiles
+import json
 
 
 def body(uid, name, side, x, y, hp=500):
@@ -40,3 +41,26 @@ def test_prediction_preserves_native_ids_and_exposes_radius_hypothesis():
     assert alternative == target['entity_id']
     # Audit hypothesis never modifies the source profiles/production engine.
     assert profiles['musketeer'].range_mt == 6000
+
+
+def test_repeated_projectile_ids_in_new_battle_do_not_replace_previous_lock(tmp_path):
+    from scripts.gamestate.audit_projectile_targets import audit
+    rows=[]
+    for battle_index in range(2):
+        king=body(5000000,'KingTower',1,9000,30000)
+        king['address']=hex(900000+battle_index)
+        source=body(5000007,'Musketeer',1,6000,18000)
+        victim=body(5000012,'Knight',0,6000,12000)
+        for frame in range(6):
+            units=[king,source,dict(victim,hp=500-100*(frame>=2)-100*(frame>=5))]
+            if frame%3<2:
+                uid=4000001+frame//3
+                units.append(body(uid,'MusketeerProjectile',1,6000,17500 if frame%3==0 else 12500))
+            # Use the newer host-wrapped format as well as repeated entity IDs.
+            rows.append(dict(frame=dict(device_start_ns=(len(rows)+1)*50000000,entities=units)))
+    path=tmp_path/'frames.jsonl';path.write_text(''.join(json.dumps(r)+'\n'for r in rows))
+    report=audit(path)
+    second_shots=[e for e in report['evidence']if e['previous_projectile_id']==4000001]
+    assert len(second_shots)==2
+    assert len({e['trace_segment']for e in second_shots})==2
+    assert all(e.get('prior_inferred_target_id')==5000012 for e in second_shots)

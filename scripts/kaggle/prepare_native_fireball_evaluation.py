@@ -44,7 +44,7 @@ def bootstrap(config):
         if sha(project/name)!=digest:raise ValueError('Evaluation extension SHA differs')
     print(json.dumps(dict(event='INPUTS_VERIFIED',role=config['role'],source_sha256=config['source_sha256'])),flush=True)
     subprocess.run([sys.executable,'-m','scripts.attack.evaluate_native_fireball',
-        '--protocol','data/fireball/native_evaluation_protocol.json','--policy',str(inputs/'policy.pt'),
+        '--protocol','data/fireball/native_evaluation_protocol.json','--policy',str(inputs/config.get('policy_file','policy.pt')),
         '--selection',str(inputs/'selection.json'),'--opponents',str(inputs),
         '--role',config['role'],'--output','/kaggle/working/native_fireball_evaluation'],cwd=project,check=True)
 
@@ -88,6 +88,36 @@ def prepare(output,role,owner):
     report=dict(schema='native-fireball-evaluation-preparation-v1',kernel=kernel,config=config,bootstrap_sha256=sha(job/'evaluate.py'),submitted=False,training_performed=False)
     (output/'preparation.json').write_text(json.dumps(report,indent=2)+'\n')
     return dict(kernel=kernel,role=role,prepared=True,submitted=False)
+
+
+def prepare_reference_from_candidate(candidate_prepared,output):
+    """Reuse the READY candidate dataset, which already contains parent weights.
+
+    Only a new parent-reference notebook is created; no dataset upload and no
+    re-training. Keep all input bytes and frozen extensions exactly identical.
+    """
+    original=Path(candidate_prepared);previous=json.loads((original/'preparation.json').read_text())
+    config=previous['config'].copy()
+    if config['role']!='candidate':raise ValueError('Candidate package required')
+    for name,digest in config['pins'].items():
+        if sha(original/'dataset'/name)!=digest:raise ValueError('Reusable input changed')
+    if config['pins']['full_joint_economy_soft.pt']!='9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8':
+        raise ValueError('Original parent not available in shared inputs')
+    output=Path(output);output.mkdir(parents=True,exist_ok=False)
+    shutil.copytree(original/'dataset',output/'dataset')
+    config.update(role='parent',policy_file='full_joint_economy_soft.pt')
+    kernel=config['owner']+'/hastycr-native-fireball-parent-reference-20261025'
+    job=output/'job';job.mkdir()
+    source='import hashlib,json,shutil,tarfile\nfrom pathlib import Path,PurePosixPath\n'+inspect.getsource(sha)+'\n'+inspect.getsource(prepare_source)+'\n'+inspect.getsource(bootstrap)+'\nbootstrap('+repr(config)+')\n'
+    compile(source,'evaluate.py','exec');(job/'evaluate.py').write_text(source)
+    metadata=json.loads((original/'job/kernel-metadata.json').read_text())
+    metadata.update(id=kernel,title='hastycr native fireball parent reference 20261025')
+    (job/'kernel-metadata.json').write_text(json.dumps(metadata,indent=2)+'\n')
+    report=dict(schema='native-fireball-evaluation-preparation-v1',kernel=kernel,config=config,
+        bootstrap_sha256=sha(job/'evaluate.py'),submitted=False,training_performed=False,
+        reused_dataset=metadata['dataset_sources'][0],original_candidate_preparation=str(original))
+    (output/'preparation.json').write_text(json.dumps(report,indent=2)+'\n')
+    return report
 
 
 if __name__=='__main__':

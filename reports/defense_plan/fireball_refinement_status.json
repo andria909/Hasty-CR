@@ -1220,34 +1220,68 @@
   },
   "native_evaluation": {
     "schema": "native-fireball-evaluation-launch-status-v1",
-    "checked_ns": 1792891520697299000,
-    "gpu_jobs_submitted": false,
-    "candidate": {
-      "owner": "andreiperelaiko",
-      "prepared": "tmp/kaggle/native_fireball_candidate_20261025_v3",
-      "upload_session_id": 11216,
-      "upload_state": "request_pending",
-      "readback_http_status": 403
+    "checked_ns": 1792891961757493000,
+    "gpu_jobs_submitted": true,
+    "jobs": {
+      "candidate": {
+        "owner": "andreiperelaiko",
+        "kernel": "andreiperelaiko/hastycr-native-fireball-candidate-20261025",
+        "version": 1,
+        "prepared": "tmp/kaggle/native_fireball_candidate_20261025_v3",
+        "status": "CUDA_READY",
+        "gpu": [
+          "Tesla T4",
+          "Tesla T4"
+        ],
+        "checkpoint_sha256": "485442030cbb47d4edcd21af1bb1304023ce60e722d34f1ff2a2529faf9adab0",
+        "completed_exercise_parts": [
+          "fixed_regression",
+          "fresh_seeds",
+          "king_finish"
+        ],
+        "monitoring": {
+          "kernel": "andreiperelaiko/hastycr-native-fireball-candidate-20261025",
+          "stream_pid": 30461,
+          "collector_pid": 30462,
+          "poll_seconds": 1200,
+          "started_ns": 1792891869497189000
+        },
+        "expected_strategy_episodes": 804,
+        "expected_matches": 380
+      },
+      "parent": {
+        "owner": "andreiperelaiko",
+        "kernel": "andreiperelaiko/hastycr-native-fireball-parent-reference-20261025",
+        "version": 1,
+        "prepared": "tmp/kaggle/native_fireball_parent_20261025_shared",
+        "status": "CUDA_READY",
+        "gpu": [
+          "Tesla T4",
+          "Tesla T4"
+        ],
+        "checkpoint_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+        "completed_exercise_parts": [],
+        "monitoring": {
+          "kernel": "andreiperelaiko/hastycr-native-fireball-parent-reference-20261025",
+          "stream_pid": 30542,
+          "collector_pid": 30543,
+          "poll_seconds": 1200,
+          "started_ns": 1792891913833689000
+        },
+        "expected_strategy_episodes": 804,
+        "expected_matches": 360
+      }
     },
-    "parent": {
-      "original_owner": "demjanklimov",
-      "original_upload_http_status": 401,
-      "fallback_owner": "andriashadrin",
-      "prepared": "tmp/kaggle/native_fireball_parent_20261025_account1",
-      "upload_session_id": 81071,
-      "upload_state": "request_pending",
-      "readback_http_status": 403
-    },
-    "remote_job_restarted": false,
+    "shared_dataset": "andreiperelaiko/hastycr-native-fireball-candidate-20261025-inputs",
+    "dataset_reupload_required": false,
     "independent_results_available": false,
-    "local_verification": {
-      "tests_passed": 24,
-      "source_files": 148,
-      "opponent_weights_verified": 19,
-      "king_oracle_kills_verified": 2
-    },
-    "next_action": "Recheck the same upload processes and exact datasets; submit GPU notebooks only once inputs are confirmed ready",
     "quality_accepted": false,
-    "live_checkpoint_changed": false
+    "live_checkpoint_changed": false,
+    "poll_seconds": 1200,
+    "previous_upload_errors": {
+      "parent_original_account_http_status": 401,
+      "parent_account1_http_status": 404
+    },
+    "next_action": "Collect complete native reports and independently verify both roles; no checkpoint selection on tests"
   }
 }
