@@ -40,6 +40,7 @@ def collect(api,kernel,destination,profile='defense'):
         allowed={result_file,'candidate.pt','config.json','metrics.jsonl','baseline_skills.json',
                  'demonstration_audit.json','pair_contexts.json','rehearsal_contexts.json',
                  'shortlist.json','teacher_validation_games.json','validation_games.json'}
+        allowed.update(f'epoch_{epoch}.pt'for epoch in range(10,81,10))
     elif profile=='fireball-selectivity':
         prefix='fireball_selectivity/'
         result_file='result.json'
