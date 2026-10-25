@@ -1,0 +1,549 @@
+{
+  "schema": "verified-native-fireball-heldout-v1",
+  "role": "candidate",
+  "checkpoint_sha256": "485442030cbb47d4edcd21af1bb1304023ce60e722d34f1ff2a2529faf9adab0",
+  "source_sha256": "3be0c6dea28b48099de2f78623536f1057206b1fe54be27a7473c7e341a8e5a1",
+  "skills": {
+    "fixed_regression": {
+      "tower_finish": {
+        "episodes": 128,
+        "successes": 94
+      },
+      "building_finish": {
+        "episodes": 128,
+        "successes": 128
+      },
+      "tower_unit": {
+        "episodes": 128,
+        "successes": 125
+      }
+    },
+    "fresh_seeds": {
+      "tower_finish": {
+        "episodes": 128,
+        "successes": 89
+      },
+      "building_finish": {
+        "episodes": 128,
+        "successes": 128
+      },
+      "tower_unit": {
+        "episodes": 128,
+        "successes": 127
+      }
+    },
+    "king_finish": {
+      "king_finish": {
+        "episodes": 96,
+        "successes": 0
+      }
+    }
+  },
+  "strategy": {
+    "defense": {
+      "overall": {
+        "episodes": 708,
+        "no_damage": {
+          "known": 708,
+          "unknown": 0,
+          "success": 392,
+          "rate": 0.5536723163841808
+        },
+        "mean_tower_hp_loss": 651.9251412429378,
+        "mean_elixir_spent": 23.796610169491526,
+        "princess_survived": {
+          "known": 708,
+          "unknown": 0,
+          "success": 672,
+          "rate": 0.9491525423728814
+        },
+        "king_survived": {
+          "known": 708,
+          "unknown": 0,
+          "success": 703,
+          "rate": 0.9929378531073446
+        },
+        "timeouts": 0,
+        "invalid_scripts": 0
+      },
+      "by_difficulty": {
+        "simple": {
+          "episodes": 204,
+          "no_damage": {
+            "known": 204,
+            "unknown": 0,
+            "success": 176,
+            "rate": 0.8627450980392157
+          },
+          "mean_tower_hp_loss": 68.0,
+          "mean_elixir_spent": 10.794117647058824,
+          "princess_survived": {
+            "known": 204,
+            "unknown": 0,
+            "success": 204,
+            "rate": 1.0
+          },
+          "king_survived": {
+            "known": 204,
+            "unknown": 0,
+            "success": 204,
+            "rate": 1.0
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        },
+        "medium": {
+          "episodes": 144,
+          "no_damage": {
+            "known": 144,
+            "unknown": 0,
+            "success": 73,
+            "rate": 0.5069444444444444
+          },
+          "mean_tower_hp_loss": 340.15972222222223,
+          "mean_elixir_spent": 14.069444444444445,
+          "princess_survived": {
+            "known": 144,
+            "unknown": 0,
+            "success": 144,
+            "rate": 1.0
+          },
+          "king_survived": {
+            "known": 144,
+            "unknown": 0,
+            "success": 144,
+            "rate": 1.0
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        },
+        "complex": {
+          "episodes": 252,
+          "no_damage": {
+            "known": 252,
+            "unknown": 0,
+            "success": 122,
+            "rate": 0.48412698412698413
+          },
+          "mean_tower_hp_loss": 913.5198412698413,
+          "mean_elixir_spent": 37.51190476190476,
+          "princess_survived": {
+            "known": 252,
+            "unknown": 0,
+            "success": 233,
+            "rate": 0.9246031746031746
+          },
+          "king_survived": {
+            "known": 252,
+            "unknown": 0,
+            "success": 250,
+            "rate": 0.9920634920634921
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        },
+        "impossible": {
+          "episodes": 108,
+          "no_damage": {
+            "known": 108,
+            "unknown": 0,
+            "success": 21,
+            "rate": 0.19444444444444445
+          },
+          "mean_tower_hp_loss": 1560.1944444444443,
+          "mean_elixir_spent": 29.324074074074073,
+          "princess_survived": {
+            "known": 108,
+            "unknown": 0,
+            "success": 91,
+            "rate": 0.8425925925925926
+          },
+          "king_survived": {
+            "known": 108,
+            "unknown": 0,
+            "success": 105,
+            "rate": 0.9722222222222222
+          },
+          "timeouts": 0,
+          "invalid_scripts": 0
+        }
+      }
+    },
+    "attack": {
+      "episodes": 96,
+      "episode_success": {
+        "known": 96,
+        "unknown": 0,
+        "success": 42,
+        "rate": 0.4375
+      },
+      "hog_confirmed_hit": {
+        "known": 24,
+        "unknown": 0,
+        "success": 16,
+        "rate": 0.6666666666666666
+      },
+      "spell_confirmed_finish": {
+        "known": 72,
+        "unknown": 0,
+        "success": 0,
+        "rate": 0.0
+      },
+      "missed_window": {
+        "known": 96,
+        "unknown": 0,
+        "success": 54,
+        "rate": 0.5625
+      }
+    }
+  },
+  "games": {
+    "overall": {
+      "matches": 380,
+      "wins": 248,
+      "losses": 129,
+      "draws": 3,
+      "unknown": 0,
+      "win_rate_all_matches": 0.6526315789473685,
+      "win_rate_known_matches": 0.6526315789473685,
+      "quality_passed": null,
+      "quality_flags": [
+        "history_contract_differs",
+        "joint_task_switch_is_public_heuristic",
+        "no_live_game_validation",
+        "shared_history_contract",
+        "simulator_mechanics_not_fully_validated",
+        "tick_granular_regular_match_terminal"
+      ]
+    },
+    "by_opponent": {
+      "v11": {
+        "matches": 20,
+        "wins": 11,
+        "losses": 8,
+        "draws": 1,
+        "unknown": 0,
+        "win_rate_all_matches": 0.55,
+        "win_rate_known_matches": 0.55,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v14": {
+        "matches": 20,
+        "wins": 11,
+        "losses": 8,
+        "draws": 1,
+        "unknown": 0,
+        "win_rate_all_matches": 0.55,
+        "win_rate_known_matches": 0.55,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v14_last": {
+        "matches": 20,
+        "wins": 12,
+        "losses": 7,
+        "draws": 1,
+        "unknown": 0,
+        "win_rate_all_matches": 0.6,
+        "win_rate_known_matches": 0.6,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v18": {
+        "matches": 20,
+        "wins": 16,
+        "losses": 4,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.8,
+        "win_rate_known_matches": 0.8,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v19": {
+        "matches": 20,
+        "wins": 16,
+        "losses": 4,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.8,
+        "win_rate_known_matches": 0.8,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v20": {
+        "matches": 20,
+        "wins": 15,
+        "losses": 5,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.75,
+        "win_rate_known_matches": 0.75,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v21": {
+        "matches": 20,
+        "wins": 12,
+        "losses": 8,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.6,
+        "win_rate_known_matches": 0.6,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v24": {
+        "matches": 20,
+        "wins": 14,
+        "losses": 6,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.7,
+        "win_rate_known_matches": 0.7,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v25": {
+        "matches": 20,
+        "wins": 15,
+        "losses": 5,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.75,
+        "win_rate_known_matches": 0.75,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v26": {
+        "matches": 20,
+        "wins": 18,
+        "losses": 2,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.9,
+        "win_rate_known_matches": 0.9,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v27": {
+        "matches": 20,
+        "wins": 17,
+        "losses": 3,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.85,
+        "win_rate_known_matches": 0.85,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v28": {
+        "matches": 20,
+        "wins": 14,
+        "losses": 6,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.7,
+        "win_rate_known_matches": 0.7,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v28b": {
+        "matches": 20,
+        "wins": 13,
+        "losses": 7,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.65,
+        "win_rate_known_matches": 0.65,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v28b_last": {
+        "matches": 20,
+        "wins": 12,
+        "losses": 8,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.6,
+        "win_rate_known_matches": 0.6,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "v29": {
+        "matches": 20,
+        "wins": 17,
+        "losses": 3,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.85,
+        "win_rate_known_matches": 0.85,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "full_defense_spell_precision": {
+        "matches": 20,
+        "wins": 13,
+        "losses": 7,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.65,
+        "win_rate_known_matches": 0.65,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "full_defense_economy_soft": {
+        "matches": 20,
+        "wins": 7,
+        "losses": 13,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.35,
+        "win_rate_known_matches": 0.35,
+        "quality_passed": null,
+        "quality_flags": [
+          "history_contract_differs",
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "full_joint_economy_soft": {
+        "matches": 20,
+        "wins": 7,
+        "losses": 13,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.35,
+        "win_rate_known_matches": 0.35,
+        "quality_passed": null,
+        "quality_flags": [
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "shared_history_contract",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      },
+      "full_joint_tower_survival": {
+        "matches": 20,
+        "wins": 8,
+        "losses": 12,
+        "draws": 0,
+        "unknown": 0,
+        "win_rate_all_matches": 0.4,
+        "win_rate_known_matches": 0.4,
+        "quality_passed": null,
+        "quality_flags": [
+          "joint_task_switch_is_public_heuristic",
+          "no_live_game_validation",
+          "shared_history_contract",
+          "simulator_mechanics_not_fully_validated",
+          "tick_granular_regular_match_terminal"
+        ]
+      }
+    }
+  },
+  "quality_accepted": false,
+  "physics_live_parity_accepted": false,
+  "live_checkpoint_changed": false,
+  "test_used_for_selection": false
+}

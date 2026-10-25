@@ -1,0 +1,158 @@
+{
+  "schema": "live-card-usage-v1",
+  "checkpoint_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+  "model": "PPO joint economy_soft original",
+  "environment": "real_BlueStacks",
+  "completed_matches": 4,
+  "wins": 0,
+  "losses": 4,
+  "excluded_incomplete_matches": 1,
+  "measurement": "card casts confirmed by fresh own-hand rotation, not spawned body count",
+  "per_card": {
+    "hog_rider": {
+      "total": 2,
+      "mean_per_completed_match": 0.5
+    },
+    "musketeer": {
+      "total": 0,
+      "mean_per_completed_match": 0.0
+    },
+    "cannon": {
+      "total": 34,
+      "mean_per_completed_match": 8.5
+    },
+    "knight": {
+      "total": 33,
+      "mean_per_completed_match": 8.25
+    },
+    "skeletons": {
+      "total": 36,
+      "mean_per_completed_match": 9.0
+    },
+    "electro_spirit": {
+      "total": 34,
+      "mean_per_completed_match": 8.5
+    },
+    "fireball": {
+      "total": 2,
+      "mean_per_completed_match": 0.5
+    },
+    "zap": {
+      "total": 34,
+      "mean_per_completed_match": 8.5
+    }
+  },
+  "matches": [
+    {
+      "match": 1,
+      "result": "loss",
+      "start_host_ns": 1792892810359455000,
+      "end_host_ns": 1792892998841083000,
+      "own_side": 1,
+      "hand_confirmed": {
+        "knight": 9,
+        "hog_rider": 1,
+        "skeletons": 9,
+        "zap": 8,
+        "electro_spirit": 8,
+        "cannon": 8
+      },
+      "attempts": {
+        "knight": 10,
+        "skeletons": 10,
+        "hog_rider": 1,
+        "zap": 9,
+        "electro_spirit": 8,
+        "cannon": 8,
+        "fireball": 1
+      },
+      "elapsed_game_ms": 184500
+    },
+    {
+      "match": 2,
+      "result": "loss",
+      "start_host_ns": 1792893014891715000,
+      "end_host_ns": 1792893203331281000,
+      "own_side": 1,
+      "hand_confirmed": {
+        "fireball": 1,
+        "zap": 9,
+        "skeletons": 9,
+        "cannon": 9,
+        "electro_spirit": 8,
+        "knight": 8
+      },
+      "attempts": {
+        "fireball": 2,
+        "skeletons": 10,
+        "zap": 9,
+        "cannon": 9,
+        "electro_spirit": 9,
+        "knight": 8
+      },
+      "elapsed_game_ms": 184500
+    },
+    {
+      "match": 3,
+      "result": "loss",
+      "start_host_ns": 1792893218892708000,
+      "end_host_ns": 1792893407134356000,
+      "own_side": 1,
+      "hand_confirmed": {
+        "electro_spirit": 9,
+        "fireball": 1,
+        "skeletons": 9,
+        "zap": 9,
+        "knight": 8,
+        "cannon": 8
+      },
+      "attempts": {
+        "hog_rider": 2,
+        "electro_spirit": 9,
+        "fireball": 1,
+        "skeletons": 9,
+        "zap": 9,
+        "knight": 9,
+        "cannon": 8
+      },
+      "elapsed_game_ms": 184500
+    },
+    {
+      "match": 4,
+      "result": "loss",
+      "start_host_ns": 1792893422114856000,
+      "end_host_ns": 1792893610418566000,
+      "own_side": 1,
+      "hand_confirmed": {
+        "hog_rider": 1,
+        "electro_spirit": 9,
+        "cannon": 9,
+        "skeletons": 9,
+        "zap": 8,
+        "knight": 8
+      },
+      "attempts": {
+        "fireball": 1,
+        "hog_rider": 1,
+        "electro_spirit": 9,
+        "cannon": 9,
+        "skeletons": 9,
+        "zap": 9,
+        "knight": 8,
+        "musketeer": 1
+      },
+      "elapsed_game_ms": 184500
+    }
+  ],
+  "series_stopped_on_user_request": true,
+  "source_events_sha256": "437f85c32dd2e6b3e75b03c55721ddf9e537f08842e019aed35d54b3df14eea1",
+  "unstarted_requested_matches": 5,
+  "observed_own_spawned_bodies": {
+    "Knight": 33,
+    "HogRider": 2,
+    "Skeleton": 107,
+    "ElectroSpirit": 34,
+    "Cannon": 34
+  },
+  "body_count_note": "Unique entity ID/address within each completed match window. Short-lived bodies can be missed between snapshots; observed bodies are a lower bound, separate from confirmed card casts."
+}

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 from dataclasses import replace
 import hashlib
 import json
@@ -72,7 +73,12 @@ def make_attack_env(*,split='train',seed=0,deadline_scale=1.,**options):
     return env
 
 
-def make_training_env(*,task_mode='joint',split='train',seed=0,**options):
+def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',**options):
+    if curriculum=='tactical_v1':
+        if task_mode!='joint':raise ValueError('Tactical curriculum requires joint policy')
+        from sim.tactical_strategy import TacticalStrategyEnv
+        return TacticalStrategyEnv(split=split,seed=seed,**options)
+    if curriculum!='classic':raise ValueError('Unknown curriculum')
     if task_mode=='attack':return make_attack_env(split=split,seed=seed,**options)
     if task_mode!='joint':raise ValueError('Unknown strategy task mode')
     if split not in ('train','validation'):raise ValueError('Training forbids test split')
@@ -86,7 +92,10 @@ def training_sampler(env,seed=42,initial_hand_mode='shuffle',task_mode='joint'):
     return StrategyScenarioCycle(env.scenarios,seed=seed,initial_hand_mode=initial_hand_mode)
 
 
-def observation_contract(task_mode):
+def observation_contract(task_mode,curriculum='classic'):
+    if curriculum=='tactical_v1':
+        from sim.tactical_strategy import CONTRACT
+        return CONTRACT
     if task_mode=='attack':return OBSERVATION_CONTRACT
     from sim.strategy_env import OBSERVATION_CONTRACT as contract
     return contract
@@ -138,6 +147,14 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
                     candidates=[getattr(s,'scenario_id',s)for s in env.scenarios
                                 if getattr(s,'scenario_id',s).startswith(task+'::')]
                     if not candidates:raise ValueError('Missing validation task coverage')
+                    if (env_options or {}).get('curriculum')=='tactical_v1'and task=='attack':
+                        goals=('supported_hog','air_defense_counterpush','hog_defense_counterpush')
+                        # Reserve validation cases for every new skill; the
+                        # remainder still samples the original exercises.
+                        if index%4<3:
+                            goal=goals[index%4]
+                            candidates=[s.scenario_id for s in env.scenarios if
+                                s.task=='attack'and getattr(s.scenario,'tactical_goal',None)==goal]
                     chosen=random.Random(seed+index).choice(sorted(candidates))
                     obs,info=env.reset(seed=seed+index,scenario_id=chosen)
                 else:obs,info=env.reset(seed=seed+index)
@@ -154,19 +171,33 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
                         break
                 else:raise RuntimeError('Attack validation exceeded finite step bound')
     finally:network.train(was_training)
-    return dict(mean_reward=float(np.mean([r['episode_return']for r in records])),
+    result=dict(mean_reward=float(np.mean([r['episode_return']for r in records])),
                 records=records,summary=summarize_attack(records),by_task=summarize_tasks(records),
                 split='validation',seed=seed,episodes_per_task=episodes,
                 selection_metric='equal_task_mean_episode_return_provisional')
+    if (env_options or {}).get('curriculum')=='tactical_v1':
+        rates={}
+        for goal in ('supported_hog','air_defense_counterpush','hog_defense_counterpush'):
+            rows=[r for r in records if r.get('tactical_goal')==goal]
+            rates[goal]=dict(episodes=len(rows),successes=sum(r.get('goal_success',False)for r in rows))
+        if any(not r['episodes']for r in rates.values()):raise ValueError('Missing tactical validation skill')
+        values=[r['successes']/r['episodes']for r in rates.values()]
+        defense=[r for r in records if r.get('task')=='defense']
+        no_damage=sum(r['no_tower_damage']for r in defense)/len(defense)
+        result.update(tactical_skills=rates,selection_metric='tactical_min_macro_and_defense_no_damage_v1',
+            selection_score=.5*min(values)+.25*sum(values)/len(values)+.25*no_damage)
+    return result
 
 
-def code_fingerprint(task_mode='attack'):
+def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.):
     root=Path(__file__).resolve().parents[1]
     names=('sim/attack_env.py','sim/attack_scenarios.py','sim/attack_sampler.py',
            'sim/train_attack_ppo.py','sim/engine.py','sim/match.py','sim/env.py',
            'sim/defense_env.py','sim/defense_assets.py','sim/defense_scenarios.py',
            'sim/public_gamedata.py','sim/public_scenario_spells.py','sim/spells.py','sim/arena.py','sim/reward_profiles.py')
     if task_mode=='joint':names+=('sim/strategy_env.py','sim/strategy_sampler.py')
+    if curriculum=='tactical_v1':names+=('sim/tactical_strategy.py',)
+    if card_balance_weight:names+=('sim/card_balance.py',)
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
                                      for name in names},sort_keys=True).encode()).hexdigest()
 
@@ -178,7 +209,7 @@ def validate_resume(blob,config):
           'value_coef','entropy_coef','max_grad_norm','action_delay_ms','max_ms','deadline_scale',
           'visible_fraction','initial_hand_mode','geometry','geometry_sha256','coordinate_mode',
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
-          'reward_profile','reward_profile_sha256')
+          'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target')
     for key in keys:
         if blob['config'].get(key)!=config.get(key):
             raise ValueError(f'Attack resume configuration mismatch: {key}')
@@ -188,6 +219,9 @@ def validate_resume(blob,config):
 
 
 def train(args):
+    balance_weight=getattr(args,'card_balance_weight',0.)
+    balance_target=getattr(args,'card_balance_target','all_cards')
+    if not np.isfinite(balance_weight)or not 0<=balance_weight<=1:raise ValueError('Card balance weight must be finite in [0,1]')
     if args.device.startswith('cuda') and not torch.cuda.is_available():
         raise RuntimeError('CUDA requested but unavailable; CPU fallback forbidden')
     if min(args.updates,args.envs,args.rollout,args.epochs,args.minibatch_size,args.checkpoint_every,
@@ -206,6 +240,8 @@ def train(args):
     device=torch.device(args.device)
     options={key:getattr(args,key)for key in ('action_delay_ms','max_ms','deadline_scale',
         'visible_fraction','initial_hand_mode','geometry','coordinate_mode')}
+    curriculum=getattr(args,'curriculum','classic')
+    if curriculum!='classic':options['curriculum']=curriculum
     reward_profile,reward_sha=load_reward_profile(getattr(args,'reward_profile',None))
     defense_rewards,attack_rewards=reward_objects(reward_profile)
     if args.task_mode=='joint':options.update(defense_rewards=defense_rewards,attack_rewards=attack_rewards)
@@ -219,13 +255,13 @@ def train(args):
         raise ValueError('Attack timer feature dimension mismatch')
     blob=torch.load(args.resume or args.init,map_location='cpu',weights_only=False)if args.resume or args.init else None
     architecture=checkpoint_architecture(blob)if blob else args.architecture
-    contract=observation_contract(args.task_mode)
+    contract=observation_contract(args.task_mode,curriculum)
     network=build_attack_network(architecture,device,num_scalars=num_scalars)
     initialization=load_attack_state(network,blob,exact=bool(args.resume),observation_contract=contract)if blob else {'fresh_initialization':True}
     optimizer=torch.optim.Adam(network.parameters(),lr=args.lr)
     config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,
         reward_profile=reward_profile,reward_profile_sha256=reward_sha,
-        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode),
+        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight),
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
         initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
             hashlib.sha256(Path(args.init).read_bytes()).hexdigest()if args.init else None))
@@ -253,10 +289,12 @@ def train(args):
             episode_returns=episode_returns,episode_counters=counters,exact_resume_available=True)
         torch.save(state,output/(f'best_validation_{update:06d}.pt'if best_save else f'update_{update:06d}.pt'))
     last_update=start_update
+    play_cursors=[len(env.match.play_log)for env in envs]
     for update in range(start_update+1,args.updates+1):
         if step>=args.target_environment_steps:break
         last_update=update
         rows,episodes=[],[]
+        accepted_cards=Counter()
         for _ in range(args.rollout):
             planes,scalars=tensor_observations(observations,device)
             masks=action_masks(infos,device)
@@ -267,6 +305,10 @@ def train(args):
                 actions=distribution.sample();log_prob=distribution.log_prob(actions)
             final_obs,rewards,terminals,truncations,final_infos=map(list,zip(*[
                 env.step(int(action))for env,action in zip(envs,actions.cpu().tolist())]))
+            for index,env in enumerate(envs):
+                log=env.match.play_log
+                accepted_cards.update(e['card']for e in log[play_cursors[index]:]if e['side']==1)
+                play_cursors[index]=len(log)
             for info in final_infos:validate_transition(info)
             with torch.no_grad():_,next_values=network(*tensor_observations(final_obs,device))
             rows.append((planes,scalars,masks,actions,log_prob,values.reshape(-1),
@@ -279,6 +321,7 @@ def train(args):
                     episodes.append(dict(final_infos[index]['metrics'],episode_return=episode_returns[index]))
                     episode_returns[index]=0.;counters[index]+=1
                     observations[index],infos[index]=envs[index].reset(**sampler.next())
+                    play_cursors[index]=0
             step+=args.envs
         planes,scalars,masks,actions,old_log,values,rewards,next_values,terminals,truncations=[torch.stack(x)for x in zip(*rows)]
         advantages,returns=generalized_advantage(rewards,values,next_values,terminals,truncations,args.gamma,args.gae_lambda)
@@ -286,7 +329,7 @@ def train(args):
         require_finite(advantages=advantages,returns=returns)
         planes,scalars=planes.flatten(0,1),scalars.flatten(0,1)
         masks,actions,old_log,returns=masks.flatten(0,1),actions.flatten(),old_log.flatten(),returns.flatten()
-        losses=[]
+        losses=[];balance_losses=[]
         for _ in range(args.epochs):
             for indices in torch.randperm(len(actions),device=device).split(args.minibatch_size):
                 logits,predicted=network(planes[indices],scalars[indices])
@@ -294,6 +337,11 @@ def train(args):
                 ratio=(dist.log_prob(actions[indices])-old_log[indices]).exp()
                 policy=-torch.minimum(ratio*advantages[indices],ratio.clamp(1-args.clip,1+args.clip)*advantages[indices]).mean()
                 loss=policy+args.value_coef*(predicted.reshape(-1)-returns[indices]).square().mean()-args.entropy_coef*dist.entropy().mean()
+                if balance_weight:
+                    from sim.card_balance import card_balance_loss
+                    balance=card_balance_loss(logits,scalars[indices],masks[indices],balance_target)
+                    loss=loss+balance_weight*balance
+                    balance_losses.append(float(balance.detach()))
                 require_finite(loss=loss,ratio=ratio)
                 optimizer.zero_grad(set_to_none=True);loss.backward()
                 norm=torch.nn.utils.clip_grad_norm_(network.parameters(),args.max_grad_norm,error_if_nonfinite=True)
@@ -302,10 +350,12 @@ def train(args):
             percent=min(100.,100*step/args.target_environment_steps),elapsed_seconds=time.monotonic()-started,
             actual_cuda=actual_cuda,loss=float(np.mean(losses)),gradient_norm=float(norm),episodes=episodes,
             train_summary=summarize_attack(episodes),by_task=summarize_tasks(episodes))
+        record['card_usage']=dict(accepted_counts=dict(accepted_cards),balance_weight=balance_weight,
+            target=balance_target,mean_balance_js=float(np.mean(balance_losses))if balance_losses else 0.)
         is_best=False
         if args.eval_every>0 and update%args.eval_every==0:
             record['validation']=evaluate(network,device,episodes=args.eval_episodes,seed=900000,env_options=options,task_mode=args.task_mode)
-            score=record['validation']['mean_reward'];is_best=score>best;best=max(best,score)
+            score=record['validation'].get('selection_score',record['validation']['mean_reward']);is_best=score>best;best=max(best,score)
         budget_stop=time.monotonic()-started>=args.wallclock_seconds
         stop=budget_stop or step>=args.target_environment_steps or update==args.updates
         if update%args.checkpoint_every==0 or stop:checkpoint(update)
@@ -341,6 +391,9 @@ def parser():
     p.add_argument('--output',required=True)
     p.add_argument('--device',default='cuda')
     p.add_argument('--task-mode',choices=('joint','attack'),default='joint')
+    p.add_argument('--curriculum',choices=('classic','tactical_v1'),default='classic')
+    p.add_argument('--card-balance-weight',type=float,default=0.)
+    p.add_argument('--card-balance-target',choices=('all_cards','units'),default='all_cards')
     p.add_argument('--architecture',default=COMPACT_ARCHITECTURE)
     p.add_argument('--initial-hand-mode',choices=('scenario','shuffle'),default='shuffle')
     p.add_argument('--geometry',choices=('legacy_v1','native_anchors_candidate_v1'),default='legacy_v1')

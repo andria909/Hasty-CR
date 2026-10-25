@@ -46,7 +46,26 @@ def collect(api,kernel,destination,profile='defense'):
     files,logs=list_outputs(api,kernel)
     if terminal_state(api.kernels_status(kernel))!=state:
         raise ValueError('Remote evaluation state changed during listing')
-    if profile=='native-fireball-evaluation':
+    if profile=='card-balance-study':
+        import re
+        prefix='card_balance_study/'
+        result_file='result.json'
+        allowed={result_file,'baseline_validation.json'}
+        for trial in ('baseline','balance_all','balance_units'):
+            allowed.update(trial+'/'+name for name in ('config.json','metrics.jsonl','training_result.json'))
+            allowed.update(f'{trial}/best_validation_{update:06d}.pt'for update in (25,50,75,100))
+            candidates=[]
+            for name in files:
+                match=re.fullmatch(re.escape(prefix+trial+'/update_')+r'(\d{6})\.pt',name)
+                if match and 0<=int(match.group(1))<=100:candidates.append((int(match.group(1)),name[len(prefix):]))
+            if candidates:allowed.add(max(candidates)[1])
+    elif profile=='card-usage':
+        prefix='card_usage/'
+        result_file='result.json'
+        ids=('v11','v14','v14_last','v18','v19','v20','v21','v24','v25','v26','v27','v28','v28b','v28b_last','v29',
+             'full_defense_spell_precision','full_defense_economy_soft','full_joint_economy_soft','full_joint_tower_survival','fireball_balanced_epoch50')
+        allowed={result_file}|{name+'.json'for name in ids}
+    elif profile=='native-fireball-evaluation':
         prefix='native_fireball_evaluation/'
         result_file='result.json'
         allowed={result_file,'fixed_regression.json','fresh_seeds.json','king_finish.json',
@@ -99,7 +118,8 @@ def collect(api,kernel,destination,profile='defense'):
             remote=prefix+name
             if remote not in files:continue
             response=requests.get(files[remote].url,timeout=(30,300));response.raise_for_status()
-            raw=response.content;(destination/name).write_bytes(raw)
+            raw=response.content
+            target=destination/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
             receipt['files'][name]=dict(sha256=hashlib.sha256(raw).hexdigest(),bytes=len(raw))
         if result_file not in receipt['files']:raise ValueError('Terminal evaluation result absent')
         (destination/'kernel_log_receipt.json').write_text(json.dumps(logs)+'\n')
@@ -115,7 +135,7 @@ def main():
     parser.add_argument('--poll-seconds',type=int,default=1200)
     parser.add_argument('--once',action='store_true')
     parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
-    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation'),default='defense')
+    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only
@@ -135,7 +155,19 @@ def main():
         args.output.with_suffix('.status.json').write_text(json.dumps(status,indent=2)+'\n')
         print(json.dumps(status),flush=True)
         if state in TERMINAL:
-            print(json.dumps(collect(api,args.kernel,args.output,profile=args.profile)),flush=True);break
+            # Keep every partial attempt. A transient listing/download failure
+            # after COMPLETE must not require restarting the remote notebook.
+            destination=args.output
+            if destination.exists():destination=destination.with_name(destination.name+'_attempt_'+str(time.time_ns()))
+            try:
+                print(json.dumps(collect(api,args.kernel,destination,profile=args.profile)),flush=True)
+                break
+            except Exception as error:
+                print(json.dumps(dict(collection_error=type(error).__name__,destination=str(destination),remote_job_changed=False)),flush=True)
+                response=getattr(error,'response',None)
+                transient=(type(error).__name__ in ('SSLError','ConnectionError','ReadTimeout','Timeout')or
+                    getattr(response,'status_code',None)in (404,429,500,502,503,504))
+                if args.once or not transient:raise
         if args.once:break
         time.sleep(args.poll_seconds)
 

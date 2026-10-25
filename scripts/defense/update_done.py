@@ -46,6 +46,43 @@ def load_models(reports):
     return models
 
 
+def render_reality(models,status,reports):
+    live=json.loads((reports/'live_card_usage_20261025.json').read_text())
+    complete=status.get('card_usage_status')=='complete_verified'
+    lines=['# Где мы сейчас','',
+        '**Сейчас:** проверяем перенос симуляции в игру. Живой бот и очередь остановлены. '+
+        f"Реальная проба исходной joint economy_soft: победы/поражения — {live['wins']}/{live['losses']}; один прерванный матч исключён.",'',
+        ('**Статистика 20 моделей:** готова и проверена. [Все карты, средние и сравнение](reports/card_usage_20261025.md).'
+         if complete else '**Статистика 20 моделей:** запущены 400 симуляционных матчей на Kaggle (по 20 против v25); итоговая таблица ещё не готова.'),'',
+        '**Реальная игра — среднее число подтверждённых розыгрышей за матч:**','',
+        '| Hog | Musketeer | Cannon | Knight | Skeletons | Electro Spirit | Fireball | Zap |',
+        '|---:|---:|---:|---:|---:|---:|---:|---:|',
+        '| '+' | '.join(number(live['per_card'][c]['mean_per_completed_match'],2)for c in
+            ('hog_rider','musketeer','cannon','knight','skeletons','electro_spirit','fireball','zap'))+' |','',
+        'Skeletons — один розыгрыш карты; число появившихся тел учитывается отдельно. '+
+        '[Реальная статистика](reports/defense_plan/live_card_usage_20261025.json).','',
+        '**Найденные расхождения:** live ждёт ACK руки 1,30 с перед следующим действием; при неподтверждении — 4 с. '+
+        'Benchmark исполняет команду через 150 мс. Турнир использовал одну восьмикарточную колоду и level11; '+
+        'реальные колоды и уровни отличались. [Исполнитель](reports/defense_plan/native_executor_parity_audit_20261025.json), '+
+        '[уровни](reports/defense_plan/live_level_confound_audit_20261025.json).','',
+        '**Далее:** согласовать входы и задержки, проверить механику ключевых взаимодействий, '+
+        'оценивать на разнообразных колодах. Подготовлены 324 новых tactical-упражнения. На Kaggle запущены три пробы по 102400 шагов: контроль, мягкий баланс 8 карт и баланс 6 без заклинаний. Качество ещё не проверено; состояние и последние полученные проценты — в `reports/defense_plan/realism_status.json`.','',
+        '## Ранее обученные модели','',
+        'Все четыре прошли 2 048 000 шагов. Ниже историческая среда: legacy geometry и Fireball 10 клеток/с. '+
+        '«Без урона» — ни одна своя башня не потеряла HP; это отдельные упражнения, а не винрейт.','',
+        '| Модель | Train без урона | Val без урона | Test без урона | Против v25 | Все 15 |',
+        '|---|---:|---:|---:|---:|---:|']
+    for model in models:
+        values=[]
+        for split in ('train','validation','test'):
+            data=model['train']['metrics']if split=='train'and model['train']else model['full'].get(split)if model['full']else None
+            values.append(rate(data['defense']['overall']['no_damage'])if data else '—')
+        lines.append('| '+model['label']+' | '+' | '.join(values+[winrate(model['full'],'v25'),winrate(model['full'])])+' |')
+    lines+=['','Подробные train/val/test-метрики и турниры сохранены в `reports/defense_plan/ppo_*_metrics.json`. '+
+        'Исходные веса и v25 сохранены. Ни корреляция рейтингов с live, ни полная приёмка механик пока не доказаны.']
+    return '\n'.join(lines)+'\n'
+
+
 def render(models,refinement=None,mechanics=None):
     ready=sum(m['full']is not None for m in models);trained=sum(m['train']is not None for m in models)
     lines=['# Где мы сейчас и что получилось','',
@@ -169,5 +206,9 @@ if __name__=='__main__':
     args=parser.parse_args()
     status=args.reports/'fireball_refinement_status.json'
     mechanics=args.reports/'recorded_native_tick_speeds.json'
-    args.output.write_text(render(load_models(args.reports),json.loads(status.read_text()) if status.exists() else None,
-        json.loads(mechanics.read_text())if mechanics.exists()else None))
+    reality=args.reports/'realism_status.json'
+    if reality.exists():
+        args.output.write_text(render_reality(load_models(args.reports),json.loads(reality.read_text()),args.reports))
+    else:
+        args.output.write_text(render(load_models(args.reports),json.loads(status.read_text()) if status.exists() else None,
+            json.loads(mechanics.read_text())if mechanics.exists()else None))
