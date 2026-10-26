@@ -129,7 +129,60 @@ def slots_evaluation_lines(reports):
         'Два новых PPO, исходник иv25;480 test-игр +120 турнирных.']
 
 
+def render_active_studies(reports):
+    lines=['# Текущий этап','',
+        '**Учимся защищать воздух:** сравниваем подготовку на успешных действиях и более широкое исследование действий PPO. Новая модель пока не принята.','',
+        '| Серия | Вариант | Получено бюджета PPO двух seed |','|---|---|---:|']
+    studies=[('air_warmstart_pilot','20261027','Примеры → PPO',(122,123),
+        [('bc000_control','Обычный PPO'),('bc200_kl000','200 обновлений по примерам'),
+         ('bc800_kl000','800 обновлений по примерам'),('bc800_kl100','800 + ограничение изменений')]),
+        ('temperature_pilot','20261027','Исследование PPO',(132,133),
+        [(f'temp{t:03d}',f'Температура {t}')for t in(1,10,30,50)])]
+    links=[]
+    for stem,date,label,seeds,cases in studies:
+        path=reports/f'{stem}_training_{date}.json'
+        if not path.exists():continue
+        state=json.loads(path.read_text());trials=state.get('progress_snapshot',{}).get('trials',{})
+        proof=reports/f'{stem}_verified_{date}.json'
+        finished=proof.exists()and json.loads(proof.read_text()).get('pilot_steps_verified')==819200
+        for name,description in cases:
+            keys=[f'pilot_{name}_s{seed}'for seed in seeds]
+            value=('100%'if finished else f"{100*sum(trials.get(key,{}).get('steps',0)for key in keys)/204800:.1f}%"
+                if any(key in trials for key in keys)else'ожидаются шаги')
+            lines.append(f'| {label} | {description} | {value} |')
+        links.append(f'[{label}](reports/defense_plan/{stem}_training_{date}.json)')
+    lines+=['','Каждый вариант:2×102400 шагов. Проценты — по полученным счётчикам; журнал может отставать. Подготовка на примерах учитывается отдельно. '+', '.join(links)+'.','',
+        '**Проверенные большие модели:600 матчей в симуляции.**','',
+        '| Модель | Test-победы | Турнир-победы | Против v25 |','|---|---:|---:|---:|---:|']
+    pool=reports/'continuous_slots_pool_verified_20261026.json'
+    if pool.exists():
+        result=json.loads(pool.read_text())
+        for key,label in [('full_balanced_s44','PPO balanced'),('full_strong_s44','PPO strong'),('parent','Исходник'),('v25','v25')]:
+            test=result['tests'][key];standing=result['standings'][key];pair=result['matrix'][key].get('v25')
+            duel=(f"{pair.get('win',0)}/{sum(pair.values())}"if pair else'—')
+            lines.append(f"| {label} | {test['counts'].get('win',0)}/{test['games']} | {standing['wins']}/{standing['games']} | {duel} |")
+    lines+=['','Test:120 общих сценариев со случайным соперником для каждой модели. Турнир:60 игр на модель против трёх других. '+
+        '[Все карты и архетипы](reports/continuous_slots_pool_20261026.md). До цели80–100% против прошлых моделей далеко.','',
+        '**Завершённые короткие серии — максимум побед validation, не рейтинг моделей:**','',
+        '| Проверка | Максимум | Продолжение |','|---|---:|---|']
+    for stem,date,label,document in [
+        ('history_pilot','20261026','1/2 кадра','history_pilot_results_20261026.md'),
+        ('continuous_focus','20261026','Чаще воздух/голем','continuous_focus_results_20261026.md'),
+        ('board_potential_pilot','20261026','Награда за размен','board_potential_pilot_results_20261026.md'),
+        ('bank_conservation','20261027','Штраф переполнения / баланс карт','bank_conservation_results_20261027.md')]:
+        path=reports/f'{stem}_summary_{date}.json'
+        if not path.exists():continue
+        result=json.loads(path.read_text());best=max(result['rows'],key=lambda row:row['wins']/row['games'])
+        gate='допущено к проверке'if result['eligible_for_full']else'порог не пройден'
+        lines.append(f"| [{label}](reports/{document}) | {best['wins']}/{best['games']} | {gate} |")
+    lines+=['','Два seed повторяют72 validation-состояния;144 строки не являются144 независимыми матчапами. Ни одна из этих серий не дала двух профилей с достаточной защитой всех архетипов.','',
+        '**Далее:** закончить текущие пробы → выбрать2 профиля по полному validation → большие PPO → независимый турнир. '+
+        'Живые бои выключены; v25 и исходные веса сохранены.']
+    return '\n'.join(lines)+'\n'
+
+
 def render_reality(models,status,reports):
+    if (reports/'air_warmstart_pilot_training_20261027.json').exists():return render_active_studies(reports)
     if status.get('stage')=='continuous_focus_cohort':
         p=reports/'continuous_focus_training_20261026.json';training=json.loads(p.read_text())
         trials=training.get('progress_snapshot',{}).get('trials',{})
