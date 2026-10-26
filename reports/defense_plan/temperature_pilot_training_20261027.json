@@ -2,12 +2,35 @@
   "kernel": "vertel0/hastycr-temperature-pilot-20261027",
   "kernel_version": 1,
   "root": "tmp/kaggle/temperature_pilot_20261027",
-  "status": "cuda_ready_reference_validation",
+  "status": "training_steps_observed",
   "pilot_target_steps": 819200,
   "quality_accepted": false,
   "live_stopped": true,
-  "progress_snapshot": {},
-  "last_local_sync_ns": 1793054756475034000,
+  "progress_snapshot": {
+    "kernel": "vertel0/hastycr-temperature-pilot-20261027",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "connected",
+    "reconnect_attempt": 0,
+    "checked_host_ns": 1793055958854115000,
+    "trials": {
+      "pilot_temp001_s132": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1010.388013253
+      },
+      "pilot_temp010_s132": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1026.407658571
+      }
+    }
+  },
+  "last_local_sync_ns": 1793056013042147000,
   "startup_evidence": [
     {
       "event": "INPUTS_VERIFIED",
@@ -20,5 +43,6 @@
         "Tesla T4"
       ]
     }
-  ]
+  ],
+  "actual_training_steps_confirmed": true
 }
