@@ -61,9 +61,14 @@ def history_progress_lines(reports):
             b=json.loads(board.read_text());trials=b.get('progress_snapshot',{}).get('trials',{})
             steps=sum(t.get('steps',0)for t in trials.values())
             lines+=['',f'**Новый эксперимент: награда за размен юнитов.** Отправлен на Kaggle; подтверждённые шаги {steps}/819200 ({100*steps/819200:.1f}%). Четыре коэффициента, два seed. [Состояние](reports/defense_plan/board_potential_pilot_training_20261026.json).']
+        bank=reports/'bank_conservation_training_20261027.json'
+        if bank.exists():
+            state=json.loads(bank.read_text());trials=state.get('progress_snapshot',{}).get('trials',{})
+            steps=sum(row.get('steps',0)for row in trials.values())
+            lines+=['',f'**Контроль расхода эликсира:** аккаунт3, отправлен; подтверждённые шаги {steps}/819200 ({100*steps/819200:.1f}%). Overflow0/0,15 ×JS0/0,1; четыре профиля, два seed. [Состояние](reports/defense_plan/bank_conservation_training_20261027.json).']
         diagnosis=reports/'air_policy_train_diagnostic_20261027.json'
         if diagnosis.exists():
-            lines+=['','**Диагностика воздуха:** на трёх TRAIN-seed новый strong держал мушкетёра в руке2023 шага, но лишь на двух имел ≥4 эликсира. Готовим контроль штрафа overflow и JS-баланса после текущих проб. [Измерения](reports/air_policy_train_diagnostic_20261027.md).']
+            lines+=['','**Диагностика воздуха:** на трёх TRAIN-seed новый strong держал мушкетёра в руке2023 шага, но лишь на двух имел ≥4 эликсира. Контроль штрафа overflow и JS-баланса отправлен отдельным заданием на освободившийся аккаунт3. [Измерения](reports/air_policy_train_diagnostic_20261027.md).']
         return lines
     path=reports/'history_pilot_training_20261026.json'
     if not path.exists():return []

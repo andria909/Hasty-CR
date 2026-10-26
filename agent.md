@@ -1,3 +1,6 @@
+## CURRENT bank control SUBMITTED VERSION1
+andreiperelaiko/hastycr-bank-conservation-pilot-20261027, root tmp/kaggle/bank_conservation_pilot_20261027_account3. Datasetprivate+push receipt kernelId141053169, no repush. Account3 freed by terminal VERIFIED600eval. Allfour source-identical profiles CPUpreflightpassed64steps/4updates/48validationgames; GPUtraining not claimed beforeCUDA/TRIAL. monitoring.json authoritative;public reports/defense_plan/bank_conservation_training_20261027.json. Earlier notes saying waitboard superseded: runs parallel on different free account. v25/bestmodel unchanged,no live.
+
 ## CURRENT verified600 results
 Corrected-slot600evaluation complete and independently verified: reports/defense_plan/continuous_slots_pool_verified_20261026.json; readable reports/continuous_slots_pool_20261026.md. Balanced90/120test,36/60tournament,13/20v25;strong99/120test,31/60tournament,14/20v25. Musketeer usage.03/.16 remainsbad, no promotion. Reused420/computed180 audit passed. Bank-conservation2x2short-study packet prepared tmp/kaggle/bank_conservation_pilot_20261027,not submitted, CPUpreflight running. Waitboardstudy beforeupload/newGPU.
 
