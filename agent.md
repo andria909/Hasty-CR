@@ -1,3 +1,6 @@
+## CURRENT bank SSE observation repaired
+Bankstream67670stale ConnectionError >1200s; retired ONLYlocalstream and resumed SAME events/progress with --resume. NewPID68760,monitoring.json authoritative. NewactualCUDAsteps confirmed~74.6% (prior24.75was stale). Kaggleboth handles freshlyRUNNING22:09UTC; noGPUrestart/push. Collector67671 remains original; if stale again inspect transport separately,not training. No finalcandidate untilterminal verification.
+
 ## CURRENT full-only verification support added
 Collector profile selected-continuous-full supports board/bank/history/focus/clock full_s64 selected+latest weights. New scripts/attack/verify_selected_continuous_full.py re-verifies original pilot, pinnedinputs/proof, twoeligibleprofiles, zero repeatedpilotsteps, two4096000 actualCUDAcounterbudgets, validationboundarychoice, finiteSHAweights. Shared audit_run extractedfromfocusverifier;actualcompletedfocus stillreproduces.19 tests pass inclcollectorpaths andfailedgate rejection. No positive full-only cohort exists yet; exact-package CPUpreflight andpositive artifact end-to-end check remain required BEFORE anyGPUsubmission. No currentGPU changes.
 

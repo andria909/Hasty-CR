@@ -11,27 +11,55 @@
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "connected",
-    "reconnect_attempt": 0,
-    "checked_host_ns": 1793050812326888000,
+    "reconnect_attempt": 1,
+    "checked_host_ns": 1793052679319540000,
     "trials": {
       "pilot_bank_overflow00_balance00_s102": {
-        "update": 99,
-        "steps": 101376,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 99.0,
-        "remote_log_seconds": 1033.845461685
+        "percent": 100.0,
+        "remote_log_seconds": 1366.181837451
       },
       "pilot_bank_overflow00_balance10_s102": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1347.884875081
+      },
+      "pilot_bank_overflow00_balance10_s103": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2358.705337203
+      },
+      "pilot_bank_overflow00_balance00_s103": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2388.479331716
+      },
+      "pilot_bank_overflow15_balance10_s102": {
         "update": 99,
         "steps": 101376,
         "target_steps": 102400,
         "percent": 99.0,
-        "remote_log_seconds": 1038.447349408
+        "remote_log_seconds": 3057.437493059
+      },
+      "pilot_bank_overflow15_balance00_s102": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 3082.918569171
       }
     }
   },
   "preflight_report": "reports/defense_plan/bank_conservation_preflight_20261027.json",
-  "last_local_sync_ns": 1793050849539954000,
+  "last_local_sync_ns": 1793052693719034000,
   "startup_evidence": [
     {
       "event": "INPUTS_VERIFIED",
@@ -45,5 +73,6 @@
       ]
     }
   ],
-  "actual_training_steps_confirmed": true
+  "actual_training_steps_confirmed": true,
+  "observer_recovery": "Local SSE resumed with preserved log and counters after stale ConnectionError; GPU unchanged"
 }
