@@ -87,7 +87,7 @@ def history_progress_lines(reports):
         if (reports/'air_position_feasibility_20261027.json').exists():
             lines+=['','**Основа следующего упражнения:** одиночный шар защищается без урона в44/48 фиксированных постановках, шар+дракон —16/48. Это перебор, не обученная модель. [Достижимость](reports/air_position_feasibility_20261027.md).']
         if (reports/'air_position_examples_audit_20261027.json').exists():
-            lines+=['','Собраны48 разных публичных TRAIN-состояний и336 успешных допустимых действий для локальной защиты. Обучение на них ещё не запускалось. [Данные](reports/air_position_examples_20261027.md).']
+            lines+=['','Собраны48 разных публичных TRAIN-состояний и336 успешных допустимых действий для локальной защиты. [Данные](reports/air_position_examples_20261027.md).']
         if (reports/'air_warmstart_preflight_20261027.json').exists():
             lines+=['','Проверены5 CPU-обновлений обучения по успешным действиям: ошибка снижается, успешный greedy пока0%. Полный GPU-прогон ещё не запускался. [Проверка](reports/air_warmstart_preflight_20261027.md).']
         return lines
