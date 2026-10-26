@@ -10,7 +10,8 @@ from sim.env import ClashEnv
 from sim.train_attack_ppo import initialize_attack_policy
 
 
-def diagnose(weight,seed):
+def diagnose(weight,seed,intervention='none'):
+    if intervention not in ('none','reserve','reserve_and_deploy'):raise ValueError('Unknown TRAIN intervention')
     torch.set_num_threads(1)
     blob=torch.load(weight,map_location='cpu',weights_only=False)
     net,_,_=initialize_attack_policy(blob,device='cpu',num_scalars=309,observation_contract=CONTRACT)
@@ -23,6 +24,15 @@ def diagnose(weight,seed):
             logits,_=net(torch.as_tensor(obs['planes'])[None],torch.as_tensor(obs['scalars'])[None])
             legal=logits[0].masked_fill(~mask,-torch.inf);probs=legal.softmax(0);action=int(legal.argmax())
         air=[e for e in env.match.battle.entities.values()if e.alive and e.side==-1 and e.flying and not e.is_tower]
+        if air and intervention!='none' and 'musketeer'in env.match.players[1].hand:
+            slot_m=env.match.players[1].hand.index('musketeer')
+            start=1+slot_m*576;part=legal[start:start+576]
+            original=action
+            if intervention=='reserve_and_deploy' and torch.isfinite(part).any():
+                action=start+int(part.argmax())
+            elif env.match.players[1].elixir<4000:
+                action=0
+            if action!=original:counts['diagnostic_action_overrides']+=1
         if air:
             counts['decisions_with_enemy_air']+=1
             if not mask[1:].any():counts['air_forced_idle']+=1
@@ -45,20 +55,21 @@ def diagnose(weight,seed):
             else:counts['air_selected_idle']+=1
         obs,_,_,_,info=env.step(action)
     return dict(schema='air-policy-train-diagnostic-v1',weight_sha256=hashlib.sha256(Path(weight).read_bytes()).hexdigest(),
-        seed=seed,scenario='defense::air/push',counts=dict(counts),policy_probability_mass_sums=dict(mass),examples=examples,
+        seed=seed,intervention=intervention,scenario='defense::air/push',counts=dict(counts),policy_probability_mass_sums=dict(mass),examples=examples,
         final_metrics=info['metrics'],scope='One greedy TRAIN game; diagnostic only, no checkpoint selection or live claim')
 
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--weight',required=True);p.add_argument('--seed',type=int,default=781)
     p.add_argument('--output',required=True);p.add_argument('--compare-weight')
+    p.add_argument('--intervention',choices=('none','reserve','reserve_and_deploy'),default='none')
     p.add_argument('--seeds',type=int,nargs='+',default=[781,782,783]);a=p.parse_args()
     if a.compare_weight:
         rows=[]
         for name,path in [('parent',a.weight),('strong',a.compare_weight)]:
             for seed in a.seeds:
-                row=diagnose(path,seed);row['model']=name;rows.append(row)
+                row=diagnose(path,seed,a.intervention);row['model']=name;rows.append(row)
         r=dict(schema='paired-air-policy-train-diagnostic-v1',rows=rows,
             scope='Paired TRAIN seeds, diagnostic not model selection',live_games_started=False)
-    else:r=diagnose(a.weight,a.seed)
+    else:r=diagnose(a.weight,a.seed,a.intervention)
     Path(a.output).write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r.get('counts',dict(games=len(r.get('rows',[]))))))

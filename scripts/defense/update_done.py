@@ -69,6 +69,8 @@ def history_progress_lines(reports):
         diagnosis=reports/'air_policy_train_diagnostic_20261027.json'
         if diagnosis.exists():
             lines+=['','**Диагностика воздуха:** на трёх TRAIN-seed новый strong держал мушкетёра в руке2023 шага, но лишь на двух имел ≥4 эликсира. Контроль штрафа overflow и JS-баланса отправлен отдельным заданием на освободившийся аккаунт3. [Измерения](reports/air_policy_train_diagnostic_20261027.md).']
+        if (reports/'air_reservation_intervention_20261027.json').exists():
+            lines+=['','**Проверка накопления:** ожидание4 эликсира и принудительный выбор мушкетёра не дали побед на трёх TRAIN-seed. Одной частоты карты недостаточно; проверяем размещение и размен. [Контроль](reports/air_reservation_intervention_20261027.md).']
         return lines
     path=reports/'history_pilot_training_20261026.json'
     if not path.exists():return []
