@@ -150,6 +150,8 @@ def render_reality(models,status,reports):
                     lines.append(f"| {row['id']} | {row['wins']}/{row['games']} | {row['by_family']['air']['wins']}/24 | {row['by_family']['golem']['wins']}/24 |")
                 lines+=['','Два seed повторяют72 контекста; это не144 независимых состояния. '+
                     '[Подробности и исходные модели](reports/continuous_focus_results_20261026.md).']
+                if (reports/'continuous_focus_train_audit_20261027.json').exists():
+                    lines+=['','На TRAIN усиленных проб воздух тоже не освоен:0/31 и0/30 побед в обновлениях50–100. [Разбор](reports/continuous_focus_train_audit_20261027.md).']
         lines+=['','Живые бои остановлены. Ни одна модель автоматически не продвигается. '+
                 '[Состояние](reports/defense_plan/continuous_focus_training_20261026.json).','',
                 'Предыдущая600-матчевая оценка: balanced41/60 в турнире и14/20 противv25, но81/120 наслучайных пушах '+
