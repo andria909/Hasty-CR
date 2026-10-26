@@ -1,0 +1,54 @@
+{
+  "schema": "continuous-clock-spell-study-v1",
+  "status": "prepared_not_launched",
+  "rationale_split": "train_controlled_probe",
+  "rationale_source": "reports/defense_plan/full_elixir_opening_probe_20261026_v3.json",
+  "cases": [
+    {
+      "id": "current_control",
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "missed_fireball_penalty": 0.0
+    },
+    {
+      "id": "current_miss",
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "missed_fireball_penalty": 0.15
+    },
+    {
+      "id": "seconds_preserved_control",
+      "gamma": 0.999499874937461,
+      "gae_lambda": 0.9746794344808963,
+      "missed_fireball_penalty": 0.0
+    },
+    {
+      "id": "seconds_preserved_miss",
+      "gamma": 0.999499874937461,
+      "gae_lambda": 0.9746794344808963,
+      "missed_fireball_penalty": 0.15
+    }
+  ],
+  "pilot_seeds": [
+    72,
+    73
+  ],
+  "pilot_steps_each": 102400,
+  "total_pilot_steps": 819200,
+  "constants": {
+    "overflow_penalty": 0.15,
+    "card_balance_weight": 0.1,
+    "card_balance_target": "units",
+    "decision_interval_ms": 250,
+    "command_delay_ms": 225,
+    "slot_refill_ms": 2100
+  },
+  "initialization": "One SHA-pinned broad validation-selected warm start, same for every trial; fresh optimizer",
+  "after": "Wait for current hard-family cycle; retain its selected focus and entropy identically across all four arms",
+  "selection": "72 distinct balanced validation games; half macro + half worst family; floor.1 on both pilot seeds",
+  "full": "Top2 eligible configurations4096000 steps each; fewerthan2 eligible means no full run",
+  "penalty": "Per elixir of Fireball only after resolved cast with NO recorded hits; zero-damage hits and pending casts excluded",
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_games_authorized": false
+}

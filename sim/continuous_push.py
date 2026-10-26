@@ -56,7 +56,7 @@ class ContinuousPushEnv:
         # by style; these are synthetic opponent tests, not unseen card claims.
         styles={'train':('random','push'),'validation':('heldout_push',),'test':('heldout_random',)}[split]
         self.scenarios=[PushCase(task,family,style,split) for task in ('attack','defense') for family in DECKS for style in styles]
-        self.profile=dict(overflow_penalty=.15,own_hp_penalty=4.,enemy_hp_reward=3.,
+        self.profile=dict(overflow_penalty=.15,missed_fireball_penalty=0.,own_hp_penalty=4.,enemy_hp_reward=3.,
                           win_reward=20.,loss_penalty=20.,action_cooldown_ms=2100,decision_interval_ms=250)
         if continuous_profile:
             supplied=json.loads(Path(continuous_profile).read_text()) if isinstance(continuous_profile,(str,Path)) else dict(continuous_profile)
@@ -173,6 +173,7 @@ class ContinuousPushEnv:
         reward=(p['enemy_hp_reward']*(after['enemy_fraction_damage']-before['enemy_fraction_damage'])
             -p['own_hp_penalty']*(after['own_fraction_loss']-before['own_fraction_loss'])
             -p['overflow_penalty']*(after['elixir_overflow']-before['elixir_overflow'])
+            -p['missed_fireball_penalty']*(after['missed_fireball_elixir']-before['missed_fireball_elixir'])
             -.1*(after['illegal_actions']-before['illegal_actions']))
         if self.done:
             reward+=p['win_reward'] if after['outcome']=='win' else -p['loss_penalty'] if after['outcome']=='loss' else 0
@@ -182,6 +183,10 @@ class ContinuousPushEnv:
     def _metrics(self):
         own={k:t.hp_fraction for k,t in self.match.towers[1].items()}
         enemy={k:t.hp_fraction for k,t in self.match.towers[-1].items()}
+        # Charge only instrumented, resolved Fireballs with NO recorded hits.
+        # A shield/zero-damage hit is retained; instant Zap lacks this log.
+        misses=sum(e.get('caster_side')==1 and e.get('spell')=='fireball'
+            and e.get('resolved',False) and not e.get('hits') for e in self.match.battle.spell_cast_log)
         return dict(scenario_id=self.scenario.scenario_id,family_id=self.scenario.family,
             episode_seed=self.seed,match_seed=self.match.seed,
             split=self.split,task=self.scenario.task,observation_contract=CONTRACT,
@@ -193,6 +198,7 @@ class ContinuousPushEnv:
             no_tower_damage=all(v==1 for v in own.values()),
             elixir_overflow=self.match.players[1].natural_elixir_overflow_milli/1000,
             elixir_spent=self.match.players[1].elixir_spent,illegal_actions=self.illegal,
+            missed_fireballs=misses,missed_fireball_elixir=misses*self.cards['fireball'].cost,
             accepted_card_counts=dict(Counter(e['card']for e in self.actions)),
             enemy_accepted_card_counts=dict(Counter(e['card']for e in self.enemy_actions)),
             coverage_flags=['simulator_mechanics_not_fully_validated','synthetic_legal_opponent_not_live_rating'])

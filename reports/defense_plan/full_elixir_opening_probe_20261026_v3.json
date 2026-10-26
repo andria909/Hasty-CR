@@ -1,0 +1,2566 @@
+{
+  "schema": "full-elixir-controlled-train-probe-v1",
+  "protocol_sha256": "c0e0b5309f33a038dd3da57e6ef6fbaa5f18588e90890bea2669b71fdc81d668",
+  "models": [
+    {
+      "model": {
+        "id": "full_balanced_s44",
+        "file": "full_balanced_s44.pt",
+        "sha256": "041d9038d96bf6e44e3885a637b9592ac4b8fea500691c2348b322161640d37e",
+        "scalars": 309,
+        "mode": "joint_enemy_presence_v1",
+        "training_executor": "legacy_global_ack_block_2100ms"
+      },
+      "by_hand": {
+        "shuffled": {
+          "states": 4,
+          "no_card_states": 0,
+          "mean_cap_idle_ms": 0.0,
+          "mean_overflow": 0.089,
+          "mean_missed_resolved_spells": 0.25,
+          "mean_card_plays": {
+            "skeletons": 1.5,
+            "cannon": 1.0,
+            "fireball": 0.5,
+            "electro_spirit": 1.25,
+            "zap": 1.0,
+            "knight": 1.25,
+            "hog_rider": 0.25
+          }
+        },
+        "reported_hand": {
+          "states": 4,
+          "no_card_states": 0,
+          "mean_cap_idle_ms": 0.0,
+          "mean_overflow": 0.089,
+          "mean_missed_resolved_spells": 0.0,
+          "mean_card_plays": {
+            "cannon": 2.0,
+            "skeletons": 2.0,
+            "knight": 1.0,
+            "electro_spirit": 1.0,
+            "zap": 1.0
+          }
+        }
+      },
+      "rows": [
+        {
+          "seed": 101100,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "skeletons",
+            "musketeer",
+            "cannon",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "skeletons",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "skeletons": 2,
+            "cannon": 1,
+            "fireball": 1,
+            "electro_spirit": 1,
+            "zap": 1,
+            "knight": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 750,
+              "card": "fireball",
+              "x": 8,
+              "y": 12
+            },
+            {
+              "at_ms": 3000,
+              "card": "electro_spirit",
+              "x": 14,
+              "y": 17
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 8,
+              "y": 11
+            },
+            {
+              "at_ms": 6250,
+              "card": "skeletons",
+              "x": 8,
+              "y": 16
+            },
+            {
+              "at_ms": 14500,
+              "card": "knight",
+              "x": 15,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.027622767857142905,
+          "spell_outcomes": [
+            {
+              "spell": "fireball",
+              "cast_ms": 750,
+              "resolved": true,
+              "impact_ms": 2150,
+              "damage": 0
+            }
+          ],
+          "missed_resolved_spells": 1
+        },
+        {
+          "seed": 101101,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "skeletons",
+            "electro_spirit",
+            "knight",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "skeletons",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "skeletons": 2,
+            "knight": 2,
+            "zap": 1,
+            "electro_spirit": 1,
+            "cannon": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "knight",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 1000,
+              "card": "zap",
+              "x": 8,
+              "y": 10
+            },
+            {
+              "at_ms": 2750,
+              "card": "electro_spirit",
+              "x": 14,
+              "y": 16
+            },
+            {
+              "at_ms": 3000,
+              "card": "cannon",
+              "x": 12,
+              "y": 16
+            },
+            {
+              "at_ms": 3500,
+              "card": "skeletons",
+              "x": 12,
+              "y": 16
+            },
+            {
+              "at_ms": 11750,
+              "card": "knight",
+              "x": 9,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.6481584821428572,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101102,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "electro_spirit",
+            "musketeer",
+            "knight",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "electro_spirit",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "electro_spirit": 2,
+            "knight": 2,
+            "cannon": 1,
+            "skeletons": 1,
+            "zap": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "electro_spirit",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "knight",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 1000,
+              "card": "cannon",
+              "x": 8,
+              "y": 16
+            },
+            {
+              "at_ms": 3000,
+              "card": "skeletons",
+              "x": 8,
+              "y": 16
+            },
+            {
+              "at_ms": 5500,
+              "card": "zap",
+              "x": 14,
+              "y": 12
+            },
+            {
+              "at_ms": 6000,
+              "card": "electro_spirit",
+              "x": 8,
+              "y": 16
+            },
+            {
+              "at_ms": 11750,
+              "card": "knight",
+              "x": 8,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.4386160714285714,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101103,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "hog_rider",
+            "fireball",
+            "musketeer",
+            "knight"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "hog_rider",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "hog_rider": 1,
+            "fireball": 1,
+            "electro_spirit": 1,
+            "skeletons": 1,
+            "zap": 1,
+            "cannon": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "hog_rider",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "fireball",
+              "x": 9,
+              "y": 6
+            },
+            {
+              "at_ms": 750,
+              "card": "electro_spirit",
+              "x": 8,
+              "y": 16
+            },
+            {
+              "at_ms": 3250,
+              "card": "skeletons",
+              "x": 6,
+              "y": 16
+            },
+            {
+              "at_ms": 6250,
+              "card": "zap",
+              "x": 14,
+              "y": 8
+            },
+            {
+              "at_ms": 14500,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.632021949404762,
+          "spell_outcomes": [
+            {
+              "spell": "fireball",
+              "cast_ms": 500,
+              "resolved": true,
+              "impact_ms": 2400,
+              "damage": 206
+            }
+          ],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101100,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "cannon",
+            "x": 9,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "cannon": 2,
+            "skeletons": 2,
+            "knight": 1,
+            "electro_spirit": 1,
+            "zap": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "cannon",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 1000,
+              "card": "knight",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 3250,
+              "card": "electro_spirit",
+              "x": 7,
+              "y": 17
+            },
+            {
+              "at_ms": 3750,
+              "card": "zap",
+              "x": 8,
+              "y": 16
+            },
+            {
+              "at_ms": 9000,
+              "card": "cannon",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 11750,
+              "card": "skeletons",
+              "x": 9,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.2193080357142858,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101101,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "cannon",
+            "x": 9,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "cannon": 2,
+            "skeletons": 2,
+            "knight": 1,
+            "electro_spirit": 1,
+            "zap": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "cannon",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 1000,
+              "card": "knight",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 3250,
+              "card": "electro_spirit",
+              "x": 7,
+              "y": 17
+            },
+            {
+              "at_ms": 3750,
+              "card": "zap",
+              "x": 8,
+              "y": 16
+            },
+            {
+              "at_ms": 9000,
+              "card": "cannon",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 11750,
+              "card": "skeletons",
+              "x": 9,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.2193080357142858,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101102,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "cannon",
+            "x": 9,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "cannon": 2,
+            "skeletons": 2,
+            "knight": 1,
+            "electro_spirit": 1,
+            "zap": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "cannon",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 1000,
+              "card": "knight",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 3250,
+              "card": "electro_spirit",
+              "x": 7,
+              "y": 17
+            },
+            {
+              "at_ms": 3750,
+              "card": "zap",
+              "x": 8,
+              "y": 16
+            },
+            {
+              "at_ms": 9000,
+              "card": "cannon",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 11750,
+              "card": "skeletons",
+              "x": 9,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.2193080357142858,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101103,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "cannon",
+            "x": 9,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "cannon": 2,
+            "skeletons": 2,
+            "knight": 1,
+            "electro_spirit": 1,
+            "zap": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "cannon",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 1000,
+              "card": "knight",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 3250,
+              "card": "electro_spirit",
+              "x": 7,
+              "y": 17
+            },
+            {
+              "at_ms": 3750,
+              "card": "zap",
+              "x": 8,
+              "y": 16
+            },
+            {
+              "at_ms": 9000,
+              "card": "cannon",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 11750,
+              "card": "skeletons",
+              "x": 9,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.2193080357142858,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        }
+      ]
+    },
+    {
+      "model": {
+        "id": "full_strong_s44",
+        "file": "full_strong_s44.pt",
+        "sha256": "1da05e8e60b83c7820226728b3498bf8e3a0fdcf156298b11390e6f58e1d9607",
+        "scalars": 309,
+        "mode": "joint_enemy_presence_v1",
+        "training_executor": "legacy_global_ack_block_2100ms"
+      },
+      "by_hand": {
+        "shuffled": {
+          "states": 4,
+          "no_card_states": 0,
+          "mean_cap_idle_ms": 0.0,
+          "mean_overflow": 0.089,
+          "mean_missed_resolved_spells": 0.25,
+          "mean_card_plays": {
+            "skeletons": 1.25,
+            "musketeer": 0.5,
+            "hog_rider": 1.0,
+            "electro_spirit": 1.0,
+            "cannon": 0.5,
+            "zap": 1.0,
+            "knight": 0.75,
+            "fireball": 0.25
+          }
+        },
+        "reported_hand": {
+          "states": 4,
+          "no_card_states": 0,
+          "mean_cap_idle_ms": 0.0,
+          "mean_overflow": 0.089,
+          "mean_missed_resolved_spells": 1.0,
+          "mean_card_plays": {
+            "fireball": 1.0,
+            "cannon": 1.0,
+            "electro_spirit": 1.0,
+            "skeletons": 1.0,
+            "knight": 1.0,
+            "zap": 1.0
+          }
+        }
+      },
+      "rows": [
+        {
+          "seed": 101100,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "skeletons",
+            "musketeer",
+            "cannon",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "skeletons",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "skeletons": 1,
+            "musketeer": 1,
+            "hog_rider": 1,
+            "electro_spirit": 1,
+            "cannon": 1,
+            "zap": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "musketeer",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 750,
+              "card": "hog_rider",
+              "x": 16,
+              "y": 16
+            },
+            {
+              "at_ms": 3250,
+              "card": "electro_spirit",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 9000,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 14500,
+              "card": "zap",
+              "x": 14,
+              "y": 12
+            }
+          ],
+          "enemy_fraction_damage": 1.0,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101101,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "skeletons",
+            "electro_spirit",
+            "knight",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "skeletons",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "skeletons": 2,
+            "electro_spirit": 1,
+            "hog_rider": 1,
+            "knight": 1,
+            "zap": 1,
+            "cannon": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "electro_spirit",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 750,
+              "card": "hog_rider",
+              "x": 16,
+              "y": 16
+            },
+            {
+              "at_ms": 2750,
+              "card": "knight",
+              "x": 14,
+              "y": 16
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 9,
+              "y": 13
+            },
+            {
+              "at_ms": 11750,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 14500,
+              "card": "skeletons",
+              "x": 16,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.8306361607142857,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101102,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "electro_spirit",
+            "musketeer",
+            "knight",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "electro_spirit",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "electro_spirit": 1,
+            "musketeer": 1,
+            "hog_rider": 1,
+            "skeletons": 1,
+            "zap": 1,
+            "knight": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "electro_spirit",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "musketeer",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 750,
+              "card": "hog_rider",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 3000,
+              "card": "skeletons",
+              "x": 14,
+              "y": 16
+            },
+            {
+              "at_ms": 6250,
+              "card": "zap",
+              "x": 16,
+              "y": 13
+            },
+            {
+              "at_ms": 14500,
+              "card": "knight",
+              "x": 15,
+              "y": 15
+            }
+          ],
+          "enemy_fraction_damage": 1.0,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101103,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "hog_rider",
+            "fireball",
+            "musketeer",
+            "knight"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "hog_rider",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "hog_rider": 1,
+            "fireball": 1,
+            "electro_spirit": 1,
+            "zap": 1,
+            "skeletons": 1,
+            "knight": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "hog_rider",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "fireball",
+              "x": 15,
+              "y": 13
+            },
+            {
+              "at_ms": 1000,
+              "card": "electro_spirit",
+              "x": 15,
+              "y": 17
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 15,
+              "y": 13
+            },
+            {
+              "at_ms": 6250,
+              "card": "skeletons",
+              "x": 12,
+              "y": 16
+            },
+            {
+              "at_ms": 14500,
+              "card": "knight",
+              "x": 15,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.7391183035714286,
+          "spell_outcomes": [
+            {
+              "spell": "fireball",
+              "cast_ms": 500,
+              "resolved": true,
+              "impact_ms": 1900,
+              "damage": 0
+            }
+          ],
+          "missed_resolved_spells": 1
+        },
+        {
+          "seed": 101100,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "fireball",
+            "x": 15,
+            "y": 14
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "fireball": 1,
+            "cannon": 1,
+            "electro_spirit": 1,
+            "skeletons": 1,
+            "knight": 1,
+            "zap": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "fireball",
+              "x": 15,
+              "y": 14
+            },
+            {
+              "at_ms": 500,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 750,
+              "card": "electro_spirit",
+              "x": 11,
+              "y": 16
+            },
+            {
+              "at_ms": 3000,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 6250,
+              "card": "knight",
+              "x": 16,
+              "y": 17
+            },
+            {
+              "at_ms": 11750,
+              "card": "zap",
+              "x": 16,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.027622767857142905,
+          "spell_outcomes": [
+            {
+              "spell": "fireball",
+              "cast_ms": 250,
+              "resolved": true,
+              "impact_ms": 1600,
+              "damage": 0
+            }
+          ],
+          "missed_resolved_spells": 1
+        },
+        {
+          "seed": 101101,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "fireball",
+            "x": 15,
+            "y": 14
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "fireball": 1,
+            "cannon": 1,
+            "electro_spirit": 1,
+            "skeletons": 1,
+            "knight": 1,
+            "zap": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "fireball",
+              "x": 15,
+              "y": 14
+            },
+            {
+              "at_ms": 500,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 750,
+              "card": "electro_spirit",
+              "x": 11,
+              "y": 16
+            },
+            {
+              "at_ms": 3000,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 6250,
+              "card": "knight",
+              "x": 16,
+              "y": 17
+            },
+            {
+              "at_ms": 11750,
+              "card": "zap",
+              "x": 16,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.027622767857142905,
+          "spell_outcomes": [
+            {
+              "spell": "fireball",
+              "cast_ms": 250,
+              "resolved": true,
+              "impact_ms": 1600,
+              "damage": 0
+            }
+          ],
+          "missed_resolved_spells": 1
+        },
+        {
+          "seed": 101102,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "fireball",
+            "x": 15,
+            "y": 14
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "fireball": 1,
+            "cannon": 1,
+            "electro_spirit": 1,
+            "skeletons": 1,
+            "knight": 1,
+            "zap": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "fireball",
+              "x": 15,
+              "y": 14
+            },
+            {
+              "at_ms": 500,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 750,
+              "card": "electro_spirit",
+              "x": 11,
+              "y": 16
+            },
+            {
+              "at_ms": 3000,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 6250,
+              "card": "knight",
+              "x": 16,
+              "y": 17
+            },
+            {
+              "at_ms": 11750,
+              "card": "zap",
+              "x": 16,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.027622767857142905,
+          "spell_outcomes": [
+            {
+              "spell": "fireball",
+              "cast_ms": 250,
+              "resolved": true,
+              "impact_ms": 1600,
+              "damage": 0
+            }
+          ],
+          "missed_resolved_spells": 1
+        },
+        {
+          "seed": 101103,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "fireball",
+            "x": 15,
+            "y": 14
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "fireball": 1,
+            "cannon": 1,
+            "electro_spirit": 1,
+            "skeletons": 1,
+            "knight": 1,
+            "zap": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "fireball",
+              "x": 15,
+              "y": 14
+            },
+            {
+              "at_ms": 500,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 750,
+              "card": "electro_spirit",
+              "x": 11,
+              "y": 16
+            },
+            {
+              "at_ms": 3000,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 6250,
+              "card": "knight",
+              "x": 16,
+              "y": 17
+            },
+            {
+              "at_ms": 11750,
+              "card": "zap",
+              "x": 16,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.027622767857142905,
+          "spell_outcomes": [
+            {
+              "spell": "fireball",
+              "cast_ms": 250,
+              "resolved": true,
+              "impact_ms": 1600,
+              "damage": 0
+            }
+          ],
+          "missed_resolved_spells": 1
+        }
+      ]
+    },
+    {
+      "model": {
+        "id": "parent",
+        "file": "parent.pt",
+        "sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+        "scalars": 309,
+        "mode": "joint_enemy_presence_v1"
+      },
+      "by_hand": {
+        "shuffled": {
+          "states": 4,
+          "no_card_states": 0,
+          "mean_cap_idle_ms": 0.0,
+          "mean_overflow": 0.089,
+          "mean_missed_resolved_spells": 0.0,
+          "mean_card_plays": {
+            "skeletons": 1.5,
+            "hog_rider": 1.0,
+            "cannon": 1.0,
+            "electro_spirit": 1.25,
+            "zap": 1.0,
+            "knight": 1.0
+          }
+        },
+        "reported_hand": {
+          "states": 4,
+          "no_card_states": 0,
+          "mean_cap_idle_ms": 0.0,
+          "mean_overflow": 0.089,
+          "mean_missed_resolved_spells": 0.0,
+          "mean_card_plays": {
+            "cannon": 2.0,
+            "electro_spirit": 2.0,
+            "skeletons": 1.0,
+            "hog_rider": 1.0,
+            "zap": 1.0
+          }
+        }
+      },
+      "rows": [
+        {
+          "seed": 101100,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "skeletons",
+            "musketeer",
+            "cannon",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "skeletons",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "skeletons": 2,
+            "hog_rider": 1,
+            "cannon": 1,
+            "electro_spirit": 1,
+            "zap": 1,
+            "knight": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "hog_rider",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 1250,
+              "card": "cannon",
+              "x": 8,
+              "y": 16
+            },
+            {
+              "at_ms": 3250,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 3750,
+              "card": "zap",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 6250,
+              "card": "skeletons",
+              "x": 8,
+              "y": 16
+            },
+            {
+              "at_ms": 14500,
+              "card": "knight",
+              "x": 8,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.4938616071428571,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101101,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "skeletons",
+            "electro_spirit",
+            "knight",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "skeletons",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "skeletons": 2,
+            "hog_rider": 1,
+            "knight": 1,
+            "electro_spirit": 1,
+            "zap": 1,
+            "cannon": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "hog_rider",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 1250,
+              "card": "knight",
+              "x": 8,
+              "y": 17
+            },
+            {
+              "at_ms": 2750,
+              "card": "electro_spirit",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 3750,
+              "card": "zap",
+              "x": 12,
+              "y": 12
+            },
+            {
+              "at_ms": 6250,
+              "card": "skeletons",
+              "x": 4,
+              "y": 17
+            },
+            {
+              "at_ms": 14500,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.6969866071428571,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101102,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "electro_spirit",
+            "musketeer",
+            "knight",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "electro_spirit",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "electro_spirit": 2,
+            "hog_rider": 1,
+            "knight": 1,
+            "zap": 1,
+            "skeletons": 1,
+            "cannon": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "electro_spirit",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "hog_rider",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 1250,
+              "card": "knight",
+              "x": 8,
+              "y": 17
+            },
+            {
+              "at_ms": 3000,
+              "card": "zap",
+              "x": 7,
+              "y": 18
+            },
+            {
+              "at_ms": 3750,
+              "card": "skeletons",
+              "x": 5,
+              "y": 18
+            },
+            {
+              "at_ms": 6250,
+              "card": "electro_spirit",
+              "x": 4,
+              "y": 17
+            },
+            {
+              "at_ms": 14500,
+              "card": "cannon",
+              "x": 9,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.66796875,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101103,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "hog_rider",
+            "fireball",
+            "musketeer",
+            "knight"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "hog_rider",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "hog_rider": 1,
+            "knight": 1,
+            "zap": 1,
+            "electro_spirit": 1,
+            "skeletons": 1,
+            "cannon": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "hog_rider",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "knight",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 3000,
+              "card": "zap",
+              "x": 10,
+              "y": 18
+            },
+            {
+              "at_ms": 3250,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 18
+            },
+            {
+              "at_ms": 5750,
+              "card": "skeletons",
+              "x": 13,
+              "y": 17
+            },
+            {
+              "at_ms": 11750,
+              "card": "cannon",
+              "x": 8,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.8194754464285714,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101100,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "cannon",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "cannon": 2,
+            "electro_spirit": 2,
+            "skeletons": 1,
+            "hog_rider": 1,
+            "zap": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 18
+            },
+            {
+              "at_ms": 750,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 1000,
+              "card": "hog_rider",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 14,
+              "y": 17
+            },
+            {
+              "at_ms": 11750,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 14500,
+              "card": "electro_spirit",
+              "x": 15,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.4712611607142857,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101101,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "cannon",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "cannon": 2,
+            "electro_spirit": 2,
+            "skeletons": 1,
+            "hog_rider": 1,
+            "zap": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 18
+            },
+            {
+              "at_ms": 750,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 1000,
+              "card": "hog_rider",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 14,
+              "y": 17
+            },
+            {
+              "at_ms": 11750,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 14500,
+              "card": "electro_spirit",
+              "x": 15,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.4712611607142857,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101102,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "cannon",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "cannon": 2,
+            "electro_spirit": 2,
+            "skeletons": 1,
+            "hog_rider": 1,
+            "zap": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 18
+            },
+            {
+              "at_ms": 750,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 1000,
+              "card": "hog_rider",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 14,
+              "y": 17
+            },
+            {
+              "at_ms": 11750,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 14500,
+              "card": "electro_spirit",
+              "x": 15,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.4712611607142857,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101103,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "cannon",
+            "x": 15,
+            "y": 16
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "cannon": 2,
+            "electro_spirit": 2,
+            "skeletons": 1,
+            "hog_rider": 1,
+            "zap": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 500,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 18
+            },
+            {
+              "at_ms": 750,
+              "card": "skeletons",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 1000,
+              "card": "hog_rider",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 14,
+              "y": 17
+            },
+            {
+              "at_ms": 11750,
+              "card": "cannon",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 14500,
+              "card": "electro_spirit",
+              "x": 15,
+              "y": 16
+            }
+          ],
+          "enemy_fraction_damage": 0.4712611607142857,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        }
+      ]
+    },
+    {
+      "model": {
+        "id": "v25",
+        "file": "v25.pt",
+        "sha256": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972",
+        "scalars": 306,
+        "mode": "physical_live"
+      },
+      "by_hand": {
+        "shuffled": {
+          "states": 4,
+          "no_card_states": 0,
+          "mean_cap_idle_ms": 0.0,
+          "mean_overflow": 0.089,
+          "mean_missed_resolved_spells": 0.0,
+          "mean_card_plays": {
+            "cannon": 0.5,
+            "hog_rider": 0.5,
+            "skeletons": 1.25,
+            "electro_spirit": 1.25,
+            "zap": 1.0,
+            "knight": 1.75,
+            "musketeer": 0.25
+          }
+        },
+        "reported_hand": {
+          "states": 4,
+          "no_card_states": 0,
+          "mean_cap_idle_ms": 0.0,
+          "mean_overflow": 0.089,
+          "mean_missed_resolved_spells": 1.0,
+          "mean_card_plays": {
+            "skeletons": 2.0,
+            "electro_spirit": 2.0,
+            "fireball": 1.0,
+            "cannon": 1.0,
+            "zap": 1.0
+          }
+        }
+      },
+      "rows": [
+        {
+          "seed": 101100,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "skeletons",
+            "musketeer",
+            "cannon",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "cannon",
+            "x": 9,
+            "y": 30
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "cannon": 1,
+            "hog_rider": 1,
+            "skeletons": 1,
+            "electro_spirit": 1,
+            "zap": 1,
+            "knight": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "cannon",
+              "x": 9,
+              "y": 30
+            },
+            {
+              "at_ms": 500,
+              "card": "hog_rider",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 750,
+              "card": "skeletons",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 2750,
+              "card": "electro_spirit",
+              "x": 10,
+              "y": 31
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 15,
+              "y": 13
+            },
+            {
+              "at_ms": 11750,
+              "card": "knight",
+              "x": 14,
+              "y": 18
+            }
+          ],
+          "enemy_fraction_damage": 0.5599888392857143,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101101,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "skeletons",
+            "electro_spirit",
+            "knight",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "knight",
+            "x": 9,
+            "y": 30
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "knight": 2,
+            "electro_spirit": 2,
+            "skeletons": 2,
+            "zap": 1,
+            "cannon": 1
+          },
+          "elixir_spent": 15,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "knight",
+              "x": 9,
+              "y": 30
+            },
+            {
+              "at_ms": 500,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 16
+            },
+            {
+              "at_ms": 750,
+              "card": "skeletons",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 1000,
+              "card": "zap",
+              "x": 10,
+              "y": 17
+            },
+            {
+              "at_ms": 3000,
+              "card": "cannon",
+              "x": 11,
+              "y": 31
+            },
+            {
+              "at_ms": 9000,
+              "card": "knight",
+              "x": 13,
+              "y": 24
+            },
+            {
+              "at_ms": 11750,
+              "card": "electro_spirit",
+              "x": 14,
+              "y": 23
+            },
+            {
+              "at_ms": 14500,
+              "card": "skeletons",
+              "x": 15,
+              "y": 20
+            }
+          ],
+          "enemy_fraction_damage": 0.027622767857142905,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101102,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "electro_spirit",
+            "musketeer",
+            "knight",
+            "hog_rider"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "knight",
+            "x": 9,
+            "y": 31
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "knight": 2,
+            "hog_rider": 1,
+            "electro_spirit": 1,
+            "skeletons": 1,
+            "zap": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "knight",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 500,
+              "card": "hog_rider",
+              "x": 15,
+              "y": 16
+            },
+            {
+              "at_ms": 750,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 1250,
+              "card": "skeletons",
+              "x": 15,
+              "y": 17
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 11,
+              "y": 31
+            },
+            {
+              "at_ms": 11750,
+              "card": "knight",
+              "x": 15,
+              "y": 23
+            }
+          ],
+          "enemy_fraction_damage": 0.9425223214285714,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101103,
+          "hand_case": "shuffled",
+          "initial_hand": [
+            "hog_rider",
+            "fireball",
+            "musketeer",
+            "knight"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "knight",
+            "x": 9,
+            "y": 31
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "knight": 2,
+            "musketeer": 1,
+            "zap": 1,
+            "electro_spirit": 1,
+            "skeletons": 1
+          },
+          "elixir_spent": 14,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "knight",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 500,
+              "card": "musketeer",
+              "x": 9,
+              "y": 30
+            },
+            {
+              "at_ms": 2750,
+              "card": "zap",
+              "x": 11,
+              "y": 31
+            },
+            {
+              "at_ms": 3000,
+              "card": "electro_spirit",
+              "x": 11,
+              "y": 31
+            },
+            {
+              "at_ms": 5500,
+              "card": "skeletons",
+              "x": 12,
+              "y": 30
+            },
+            {
+              "at_ms": 11750,
+              "card": "knight",
+              "x": 14,
+              "y": 23
+            }
+          ],
+          "enemy_fraction_damage": 0.0,
+          "spell_outcomes": [],
+          "missed_resolved_spells": 0
+        },
+        {
+          "seed": 101100,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "skeletons",
+            "x": 9,
+            "y": 30
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "skeletons": 2,
+            "electro_spirit": 2,
+            "fireball": 1,
+            "cannon": 1,
+            "zap": 1
+          },
+          "elixir_spent": 13,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "skeletons",
+              "x": 9,
+              "y": 30
+            },
+            {
+              "at_ms": 500,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 750,
+              "card": "fireball",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 1000,
+              "card": "cannon",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 13,
+              "y": 30
+            },
+            {
+              "at_ms": 6250,
+              "card": "skeletons",
+              "x": 14,
+              "y": 24
+            },
+            {
+              "at_ms": 9000,
+              "card": "electro_spirit",
+              "x": 14,
+              "y": 22
+            }
+          ],
+          "enemy_fraction_damage": 0.027622767857142905,
+          "spell_outcomes": [
+            {
+              "spell": "fireball",
+              "cast_ms": 750,
+              "resolved": true,
+              "impact_ms": 1000,
+              "damage": 0
+            }
+          ],
+          "missed_resolved_spells": 1
+        },
+        {
+          "seed": 101101,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "skeletons",
+            "x": 9,
+            "y": 30
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "skeletons": 2,
+            "electro_spirit": 2,
+            "fireball": 1,
+            "cannon": 1,
+            "zap": 1
+          },
+          "elixir_spent": 13,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "skeletons",
+              "x": 9,
+              "y": 30
+            },
+            {
+              "at_ms": 500,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 750,
+              "card": "fireball",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 1000,
+              "card": "cannon",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 13,
+              "y": 30
+            },
+            {
+              "at_ms": 6250,
+              "card": "skeletons",
+              "x": 14,
+              "y": 24
+            },
+            {
+              "at_ms": 9000,
+              "card": "electro_spirit",
+              "x": 14,
+              "y": 22
+            }
+          ],
+          "enemy_fraction_damage": 0.027622767857142905,
+          "spell_outcomes": [
+            {
+              "spell": "fireball",
+              "cast_ms": 750,
+              "resolved": true,
+              "impact_ms": 1000,
+              "damage": 0
+            }
+          ],
+          "missed_resolved_spells": 1
+        },
+        {
+          "seed": 101102,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "skeletons",
+            "x": 9,
+            "y": 30
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "skeletons": 2,
+            "electro_spirit": 2,
+            "fireball": 1,
+            "cannon": 1,
+            "zap": 1
+          },
+          "elixir_spent": 13,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "skeletons",
+              "x": 9,
+              "y": 30
+            },
+            {
+              "at_ms": 500,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 750,
+              "card": "fireball",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 1000,
+              "card": "cannon",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 13,
+              "y": 30
+            },
+            {
+              "at_ms": 6250,
+              "card": "skeletons",
+              "x": 14,
+              "y": 24
+            },
+            {
+              "at_ms": 9000,
+              "card": "electro_spirit",
+              "x": 14,
+              "y": 22
+            }
+          ],
+          "enemy_fraction_damage": 0.027622767857142905,
+          "spell_outcomes": [
+            {
+              "spell": "fireball",
+              "cast_ms": 750,
+              "resolved": true,
+              "impact_ms": 1000,
+              "damage": 0
+            }
+          ],
+          "missed_resolved_spells": 1
+        },
+        {
+          "seed": 101103,
+          "hand_case": "reported_hand",
+          "initial_hand": [
+            "cannon",
+            "fireball",
+            "skeletons",
+            "electro_spirit"
+          ],
+          "first_accepted_action": {
+            "at_ms": 250,
+            "card": "skeletons",
+            "x": 9,
+            "y": 30
+          },
+          "cap_idle_with_legal_action_ms": 0,
+          "elixir_overflow": 0.089,
+          "accepted_card_counts": {
+            "skeletons": 2,
+            "electro_spirit": 2,
+            "fireball": 1,
+            "cannon": 1,
+            "zap": 1
+          },
+          "elixir_spent": 13,
+          "accepted_actions": [
+            {
+              "at_ms": 250,
+              "card": "skeletons",
+              "x": 9,
+              "y": 30
+            },
+            {
+              "at_ms": 500,
+              "card": "electro_spirit",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 750,
+              "card": "fireball",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 1000,
+              "card": "cannon",
+              "x": 9,
+              "y": 31
+            },
+            {
+              "at_ms": 3500,
+              "card": "zap",
+              "x": 13,
+              "y": 30
+            },
+            {
+              "at_ms": 6250,
+              "card": "skeletons",
+              "x": 14,
+              "y": 24
+            },
+            {
+              "at_ms": 9000,
+              "card": "electro_spirit",
+              "x": 14,
+              "y": 22
+            }
+          ],
+          "enemy_fraction_damage": 0.027622767857142905,
+          "spell_outcomes": [
+            {
+              "spell": "fireball",
+              "cast_ms": 750,
+              "resolved": true,
+              "impact_ms": 1000,
+              "damage": 0
+            }
+          ],
+          "missed_resolved_spells": 1
+        }
+      ]
+    }
+  ],
+  "split": "train",
+  "duration_ms": 15000,
+  "enemy_suppressed": true,
+  "live_games_started": false,
+  "test_used_for_selection": false,
+  "quality_accepted": false,
+  "limits": [
+    "Four seeds per hand; synthetic intervention, not natural full matches",
+    "Reported hand fixes hand and queue; four seed repeats are not four independent opening observations",
+    "Legacy controls and saved references only; corrected-slot models still training",
+    "Spell outcomes cover recorded casts only; instant Zap is not covered by spell_cast_log"
+  ]
+}
