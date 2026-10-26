@@ -182,9 +182,18 @@ def render_active_studies(reports):
         result=json.loads(path.read_text());best=max(result['rows'],key=lambda row:row['wins']/row['games'])
         gate='допущено к проверке'if result['eligible_for_full']else'порог не пройден'
         lines.append(f"| [{label}](reports/{document}) | {best['wins']}/{best['games']} | {gate} |")
+    live_text='Живые бои выключены; v25 и исходные веса сохранены.'
+    live=reports/'live_balanced_20261027.json'
+    if live.exists():
+        config=json.loads(live.read_text());path=Path(config['series_file'])
+        if path.exists():
+            state=json.loads(path.read_text())
+            live_text=(f"Реальная серия balanced: {state['finished']}/{state['requested']} завершено, {state['wins']} побед, {state['losses']} поражений, {state['unknown']} неизвестных. Статус: {state['status']}. "+
+                f"[Журнал]({config['series_file']}). v25 и исходные веса сохранены.")
+            lines[2:2]=[live_text,'']
     lines+=['','Два seed повторяют72 validation-состояния;144 строки не являются144 независимыми матчапами. Ни одна из этих серий не дала двух профилей с достаточной защитой всех архетипов.','',
         '**Далее:** закончить текущие пробы → выбрать2 профиля по полному validation → большие PPO → независимый турнир. '+
-        'Живые бои выключены; v25 и исходные веса сохранены.']
+        live_text]
     return '\n'.join(lines)+'\n'
 
 
