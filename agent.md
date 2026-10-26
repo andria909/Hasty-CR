@@ -1,3 +1,6 @@
+## CURRENT board-potential COMPLETE verified
+819200actualCUDAsteps;reports/defense_plan/board_potential_pilot_verified_20261026.json +summary andreadable reports/board_potential_pilot_results_20261026.md. Wins144: w0=78,w.05=82,w.15=84,w.4=82;parent42/72. Allpositiveweightair0/24;noeligibleprofiles,nofullcontinuation. Discountedpotentialidentity/finiteweights/sourcepinsverified. Boardlocalstream68878 retiredONLYafterterminalCOMPLETEreceipt+proof. Boardcollector68886finished/postprocessor67920finished. Rootmonitoring.json authoritative. Bankstilltraining~74.75received. No newcandidate;v25/bestmodel unchanged,no live.
+
 ## CURRENT bank SSE observation repaired
 Bankstream67670stale ConnectionError >1200s; retired ONLYlocalstream and resumed SAME events/progress with --resume. NewPID68760,monitoring.json authoritative. NewactualCUDAsteps confirmed~74.6% (prior24.75was stale). Kaggleboth handles freshlyRUNNING22:09UTC; noGPUrestart/push. Collector67671 remains original; if stale again inspect transport separately,not training. No finalcandidate untilterminal verification.
 

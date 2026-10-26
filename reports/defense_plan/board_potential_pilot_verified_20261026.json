@@ -1,0 +1,198 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "andriashadrin/hastycr-board-potential-pilot-20261026",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "board_000",
+          "board_potential_weight": 0.0,
+          "history_frames": 1,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.29166666666666674,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "board_150",
+          "board_potential_weight": 0.15,
+          "history_frames": 1,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.29166666666666663,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "board_050",
+          "board_potential_weight": 0.05,
+          "history_frames": 1,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.2847222222222222,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "board_400",
+          "board_potential_weight": 0.4,
+          "history_frames": 1,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.2847222222222222,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_board_000_s92",
+      "checkpoint": "tmp/kaggle/board_potential_pilot_20261026_v4/collected/pilot_board_000_s92/update_000100.pt",
+      "checkpoint_sha256": "f20a48dafba26c017fed4c3492260af4049bc9c1d6e8996d38582d9c4b35dc4f",
+      "selection_score": 0.29861111111111116,
+      "worst_family_points": 0.08333333333333333,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_board_000_s93",
+      "checkpoint": "tmp/kaggle/board_potential_pilot_20261026_v4/collected/pilot_board_000_s93/update_000050.pt",
+      "checkpoint_sha256": "d9661e1a9e530d608b13fdd3bd7bba72688c09309d6fdc25cf920d69c8fb85fb",
+      "selection_score": 0.28472222222222227,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_board_050_s92",
+      "checkpoint": "tmp/kaggle/board_potential_pilot_20261026_v4/collected/pilot_board_050_s92/update_000050.pt",
+      "checkpoint_sha256": "9fe775e0b04ee038caabee1631d749145a98972399c0424d8eb9d8561747d229",
+      "selection_score": 0.3055555555555555,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_board_050_s93",
+      "checkpoint": "tmp/kaggle/board_potential_pilot_20261026_v4/collected/pilot_board_050_s93/update_000100.pt",
+      "checkpoint_sha256": "838583fc6f6058a474e57cb388447826636f8e28574d343310ae13f4ef2192c8",
+      "selection_score": 0.2638888888888889,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_board_150_s92",
+      "checkpoint": "tmp/kaggle/board_potential_pilot_20261026_v4/collected/pilot_board_150_s92/update_000100.pt",
+      "checkpoint_sha256": "8388856d7cf9a96d3f4e83e883df1c6353ec29b8135e479cba7b6a8eaca1d713",
+      "selection_score": 0.3125,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_board_150_s93",
+      "checkpoint": "tmp/kaggle/board_potential_pilot_20261026_v4/collected/pilot_board_150_s93/update_000100.pt",
+      "checkpoint_sha256": "3f0cd63c594b77eaab8fa58f27d1b97216edccdfc266a52d87dc1880ca57df26",
+      "selection_score": 0.2708333333333333,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_board_400_s92",
+      "checkpoint": "tmp/kaggle/board_potential_pilot_20261026_v4/collected/pilot_board_400_s92/update_000100.pt",
+      "checkpoint_sha256": "02f9c57915747f2caa73864febd20aab09cbccbb3353075b30569f7ae2c7e7a2",
+      "selection_score": 0.2777777777777778,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_board_400_s93",
+      "checkpoint": "tmp/kaggle/board_potential_pilot_20261026_v4/collected/pilot_board_400_s93/update_000050.pt",
+      "checkpoint_sha256": "d1c05bc1a833601a7ca4ca3073aebffffcb115b40df9366f422ddef0d467cc83",
+      "selection_score": 0.2916666666666667,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "parent",
+    "ranking": [
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.2916666666666667,
+        "macro_archetype_points": 0.5833333333333334,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.75
+          },
+          "giant": {
+            "games": 12,
+            "points": 1.0
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.75
+          },
+          "swarm": {
+            "games": 12,
+            "points": 1.0
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false
+}
