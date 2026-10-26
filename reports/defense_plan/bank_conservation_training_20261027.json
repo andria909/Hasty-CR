@@ -2,7 +2,7 @@
   "kernel": "andreiperelaiko/hastycr-bank-conservation-pilot-20261027",
   "kernel_version": 1,
   "root": "tmp/kaggle/bank_conservation_pilot_20261027_account3",
-  "status": "cuda_ready_reference_validation",
+  "status": "training_steps_observed",
   "pilot_target_steps": 819200,
   "quality_accepted": false,
   "live_stopped": true,
@@ -10,14 +10,28 @@
     "kernel": "andreiperelaiko/hastycr-bank-conservation-pilot-20261027",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
-    "error_type": "ConnectionError",
-    "http_status": null,
+    "stream_state": "connected",
     "reconnect_attempt": 0,
-    "checked_host_ns": 1793049748342434000
+    "checked_host_ns": 1793050812326888000,
+    "trials": {
+      "pilot_bank_overflow00_balance00_s102": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1033.845461685
+      },
+      "pilot_bank_overflow00_balance10_s102": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1038.447349408
+      }
+    }
   },
   "preflight_report": "reports/defense_plan/bank_conservation_preflight_20261027.json",
-  "last_local_sync_ns": 1793049954556726000,
+  "last_local_sync_ns": 1793050849539954000,
   "startup_evidence": [
     {
       "event": "INPUTS_VERIFIED",
@@ -30,5 +44,6 @@
         "Tesla T4"
       ]
     }
-  ]
+  ],
+  "actual_training_steps_confirmed": true
 }
