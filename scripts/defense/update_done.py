@@ -188,8 +188,8 @@ def render_active_studies(reports):
         config=json.loads(live.read_text());path=Path(config['series_file'])
         if path.exists():
             state=json.loads(path.read_text())
-            live_text=(f"Реальная серия balanced: {state['finished']}/{state['requested']} завершено, {state['wins']} побед, {state['losses']} поражений, {state['unknown']} неизвестных. Статус: {state['status']}. "+
-                f"[Журнал]({config['series_file']}). v25 и исходные веса сохранены.")
+            live_text=(f"Реальная серия balanced: {state['finished']+config.get('completed_before_recovery',0)}/{config.get('requested',state['requested'])} завершено, {state['wins']+config.get('wins_before_recovery',0)} побед, {state['losses']+config.get('losses_before_recovery',0)} поражений, {state['unknown']} неизвестных. Статус: {state['status']}. "+
+                f"Ручных доигрываний: {len(config.get('manual_assisted_matches',[]))}; исключать из автономного винрейта. [Журнал]({config['series_file']}). v25 и исходные веса сохранены.")
             lines[2:2]=[live_text,'']
     lines+=['','Два seed повторяют72 validation-состояния;144 строки не являются144 независимыми матчапами. Ни одна из этих серий не дала двух профилей с достаточной защитой всех архетипов.','',
         '**Далее:** закончить текущие пробы → выбрать2 профиля по полному validation → большие PPO → независимый турнир. '+

@@ -94,6 +94,7 @@ def main():
     parser.add_argument('--deck-order', default=','.join(VERIFIED_DECK))
     parser.add_argument('--screenshot-every', type=int, default=0,
                         help='Async diagnostic image after input/ACK on every Nth play; 0 disables')
+    parser.add_argument('--result-reference',type=Path,help='Require verified result button before treating a frozen tick as match end')
     args = parser.parse_args()
     deck = tuple(args.deck_order.split(','))
     if (not 1 <= args.max_matches <= 50 or not 1 <= args.seconds <= 21600 or
@@ -133,6 +134,18 @@ def main():
     active = None
     waiting_for_lobby = False
     deadline = time.monotonic() + args.seconds
+    result_reference=args.result_reference.read_bytes()if args.result_reference else None
+    last_result_check=0.;result_visible=False
+    def frozen_result_confirmed():
+        nonlocal last_result_check,result_visible
+        if result_reference is None:return True
+        now=time.monotonic()
+        if now-last_result_check>=2:
+            from scripts.gamestate.memory_series import lobby_button_matches
+            png=subprocess.check_output(adb+['exec-out','screencap','-p'],timeout=10)
+            result_visible=lobby_button_matches(result_reference,png,box=(800,2240,1100,2400))
+            last_result_check=now
+        return result_visible
     try:
         while time.monotonic() < deadline and report['finished'] < args.max_matches:
             began = time.monotonic()
@@ -159,6 +172,9 @@ def main():
                         active['last_tick'] = tick
                         active['last_progress'] = time.monotonic()
                     elif tick is not None and time.monotonic()-active['last_progress'] >= 4:
+                        if not frozen_result_confirmed():
+                            time.sleep(.1)
+                            continue
                         report['finished'] += 1
                         emit('MATCH_END', match=active['number'], reason='tick_frozen_hand_unavailable',
                              tick=tick, plays=active['plays'])
@@ -209,6 +225,9 @@ def main():
                 active['last_progress'] = now
                 active['last_tick'] = private['tick']
             elif now - active['last_progress'] >= 4:
+                if not frozen_result_confirmed():
+                    time.sleep(.1)
+                    continue
                 report['finished'] += 1
                 emit('MATCH_END', match=active['number'], reason='tick_frozen_needs_visual_result_confirmation',
                      plays=active['plays'], tick=private['tick'], cards=active['cards'])

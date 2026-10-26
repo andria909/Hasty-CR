@@ -4,8 +4,8 @@
   "checkpoint_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
   "requested": 10,
   "authorized": true,
-  "series_file": "tmp/live/balanced_20261027_live10/series/series.json",
-  "runner_summary": "tmp/live/balanced_20261027_live10/run/summary.json",
+  "series_file": "tmp/live/balanced_20261027_live10/recovery_series/series.json",
+  "runner_summary": "tmp/live/balanced_20261027_live10/recovery_run/summary.json",
   "launch_file": "tmp/live/balanced_20261027_live10/launch.json",
   "first_result_visual": "win,1-0 crowns,+30 trophies",
   "emulator": "BlueStacks Air",
@@ -21,5 +21,13 @@
     "User reports good Zap use"
   ],
   "observation_scope": "User qualitative live observations, not independently measured accuracy",
-  "defer_behavior_changes_until_series_complete": true
+  "defer_behavior_changes_until_series_complete": true,
+  "completed_before_recovery": 4,
+  "wins_before_recovery": 3,
+  "losses_before_recovery": 1,
+  "manual_assisted_matches": [
+    4
+  ],
+  "autonomous_before_recovery": 3,
+  "autonomous_wins_before_recovery": 2
 }

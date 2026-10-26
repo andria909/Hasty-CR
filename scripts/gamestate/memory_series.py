@@ -183,6 +183,7 @@ def main():
                 command+=['--width',str(a.width),'--height',str(a.height)]
                 if a.binary:command+=['--binary',a.binary]
                 if a.su:command+=['--su',a.su]
+                if a.result_reference:command+=['--result-reference',str(a.result_reference)]
                 child=subprocess.Popen(command,
                     stdout=child_log,stderr=subprocess.STDOUT)
                 state['runs'].append(str(run))
