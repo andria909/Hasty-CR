@@ -7,6 +7,20 @@ import time
 import sys
 
 
+def open_progress_output(output,kernel,resume=False):
+    """Resume only a matching observer, preserving counters and every raw event."""
+    output=Path(output)
+    if resume:
+        if output.is_symlink()or any((output/n).is_symlink()for n in ('progress.json','events.jsonl')):
+            raise ValueError('Observer paths must not be symlinks')
+        progress=json.loads((output/'progress.json').read_text())
+        if progress.get('kernel')!=kernel or not (output/'events.jsonl').is_file():
+            raise ValueError('Matching existing observer output required')
+        return progress,(output/'events.jsonl').open('a')
+    output.mkdir(parents=True,exist_ok=False)
+    return {'kernel':kernel,'source':'kaggle_live_log_stream','trainers':{}},(output/'events.jsonl').open('x')
+
+
 
 def record_trial_event(progress,line,remote_time):
     try:row=json.loads(line)
@@ -90,7 +104,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--kernel',required=True)
     parser.add_argument('--output',type=Path,required=True)
-    parser.add_argument('--reconnects',type=int,default=20)
+    parser.add_argument('--reconnects',type=int,default=100)
+    parser.add_argument('--resume',action='store_true',help='Append to matching saved observer output; stop its previous process first')
     parser.add_argument('--reconnect-seconds',type=int,default=1200)
     parser.add_argument('--api-user',help='Known owner; bearer token remains in environment')
     args=parser.parse_args()
@@ -99,10 +114,9 @@ def main():
     if not __package__:sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
     from scripts.kaggle.collect_final_evaluation import configure_http_timeout,make_api_client
     configure_http_timeout()
-    args.output.mkdir(parents=True,exist_ok=False)
     api=make_api_client(args.api_user)
-    progress={'kernel':args.kernel,'source':'kaggle_live_log_stream','trainers':{}}
-    with (args.output/'events.jsonl').open('x') as stream:
+    progress,stream=open_progress_output(args.output,args.kernel,args.resume)
+    with stream:
         for attempt in range(args.reconnects+1):
             connection_started=time.monotonic()
             try:

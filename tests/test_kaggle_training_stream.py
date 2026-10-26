@@ -7,6 +7,22 @@ import types
 import pytest
 
 
+def test_resume_preserves_raw_events_and_saved_counters(tmp_path):
+    from scripts.kaggle.stream_training import open_progress_output
+    root=tmp_path/'observer'
+    progress,stream=open_progress_output(root,'owner/model')
+    progress['trials']={'full_balanced_s44':{'steps':1200000}}
+    (root/'progress.json').write_text(json.dumps(progress))
+    with stream:stream.write('first event\n')
+    restored,stream=open_progress_output(root,'owner/model',resume=True)
+    assert restored['trials']==progress['trials']
+    with stream:stream.write('second event\n')
+    assert (root/'events.jsonl').read_text()=='first event\nsecond event\n'
+    with pytest.raises(ValueError,match='Matching'):
+        open_progress_output(root,'owner/different',resume=True)
+    assert (root/'events.jsonl').read_text()=='first event\nsecond event\n'
+
+
 @pytest.mark.parametrize('error_name,status', [('SSLError', None), ('HTTPError', 404)])
 def test_transient_stream_failure_reconnects_without_losing_or_regressing_progress(
         tmp_path, monkeypatch, error_name, status):
