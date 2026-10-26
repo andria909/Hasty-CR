@@ -1,3 +1,6 @@
+## CURRENT local skill retention diagnostic ready
+New scripts/attack/evaluate_air_position_labels.py reads pinned TRAINfixturedata and weights, reports grouped train/localholdout legal-successful choices+stablelogmass, hashes sources/weights/data. No training/promotion. Reproduced savedCPUpreflight32/16 metrics within1e-3. summarize_clock_pilots warmbranch now scores parent/warmweight BEFORE and selectedPPO checkpoint AFTER perseed;fullvalidationstillselectscheckpoint. Collectoralready preserves6warmweights andPPOselectedfiles. Warmwatch69340dynamicallyimports summary atterminal so noGPU/observerrestartneeded. Preliminary9/16localbeforePPO remainsnotfullquality.
+
 ## CURRENT parallel TEMPERATURE pilot SUBMITTED VERSION1
 vertel0/hastycr-temperature-pilot-20261027 kernelId141060940,root tmp/kaggle/temperature_pilot_20261027,monitors69548/69549/69550.4T=1/10/30/50 ×seeds132/133 ×102400=819200,noautomaticfull. Frozen18filesimmutable. Temperatureappliedsame rollout/PPOentropy/JS;evalgreedyrawunchanged. Config+perupdate temperatureverified;exactresume guards. ExactfrozenCPUpreflightT30,16->32steps/2updates/24validationgames passed;36targetedtests. ActualGPUtraining notclaimedbeforeCUDA/TRIAL evidence. Existingandriashadrinwarmstartjobfrozenoldercode,nohotfix. No live/promotion.
 

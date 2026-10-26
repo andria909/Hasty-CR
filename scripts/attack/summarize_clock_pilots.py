@@ -27,15 +27,28 @@ def summarize(root,verified=None):
                 wins=sum(r['family_id']==f and r['outcome']=='win'for r in records))
                 for f in sorted({r['family_id']for r in records})})
     for trial in protocol['cases']:
-        records=[]
+        records=[];local=[]
         for seed in protocol['pilot_seeds']:
             r=json.loads((root/'collected'/f"pilot_{trial['id']}_s{seed}_summary.json").read_text())
             records.extend(r['validation']['records'])
+            if warm:
+                from scripts.attack.evaluate_air_position_labels import score_checkpoint
+                before=(root/'collected'/f"pilot_{trial['id']}_s{seed}_warmstart/policy.pt"
+                    if trial.get('warmstart_updates',0)else root/'dataset/parent.pt')
+                local.append(dict(seed=seed,selected_update=r['selected_update'],
+                    before=score_checkpoint(before,root/'dataset'),
+                    after=score_checkpoint(root/'collected'/r['checkpoint'],root/'dataset')))
+
         row=dict(id=trial['id'],**stats(records))
         if history:row.update(history_frames=trial['history_frames'],focus=trial['focus'])
         if board:row.update(board_potential_weight=trial['board_potential_weight'],focus=trial['focus'])
         if bank:row.update(overflow_penalty=trial['overflow_penalty'],card_balance_weight=trial['card_balance_weight'])
-        if warm:row.update(warmstart_updates=trial['warmstart_updates'],warmstart_kl_weight=trial['warmstart_kl_weight'])
+        if warm:
+            row.update(warmstart_updates=trial['warmstart_updates'],warmstart_kl_weight=trial['warmstart_kl_weight'],local_diagnostic_by_seed=local)
+            for phase in('before','after'):
+                scores=[r[phase]['local_heldout']for r in local]
+                row['local_'+phase+'_ppo']=dict(successful_choices=sum(r['successful_choices']for r in scores),
+                    predictions=sum(r['examples']for r in scores),distinct_states=scores[0]['examples'])
         if temperature:row.update(policy_temperature=trial['policy_temperature'])
         rows.append(row)
     reference=json.loads((root/'collected/parent_reference.json').read_text())
@@ -66,6 +79,14 @@ def render(summary):
     for row in references+summary['rows']:
         air=row['by_family']['air'];golem=row['by_family']['golem'];cards=row['mean_card_plays']
         lines.append(f"| {row['id']} | {row['wins']}/{row['games']} | {air['wins']}/{air['games']} | {golem['wins']}/{golem['games']} | {cards.get('musketeer',0):.2f} | {cards.get('hog_rider',0):.2f} |")
+    if summary['rows']and 'local_after_ppo'in summary['rows'][0]:
+        lines+=['','## Локальный навык: перед PPO и выбранный PPO-чекпойнт','',
+            '| Профиль | До PPO | Выбранный чекпойнт PPO |','|---|---:|---:|']
+        for row in summary['rows']:
+            before=row['local_before_ppo'];after=row['local_after_ppo']
+            lines.append(f"| {row['id']} | {before['successful_choices']}/{before['predictions']} | {after['successful_choices']}/{after['predictions']} |")
+        states=summary['rows'][0]['local_after_ppo']['distinct_states']
+        lines+=['',f'{states} локальных состояний повторяются для двух seed. Это успешные действия из учебного упражнения, не победы в матчах. Чекпойнт выбирается по полному validation, не по этой таблице.']
     lines+=['',('Порог для продолжения прошли минимум два профиля.'if summary['eligible_for_full']else
         'Минимум два профиля порог не прошли: большое продолжение этого исследования не запускается.'),
         'Это validation для отбора; test и реальные бои не проводились. Частота карты сама по себе не доказывает качество.']
