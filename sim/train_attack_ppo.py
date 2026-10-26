@@ -36,11 +36,16 @@ def load_attack_state(network,blob,*,exact=False,observation_contract=OBSERVATIO
         raise ValueError('Unsupported attack scalar input shape')
     if exact and blob.get('config',{}).get('observation_contract')!=observation_contract:
         raise ValueError('Attack observation contract missing/mismatched')
+    source_planes=blob['state_dict']['conv.0.weight'].shape[1]
+    target_planes=network.state_dict()['conv.0.weight'].shape[1]
+    if source_planes>target_planes or (exact and source_planes!=target_planes):
+        raise ValueError('Attack plane input shape differs')
     load_policy_state(network,blob['state_dict'])
     return dict(source_scalar_count=incoming,target_scalar_count=target,
         appended_scalar_columns=target-incoming,
         appended_timer_columns_zero_initialized=incoming==NUM_SCALARS,
-        observation_contract=observation_contract,exact_weight_shape=incoming==target)
+        observation_contract=observation_contract,source_plane_count=source_planes,target_plane_count=target_planes,
+        exact_weight_shape=incoming==target and source_planes==target_planes)
 
 
 def initialize_attack_policy(blob=None,device='cpu',architecture=COMPACT_ARCHITECTURE,*,
@@ -73,13 +78,18 @@ def make_attack_env(*,split='train',seed=0,deadline_scale=1.,**options):
     return env
 
 
-def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',validation_selection='overall',continuous_focus='uniform',**options):
+def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',validation_selection='overall',continuous_focus='uniform',history_frames=1,**options):
+    if history_frames not in (1,2)or(history_frames!=1 and curriculum!='continuous_v1'):
+        raise ValueError('History2 requires continuous curriculum')
     if validation_selection not in ('overall','worst_family'):raise ValueError('Unknown validation selection')
     if validation_selection!='overall'and curriculum!='continuous_v1':raise ValueError('Family selection requires continuous games')
     if curriculum=='continuous_v1':
         if task_mode!='joint':raise ValueError('Continuous curriculum requires joint policy')
         from sim.continuous_push import ContinuousPushEnv
-        env=ContinuousPushEnv(split=split,seed=seed,**options)
+        if history_frames==2:
+            from sim.continuous_history import HistoryContinuousPushEnv
+            env=HistoryContinuousPushEnv(split=split,seed=seed,**options)
+        else:env=ContinuousPushEnv(split=split,seed=seed,**options)
         env.continuous_focus=continuous_focus
         return env
     if curriculum=='tactical_v1':
@@ -103,7 +113,11 @@ def training_sampler(env,seed=42,initial_hand_mode='shuffle',task_mode='joint'):
     return StrategyScenarioCycle(env.scenarios,seed=seed,initial_hand_mode=initial_hand_mode)
 
 
-def observation_contract(task_mode,curriculum='classic'):
+def observation_contract(task_mode,curriculum='classic',history_frames=1):
+    if history_frames==2:
+        if curriculum!='continuous_v1':raise ValueError('History2 requires continuous curriculum')
+        from sim.public_frame_history import CONTRACT
+        return CONTRACT
     if curriculum=='continuous_v1':
         from sim.continuous_push import CONTRACT
         return CONTRACT
@@ -219,7 +233,7 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
     return result
 
 
-def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.):
+def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.,history_frames=1):
     root=Path(__file__).resolve().parents[1]
     names=('sim/attack_env.py','sim/attack_scenarios.py','sim/attack_sampler.py',
            'sim/train_attack_ppo.py','sim/engine.py','sim/match.py','sim/env.py',
@@ -230,6 +244,7 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
     if curriculum=='continuous_v1':names+=('sim/continuous_push.py','sim/gamedata.py','sim/entities.py',
         'sim/projectile_calibration.py','sim/kite_geometry.py','sim/opponents.py','sim/eval_defense_duel.py','sim/continuous_validation.py','sim/continuous_sampling.py')
     if card_balance_weight:names+=('sim/card_balance.py',)
+    if history_frames==2:names+=('sim/public_frame_history.py','sim/continuous_history.py')
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
                                      for name in names},sort_keys=True).encode()).hexdigest()
 
@@ -242,7 +257,7 @@ def validate_resume(blob,config):
           'visible_fraction','initial_hand_mode','geometry','geometry_sha256','coordinate_mode',
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
-          'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed')
+          'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes')
     for key in keys:
         if blob['config'].get(key)!=config.get(key):
             raise ValueError(f'Attack resume configuration mismatch: {key}')
@@ -276,6 +291,8 @@ def train(args):
     options={key:getattr(args,key)for key in ('action_delay_ms','max_ms','deadline_scale',
         'visible_fraction','initial_hand_mode','geometry','coordinate_mode')}
     curriculum=getattr(args,'curriculum','classic')
+    history_frames=getattr(args,'history_frames',1)
+    if history_frames!=1 and curriculum!='continuous_v1':raise ValueError('History2 requires continuous curriculum')
     if curriculum!='classic':options['curriculum']=curriculum
     if curriculum=='continuous_v1':
         profile=getattr(args,'continuous_profile',None)
@@ -283,6 +300,7 @@ def train(args):
         options['continuous_profile']=profile
         options['validation_selection']=getattr(args,'validation_selection','overall')
         options['continuous_focus']=getattr(args,'continuous_focus','uniform')
+        options['history_frames']=history_frames
     reward_profile,reward_sha=load_reward_profile(getattr(args,'reward_profile',None))
     defense_rewards,attack_rewards=reward_objects(reward_profile)
     if args.task_mode=='joint':options.update(defense_rewards=defense_rewards,attack_rewards=attack_rewards)
@@ -296,13 +314,14 @@ def train(args):
         raise ValueError('Attack timer feature dimension mismatch')
     blob=torch.load(args.resume or args.init,map_location='cpu',weights_only=False)if args.resume or args.init else None
     architecture=checkpoint_architecture(blob)if blob else args.architecture
-    contract=observation_contract(args.task_mode,curriculum)
-    network=build_attack_network(architecture,device,num_scalars=num_scalars)
+    contract=observation_contract(args.task_mode,curriculum,history_frames)
+    num_planes=observations[0]['planes'].shape[0]
+    network=build_attack_network(architecture,device,num_scalars=num_scalars,num_planes=num_planes)
     initialization=load_attack_state(network,blob,exact=bool(args.resume),observation_contract=contract)if blob else {'fresh_initialization':True}
     optimizer=torch.optim.Adam(network.parameters(),lr=args.lr)
-    config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,
+    config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,num_planes=num_planes,history_frames=history_frames,
         reward_profile=reward_profile,reward_profile_sha256=reward_sha,
-        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight),
+        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames),
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
         initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
             hashlib.sha256(Path(args.init).read_bytes()).hexdigest()if args.init else None))
@@ -448,6 +467,7 @@ def parser():
     p.add_argument('--task-mode',choices=('joint','attack'),default='joint')
     p.add_argument('--curriculum',choices=('classic','tactical_v1','continuous_v1'),default='classic')
     p.add_argument('--continuous-profile',help='Explicit full-game auxiliary reward and timing JSON')
+    p.add_argument('--history-frames',type=int,choices=(1,2),default=1)
     p.add_argument('--value-warmup-steps',type=int,default=0)
     p.add_argument('--target-kl',type=float,default=0.)
     p.add_argument('--validation-selection',choices=('overall','worst_family'),default='overall')

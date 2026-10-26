@@ -6,7 +6,7 @@
     "Tesla T4",
     "Tesla T4"
   ],
-  "status": "running_confirmed_cuda",
+  "status": "training_complete_budgets_verified",
   "total_target_steps": 9011200,
   "global_cooldown_ms": 0,
   "used_slot_refill_ms": 2100,
@@ -15,89 +15,18 @@
   "observation_contract": "joint_public_presence_continuous_slots_v2",
   "protocol_sha256": "f7abf0422e277ba0bdb284f0300fc5cf6ba54e3d28b46a038f500770b69a6000",
   "progress_snapshot": {
-    "kernel": "andreiperelaiko/hastycr-continuous-slots-20261026",
-    "source": "kaggle_live_log_stream",
-    "trainers": {},
-    "stream_state": "interrupted",
     "trials": {
-      "pilot_control_s42": {
-        "update": 100,
-        "steps": 102400,
-        "target_steps": 102400,
-        "percent": 100.0,
-        "remote_log_seconds": 885.883922581
-      },
-      "pilot_leak_s42": {
-        "update": 100,
-        "steps": 102400,
-        "target_steps": 102400,
-        "percent": 100.0,
-        "remote_log_seconds": 899.254390019
-      },
-      "pilot_control_s43": {
-        "update": 100,
-        "steps": 102400,
-        "target_steps": 102400,
-        "percent": 100.0,
-        "remote_log_seconds": 1758.991916555
-      },
-      "pilot_leak_s43": {
-        "update": 100,
-        "steps": 102400,
-        "target_steps": 102400,
-        "percent": 100.0,
-        "remote_log_seconds": 1767.099801244
-      },
-      "pilot_balanced_s42": {
-        "update": 100,
-        "steps": 102400,
-        "target_steps": 102400,
-        "percent": 100.0,
-        "remote_log_seconds": 2642.869883913
-      },
-      "pilot_strong_s42": {
-        "update": 100,
-        "steps": 102400,
-        "target_steps": 102400,
-        "percent": 100.0,
-        "remote_log_seconds": 2652.752607974
-      },
-      "pilot_balanced_s43": {
-        "update": 100,
-        "steps": 102400,
-        "target_steps": 102400,
-        "percent": 100.0,
-        "remote_log_seconds": 3489.274432507
-      },
-      "pilot_strong_s43": {
-        "update": 100,
-        "steps": 102400,
-        "target_steps": 102400,
-        "percent": 100.0,
-        "remote_log_seconds": 3509.564471115
+      "full_balanced_s44": {
+        "percent": 100
       },
       "full_strong_s44": {
-        "update": 3233,
-        "steps": 3310592,
-        "target_steps": 4096000,
-        "percent": 80.825,
-        "remote_log_seconds": 19736.588287914
-      },
-      "full_balanced_s44": {
-        "update": 3293,
-        "steps": 3372032,
-        "target_steps": 4096000,
-        "percent": 82.325,
-        "remote_log_seconds": 19738.157376466
+        "percent": 100
       }
-    },
-    "checked_host_ns": 1793034900203197000,
-    "reconnect_attempt": 6,
-    "error_type": "SSLError",
-    "http_status": null
+    }
   },
   "checked_host_ns": 1793016919679476000,
   "quality_accepted": false,
   "live_stopped": true,
-  "last_local_sync_ns": 1793035297471596000
+  "last_local_sync_ns": 1793039241018281000,
+  "verified_report": "reports/defense_plan/continuous_slots_verified_20261026.json"
 }

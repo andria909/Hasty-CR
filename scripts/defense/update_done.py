@@ -46,6 +46,43 @@ def load_models(reports):
     return models
 
 
+def history_progress_lines(reports):
+    path=reports/'history_pilot_training_20261026.json'
+    if not path.exists():return []
+    study=json.loads(path.read_text());trials=study.get('progress_snapshot',{}).get('trials',{})
+    lines=['','**История кадров: короткое обучение на Kaggle.**1/2 кадра ×обычный/усиленный пул, '+
+        'два seed;819200 шагов.','',
+        '| Конфигурация | Полученная доля бюджета двух seed |','|---|---:|']
+    for frames in (1,2):
+        for focus,label in (('uniform','обычный пул'),('air_golem','воздух/голем3×')):
+            keys=[f'pilot_history{frames}_{focus}_s{s}'for s in(82,83)]
+            value=(f"{100*sum(trials.get(k,{}).get('steps',0)for k in keys)/204800:.1f}%"
+                if any(k in trials for k in keys)else'нет данных')
+            lines.append(f'| {frames} кадр(а),{label} | {value} |')
+    lines+=['','[Состояние истории](reports/defense_plan/history_pilot_training_20261026.json). '+
+        '41planes/309scalars; данные из двух публичных кадров. Live не запускался.']
+    return lines
+
+
+def slots_evaluation_lines(reports):
+    path=reports/'continuous_slots_pool_launch_20261026.json'
+    if not path.exists():return []
+    launch=json.loads(path.read_text());proof=reports/'continuous_slots_pool_verified_20261026.json'
+    if proof.exists():
+        r=json.loads(proof.read_text());lines=['','**Новые модели:600 проверочных матчей завершены.**',
+            '','| Модель | Test-победы | Турнир-победы |','|---|---:|---:|']
+        labels={'full_balanced_s44':'PPO balanced','full_strong_s44':'PPO strong','parent':'Исходник','v25':'v25'}
+        for name in r['tests']:
+            t=r['tests'][name];s=r['standings'][name]
+            lines.append(f"| {labels.get(name,name)} | {t['counts'].get('win',0)}/{t['games']} | {s['wins']}/{s['games']} |")
+        lines+=['','[Подробные результаты новых весов](reports/continuous_slots_pool_20261026.md). Live-приёмки нет.']
+        return lines
+    progress=launch.get('progress_snapshot',{}).get('evaluation',{}).get('games_lower_bound')
+    detail=(f"Подтверждено не менее{progress['completed']}/600 завершённых игр. "if progress else'Итоговых результатов пока нет. ')
+    return ['','**Новые модели:600 проверочных матчей отправлены на Kaggle.** '+detail+
+        'Два новых PPO, исходник иv25;480 test-игр +120 турнирных.']
+
+
 def render_reality(models,status,reports):
     if status.get('stage')=='continuous_focus_cohort':
         p=reports/'continuous_focus_training_20261026.json';training=json.loads(p.read_text())
@@ -69,6 +106,7 @@ def render_reality(models,status,reports):
                 '[Состояние](reports/defense_plan/continuous_focus_training_20261026.json).','',
                 'Предыдущая600-матчевая оценка: balanced41/60 в турнире и14/20 противv25, но81/120 наслучайных пушах '+
                 'против96/120 уисходника. [Все карты и результаты](reports/continuous_control_pool_20261026.md).']
+        lines+=history_progress_lines(reports)+slots_evaluation_lines(reports)
         return '\n'.join(lines)+'\n'
     if status.get('stage') in ('continuous_full_game_ppo','continuous_full_game_slots_ppo'):
         slot_mode=status.get('stage')=='continuous_full_game_slots_ppo'
@@ -156,8 +194,8 @@ def render_reality(models,status,reports):
         lines+=['','**После завершения:** отдельный оценщик600 матчей для новых весов готов; '+
             'GPU-оценка ещё не отправлена. Test и турнир не используются для выбора коэффициентов.']
         if (reports/'public_observation_aliasing_20261026.json').exists():
-            lines+=['','**Следующая гипотеза:** [короткая история кадров](reports/observation_history_gap_20261026.md); '+
-                'один кадр не различает две проверенные ветки движения. Текущие входы/GPU не менялись.']
+            lines+=['','**История кадров:** [PPO и validation подключены](reports/observation_history_gap_20261026.md). '+
+                'Старые GPU-пакеты не менялись; live выключен.']
         lines+=['','Наблюдение раз в20 минут; запись логов можно продолжать без потери счётчиков.',
             'Проценты — снимок полученных логов, не оценка по времени. '+
             ('[Состояние](reports/defense_plan/continuous_slots_training_20261026.json).'if slot_mode else '[Состояние](reports/defense_plan/continuous_training_20261026.json).'),'',
@@ -174,6 +212,7 @@ def render_reality(models,status,reports):
             'Живые бои остановлены. Исходник и v25 сохранены.','',
             '[Среднее использование всех карт у20 моделей](reports/card_usage_20261025.md). '+
             'Предыдущий короткий JS-пилот с0,02 не дал заметного выравнивания или новых навыков.']
+        lines+=history_progress_lines(reports)+slots_evaluation_lines(reports)
         return '\n'.join(lines)+'\n'
     live=json.loads((reports/'live_card_usage_20261025.json').read_text())
     complete=status.get('card_usage_status')=='complete_verified'

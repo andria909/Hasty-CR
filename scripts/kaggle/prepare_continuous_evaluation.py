@@ -61,7 +61,7 @@ def selected_models(verified,cohort):
     return models
 
 
-def prepare(output,cohort='control',training_report=None):
+def prepare(output,cohort='control',training_report=None,owner='andriashadrin'):
     training_report=Path(training_report or ('reports/defense_plan/continuous_slots_verified_20261026.json'
         if cohort=='slots' else 'reports/defense_plan/continuous_training_verified_20261026.json'))
     verified=json.loads(training_report.read_text())
@@ -94,18 +94,19 @@ def prepare(output,cohort='control',training_report=None):
     extensions={n:sha(n)for n in names}
     with tarfile.open(dataset/'extensions.tar.gz','w:gz')as stream:
         for name in names:stream.add(name,arcname=name,recursive=False)
-    owner='andriashadrin';slug=f'hastycr-continuous-{cohort}-eval-inputs-20261026'
+    slug=f'hastycr-continuous-{cohort}-eval-inputs-20261026'
+    for name in ('manifest.json','source.tar.gz'):shutil.copyfile(frozen/name,dataset/name)
     (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug,title=slug,licenses=[dict(name='other')],isPrivate=True),indent=2)+'\n')
-    config=dict(owner=owner,slug=slug,source_slug='hastycr-fireball-balanced-inputs-20261025',
+    config=dict(owner=owner,slug=slug,source_slug=slug,
         source_manifest_sha256=sha(frozen/'manifest.json'),extensions=extensions,
         replaced={n:manifest['files'][n]for n in names if n in manifest['files']},
-        pins={n:sha(dataset/n)for n in ('protocol.json','extensions.tar.gz',*[m['file']for m in models])})
+        pins={n:sha(dataset/n)for n in ('manifest.json','protocol.json','extensions.tar.gz',*[m['file']for m in models])})
     code='import hashlib,json,shutil,tarfile\nfrom pathlib import Path,PurePosixPath\n'+inspect.getsource(sha)+'\n'+inspect.getsource(prepare_source)+'\n'+inspect.getsource(bootstrap)+'\nbootstrap('+repr(config)+')\n'
     compile(code,'train.py','exec');(job/'train.py').write_text(code)
     kernel=owner+f'/hastycr-continuous-{cohort}-eval-20261026'
     (job/'kernel-metadata.json').write_text(json.dumps(dict(id=kernel,title=f'hastycr continuous {cohort} eval 20261026',
         code_file='train.py',language='python',kernel_type='script',is_private=True,enable_gpu=True,enable_internet=False,
-        dataset_sources=[owner+'/'+slug,owner+'/'+config['source_slug']],competition_sources=[],kernel_sources=[]),indent=2)+'\n')
+        dataset_sources=[owner+'/'+slug],competition_sources=[],kernel_sources=[]),indent=2)+'\n')
     (output/'preparation.json').write_text(json.dumps(dict(kernel=kernel,config=config,bootstrap_sha256=sha(job/'train.py'),submitted=False),indent=2)+'\n')
     return dict(kernel=kernel,total_games=600,submitted=False)
 
@@ -114,4 +115,5 @@ if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--output',required=True)
     p.add_argument('--cohort',choices=('control','slots'),default='control')
     p.add_argument('--training-report')
-    a=p.parse_args();print(json.dumps(prepare(a.output,a.cohort,a.training_report)))
+    p.add_argument('--owner',default='andriashadrin')
+    a=p.parse_args();print(json.dumps(prepare(a.output,a.cohort,a.training_report,a.owner)))

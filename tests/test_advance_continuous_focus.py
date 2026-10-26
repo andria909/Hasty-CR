@@ -17,6 +17,16 @@ def test_project_python_keeps_virtualenv_in_actual_subprocess(tmp_path,monkeypat
     assert prefix==str(venv)
 
 
+def test_frozen_binder_can_import_project_from_its_nested_script_path(tmp_path,monkeypatch):
+    template=tmp_path/'nested/template';template.mkdir(parents=True)
+    (tmp_path/'project_marker.py').write_text('VALUE="project import succeeded"\n')
+    (template/'bind.py').write_text('import sys,project_marker\nfrom pathlib import Path\n'
+        'Path(sys.argv[sys.argv.index("--output")+1]).write_text(project_marker.VALUE)\n')
+    monkeypatch.chdir(tmp_path);monkeypatch.setattr(advance,'project_python',lambda:sys.executable)
+    out=tmp_path/'proof';advance.bind_verified_inputs(template,'unused',out,'owner')
+    assert out.read_text()=='project import succeeded'
+
+
 def test_no_cloud_call_before_verified_training_and_evaluation(monkeypatch,tmp_path):
     template=tmp_path/'template';template.mkdir();(template/'template_manifest.json').write_text('{"files":{}}')
     clock=[0];monkeypatch.setattr(advance.time,'monotonic',lambda:clock[0])

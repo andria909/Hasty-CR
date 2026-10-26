@@ -80,6 +80,7 @@ def execute(config):
             '--coordinate-mode','physical_live_cells_v2','--continuous-profile',str(profile),
             '--continuous-focus',trial['focus'],'--validation-selection','worst_family','--validation-seed','900100',
             '--eval-episodes','36','--entropy-coef',str(trial['entropy_coef']),
+            '--history-frames',str(trial.get('history_frames',1)),
             '--card-balance-weight',str(trial['card_balance_weight']),'--card-balance-target','units',
             '--action-delay-ms','225','--max-ms','310000','--seed',str(seed),'--envs','8','--rollout','128',
             '--updates',str(steps//1024),'--target-environment-steps',str(steps),'--epochs','3','--minibatch-size','256',
@@ -140,7 +141,8 @@ def freeze_template(output):
     frozen=Path('tmp/kaggle/fireball_balanced_20261025/dataset');manifest=json.loads((frozen/'manifest.json').read_text())
     names=('sim/match.py','sim/train_attack_ppo.py','sim/continuous_push.py','sim/card_balance.py','sim/env.py',
         'sim/kite_geometry.py','sim/projectile_calibration.py','sim/entities.py','sim/gamedata.py','sim/public_gamedata.py',
-        'sim/spells.py','sim/continuous_sampling.py','sim/continuous_validation.py','scripts/attack/select_continuous_focus.py')
+        'sim/spells.py','sim/continuous_sampling.py','sim/continuous_validation.py','scripts/attack/select_continuous_focus.py',
+        'sim/public_frame_history.py','sim/continuous_history.py')
     with tarfile.open(output/'extensions.tar.gz','w:gz')as stream:
         for name in names:stream.add(name,arcname=name,recursive=False)
     shutil.copyfile('data/ppo_tuning/continuous_focus/protocol.json',output/'protocol.json')

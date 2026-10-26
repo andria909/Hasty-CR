@@ -40,3 +40,23 @@ def test_clock_pilot_collects_selected_and_latest_boundaries(monkeypatch,tmp_pat
     r=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','clock-fireball-pilot')
     assert r['complete']
     assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'chosen_eligible'
+
+
+def test_history_pilot_keeps_the_selected_temporal_checkpoint(monkeypatch,tmp_path):
+    run='pilot_history2_air_golem_s82';setup(monkeypatch,run+'/update_000050.pt',run)
+    r=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','history-pilot')
+    assert r['complete']and(tmp_path/'out'/run/'update_000050.pt').exists()
+
+
+def test_selected_full_collection_omits_unselected_weight_archives(monkeypatch,tmp_path):
+    prefix='continuous_ppo/';a='full_balanced_s44';b='full_strong_s44'
+    chosen=[a+'/best_validation_001000.pt',b+'/best_validation_002750.pt']
+    result=dict(status='complete',full_runs=[dict(id=n,checkpoint=p)for n,p in zip((a,b),chosen)])
+    data={prefix+'result.json':json.dumps(result).encode(),**{prefix+p:b'chosen'for p in chosen},
+        prefix+a+'/best_validation_000250.pt':b'unselected',prefix+a+'/update_004000.pt':b'archive'}
+    monkeypatch.setattr(collector,'list_outputs',lambda api,kernel:({n:NS(url=n)for n in data},[]))
+    monkeypatch.setattr(requests,'get',lambda url,**kw:NS(content=data[url],raise_for_status=lambda:None))
+    r=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','continuous-ppo-selected')
+    assert r['complete']
+    assert all((tmp_path/'out'/p).read_bytes()==b'chosen'for p in chosen)
+    assert not(tmp_path/'out'/a/'update_004000.pt').exists()

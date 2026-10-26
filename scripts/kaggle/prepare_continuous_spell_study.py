@@ -8,7 +8,8 @@ from scripts.kaggle.prepare_continuous_focus import freeze_template
 from scripts.kaggle.run_five_round_robin import sha
 
 
-def prepare(output,owner='andriashadrin'):
+def prepare(output,owner='andriashadrin',study='clock'):
+    if study not in ('clock','history'):raise ValueError('Unknown short study')
     root=Path(output);root.mkdir(parents=True,exist_ok=False)
     template=root/'template';manifest=freeze_template(template)
     dataset=root/'dataset';dataset.mkdir();job=root/'job';job.mkdir()
@@ -20,6 +21,13 @@ def prepare(output,owner='andriashadrin'):
         full='Disabled for this parallel pilot; final promotion/full study requires validation audit')
     for trial in protocol['cases']:
         trial.update(focus='uniform',entropy_coef=.01,overflow_penalty=.15,card_balance_weight=.1,card_balance_target='units')
+    if study=='history':
+        protocol.update(schema='continuous-public-history-pilot-v1',pilot_seeds=[82,83],
+            rationale_source='reports/observation_history_gap_20261026.md',
+            cases=[dict(id=f'history{frames}_{focus}',history_frames=frames,focus=focus,
+                entropy_coef=.01,gamma=.999,gae_lambda=.95,overflow_penalty=.15,
+                card_balance_weight=.1,card_balance_target='units',missed_fireball_penalty=0.)
+                for frames in (1,2)for focus in ('uniform','air_golem')])
     (dataset/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n')
     for name in ('extensions.tar.gz',):shutil.copyfile(template/name,dataset/name)
     source=Path('tmp/kaggle/fireball_balanced_20261025/dataset')
@@ -29,7 +37,8 @@ def prepare(output,owner='andriashadrin'):
     digest=sha(parent)
     if digest!='9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8':raise ValueError('Parent changed')
     shutil.copyfile(parent,dataset/'parent.pt')
-    slug='hastycr-clock-fireball-pilot-inputs-20261026';kernel=owner+'/hastycr-clock-fireball-pilot-20261026'
+    stem='hastycr-history-pilot'if study=='history'else'hastycr-clock-fireball-pilot'
+    slug=stem+'-inputs-20261026';kernel=owner+'/'+stem+'-20261026'
     (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug,title=slug,
         licenses=[dict(name='other')],isPrivate=True),indent=2)+'\n')
     config=dict(owner=owner,slug=slug,source_slug=slug,allow_full_training=False,
@@ -49,4 +58,5 @@ def prepare(output,owner='andriashadrin'):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--owner',default='andriashadrin')
-    a=p.parse_args();print(json.dumps(prepare(a.output,a.owner)))
+    p.add_argument('--study',choices=('clock','history'),default='clock')
+    a=p.parse_args();print(json.dumps(prepare(a.output,a.owner,a.study)))

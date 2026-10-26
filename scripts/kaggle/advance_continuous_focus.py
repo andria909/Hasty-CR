@@ -21,6 +21,14 @@ def project_python():
     return str(Path('.venv-live/bin/python').absolute())
 
 
+def bind_verified_inputs(template,training_report,output,owner):
+    env=dict(os.environ)
+    env['PYTHONPATH']=str(Path.cwd())+os.pathsep+env.get('PYTHONPATH','')
+    subprocess.run([project_python(),str((Path(template)/'bind.py').resolve()),
+        '--template',str(template),'--training-report',str(training_report),'--output',str(output),
+        '--owner',owner],env=env,check=True)
+
+
 def prerequisites(training,evaluation):
     if not Path(training).exists()or not Path(evaluation).exists():return False
     try:t=json.loads(Path(training).read_text());e=json.loads(Path(evaluation).read_text())
@@ -93,8 +101,7 @@ def run(args,api_factory=None):
         if not(output/'preparation.json').exists():
             if output.exists():raise ValueError('Partial preparation preserved; inspect before rebinding')
             save(phase='binding_verified_weights')
-            subprocess.run([project_python(),str((template/'bind.py').resolve()),
-                '--template',str(template),'--training-report',str(args.training_report),'--output',str(output),'--owner',args.owner],check=True)
+            bind_verified_inputs(template,args.training_report,output,args.owner)
         preparation=json.loads((output/'preparation.json').read_text())
         if preparation['kernel']!=state['kernel']:raise ValueError('Prepared kernel changed')
         if api is None:

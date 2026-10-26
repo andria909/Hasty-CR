@@ -47,13 +47,14 @@ def collect(api,kernel,destination,profile='defense'):
     if terminal_state(api.kernels_status(kernel))!=state:
         raise ValueError('Remote evaluation state changed during listing')
     prefetched={}
-    if profile in ('continuous-focus','clock-fireball-pilot'):
+    if profile in ('continuous-focus','clock-fireball-pilot','history-pilot'):
         import re
         import requests
         prefix='continuous_focus/';result_file='result.json'
         allowed={result_file,'selection.json','initial_selection.json','parent_reference.json'}
         run_pattern=(r'(?:pilot|full)_(?:uniform|air_golem)_(?:base|explore)_s6[234]'
-            if profile=='continuous-focus' else r'pilot_(?:current|seconds_preserved)_(?:control|miss)_s7[23]')
+            if profile=='continuous-focus' else r'pilot_history[12]_(?:uniform|air_golem)_s8[23]'
+            if profile=='history-pilot' else r'pilot_(?:current|seconds_preserved)_(?:control|miss)_s7[23]')
         for name in files:
             if not name.startswith(prefix):continue
             relative=name[len(prefix):]
@@ -83,10 +84,23 @@ def collect(api,kernel,destination,profile='defense'):
         models=('full_balanced_s44','full_strong_s44','parent','v25')
         allowed={result_file}|{name+'_test.json'for name in models}
         allowed.update(a+'__'+b+'_duels.json'for a,b in itertools.combinations(models,2))
-    elif profile=='continuous-ppo':
+    elif profile in ('continuous-ppo','continuous-ppo-selected'):
         import re
         prefix='continuous_ppo/';result_file='result.json'
         allowed={result_file,'selection.json'}
+        selected_only=profile=='continuous-ppo-selected'
+        if selected_only:
+            import requests
+            response=requests.get(files[prefix+result_file].url,timeout=(30,300));response.raise_for_status()
+            raw=response.content;result=json.loads(raw)
+            if result.get('status')!='complete'or len(result.get('full_runs',[]))!=2:raise ValueError('Complete two-model result required')
+            for row in result['full_runs']:
+                run=row['id'];checkpoint=row['checkpoint']
+                if (not re.fullmatch(r'full_(?:control|leak|balanced|strong)_s44',run)or
+                        not re.fullmatch(re.escape(run)+r'/(?:best_validation|update)_\d{6}\.pt',checkpoint)):
+                    raise ValueError('Selected full checkpoint path differs')
+                allowed.add(checkpoint)
+            prefetched[result_file]=raw
         for name in files:
             if not name.startswith(prefix):continue
             relative=name[len(prefix):]
@@ -94,14 +108,14 @@ def collect(api,kernel,destination,profile='defense'):
                 allowed.add(relative)
             if re.fullmatch(r'(?:pilot|full)_(?:control|leak|balanced|strong)_s4[234]/(?:config\.json|metrics\.jsonl|training_result\.json|(?:best_validation|update)_\d{6}\.pt)',relative):
                 # Keep latest resumable boundary and all validation candidates.
-                if '/update_'not in relative:allowed.add(relative)
+                if not relative.endswith('.pt')or(not selected_only and '/update_'not in relative):allowed.add(relative)
         latest={}
         for name in files:
             match=re.fullmatch(re.escape(prefix)+r'((?:pilot|full)_(?:control|leak|balanced|strong)_s4[234])/update_(\d{6})\.pt',name)
             if match:
                 key,update=match.group(1),int(match.group(2))
                 if key not in latest or update>latest[key][0]:latest[key]=(update,name[len(prefix):])
-        allowed.update(value[1]for value in latest.values())
+        if not selected_only:allowed.update(value[1]for value in latest.values())
     elif profile=='card-balance-study':
         import re
         prefix='card_balance_study/'
@@ -193,7 +207,7 @@ def main():
     parser.add_argument('--poll-seconds',type=int,default=1200)
     parser.add_argument('--once',action='store_true')
     parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
-    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-pool','continuous-focus','clock-fireball-pilot'),default='defense')
+    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only

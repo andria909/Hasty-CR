@@ -35,6 +35,9 @@ def verify(collected,prepared):
     for name in('scripts/attack/select_continuous_focus.py','sim/continuous_validation.py'):
         if sha(name)!=c['extensions'][name]:raise ValueError('Use the frozen selector version to verify this cohort')
     protocol=json.loads((prepared/'dataset/protocol.json').read_text());result=json.loads((root/'result.json').read_text())
+    if any(t.get('history_frames',1)==2 for t in protocol['cases']):
+        for name in ('sim/public_frame_history.py','sim/continuous_history.py'):
+            if sha(name)!=c['extensions'][name]:raise ValueError('Use frozen history adapter version')
     if sha(prepared/'dataset/protocol.json')!=c['pins']['protocol.json']:raise ValueError('Prepared protocol changed')
     if result.get('schema')!='continuous-focus-cohort-result-v1'or result['protocol_sha256']!=c['pins']['protocol.json']:
         raise ValueError('Focus protocol differs')
@@ -52,6 +55,12 @@ def verify(collected,prepared):
         row=json.loads((root/(run_id+'_summary.json')).read_text())
         boundary=json.loads((root/run_id/'training_result.json').read_text())
         config=json.loads((root/run_id/'config.json').read_text())
+        history_frames=trial.get('history_frames',1)
+        expected_planes=41 if history_frames==2 else 20
+        expected_contract=('joint_public_presence_continuous_slots_history2_v1'if history_frames==2
+            else'joint_public_presence_continuous_slots_v2')
+        if (config.get('num_planes',20)!=expected_planes or config.get('history_frames',1)!=history_frames or
+                config.get('observation_contract')!=expected_contract):raise ValueError('History input contract differs')
         if not boundary.get('target_met')or boundary.get('step')!=steps or not row.get('target_met')or row.get('step')!=steps:
             raise ValueError('Incomplete focus training budget')
         if(row['id']!=run_id or row['trial']!=trial or row['seed']!=seed or row['initial_model']!=selected_initial or
@@ -100,6 +109,7 @@ def verify(collected,prepared):
     for row in full+pilots:
         blob=torch.load(root/row['checkpoint'],map_location='cpu',weights_only=False)
         if(blob['state_dict']['scalar.0.weight'].shape[1]!=309 or
+                blob['state_dict']['conv.0.weight'].shape[1]!=(41 if row['trial'].get('history_frames',1)==2 else 20)or
                 not all(torch.isfinite(t).all()for t in blob['state_dict'].values())):raise ValueError('Invalid final weights')
     return dict(schema='verified-continuous-focus-cohort-v1',kernel=cfg['kernel'],pilot_steps_verified=819200,
         pilot_selection=selection,automatic_full_training=allow_full,
