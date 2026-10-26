@@ -1,3 +1,6 @@
+## CURRENT full-only preparer prototype
+New scripts/kaggle/prepare_selected_continuous_full.py prepares a separate frozen full-only controller ONLYafter verify()+two eligible profiles. Nested run()ASTunchanged; reference/pilot stages replaced with pinned proven selections, noAPI. Actual failedfocus rejectedbeforeoutputmkdir;6selector/controller tests passed. NOT GPUsubmitted or end-to-end accepted: before using a positive cohort, add/check dedicated full-only collector+budget/checkpoint verifier and exact-package preflight; existing focus verifier expects819200pilots, so doNOTpointit atfull-only output. DoNOTchange currentlyfrozenboard/bank jobs.
+
 ## CURRENT hard-family study COMPLETE verified
 vertel0/hastycr-continuous-focus-20261026 completed819200CUDAsteps,zero full runs because no eligible pair. reports/defense_plan/continuous_focus_verified_20261026.json +summary +reports/continuous_focus_results_20261026.md. Wins144:uniformbase92,uniformexplore92,airbase93,airexplore97;bestair1/24,golem4/24. Initializerstrong46/72,originalparent42/72. Missing missed_fireballs oldsource recordedasNone,notzero. Localcoordinator66513 andstream66721 retiredONLYafterterminalproof+verification. ExistingGPUboard andbank studies continue;no newlive,promotion or re-push.
 
