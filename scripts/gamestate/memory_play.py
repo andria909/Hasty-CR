@@ -79,6 +79,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--adb', default='/tmp/Hasty-android-tools/platform-tools/adb')
     parser.add_argument('--serial', required=True)
+    parser.add_argument('--binary', default=None)
+    parser.add_argument('--su', default=None)
     parser.add_argument('--checkpoint', type=Path, default=Path('checkpoints/portable_v25/portable_v25_cannon_economy_best.pt'))
     parser.add_argument('--max-matches', type=int, required=True)
     parser.add_argument('--output', type=Path, required=True)
@@ -94,20 +96,25 @@ def main():
     deck = tuple(args.deck_order.split(','))
     if (not 1 <= args.max_matches <= 50 or not 1 <= args.seconds <= 21600 or
             len(deck) != 8 or set(deck) != set(DECK_26) or
-            (args.width, args.height) != (1440, 2560) or not 0 <= args.screenshot_every <= 100):
+            (args.width, args.height) not in ((1440, 2560),(1080,1920)) or not 0 <= args.screenshot_every <= 100):
         parser.error('Invalid finite limit, verified deck or calibrated resolution')
     args.output.mkdir(parents=True, exist_ok=False)
     import torch
     torch.set_num_threads(1)
     policy = MemoryPolicy(args.checkpoint)
     checkpoint_sha256 = hashlib.sha256(args.checkpoint.read_bytes()).hexdigest()
-    reader = CurrentStateReader(args.adb, args.serial, own_state=True)
+    reader_kwargs = dict(own_state=True)
+    if args.su: reader_kwargs['su'] = args.su
+    if args.binary: reader_kwargs['binary'] = args.binary
+    reader = CurrentStateReader(args.adb, args.serial, **reader_kwargs)
     adb = [args.adb, '-s', args.serial]
     report = {'requested': args.max_matches, 'started': 0, 'finished': 0,
               'checkpoint': str(args.checkpoint), 'checkpoint_sha256': checkpoint_sha256, 'perception': 'arm64_memory_v8',
               'cv': False, 'queue': False, 'execute': args.execute,
               'deck_order': deck, 'warning': 'Experimental incomplete opponent play history', 'matches': []}
-    report['coordinate_mode']='physical_live'
+    report['coordinate_mode']=policy.coordinate_mode
+    report['geometry']=policy.geometry
+    report['joint_policy']=policy.joint
     report['screenshot_every']=args.screenshot_every
     log = (args.output / 'events.jsonl').open('x')
     frames = (args.output / 'frames.jsonl').open('x')
@@ -178,7 +185,8 @@ def main():
                     continue
                 report['started'] += 1
                 adapter = NativeModelAdapter(own_side=private['own_side'], allow_incomplete_history=True,
-                                             allow_unknown_profiles=True, coordinate_mode='physical_live')
+                                             allow_unknown_profiles=True, coordinate_mode=policy.coordinate_mode,
+                                             geometry=policy.geometry)
                 active = {'number': report['started'], 'world': private['world'], 'last_tick': -1,
                           'last_progress': now, 'last_decide': -100, 'last_idle': now,
                           'plays': 0, 'cards': {}, 'seen_towers': set(), 'missing_towers': {},
@@ -186,6 +194,12 @@ def main():
                           'warnings': set()}
                 report['matches'].append({'number': active['number'], 'world': active['world'], 'plays': []})
                 emit('MATCH_START', match=active['number'], checkpoint=str(args.checkpoint.resolve()), checkpoint_sha256=checkpoint_sha256, side=private['own_side'], tick=private['tick'], hand=own_context(private, deck).hand)
+            if (private['world'] == active['world'] and
+                    0 < active['last_tick'] - private['tick'] <= 20):
+                emit('STALE_FRAME_SKIPPED', match=active['number'],
+                     tick=private['tick'], last_tick=active['last_tick'])
+                time.sleep(.1)
+                continue
             if private['world'] != active['world'] or private['tick'] < active['last_tick']:
                 raise RuntimeError('Unexpected world/tick change during match; manual review required')
             if private['tick'] != active['last_tick']:

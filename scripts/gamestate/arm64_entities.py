@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shlex
 import struct
 import subprocess
 import time
@@ -33,10 +34,14 @@ class CaptureError(RuntimeError):
 
 
 class Memory:
-    def __init__(self, adb: str, serial: str):
+    def __init__(self, adb: str, serial: str, *, su: str | None = None):
         self.adb = [adb, "-s", serial]
+        if su is not None and not re.fullmatch(r"/[A-Za-z0-9_./-]+", su):
+            raise CaptureError("su must be an absolute executable path, not a shell command")
+        self.su = su
         if self.shell("id -u").strip() != "0":
-            raise CaptureError("ADB must already be root; this tool changes no device settings")
+            raise CaptureError("Root access is required: use root ADB or --su /absolute/path/to/su. "
+                               "This tool does not install root or change device settings")
         if self.shell("getprop ro.product.cpu.abi").strip() != "arm64-v8a":
             raise CaptureError("Only arm64-v8a is supported")
         version = self.shell(f"dumpsys package {PACKAGE}")
@@ -51,14 +56,19 @@ class Memory:
         self.libg_base = min(int(row[0].split("-")[0], 16) - int(row[2], 16)
                              for row in libmaps)
         libpath = libmaps[0][-1]
-        digest = subprocess.check_output(self.adb + ["shell", "sha256sum", libpath],
-                                         text=True, timeout=15).split()[0]
+        digest = self.shell("sha256sum " + shlex.quote(libpath)).split()[0]
         if digest != LIBG_SHA256:
             raise CaptureError("libg.so hash differs from the pinned layout")
         self.name_cache: dict[int, str] = {}
 
+    def command(self, command: str, *, exec_out: bool = False) -> list[str]:
+        """Run the same read under an explicitly selected, already installed su."""
+        if getattr(self, "su", None):
+            command = shlex.join([self.su, "-c", command])
+        return self.adb + ["exec-out" if exec_out else "shell", command]
+
     def shell(self, command: str) -> str:
-        return subprocess.check_output(self.adb + ["shell", command],
+        return subprocess.check_output(self.command(command),
                                        text=True, timeout=15)
 
     def batch(self, requests: list[tuple[int, int]]) -> list[bytes]:
@@ -69,7 +79,7 @@ class Memory:
         command = "; ".join(
             f"dd if=/proc/{self.pid}/mem bs=4096 iflag=skip_bytes,count_bytes "
             f"skip={pointer(a)} count={n} 2>/dev/null" for a, n in requests)
-        blob = subprocess.check_output(self.adb + ["exec-out", command], timeout=10)
+        blob = subprocess.check_output(self.command(command, exec_out=True), timeout=10)
         if len(blob) != sum(n for _, n in requests):
             raise CaptureError("Short batch read; frame rejected rather than zero-filled")
         result, at = [], 0

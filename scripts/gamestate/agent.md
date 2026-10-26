@@ -1,5 +1,45 @@
 # ARM64: чтение текущего поля Clash Royale
 
+## BlueStacks Air: проверено 25 октября 2026
+
+Бесплатный BlueStacks Air на этом Mac запускает установленный официальный Clash Royale
+до меню; выполнен один разрешённый реальный матч. Для ADB shell добавлен локально
+собранный `native/adb_su.c`: `/system/xbin/hasty-su`, root:shell, mode 04750.
+Он доступен shell/root, не Android-приложениям. Парсер сам root не устанавливает.
+Оригинальный образ сохранён в
+`/Users/andriashadrin/Downloads/BlueStacks-repair-20261024/parser-root-20261025/Root.qcow2.original`.
+Изменённый системный образ может быть заменён обновлением BlueStacks; данные игры не очищались.
+
+Запуск из корня репозитория (serial перепроверять через `adb devices`):
+
+```bash
+.venv-live/bin/python -m scripts.gamestate.query_arm64_v2 \
+  --serial emulator-5554 --su /system/xbin/hasty-su --own-state \
+  --binary /data/local/tmp/hasty_arm64_entities_20261025_bs_v8
+```
+
+Python API: `CurrentStateReader(adb, serial, binary=path, own_state=True,
+su="/system/xbin/hasty-su")`. Без `su` сохраняется прежний прямой root-ADB путь.
+Формат результата и проверки UID/ABI/versionCode/libg SHA не изменены.
+В меню возвращается `no_battle`, не фиктивное пустое поле со статусом ok.
+
+Отчёт: `reports/bluestacks_parser_live_20261025.json`; сырые 3000 запросов и
+снимки экрана: `tmp/bluestacks_parser_20261025/live_match_01/`.
+В матче 1414 снимков поля: median 36.60 ms, p95 45.00 ms, max 67.46 ms.
+Это запрос → готовый JSON, без первоначального attach; не задержка постановки карты.
+Период опроса был 100 ms. Median непосредственно native read — 0.051 ms.
+Сопоставлены HP башен, сторона, начальная рука и полный эликсир со скриншотами.
+Обнаружены тела обеих сторон, здания, башни, снаряды и заклинания.
+Один матч не доказывает полноту для всех карт или событий постановки.
+
+Own-state валиден в 1206 снимках. В 208 возвращён `transition_or_ambiguous`:
+189 при замершем финальном тике 2440 и 19 во время боя (тики 1737–1782,
+две группы с валидными снимками между ними). Не заполнять эти пропуски старой
+рукой/эликсиром и не выдавать их за достоверное наблюдение. Публичное поле
+в этих строках оставалось доступно. Причина 19 промежуточных отказов не установлена.
+32 теста транспорта, старого API и CLI прошли. Новые бои автоматически не запускаются.
+
+
 ## Текущий live-путь v8 и серия 30
 
 `CurrentStateReader(adb, serial, own_state=True)` выбирает отдельный

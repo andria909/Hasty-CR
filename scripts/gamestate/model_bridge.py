@@ -237,6 +237,8 @@ class NativeModelAdapter:
             mask[0] = True
         return ModelView(observation, mask, {
             'encoder': 'sim.env.observe', 'mask': 'sim.env.legal_mask',
+            'enemy_bodies_present': any(e.alive and e.side == -1 and not e.is_tower and
+                getattr(e,'object_role','') != 'pickup_effect_carrier' for e in match.battle.entities.values()),
             'own_engine_side': self.own_side, 'rotated_180': rotated,
             'coordinate_mode': self.coordinate_mode,
             'geometry': self.geometry.profile_id,
@@ -265,9 +267,12 @@ class MemoryPolicy:
         # Checkpoints are trusted local project files. No architecture migration.
         blob = torch.load(checkpoint, map_location='cpu', weights_only=False)
         config = blob.get('config', {})
+        self.joint = config.get('task_mode') == 'joint'
+        self.coordinate_mode = config.get('coordinate_mode', 'physical_live')
+        self.geometry = config.get('geometry', 'legacy_v1')
         self.input_contract = {key: config[key] for key in
             ('geometry', 'geometry_sha256', 'coordinate_mode', 'action_mask_mode') if key in config}
-        self.network = build_network(NUM_PLANES, NUM_SCALARS, ACTIONS,
+        self.network = build_network(NUM_PLANES, NUM_SCALARS + (3 if self.joint else 0), ACTIONS,
                                      checkpoint_architecture(blob))
         self.network.load_state_dict(blob['state_dict'], strict=True)
         self.network.eval()
@@ -286,6 +291,15 @@ class MemoryPolicy:
         with torch.inference_mode():
             planes = torch.from_numpy(view.observation['planes']).unsqueeze(0)
             scalars = torch.from_numpy(view.observation['scalars']).unsqueeze(0)
+            if self.joint:
+                if scalars.shape[1] != NUM_SCALARS:
+                    raise MissingModelInput('Expected unaugmented native observation')
+                if 'enemy_bodies_present' not in view.metadata:
+                    raise MissingModelInput('Public enemy-presence state is required for joint policy')
+                # Same public enemy-presence deployment rule as the paired
+                # full-match benchmark. No privileged curriculum deadline.
+                task = float(not bool(view.metadata.get('enemy_bodies_present')))
+                scalars = torch.cat((scalars, torch.tensor([[0., 0., task]], dtype=scalars.dtype)), dim=1)
             logits, value = self.network(planes, scalars)
             logits[0, ~torch.from_numpy(view.action_mask)] = -torch.inf
             action = int(logits.argmax(dim=-1)[0])

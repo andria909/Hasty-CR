@@ -41,9 +41,12 @@ def resolve_adb(explicit: str | None = None) -> str:
     raise CaptureError("adb not found; install Android SDK Platform-Tools or pass --adb")
 
 
-def create_reader(adb: str, serial: str, binary: str, own_state: bool):
+def create_reader(adb: str, serial: str, binary: str, own_state: bool, *, su: str | None = None):
     try:
-        return CurrentStateReader(adb, serial, binary, own_state=own_state)
+        kwargs = {"own_state": own_state}
+        if su is not None:
+            kwargs["su"] = su
+        return CurrentStateReader(adb, serial, binary, **kwargs)
     except subprocess.CalledProcessError as exc:
         command = exc.cmd[-1] if isinstance(exc.cmd, list) and exc.cmd else ""
         if command == f"pidof {PACKAGE}":
@@ -71,6 +74,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--adb", help="adb executable (otherwise discovered from Android SDK/PATH)")
     parser.add_argument("--serial", required=True)
+    parser.add_argument("--su", help="Already installed Android su executable; does not root the device")
     parser.add_argument("--binary", default=BINARY)
     parser.add_argument("--own-state", action="store_true",
                         help="Use v8 native private hand, cycle, mana and battle tick")
@@ -88,7 +92,7 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         adb = resolve_adb(args.adb)
-        reader = create_reader(adb, args.serial, args.binary, args.own_state)
+        reader = create_reader(adb, args.serial, args.binary, args.own_state, su=args.su)
         if args.output:
             args.output.mkdir(parents=True, exist_ok=False)
             (args.output / "identity.json").write_text(json.dumps({

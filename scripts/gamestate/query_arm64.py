@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import shlex
 import statistics
 import subprocess
 import time
@@ -28,8 +29,9 @@ class CurrentStateReader:
     current body positions, not card-placement commands.
     """
 
-    def __init__(self, adb: str, serial: str, binary: str = BINARY, *, own_state: bool = False):
-        self.memory = Memory(adb, serial)
+    def __init__(self, adb: str, serial: str, binary: str = BINARY, *, own_state: bool = False,
+                 su: str | None = None):
+        self.memory = Memory(adb, serial, su=su) if su is not None else Memory(adb, serial)
         if own_state and binary == BINARY:
             binary = STATE_BINARY
         if not binary.startswith('/data/local/tmp/') or any(
@@ -40,6 +42,8 @@ class CurrentStateReader:
         self.command = m.adb + ['exec-out', binary, str(m.pid), hex(m.libg_base),
                                hex(m.libg_base + 0x1936450), '1', '20',
                                '--auto-state-once' if own_state else '--auto-once']
+        if su is not None:
+            self.command = m.command(shlex.join(self.command[len(m.adb) + 1:]), exec_out=True)
 
     def query(self) -> dict:
         """Fresh snapshot. Timing includes process launch, ADB and JSON parsing.

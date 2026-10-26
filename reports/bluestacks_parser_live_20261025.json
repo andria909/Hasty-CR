@@ -1,0 +1,106 @@
+{
+  "device": "BlueStacks Air Android 13 ARM64",
+  "game_version_code": 160402020,
+  "live_ok_frames": 1414,
+  "statuses_at_audit": {
+    "ok": 1414,
+    "no_battle": 1586
+  },
+  "query_ms": {
+    "median": 36.6034585,
+    "p95": 45.0015,
+    "max": 67.457458,
+    "under_100ms": 1414,
+    "under_150ms": 1414
+  },
+  "own_state_statuses": {
+    "ok": 1206,
+    "transition_or_ambiguous": 208
+  },
+  "observed_units": [
+    "Cannon",
+    "ElectroSpirit",
+    "Giant",
+    "KingTower",
+    "MegaMinion",
+    "MiniPekka",
+    "Musketeer",
+    "PrincessTower",
+    "Skeleton",
+    "Valkyrie",
+    "Wizard"
+  ],
+  "observed_entities": [
+    "ArrowsSpell",
+    "Cannon",
+    "ElectroSpirit",
+    "ElectroSpiritProjectile",
+    "FireballSpell",
+    "Giant",
+    "KingProjectile",
+    "KingTower",
+    "MegaMinion",
+    "MegaMinionSpit",
+    "MiniPekka",
+    "Musketeer",
+    "MusketeerProjectile",
+    "PrincessTower",
+    "Skeleton",
+    "TowerCannonball",
+    "TowerPrincessProjectile",
+    "Valkyrie",
+    "Wizard",
+    "chr_wizardProjectile"
+  ],
+  "unit_sides": [
+    0,
+    1
+  ],
+  "visual_checks": [
+    "Enemy princess HP 2352 and own princess HP 2534 match screenshot",
+    "Own damaged left princess HP 99 matches screenshot",
+    "Initial hand [3,1,6,4] matches Musketeer,Cannon,Skeletons,ElectroSpirit",
+    "Own side 1 matches bottom towers; elixir 100000 matches 10"
+  ],
+  "limitations": [
+    "One match does not verify every possible unit type or every placement event",
+    "Query latency is not card-input-to-spawn latency",
+    "No screenshot detection used; screen comparisons are manual",
+    "Polling interval 100ms is additional to query transport latency"
+  ],
+  "raw_directory": "tmp/bluestacks_parser_20261025/live_match_01",
+  "benchmark_summary": {
+    "requests": 3000,
+    "accepted": 1414,
+    "rejected": 0,
+    "no_battle": 1586,
+    "round_trip_ms": {
+      "median": 36.6034585,
+      "p95": 45.0015,
+      "max": 67.457458,
+      "under_100ms": 1414,
+      "under_150ms": 1414
+    },
+    "native_read_ms_median": 0.050916499999999996,
+    "entity_count_range": [
+      5,
+      37
+    ],
+    "scope": "Request on Mac -> native root resolution/read -> ADB response -> JSON parsing and unit coordinate conversion. Initial ABI/version/hash attachment excluded. Not placement-event latency or screenshot recognition."
+  },
+  "own_state_unavailable_analysis": {
+    "terminal_frozen_tick_2440_frames": 189,
+    "mid_match_frames": 19,
+    "mid_match_tick_ranges": [
+      [
+        1737,
+        1741
+      ],
+      [
+        1751,
+        1782
+      ]
+    ],
+    "cause": "unproven; guards preserved"
+  }
+}

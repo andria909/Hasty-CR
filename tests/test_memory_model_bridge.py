@@ -38,6 +38,26 @@ def fixture(*, rotated=False):
     return m, {'status': 'ok', 'units': rows}, own
 
 
+@pytest.mark.parametrize('enemy_present',[False,True])
+def test_joint_live_appends_only_public_task_and_hidden_deadline_zeros(enemy_present):
+    import torch
+    _,row,own=fixture()
+    if not enemy_present:
+        row['units']=[u for u in row['units']if u['side']==0 or u['name']in ('KingTower','PrincessTower')]
+    view=NativeModelAdapter(own_side=0,coordinate_mode='physical_live_cells_v2').encode(row,own)
+    class Recorder:
+        def __call__(self,planes,scalars):
+            self.scalars=scalars.clone()
+            return torch.zeros((1,len(view.action_mask))),torch.zeros(1)
+    policy=MemoryPolicy.__new__(MemoryPolicy)
+    policy.torch=torch;policy.joint=True;policy.input_contract={};policy.network=Recorder()
+    policy.decide(view)
+    values=policy.network.scalars.numpy()[0]
+    assert values.shape==(309,)
+    np.testing.assert_array_equal(values[:306],view.observation['scalars'])
+    np.testing.assert_array_equal(values[-3:],[0.,0.,float(not enemy_present)])
+
+
 @pytest.mark.parametrize('rotated', [False, True])
 def test_memory_encoding_matches_training_exactly(rotated):
     match, row, own = fixture(rotated=rotated)

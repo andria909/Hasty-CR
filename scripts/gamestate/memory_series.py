@@ -19,8 +19,9 @@ def lobby_button_matches(reference, current, box=(480,1870,970,2000)):
     from PIL import Image, ImageChops, ImageStat
     def crop(blob):
         im=Image.open(BytesIO(blob)).convert('RGB')
-        if im.size != (1440,2560):
+        if im.size not in ((1440,2560),(1080,1920)):
             raise ValueError('Unexpected Android resolution')
+        if im.size != (1440,2560): im=im.resize((1440,2560))
         return im.crop(box).resize((98,26))
     return sum(ImageStat.Stat(ImageChops.difference(crop(reference),crop(current))).mean)/3 < 12
 
@@ -64,6 +65,10 @@ def main():
     p.add_argument('--total', type=int, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--serial', required=True)
+    p.add_argument('--binary', default=None)
+    p.add_argument('--su', default=None)
+    p.add_argument('--width',type=int,default=1440)
+    p.add_argument('--height',type=int,default=2560)
     p.add_argument('--adb', default='/tmp/Hasty-android-tools/platform-tools/adb')
     p.add_argument('--resume', action='store_true', help='Resume saved count after manual recovery; never reset series')
     p.add_argument('--lobby-reference', type=Path, help='Human-verified lobby screenshot for bounded queue retries')
@@ -79,7 +84,10 @@ def main():
         p.error('Existing run limit exceeds the authorized total')
     a.output.mkdir(parents=True, exist_ok=a.resume)
     adb = [a.adb, '-s', a.serial]
-    reader = CurrentStateReader(a.adb, a.serial, own_state=True)
+    reader_kwargs=dict(own_state=True)
+    if a.su:reader_kwargs['su']=a.su
+    if a.binary:reader_kwargs['binary']=a.binary
+    reader = CurrentStateReader(a.adb, a.serial, **reader_kwargs)
     lobby_reference=a.lobby_reference.read_bytes() if a.lobby_reference else None
     result_reference=a.result_reference.read_bytes() if a.result_reference else None
     state = {'requested': a.total, 'finished': 0, 'wins': 0, 'losses': 0, 'unknown': 0,
@@ -103,7 +111,7 @@ def main():
         (a.output/name).write_bytes(subprocess.check_output(adb+['exec-out','screencap','-p'],timeout=10))
 
     def tap(x, y):
-        subprocess.run(adb+['shell','input','tap',str(x),str(y)],check=True,timeout=5)
+        subprocess.run(adb+['shell','input','tap',str(round(x*a.width/1440)),str(round(y*a.height/2560))],check=True,timeout=5)
 
     run = a.existing
     offset = sum(m['run'] != str(run) for m in state['matches'])
@@ -170,8 +178,12 @@ def main():
                 run=a.output/'remaining'
                 remaining=a.total-offset
                 child_log=(a.output/'runner_stdout.log').open('x')
-                child=subprocess.Popen(remaining_runner_command(sys.executable,
-                    adb=a.adb,serial=a.serial,checkpoint=checkpoint,remaining=remaining,output=run),
+                command=remaining_runner_command(sys.executable,
+                    adb=a.adb,serial=a.serial,checkpoint=checkpoint,remaining=remaining,output=run)
+                command+=['--width',str(a.width),'--height',str(a.height)]
+                if a.binary:command+=['--binary',a.binary]
+                if a.su:command+=['--su',a.su]
+                child=subprocess.Popen(command,
                     stdout=child_log,stderr=subprocess.STDOUT)
                 state['runs'].append(str(run))
                 ready_deadline=time.monotonic()+40
