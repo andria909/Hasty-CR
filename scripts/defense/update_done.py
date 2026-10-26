@@ -141,6 +141,9 @@ def render_reality(models,status,reports):
                 '[Проба и следующая серия](reports/full_elixir_opening_probe_20261026.md).']
         lines+=['','**После завершения:** отдельный оценщик600 матчей для новых весов готов; '+
             'GPU-оценка ещё не отправлена. Test и турнир не используются для выбора коэффициентов.']
+        if (reports/'public_observation_aliasing_20261026.json').exists():
+            lines+=['','**Следующая гипотеза:** [короткая история кадров](reports/observation_history_gap_20261026.md); '+
+                'один кадр не различает две проверенные ветки движения. Текущие входы/GPU не менялись.']
         lines+=['','Наблюдение раз в20 минут; запись логов можно продолжать без потери счётчиков.',
             'Проценты — снимок полученных логов, не оценка по времени. '+
             ('[Состояние](reports/defense_plan/continuous_slots_training_20261026.json).'if slot_mode else '[Состояние](reports/defense_plan/continuous_training_20261026.json).'),'',

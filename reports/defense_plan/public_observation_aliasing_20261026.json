@@ -1,0 +1,48 @@
+{
+  "schema": "controlled-public-observation-aliasing-v1",
+  "same_model_input": {
+    "planes": true,
+    "scalars": true
+  },
+  "next_position_separation_mt": 1601.0,
+  "branches": [
+    {
+      "initial": {
+        "x": 9500,
+        "y": 16500,
+        "target_uid": 8
+      },
+      "after_1000ms": {
+        "x": 8692,
+        "y": 17028,
+        "target_uid": 8
+      }
+    },
+    {
+      "initial": {
+        "x": 9500,
+        "y": 16500,
+        "target_uid": 9
+      },
+      "after_1000ms": {
+        "x": 10293,
+        "y": 17028,
+        "target_uid": 9
+      }
+    }
+  ],
+  "elapsed_ms": 1000,
+  "source_sha256": {
+    "sim/env.py": "cda7ad6b1431132e39480ccb99214ba8eaedea80383a59d4836bebf2e32063f9",
+    "sim/eval_defense_duel.py": "659def3089d3afcdce539b5145371caf7ea407003b11a5c36016b3498a6feb5c",
+    "sim/continuous_push.py": "f4095083c3df6e6c747fca8e6c90d02dcbe07356e1efc11ae857089058c9cf6c",
+    "sim/engine.py": "fa6da95053c68839954f9c7bccc8c5a832e3bc742dfce17bbf8e4863f28e205c"
+  },
+  "learning_changed": false,
+  "live_games_started": false,
+  "limits": [
+    "Synthetic hidden-target intervention, not a recorded live transition",
+    "Does not establish optimal spell action or verify real targeting physics",
+    "History may reduce ambiguity; no claim it makes the game fully observable"
+  ]
+}
