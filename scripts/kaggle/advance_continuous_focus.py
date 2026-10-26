@@ -16,6 +16,11 @@ import time
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
+def project_python():
+    # Resolving the executable symlink bypasses pyvenv.cfg and loses torch.
+    return str(Path('.venv-live/bin/python').absolute())
+
+
 def prerequisites(training,evaluation):
     if not Path(training).exists()or not Path(evaluation).exists():return False
     try:t=json.loads(Path(training).read_text());e=json.loads(Path(evaluation).read_text())
@@ -88,7 +93,7 @@ def run(args,api_factory=None):
         if not(output/'preparation.json').exists():
             if output.exists():raise ValueError('Partial preparation preserved; inspect before rebinding')
             save(phase='binding_verified_weights')
-            subprocess.run([str(Path('.venv-live/bin/python').resolve()),str((template/'bind.py').resolve()),
+            subprocess.run([project_python(),str((template/'bind.py').resolve()),
                 '--template',str(template),'--training-report',str(args.training_report),'--output',str(output),'--owner',args.owner],check=True)
         preparation=json.loads((output/'preparation.json').read_text())
         if preparation['kernel']!=state['kernel']:raise ValueError('Prepared kernel changed')
@@ -103,7 +108,7 @@ def run(args,api_factory=None):
             if time.monotonic()>=next_sync:
                 from scripts.kaggle.watch_continuous_training import sync_status
                 if sync_status(output,args.status_report):
-                    subprocess.run([str(Path('.venv-live/bin/python').resolve()),'-m','scripts.defense.update_done'],check=True)
+                    subprocess.run([project_python(),'-m','scripts.defense.update_done'],check=True)
                 next_sync=time.monotonic()+1200
             time.sleep(30);continue
         next_remote=time.monotonic()+1200
@@ -163,7 +168,7 @@ def run(args,api_factory=None):
                 Path(args.status_report).write_text(json.dumps(report,indent=2)+'\n')
                 status_path=Path('reports/defense_plan/realism_status.json');status=json.loads(status_path.read_text());status['stage']='continuous_focus_cohort'
                 status['continuous_training_report']=str(args.status_report);status_path.write_text(json.dumps(status,indent=2)+'\n')
-                subprocess.run([str(Path('.venv-live/bin/python').resolve()),'-m','scripts.defense.update_done'],check=True)
+                subprocess.run([project_python(),'-m','scripts.defense.update_done'],check=True)
             remote=api.kernels_status(state['kernel']);state_remote=json.loads(str(remote))
             save(phase='focus_kernel_'+state_remote['status'].lower(),remote_status=state_remote)
             if state_remote['status']in('ERROR','CANCEL_ACKNOWLEDGED','CANCELLED'):
@@ -175,12 +180,12 @@ def run(args,api_factory=None):
             try:complete=json.loads(receipt.read_text()).get('complete')
             except(ValueError,OSError):continue
             if not complete:continue
-            subprocess.run([str(Path('.venv-live/bin/python').resolve()),'-m','scripts.attack.verify_continuous_focus',
+            subprocess.run([project_python(),'-m','scripts.attack.verify_continuous_focus',
                 '--collected',str(receipt.parent),'--prepared',str(output),'--output',str(args.verified_report)],check=True)
             verified=json.loads(Path(args.verified_report).read_text())
             status=json.loads(Path(args.status_report).read_text());status['status']='cohort_verified'
             status['verified_report']=str(args.verified_report);Path(args.status_report).write_text(json.dumps(status,indent=2)+'\n')
-            subprocess.run([str(Path('.venv-live/bin/python').resolve()),'-m','scripts.defense.update_done'],check=True)
+            subprocess.run([project_python(),'-m','scripts.defense.update_done'],check=True)
             save(phase='focus_cohort_verified',full_gate_met=verified['full_gate_met']);return
         time.sleep(30)
     save(phase='handoff_deadline_reached_remote_job_untouched')

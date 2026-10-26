@@ -119,11 +119,25 @@ def render_reality(models,status,reports):
         parallel=reports/'clock_fireball_pilot_training_20261026.json'
         if parallel.exists():
             study=json.loads(parallel.read_text())
-            lines+=['','**Параллельная короткая серия:** '+study['status']+
-                '; gamma/lambda × штраф пустого Fireball,8 проб,819200 шагов. '+
-                'Старт с исходника; автоматических больших запусков нет.']
+            summary=reports/'clock_fireball_pilot_summary_20261026.json'
+            if summary.exists():
+                small=json.loads(summary.read_text())
+                lines+=['','**Короткая серия завершена:819200 шагов проверены.** '+
+                    'Ни один вариант не прошёл гейт воздуха/голема; больших продолжений нет.',
+                    '','| Настройка | Validation-победы |','|---|---:|']
+                labels={'current_control':'База','current_miss':'База + штраф FB',
+                    'seconds_preserved_control':'Горизонт ×2','seconds_preserved_miss':'Горизонт ×2 + штраф FB'}
+                for row in small['rows']+[dict(id='parent',**small['parent'])]:
+                    lines.append(f"| {labels.get(row['id'],'Исходник')} | {row['wins']}/{row['games']} ({100*row['wins']/row['games']:.2f}%) |")
+                lines+=['','144 строки =72 validation-контекста ×2 обученных seed, не независимый test. '+
+                    'Штраф уменьшил число FB, точность наведения почти не изменилась. '+
+                    '[Карты и подробности](reports/clock_fireball_pilot_results_20261026.md).']
+            else:
+                lines+=['','**Параллельная короткая серия:** '+study['status']+
+                    '; gamma/lambda × штраф пустого Fireball,8 проб,819200 шагов. '+
+                    'Старт с исходника; автоматических больших запусков нет.']
             trials=study.get('progress_snapshot',{}).get('trials',{})
-            if trials:
+            if trials and not summary.exists():
                 lines+=['','| Конфигурация короткой серии | Доля бюджета двух seed |','|---|---:|']
                 for case in ('current_control','current_miss','seconds_preserved_control','seconds_preserved_miss'):
                     steps=sum(trials.get(f'pilot_{case}_s{s}',{}).get('steps',0)for s in(72,73))

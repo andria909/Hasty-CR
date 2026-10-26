@@ -1,8 +1,8 @@
 {
   "schema": "parallel-clock-fireball-pilot-launch-v1",
   "kernel": "andriashadrin/hastycr-clock-fireball-short-pilot",
-  "status": "CUDA_READY_reference_validation",
-  "actual_training_steps_confirmed": false,
+  "status": "pilot_complete_budgets_verified_no_eligible_pair",
+  "actual_training_steps_confirmed": true,
   "root": "tmp/kaggle/clock_fireball_pilot_20261026",
   "pilot_steps": 819200,
   "automatic_full_training": false,
@@ -13,7 +13,7 @@
   "live_games_started": false,
   "fourth_account_authentication": "failed; first account used instead",
   "independent_hard_family_jobs_unchanged": true,
-  "last_local_sync_ns": 1793029872875036000,
+  "last_local_sync_ns": 1793034673778217000,
   "inputs_verified": true,
   "cuda_devices": [
     "Tesla T4",
@@ -36,10 +36,67 @@
     "kernel": "andriashadrin/hastycr-clock-fireball-short-pilot",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
-    "error_type": "ConnectionError",
-    "http_status": null,
-    "reconnect_attempt": 0,
-    "checked_host_ns": 1793029837141039000
-  }
+    "stream_state": "ended",
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793034497353804000,
+    "trials": {
+      "pilot_current_control_s72": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1427.553288242
+      },
+      "pilot_current_miss_s72": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1416.523558224
+      },
+      "pilot_current_miss_s73": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2509.293746218
+      },
+      "pilot_current_control_s73": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2487.187635204
+      },
+      "pilot_seconds_preserved_control_s72": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3540.489114162
+      },
+      "pilot_seconds_preserved_miss_s72": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3581.848061706
+      },
+      "pilot_seconds_preserved_control_s73": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 4603.993349683
+      },
+      "pilot_seconds_preserved_miss_s73": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 4652.676318812
+      }
+    }
+  },
+  "verified_report": "reports/defense_plan/clock_fireball_pilot_verified_20261026.json"
 }

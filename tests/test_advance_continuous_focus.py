@@ -2,8 +2,19 @@ import json
 import pytest
 from types import SimpleNamespace as NS
 from pathlib import Path
+import subprocess
+import sys
 
 from scripts.kaggle import advance_continuous_focus as advance
+
+
+def test_project_python_keeps_virtualenv_in_actual_subprocess(tmp_path,monkeypatch):
+    venv=tmp_path/'.venv-live';(venv/'bin').mkdir(parents=True)
+    (venv/'bin/python').symlink_to(sys.executable)
+    (venv/'pyvenv.cfg').write_text(f'home = {Path(sys.base_prefix)/"bin"}\ninclude-system-site-packages = true\n')
+    monkeypatch.chdir(tmp_path)
+    prefix=subprocess.check_output([advance.project_python(),'-c','import sys;print(sys.prefix)'],text=True).strip()
+    assert prefix==str(venv)
 
 
 def test_no_cloud_call_before_verified_training_and_evaluation(monkeypatch,tmp_path):
