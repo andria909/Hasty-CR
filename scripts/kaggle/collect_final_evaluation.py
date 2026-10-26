@@ -46,7 +46,26 @@ def collect(api,kernel,destination,profile='defense'):
     files,logs=list_outputs(api,kernel)
     if terminal_state(api.kernels_status(kernel))!=state:
         raise ValueError('Remote evaluation state changed during listing')
-    if profile=='card-balance-study':
+    if profile=='continuous-ppo':
+        import re
+        prefix='continuous_ppo/';result_file='result.json'
+        allowed={result_file,'selection.json'}
+        for name in files:
+            if not name.startswith(prefix):continue
+            relative=name[len(prefix):]
+            if re.fullmatch(r'(?:pilot|full)_(?:control|leak|balanced|strong)_s4[234](?:_summary\.json|_profile\.json|\.log)',relative):
+                allowed.add(relative)
+            if re.fullmatch(r'(?:pilot|full)_(?:control|leak|balanced|strong)_s4[234]/(?:config\.json|metrics\.jsonl|training_result\.json|(?:best_validation|update)_\d{6}\.pt)',relative):
+                # Keep latest resumable boundary and all validation candidates.
+                if '/update_'not in relative:allowed.add(relative)
+        latest={}
+        for name in files:
+            match=re.fullmatch(re.escape(prefix)+r'((?:pilot|full)_(?:control|leak|balanced|strong)_s4[234])/update_(\d{6})\.pt',name)
+            if match:
+                key,update=match.group(1),int(match.group(2))
+                if key not in latest or update>latest[key][0]:latest[key]=(update,name[len(prefix):])
+        allowed.update(value[1]for value in latest.values())
+    elif profile=='card-balance-study':
         import re
         prefix='card_balance_study/'
         result_file='result.json'
@@ -135,7 +154,7 @@ def main():
     parser.add_argument('--poll-seconds',type=int,default=1200)
     parser.add_argument('--once',action='store_true')
     parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
-    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study'),default='defense')
+    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only

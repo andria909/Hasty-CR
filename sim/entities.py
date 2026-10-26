@@ -1332,7 +1332,8 @@ KING_COLLISION_MT = 1400
 # of its 7.5 tile range takes three quarters of a second to arrive. Towers are
 # built here by hand rather than from a card, so this has to be set explicitly
 # or they would hit instantly while every other shooter's arrows travel.
-TOWER_PROJECTILE_MT_PER_SEC = 600 * 1000 // 60
+TOWER_PROJECTILE_MT_PER_SEC = 600 * 20
+KING_PROJECTILE_MT_PER_SEC = 1000 * 20
 # Towers wind up before their first shot at a new target, and it is not a small
 # number: princesstower.toml gives LoadTime 1000 and every KingTower variant
 # 500. Both were built with no windup at all, which handed each tower a free
@@ -1360,7 +1361,7 @@ def make_tower(uid: int, side: int, pos: Point, hitpoints: int, damage: int,
         range_mt=range_mt,
         sight_range_mt=range_mt, speed_mt_per_sec=0,
         collision_radius_mt=KING_COLLISION_MT if king else PRINCESS_COLLISION_MT,
-        projectile_speed_mt_per_sec=TOWER_PROJECTILE_MT_PER_SEC,
+        projectile_speed_mt_per_sec=KING_PROJECTILE_MT_PER_SEC if king else TOWER_PROJECTILE_MT_PER_SEC,
         # Both King Tower and Princess Tower projectile records explicitly
         # declare Homing = true in the client data.  Towers are constructed
         # directly (rather than through UnitSpec), so retain that fact here.

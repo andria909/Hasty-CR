@@ -16,6 +16,7 @@ from scripts.kaggle import collect_final_evaluation as collector
                                                   ('native-fireball-evaluation','native_fireball_evaluation/','result.json'),
                                                   ('card-usage','card_usage/','result.json'),
                                                   ('card-balance-study','card_balance_study/','result.json'),
+                                                  ('continuous-ppo','continuous_ppo/','result.json'),
                                                   ('fireball-evaluation','fireball_evaluation/','result.json')])
 def test_only_declared_terminal_report_files_are_collected(monkeypatch,tmp_path,profile,prefix,result):
     data={prefix+result:b'{"status":"completed"}',prefix+'project/secret.py':b'never',prefix+'policy.pt':b'never'}

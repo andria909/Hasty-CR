@@ -27,6 +27,7 @@ from typing import Dict, Optional
 
 from . import arena
 from .arena import Point, isqrt
+from .projectile_calibration import projectile_speed
 
 GAMEDATA = Path(__file__).resolve().parents[1] / "tmp" / "gamedata" / "csv_logic"
 VERIFIED_RULES = Path(__file__).resolve().parents[1] / "data" / "royaleapi" / "combat_rules.json"
@@ -690,10 +691,9 @@ def load_spells(level: int = 11, root: Path | None = None,
                 if "tower_damage_override" in rule else 0),
             initial_damage=bool(rule.get("initial_damage", True)),
             resolves_card_as_spell=bool(rule.get("resolves_card_as_spell", False)),
-            # Native tick traces: Fireball raw600 advances ~600mt/tick at20Hz.
-            # Other projectiles retain their previous scale until measured.
-            projectile_speed_mt_per_sec=(num("Speed") * 20 if card == "fireball"
-                                         else num("Speed") * 1000 // 60),
+            # Calibrate measured XY kinds only; unrelated motion is unchanged.
+            projectile_speed_mt_per_sec=projectile_speed(
+                projectile_name or {'fireball':'FireballSpell','rocket':'RocketSpell'}.get(card,''),num('Speed')),
             travels_from_king=bool(rule.get("travels_from_king", False)),
             impact_delay_ms=int(rule.get("impact_delay_ms", 0) or 0),
             spawn_deploy_time_ms=int(rule.get(

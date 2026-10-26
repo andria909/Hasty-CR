@@ -1194,7 +1194,8 @@ def build_unit_spec(name: str, raw: dict, level: int, card_rarity: str, rarities
     proj_speed = 0
     if proj_name:
         local_proj = raw.get('_PROJECTILE_DATA', {}).get(proj_name, {})
-        proj_speed = int(local_proj.get('Speed', 0) or 0) * 1000 // 60
+        from .projectile_calibration import projectile_speed
+        proj_speed = projectile_speed(proj_name,int(local_proj.get('Speed', 0) or 0))
 
     is_flying = int(raw.get('FlyingHeight', 0)) > 0 or bool(raw.get('Flying', False))
     ability_name = str(raw.get('Ability', '') or '')

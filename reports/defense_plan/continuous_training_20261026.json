@@ -1,0 +1,49 @@
+{
+  "schema": "continuous-training-launch-v1",
+  "kernel": "andriashadrin/hastycr-continuous-ppo-20261026",
+  "version": 1,
+  "gpus": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "status": "running_confirmed_cuda",
+  "total_target_steps": 9011200,
+  "pilot_configs": 4,
+  "pilot_seeds": [
+    42,
+    43
+  ],
+  "pilot_steps_each": 102400,
+  "full_models": 2,
+  "full_steps_each": 4096000,
+  "protocol_sha256": "1bb5b3c31812b47c565f12d6ba1359919caafe607d92572bfa4b1e29da0ecdf5",
+  "progress_snapshot": {
+    "kernel": "andriashadrin/hastycr-continuous-ppo-20261026",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "trials": {
+      "pilot_control_s42": {
+        "update": 38,
+        "steps": 38912,
+        "target_steps": 102400,
+        "percent": 38.0,
+        "remote_log_seconds": 290.766631127
+      },
+      "pilot_leak_s42": {
+        "update": 38,
+        "steps": 38912,
+        "target_steps": 102400,
+        "percent": 38.0,
+        "remote_log_seconds": 286.793468343
+      }
+    },
+    "checked_host_ns": 1792975907758592000,
+    "error_type": "SSLError",
+    "http_status": null,
+    "reconnect_attempt": 0
+  },
+  "checked_host_ns": 1792976209042069000,
+  "quality_accepted": false,
+  "live_stopped": true
+}

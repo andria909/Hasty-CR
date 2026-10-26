@@ -1,0 +1,125 @@
+{
+  "schema": "native-projectile-velocity-screening-v1",
+  "sources": [
+    {
+      "path": "tmp/live/ppo_joint_bs_20261025_live10/run/frames.jsonl",
+      "sha256": "901167b5a1c066fe61b06c1e381174c86c4793659a9eea35b7ce2f42239d6e84"
+    },
+    {
+      "path": "tmp/live/defense_economy_bs_20261026_live10/recovery_run/frames.jsonl",
+      "sha256": "a950e6c372dbab666a1d34f807db2d6254cec1e556754fbdb9db0559f5ccbabe"
+    },
+    {
+      "path": "tmp/live/defense_economy_bs_20261026_live10/final_run/frames.jsonl",
+      "sha256": "ad2ee9ea3d2166bfa403f3d2ec71d44669a9c4e431fabbd4b1a6507e0dc08d44"
+    }
+  ],
+  "clock_sha256": "df98ccc1113a13c5f5d1149d126cce51a158dad2bc8b0b7328ff4714efde8280",
+  "projectiles": {
+    "ArrowsSpell": {
+      "speed_mt_s": {
+        "n": 40,
+        "p10": 21983.9072880252,
+        "median": 21988.66326665048,
+        "p90": 21997.77426979334
+      },
+      "raw_speed": 1100,
+      "predicted_mt_s": 22000
+    },
+    "BombSkeletonProjectile": {
+      "speed_mt_s": {
+        "n": 14,
+        "p10": 7981.603848851432,
+        "median": 7988.583803275307,
+        "p90": 7997.658189350283
+      },
+      "raw_speed": 400,
+      "predicted_mt_s": 8000
+    },
+    "FireSpiritsProjectile": {
+      "speed_mt_s": {
+        "n": 7,
+        "p10": 7985.3025649300225,
+        "median": 7991.792394639161,
+        "p90": 7999.199875366258
+      },
+      "raw_speed": 400,
+      "predicted_mt_s": 8000
+    },
+    "FireballSpell": {
+      "speed_mt_s": {
+        "n": 15,
+        "p10": 11987.657560252694,
+        "median": 11988.623372217757,
+        "p90": 11993.92500513287
+      },
+      "raw_speed": 600,
+      "predicted_mt_s": 12000
+    },
+    "KingProjectile": {
+      "speed_mt_s": {
+        "n": 45,
+        "p10": 19986.486295765273,
+        "median": 19994.189876283166,
+        "p90": 19998.47994223561
+      },
+      "raw_speed": 1000,
+      "predicted_mt_s": 20000
+    },
+    "MusketeerProjectile": {
+      "speed_mt_s": {
+        "n": 51,
+        "p10": 19984.237399621845,
+        "median": 19991.25452924506,
+        "p90": 19997.10340135402
+      },
+      "raw_speed": 1000,
+      "predicted_mt_s": 20000
+    },
+    "RocketSpell": {
+      "speed_mt_s": {
+        "n": 1,
+        "p10": 6996.8683375258115,
+        "median": 6996.8683375258115,
+        "p90": 6996.8683375258115
+      },
+      "raw_speed": 350,
+      "predicted_mt_s": 7000
+    },
+    "SpearGoblinProjectile": {
+      "speed_mt_s": {
+        "n": 108,
+        "p10": 9983.700203421773,
+        "median": 9991.063182513231,
+        "p90": 9997.952917211522
+      },
+      "raw_speed": 500,
+      "predicted_mt_s": 10000
+    },
+    "TowerPrincessProjectile": {
+      "speed_mt_s": {
+        "n": 581,
+        "p10": 11985.888035519103,
+        "median": 11990.229161275636,
+        "p90": 11997.016556210965
+      },
+      "raw_speed": 600,
+      "predicted_mt_s": 12000
+    },
+    "chr_wizardProjectile": {
+      "speed_mt_s": {
+        "n": 31,
+        "p10": 11983.969777141498,
+        "median": 11988.861497239843,
+        "p90": 11991.420247312908
+      },
+      "raw_speed": 600,
+      "predicted_mt_s": 12000
+    }
+  },
+  "limitations": [
+    "XY speeds only; impact, target selection and AOE are not validated",
+    "Repeated tracks within matches are correlated"
+  ],
+  "physics_fully_validated": false
+}

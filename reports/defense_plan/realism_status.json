@@ -1,7 +1,7 @@
 {
   "schema": "sim-live-reality-check-status-v1",
-  "stage": "card_usage_and_executor_alignment",
-  "live_status": "stopped_by_user",
+  "stage": "continuous_full_game_ppo",
+  "live_status": "stopped_for_training_by_user",
   "live_completed_matches": 4,
   "live_wins": 0,
   "live_losses": 4,
@@ -23,16 +23,17 @@
   "live_games_started": false,
   "card_balance_study": {
     "kernel": "andriashadrin/hastycr-card-balance-study-20261025",
-    "remote_status": "RUNNING",
+    "remote_status": "COMPLETE",
     "steps_per_trial": 102400,
     "regularizer_weight": 0.02,
     "progress_source": "last_received_cuda_training_logs",
     "stream_state": "interrupted_SSL_reconnect_pending",
     "trials": {
-      "baseline": 53,
-      "balance_all": 49,
-      "balance_units": null
+      "baseline": 100,
+      "balance_all": 100,
+      "balance_units": 100
     },
     "quality_verified": false
-  }
+  },
+  "continuous_training_report": "reports/defense_plan/continuous_training_20261026.json"
 }

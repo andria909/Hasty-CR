@@ -47,6 +47,29 @@ def load_models(reports):
 
 
 def render_reality(models,status,reports):
+    if status.get('stage')=='continuous_full_game_ppo':
+        training=json.loads((reports/'continuous_training_20261026.json').read_text())
+        trials=training.get('progress_snapshot',{}).get('trials',{})
+        finished=training.get('status')=='training_complete_budgets_verified'
+        lines=['# Текущий этап','',
+            '**Полные матчи PPO на Kaggle, 2×Tesla T4.** Четыре конфигурации × два seed по102400 шагов; '+
+            'затем две лучшие по4096000. Всего9011200 шагов. '+
+            ('Бюджеты завершены и проверены; независимая оценка ещё требуется.' if finished else 'Большие модели пока не выбраны.'),'',
+            '| Текущая проба | Последний полученный процент |','|---|---:|']
+        for name,row in trials.items():lines.append(f"| {name} | {row['percent']:.0f}% |")
+        lines+=['','Проценты — снимок полученных логов, не оценка по времени. '+
+            '[Состояние](reports/defense_plan/continuous_training_20261026.json).','',
+            '**Что изменено:** непрерывные противники с настоящей рукой/циклом/эликсиром; '+
+            'штраф за переполнение и подбор мягкого баланса карт. Задержка команды225мс + блокировка2100мс '+
+            '(1,5× live-медиан). Исправлены измеренные скорости снарядов; точки кайта приближены.','',
+            '**Проверки:**40 целевых тестов прошли; точный Kaggle-пакет завершил4 контрольных матча '+
+            '(исходник проиграл4/4). Отдельно3 старых теста tower troops не проходят без клиентских TOML; '+
+            'не выдаём весь тестовый набор за зелёный.','',
+            '**Приёмки пока нет:** полная физика/таргетинг и перенос в live не подтверждены. '+
+            'Живые бои остановлены. Исходник и v25 сохранены.','',
+            '[Среднее использование всех карт у20 моделей](reports/card_usage_20261025.md). '+
+            'Предыдущий короткий JS-пилот с0,02 не дал заметного выравнивания или новых навыков.']
+        return '\n'.join(lines)+'\n'
     live=json.loads((reports/'live_card_usage_20261025.json').read_text())
     complete=status.get('card_usage_status')=='complete_verified'
     lines=['# Где мы сейчас','',

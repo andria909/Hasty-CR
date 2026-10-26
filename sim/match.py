@@ -156,6 +156,7 @@ class PlayerState:
     queue: List[str] = field(default_factory=list)
     crowns: int = 0
     elixir_spent: int = 0
+    natural_elixir_overflow_milli: int = 0
     # What Mirror would copy: the last card this player actually deployed.
     last_card: str = ""
     evolution_progress: Dict[str, int] = field(default_factory=dict)
@@ -357,6 +358,7 @@ class Match:
         gain = scaled // period
         self._regen_carry = scaled % period
         for player in self.players.values():
+            player.natural_elixir_overflow_milli += max(0, player.elixir + gain - MAX_ELIXIR)
             player.elixir = min(MAX_ELIXIR, player.elixir + gain)
 
     # ------------------------------------------------------------ deployment

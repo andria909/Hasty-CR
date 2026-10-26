@@ -15,6 +15,7 @@ from types import UnionType
 from typing import get_args, get_origin
 
 from .entities import speed_to_mt_per_sec
+from .projectile_calibration import projectile_speed
 from .gamedata import CardSpec, UnitSpec, to_snake_case
 
 ROOT = Path(__file__).resolve().parents[1] / "data" / "royaleapi"
@@ -104,7 +105,7 @@ def _unit(row: dict, projectiles: dict, level: int, *, building: bool,
         "jump_enabled": bool(row.get("jump_enabled", False)),
         "jump_speed_mt_per_sec": speed_to_mt_per_sec(int(row.get("jump_speed") or 0)),
         "retarget_after_attack": bool(row.get("retarget_after_attack", False)),
-        "projectile_speed_mt_per_sec": int(projectile.get("speed") or 0) * 1000 // 60,
+        "projectile_speed_mt_per_sec": projectile_speed(projectile.get('name',''),int(projectile.get('speed') or 0)),
         "projectile_homing": bool(projectile.get("homing", False)),
         "charge_range_mt": int(row.get("charge_range") or 0),
         "charge_speed_multiplier": int(row.get("charge_speed_multiplier") or 0),

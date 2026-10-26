@@ -1,0 +1,29 @@
+{
+  "schema": "autonomous-live-timing-for-training-v1",
+  "neural_inference_ms": {
+    "n": 112,
+    "median": 1.9583745000000001,
+    "p90": 2.4515297,
+    "p95": 2.6505482499999995
+  },
+  "observation_request_to_input_return_ms": {
+    "n": 112,
+    "median": 147.027,
+    "p90": 151.84969999999998,
+    "p95": 153.78555
+  },
+  "input_return_to_hand_ack_ms": {
+    "n": 111,
+    "median": 1406.438,
+    "p90": 1438.98,
+    "p95": 1644.7825
+  },
+  "multiplier": 1.5,
+  "training_command_delay_ms": 225,
+  "training_post_execution_cooldown_ms": 2100,
+  "notes": [
+    "Excludes completed matches reported as manually assisted.",
+    "ACK is hand rotation, not exact spawn time.",
+    "Intervals between successive PLAY events also include strategic waiting and lack of mana; not a computation-delay estimate."
+  ]
+}

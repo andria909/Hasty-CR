@@ -430,9 +430,11 @@ def strategic_action_mask(match, hand, mask: np.ndarray,
         knight = slot_grid("knight")
         if knight is not None:
             allowed = np.zeros_like(knight)
-            kite_x = focus_x if late_contact else (9 if lane_left else 8)
+            from sim.kite_geometry import close_kite_cell
+            close_x,close_y=close_kite_cell(focus_x,focus_y)
+            kite_x = focus_x if late_contact else close_x
             y = (int(np.clip(focus_y, 21, 24)) if late_contact
-                 else int(np.clip(focus_y + 1, 20, 22)))
+                 else close_y)
             allowed[max(16, y - 1):min(GRID_H, y + 2),
                     max(0, kite_x - 1):min(GRID_W, kite_x + 2)] = True
             knight &= allowed
