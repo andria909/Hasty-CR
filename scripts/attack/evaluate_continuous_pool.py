@@ -6,6 +6,7 @@ import hashlib
 import itertools
 import json
 from pathlib import Path
+import shutil
 
 import numpy as np
 import torch
@@ -21,6 +22,36 @@ from sim.train_ppo import build_network,checkpoint_architecture,load_policy_stat
 
 
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def restore_parts(protocol_path,protocol,weights,output):
+    """Reuse only pinned complete parts from an interrupted identical schedule."""
+    weights=Path(weights);output=Path(output);manifest_path=weights/'resume_manifest.json'
+    if not manifest_path.exists():return {}
+    manifest=json.loads(manifest_path.read_text())
+    if manifest['protocol_sha256']!=sha(protocol_path):raise ValueError('Resume protocol differs')
+    models={m['id']:m for m in protocol['models']}
+    allowed={n+'_test.json':('test',n)for n in models}
+    allowed.update({a+'__'+b+'_duels.json':('duel',(a,b))for a,b in itertools.combinations(models,2)})
+    reports={}
+    for name,digest in manifest['files'].items():
+        if name not in allowed:raise ValueError('Resume part outside frozen schedule')
+        source=weights/('resume__'+name)
+        if source.is_symlink()or sha(source)!=digest:raise ValueError('Resume part changed')
+        report=json.loads(source.read_text());kind,identity=allowed[name];rows=report['rows']
+        if kind=='test':
+            expected={(f'{t}::{f}/heldout_random',s)for t in('attack','defense')for f in('hog','giant','air','golem','swarm','bridge')for s in protocol['test_seeds']}
+            if report['model']!=models[identity]or len(rows)!=len(expected)or {(r['scenario_id'],r['seed'])for r in rows}!=expected:
+                raise ValueError('Resume test contexts differ')
+        else:
+            expected={(s,seat)for s in protocol['duel_seeds']for seat in(1,-1)}
+            if report['pair']!=list(identity)or len(rows)!=len(expected)or {(r['seed'],r['candidate_side'])for r in rows}!=expected:
+                raise ValueError('Resume duel contexts differ')
+        counts=Counter(r['outcome']for r in rows)
+        if set(counts)-{'win','loss','draw'}or dict(counts)!=report['counts']:raise ValueError('Resume outcomes differ')
+        reports[name]=report
+    for name in reports:shutil.copyfile(weights/('resume__'+name),output/name)
+    return reports
 
 
 def load(entry,weights,device):
@@ -85,10 +116,23 @@ def evaluate(protocol,weights,output):
     protocol=Path(protocol);p=json.loads(protocol.read_text());output=Path(output);output.mkdir(exist_ok=False,parents=True)
     if not torch.cuda.is_available()or torch.cuda.device_count()<2:raise RuntimeError('Two CUDA devices required')
     torch.set_num_threads(1);models=p['models'];pairs=list(itertools.combinations(models,2))
+    resumed=restore_parts(protocol,p,weights,output);jobs=[]
+    for entry in models:
+        name=entry['id']+'_test.json'
+        if name in resumed:
+            row=resumed[name];print(json.dumps(dict(event='POOL_TEST_COMPLETE',model=entry['id'],games=len(row['rows']),wins=row['counts'].get('win',0),reused=True)),flush=True)
+        else:jobs.append(('test',entry,12*len(p['test_seeds'])))
+    for a,b in pairs:
+        name=a['id']+'__'+b['id']+'_duels.json'
+        if name in resumed:print(json.dumps(dict(event='POOL_PAIR_COMPLETE',pair=[a['id'],b['id']],games=len(resumed[name]['rows']),reused=True)),flush=True)
+        else:jobs.append(('duel',(a,b),2*len(p['duel_seeds'])))
+    schedules=[[],[]];loads=[0,0]
+    for job in sorted(jobs,key=lambda r:-r[2]):
+        index=min(range(2),key=lambda i:loads[i]);schedules[index].append(job);loads[index]+=job[2]
     def worker(index):
         device=f'cuda:{index}';nets={e['id']:load(e,weights,device)for e in models}
         cards,spells,*_=load_defense_assets();cards.update(resolve_deck(cards,list(DECK_26)))
-        for entry in models[index::2]:
+        for entry in [job[1]for job in schedules[index]if job[0]=='test']:
             rows=[]
             for task in ('attack','defense'):
                 for family in ('hog','giant','air','golem','swarm','bridge'):
@@ -110,7 +154,7 @@ def evaluate(protocol,weights,output):
                 mean_elixir_overflow=float(np.mean([r['elixir_overflow']for r in rows])),rows=rows)
             (output/(entry['id']+'_test.json')).write_text(json.dumps(result,indent=2)+'\n')
             print(json.dumps(dict(event='POOL_TEST_COMPLETE',model=entry['id'],games=len(rows),wins=counts['win'])),flush=True)
-        for a,b in pairs[index::2]:
+        for a,b in [job[1]for job in schedules[index]if job[0]=='duel']:
             rows=[]
             for seed in p['duel_seeds']:
                 for seat in(1,-1):rows.append(duel((nets[a['id']],a['mode']),(nets[b['id']],b['mode']),device,seed,seat,cards,spells))
@@ -124,6 +168,9 @@ def evaluate(protocol,weights,output):
     result=dict(schema='continuous-frozen-pool-evaluation-v1',status='complete',protocol_sha256=sha(protocol),
         models=models,test_games=len(models)*12*len(p['test_seeds']),duel_games=len(pairs)*2*len(p['duel_seeds']),
         files=files,quality_accepted=False,test_used_for_selection=False,live_checkpoint_changed=False)
+    if resumed:
+        result.update(resumed_parts_sha256={n:sha(output/n)for n in resumed},
+            resumed_games=sum(len(r['rows'])for r in resumed.values()),computed_games=sum(job[2]for job in jobs))
     (output/'result.json').write_text(json.dumps(result,indent=2)+'\n')
 
 

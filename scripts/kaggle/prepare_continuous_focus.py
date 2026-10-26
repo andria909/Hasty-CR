@@ -73,7 +73,9 @@ def execute(config):
         directory=output/run_id;steps=4096000 if full else 102400
         profile=output/(run_id+'_profile.json')
         profile.write_text(json.dumps(dict(overflow_penalty=trial['overflow_penalty'],
-            missed_fireball_penalty=trial.get('missed_fireball_penalty',0.),action_cooldown_ms=2100,decision_interval_ms=250)))
+            missed_fireball_penalty=trial.get('missed_fireball_penalty',0.),
+            board_potential_weight=trial.get('board_potential_weight',0.),shaping_gamma=trial.get('gamma',.999),
+            action_cooldown_ms=2100,decision_interval_ms=250)))
         args=[sys.executable,'-c',"import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
             '--init',str(inputs/initial_model['file']),'--output',str(directory),'--device',device,
             '--task-mode','joint','--curriculum','continuous_v1','--geometry','native_anchors_candidate_v1',
@@ -142,7 +144,7 @@ def freeze_template(output):
     names=('sim/match.py','sim/train_attack_ppo.py','sim/continuous_push.py','sim/card_balance.py','sim/env.py',
         'sim/kite_geometry.py','sim/projectile_calibration.py','sim/entities.py','sim/gamedata.py','sim/public_gamedata.py',
         'sim/spells.py','sim/continuous_sampling.py','sim/continuous_validation.py','scripts/attack/select_continuous_focus.py',
-        'sim/public_frame_history.py','sim/continuous_history.py')
+        'sim/public_frame_history.py','sim/continuous_history.py','sim/board_potential.py','sim/pathfind.py')
     with tarfile.open(output/'extensions.tar.gz','w:gz')as stream:
         for name in names:stream.add(name,arcname=name,recursive=False)
     shutil.copyfile('data/ppo_tuning/continuous_focus/protocol.json',output/'protocol.json')

@@ -38,6 +38,10 @@ def render(verified,collected):
     lines+=['','## Среднее число принятых розыгрышей за матч со случайными пушами','',
             '| Модель | Hog | Musketeer | Cannon | Knight | Skeletons | Electro Spirit | Fireball | Zap |',
             '|---|---:|---:|---:|---:|---:|---:|---:|---:|']
+    if r.get('resumed_games'):
+        # Keep the table header contiguous; provenance belongs before it.
+        lines[-4:-4]=['',f"Восстановление после гонки кэша: {r['resumed_games']} готовых игр сохранены побайтно, "+
+            f"{r['computed_games']} досчитаны. Веса/контексты/математика путей прежние; исправлена синхронизация кэша."]
     for name in ids:
         values=r['tests'][name]['mean_card_plays']
         lines.append('| '+labels[name]+' | '+' | '.join(f'{values.get(c,0):.2f}'for c in CARDS)+' |')

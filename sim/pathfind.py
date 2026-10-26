@@ -19,6 +19,7 @@ told to go there.
 from __future__ import annotations
 
 import heapq
+from threading import Lock
 from typing import Dict, List, Optional, Tuple
 
 from .arena import (BRIDGE_HALF_WIDTH, BRIDGE_X, MT, RIVER_BOTTOM, RIVER_TOP,
@@ -51,6 +52,18 @@ _STEPS = ((1, 0, _ORTHOGONAL), (-1, 0, _ORTHOGONAL),
           (-1, 1, _DIAGONAL), (-1, -1, _DIAGONAL))
 
 _FIELD_CACHE: Dict[tuple, List[List[int]]] = {}
+_FIELD_CACHE_LOCK=Lock()
+
+
+def _cache_field(key,field):
+    # Evaluation can run two games in different threads. Lookup/eviction/store
+    # must be atomic; the deterministic field computation may happen outside.
+    with _FIELD_CACHE_LOCK:
+        existing=_FIELD_CACHE.get(key)
+        if existing is not None:return existing
+        while len(_FIELD_CACHE)>=512:_FIELD_CACHE.pop(next(iter(_FIELD_CACHE)))
+        _FIELD_CACHE[key]=field
+    return field
 
 
 def walkable(tx: int, ty: int) -> bool:
@@ -75,7 +88,8 @@ def distance_field(goal_tx: int, goal_ty: int, blocking_circles=()) -> List[List
     """
     blocking_circles = tuple(sorted(blocking_circles))
     key = (goal_tx, goal_ty, blocking_circles)
-    cached = _FIELD_CACHE.get(key)
+    with _FIELD_CACHE_LOCK:
+        cached = _FIELD_CACHE.get(key)
     if cached is not None:
         return cached
 
@@ -86,8 +100,7 @@ def distance_field(goal_tx: int, goal_ty: int, blocking_circles=()) -> List[List
                       for x, y, radius in blocking_circles)}
     field = [[-1] * TILES_W for _ in range(TILES_H)]
     if not (0 <= goal_tx < TILES_W and 0 <= goal_ty < TILES_H):
-        _FIELD_CACHE[key] = field
-        return field
+        return _cache_field(key,field)
 
     # The goal itself may be a tower tile, which is not walkable for standing
     # on but is certainly somewhere units path towards, so it seeds the search
@@ -110,10 +123,7 @@ def distance_field(goal_tx: int, goal_ty: int, blocking_circles=()) -> List[List
                 field[ny][nx] = cost
                 heapq.heappush(heap, (cost, nx, ny))
 
-    if len(_FIELD_CACHE) >= 512:
-        _FIELD_CACHE.pop(next(iter(_FIELD_CACHE)))
-    _FIELD_CACHE[key] = field
-    return field
+    return _cache_field(key,field)
 
 
 def next_step(pos: Point, goal: Point, blocking_circles=()) -> Optional[Point]:

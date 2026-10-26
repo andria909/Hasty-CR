@@ -26,6 +26,8 @@ def components(row, profile):
         own_damage=-profile['own_hp_penalty']*row['own_fraction_loss'],
         overflow=-profile['overflow_penalty']*row['elixir_overflow'],
         illegal=-.1*row['illegal_actions'],
+        missed_fireball=-profile.get('missed_fireball_penalty',0.)*row.get('missed_fireball_elixir',0.),
+        board_potential=row.get('board_shaping_return',0.),
         terminal=profile['win_reward'] if row['outcome']=='win' else
             -profile['loss_penalty'] if row['outcome']=='loss' else 0.)
     if not math.isclose(sum(result.values()), row['episode_return'], abs_tol=1e-5):

@@ -1,8 +1,8 @@
 {
   "schema": "continuous-slots-frozen-pool-launch-v1",
   "kernel": "andreiperelaiko/hastycr-continuous-slots-eval-20261026",
-  "status": "CUDA_READY",
-  "root": "tmp/kaggle/continuous_slots_eval_20261026",
+  "status": "recovery_cuda_confirmed",
+  "root": "tmp/kaggle/continuous_slots_eval_recovery_20261026",
   "total_games": 600,
   "test_games": 480,
   "tournament_games": 120,
@@ -39,7 +39,7 @@
     }
   ],
   "planned_markdown_report": "reports/continuous_slots_pool_20261026.md",
-  "bootstrap_sha256": "a74396223b3c69f2597ef5c3eafe1242ddc5c1abdc94695824934e47ff492d12",
+  "bootstrap_sha256": "02a91282859a9dbd03104ae4276c57fa43ba0682d33459521786c61056cfb1f2",
   "poll_seconds": 1200,
   "quality_accepted": false,
   "test_used_for_selection": false,
@@ -67,43 +67,54 @@
     "kernel": "andreiperelaiko/hastycr-continuous-slots-eval-20261026",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "ended",
-    "reconnect_attempt": 0,
-    "checked_host_ns": 1793044450454818000,
+    "stream_state": "interrupted",
     "evaluation": {
       "completed_pool_parts": {
         "model:full_balanced_s44": {
           "games": 120,
-          "remote_log_seconds": 643.809827907
+          "remote_log_seconds": 51.918946454
         },
         "model:full_strong_s44": {
           "games": 120,
-          "remote_log_seconds": 671.44111723
+          "remote_log_seconds": 51.918974594
         },
         "model:parent": {
           "games": 120,
-          "remote_log_seconds": 1212.981023855
+          "remote_log_seconds": 51.918980701
         },
         "pair:full_balanced_s44__full_strong_s44": {
           "games": 20,
-          "remote_log_seconds": 1266.861549358
+          "remote_log_seconds": 51.918985555
         },
         "pair:full_balanced_s44__v25": {
           "games": 20,
-          "remote_log_seconds": 1318.587642503
+          "remote_log_seconds": 51.918990583
         },
         "pair:full_strong_s44__v25": {
           "games": 20,
-          "remote_log_seconds": 1382.965359504
+          "remote_log_seconds": 51.918995711
+        },
+        "pair:full_balanced_s44__parent": {
+          "games": 20,
+          "remote_log_seconds": 255.965320846
         }
       },
       "games_lower_bound": {
-        "completed": 420,
+        "completed": 440,
         "total": 600,
-        "percent": 70.0,
+        "percent": 73.33333333333333,
         "source": "finished model/pair announcements; other in-flight games may also be complete",
         "quality_verified": false
       }
-    }
-  }
+    },
+    "checked_host_ns": 1793047947636886000,
+    "error_type": "SSLError",
+    "http_status": null,
+    "reconnect_attempt": 0
+  },
+  "reused_games": 420,
+  "computed_games": 180,
+  "recovery_root": "tmp/kaggle/continuous_slots_eval_recovery_20261026",
+  "kernel_version": 2,
+  "recovery_source": "Pinned420 games from version1; only missing180 recomputed"
 }

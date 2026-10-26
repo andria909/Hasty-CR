@@ -56,7 +56,7 @@ class ContinuousPushEnv:
         # by style; these are synthetic opponent tests, not unseen card claims.
         styles={'train':('random','push'),'validation':('heldout_push',),'test':('heldout_random',)}[split]
         self.scenarios=[PushCase(task,family,style,split) for task in ('attack','defense') for family in DECKS for style in styles]
-        self.profile=dict(overflow_penalty=.15,missed_fireball_penalty=0.,own_hp_penalty=4.,enemy_hp_reward=3.,
+        self.profile=dict(overflow_penalty=.15,missed_fireball_penalty=0.,board_potential_weight=0.,shaping_gamma=.999,own_hp_penalty=4.,enemy_hp_reward=3.,
                           win_reward=20.,loss_penalty=20.,action_cooldown_ms=2100,decision_interval_ms=250)
         if continuous_profile:
             supplied=json.loads(Path(continuous_profile).read_text()) if isinstance(continuous_profile,(str,Path)) else dict(continuous_profile)
@@ -65,7 +65,12 @@ class ContinuousPushEnv:
         if any(isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or v<0 for v in self.profile.values()):
             raise ValueError('Invalid continuous coefficient')
         if self.profile['decision_interval_ms']<50:raise ValueError('Decision interval below physics tick')
+        if self.profile['shaping_gamma']>1:raise ValueError('Shaping discount above one')
         self.cards,self.spells,_,_=load_defense_assets();self.cards.update(resolve_deck(self.cards,list(DECK_26)))
+        self._board_values=None
+        if self.profile['board_potential_weight']:
+            from sim.board_potential import unit_values
+            self._board_values=unit_values(self.cards,preferred_cards=DECK_26)
         missing={c for deck in DECKS.values() for c in deck if c not in self.cards}
         if missing: raise ValueError(f'Unsupported opponent cards: {sorted(missing)}')
         self.match=None
@@ -91,7 +96,11 @@ class ContinuousPushEnv:
         self.scripted.reset()
         self.pending=[];self.slot_ready={};self.next_enemy=0;self.illegal=0
         self.actions=[];self.enemy_actions=[];self.done=False;self.terminal_reason='running'
+        self._board_shaping_return=0.
+        self._board_shaping_discounted_return=0.;self._board_shaping_steps=0;self._initial_board_potential=0.
         self._previous=self._metrics()
+        self._initial_board_potential=self._previous['board_potential']
+        self._previous['initial_board_potential']=self._initial_board_potential
         return self._observe(),self._info()
 
     def _mask(self):
@@ -170,11 +179,23 @@ class ContinuousPushEnv:
         self.done=self.match.finished or self.match.elapsed_ms>=self.max_ms
         self.terminal_reason='game_'+self.match.result if self.match.finished else 'technical_timeout' if self.done else 'running'
         after=self._metrics();p=self.profile
+        board_reward=0.
+        if p['board_potential_weight']:
+            from sim.board_potential import shaping
+            board_reward=p['board_potential_weight']*shaping(before['board_potential'],after['board_potential'],
+                p['shaping_gamma'],terminal=self.match.finished)
+        self._board_shaping_return+=board_reward
+        if p['board_potential_weight']:
+            self._board_shaping_discounted_return+=p['shaping_gamma']**self._board_shaping_steps*board_reward
+        self._board_shaping_steps+=1
+        after['board_shaping_return']=self._board_shaping_return
+        after['board_shaping_discounted_return']=self._board_shaping_discounted_return
+        after['board_shaping_steps']=self._board_shaping_steps
         reward=(p['enemy_hp_reward']*(after['enemy_fraction_damage']-before['enemy_fraction_damage'])
             -p['own_hp_penalty']*(after['own_fraction_loss']-before['own_fraction_loss'])
             -p['overflow_penalty']*(after['elixir_overflow']-before['elixir_overflow'])
             -p['missed_fireball_penalty']*(after['missed_fireball_elixir']-before['missed_fireball_elixir'])
-            -.1*(after['illegal_actions']-before['illegal_actions']))
+            -.1*(after['illegal_actions']-before['illegal_actions'])+board_reward)
         if self.done:
             reward+=p['win_reward'] if after['outcome']=='win' else -p['loss_penalty'] if after['outcome']=='loss' else 0
         self._previous=after
@@ -187,6 +208,10 @@ class ContinuousPushEnv:
         # A shield/zero-damage hit is retained; instant Zap lacks this log.
         misses=sum(e.get('caster_side')==1 and e.get('spell')=='fireball'
             and e.get('resolved',False) and not e.get('hits') for e in self.match.battle.spell_cast_log)
+        potential=0.
+        if self.profile['board_potential_weight']:
+            from sim.board_potential import public_board_potential
+            if not self.match.finished:potential=public_board_potential(self.match,self._board_values)
         return dict(scenario_id=self.scenario.scenario_id,family_id=self.scenario.family,
             episode_seed=self.seed,match_seed=self.match.seed,
             split=self.split,task=self.scenario.task,observation_contract=CONTRACT,
@@ -199,6 +224,10 @@ class ContinuousPushEnv:
             elixir_overflow=self.match.players[1].natural_elixir_overflow_milli/1000,
             elixir_spent=self.match.players[1].elixir_spent,illegal_actions=self.illegal,
             missed_fireballs=misses,missed_fireball_elixir=misses*self.cards['fireball'].cost,
+            board_potential=potential,board_shaping_return=self._board_shaping_return,
+            initial_board_potential=self._initial_board_potential,
+            board_shaping_discounted_return=self._board_shaping_discounted_return,
+            board_shaping_steps=self._board_shaping_steps,
             accepted_card_counts=dict(Counter(e['card']for e in self.actions)),
             enemy_accepted_card_counts=dict(Counter(e['card']for e in self.enemy_actions)),
             coverage_flags=['simulator_mechanics_not_fully_validated','synthetic_legal_opponent_not_live_rating'])

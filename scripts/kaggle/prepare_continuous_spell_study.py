@@ -9,7 +9,7 @@ from scripts.kaggle.run_five_round_robin import sha
 
 
 def prepare(output,owner='andriashadrin',study='clock'):
-    if study not in ('clock','history'):raise ValueError('Unknown short study')
+    if study not in ('clock','history','board'):raise ValueError('Unknown short study')
     root=Path(output);root.mkdir(parents=True,exist_ok=False)
     template=root/'template';manifest=freeze_template(template)
     dataset=root/'dataset';dataset.mkdir();job=root/'job';job.mkdir()
@@ -28,6 +28,16 @@ def prepare(output,owner='andriashadrin',study='clock'):
                 entropy_coef=.01,gamma=.999,gae_lambda=.95,overflow_penalty=.15,
                 card_balance_weight=.1,card_balance_target='units',missed_fireball_penalty=0.)
                 for frames in (1,2)for focus in ('uniform','air_golem')])
+    if study=='board':
+        protocol.update(schema='continuous-board-potential-pilot-v1',pilot_seeds=[92,93],
+            rationale_source='reports/defense_plan/history_pilot_summary_20261026.json',
+            rationale_split='validation_and_reward_mechanics',
+            auxiliary_reward='w*(gamma*Phi(next)-Phi(current)); terminal Phi=0, bounded public bank/board estimate',
+            penalty='Missed Fireball penalty disabled in every arm',
+            cases=[dict(id=f'board_{int(weight*1000):03d}',board_potential_weight=weight,
+                history_frames=1,focus='air_golem',entropy_coef=.01,gamma=.999,gae_lambda=.95,
+                overflow_penalty=.15,card_balance_weight=.1,card_balance_target='units',missed_fireball_penalty=0.)
+                for weight in (0.,.05,.15,.4)])
     (dataset/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n')
     for name in ('extensions.tar.gz',):shutil.copyfile(template/name,dataset/name)
     source=Path('tmp/kaggle/fireball_balanced_20261025/dataset')
@@ -37,7 +47,8 @@ def prepare(output,owner='andriashadrin',study='clock'):
     digest=sha(parent)
     if digest!='9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8':raise ValueError('Parent changed')
     shutil.copyfile(parent,dataset/'parent.pt')
-    stem='hastycr-history-pilot'if study=='history'else'hastycr-clock-fireball-pilot'
+    stem=('hastycr-history-pilot'if study=='history'else
+        'hastycr-board-potential-pilot'if study=='board'else'hastycr-clock-fireball-pilot')
     slug=stem+'-inputs-20261026';kernel=owner+'/'+stem+'-20261026'
     (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug,title=slug,
         licenses=[dict(name='other')],isPrivate=True),indent=2)+'\n')
@@ -58,5 +69,5 @@ def prepare(output,owner='andriashadrin',study='clock'):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--owner',default='andriashadrin')
-    p.add_argument('--study',choices=('clock','history'),default='clock')
+    p.add_argument('--study',choices=('clock','history','board'),default='clock')
     a=p.parse_args();print(json.dumps(prepare(a.output,a.owner,a.study)))

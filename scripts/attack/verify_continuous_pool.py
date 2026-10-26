@@ -24,6 +24,16 @@ def verify(collected,prepared):
     result=json.loads((root/'result.json').read_text())
     if result.get('status')!='complete'or result['protocol_sha256']!=sha(prepared/'dataset/protocol.json'):
         raise ValueError('Protocol/status changed')
+    resumed_games=0;resume_path=prepared/'dataset/resume_manifest.json'
+    if resume_path.exists():
+        if sha(resume_path)!=cfg['config']['pins']['resume_manifest.json']:raise ValueError('Resume manifest changed')
+        resume=json.loads(resume_path.read_text())
+        if result.get('resumed_parts_sha256')!=resume['files']:raise ValueError('Resumed part identity differs')
+        for name,digest in resume['files'].items():
+            if sha(root/name)!=digest:raise ValueError('Resumed output changed')
+            resumed_games+=len(json.loads((root/name).read_text())['rows'])
+        if result.get('resumed_games')!=resumed_games or result.get('computed_games')!=600-resumed_games:
+            raise ValueError('Resumed/computed game accounting differs')
     models=p['models'];ids=[m['id']for m in models]
     required={m+'_test.json'for m in ids}|{a+'__'+b+'_duels.json'for a,b in itertools.combinations(ids,2)}
     if set(result['files'])!=required:raise ValueError('Evaluation file coverage differs')
@@ -70,6 +80,7 @@ def verify(collected,prepared):
     executors=sorted({m['training_executor']for m in models if 'training_executor'in m})
     return dict(schema='verified-continuous-frozen-pool-v1',kernel=cfg['kernel'],models=models,
         training_cohort=p.get('training_cohort','control'),training_executors=executors,
+        resumed_games=resumed_games,computed_games=600-resumed_games,
         total_games=600,tests=tests,standings=table,matrix=matrix,quality_accepted=False,
         limits=['Synthetic random opponents and four-model tournament only',
             'Training executors are recorded per model; all evaluation uses corrected slot execution',

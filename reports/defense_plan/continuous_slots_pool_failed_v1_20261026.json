@@ -1,0 +1,112 @@
+{
+  "schema": "continuous-slots-frozen-pool-launch-v1",
+  "kernel": "andreiperelaiko/hastycr-continuous-slots-eval-20261026",
+  "status": "ERROR_path_cache_recovery_uploading",
+  "root": "tmp/kaggle/continuous_slots_eval_20261026",
+  "total_games": 600,
+  "test_games": 480,
+  "tournament_games": 120,
+  "models": [
+    {
+      "id": "full_balanced_s44",
+      "file": "full_balanced_s44.pt",
+      "sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+      "scalars": 309,
+      "mode": "joint_enemy_presence_v1",
+      "training_executor": "independent_slots_v2"
+    },
+    {
+      "id": "full_strong_s44",
+      "file": "full_strong_s44.pt",
+      "sha256": "82e988f074937fe86d7c9ec1eb1dfce384142eabe98ebc75adf4e1986c71a7fd",
+      "scalars": 309,
+      "mode": "joint_enemy_presence_v1",
+      "training_executor": "independent_slots_v2"
+    },
+    {
+      "id": "parent",
+      "file": "parent.pt",
+      "sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "scalars": 309,
+      "mode": "joint_enemy_presence_v1"
+    },
+    {
+      "id": "v25",
+      "file": "v25.pt",
+      "sha256": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972",
+      "scalars": 306,
+      "mode": "physical_live"
+    }
+  ],
+  "planned_markdown_report": "reports/continuous_slots_pool_20261026.md",
+  "bootstrap_sha256": "a74396223b3c69f2597ef5c3eafe1242ddc5c1abdc94695824934e47ff492d12",
+  "poll_seconds": 1200,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_games_started": false,
+  "startup_evidence": [
+    {
+      "event": "INPUTS_VERIFIED",
+      "protocol_sha256": "e5fd923a8b04a256b1dc400309726260d6fdded2ed5b5c68b444ed8b4593990f",
+      "source_manifest_sha256": "3325d51f7978c8805e851624cd8d2bb7e70d133811545a01ceb6b20f9d7c9f44"
+    },
+    {
+      "event": "CUDA_READY",
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ]
+    }
+  ],
+  "inputs_verified": true,
+  "cuda_devices": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "progress_snapshot": {
+    "kernel": "andreiperelaiko/hastycr-continuous-slots-eval-20261026",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "ended",
+    "reconnect_attempt": 0,
+    "checked_host_ns": 1793045599482505000,
+    "evaluation": {
+      "completed_pool_parts": {
+        "model:full_balanced_s44": {
+          "games": 120,
+          "remote_log_seconds": 643.809827907
+        },
+        "model:full_strong_s44": {
+          "games": 120,
+          "remote_log_seconds": 671.44111723
+        },
+        "model:parent": {
+          "games": 120,
+          "remote_log_seconds": 1212.981023855
+        },
+        "pair:full_balanced_s44__full_strong_s44": {
+          "games": 20,
+          "remote_log_seconds": 1266.861549358
+        },
+        "pair:full_balanced_s44__v25": {
+          "games": 20,
+          "remote_log_seconds": 1318.587642503
+        },
+        "pair:full_strong_s44__v25": {
+          "games": 20,
+          "remote_log_seconds": 1382.965359504
+        }
+      },
+      "games_lower_bound": {
+        "completed": 420,
+        "total": 600,
+        "percent": 70.0,
+        "source": "finished model/pair announcements; other in-flight games may also be complete",
+        "quality_verified": false
+      }
+    }
+  },
+  "reused_games": 420,
+  "computed_games": 180,
+  "recovery_root": "tmp/kaggle/continuous_slots_eval_recovery_20261026"
+}

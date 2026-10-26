@@ -2,7 +2,58 @@
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-continuous-focus-20261026",
   "status": "cuda_ready_reference_validation",
-  "progress_snapshot": {},
+  "progress_snapshot": {
+    "kernel": "vertel0/hastycr-continuous-focus-20261026",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "connected",
+    "reconnect_attempt": 2,
+    "checked_host_ns": 1793047543122893000,
+    "trials": {
+      "pilot_uniform_explore_s62": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2189.776422315
+      },
+      "pilot_uniform_base_s62": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2196.855796476
+      },
+      "pilot_uniform_explore_s63": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3311.793715148
+      },
+      "pilot_uniform_base_s63": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3341.971414946
+      },
+      "pilot_air_golem_explore_s62": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3506.38497119
+      },
+      "pilot_air_golem_base_s62": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3535.857129756
+      }
+    }
+  },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 8192000,
   "quality_accepted": false,
@@ -19,5 +70,6 @@
         "Tesla T4"
       ]
     }
-  ]
+  ],
+  "last_local_sync_ns": 1793047573155012000
 }

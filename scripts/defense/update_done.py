@@ -47,6 +47,21 @@ def load_models(reports):
 
 
 def history_progress_lines(reports):
+    summary=reports/'history_pilot_summary_20261026.json'
+    if summary.exists():
+        r=json.loads(summary.read_text())
+        lines=['','**История кадров: обучение завершено на 100%, улучшения нет.**',
+            '','| Вариант | Победы на validation |','|---|---:|']
+        for row in r['rows']:
+            lines.append(f"| {row['id']} | {row['wins']}/{row['games']} ({100*row['wins']/row['games']:.1f}%) |")
+        lines+=['','Исходник:42/72 (58,3%). Два seed повторяют72 контекста; это не144 независимых состояния. Большое обучение этих вариантов не запускается.',
+            '[Подробности](reports/history_pilot_results_20261026.md).']
+        board=reports/'board_potential_pilot_training_20261026.json'
+        if board.exists():
+            b=json.loads(board.read_text());trials=b.get('progress_snapshot',{}).get('trials',{})
+            steps=sum(t.get('steps',0)for t in trials.values())
+            lines+=['',f'**Новый эксперимент: награда за размен юнитов.** Отправлен на Kaggle; подтверждённые шаги {steps}/819200 ({100*steps/819200:.1f}%). Четыре коэффициента, два seed. [Состояние](reports/defense_plan/board_potential_pilot_training_20261026.json).']
+        return lines
     path=reports/'history_pilot_training_20261026.json'
     if not path.exists():return []
     study=json.loads(path.read_text());trials=study.get('progress_snapshot',{}).get('trials',{})

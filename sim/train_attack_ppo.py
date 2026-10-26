@@ -236,13 +236,14 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
 def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.,history_frames=1):
     root=Path(__file__).resolve().parents[1]
     names=('sim/attack_env.py','sim/attack_scenarios.py','sim/attack_sampler.py',
-           'sim/train_attack_ppo.py','sim/engine.py','sim/match.py','sim/env.py',
+           'sim/train_attack_ppo.py','sim/engine.py','sim/pathfind.py','sim/match.py','sim/env.py',
            'sim/defense_env.py','sim/defense_assets.py','sim/defense_scenarios.py',
            'sim/public_gamedata.py','sim/public_scenario_spells.py','sim/spells.py','sim/arena.py','sim/reward_profiles.py')
     if task_mode=='joint':names+=('sim/strategy_env.py','sim/strategy_sampler.py')
     if curriculum=='tactical_v1':names+=('sim/tactical_strategy.py',)
     if curriculum=='continuous_v1':names+=('sim/continuous_push.py','sim/gamedata.py','sim/entities.py',
         'sim/projectile_calibration.py','sim/kite_geometry.py','sim/opponents.py','sim/eval_defense_duel.py','sim/continuous_validation.py','sim/continuous_sampling.py')
+    if curriculum=='continuous_v1':names+=('sim/board_potential.py',)
     if card_balance_weight:names+=('sim/card_balance.py',)
     if history_frames==2:names+=('sim/public_frame_history.py','sim/continuous_history.py')
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
@@ -297,6 +298,10 @@ def train(args):
     if curriculum=='continuous_v1':
         profile=getattr(args,'continuous_profile',None)
         if profile:profile=json.loads(Path(profile).read_text())
+        if profile and profile.get('board_potential_weight',0):
+            if 'shaping_gamma'in profile and profile['shaping_gamma']!=args.gamma:
+                raise ValueError('Potential shaping gamma must equal PPO gamma')
+            profile=dict(profile,shaping_gamma=args.gamma)
         options['continuous_profile']=profile
         options['validation_selection']=getattr(args,'validation_selection','overall')
         options['continuous_focus']=getattr(args,'continuous_focus','uniform')

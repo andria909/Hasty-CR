@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 
 from scripts.attack.select_continuous_focus import select_initial,select_profiles,validation_score
@@ -38,6 +39,9 @@ def verify(collected,prepared):
     if any(t.get('history_frames',1)==2 for t in protocol['cases']):
         for name in ('sim/public_frame_history.py','sim/continuous_history.py'):
             if sha(name)!=c['extensions'][name]:raise ValueError('Use frozen history adapter version')
+    if any(t.get('board_potential_weight',0)for t in protocol['cases']):
+        if sha('sim/board_potential.py')!=c['extensions']['sim/board_potential.py']:
+            raise ValueError('Use frozen potential reward version')
     if sha(prepared/'dataset/protocol.json')!=c['pins']['protocol.json']:raise ValueError('Prepared protocol changed')
     if result.get('schema')!='continuous-focus-cohort-result-v1'or result['protocol_sha256']!=c['pins']['protocol.json']:
         raise ValueError('Focus protocol differs')
@@ -74,12 +78,21 @@ def verify(collected,prepared):
             config['gamma']!=trial.get('gamma',.999)or config['gae_lambda']!=trial.get('gae_lambda',.95)or
             config['continuous_profile'].get('missed_fireball_penalty',0.)!=trial.get('missed_fireball_penalty',0.)):
             raise ValueError('Focus run configuration differs')
+        if config['continuous_profile'].get('board_potential_weight',0.)!=trial.get('board_potential_weight',0.):
+            raise ValueError('Potential coefficient differs')
+        if trial.get('board_potential_weight',0.)and config['continuous_profile']['shaping_gamma']!=config['gamma']:
+            raise ValueError('Potential shaping discount differs from PPO')
         validations=metric_boundaries(root/run_id/'metrics.jsonl',steps)
         for record in validations:
             v=record['validation'];score=validation_score(v)
             if abs(score['selection_score']-v['selection_score'])>1e-12:raise ValueError('Validation score differs')
             contexts=[(r['scenario_id'],r['episode_seed'],r['match_seed'])for r in v['records']]
             if contexts!=initial_contexts:raise ValueError('Validation contexts changed between candidates')
+            if trial.get('board_potential_weight',0):
+                for episode in v['records']:
+                    expected=-trial['board_potential_weight']*episode['initial_board_potential']
+                    if not math.isclose(episode['board_shaping_discounted_return'],expected,abs_tol=1e-7):
+                        raise ValueError('Potential return changed completed-game objective')
         eligible=[r for r in validations if r['validation']['worst_archetype_points']>=.1]
         chosen=max(eligible or validations,key=lambda r:r['validation']['selection_score'])
         if(row['validation']!=chosen['validation']or row['selected_update']!=chosen['update']or

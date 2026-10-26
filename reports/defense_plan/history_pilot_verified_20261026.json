@@ -1,0 +1,194 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "andriashadrin/hastycr-history-pilot-20261026",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "history1_uniform",
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.28125,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "history1_air_golem",
+          "history_frames": 1,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.27083333333333337,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "history2_air_golem",
+          "history_frames": 2,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.27083333333333337,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "history2_uniform",
+          "history_frames": 2,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.24305555555555555,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_history1_uniform_s82",
+      "checkpoint": "tmp/kaggle/history_pilot_20261026/collected/pilot_history1_uniform_s82/update_000100.pt",
+      "checkpoint_sha256": "b20ca1faac5ed6f572a83285b77f82c9b01bf0748531898c72dc8449806c2127",
+      "selection_score": 0.27777777777777773,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_history1_uniform_s83",
+      "checkpoint": "tmp/kaggle/history_pilot_20261026/collected/pilot_history1_uniform_s83/update_000050.pt",
+      "checkpoint_sha256": "bf56446bc5e66d1c754526b2736ad0800955f52f8e9538336bf56356f113bce8",
+      "selection_score": 0.2847222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_history1_air_golem_s82",
+      "checkpoint": "tmp/kaggle/history_pilot_20261026/collected/pilot_history1_air_golem_s82/update_000100.pt",
+      "checkpoint_sha256": "32df4fb20f650b448205a4b2bfc2db69d28a00b70d82884076af006c156b4f3d",
+      "selection_score": 0.2916666666666667,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_history1_air_golem_s83",
+      "checkpoint": "tmp/kaggle/history_pilot_20261026/collected/pilot_history1_air_golem_s83/update_000100.pt",
+      "checkpoint_sha256": "4a3abafcf08cda1ec48efa992618da502a526813c24a14b47c602f1b5fde6170",
+      "selection_score": 0.25,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_history2_uniform_s82",
+      "checkpoint": "tmp/kaggle/history_pilot_20261026/collected/pilot_history2_uniform_s82/update_000050.pt",
+      "checkpoint_sha256": "10ec3b7ad1cc470ee5803e9ec77ac9fee5d0075a35b4d2b5c89dff431b2168fe",
+      "selection_score": 0.24305555555555555,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_history2_uniform_s83",
+      "checkpoint": "tmp/kaggle/history_pilot_20261026/collected/pilot_history2_uniform_s83/update_000100.pt",
+      "checkpoint_sha256": "0c8ef971fd7d306940e558c36d15eb22164491b3a96a414c07c9bc05a2b5c45f",
+      "selection_score": 0.24305555555555555,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_history2_air_golem_s82",
+      "checkpoint": "tmp/kaggle/history_pilot_20261026/collected/pilot_history2_air_golem_s82/update_000050.pt",
+      "checkpoint_sha256": "b388e7a717fadea8a1fbd4f3d4bf376a053bacf1234f6d98704c2311076d386d",
+      "selection_score": 0.2569444444444445,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_history2_air_golem_s83",
+      "checkpoint": "tmp/kaggle/history_pilot_20261026/collected/pilot_history2_air_golem_s83/update_000050.pt",
+      "checkpoint_sha256": "795959ef5e33c0cb5f403a4608db23b60ce2ecaa7f72c3f957324e6285e715cf",
+      "selection_score": 0.2847222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "parent",
+    "ranking": [
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.2916666666666667,
+        "macro_archetype_points": 0.5833333333333334,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.75
+          },
+          "giant": {
+            "games": 12,
+            "points": 1.0
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.75
+          },
+          "swarm": {
+            "games": 12,
+            "points": 1.0
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false
+}
