@@ -21,7 +21,7 @@ def test_overflow_counts_income_lost_at_cap_without_creating_mana():
 def test_random_pushes_pay_from_real_hand_and_cycle():
     e=ContinuousPushEnv();o,i=e.reset(seed=7,scenario_id='defense::giant/random')
     assert len(o['scalars'])==309 and list(o['scalars'][-3:-1])==[0,0]
-    for _ in range(40):e.step(0)
+    for _ in range(80):e.step(0)
     assert len(e.enemy_actions)>=3
     for a in e.enemy_actions:
         assert a['elixir_after']>=0
@@ -31,15 +31,21 @@ def test_random_pushes_pay_from_real_hand_and_cycle():
     assert not e.done
 
 
-def test_delayed_command_blocks_second_command_until_ack_cooldown():
-    e=ContinuousPushEnv(action_delay_ms=750,continuous_profile={'action_cooldown_ms':2100})
-    e.reset(seed=3);a=int(np.flatnonzero(e._mask()[1:])[0]+1)
-    e.step(a);assert e.pending is not None and not e.actions
-    assert not e._mask()[1:].any()
-    e.step(0);assert len(e.actions)==1 and not e._mask()[1:].any()
-    e.step(0);e.step(0);assert not e._mask()[1:].any()
-    while e.match.elapsed_ms<3000:e.step(0)
+def test_delayed_command_locks_only_its_slot_and_reserves_mana():
+    e=ContinuousPushEnv(action_delay_ms=750,continuous_profile={'action_cooldown_ms':2100,'decision_interval_ms':500})
+    e.reset(seed=3)
+    e.match.players[1].elixir=10000
+    a=int(np.flatnonzero(e._mask()[1:])[0]+1);slot=(a-1)//576
+    e.step(a);assert e.pending and not e.actions
+    assert not e._mask()[1+slot*576:1+(slot+1)*576].any()
     assert e._mask()[1:].any()
+    other=int(np.flatnonzero(e._mask()[1:])[0]+1)
+    assert (other-1)//576!=slot
+    e.step(other);assert len(e.actions)==1 and e.pending
+    assert not e._mask()[1+slot*576:1+(slot+1)*576].any()
+    e.step(0);assert len(e.actions)==2
+    while e.match.elapsed_ms<3000:e.step(0)
+    assert e.match.elapsed_ms>=3000
 
 
 def test_snapshot_replays_opponent_and_reward_exactly():
@@ -77,7 +83,7 @@ def test_snapshot_is_serializable_for_gpu_checkpoint(tmp_path):
     path=tmp_path/'state.pt';torch.save(e.snapshot(),path)
     restored=torch.load(path,map_location='cpu',weights_only=False)
     e.restore(restored)
-    assert e.step(0)[4]['metrics']['elapsed_ms']==1000
+    assert e.step(0)[4]['metrics']['elapsed_ms']==500
 
 
 def test_no_positive_leak_reward_or_infinite_match_configuration():

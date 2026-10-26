@@ -6,6 +6,7 @@ The owner must authorize matches. This runner never presses Battle or menus.
 from __future__ import annotations
 
 import argparse
+from dataclasses import replace
 import hashlib
 from concurrent.futures import ThreadPoolExecutor
 import json
@@ -18,6 +19,7 @@ from scripts.gamestate.model_bridge import (
     MemoryPolicy, MissingModelInput, NativeModelAdapter, OwnState)
 from scripts.gamestate.query_arm64 import CurrentStateReader
 from sim.env import DECK_26
+from scripts.gamestate.placement_budget import PlacementBudget
 
 # Explicit deck-screen order, visually checked on this account, slot 1.
 # This is NOT the seen-card list at KingTower+0x288, which is play-history order.
@@ -190,7 +192,8 @@ def main():
                 active = {'number': report['started'], 'world': private['world'], 'last_tick': -1,
                           'last_progress': now, 'last_decide': -100, 'last_idle': now,
                           'plays': 0, 'cards': {}, 'seen_towers': set(), 'missing_towers': {},
-                          'destroyed': set(), 'pending': None, 'slot_cooldowns': {},
+                          'destroyed': set(), 'pending': {}, 'slot_cooldowns': {},
+                          'budget': PlacementBudget(),
                           'warnings': set()}
                 report['matches'].append({'number': active['number'], 'world': active['world'], 'plays': []})
                 emit('MATCH_START', match=active['number'], checkpoint=str(args.checkpoint.resolve()), checkpoint_sha256=checkpoint_sha256, side=private['own_side'], tick=private['tick'], hand=own_context(private, deck).hand)
@@ -216,9 +219,9 @@ def main():
             if now - active['last_progress'] > .3:
                 time.sleep(.1)
                 continue
-            pending = active['pending']
-            if pending:
-                if private['hand_indices'] != pending['hand']:
+            active['budget'].observe(private['tick'],private['elixir_raw']/10000)
+            for pending_slot,pending in list(active['pending'].items()):
+                if private['hand_indices'][pending_slot] != pending['hand'][pending_slot]:
                     ack_ns=snapshot['received_host_ns']
                     emit('PLAY_ACK', match=active['number'], card=pending['card'], tick=private['tick'],
                          confirmation='native_hand_rotation', delay_ms=(now-pending['sent'])*1000,
@@ -230,17 +233,14 @@ def main():
                             pending['sample_name']+'_ack',phase='after_ack',
                             input_host_ns=pending['input_return_ns'],source_tick=pending['source_tick'],
                             ack_host_ns=ack_ns)
-                    active['pending'] = None
-                    active['slot_cooldowns'][pending['slot']] = now + 1.0
+                    del active['pending'][pending_slot]
                 elif now - pending['sent'] > 4:
                     emit('PLAY_NOT_CONFIRMED', match=active['number'], card=pending['card'],
                          tick=private['tick'], detail='fresh hand unchanged; reconsider other slots')
                     active['slot_cooldowns'][pending['slot']] = now + 2
-                    active['pending'] = None
-                else:
-                    time.sleep(.1)
-                    continue
-            if private['tick'] - active['last_decide'] < 10:
+                    del active['pending'][pending_slot]
+            active['budget'].reconcile(private['elixir_raw']/10000,all_confirmed=not active['pending'])
+            if private['tick'] <= active['last_decide']:
                 time.sleep(.1)
                 continue
             active['last_decide'] = private['tick']
@@ -261,6 +261,8 @@ def main():
             try:
                 prepare_start=time.perf_counter_ns()
                 own = own_context(private, deck, destroyed=active['destroyed'])
+                own = replace(own,elixir=replace(own.elixir,reserved=max(0.,
+                    own.elixir.minimum-active['budget'].value),pending_actions=len(active['pending'])))
                 view = adapter.encode(snapshot, own)
                 prepare_ms=(time.perf_counter_ns()-prepare_start)/1e6
             except MissingModelInput as exc:
@@ -274,6 +276,8 @@ def main():
             for slot, until in active['slot_cooldowns'].items():
                 if now < until:
                     view.action_mask[1+slot*576:1+(slot+1)*576] = False
+            for slot in active['pending']:
+                view.action_mask[1+slot*576:1+(slot+1)*576] = False
             inference_start=time.perf_counter_ns()
             decision = policy.decide(view)
             inference_ms=(time.perf_counter_ns()-inference_start)/1e6
@@ -305,7 +309,8 @@ def main():
                 timing['adb_target_ms']=(time.perf_counter_ns()-target_start)/1e6
                 timing['parser_request_to_input_return_ms']=(target_return_ns-snapshot['request_host_ns'])/1e6
                 timing['parser_response_to_input_start_ms']=(target_request_ns-snapshot['received_host_ns'])/1e6
-                active['pending'] = {'hand': list(private['hand_indices']), 'card': card, 'slot': slot, 'sent': time.monotonic(),
+                active['budget'].spend(adapter.cards[card].cost)
+                active['pending'][slot] = {'hand': list(private['hand_indices']), 'card': card, 'slot': slot, 'sent': time.monotonic(),
                     'input_return_ns':target_return_ns,'source_tick':private['tick'],
                     'sample':bool(sample),'sample_name':sample_name}
                 if sample and (capture_job is None or capture_job.done()):

@@ -15,11 +15,14 @@ def record_trial_event(progress,line,remote_time):
     event=row.get('event')
     if event not in ('TRIAL_PROGRESS','FULL_TRAINING_PROGRESS'):return False
     step,update=row.get('step'),row.get('update')
-    target=102400 if event=='TRIAL_PROGRESS' else 2048000
     identity=row.get('trial_id') if event=='TRIAL_PROGRESS' else 'full_'+str(row.get('mode'))+'_'+str(row.get('profile'))
+    fallback=(4096000 if isinstance(identity,str)and re.fullmatch(r'full_(control|leak|balanced|strong)_s44',identity)
+              else 102400 if event=='TRIAL_PROGRESS' else 2048000)
+    target=row.get('target_steps',fallback)
+    if type(target)is not int or target<=0:return False
     if not isinstance(identity,str) or not identity or type(step)is not int or type(update)is not int or not 0<=step<=target or update<0:return False
     trials=progress.setdefault('trials',{});previous=trials.get(identity)
-    if previous and (update<=previous['update'] or step<previous['steps']):return False
+    if previous and (target!=previous['target_steps'] or update<=previous['update'] or step<previous['steps']):return False
     trials[identity]=dict(update=update,steps=step,target_steps=target,percent=100*step/target,remote_log_seconds=remote_time)
     return True
 

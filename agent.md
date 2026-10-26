@@ -1,3 +1,10 @@
+## CURRENT: per-slot execution v2 is actually training
+User rejected global ACK waiting. Live memory_play now tracks pending commands PER SLOT; ACK checks only that slot, no extra1s cooldown after replacement, and only requires fresh tick instead of global500ms throttle. PlacementBudget reserves cost immediately, caps at fresh native balance, conservatively regenerates single-income while pending, reconciles once all ACKs arrive. Other slots remain playable; no live games started.
+
+New immutable Kaggle andreiperelaiko/hastycr-continuous-slots-20261026 VERSION1,2TeslaT4 confirmed actual trial updates. Root tmp/kaggle/continuous_slots_20261026.8pilot×102400+2full×4096000=9011200. New contract joint_public_presence_continuous_slots_v2. Sim commands225ms, only used-slot refill2100ms, decision interval250ms, independent pending queue/reserved mana. Controller source dataset andreiperelaiko/hastycr-native-fireball-candidate-20261025-inputs, parent full_joint_economy_soft.pt SHA9d6..., all source pins verified; CPUoptimizer/checkpoint smoke passed. Monitoring stream63861/collector63862/postprocess63863 every20min. Reports continuous_slots_training_20261026.json and later continuous_slots_verified_20261026.json. Old andriashadrin continuous_ppo job is GLOBAL-BLOCK CONTROL ONLY; never call its weights corrected slot behavior. Do not silently modify running/frozen source.
+
+stream_training now recognizes4096000 full budgets (old TRIAL_PROGRESS wrongly used102400); old full progress must be recomputed from steps, not trusted printed percentages from old observer. No GPU restart needed for this observer fix. Model/v25 unchanged.
+
 ## CURRENT26Oct: full-game PPO actually running; live stopped
 User explicitly authorizes autonomous large training and coefficient studies. No further live games until a separate request. Existing UI goal remains paused: create_goal(new objective) rejected because unfinished goal exists; do not falsely complete old goal. Work continues under explicit user instructions, with durable Kaggle controller.
 

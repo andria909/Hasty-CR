@@ -40,7 +40,7 @@ def verify(collected,prepared):
         blob=torch.load(p,map_location='cpu',weights_only=False)
         if blob['state_dict']['scalar.0.weight'].shape[1]!=309 or not all(torch.isfinite(t).all()for t in blob['state_dict'].values()):
             raise ValueError('Invalid selected weights')
-        if blob['config']['init_sha256']!=cfg['config']['source_pins']['parent.pt']:raise ValueError('Parent changed')
+        if blob['config']['init_sha256']!=cfg['config']['source_pins'][cfg['config'].get('parent_file','parent.pt')]:raise ValueError('Parent changed')
         validation=item['validation'];records=validation['records'];count=Counter(r['outcome']for r in records)
         if count['unknown']or len(records)!=48:raise ValueError('Validation missing terminal outcomes')
         score=(count['win']+.5*count['draw'])/len(records)

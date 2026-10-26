@@ -166,7 +166,8 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
                     obs,info=env.reset(seed=seed+index,scenario_id=chosen)
                 else:obs,info=env.reset(seed=seed+index)
                 total=0.
-                for _ in range(1202):
+                bound=max(1202,int(getattr(env,'max_ms',240000)/getattr(env,'profile',{}).get('decision_interval_ms',500))+2)
+                for _ in range(bound):
                     logits,_=network(*tensor_observations([obs],device))
                     mask=action_masks([info],device)
                     require_finite(logits=logits)

@@ -47,8 +47,9 @@ def load_models(reports):
 
 
 def render_reality(models,status,reports):
-    if status.get('stage')=='continuous_full_game_ppo':
-        training=json.loads((reports/'continuous_training_20261026.json').read_text())
+    if status.get('stage') in ('continuous_full_game_ppo','continuous_full_game_slots_ppo'):
+        slot_mode=status.get('stage')=='continuous_full_game_slots_ppo'
+        training=json.loads((reports/('continuous_slots_training_20261026.json'if slot_mode else 'continuous_training_20261026.json')).read_text())
         trials=training.get('progress_snapshot',{}).get('trials',{})
         finished=training.get('status')=='training_complete_budgets_verified'
         lines=['# Текущий этап','',
@@ -58,10 +59,13 @@ def render_reality(models,status,reports):
             '| Текущая проба | Последний полученный процент |','|---|---:|']
         for name,row in trials.items():lines.append(f"| {name} | {row['percent']:.0f}% |")
         lines+=['','Проценты — снимок полученных логов, не оценка по времени. '+
-            '[Состояние](reports/defense_plan/continuous_training_20261026.json).','',
+            ('[Состояние](reports/defense_plan/continuous_slots_training_20261026.json).'if slot_mode else '[Состояние](reports/defense_plan/continuous_training_20261026.json).'),'',
             '**Что изменено:** непрерывные противники с настоящей рукой/циклом/эликсиром; '+
-            'штраф за переполнение и подбор мягкого баланса карт. Задержка команды225мс + блокировка2100мс '+
-            '(1,5× live-медиан). Исправлены измеренные скорости снарядов; точки кайта приближены.','',
+            'штраф за переполнение и подбор мягкого баланса карт. '+
+            ('Команда225мс;2100мс блокируется ТОЛЬКО использованный слот, остальные доступны. '+
+             'Решения каждые250мс. Live ждёт только свежий тик и резервирует стоимость отправленных карт. '
+             if slot_mode else 'Задержка команды225мс + общая блокировка2100мс (контрольный старый запуск). ')+
+            'Исправлены измеренные скорости снарядов; точки кайта приближены.','',
             '**Проверки:**40 целевых тестов прошли; точный Kaggle-пакет завершил4 контрольных матча '+
             '(исходник проиграл4/4). Отдельно3 старых теста tower troops не проходят без клиентских TOML; '+
             'не выдаём весь тестовый набор за зелёный.','',

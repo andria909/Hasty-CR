@@ -1,0 +1,43 @@
+{
+  "schema": "continuous-slots-training-launch-v2",
+  "kernel": "andreiperelaiko/hastycr-continuous-slots-20261026",
+  "version": 1,
+  "gpus": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "status": "running_confirmed_cuda",
+  "total_target_steps": 9011200,
+  "global_cooldown_ms": 0,
+  "used_slot_refill_ms": 2100,
+  "command_delay_ms": 225,
+  "decision_interval_ms": 250,
+  "observation_contract": "joint_public_presence_continuous_slots_v2",
+  "protocol_sha256": "f7abf0422e277ba0bdb284f0300fc5cf6ba54e3d28b46a038f500770b69a6000",
+  "progress_snapshot": {
+    "kernel": "andreiperelaiko/hastycr-continuous-slots-20261026",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "connected",
+    "trials": {
+      "pilot_control_s42": {
+        "update": 40,
+        "steps": 40960,
+        "target_steps": 102400,
+        "percent": 40.0,
+        "remote_log_seconds": 213.597836634
+      },
+      "pilot_leak_s42": {
+        "update": 40,
+        "steps": 40960,
+        "target_steps": 102400,
+        "percent": 40.0,
+        "remote_log_seconds": 215.617356198
+      }
+    },
+    "checked_host_ns": 1793015374267711000
+  },
+  "checked_host_ns": 1793015375841318000,
+  "quality_accepted": false,
+  "live_stopped": true
+}

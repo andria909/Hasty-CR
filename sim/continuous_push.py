@@ -21,7 +21,7 @@ from sim.eval_defense_duel import mechanical_mask, policy_observation, JOINT_MOD
 from sim.match import Match
 from sim.runner import resolve_deck
 
-CONTRACT = 'joint_public_presence_continuous_v1'
+CONTRACT = 'joint_public_presence_continuous_slots_v2'
 DECKS = {
     'hog': ('hog_rider','cannon','musketeer','knight','skeletons','electro_spirit','fireball','zap'),
     'giant': ('giant','musketeer','mini_pekka','bomber','archers','spear_goblins','fireball','arrows'),
@@ -57,13 +57,14 @@ class ContinuousPushEnv:
         styles={'train':('random','push'),'validation':('heldout_push',),'test':('heldout_random',)}[split]
         self.scenarios=[PushCase(task,family,style,split) for task in ('attack','defense') for family in DECKS for style in styles]
         self.profile=dict(overflow_penalty=.15,own_hp_penalty=4.,enemy_hp_reward=3.,
-                          win_reward=20.,loss_penalty=20.,action_cooldown_ms=2100)
+                          win_reward=20.,loss_penalty=20.,action_cooldown_ms=2100,decision_interval_ms=250)
         if continuous_profile:
             supplied=json.loads(Path(continuous_profile).read_text()) if isinstance(continuous_profile,(str,Path)) else dict(continuous_profile)
             if set(supplied)-set(self.profile): raise ValueError('Unknown continuous coefficient')
             self.profile.update(supplied)
         if any(isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or v<0 for v in self.profile.values()):
             raise ValueError('Invalid continuous coefficient')
+        if self.profile['decision_interval_ms']<50:raise ValueError('Decision interval below physics tick')
         self.cards,self.spells,_,_=load_defense_assets();self.cards.update(resolve_deck(self.cards,list(DECK_26)))
         missing={c for deck in DECKS.values() for c in deck if c not in self.cards}
         if missing: raise ValueError(f'Unsupported opponent cards: {sorted(missing)}')
@@ -88,16 +89,28 @@ class ContinuousPushEnv:
         self.scripted=ScriptedOpponent(self.cards,side=-1,deck=enemy,
             style='beatdown' if self.scenario.family in ('golem','giant','air') else 'cycle',seed=low+self.seed)
         self.scripted.reset()
-        self.pending=None;self.next_own=0;self.next_enemy=0;self.illegal=0
+        self.pending=[];self.slot_ready={};self.next_enemy=0;self.illegal=0
         self.actions=[];self.enemy_actions=[];self.done=False;self.terminal_reason='running'
         self._previous=self._metrics()
         return self._observe(),self._info()
 
     def _mask(self):
-        return mechanical_mask(self.match,self.cards,self.spells,1,
-            self.pending is not None or self.match.elapsed_ms<self.next_own)
+        mask=mechanical_mask(self.match,self.cards,self.spells,1)
+        reserved=sum(self.cards[e[1]].cost*1000 for e in self.pending)
+        available=max(0,self.match.players[1].elixir-reserved)
+        busy={e[2]for e in self.pending}
+        for slot,card in enumerate(self.match.players[1].hand):
+            if (slot in busy or self.match.elapsed_ms<self.slot_ready.get(slot,0)
+                    or self.cards[card].cost*1000>available):
+                mask[1+slot*576:1+(slot+1)*576]=False
+        return mask
 
-    def _observe(self): return policy_observation(self.match,1,JOINT_MODE)
+    def _observe(self):
+        obs=policy_observation(self.match,1,JOINT_MODE)
+        reserved=sum(self.cards[e[1]].cost for e in self.pending)
+        obs['scalars']=obs['scalars'].copy()
+        obs['scalars'][0]=max(0,obs['scalars'][0]-reserved/10)
+        return obs
 
     def _enemy(self):
         now=self.match.elapsed_ms
@@ -141,17 +154,18 @@ class ContinuousPushEnv:
         if not isinstance(action,(int,np.integer)) or not 0<=action<ACTIONS or not mask[int(action)]:self.illegal+=1
         elif action:
             slot,x,y=ClashEnv.decode(int(action))
-            self.pending=(self.match.elapsed_ms+self.action_delay_ms,self.match.players[1].hand[slot],x,y)
-        target=self.match.elapsed_ms+500
+            self.pending.append((self.match.elapsed_ms+self.action_delay_ms,self.match.players[1].hand[slot],slot,x,y))
+        target=self.match.elapsed_ms+self.profile['decision_interval_ms']
         while not self.match.finished and self.match.elapsed_ms<min(target,self.max_ms):
             self._enemy()
-            if self.pending and self.match.elapsed_ms>=self.pending[0]:
-                _,card,x,y=self.pending
+            due=[e for e in self.pending if self.match.elapsed_ms>=e[0]]
+            for command in due:
+                _,card,slot,x,y=command
                 accepted=self.match.play_card(1,card,grid_to_point(x,y,1))
                 self.illegal+=not accepted
                 if accepted:self.actions.append(dict(at_ms=self.match.elapsed_ms,card=card,x=x,y=y))
-                self.next_own=self.match.elapsed_ms+self.profile['action_cooldown_ms']
-                self.pending=None
+                self.slot_ready[slot]=self.match.elapsed_ms+self.profile['action_cooldown_ms']
+                self.pending.remove(command)
             self.match.step(min(50,self.max_ms-self.match.elapsed_ms))
         self.done=self.match.finished or self.match.elapsed_ms>=self.max_ms
         self.terminal_reason='game_'+self.match.result if self.match.finished else 'technical_timeout' if self.done else 'running'

@@ -6,7 +6,7 @@
     "Tesla T4",
     "Tesla T4"
   ],
-  "status": "running_confirmed_cuda",
+  "status": "training_complete_budgets_verified",
   "total_target_steps": 9011200,
   "pilot_configs": 4,
   "pilot_seeds": [
@@ -18,32 +18,87 @@
   "full_steps_each": 4096000,
   "protocol_sha256": "1bb5b3c31812b47c565f12d6ba1359919caafe607d92572bfa4b1e29da0ecdf5",
   "progress_snapshot": {
-    "kernel": "andriashadrin/hastycr-continuous-ppo-20261026",
-    "source": "kaggle_live_log_stream",
-    "trainers": {},
-    "stream_state": "interrupted",
     "trials": {
       "pilot_control_s42": {
-        "update": 38,
-        "steps": 38912,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 38.0,
-        "remote_log_seconds": 290.766631127
+        "percent": 100.0,
+        "remote_log_seconds": 996.489239026
       },
       "pilot_leak_s42": {
-        "update": 38,
-        "steps": 38912,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 38.0,
-        "remote_log_seconds": 286.793468343
+        "percent": 100.0,
+        "remote_log_seconds": 979.157536633
+      },
+      "pilot_leak_s43": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1942.892724531
+      },
+      "pilot_control_s43": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1929.54164005
+      },
+      "pilot_balanced_s42": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2863.502084545
+      },
+      "pilot_strong_s42": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2886.890111132
+      },
+      "pilot_balanced_s43": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3813.841809757
+      },
+      "pilot_strong_s43": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3846.441854096
+      },
+      "full_balanced_s44": {
+        "update": 4000,
+        "steps": 4096000,
+        "target_steps": 4096000,
+        "percent": 100.0,
+        "remote_log_seconds": 30848.618095646
+      },
+      "full_strong_s44": {
+        "update": 4000,
+        "steps": 4096000,
+        "target_steps": 4096000,
+        "percent": 100.0,
+        "remote_log_seconds": 30524.137260063
       }
-    },
-    "checked_host_ns": 1792975907758592000,
-    "error_type": "SSLError",
-    "http_status": null,
-    "reconnect_attempt": 0
+    }
   },
-  "checked_host_ns": 1792976209042069000,
+  "checked_host_ns": 1792976443745518000,
   "quality_accepted": false,
-  "live_stopped": true
+  "live_stopped": true,
+  "remote_status_confirmation": {
+    "status": "RUNNING",
+    "failureMessage": null
+  },
+  "verified_report": "reports/defense_plan/continuous_training_verified_20261026.json",
+  "comparison_only": true,
+  "progress_note": "Offline replay corrects full-run denominator to4096000; timestamps are event times, not a current API status."
 }

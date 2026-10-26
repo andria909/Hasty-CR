@@ -55,7 +55,7 @@ def execute(config):
         profile.write_text(json.dumps(dict(overflow_penalty=trial['leak'],action_cooldown_ms=2100)))
         steps=4096000 if full else 102400
         args=[sys.executable,'-c',"import torch,runpy; torch.set_num_threads(1); runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
-            '--init',str(source/'parent.pt'),'--output',str(directory),'--device',device,
+            '--init',str(source/config.get('parent_file','parent.pt')),'--output',str(directory),'--device',device,
             '--task-mode','joint','--curriculum','continuous_v1',
             '--geometry','native_anchors_candidate_v1','--coordinate-mode','physical_live_cells_v2',
             '--continuous-profile',str(profile),'--action-delay-ms','225','--max-ms','310000',
@@ -118,7 +118,7 @@ def execute(config):
     print(json.dumps(dict(event='CONTINUOUS_TRAINING_COMPLETE',quality_accepted=False)),flush=True)
 
 
-def prepare(output):
+def prepare(output,owner='andriashadrin',source_slug='hastycr-fireball-balanced-inputs-20261025',parent_file='parent.pt'):
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     dataset=output/'dataset';dataset.mkdir();job=output/'job';job.mkdir()
     frozen=Path('tmp/kaggle/fireball_balanced_20261025/dataset')
@@ -138,24 +138,25 @@ def prepare(output):
         selection='validation full-game points, two seeds, never test reward',
         enemy_rules='normal four-card hand, eight-card deck/cycle, normal income and costs, no bonus elixir',
         opponents='six archetypes, random-legal and reactive scripted styles; validation/test swap deck cards and use disjoint seeds',
-        observation_contract='joint_public_presence_continuous_v1',input_scalars=309,
-        timing=dict(command_delay_ms=225,post_execution_cooldown_ms=2100,decision_interval_ms=500,
-            basis='1.5x live median request-to-input and input-to-hand-ACK, separately; conservative fixed approximation'),
+        observation_contract='joint_public_presence_continuous_slots_v2',input_scalars=309,
+        timing=dict(command_delay_ms=225,used_slot_refill_delay_ms=2100,decision_interval_ms=250,
+            global_post_execution_cooldown_ms=0,
+            basis='1.5x measured input path; ACK/refill blocks only the used slot, other cards remain playable with reserved mana'),
         physics_limits=['Projectile XY calibration only, targeting/impact/levels still require independent validation',
             'Close kite candidates do not prove all enemy units can be pulled',
             'No live games authorized by training run'],fresh_optimizer_per_run=True,
         value_head_only_warmup_steps=20480,target_kl=.02,quality_accepted=False,live_checkpoint_changed=False)
     (dataset/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n')
-    owner='andriashadrin';slug='hastycr-continuous-ppo-inputs-20261026'
+    slug='hastycr-continuous-slots-inputs-20261026'
     (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug,title=slug,licenses=[dict(name='other')],isPrivate=True),indent=2)+'\n')
-    config=dict(owner=owner,slug=slug,source_slug='hastycr-fireball-balanced-inputs-20261025',
-        source_pins={n:sha(frozen/n)for n in ('manifest.json','parent.pt')},
+    config=dict(owner=owner,slug=slug,source_slug=source_slug,parent_file=parent_file,
+        source_pins={'manifest.json':sha(frozen/'manifest.json'),parent_file:sha(frozen/'parent.pt')},
         extensions=extensions,replaced={n:manifest['files'][n]for n in names if n in manifest['files']},
         extensions_archive_sha256=sha(dataset/'extensions.tar.gz'),protocol_sha256=sha(dataset/'protocol.json'),trials=trials)
     code='import hashlib,json,shutil,tarfile\nfrom pathlib import Path,PurePosixPath\n'+inspect.getsource(sha)+'\n'+inspect.getsource(prepare_source)+'\n'+inspect.getsource(execute)+'\nexecute('+repr(config)+')\n'
     compile(code,'train.py','exec');(job/'train.py').write_text(code)
-    kernel=owner+'/hastycr-continuous-ppo-20261026'
-    (job/'kernel-metadata.json').write_text(json.dumps(dict(id=kernel,title='hastycr continuous ppo 20261026',
+    kernel=owner+'/hastycr-continuous-slots-20261026'
+    (job/'kernel-metadata.json').write_text(json.dumps(dict(id=kernel,title='hastycr continuous slots 20261026',
         code_file='train.py',language='python',kernel_type='script',is_private=True,enable_gpu=True,enable_internet=False,
         dataset_sources=[owner+'/'+slug,owner+'/'+config['source_slug']],competition_sources=[],kernel_sources=[]),indent=2)+'\n')
     (output/'preparation.json').write_text(json.dumps(dict(kernel=kernel,config=config,bootstrap_sha256=sha(job/'train.py'),submitted=False),indent=2)+'\n')
@@ -163,5 +164,6 @@ def prepare(output):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--output',required=True)
-    print(json.dumps(prepare(p.parse_args().output)))
+    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--owner',default='andriashadrin')
+    p.add_argument('--source-slug',default='hastycr-fireball-balanced-inputs-20261025');p.add_argument('--parent-file',default='parent.pt')
+    a=p.parse_args();print(json.dumps(prepare(a.output,a.owner,a.source_slug,a.parent_file)))

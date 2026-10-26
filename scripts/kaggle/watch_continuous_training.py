@@ -7,7 +7,7 @@ import time
 from scripts.attack.verify_continuous_training import verify
 
 
-def watch(root,output,seconds=50000):
+def watch(root,output,seconds=50000,status_report='reports/defense_plan/continuous_training_20261026.json'):
     root=Path(root);until=time.monotonic()+seconds
     while time.monotonic()<until:
         for receipt in sorted(root.glob('collected*/collection_receipt.json')):
@@ -16,7 +16,7 @@ def watch(root,output,seconds=50000):
             if not complete:continue
             report=verify(receipt.parent,root)
             Path(output).write_text(json.dumps(report,indent=2)+'\n')
-            status=Path('reports/defense_plan/continuous_training_20261026.json')
+            status=Path(status_report)
             if status.exists():
                 state=json.loads(status.read_text());state['status']='training_complete_budgets_verified'
                 state['verified_report']=str(output)
@@ -32,4 +32,5 @@ def watch(root,output,seconds=50000):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--output',required=True)
-    a=p.parse_args();watch(a.root,a.output)
+    p.add_argument('--status-report',default='reports/defense_plan/continuous_training_20261026.json')
+    a=p.parse_args();watch(a.root,a.output,status_report=a.status_report)

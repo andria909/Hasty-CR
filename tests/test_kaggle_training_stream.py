@@ -77,6 +77,15 @@ def test_distinct_coefficient_trials_have_actual_percent_without_replay_regressi
     assert progress['trials']['full_joint_baseline']['percent']==5
 
 
+def test_full_continuous_percent_uses_its_four_million_step_budget():
+    from scripts.kaggle.stream_training import record_trial_event
+    progress={}
+    def event(**extra):return json.dumps(dict(event='TRIAL_PROGRESS',trial_id='full_balanced_s44',step=102400,update=100,**extra))
+    assert record_trial_event(progress,event(),1)
+    assert progress['trials']['full_balanced_s44']['percent']==2.5
+    assert not record_trial_event(progress,event(target_steps=100),2)
+
+
 def test_twenty_minute_reconnect_counts_from_connection_start_not_end(monkeypatch):
     from scripts.kaggle.stream_training import reconnect_delay
     monkeypatch.setattr('time.monotonic',lambda:400)
