@@ -1,0 +1,66 @@
+{
+  "schema": "continuous-hard-family-next-cohort-v1",
+  "status": "prepared_not_launched",
+  "rationale_source": "reports/defense_plan/continuous_train_family_diagnostics_20261026.json",
+  "rationale_split": "train_only",
+  "cases": [
+    {
+      "id": "uniform_base",
+      "focus": "uniform",
+      "entropy_coef": 0.01,
+      "overflow_penalty": 0.15,
+      "card_balance_weight": 0.1,
+      "card_balance_target": "units"
+    },
+    {
+      "id": "uniform_explore",
+      "focus": "uniform",
+      "entropy_coef": 0.03,
+      "overflow_penalty": 0.15,
+      "card_balance_weight": 0.1,
+      "card_balance_target": "units"
+    },
+    {
+      "id": "air_golem_base",
+      "focus": "air_golem",
+      "entropy_coef": 0.01,
+      "overflow_penalty": 0.15,
+      "card_balance_weight": 0.1,
+      "card_balance_target": "units"
+    },
+    {
+      "id": "air_golem_explore",
+      "focus": "air_golem",
+      "entropy_coef": 0.03,
+      "overflow_penalty": 0.15,
+      "card_balance_weight": 0.1,
+      "card_balance_target": "units"
+    }
+  ],
+  "pilot_seeds": [
+    62,
+    63
+  ],
+  "pilot_steps_each": 102400,
+  "total_pilot_steps": 819200,
+  "sampler": "shuffled full-game cycles; hard focus air/golem3x; unique seed for every episode",
+  "validation": {
+    "episodes_per_task": 36,
+    "total_games": 72,
+    "seed": 900100,
+    "coverage": "12 games per archetype, 6 per task; deterministic balanced family schedule",
+    "selection_score": "0.5*macro_archetype_points + 0.5*worst_archetype_points",
+    "eligibility": "known terminal outcome for every game; all six families represented"
+  },
+  "initialization": "Choose and pin only after corrected-slot study validation/budget verification; do not choose on independent test",
+  "after_pilots": "Select2-4 on both seeds and per-family validation; full train only after budget/quality audit",
+  "current_jobs_unchanged": true,
+  "test_used_for_selection": false,
+  "live_games_authorized": false,
+  "full_training_gate": {
+    "minimum_each_family_validation_points": 0.1,
+    "rule": "If fewer than2 candidates cover all archetypes on both seeds, improve warm-start/curriculum rather than declaring a winner by mean reward"
+  },
+  "eligibility_is_not_final_acceptance": true,
+  "quality_accepted": false
+}

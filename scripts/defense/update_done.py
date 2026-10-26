@@ -68,6 +68,12 @@ def render_reality(models,status,reports):
                 lines+=['','**Независимая проверка:**600 полных игр двух контрольных моделей, исходника иv25; '+
                     '480 игр со случайными пушами +120 турнирных. Исполнитель у всех исправленный, по слотам. '+
                     '[Запуск](reports/defense_plan/continuous_control_pool_launch_20261026.json).']
+        if (reports/'continuous_train_family_diagnostics_20261026.json').exists():
+            lines+=['','**Следующий цикл подготовлен, ещё не запущен:** воздух/голем3× чаще, '+
+                'два уровня entropy, отбор по среднему и худшему архетипу на72 validation-играх. '+
+                'Причина — провал TRAIN против воздуха/голема при хорошем среднем. '+
+                '[Протокол](data/ppo_tuning/continuous_focus/protocol.json), '+
+                '[диагностика](reports/defense_plan/continuous_train_family_diagnostics_20261026.json).']
         lines+=['','Проценты — снимок полученных логов, не оценка по времени. '+
             ('[Состояние](reports/defense_plan/continuous_slots_training_20261026.json).'if slot_mode else '[Состояние](reports/defense_plan/continuous_training_20261026.json).'),'',
             '**Что изменено:** непрерывные противники с настоящей рукой/циклом/эликсиром; '+

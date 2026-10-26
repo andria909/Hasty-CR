@@ -125,7 +125,7 @@ def prepare(output,owner='andriashadrin',source_slug='hastycr-fireball-balanced-
     manifest=json.loads((frozen/'manifest.json').read_text())
     names=('sim/match.py','sim/train_attack_ppo.py','sim/continuous_push.py','sim/card_balance.py',
         'sim/env.py','sim/kite_geometry.py','sim/projectile_calibration.py','sim/entities.py',
-        'sim/gamedata.py','sim/public_gamedata.py','sim/spells.py')
+        'sim/gamedata.py','sim/public_gamedata.py','sim/spells.py','sim/continuous_validation.py','sim/continuous_sampling.py')
     extensions={n:sha(n)for n in names}
     with tarfile.open(dataset/'extensions.tar.gz','w:gz')as stream:
         for name in names:stream.add(name,arcname=name,recursive=False)

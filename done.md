@@ -6,12 +6,16 @@
 |---|---:|
 | pilot_control_s42 | 100% |
 | pilot_leak_s42 | 100% |
-| pilot_control_s43 | 83% |
-| pilot_leak_s43 | 81% |
+| pilot_control_s43 | 100% |
+| pilot_leak_s43 | 100% |
+| pilot_balanced_s42 | 99% |
+| pilot_strong_s42 | 99% |
 
 **Старый контроль с общей блокировкой завершён:** full_balanced_s44: validation 28/48 побед; full_strong_s44: validation 30/48 побед. Это другие настройки исполнения; веса не продвинуты.
 
 **Независимая проверка:**600 полных игр двух контрольных моделей, исходника иv25; 480 игр со случайными пушами +120 турнирных. Исполнитель у всех исправленный, по слотам. [Запуск](reports/defense_plan/continuous_control_pool_launch_20261026.json).
+
+**Следующий цикл подготовлен, ещё не запущен:** воздух/голем3× чаще, два уровня entropy, отбор по среднему и худшему архетипу на72 validation-играх. Причина — провал TRAIN против воздуха/голема при хорошем среднем. [Протокол](data/ppo_tuning/continuous_focus/protocol.json), [диагностика](reports/defense_plan/continuous_train_family_diagnostics_20261026.json).
 
 Проценты — снимок полученных логов, не оценка по времени. [Состояние](reports/defense_plan/continuous_slots_training_20261026.json).
 

@@ -37,6 +37,23 @@ def record_evaluation_event(progress,line,remote_time):
     except (ValueError,TypeError):return False
     if not isinstance(row,dict):return False
     event=row.get('event')
+    if event in ('POOL_TEST_COMPLETE','POOL_PAIR_COMPLETE'):
+        models=('full_balanced_s44','full_strong_s44','parent','v25')
+        if event=='POOL_TEST_COMPLETE':
+            if row.get('model')not in models or row.get('games')!=120:return False
+            key='model:'+row['model']
+        else:
+            pair=row.get('pair')
+            if (not isinstance(pair,list)or len(pair)!=2 or len(set(pair))!=2 or
+                    any(n not in models for n in pair)or row.get('games')!=20):return False
+            key='pair:'+'__'.join(sorted(pair))
+        evaluation=progress.setdefault('evaluation',{});parts=evaluation.setdefault('completed_pool_parts',{})
+        if key in parts:return False
+        parts[key]=dict(games=row['games'],remote_log_seconds=remote_time)
+        completed=sum(p['games']for p in parts.values())
+        evaluation['games_lower_bound']=dict(completed=completed,total=600,percent=100*completed/600,
+            source='finished model/pair announcements; other in-flight games may also be complete',quality_verified=False)
+        return True
     if event=='CUDA_READY'and row.get('role')in ('candidate','parent'):
         evaluation=progress.setdefault('evaluation',{})
         if evaluation.get('role')not in (None,row['role']):return False

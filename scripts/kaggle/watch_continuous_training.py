@@ -7,9 +7,33 @@ import time
 from scripts.attack.verify_continuous_training import verify
 
 
+def sync_status(root,status_report):
+    """Read local SSE state only; never add remote polling or regress counters."""
+    source=Path(root)/'live_stream/progress.json';status=Path(status_report)
+    if not source.exists()or not status.exists():return False
+    try:
+        progress=json.loads(source.read_text());state=json.loads(status.read_text())
+    except(ValueError,OSError):return False
+    if progress.get('kernel')!=state.get('kernel'):return False
+    previous=state.get('progress_snapshot',{});trials=dict(previous.get('trials',{}))
+    for name,row in progress.get('trials',{}).items():
+        old=trials.get(name)
+        if old and (row.get('target_steps')!=old.get('target_steps')or row.get('steps',0)<old.get('steps',0)):continue
+        trials[name]=row
+    progress['trials']=trials
+    state['progress_snapshot']=progress;state['last_local_sync_ns']=time.time_ns()
+    status.write_text(json.dumps(state,indent=2)+'\n')
+    return True
+
+
 def watch(root,output,seconds=50000,status_report='reports/defense_plan/continuous_training_20261026.json'):
-    root=Path(root);until=time.monotonic()+seconds
+    root=Path(root);until=time.monotonic()+seconds;next_sync=0
     while time.monotonic()<until:
+        if time.monotonic()>=next_sync:
+            if sync_status(root,status_report):
+                import subprocess,sys
+                subprocess.run([sys.executable,'-m','scripts.defense.update_done'],check=True)
+            next_sync=time.monotonic()+1200
         for receipt in sorted(root.glob('collected*/collection_receipt.json')):
             try:complete=json.loads(receipt.read_text()).get('complete')
             except (ValueError,OSError):continue

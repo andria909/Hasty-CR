@@ -73,11 +73,15 @@ def make_attack_env(*,split='train',seed=0,deadline_scale=1.,**options):
     return env
 
 
-def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',**options):
+def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',validation_selection='overall',continuous_focus='uniform',**options):
+    if validation_selection not in ('overall','worst_family'):raise ValueError('Unknown validation selection')
+    if validation_selection!='overall'and curriculum!='continuous_v1':raise ValueError('Family selection requires continuous games')
     if curriculum=='continuous_v1':
         if task_mode!='joint':raise ValueError('Continuous curriculum requires joint policy')
         from sim.continuous_push import ContinuousPushEnv
-        return ContinuousPushEnv(split=split,seed=seed,**options)
+        env=ContinuousPushEnv(split=split,seed=seed,**options)
+        env.continuous_focus=continuous_focus
+        return env
     if curriculum=='tactical_v1':
         if task_mode!='joint':raise ValueError('Tactical curriculum requires joint policy')
         from sim.tactical_strategy import TacticalStrategyEnv
@@ -91,6 +95,9 @@ def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='class
 
 
 def training_sampler(env,seed=42,initial_hand_mode='shuffle',task_mode='joint'):
+    if hasattr(env,'continuous_focus'):
+        from sim.continuous_sampling import ContinuousScenarioCycle
+        return ContinuousScenarioCycle(env.scenarios,seed,initial_hand_mode,env.continuous_focus)
     if task_mode=='attack':return AttackScenarioCycle(env.scenarios,seed=seed,initial_hand_mode=initial_hand_mode)
     from sim.strategy_sampler import StrategyScenarioCycle
     return StrategyScenarioCycle(env.scenarios,seed=seed,initial_hand_mode=initial_hand_mode)
@@ -140,6 +147,8 @@ def summarize_attack(records):
 
 def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode='attack'):
     if episodes<1:raise ValueError('Positive validation episode count required')
+    worst_family=(env_options or {}).get('validation_selection')=='worst_family'
+    if worst_family and (episodes<6 or episodes%6):raise ValueError('Family validation requires a multiple of six games per task')
     records=[]
     was_training=network.training
     network.eval()
@@ -162,7 +171,8 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
                             goal=goals[index%4]
                             candidates=[s.scenario_id for s in env.scenarios if
                                 s.task=='attack'and getattr(s.scenario,'tactical_goal',None)==goal]
-                    chosen=random.Random(seed+index).choice(sorted(candidates))
+                    chosen=(sorted(candidates)[index%len(candidates)]if worst_family
+                            else random.Random(seed+index).choice(sorted(candidates)))
                     obs,info=env.reset(seed=seed+index,scenario_id=chosen)
                 else:obs,info=env.reset(seed=seed+index)
                 total=0.
@@ -191,6 +201,9 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
             mean_elixir_overflow=float(np.mean([r['elixir_overflow']for r in records])),
             selection_metric='full_game_win_draw_score_v1',
             selection_score=(wins+.5*draws)/len(records))
+        if worst_family:
+            from sim.continuous_validation import score_families
+            result.update(score_families(records))
     if (env_options or {}).get('curriculum')=='tactical_v1':
         rates={}
         for goal in ('supported_hog','air_defense_counterpush','hog_defense_counterpush'):
@@ -214,7 +227,7 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
     if task_mode=='joint':names+=('sim/strategy_env.py','sim/strategy_sampler.py')
     if curriculum=='tactical_v1':names+=('sim/tactical_strategy.py',)
     if curriculum=='continuous_v1':names+=('sim/continuous_push.py','sim/gamedata.py','sim/entities.py',
-        'sim/projectile_calibration.py','sim/kite_geometry.py','sim/opponents.py','sim/eval_defense_duel.py')
+        'sim/projectile_calibration.py','sim/kite_geometry.py','sim/opponents.py','sim/eval_defense_duel.py','sim/continuous_validation.py','sim/continuous_sampling.py')
     if card_balance_weight:names+=('sim/card_balance.py',)
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
                                      for name in names},sort_keys=True).encode()).hexdigest()
@@ -228,7 +241,7 @@ def validate_resume(blob,config):
           'visible_fraction','initial_hand_mode','geometry','geometry_sha256','coordinate_mode',
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
-          'value_warmup_steps','target_kl')
+          'value_warmup_steps','target_kl','validation_selection','continuous_focus')
     for key in keys:
         if blob['config'].get(key)!=config.get(key):
             raise ValueError(f'Attack resume configuration mismatch: {key}')
@@ -267,6 +280,8 @@ def train(args):
         profile=getattr(args,'continuous_profile',None)
         if profile:profile=json.loads(Path(profile).read_text())
         options['continuous_profile']=profile
+        options['validation_selection']=getattr(args,'validation_selection','overall')
+        options['continuous_focus']=getattr(args,'continuous_focus','uniform')
     reward_profile,reward_sha=load_reward_profile(getattr(args,'reward_profile',None))
     defense_rewards,attack_rewards=reward_objects(reward_profile)
     if args.task_mode=='joint':options.update(defense_rewards=defense_rewards,attack_rewards=attack_rewards)
@@ -433,6 +448,8 @@ def parser():
     p.add_argument('--continuous-profile',help='Explicit full-game auxiliary reward and timing JSON')
     p.add_argument('--value-warmup-steps',type=int,default=0)
     p.add_argument('--target-kl',type=float,default=0.)
+    p.add_argument('--validation-selection',choices=('overall','worst_family'),default='overall')
+    p.add_argument('--continuous-focus',choices=('uniform','air_golem'),default='uniform')
     p.add_argument('--card-balance-weight',type=float,default=0.)
     p.add_argument('--card-balance-target',choices=('all_cards','units'),default='all_cards')
     p.add_argument('--architecture',default=COMPACT_ARCHITECTURE)
