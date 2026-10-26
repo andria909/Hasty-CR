@@ -9,7 +9,7 @@ import sys
 from scripts.attack.verify_continuous_focus import verify
 
 
-def watch(root,status_report,verified_report):
+def watch(root,status_report,verified_report,summary_report=None,markdown_report=None):
     root=Path(root);status_report=Path(status_report);deadline=time.monotonic()+86400;next_sync=0
     while time.monotonic()<deadline:
         if time.monotonic()>=next_sync:
@@ -32,6 +32,12 @@ def watch(root,status_report,verified_report):
             if not r.get('complete'):continue
             report=verify(receipt.parent,root)
             Path(verified_report).write_text(json.dumps(report,indent=2)+'\n')
+            if summary_report or markdown_report:
+                if receipt.parent!=root/'collected':raise ValueError('Summary requires canonical collected directory')
+                from scripts.attack.summarize_clock_pilots import summarize,render
+                summary=summarize(root,verified=report)
+                if summary_report:Path(summary_report).write_text(json.dumps(summary,indent=2)+'\n')
+                if markdown_report:Path(markdown_report).write_text(render(summary))
             state=json.loads(status_report.read_text());state.update(status='pilot_complete_budgets_verified',verified_report=str(verified_report))
             status_report.write_text(json.dumps(state,indent=2)+'\n')
             subprocess.run([sys.executable,'-m','scripts.defense.update_done'],check=True)
@@ -42,4 +48,5 @@ def watch(root,status_report,verified_report):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--status-report',required=True)
-    p.add_argument('--verified-report',required=True);a=p.parse_args();watch(a.root,a.status_report,a.verified_report)
+    p.add_argument('--verified-report',required=True);p.add_argument('--summary-report');p.add_argument('--markdown-report')
+    a=p.parse_args();watch(a.root,a.status_report,a.verified_report,a.summary_report,a.markdown_report)

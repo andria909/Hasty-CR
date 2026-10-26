@@ -7,8 +7,9 @@ from pathlib import Path
 from scripts.attack.verify_continuous_focus import verify
 
 
-def summarize(root):
-    root=Path(root);verified=verify(root/'collected',root)
+def summarize(root,verified=None):
+    root=Path(root)
+    if verified is None:verified=verify(root/'collected',root)
     protocol=json.loads((root/'dataset/protocol.json').read_text());rows=[]
     history=protocol.get('schema')=='continuous-public-history-pilot-v1'
     board=protocol.get('schema')=='continuous-board-potential-pilot-v1'
@@ -40,6 +41,20 @@ def summarize(root):
         eligible_for_full=verified['pilot_selection']['gate_met'],quality_accepted=False,
         scope='72 distinct validation contexts replayed by two independently trained seeds; not144 independent contexts',
         test_used_for_selection=False)
+
+
+def render(summary):
+    lines=['# Результаты короткого обучения','',
+        f"Проверено CUDA-шагов: {summary['pilot_steps_verified']}. Два тренировочных seed повторяют72 validation-состояния;144 строки не являются144 независимыми контекстами.",'',
+        '| Профиль | Победы | Воздух | Голем | Мушкетёр за игру | Hog за игру |',
+        '|---|---:|---:|---:|---:|---:|']
+    for row in [dict(id='Исходник',**summary['parent'])]+summary['rows']:
+        air=row['by_family']['air'];golem=row['by_family']['golem'];cards=row['mean_card_plays']
+        lines.append(f"| {row['id']} | {row['wins']}/{row['games']} | {air['wins']}/{air['games']} | {golem['wins']}/{golem['games']} | {cards.get('musketeer',0):.2f} | {cards.get('hog_rider',0):.2f} |")
+    lines+=['',('Порог для продолжения прошли минимум два профиля.'if summary['eligible_for_full']else
+        'Минимум два профиля порог не прошли: большое продолжение этого исследования не запускается.'),
+        'Это validation для отбора; test и реальные бои не проводились. Частота карты сама по себе не доказывает качество.']
+    return '\n'.join(lines)+'\n'
 
 
 if __name__=='__main__':

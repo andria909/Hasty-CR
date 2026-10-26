@@ -46,6 +46,25 @@ def load_models(reports):
     return models
 
 
+def short_study_lines(reports,stem,date,title):
+    summary=reports/f'{stem}_summary_{date}.json'
+    if summary.exists():
+        result=json.loads(summary.read_text())
+        lines=['',f'**{title}: завершено100%, бюджеты проверены.**','',
+            '| Профиль | Победы validation |','|---|---:|']
+        for row in result['rows']:lines.append(f"| {row['id']} | {row['wins']}/{row['games']} |")
+        lines+=['',('Есть минимум два профиля для продолжения.'if result['eligible_for_full']else
+            'Два профиля порог не прошли; большого продолжения нет.'),
+            f'[Подробности](reports/{stem}_results_{date}.md). Это validation, не test.']
+        return lines
+    path=reports/f'{stem}_training_{date}.json'
+    if not path.exists():return []
+    state=json.loads(path.read_text());trials=state.get('progress_snapshot',{}).get('trials',{})
+    steps=sum(row.get('steps',0)for row in trials.values())
+    return ['',f'**{title}:** подтверждённые шаги {steps}/819200 ({100*steps/819200:.1f}%). Четыре профиля, два seed. '+
+        f'[Состояние](reports/defense_plan/{stem}_training_{date}.json).']
+
+
 def history_progress_lines(reports):
     summary=reports/'history_pilot_summary_20261026.json'
     if summary.exists():
@@ -56,16 +75,8 @@ def history_progress_lines(reports):
             lines.append(f"| {row['id']} | {row['wins']}/{row['games']} ({100*row['wins']/row['games']:.1f}%) |")
         lines+=['','Исходник:42/72 (58,3%). Два seed повторяют72 контекста; это не144 независимых состояния. Большое обучение этих вариантов не запускается.',
             '[Подробности](reports/history_pilot_results_20261026.md).']
-        board=reports/'board_potential_pilot_training_20261026.json'
-        if board.exists():
-            b=json.loads(board.read_text());trials=b.get('progress_snapshot',{}).get('trials',{})
-            steps=sum(t.get('steps',0)for t in trials.values())
-            lines+=['',f'**Новый эксперимент: награда за размен юнитов.** Отправлен на Kaggle; подтверждённые шаги {steps}/819200 ({100*steps/819200:.1f}%). Четыре коэффициента, два seed. [Состояние](reports/defense_plan/board_potential_pilot_training_20261026.json).']
-        bank=reports/'bank_conservation_training_20261027.json'
-        if bank.exists():
-            state=json.loads(bank.read_text());trials=state.get('progress_snapshot',{}).get('trials',{})
-            steps=sum(row.get('steps',0)for row in trials.values())
-            lines+=['',f'**Контроль расхода эликсира:** аккаунт3, отправлен; подтверждённые шаги {steps}/819200 ({100*steps/819200:.1f}%). Overflow0/0,15 ×JS0/0,1; четыре профиля, два seed. [Состояние](reports/defense_plan/bank_conservation_training_20261027.json).']
+        lines+=short_study_lines(reports,'board_potential_pilot','20261026','Награда за размен')
+        lines+=short_study_lines(reports,'bank_conservation','20261027','Контроль расхода эликсира')
         diagnosis=reports/'air_policy_train_diagnostic_20261027.json'
         if diagnosis.exists():
             lines+=['','**Диагностика воздуха:** на трёх TRAIN-seed новый strong держал мушкетёра в руке2023 шага, но лишь на двух имел ≥4 эликсира. Контроль штрафа overflow и JS-баланса отправлен отдельным заданием на освободившийся аккаунт3. [Измерения](reports/air_policy_train_diagnostic_20261027.md).']

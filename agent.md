@@ -1,3 +1,6 @@
+## CURRENT result postprocessing
+Local board/bank watchers now produce verified JSON+validation summary+readable Markdown and regenerate done.md after terminal collection. Old local watcher PIDs67270/67672 retired only; replacements67920/67922 recorded in roots monitoring.json. GPU kernels/datasets untouched. Summary reproduced completed history study819200steps and81/78/70/78 wins. Remote polling remains1200s. Never treat lostSSE as stoppedjob.
+
 ## CURRENT bank control SUBMITTED VERSION1
 andreiperelaiko/hastycr-bank-conservation-pilot-20261027, root tmp/kaggle/bank_conservation_pilot_20261027_account3. Datasetprivate+push receipt kernelId141053169, no repush. Account3 freed by terminal VERIFIED600eval. Allfour source-identical profiles CPUpreflightpassed64steps/4updates/48validationgames; GPUtraining not claimed beforeCUDA/TRIAL. monitoring.json authoritative;public reports/defense_plan/bank_conservation_training_20261027.json. Earlier notes saying waitboard superseded: runs parallel on different free account. v25/bestmodel unchanged,no live.
 
