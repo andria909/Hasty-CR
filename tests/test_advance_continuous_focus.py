@@ -1,4 +1,5 @@
 import json
+import pytest
 from types import SimpleNamespace as NS
 from pathlib import Path
 
@@ -38,6 +39,19 @@ def test_existing_kernel_found_through_authenticated_ownership_listing():
     assert advance.kernel_exists(NS(kernels_list=listing),'owner','owner/known')
     assert not advance.kernel_exists(NS(kernels_list=listing),'owner','owner/missing')
     assert all(p['mine']for p in pages)
+
+
+def test_missing_dataset_requires_authenticated_owned_listing():
+    calls=[]
+    def listing(**kwargs):
+        calls.append(kwargs)
+        return [NS(ref='owner/known')]if kwargs['page']==1 else []
+    api=NS(dataset_list=listing)
+    assert advance.dataset_exists(api,'owner','owner/known')
+    assert not advance.dataset_exists(api,'owner','owner/missing')
+    assert all(p['mine']and 'user'not in p for p in calls)
+    with pytest.raises(ValueError,match='identity'):
+        advance.dataset_exists(NS(dataset_list=lambda **kw:[NS(ref='different/known')]),'owner','owner/known')
 
 
 def test_lost_receipt_can_only_recover_the_exact_prepared_code(tmp_path):

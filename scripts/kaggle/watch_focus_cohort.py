@@ -1,0 +1,45 @@
+"""Local-only progress and terminal verification for a frozen focus-style study."""
+import argparse
+import json
+from pathlib import Path
+import time
+import subprocess
+import sys
+
+from scripts.attack.verify_continuous_focus import verify
+
+
+def watch(root,status_report,verified_report):
+    root=Path(root);status_report=Path(status_report);deadline=time.monotonic()+86400;next_sync=0
+    while time.monotonic()<deadline:
+        if time.monotonic()>=next_sync:
+            state=json.loads(status_report.read_text())
+            source=root/'live_stream/progress.json'
+            if source.exists():
+                try:r=json.loads(source.read_text())
+                except (ValueError,OSError):r=None
+                if r and r.get('kernel')==state['kernel']:
+                    state['progress_snapshot']=r
+                    if r.get('trials'):
+                        state['status']='training_steps_observed';state['actual_training_steps_confirmed']=True
+            state['last_local_sync_ns']=time.time_ns()
+            status_report.write_text(json.dumps(state,indent=2)+'\n')
+            subprocess.run([sys.executable,'-m','scripts.defense.update_done'],check=True)
+            next_sync=time.monotonic()+1200
+        for receipt in root.glob('collected*/collection_receipt.json'):
+            try:r=json.loads(receipt.read_text())
+            except (ValueError,OSError):continue
+            if not r.get('complete'):continue
+            report=verify(receipt.parent,root)
+            Path(verified_report).write_text(json.dumps(report,indent=2)+'\n')
+            state=json.loads(status_report.read_text());state.update(status='pilot_complete_budgets_verified',verified_report=str(verified_report))
+            status_report.write_text(json.dumps(state,indent=2)+'\n')
+            subprocess.run([sys.executable,'-m','scripts.defense.update_done'],check=True)
+            print('PILOT_BUDGETS_VERIFIED',flush=True);return
+        time.sleep(30)
+    raise TimeoutError('Local focus watcher expired; remote training unchanged')
+
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--status-report',required=True)
+    p.add_argument('--verified-report',required=True);a=p.parse_args();watch(a.root,a.status_report,a.verified_report)

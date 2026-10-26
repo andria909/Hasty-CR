@@ -72,7 +72,8 @@ def execute(config):
         run_id=('full_'if full else'pilot_')+trial['id']+'_s'+str(seed)
         directory=output/run_id;steps=4096000 if full else 102400
         profile=output/(run_id+'_profile.json')
-        profile.write_text(json.dumps(dict(overflow_penalty=trial['overflow_penalty'],action_cooldown_ms=2100,decision_interval_ms=250)))
+        profile.write_text(json.dumps(dict(overflow_penalty=trial['overflow_penalty'],
+            missed_fireball_penalty=trial.get('missed_fireball_penalty',0.),action_cooldown_ms=2100,decision_interval_ms=250)))
         args=[sys.executable,'-c',"import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
             '--init',str(inputs/initial_model['file']),'--output',str(directory),'--device',device,
             '--task-mode','joint','--curriculum','continuous_v1','--geometry','native_anchors_candidate_v1',
@@ -82,7 +83,8 @@ def execute(config):
             '--card-balance-weight',str(trial['card_balance_weight']),'--card-balance-target','units',
             '--action-delay-ms','225','--max-ms','310000','--seed',str(seed),'--envs','8','--rollout','128',
             '--updates',str(steps//1024),'--target-environment-steps',str(steps),'--epochs','3','--minibatch-size','256',
-            '--lr','0.00005','--gamma','.999','--value-warmup-steps','20480','--target-kl','.02',
+            '--lr','0.00005','--gamma',str(trial.get('gamma',.999)),
+            '--gae-lambda',str(trial.get('gae_lambda',.95)),'--value-warmup-steps','20480','--target-kl','.02',
             '--checkpoint-every','250'if full else'50','--eval-every','250'if full else'50',
             '--wallclock-seconds','34000'if full else'7200']
         process=subprocess.Popen(args,cwd=project,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
@@ -113,19 +115,20 @@ def execute(config):
         print(json.dumps(dict(event='FOCUS_TRIAL_COMPLETE',trial_id=run_id,score=chosen['validation']['selection_score'],family_guard=bool(eligible))),flush=True)
         return result
     def pilots(index):
-        return[run(trial,f'cuda:{index}',seed)for trial in protocol['cases'][index::2]for seed in(62,63)]
+        return[run(trial,f'cuda:{index}',seed)for trial in protocol['cases'][index::2]for seed in protocol.get('pilot_seeds',(62,63))]
     runs=[]
     with ThreadPoolExecutor(2)as pool:
         futures=[pool.submit(pilots,i)for i in(0,1)]
         for f in futures:runs.extend(f.result())
-    selection=select_profiles(runs)
+    selection=select_profiles(runs,seeds=protocol.get('pilot_seeds',(62,63)))
     (output/'selection.json').write_text(json.dumps(selection,indent=2)+'\n')
     full=[]
-    if selection['gate_met']:
+    if selection['gate_met']and config.get('allow_full_training',True):
         with ThreadPoolExecutor(2)as pool:
             futures=[pool.submit(run,r['trial'],f'cuda:{i}',64,True)for i,r in enumerate(selection['selected'])]
             full=[f.result()for f in futures]
-    result=dict(schema='continuous-focus-cohort-result-v1',status='complete'if full else'pilot_complete_no_eligible_pair',
+    result=dict(schema='continuous-focus-cohort-result-v1',status='complete'if full else
+        'pilot_complete'if not config.get('allow_full_training',True)else'pilot_complete_no_eligible_pair',
         pilot_steps=819200,full_steps=4096000*len(full),pilot_budgets_met=True,full_gate_met=selection['gate_met'],
         full_runs=full,initial_selection=initial,protocol_sha256=config['pins']['protocol.json'],
         quality_accepted=False,live_checkpoint_changed=False,test_used_for_selection=False)

@@ -42,6 +42,19 @@ def kernel_exists(api,owner,kernel):
     raise ValueError('Owned kernel listing exceeded bounded search')
 
 
+def dataset_exists(api,owner,slug):
+    """Disambiguate SDK403 for a missing slug using authenticated own listing."""
+    for page in range(1,101):
+        rows=api.dataset_list(mine=True,search=slug.split('/')[-1],page=page)
+        if rows is None:raise ValueError('Owned dataset listing returned no response')
+        for row in rows:
+            ref=getattr(row,'ref',None)
+            if not isinstance(ref,str)or not ref.startswith(owner+'/'):raise ValueError('Owned dataset identity differs')
+            if ref==slug:return True
+        if not rows:return False
+    raise ValueError('Owned dataset listing exceeded bounded search')
+
+
 def recover_submission(api,kernel,output):
     """Read remote code only; recover a lost receipt iff exact code matches."""
     output=Path(output);prepared=json.loads((output/'preparation.json').read_text())
@@ -99,7 +112,9 @@ def run(args,api_factory=None):
             if not state.get('dataset_ready'):
                 try:status=api.dataset_status(slug)
                 except Exception as exc:
-                    if http_status(exc)!=404:raise
+                    if http_status(exc)==403:
+                        if dataset_exists(api,args.owner,slug):raise
+                    elif http_status(exc)!=404:raise
                     status=None
                 if str(status).lower()in('not_found','notfound'):status=None
                 if status is None:

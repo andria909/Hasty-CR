@@ -116,6 +116,18 @@ def render_reality(models,status,reports):
                 'Причина — провал TRAIN против воздуха/голема при хорошем среднем. '+
                 '[Протокол](data/ppo_tuning/continuous_focus/protocol.json), '+
                 '[диагностика](reports/defense_plan/continuous_train_family_diagnostics_20261026.json).']
+        parallel=reports/'clock_fireball_pilot_training_20261026.json'
+        if parallel.exists():
+            study=json.loads(parallel.read_text())
+            lines+=['','**Параллельная короткая серия:** '+study['status']+
+                '; gamma/lambda × штраф пустого Fireball,8 проб,819200 шагов. '+
+                'Старт с исходника; автоматических больших запусков нет.']
+            trials=study.get('progress_snapshot',{}).get('trials',{})
+            if trials:
+                lines+=['','| Конфигурация короткой серии | Доля бюджета двух seed |','|---|---:|']
+                for case in ('current_control','current_miss','seconds_preserved_control','seconds_preserved_miss'):
+                    steps=sum(trials.get(f'pilot_{case}_s{s}',{}).get('steps',0)for s in(72,73))
+                    lines.append(f'| {case} | {100*steps/204800:.1f}% |')
         if (reports/'continuous_control_uncertainty_20261026.json').exists():
             lines+=['','**Разброс:** старые14/20 противv25 дают приблизительно45–95% по seed-bootstrap; '+
                 'надёжное превосходство не доказано. [Подробности](reports/continuous_control_uncertainty_20261026.md).']
