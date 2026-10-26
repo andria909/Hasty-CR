@@ -10,14 +10,14 @@ from sim.env import ClashEnv
 from sim.train_attack_ppo import initialize_attack_policy
 
 
-def diagnose(weight,seed,intervention='none'):
+def diagnose(weight,seed,intervention='none',trace_musketeer=False):
     if intervention not in ('none','reserve','reserve_and_deploy'):raise ValueError('Unknown TRAIN intervention')
     torch.set_num_threads(1)
     blob=torch.load(weight,map_location='cpu',weights_only=False)
     net,_,_=initialize_attack_policy(blob,device='cpu',num_scalars=309,observation_contract=CONTRACT)
     net.eval();env=ContinuousPushEnv(seed=seed,split='train')
     obs,info=env.reset(seed=seed,scenario_id='defense::air/push')
-    counts=Counter();mass=Counter();examples=[]
+    counts=Counter();mass=Counter();examples=[];tracked={};traces={}
     while not env.done:
         mask=torch.as_tensor(info['action_mask'])
         with torch.inference_mode():
@@ -54,22 +54,40 @@ def diagnose(weight,seed,intervention='none'):
                             best_musketeer_logit=float(part.max()),elixir=env.match.players[1].elixir/1000))
             else:counts['air_selected_idle']+=1
         obs,_,_,_,info=env.step(action)
+        if trace_musketeer:
+            now=env.match.elapsed_ms
+            for entity in env.match.battle.entities.values():
+                if entity.side==1 and entity.name=='musketeer' and entity.uid not in tracked:
+                    tracked[entity.uid]=entity
+                    traces[entity.uid]=dict(uid=entity.uid,first_observed_ms=now,spawn_position_mt=[entity.pos.x,entity.pos.y],
+                        first_damage_observed_ms=None,death_observed_ms=None,target_samples={})
+            for uid,entity in tracked.items():
+                trace=traces[uid]
+                if entity.damage_dealt and trace['first_damage_observed_ms']is None:trace['first_damage_observed_ms']=now
+                if not entity.alive and trace['death_observed_ms']is None:trace['death_observed_ms']=now
+                if entity.alive:
+                    target=env.match.battle.entities.get(entity.target_uid)
+                    label=('air'if target.flying else 'ground')if target else 'none'
+                    trace['target_samples'][label]=trace['target_samples'].get(label,0)+1
+            for uid,entity in tracked.items():traces[uid]['damage_dealt_all_targets']=entity.damage_dealt
     return dict(schema='air-policy-train-diagnostic-v1',weight_sha256=hashlib.sha256(Path(weight).read_bytes()).hexdigest(),
         seed=seed,intervention=intervention,scenario='defense::air/push',counts=dict(counts),policy_probability_mass_sums=dict(mass),examples=examples,
+        musketeer_trace=list(traces.values()),musketeer_commands=[a for a in env.actions if a['card']=='musketeer']if trace_musketeer else [],
         final_metrics=info['metrics'],scope='One greedy TRAIN game; diagnostic only, no checkpoint selection or live claim')
 
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--weight',required=True);p.add_argument('--seed',type=int,default=781)
     p.add_argument('--output',required=True);p.add_argument('--compare-weight')
+    p.add_argument('--trace-musketeer',action='store_true')
     p.add_argument('--intervention',choices=('none','reserve','reserve_and_deploy'),default='none')
     p.add_argument('--seeds',type=int,nargs='+',default=[781,782,783]);a=p.parse_args()
     if a.compare_weight:
         rows=[]
         for name,path in [('parent',a.weight),('strong',a.compare_weight)]:
             for seed in a.seeds:
-                row=diagnose(path,seed,a.intervention);row['model']=name;rows.append(row)
+                row=diagnose(path,seed,a.intervention,a.trace_musketeer);row['model']=name;rows.append(row)
         r=dict(schema='paired-air-policy-train-diagnostic-v1',rows=rows,
             scope='Paired TRAIN seeds, diagnostic not model selection',live_games_started=False)
-    else:r=diagnose(a.weight,a.seed,a.intervention)
+    else:r=diagnose(a.weight,a.seed,a.intervention,a.trace_musketeer)
     Path(a.output).write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r.get('counts',dict(games=len(r.get('rows',[]))))))
