@@ -2,12 +2,35 @@
   "kernel": "andriashadrin/hastycr-air-warmstart-pilot-20261027",
   "kernel_version": 1,
   "root": "tmp/kaggle/air_warmstart_pilot_20261027",
-  "status": "cuda_ready_reference_validation",
+  "status": "training_steps_observed",
   "pilot_target_steps": 819200,
   "quality_accepted": false,
   "live_stopped": true,
-  "progress_snapshot": {},
-  "last_local_sync_ns": 1793054173053508000,
+  "progress_snapshot": {
+    "kernel": "andriashadrin/hastycr-air-warmstart-pilot-20261027",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "connected",
+    "reconnect_attempt": 0,
+    "checked_host_ns": 1793055376076631000,
+    "trials": {
+      "pilot_bc000_control_s122": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1048.65507129
+      },
+      "pilot_bc200_kl000_s122": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1058.116036937
+      }
+    }
+  },
+  "last_local_sync_ns": 1793055448132002000,
   "startup_evidence": [
     {
       "event": "INPUTS_VERIFIED",
@@ -19,6 +42,29 @@
         "Tesla T4",
         "Tesla T4"
       ]
+    }
+  ],
+  "actual_training_steps_confirmed": true,
+  "preliminary_warmstart_metrics": [
+    {
+      "updates": 200,
+      "seed": 122,
+      "actual_cuda": "Tesla T4",
+      "final": {
+        "train": {
+          "examples": 32,
+          "successful_greedy_fraction": 0.5625,
+          "mean_successful_probability": 0.41777461767196655,
+          "mean_log_successful_probability": -1.5476913452148438
+        },
+        "local_heldout": {
+          "examples": 16,
+          "successful_greedy_fraction": 0.5625,
+          "mean_successful_probability": 0.4040738344192505,
+          "mean_log_successful_probability": -1.6194982528686523
+        }
+      },
+      "scope": "Preliminary live log; warmstart before PPO; checkpoint not yet independently verified"
     }
   ]
 }

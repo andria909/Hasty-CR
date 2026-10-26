@@ -154,6 +154,13 @@ def render_active_studies(reports):
     lines+=['','Каждый вариант:2×102400 шагов. Проценты — по полученным счётчикам; журнал может отставать. Подготовка на примерах учитывается отдельно. '+', '.join(links)+'.','',
         '**Проверенные большие модели:600 матчей в симуляции.**','',
         '| Модель | Test-победы | Турнир-победы | Против v25 |','|---|---:|---:|---:|---:|']
+    warm=reports/'air_warmstart_pilot_training_20261027.json'
+    if warm.exists():
+        metrics=json.loads(warm.read_text()).get('preliminary_warmstart_metrics',[])
+        if metrics:
+            row=metrics[0];local=row['final']['local_heldout']
+            lines.insert(lines.index('**Проверенные большие модели:600 матчей в симуляции.**'),
+                f"Предварительный лог подготовки: после {row['updates']} обновлений успешный выбор {local['successful_greedy_fraction']*100:.1f}% из {local['examples']} локальных проверочных состояний. Это до PPO; перенос в полные матчи ещё не проверен.\n")
     pool=reports/'continuous_slots_pool_verified_20261026.json'
     if pool.exists():
         result=json.loads(pool.read_text())
