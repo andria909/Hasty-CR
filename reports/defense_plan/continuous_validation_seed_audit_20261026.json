@@ -1,0 +1,25 @@
+{
+  "schema": "repeated-continuous-validation-seed-audit-v1",
+  "frozen_trainer_sha256": "712061dabd85f5e6f9f65f8fae8c0e88f21265aed5d2c3f28c2209ca87b27182",
+  "models": [
+    {
+      "model": "full_balanced_s44",
+      "validation_rows": 48,
+      "paired_task_rows": 24,
+      "identical_terminal_metrics_after_task_metadata_removed": 24,
+      "seed_rule_from_frozen_source": "seed + index for both task halves"
+    },
+    {
+      "model": "full_strong_s44",
+      "validation_rows": 48,
+      "paired_task_rows": 24,
+      "identical_terminal_metrics_after_task_metadata_removed": 24,
+      "seed_rule_from_frozen_source": "seed + index for both task halves"
+    }
+  ],
+  "limitations": [
+    "Matching endpoint metrics plus identical seeded policy/physical source support duplicate validation contexts; raw action trajectories were not recorded in these summaries."
+  ],
+  "correction": "Future worst_family validation uses seed+task_index; all72 seed identities checked before selection",
+  "quality_accepted": false
+}

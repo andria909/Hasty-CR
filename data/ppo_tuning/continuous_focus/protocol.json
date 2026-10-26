@@ -50,9 +50,10 @@
     "seed": 900100,
     "coverage": "12 games per archetype, 6 per task; deterministic balanced family schedule",
     "selection_score": "0.5*macro_archetype_points + 0.5*worst_archetype_points",
-    "eligibility": "known terminal outcome for every game; all six families represented"
+    "eligibility": "known terminal outcome for every game; all six families represented",
+    "seed_rule": "episode_seed=900100+task_index; every physical Match seed distinct across all72 games"
   },
-  "initialization": "Choose and pin only after corrected-slot study validation/budget verification; do not choose on independent test",
+  "initialization": "Re-evaluate parent and both corrected-slot candidates on72 distinct validation states; choose by macro/worst score, never by independent test",
   "after_pilots": "Select2-4 on both seeds and per-family validation; full train only after budget/quality audit",
   "current_jobs_unchanged": true,
   "test_used_for_selection": false,

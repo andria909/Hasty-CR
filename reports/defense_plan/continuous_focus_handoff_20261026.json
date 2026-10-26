@@ -1,0 +1,29 @@
+{
+  "schema": "continuous-focus-handoff-v1",
+  "armed": true,
+  "gpu_submitted": false,
+  "coordinator_pid": 64595,
+  "owner": "vertel0",
+  "phase": "waiting_verified_corrected_slot_models",
+  "template": "tmp/kaggle/continuous_focus_template_20261026_v2",
+  "template_manifest_sha256": "c802d416e99c6eeb53d95347d2ea2d742b75ed3a151ffbe52bdca1e3d03c9f06",
+  "state_directory": "tmp/kaggle/continuous_focus_handoff_20261026",
+  "output": "tmp/kaggle/continuous_focus_cohort_20261026",
+  "initial_reference_validation_games": 72,
+  "initial_reference_seeds_distinct": true,
+  "pilot_configs": 4,
+  "pilot_seeds": [
+    62,
+    63
+  ],
+  "pilot_steps_each": 102400,
+  "full_models_if_gate_passes": 2,
+  "full_steps_each": 4096000,
+  "full_gate": "all archetypes >=0.1 on both pilot seeds",
+  "coordinator_deadline_seconds": 172800,
+  "remote_poll_seconds": 1200,
+  "quality_accepted": false,
+  "live_games_started": false,
+  "actual_state_file": "tmp/kaggle/continuous_focus_handoff_20261026/state.json",
+  "gpu_submitted_field_is_arming_snapshot": true
+}

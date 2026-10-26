@@ -158,7 +158,8 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
             for task_index in range(episodes*len(tasks)):
                 task=tasks[task_index//episodes]
                 index=task_index%episodes
-                env=make_training_env(task_mode=task_mode,split='validation',seed=seed+index,**(env_options or {}))
+                episode_seed=seed+(task_index if worst_family else index)
+                env=make_training_env(task_mode=task_mode,split='validation',seed=episode_seed,**(env_options or {}))
                 if task_mode=='joint':
                     candidates=[getattr(s,'scenario_id',s)for s in env.scenarios
                                 if getattr(s,'scenario_id',s).startswith(task+'::')]
@@ -173,8 +174,8 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
                                 s.task=='attack'and getattr(s.scenario,'tactical_goal',None)==goal]
                     chosen=(sorted(candidates)[index%len(candidates)]if worst_family
                             else random.Random(seed+index).choice(sorted(candidates)))
-                    obs,info=env.reset(seed=seed+index,scenario_id=chosen)
-                else:obs,info=env.reset(seed=seed+index)
+                    obs,info=env.reset(seed=episode_seed,scenario_id=chosen)
+                else:obs,info=env.reset(seed=episode_seed)
                 total=0.
                 bound=max(1202,int(getattr(env,'max_ms',240000)/getattr(env,'profile',{}).get('decision_interval_ms',500))+2)
                 for _ in range(bound):
@@ -241,7 +242,7 @@ def validate_resume(blob,config):
           'visible_fraction','initial_hand_mode','geometry','geometry_sha256','coordinate_mode',
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
-          'value_warmup_steps','target_kl','validation_selection','continuous_focus')
+          'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed')
     for key in keys:
         if blob['config'].get(key)!=config.get(key):
             raise ValueError(f'Attack resume configuration mismatch: {key}')
@@ -407,7 +408,8 @@ def train(args):
             mean_approximate_kl=float(np.mean(kl_values)))
         is_best=False
         if args.eval_every>0 and update%args.eval_every==0:
-            record['validation']=evaluate(network,device,episodes=args.eval_episodes,seed=900000,env_options=options,task_mode=args.task_mode)
+            record['validation']=evaluate(network,device,episodes=args.eval_episodes,
+                seed=getattr(args,'validation_seed',900000),env_options=options,task_mode=args.task_mode)
             score=record['validation'].get('selection_score',record['validation']['mean_reward']);is_best=score>best;best=max(best,score)
         budget_stop=time.monotonic()-started>=args.wallclock_seconds
         stop=budget_stop or step>=args.target_environment_steps or update==args.updates
@@ -450,6 +452,7 @@ def parser():
     p.add_argument('--target-kl',type=float,default=0.)
     p.add_argument('--validation-selection',choices=('overall','worst_family'),default='overall')
     p.add_argument('--continuous-focus',choices=('uniform','air_golem'),default='uniform')
+    p.add_argument('--validation-seed',type=int,default=900000)
     p.add_argument('--card-balance-weight',type=float,default=0.)
     p.add_argument('--card-balance-target',choices=('all_cards','units'),default='all_cards')
     p.add_argument('--architecture',default=COMPACT_ARCHITECTURE)

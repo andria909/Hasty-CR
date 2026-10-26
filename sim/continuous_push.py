@@ -183,6 +183,7 @@ class ContinuousPushEnv:
         own={k:t.hp_fraction for k,t in self.match.towers[1].items()}
         enemy={k:t.hp_fraction for k,t in self.match.towers[-1].items()}
         return dict(scenario_id=self.scenario.scenario_id,family_id=self.scenario.family,
+            episode_seed=self.seed,match_seed=self.match.seed,
             split=self.split,task=self.scenario.task,observation_contract=CONTRACT,
             terminal_reason=self.terminal_reason,elapsed_ms=self.match.elapsed_ms,
             outcome=outcome(self.match.result,1,self.match.finished),

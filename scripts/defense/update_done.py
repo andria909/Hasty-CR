@@ -47,29 +47,71 @@ def load_models(reports):
 
 
 def render_reality(models,status,reports):
+    if status.get('stage')=='continuous_focus_cohort':
+        p=reports/'continuous_focus_training_20261026.json';training=json.loads(p.read_text())
+        trials=training.get('progress_snapshot',{}).get('trials',{})
+        lines=['# Текущий этап','',
+            '**Новый цикл PPO:** воздух/голем3× чаще против обычной выборки; entropy0,01/0,03. '+
+            'Восемь коротких проб по102400 шагов. Две большие по4096000 разрешены только после проверки всех архетипов.','',
+            'Стартовые веса выбираются между исходником и двумя corrected-slot моделями на72 РАЗНЫХ validation-состояниях. '+
+            'Отбор:0,5×среднее +0,5×худший архетип; test не выбирает коэффициенты.','',
+            '| Текущая проба | Последний полученный процент |','|---|---:|']
+        for name,row in trials.items():
+            if name.startswith('pilot_')and row['percent']>=100:continue
+            lines.append(f"| {name} | {row['percent']:.1f}% |")
+        if not trials:lines+=['','GPU-задание отправлено; ожидаются данные о выборе стартовых весов/первых шагах. Процент не угадывается.']
+        verified=reports/'continuous_focus_verified_20261026.json'
+        if verified.exists():
+            v=json.loads(verified.read_text())
+            lines+=['','**Проверено:**819200 шагов коротких проб; '+str(v['full_steps_verified'])+' шагов больших обучений. '+
+                ('Гейт полного обучения пройден.'if v['full_gate_met']else'Гейт не пройден: большой бюджет не запускался.')]
+        lines+=['','Живые бои остановлены. Ни одна модель автоматически не продвигается. '+
+                '[Состояние](reports/defense_plan/continuous_focus_training_20261026.json).','',
+                'Предыдущая600-матчевая оценка: balanced41/60 в турнире и14/20 противv25, но81/120 наслучайных пушах '+
+                'против96/120 уисходника. [Все карты и результаты](reports/continuous_control_pool_20261026.md).']
+        return '\n'.join(lines)+'\n'
     if status.get('stage') in ('continuous_full_game_ppo','continuous_full_game_slots_ppo'):
         slot_mode=status.get('stage')=='continuous_full_game_slots_ppo'
         training=json.loads((reports/('continuous_slots_training_20261026.json'if slot_mode else 'continuous_training_20261026.json')).read_text())
         trials=training.get('progress_snapshot',{}).get('trials',{})
         finished=training.get('status')=='training_complete_budgets_verified'
+        full_started=any(name.startswith('full_')for name in trials)
+        completed_pilots=8 if finished else sum(name.startswith('pilot_')and row['percent']>=100 for name,row in trials.items())
         lines=['# Текущий этап','',
             '**Полные матчи PPO на Kaggle, 2×Tesla T4.** Четыре конфигурации × два seed по102400 шагов; '+
             'затем две лучшие по4096000. Всего9011200 шагов. '+
-            ('Бюджеты завершены и проверены; независимая оценка ещё требуется.' if finished else 'Большие модели пока не выбраны.'),'',
+            ('Бюджеты завершены и проверены; независимая оценка ещё требуется.' if finished else
+             'Большие обучения начались.'if full_started else 'Идёт короткий подбор.'),'',
+            f'**Короткие пробы завершены: {completed_pilots}/8.**','',
             '| Текущая проба | Последний полученный процент |','|---|---:|']
-        for name,row in trials.items():lines.append(f"| {name} | {row['percent']:.0f}% |")
+        for name,row in trials.items():
+            if name.startswith('pilot_')and row['percent']>=100:continue
+            lines.append(f"| {name} | {row['percent']:.0f}% |")
         control=reports/'continuous_training_verified_20261026.json'
         if slot_mode and control.exists():
             prior=json.loads(control.read_text())
             lines+=['','**Старый контроль с общей блокировкой завершён:** '+
                 '; '.join(f"{m['id']}: validation {m['validation']['wins']}/{m['validation']['games']} побед"for m in prior['models'])+
-                '. Это другие настройки исполнения; веса не продвинуты.']
+                '. Это другие настройки исполнения; веса не продвинуты. '+
+                '48 validation-строк —24 начальных состояния, проигранных дважды; в следующем цикле seed уникальны.']
             if (reports/'continuous_control_pool_launch_20261026.json').exists():
-                lines+=['','**Независимая проверка:**600 полных игр двух контрольных моделей, исходника иv25; '+
-                    '480 игр со случайными пушами +120 турнирных. Исполнитель у всех исправленный, по слотам. '+
-                    '[Запуск](reports/defense_plan/continuous_control_pool_launch_20261026.json).']
+                verified_pool=reports/'continuous_control_pool_verified_20261026.json'
+                if verified_pool.exists():
+                    pool=json.loads(verified_pool.read_text())
+                    lines+=['','**600 матчей проверены. Старые контрольные веса, новый исполнитель по слотам:**','',
+                        '| Модель | Случайные пуши | Турнир | Противv25 |','|---|---:|---:|---:|']
+                    for key,label in (('full_balanced_s44','Контроль balanced'),('full_strong_s44','Контроль strong'),('parent','Исходник'),('v25','v25')):
+                        test=pool['tests'][key];standing=pool['standings'][key]
+                        against='—'if key=='v25'else str(pool['matrix'][key]['v25'].get('win',0))+'/20'
+                        lines.append(f"| {label} | {test['counts'].get('win',0)}/120 | {standing['wins']}/60 | {against} |")
+                    lines+=['','Ни одна модель не продвинута. [Все карты и результаты](reports/continuous_control_pool_20261026.md).']
+                else:
+                    lines+=['','**Независимая проверка:**600 полных игр двух контрольных моделей, исходника иv25; '+
+                        '480 игр со случайными пушами +120 турнирных. Исполнитель у всех исправленный, по слотам. '+
+                        '[Запуск](reports/defense_plan/continuous_control_pool_launch_20261026.json).']
         if (reports/'continuous_train_family_diagnostics_20261026.json').exists():
-            lines+=['','**Следующий цикл подготовлен, ещё не запущен:** воздух/голем3× чаще, '+
+            lines+=['',('**Автопереход включён, ждёт проверенные текущие веса:** 'if(reports/'continuous_focus_handoff_20261026.json').exists()
+                else '**Следующий цикл подготовлен, ещё не запущен:** ')+'воздух/голем3× чаще, '+
                 'два уровня entropy, отбор по среднему и худшему архетипу на72 validation-играх. '+
                 'Причина — провал TRAIN против воздуха/голема при хорошем среднем. '+
                 '[Протокол](data/ppo_tuning/continuous_focus/protocol.json), '+

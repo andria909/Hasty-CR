@@ -1,0 +1,220 @@
+{
+  "schema": "verified-continuous-frozen-pool-v1",
+  "kernel": "andriashadrin/hastycr-continuous-control-eval-20261026",
+  "models": [
+    {
+      "id": "full_balanced_s44",
+      "file": "full_balanced_s44.pt",
+      "sha256": "041d9038d96bf6e44e3885a637b9592ac4b8fea500691c2348b322161640d37e",
+      "scalars": 309,
+      "mode": "joint_enemy_presence_v1",
+      "training_executor": "legacy_global_ack_block_2100ms"
+    },
+    {
+      "id": "full_strong_s44",
+      "file": "full_strong_s44.pt",
+      "sha256": "1da05e8e60b83c7820226728b3498bf8e3a0fdcf156298b11390e6f58e1d9607",
+      "scalars": 309,
+      "mode": "joint_enemy_presence_v1",
+      "training_executor": "legacy_global_ack_block_2100ms"
+    },
+    {
+      "id": "parent",
+      "file": "parent.pt",
+      "sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "scalars": 309,
+      "mode": "joint_enemy_presence_v1"
+    },
+    {
+      "id": "v25",
+      "file": "v25.pt",
+      "sha256": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972",
+      "scalars": 306,
+      "mode": "physical_live"
+    }
+  ],
+  "total_games": 600,
+  "tests": {
+    "full_balanced_s44": {
+      "games": 120,
+      "counts": {
+        "loss": 39,
+        "win": 81
+      },
+      "win_rate": 0.675,
+      "mean_card_plays": {
+        "cannon": 11.1,
+        "fireball": 0.8,
+        "hog_rider": 0.4666666666666667,
+        "knight": 10.916666666666666,
+        "electro_spirit": 11.958333333333334,
+        "musketeer": 0.24166666666666667,
+        "skeletons": 11.8,
+        "zap": 11.8
+      },
+      "mean_elixir_overflow": 0.0
+    },
+    "full_strong_s44": {
+      "games": 120,
+      "counts": {
+        "win": 94,
+        "loss": 26
+      },
+      "win_rate": 0.7833333333333333,
+      "mean_card_plays": {
+        "cannon": 7.441666666666666,
+        "fireball": 1.4083333333333334,
+        "hog_rider": 2.691666666666667,
+        "knight": 7.458333333333333,
+        "electro_spirit": 8.65,
+        "musketeer": 1.3333333333333333,
+        "skeletons": 8.466666666666667,
+        "zap": 8.275
+      },
+      "mean_elixir_overflow": 0.0
+    },
+    "parent": {
+      "games": 120,
+      "counts": {
+        "win": 96,
+        "loss": 24
+      },
+      "win_rate": 0.8,
+      "mean_card_plays": {
+        "cannon": 10.233333333333333,
+        "fireball": 0.7583333333333333,
+        "hog_rider": 0.43333333333333335,
+        "knight": 10.241666666666667,
+        "electro_spirit": 11.033333333333333,
+        "musketeer": 0.03333333333333333,
+        "skeletons": 10.916666666666666,
+        "zap": 10.883333333333333
+      },
+      "mean_elixir_overflow": 0.0
+    },
+    "v25": {
+      "games": 120,
+      "counts": {
+        "win": 76,
+        "loss": 44
+      },
+      "win_rate": 0.6333333333333333,
+      "mean_card_plays": {
+        "cannon": 9.9,
+        "fireball": 0.05,
+        "hog_rider": 1.1166666666666667,
+        "knight": 10.366666666666667,
+        "electro_spirit": 10.883333333333333,
+        "musketeer": 0.041666666666666664,
+        "skeletons": 10.7,
+        "zap": 10.75
+      },
+      "mean_elixir_overflow": 0.0
+    }
+  },
+  "standings": {
+    "full_balanced_s44": {
+      "games": 60,
+      "wins": 41,
+      "losses": 19,
+      "draws": 0,
+      "win_rate": 0.6833333333333333,
+      "score": 0.6833333333333333
+    },
+    "full_strong_s44": {
+      "games": 60,
+      "wins": 24,
+      "losses": 36,
+      "draws": 0,
+      "win_rate": 0.4,
+      "score": 0.4
+    },
+    "parent": {
+      "games": 60,
+      "wins": 25,
+      "losses": 35,
+      "draws": 0,
+      "win_rate": 0.4166666666666667,
+      "score": 0.4166666666666667
+    },
+    "v25": {
+      "games": 60,
+      "wins": 30,
+      "losses": 30,
+      "draws": 0,
+      "win_rate": 0.5,
+      "score": 0.5
+    }
+  },
+  "matrix": {
+    "full_balanced_s44": {
+      "full_strong_s44": {
+        "win": 15,
+        "loss": 5
+      },
+      "parent": {
+        "win": 12,
+        "loss": 8
+      },
+      "v25": {
+        "loss": 6,
+        "win": 14
+      }
+    },
+    "full_strong_s44": {
+      "full_balanced_s44": {
+        "win": 5,
+        "loss": 15,
+        "draw": 0
+      },
+      "parent": {
+        "win": 11,
+        "loss": 9
+      },
+      "v25": {
+        "loss": 12,
+        "win": 8
+      }
+    },
+    "parent": {
+      "full_balanced_s44": {
+        "win": 8,
+        "loss": 12,
+        "draw": 0
+      },
+      "full_strong_s44": {
+        "win": 9,
+        "loss": 11,
+        "draw": 0
+      },
+      "v25": {
+        "loss": 12,
+        "win": 8
+      }
+    },
+    "v25": {
+      "full_balanced_s44": {
+        "win": 6,
+        "loss": 14,
+        "draw": 0
+      },
+      "full_strong_s44": {
+        "win": 12,
+        "loss": 8,
+        "draw": 0
+      },
+      "parent": {
+        "win": 12,
+        "loss": 8,
+        "draw": 0
+      }
+    }
+  },
+  "quality_accepted": false,
+  "limits": [
+    "Synthetic random opponents and four-model tournament only",
+    "Old full models trained with global ACK block; evaluation uses corrected slot execution",
+    "Not live validation; no automatic promotion"
+  ],
+  "test_used_for_selection": false
+}

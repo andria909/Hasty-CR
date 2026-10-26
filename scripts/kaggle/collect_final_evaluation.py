@@ -46,7 +46,37 @@ def collect(api,kernel,destination,profile='defense'):
     files,logs=list_outputs(api,kernel)
     if terminal_state(api.kernels_status(kernel))!=state:
         raise ValueError('Remote evaluation state changed during listing')
-    if profile=='continuous-pool':
+    prefetched={}
+    if profile=='continuous-focus':
+        import re
+        import requests
+        prefix='continuous_focus/';result_file='result.json'
+        allowed={result_file,'selection.json','initial_selection.json','parent_reference.json'}
+        run_pattern=r'(?:pilot|full)_(?:uniform|air_golem)_(?:base|explore)_s6[234]'
+        for name in files:
+            if not name.startswith(prefix):continue
+            relative=name[len(prefix):]
+            if re.fullmatch(r'corrected_full_(?:control|leak|balanced|strong)_s44_reference\.json',relative):allowed.add(relative)
+            if re.fullmatch(run_pattern+r'(?:_summary\.json|_profile\.json|\.log)',relative):allowed.add(relative)
+            if re.fullmatch(run_pattern+r'/(?:config\.json|metrics\.jsonl|training_result\.json)',relative):allowed.add(relative)
+            if re.fullmatch(run_pattern+r'_summary\.json',relative):
+                response=requests.get(files[name].url,timeout=(30,300));response.raise_for_status()
+                raw=response.content;row=json.loads(raw);run=relative[:-len('_summary.json')]
+                selected=row.get('checkpoint')
+                if row.get('id')!=run or not isinstance(selected,str)or not re.fullmatch(re.escape(run)+r'/update_\d{6}\.pt',selected):
+                    raise ValueError('Focus summary checkpoint path differs')
+                if int(selected[-9:-3])>(100 if run.startswith('pilot_')else 4000):raise ValueError('Focus checkpoint exceeds declared budget')
+                if prefix+selected not in files:raise ValueError('Focus selected checkpoint absent')
+                prefetched[relative]=raw;allowed.add(selected)
+        latest={}
+        for name in files:
+            match=re.fullmatch(re.escape(prefix)+'('+run_pattern+r')/update_(\d{6})\.pt',name)
+            if match:
+                key,update=match.group(1),int(match.group(2))
+                if update>(100 if key.startswith('pilot_')else 4000):continue
+                if key not in latest or update>latest[key][0]:latest[key]=(update,name[len(prefix):])
+        allowed.update(v[1]for v in latest.values())
+    elif profile=='continuous-pool':
         import itertools
         prefix='continuous_pool_evaluation/';result_file='result.json'
         models=('full_balanced_s44','full_strong_s44','parent','v25')
@@ -142,8 +172,10 @@ def collect(api,kernel,destination,profile='defense'):
         for name in sorted(allowed):
             remote=prefix+name
             if remote not in files:continue
-            response=requests.get(files[remote].url,timeout=(30,300));response.raise_for_status()
-            raw=response.content
+            if name in prefetched:raw=prefetched[name]
+            else:
+                response=requests.get(files[remote].url,timeout=(30,300));response.raise_for_status()
+                raw=response.content
             target=destination/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
             receipt['files'][name]=dict(sha256=hashlib.sha256(raw).hexdigest(),bytes=len(raw))
         if result_file not in receipt['files']:raise ValueError('Terminal evaluation result absent')
@@ -160,7 +192,7 @@ def main():
     parser.add_argument('--poll-seconds',type=int,default=1200)
     parser.add_argument('--once',action='store_true')
     parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
-    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-pool'),default='defense')
+    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-pool','continuous-focus'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only
