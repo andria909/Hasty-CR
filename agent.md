@@ -1,3 +1,6 @@
+## CURRENT full-only verification support added
+Collector profile selected-continuous-full supports board/bank/history/focus/clock full_s64 selected+latest weights. New scripts/attack/verify_selected_continuous_full.py re-verifies original pilot, pinnedinputs/proof, twoeligibleprofiles, zero repeatedpilotsteps, two4096000 actualCUDAcounterbudgets, validationboundarychoice, finiteSHAweights. Shared audit_run extractedfromfocusverifier;actualcompletedfocus stillreproduces.19 tests pass inclcollectorpaths andfailedgate rejection. No positive full-only cohort exists yet; exact-package CPUpreflight andpositive artifact end-to-end check remain required BEFORE anyGPUsubmission. No currentGPU changes.
+
 ## CURRENT full-only preparer prototype
 New scripts/kaggle/prepare_selected_continuous_full.py prepares a separate frozen full-only controller ONLYafter verify()+two eligible profiles. Nested run()ASTunchanged; reference/pilot stages replaced with pinned proven selections, noAPI. Actual failedfocus rejectedbeforeoutputmkdir;6selector/controller tests passed. NOT GPUsubmitted or end-to-end accepted: before using a positive cohort, add/check dedicated full-only collector+budget/checkpoint verifier and exact-package preflight; existing focus verifier expects819200pilots, so doNOTpointit atfull-only output. DoNOTchange currentlyfrozenboard/bank jobs.
 

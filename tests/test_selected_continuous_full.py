@@ -28,3 +28,15 @@ def test_failed_gate_cannot_create_a_full_package(monkeypatch,tmp_path):
     with pytest.raises(ValueError,match='eligible'):
         module.prepare(tmp_path/'pilot',target,'owner')
     assert not target.exists()
+
+
+def test_full_verifier_rejects_failed_original_gate_before_artifacts(monkeypatch,tmp_path):
+    import json
+    from scripts.attack import verify_selected_continuous_full as verifier
+    proof=dict(pilot_selection=dict(gate_met=False,selected=[]))
+    prepared=tmp_path/'prepared';(prepared/'dataset').mkdir(parents=True)
+    (prepared/'preparation.json').write_text(json.dumps(dict(config={},pilot_prepared=str(tmp_path/'pilot'))))
+    (prepared/'dataset/pilot_verified.json').write_text(json.dumps(proof))
+    monkeypatch.setattr(verifier,'verify_pilot',lambda *a:proof)
+    with pytest.raises(ValueError,match='eligible'):
+        verifier.verify(tmp_path/'missing_artifacts',prepared)

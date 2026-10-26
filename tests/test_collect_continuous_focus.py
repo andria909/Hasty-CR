@@ -73,3 +73,12 @@ def test_bank_control_preserves_selected_and_latest(monkeypatch,tmp_path,overflo
     assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'chosen_eligible'
     assert (tmp_path/'out'/run/'update_000100.pt').read_bytes()==b'latest_resume'
     assert not (tmp_path/'out'/run/'update_999999.pt').exists()
+
+
+@pytest.mark.parametrize('run',['full_board_150_s64','full_bank_overflow00_balance10_s64'])
+def test_selected_full_profile_collects_both_study_families(monkeypatch,tmp_path,run):
+    setup(monkeypatch,run+'/update_000050.pt',run)
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','selected-continuous-full')
+    assert result['complete']
+    assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'chosen_eligible'
+    assert (tmp_path/'out'/run/'update_000100.pt').read_bytes()==b'latest_resume'

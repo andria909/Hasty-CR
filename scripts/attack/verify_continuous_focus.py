@@ -25,6 +25,52 @@ def metric_boundaries(path,target_steps):
     return validations
 
 
+def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
+    row=json.loads((root/(run_id+'_summary.json')).read_text())
+    boundary=json.loads((root/run_id/'training_result.json').read_text())
+    config=json.loads((root/run_id/'config.json').read_text())
+    history_frames=trial.get('history_frames',1)
+    expected_planes=41 if history_frames==2 else 20
+    expected_contract=('joint_public_presence_continuous_slots_history2_v1'if history_frames==2
+        else'joint_public_presence_continuous_slots_v2')
+    if (config.get('num_planes',20)!=expected_planes or config.get('history_frames',1)!=history_frames or
+            config.get('observation_contract')!=expected_contract):raise ValueError('History input contract differs')
+    if not boundary.get('target_met')or boundary.get('step')!=steps or not row.get('target_met')or row.get('step')!=steps:
+        raise ValueError('Incomplete focus training budget')
+    if(row['id']!=run_id or row['trial']!=trial or row['seed']!=seed or row['initial_model']!=selected_initial or
+        config['init_sha256']!=selected_initial['sha256']or config['continuous_focus']!=trial['focus']or
+        config['seed']!=seed or
+        config['validation_selection']!='worst_family'or config['validation_seed']!=900100 or
+        config['entropy_coef']!=trial['entropy_coef']or config['num_scalars']!=309 or
+        config.get('device')not in('cuda:0','cuda:1')or config.get('task_mode')!='joint'or
+        config['card_balance_weight']!=trial['card_balance_weight']or config['card_balance_target']!='units'or
+        config['continuous_profile']['overflow_penalty']!=trial['overflow_penalty']or
+        config['gamma']!=trial.get('gamma',.999)or config['gae_lambda']!=trial.get('gae_lambda',.95)or
+        config['continuous_profile'].get('missed_fireball_penalty',0.)!=trial.get('missed_fireball_penalty',0.)):
+        raise ValueError('Focus run configuration differs')
+    if config['continuous_profile'].get('board_potential_weight',0.)!=trial.get('board_potential_weight',0.):
+        raise ValueError('Potential coefficient differs')
+    if trial.get('board_potential_weight',0.)and config['continuous_profile']['shaping_gamma']!=config['gamma']:
+        raise ValueError('Potential shaping discount differs from PPO')
+    validations=metric_boundaries(root/run_id/'metrics.jsonl',steps)
+    for record in validations:
+        v=record['validation'];score=validation_score(v)
+        if abs(score['selection_score']-v['selection_score'])>1e-12:raise ValueError('Validation score differs')
+        contexts=[(r['scenario_id'],r['episode_seed'],r['match_seed'])for r in v['records']]
+        if contexts!=initial_contexts:raise ValueError('Validation contexts changed between candidates')
+        if trial.get('board_potential_weight',0):
+            for episode in v['records']:
+                expected=-trial['board_potential_weight']*episode['initial_board_potential']
+                if not math.isclose(episode['board_shaping_discounted_return'],expected,abs_tol=1e-7):
+                    raise ValueError('Potential return changed completed-game objective')
+    eligible=[r for r in validations if r['validation']['worst_archetype_points']>=.1]
+    chosen=max(eligible or validations,key=lambda r:r['validation']['selection_score'])
+    if(row['validation']!=chosen['validation']or row['selected_update']!=chosen['update']or
+            row['selected_with_family_guard']!=bool(eligible)):raise ValueError('Checkpoint selection differs')
+    expected=f"{run_id}/update_{chosen['update']:06d}.pt"
+    if row['checkpoint']!=expected or sha(root/expected)!=row['checkpoint_sha256']:raise ValueError('Selected weight differs')
+    return row
+
 def verify(collected,prepared):
     root=Path(collected);prepared=Path(prepared);cfg=json.loads((prepared/'preparation.json').read_text())
     c=cfg['config'];receipt=json.loads((root/'collection_receipt.json').read_text())
@@ -55,51 +101,8 @@ def verify(collected,prepared):
         raise ValueError('Warm-start selection differs')
     selected_initial=next(m for m in c['models']if m['id']==initial['selected'])
     initial_contexts=[(r['scenario_id'],r['episode_seed'],r['match_seed'])for r in refs[0]['validation']['records']]
-    def audited_run(run_id,trial,seed,steps):
-        row=json.loads((root/(run_id+'_summary.json')).read_text())
-        boundary=json.loads((root/run_id/'training_result.json').read_text())
-        config=json.loads((root/run_id/'config.json').read_text())
-        history_frames=trial.get('history_frames',1)
-        expected_planes=41 if history_frames==2 else 20
-        expected_contract=('joint_public_presence_continuous_slots_history2_v1'if history_frames==2
-            else'joint_public_presence_continuous_slots_v2')
-        if (config.get('num_planes',20)!=expected_planes or config.get('history_frames',1)!=history_frames or
-                config.get('observation_contract')!=expected_contract):raise ValueError('History input contract differs')
-        if not boundary.get('target_met')or boundary.get('step')!=steps or not row.get('target_met')or row.get('step')!=steps:
-            raise ValueError('Incomplete focus training budget')
-        if(row['id']!=run_id or row['trial']!=trial or row['seed']!=seed or row['initial_model']!=selected_initial or
-            config['init_sha256']!=selected_initial['sha256']or config['continuous_focus']!=trial['focus']or
-            config['seed']!=seed or
-            config['validation_selection']!='worst_family'or config['validation_seed']!=900100 or
-            config['entropy_coef']!=trial['entropy_coef']or config['num_scalars']!=309 or
-            config.get('device')not in('cuda:0','cuda:1')or config.get('task_mode')!='joint'or
-            config['card_balance_weight']!=trial['card_balance_weight']or config['card_balance_target']!='units'or
-            config['continuous_profile']['overflow_penalty']!=trial['overflow_penalty']or
-            config['gamma']!=trial.get('gamma',.999)or config['gae_lambda']!=trial.get('gae_lambda',.95)or
-            config['continuous_profile'].get('missed_fireball_penalty',0.)!=trial.get('missed_fireball_penalty',0.)):
-            raise ValueError('Focus run configuration differs')
-        if config['continuous_profile'].get('board_potential_weight',0.)!=trial.get('board_potential_weight',0.):
-            raise ValueError('Potential coefficient differs')
-        if trial.get('board_potential_weight',0.)and config['continuous_profile']['shaping_gamma']!=config['gamma']:
-            raise ValueError('Potential shaping discount differs from PPO')
-        validations=metric_boundaries(root/run_id/'metrics.jsonl',steps)
-        for record in validations:
-            v=record['validation'];score=validation_score(v)
-            if abs(score['selection_score']-v['selection_score'])>1e-12:raise ValueError('Validation score differs')
-            contexts=[(r['scenario_id'],r['episode_seed'],r['match_seed'])for r in v['records']]
-            if contexts!=initial_contexts:raise ValueError('Validation contexts changed between candidates')
-            if trial.get('board_potential_weight',0):
-                for episode in v['records']:
-                    expected=-trial['board_potential_weight']*episode['initial_board_potential']
-                    if not math.isclose(episode['board_shaping_discounted_return'],expected,abs_tol=1e-7):
-                        raise ValueError('Potential return changed completed-game objective')
-        eligible=[r for r in validations if r['validation']['worst_archetype_points']>=.1]
-        chosen=max(eligible or validations,key=lambda r:r['validation']['selection_score'])
-        if(row['validation']!=chosen['validation']or row['selected_update']!=chosen['update']or
-                row['selected_with_family_guard']!=bool(eligible)):raise ValueError('Checkpoint selection differs')
-        expected=f"{run_id}/update_{chosen['update']:06d}.pt"
-        if row['checkpoint']!=expected or sha(root/expected)!=row['checkpoint_sha256']:raise ValueError('Selected weight differs')
-        return row
+    from functools import partial
+    audited_run=partial(audit_run,root,c,selected_initial,initial_contexts)
     pilots=[]
     seeds=protocol.get('pilot_seeds',(62,63));allow_full=c.get('allow_full_training',True)
     for trial in protocol['cases']:

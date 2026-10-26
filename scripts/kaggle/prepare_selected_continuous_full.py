@@ -67,7 +67,7 @@ def prepare(pilot,output,owner):
     source+='\nexecute('+repr(config)+')\n';compile(source,'train.py','exec');(job/'train.py').write_text(source)
     (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug,title=slug,licenses=[dict(name='other')],isPrivate=True),indent=2)+'\n')
     (job/'kernel-metadata.json').write_text(json.dumps(dict(id=kernel,title=kernel.split('/')[-1],code_file='train.py',language='python',kernel_type='script',is_private=True,enable_gpu=True,enable_internet=False,dataset_sources=[owner+'/'+slug],competition_sources=[],kernel_sources=[]),indent=2)+'\n')
-    result=dict(kernel=kernel,config=config,bootstrap_sha256=sha(job/'train.py'),pilot_kernel=proof['kernel'],submitted=False,full_steps=8192000,pilot_steps_repeated=0,quality_accepted=False)
+    result=dict(kernel=kernel,config=config,bootstrap_sha256=sha(job/'train.py'),pilot_kernel=proof['kernel'],pilot_prepared=str(pilot.absolute()),submitted=False,full_steps=8192000,pilot_steps_repeated=0,quality_accepted=False)
     (output/'preparation.json').write_text(json.dumps(result,indent=2)+'\n')
     return result
 
