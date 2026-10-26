@@ -11,7 +11,7 @@ from scripts.attack.select_continuous_focus import select_initial,select_profile
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def metric_boundaries(path,target_steps):
+def metric_boundaries(path,target_steps,policy_temperature=None):
     validations=[];update=0;step=0
     with Path(path).open()as stream:
         for line in stream:
@@ -20,6 +20,8 @@ def metric_boundaries(path,target_steps):
                     record.get('target_environment_steps')!=target_steps or not record.get('actual_cuda')or
                     abs(record.get('percent',-1)-100*step/target_steps)>1e-9):
                 raise ValueError('Nonconsecutive or inconsistent actual training counters')
+            if policy_temperature is not None and record.get('policy_temperature',1.)!=policy_temperature:
+                raise ValueError('Actual rollout policy temperature differs')
             if'validation'in record:validations.append(record)
     if step!=target_steps:raise ValueError('Metrics do not reach the actual target budget')
     return validations
@@ -66,6 +68,7 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
         config['entropy_coef']!=trial['entropy_coef']or config['num_scalars']!=309 or
         config.get('device')not in('cuda:0','cuda:1')or config.get('task_mode')!='joint'or
         config['card_balance_weight']!=trial['card_balance_weight']or config['card_balance_target']!='units'or
+        config.get('policy_temperature',1.)!=trial.get('policy_temperature',1.)or
         config['continuous_profile']['overflow_penalty']!=trial['overflow_penalty']or
         config['gamma']!=trial.get('gamma',.999)or config['gae_lambda']!=trial.get('gae_lambda',.95)or
         config['continuous_profile'].get('missed_fireball_penalty',0.)!=trial.get('missed_fireball_penalty',0.)):
@@ -74,7 +77,7 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
         raise ValueError('Potential coefficient differs')
     if trial.get('board_potential_weight',0.)and config['continuous_profile']['shaping_gamma']!=config['gamma']:
         raise ValueError('Potential shaping discount differs from PPO')
-    validations=metric_boundaries(root/run_id/'metrics.jsonl',steps)
+    validations=metric_boundaries(root/run_id/'metrics.jsonl',steps,trial.get('policy_temperature',1.))
     for record in validations:
         v=record['validation'];score=validation_score(v)
         if abs(score['selection_score']-v['selection_score'])>1e-12:raise ValueError('Validation score differs')

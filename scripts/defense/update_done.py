@@ -78,6 +78,7 @@ def history_progress_lines(reports):
         lines+=short_study_lines(reports,'board_potential_pilot','20261026','Награда за размен')
         lines+=short_study_lines(reports,'bank_conservation','20261027','Контроль расхода эликсира')
         lines+=short_study_lines(reports,'air_warmstart_pilot','20261027','Успешные действия → PPO')
+        lines+=short_study_lines(reports,'temperature_pilot','20261027','Температура исследования PPO')
         diagnosis=reports/'air_policy_train_diagnostic_20261027.json'
         if diagnosis.exists():
             lines+=['','**Диагностика воздуха:** на трёх TRAIN-seed новый strong держал мушкетёра в руке2023 шага, но лишь на двух имел ≥4 эликсира. Контроль штрафа overflow и JS-баланса отправлен отдельным заданием на освободившийся аккаунт3. [Измерения](reports/air_policy_train_diagnostic_20261027.md).']
@@ -148,7 +149,8 @@ def render_reality(models,status,reports):
             lines=['# Текущий этап','',
                 '**Усиленная выборка воздуха/голема: завершено100%.** Проверены819200 CUDA-шагов. '+
                 ('Порог большого обучения пройден.'if v['full_gate_met']else'Порог не пройден; большие запуски не начинались.'),
-                ('Сейчас новая GPU-серия: успешные действия → одинаковый бюджет PPO; прошлые исследования ниже.'if (reports/'air_warmstart_pilot_training_20261027.json').exists()else
+                ('Сейчас две GPU-серии: подготовка по успешным действиям и температура исследования PPO.'if (reports/'temperature_pilot_training_20261027.json').exists()else
+                 'Сейчас новая GPU-серия: успешные действия → одинаковый бюджет PPO; прошлые исследования ниже.'if (reports/'air_warmstart_pilot_training_20261027.json').exists()else
                  'Сейчас продолжается контроль расхода эликсира; исследование размена завершено.'if (reports/'board_potential_pilot_verified_20261026.json').exists()else
                  'Сейчас идут отдельные исследования награды за размен и расхода эликсира.')]
             summary=reports/'continuous_focus_summary_20261026.json'

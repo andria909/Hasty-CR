@@ -23,6 +23,11 @@ from sim.train_defense_ppo import (generalized_advantage,normalize_advantages,re
     tensor_observations,action_masks,rng_state,restore_rng,validate_transition)
 
 
+def tempered_logits(logits,temperature=1.):
+    if not np.isfinite(temperature)or not 0<temperature<=100:raise ValueError('Invalid policy temperature')
+    return logits if temperature==1 else logits/temperature
+
+
 def build_attack_network(architecture=COMPACT_ARCHITECTURE,device='cpu',*,num_scalars=None,
                          num_planes=NUM_PLANES,num_actions=ACTIONS):
     return build_network(num_planes,NUM_SCALARS+2 if num_scalars is None else num_scalars,
@@ -258,7 +263,7 @@ def validate_resume(blob,config):
           'visible_fraction','initial_hand_mode','geometry','geometry_sha256','coordinate_mode',
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
-          'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes')
+          'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes','policy_temperature')
     for key in keys:
         if blob['config'].get(key)!=config.get(key):
             raise ValueError(f'Attack resume configuration mismatch: {key}')
@@ -268,6 +273,8 @@ def validate_resume(blob,config):
 
 
 def train(args):
+    temperature=getattr(args,'policy_temperature',1.)
+    tempered_logits(torch.empty(0),temperature)
     balance_weight=getattr(args,'card_balance_weight',0.)
     balance_target=getattr(args,'card_balance_target','all_cards')
     if (getattr(args,'value_warmup_steps',0)<0 or not np.isfinite(getattr(args,'target_kl',0))
@@ -324,7 +331,7 @@ def train(args):
     network=build_attack_network(architecture,device,num_scalars=num_scalars,num_planes=num_planes)
     initialization=load_attack_state(network,blob,exact=bool(args.resume),observation_contract=contract)if blob else {'fresh_initialization':True}
     optimizer=torch.optim.Adam(network.parameters(),lr=args.lr)
-    config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,num_planes=num_planes,history_frames=history_frames,
+    config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,num_planes=num_planes,history_frames=history_frames,policy_temperature=temperature,
         reward_profile=reward_profile,reward_profile_sha256=reward_sha,
         observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames),
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
@@ -366,6 +373,7 @@ def train(args):
             masks=action_masks(infos,device)
             with torch.no_grad():
                 logits,values=network(planes,scalars)
+                logits=tempered_logits(logits,temperature)
                 require_finite(logits=logits,values=values)
                 distribution=masked_distribution(logits,masks)
                 actions=distribution.sample();log_prob=distribution.log_prob(actions)
@@ -402,6 +410,7 @@ def train(args):
         for _ in range(args.epochs):
             for indices in torch.randperm(len(actions),device=device).split(args.minibatch_size):
                 logits,predicted=network(planes[indices],scalars[indices])
+                logits=tempered_logits(logits,temperature)
                 dist=masked_distribution(logits,masks[indices])
                 ratio=(dist.log_prob(actions[indices])-old_log[indices]).exp()
                 log_ratio=dist.log_prob(actions[indices])-old_log[indices]
@@ -422,7 +431,7 @@ def train(args):
                 norm=torch.nn.utils.clip_grad_norm_(network.parameters(),args.max_grad_norm,error_if_nonfinite=True)
                 optimizer.step();losses.append(float(loss.detach()))
             if kl_stopped:break
-        record=dict(update=update,step=step,target_environment_steps=args.target_environment_steps,
+        record=dict(update=update,step=step,target_environment_steps=args.target_environment_steps,policy_temperature=temperature,
             percent=min(100.,100*step/args.target_environment_steps),elapsed_seconds=time.monotonic()-started,
             actual_cuda=actual_cuda,loss=float(np.mean(losses)),gradient_norm=float(norm),episodes=episodes,
             train_summary=summarize_attack(episodes),by_task=summarize_tasks(episodes))
@@ -480,6 +489,7 @@ def parser():
     p.add_argument('--validation-seed',type=int,default=900000)
     p.add_argument('--card-balance-weight',type=float,default=0.)
     p.add_argument('--card-balance-target',choices=('all_cards','units'),default='all_cards')
+    p.add_argument('--policy-temperature',type=float,default=1.)
     p.add_argument('--architecture',default=COMPACT_ARCHITECTURE)
     p.add_argument('--initial-hand-mode',choices=('scenario','shuffle'),default='shuffle')
     p.add_argument('--geometry',choices=('legacy_v1','native_anchors_candidate_v1'),default='legacy_v1')

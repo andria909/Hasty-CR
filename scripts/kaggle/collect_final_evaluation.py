@@ -47,13 +47,14 @@ def collect(api,kernel,destination,profile='defense'):
     if terminal_state(api.kernels_status(kernel))!=state:
         raise ValueError('Remote evaluation state changed during listing')
     prefetched={}
-    if profile in ('continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot'):
+    if profile in ('continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot'):
         import re
         import requests
         prefix='continuous_focus/';result_file='result.json'
         allowed={result_file,'selection.json','initial_selection.json','parent_reference.json'}
-        run_pattern=(r'pilot_(?:bc000_control|bc200_kl000|bc800_kl000|bc800_kl100)_s12[23]'
-            if profile=='air-warmstart-pilot'else r'full_(?:bc000_control|bc200_kl000|bc800_kl000|bc800_kl100|board_(?:000|050|150|400)|bank_overflow(?:00|15)_balance(?:00|10)|history[12]_(?:uniform|air_golem)|(?:uniform|air_golem)_(?:base|explore)|(?:current|seconds_preserved)_(?:control|miss))_s64'
+        run_pattern=(r'pilot_temp(?:001|010|030|050)_s13[23]'
+            if profile=='temperature-pilot'else r'pilot_(?:bc000_control|bc200_kl000|bc800_kl000|bc800_kl100)_s12[23]'
+            if profile=='air-warmstart-pilot'else r'full_(?:temp(?:001|010|030|050)|bc000_control|bc200_kl000|bc800_kl000|bc800_kl100|board_(?:000|050|150|400)|bank_overflow(?:00|15)_balance(?:00|10)|history[12]_(?:uniform|air_golem)|(?:uniform|air_golem)_(?:base|explore)|(?:current|seconds_preserved)_(?:control|miss))_s64'
             if profile=='selected-continuous-full'else r'(?:pilot|full)_(?:uniform|air_golem)_(?:base|explore)_s6[234]'
             if profile=='continuous-focus' else r'pilot_history[12]_(?:uniform|air_golem)_s8[23]'
             if profile=='history-pilot' else r'pilot_board_(?:000|050|150|400)_s9[23]'
@@ -214,7 +215,7 @@ def main():
     parser.add_argument('--poll-seconds',type=int,default=1200)
     parser.add_argument('--once',action='store_true')
     parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
-    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot'),default='defense')
+    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only

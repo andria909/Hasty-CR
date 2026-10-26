@@ -9,7 +9,7 @@ from scripts.kaggle.run_five_round_robin import sha
 
 
 def prepare(output,owner='andriashadrin',study='clock'):
-    if study not in ('clock','history','board','bank','warmstart'):raise ValueError('Unknown short study')
+    if study not in ('clock','history','board','bank','warmstart','temperature'):raise ValueError('Unknown short study')
     root=Path(output);root.mkdir(parents=True,exist_ok=False)
     template=root/'template';manifest=freeze_template(template,extra_files=('scripts/attack/train_air_position_warmstart.py',)if study=='warmstart'else())
     dataset=root/'dataset';dataset.mkdir();job=root/'job';job.mkdir()
@@ -55,6 +55,12 @@ def prepare(output,owner='andriashadrin',study='clock'):
             raise ValueError('Verified TRAIN demonstrations required')
         shutil.copyfile(examples/'examples.npz',dataset/'air_examples.npz')
         shutil.copyfile(examples/'manifest.json',dataset/'air_manifest.json')
+    if study=='temperature':
+        protocol.update(schema='continuous-temperature-pilot-v1',pilot_seeds=[132,133],
+            rationale_source='reports/defense_plan/air_temperature_probe_20261027.json',rationale_split='train_fixture',
+            cases=[dict(id=f'temp{int(t):03d}',policy_temperature=t,history_frames=1,focus='air_golem',
+                entropy_coef=.01,gamma=.999,gae_lambda=.95,overflow_penalty=.15,card_balance_weight=.1,
+                card_balance_target='units',missed_fireball_penalty=0.)for t in (1.,10.,30.,50.)])
     (dataset/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n')
     for name in ('extensions.tar.gz',):shutil.copyfile(template/name,dataset/name)
     source=Path('tmp/kaggle/fireball_balanced_20261025/dataset')
@@ -67,8 +73,9 @@ def prepare(output,owner='andriashadrin',study='clock'):
     stem=('hastycr-history-pilot'if study=='history'else
         'hastycr-board-potential-pilot'if study=='board'else
         'hastycr-bank-conservation-pilot'if study=='bank'else
-        'hastycr-air-warmstart-pilot'if study=='warmstart'else'hastycr-clock-fireball-pilot')
-    date='20261027'if study in('bank','warmstart')else'20261026'
+        'hastycr-air-warmstart-pilot'if study=='warmstart'else
+        'hastycr-temperature-pilot'if study=='temperature'else'hastycr-clock-fireball-pilot')
+    date='20261027'if study in('bank','warmstart','temperature')else'20261026'
     slug=stem+'-inputs-'+date;kernel=owner+'/'+stem+'-'+date
     (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug,title=slug,
         licenses=[dict(name='other')],isPrivate=True),indent=2)+'\n')
@@ -90,5 +97,5 @@ def prepare(output,owner='andriashadrin',study='clock'):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--owner',default='andriashadrin')
-    p.add_argument('--study',choices=('clock','history','board','bank','warmstart'),default='clock')
+    p.add_argument('--study',choices=('clock','history','board','bank','warmstart','temperature'),default='clock')
     a=p.parse_args();print(json.dumps(prepare(a.output,a.owner,a.study)))

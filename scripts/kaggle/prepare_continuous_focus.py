@@ -97,6 +97,7 @@ def execute(config):
             '--eval-episodes','36','--entropy-coef',str(trial['entropy_coef']),
             '--history-frames',str(trial.get('history_frames',1)),
             '--card-balance-weight',str(trial['card_balance_weight']),'--card-balance-target','units',
+            '--policy-temperature',str(trial.get('policy_temperature',1.)),
             '--action-delay-ms','225','--max-ms','310000','--seed',str(seed),'--envs','8','--rollout','128',
             '--updates',str(steps//1024),'--target-environment-steps',str(steps),'--epochs','3','--minibatch-size','256',
             '--lr','0.00005','--gamma',str(trial.get('gamma',.999)),

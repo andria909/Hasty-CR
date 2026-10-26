@@ -1,3 +1,6 @@
+## CURRENT parallel TEMPERATURE pilot SUBMITTED VERSION1
+vertel0/hastycr-temperature-pilot-20261027 kernelId141060940,root tmp/kaggle/temperature_pilot_20261027,monitors69548/69549/69550.4T=1/10/30/50 ×seeds132/133 ×102400=819200,noautomaticfull. Frozen18filesimmutable. Temperatureappliedsame rollout/PPOentropy/JS;evalgreedyrawunchanged. Config+perupdate temperatureverified;exactresume guards. ExactfrozenCPUpreflightT30,16->32steps/2updates/24validationgames passed;36targetedtests. ActualGPUtraining notclaimedbeforeCUDA/TRIAL evidence. Existingandriashadrinwarmstartjobfrozenoldercode,nohotfix. No live/promotion.
+
 ## CURRENT bank study COMPLETE verified and rejected
 reports/defense_plan/bank_conservation_verified_20261027.json +summary andreports/bank_conservation_results_20261027.md.819200actualCUDAsteps;wins144=78withoutJS,81withJS,both overflow0/.15same counts;allair0/24,noeligibleprofiles,nofull. Bankstream68760 retiredONLYafterCOMPLETEreceipt+proof;collector69321/post67922finished. CurrentonlyGPUstudy air-warmstart+PPO andriashadrin VERSION1,referencevalidation2T4. Parent/v25/bestmodel untouched,no live.
 

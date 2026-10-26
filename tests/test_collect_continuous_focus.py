@@ -96,3 +96,9 @@ def test_air_warmstart_collection_keeps_pretraining_provenance(monkeypatch,tmp_p
     assert (tmp_path/'out'/(run+'_warmstart')/'policy.pt').read_bytes()==b'warm'
     assert (tmp_path/'out'/(run+'_warmstart')/'result.json').exists()
     assert (tmp_path/'out'/(run+'_warmstart')/'updates.json').exists()
+
+
+def test_temperature_pilot_collects_selected_checkpoint(monkeypatch,tmp_path):
+    run='pilot_temp030_s132';setup(monkeypatch,run+'/update_000050.pt',run)
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','temperature-pilot')
+    assert result['complete']and(tmp_path/'out'/run/'update_000050.pt').exists()
