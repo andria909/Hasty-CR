@@ -77,6 +77,7 @@ def history_progress_lines(reports):
             '[Подробности](reports/history_pilot_results_20261026.md).']
         lines+=short_study_lines(reports,'board_potential_pilot','20261026','Награда за размен')
         lines+=short_study_lines(reports,'bank_conservation','20261027','Контроль расхода эликсира')
+        lines+=short_study_lines(reports,'air_warmstart_pilot','20261027','Успешные действия → PPO')
         diagnosis=reports/'air_policy_train_diagnostic_20261027.json'
         if diagnosis.exists():
             lines+=['','**Диагностика воздуха:** на трёх TRAIN-seed новый strong держал мушкетёра в руке2023 шага, но лишь на двух имел ≥4 эликсира. Контроль штрафа overflow и JS-баланса отправлен отдельным заданием на освободившийся аккаунт3. [Измерения](reports/air_policy_train_diagnostic_20261027.md).']
@@ -88,7 +89,7 @@ def history_progress_lines(reports):
             lines+=['','**Основа следующего упражнения:** одиночный шар защищается без урона в44/48 фиксированных постановках, шар+дракон —16/48. Это перебор, не обученная модель. [Достижимость](reports/air_position_feasibility_20261027.md).']
         if (reports/'air_position_examples_audit_20261027.json').exists():
             lines+=['','Собраны48 разных публичных TRAIN-состояний и336 успешных допустимых действий для локальной защиты. [Данные](reports/air_position_examples_20261027.md).']
-        if (reports/'air_warmstart_preflight_20261027.json').exists():
+        if (reports/'air_warmstart_preflight_20261027.json').exists()and not(reports/'air_warmstart_pilot_training_20261027.json').exists():
             lines+=['','Проверены5 CPU-обновлений обучения по успешным действиям: ошибка снижается, успешный greedy пока0%. Полный GPU-прогон ещё не запускался. [Проверка](reports/air_warmstart_preflight_20261027.md).']
         return lines
     path=reports/'history_pilot_training_20261026.json'
@@ -147,7 +148,8 @@ def render_reality(models,status,reports):
             lines=['# Текущий этап','',
                 '**Усиленная выборка воздуха/голема: завершено100%.** Проверены819200 CUDA-шагов. '+
                 ('Порог большого обучения пройден.'if v['full_gate_met']else'Порог не пройден; большие запуски не начинались.'),
-                ('Сейчас продолжается контроль расхода эликсира; исследование размена завершено.'if (reports/'board_potential_pilot_verified_20261026.json').exists()else
+                ('Сейчас новая GPU-серия: успешные действия → одинаковый бюджет PPO; прошлые исследования ниже.'if (reports/'air_warmstart_pilot_training_20261027.json').exists()else
+                 'Сейчас продолжается контроль расхода эликсира; исследование размена завершено.'if (reports/'board_potential_pilot_verified_20261026.json').exists()else
                  'Сейчас идут отдельные исследования награды за размен и расхода эликсира.')]
             summary=reports/'continuous_focus_summary_20261026.json'
             if summary.exists():

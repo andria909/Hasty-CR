@@ -9,9 +9,9 @@ from scripts.kaggle.run_five_round_robin import sha
 
 
 def prepare(output,owner='andriashadrin',study='clock'):
-    if study not in ('clock','history','board','bank'):raise ValueError('Unknown short study')
+    if study not in ('clock','history','board','bank','warmstart'):raise ValueError('Unknown short study')
     root=Path(output);root.mkdir(parents=True,exist_ok=False)
-    template=root/'template';manifest=freeze_template(template)
+    template=root/'template';manifest=freeze_template(template,extra_files=('scripts/attack/train_air_position_warmstart.py',)if study=='warmstart'else())
     dataset=root/'dataset';dataset.mkdir();job=root/'job';job.mkdir()
     protocol=json.loads(Path('data/ppo_tuning/continuous_spell_efficiency/protocol.json').read_text())
     # This independent pilot uses a fixed parent and fixed uniform/.01 setup.
@@ -42,6 +42,19 @@ def prepare(output,owner='andriashadrin',study='clock'):
         proposal=json.loads(Path('data/ppo_tuning/bank_conservation/protocol.json').read_text())
         protocol.update(schema='continuous-bank-conservation-pilot-v1',pilot_seeds=proposal['pilot_seeds'],
             rationale_source=proposal['rationale_source'],rationale_split='train',cases=proposal['cases'])
+    if study=='warmstart':
+        protocol.update(schema='continuous-air-warmstart-pilot-v1',pilot_seeds=[122,123],
+            rationale_source='reports/air_warmstart_preflight_20261027.md',rationale_split='train_fixture',
+            cases=[dict(id=name,warmstart_updates=updates,warmstart_kl_weight=kl,history_frames=1,
+                focus='air_golem',entropy_coef=.01,gamma=.999,gae_lambda=.95,overflow_penalty=.15,
+                card_balance_weight=.1,card_balance_target='units',missed_fireball_penalty=0.)
+                for name,updates,kl in [('bc000_control',0,0.),('bc200_kl000',200,0.),('bc800_kl000',800,0.),('bc800_kl100',800,.1)]])
+        examples=Path('data/air_position_examples_20261027')
+        metadata=json.loads((examples/'manifest.json').read_text())
+        if metadata['split']!='train'or sha(examples/'examples.npz')!=metadata['data_sha256']:
+            raise ValueError('Verified TRAIN demonstrations required')
+        shutil.copyfile(examples/'examples.npz',dataset/'air_examples.npz')
+        shutil.copyfile(examples/'manifest.json',dataset/'air_manifest.json')
     (dataset/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n')
     for name in ('extensions.tar.gz',):shutil.copyfile(template/name,dataset/name)
     source=Path('tmp/kaggle/fireball_balanced_20261025/dataset')
@@ -53,8 +66,9 @@ def prepare(output,owner='andriashadrin',study='clock'):
     shutil.copyfile(parent,dataset/'parent.pt')
     stem=('hastycr-history-pilot'if study=='history'else
         'hastycr-board-potential-pilot'if study=='board'else
-        'hastycr-bank-conservation-pilot'if study=='bank'else'hastycr-clock-fireball-pilot')
-    date='20261027'if study=='bank'else'20261026'
+        'hastycr-bank-conservation-pilot'if study=='bank'else
+        'hastycr-air-warmstart-pilot'if study=='warmstart'else'hastycr-clock-fireball-pilot')
+    date='20261027'if study in('bank','warmstart')else'20261026'
     slug=stem+'-inputs-'+date;kernel=owner+'/'+stem+'-'+date
     (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug,title=slug,
         licenses=[dict(name='other')],isPrivate=True),indent=2)+'\n')
@@ -62,6 +76,7 @@ def prepare(output,owner='andriashadrin',study='clock'):
         models=[dict(id='parent',file='parent.pt',sha256=digest)],
         source_manifest_sha256=manifest['source_manifest_sha256'],extensions=manifest['extensions'],replaced=manifest['replaced'],
         pins={n:sha(dataset/n)for n in ('manifest.json','extensions.tar.gz','protocol.json','parent.pt')})
+    if study=='warmstart':config['pins'].update({n:sha(dataset/n)for n in('air_examples.npz','air_manifest.json')})
     code=(template/'bootstrap.txt').read_text()+'\nexecute('+repr(config)+')\n'
     compile(code,'train.py','exec');(job/'train.py').write_text(code)
     (job/'kernel-metadata.json').write_text(json.dumps(dict(id=kernel,title=kernel.split('/')[-1],code_file='train.py',
@@ -75,5 +90,5 @@ def prepare(output,owner='andriashadrin',study='clock'):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--owner',default='andriashadrin')
-    p.add_argument('--study',choices=('clock','history','board','bank'),default='clock')
+    p.add_argument('--study',choices=('clock','history','board','bank','warmstart'),default='clock')
     a=p.parse_args();print(json.dumps(prepare(a.output,a.owner,a.study)))

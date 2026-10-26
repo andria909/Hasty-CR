@@ -59,6 +59,8 @@ def prepare(pilot,output,owner):
     output.mkdir(parents=True,exist_ok=False);dataset=output/'dataset';dataset.mkdir();job=output/'job';job.mkdir()
     for name in ('source.tar.gz','manifest.json','extensions.tar.gz','protocol.json'):
         shutil.copyfile(pilot/'dataset'/name,dataset/name)
+    for name in ('air_examples.npz','air_manifest.json'):
+        if name in config['pins']:shutil.copyfile(pilot/'dataset'/name,dataset/name)
     for model in config['models']:
         if sha(pilot/'dataset'/model['file'])!=model['sha256']:raise ValueError('Initial weight changed')
         shutil.copyfile(pilot/'dataset'/model['file'],dataset/model['file'])

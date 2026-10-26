@@ -1,0 +1,198 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "andreiperelaiko/hastycr-bank-conservation-pilot-20261027",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "bank_overflow00_balance10",
+          "overflow_penalty": 0.0,
+          "card_balance_weight": 0.1,
+          "board_potential_weight": 0.0,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "history_frames": 1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.28125,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "bank_overflow15_balance10",
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "board_potential_weight": 0.0,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "history_frames": 1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.28125,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "bank_overflow00_balance00",
+          "overflow_penalty": 0.0,
+          "card_balance_weight": 0.0,
+          "board_potential_weight": 0.0,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "history_frames": 1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.27083333333333337,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "bank_overflow15_balance00",
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.0,
+          "board_potential_weight": 0.0,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "history_frames": 1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.27083333333333337,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_bank_overflow00_balance00_s102",
+      "checkpoint": "tmp/kaggle/bank_conservation_pilot_20261027_account3/collected/pilot_bank_overflow00_balance00_s102/update_000050.pt",
+      "checkpoint_sha256": "07bac23801c3ff4774579e1b993daa797684843e44cbd17946e8da268b22db45",
+      "selection_score": 0.2638888888888889,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_bank_overflow00_balance00_s103",
+      "checkpoint": "tmp/kaggle/bank_conservation_pilot_20261027_account3/collected/pilot_bank_overflow00_balance00_s103/update_000050.pt",
+      "checkpoint_sha256": "4e64bd129076f3999ab3316619eddb9f6e23829307347b7d269f3c4bc94a3741",
+      "selection_score": 0.2777777777777778,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_bank_overflow00_balance10_s102",
+      "checkpoint": "tmp/kaggle/bank_conservation_pilot_20261027_account3/collected/pilot_bank_overflow00_balance10_s102/update_000050.pt",
+      "checkpoint_sha256": "f1914ad60a1ce51779cda423c9895be18bbc246ed5e5cba007655cfe63ad5571",
+      "selection_score": 0.2569444444444445,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_bank_overflow00_balance10_s103",
+      "checkpoint": "tmp/kaggle/bank_conservation_pilot_20261027_account3/collected/pilot_bank_overflow00_balance10_s103/update_000050.pt",
+      "checkpoint_sha256": "95d3102d7a4810eeded2ba10eb0f2fea77a0d80cb2561a16250683d5fa574abc",
+      "selection_score": 0.3055555555555555,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_bank_overflow15_balance00_s102",
+      "checkpoint": "tmp/kaggle/bank_conservation_pilot_20261027_account3/collected/pilot_bank_overflow15_balance00_s102/update_000050.pt",
+      "checkpoint_sha256": "ea918bac9aef34cf487d67600a7d4e51a78d937edd10ee14e0f6cbcc74878b1d",
+      "selection_score": 0.2638888888888889,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_bank_overflow15_balance00_s103",
+      "checkpoint": "tmp/kaggle/bank_conservation_pilot_20261027_account3/collected/pilot_bank_overflow15_balance00_s103/update_000050.pt",
+      "checkpoint_sha256": "9a2b928ca122d8ac50870156d40b7777c589ade88300d4c1b6b0ffcbcf55e496",
+      "selection_score": 0.2777777777777778,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_bank_overflow15_balance10_s102",
+      "checkpoint": "tmp/kaggle/bank_conservation_pilot_20261027_account3/collected/pilot_bank_overflow15_balance10_s102/update_000050.pt",
+      "checkpoint_sha256": "38ee8a9ff910127f1213ab51c5ea70fbf6a17bda8706930b0218863f729faa43",
+      "selection_score": 0.2569444444444445,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_bank_overflow15_balance10_s103",
+      "checkpoint": "tmp/kaggle/bank_conservation_pilot_20261027_account3/collected/pilot_bank_overflow15_balance10_s103/update_000050.pt",
+      "checkpoint_sha256": "ee3c8850a12ed7b189e4f546389eef824d6a542e57ef29f64fd8d3f8ec1dc031",
+      "selection_score": 0.3055555555555555,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "parent",
+    "ranking": [
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.2916666666666667,
+        "macro_archetype_points": 0.5833333333333334,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.75
+          },
+          "giant": {
+            "games": 12,
+            "points": 1.0
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.75
+          },
+          "swarm": {
+            "games": 12,
+            "points": 1.0
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false
+}

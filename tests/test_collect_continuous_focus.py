@@ -82,3 +82,17 @@ def test_selected_full_profile_collects_both_study_families(monkeypatch,tmp_path
     assert result['complete']
     assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'chosen_eligible'
     assert (tmp_path/'out'/run/'update_000100.pt').read_bytes()==b'latest_resume'
+
+
+def test_air_warmstart_collection_keeps_pretraining_provenance(monkeypatch,tmp_path):
+    run='pilot_bc200_kl000_s122';prefix='continuous_focus/'
+    data={prefix+'result.json':b'{}',prefix+run+'_summary.json':json.dumps(dict(id=run,checkpoint=run+'/update_000050.pt')).encode(),
+        prefix+run+'/update_000050.pt':b'ppo',prefix+run+'_warmstart/policy.pt':b'warm',
+        prefix+run+'_warmstart/result.json':b'{"supervised_updates":200}',prefix+run+'_warmstart/updates.json':b'[]'}
+    monkeypatch.setattr(collector,'list_outputs',lambda api,kernel:({n:NS(url=n)for n in data},[]))
+    monkeypatch.setattr(requests,'get',lambda url,**kw:NS(content=data[url],raise_for_status=lambda:None))
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','air-warmstart-pilot')
+    assert result['complete']
+    assert (tmp_path/'out'/(run+'_warmstart')/'policy.pt').read_bytes()==b'warm'
+    assert (tmp_path/'out'/(run+'_warmstart')/'result.json').exists()
+    assert (tmp_path/'out'/(run+'_warmstart')/'updates.json').exists()

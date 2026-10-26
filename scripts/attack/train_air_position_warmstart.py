@@ -69,11 +69,12 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112)
         history.append(dict(update=update,loss=float(loss.detach()),imitation=float(imitate.detach()),kl=float(kl.detach())))
     if not all(torch.isfinite(t).all()for t in net.state_dict().values()):raise ValueError('Nonfinite warmstart weights')
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
-    result=dict(schema='air-local-position-warmstart-v1',supervised_updates=updates,environment_steps=0,
+    result=dict(schema='air-local-position-warmstart-v1',supervised_updates=updates,environment_steps=0,seed=seed,
         actual_cuda=torch.cuda.get_device_name(device)if device.startswith('cuda')else None,heldout_seed=heldout_seed,
         train_seeds=sorted(set(groups.values())-{heldout_seed}),baseline=baseline,
         final=dict(train=measure(train_ids),local_heldout=measure(heldout_ids)),data_sha256=digest,
         initial_sha256=hashlib.sha256(Path(initial).read_bytes()).hexdigest(),kl_weight=kl_weight,
+        source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         scope='Local action labels, not full-game validation/test; checkpoint for PPO initialization only',quality_accepted=False)
     config=dict(blob.get('config',{}));config.update(architecture=architecture,observation_contract=CONTRACT,num_scalars=309,num_planes=20,
         supervised_warmstart=result)

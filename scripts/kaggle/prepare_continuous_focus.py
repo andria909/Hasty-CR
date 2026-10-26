@@ -68,16 +68,29 @@ def execute(config):
     (output/'initial_selection.json').write_text(json.dumps(initial,indent=2)+'\n')
     initial_model=next(m for m in config['models']if m['id']==initial['selected'])
     protocol=json.loads((inputs/'protocol.json').read_text())
+    if 'air_examples.npz'in config['pins']:
+        air_data=project/'air_warmstart_data';air_data.mkdir()
+        shutil.copyfile(inputs/'air_examples.npz',air_data/'examples.npz')
+        shutil.copyfile(inputs/'air_manifest.json',air_data/'manifest.json')
     def run(trial,device,seed,full=False):
         run_id=('full_'if full else'pilot_')+trial['id']+'_s'+str(seed)
         directory=output/run_id;steps=4096000 if full else 102400
+        run_initial=initial_model
+        if trial.get('warmstart_updates',0):
+            warm=output/(run_id+'_warmstart')
+            subprocess.run([sys.executable,'-m','scripts.attack.train_air_position_warmstart',
+                '--data',str(air_data),'--init',str(inputs/initial_model['file']),'--output',str(warm),
+                '--device',device,'--updates',str(trial['warmstart_updates']),
+                '--kl-weight',str(trial['warmstart_kl_weight']),'--seed',str(seed)],cwd=project,check=True)
+            run_initial=dict(id=run_id+'_warmstart',file=str(warm/'policy.pt'),sha256=sha(warm/'policy.pt'))
+            print(json.dumps(dict(event='WARMSTART_COMPLETE',trial_id=run_id,updates=trial['warmstart_updates'])),flush=True)
         profile=output/(run_id+'_profile.json')
         profile.write_text(json.dumps(dict(overflow_penalty=trial['overflow_penalty'],
             missed_fireball_penalty=trial.get('missed_fireball_penalty',0.),
             board_potential_weight=trial.get('board_potential_weight',0.),shaping_gamma=trial.get('gamma',.999),
             action_cooldown_ms=2100,decision_interval_ms=250)))
         args=[sys.executable,'-c',"import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
-            '--init',str(inputs/initial_model['file']),'--output',str(directory),'--device',device,
+            '--init',str(inputs/run_initial['file']),'--output',str(directory),'--device',device,
             '--task-mode','joint','--curriculum','continuous_v1','--geometry','native_anchors_candidate_v1',
             '--coordinate-mode','physical_live_cells_v2','--continuous-profile',str(profile),
             '--continuous-focus',trial['focus'],'--validation-selection','worst_family','--validation-seed','900100',
@@ -113,7 +126,7 @@ def execute(config):
         if not checkpoint.exists():raise ValueError('Selected boundary was not saved')
         result=dict(id=run_id,trial=trial,seed=seed,step=steps,target_met=True,selected_update=chosen['update'],
             selected_with_family_guard=bool(eligible),checkpoint=str(checkpoint.relative_to(output)),
-            checkpoint_sha256=sha(checkpoint),initial_model=initial_model,validation=chosen['validation'],quality_accepted=False)
+            checkpoint_sha256=sha(checkpoint),initial_model=run_initial,validation=chosen['validation'],quality_accepted=False)
         (output/(run_id+'_summary.json')).write_text(json.dumps(result,indent=2)+'\n')
         print(json.dumps(dict(event='FOCUS_TRIAL_COMPLETE',trial_id=run_id,score=chosen['validation']['selection_score'],family_guard=bool(eligible))),flush=True)
         return result
@@ -138,13 +151,15 @@ def execute(config):
     (output/'result.json').write_text(json.dumps(result,indent=2)+'\n')
 
 
-def freeze_template(output):
+def freeze_template(output,extra_files=()):
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     frozen=Path('tmp/kaggle/fireball_balanced_20261025/dataset');manifest=json.loads((frozen/'manifest.json').read_text())
     names=('sim/match.py','sim/train_attack_ppo.py','sim/continuous_push.py','sim/card_balance.py','sim/env.py',
         'sim/kite_geometry.py','sim/projectile_calibration.py','sim/entities.py','sim/gamedata.py','sim/public_gamedata.py',
         'sim/spells.py','sim/continuous_sampling.py','sim/continuous_validation.py','scripts/attack/select_continuous_focus.py',
         'sim/public_frame_history.py','sim/continuous_history.py','sim/board_potential.py','sim/pathfind.py')
+    names=names+tuple(extra_files)
+    if len(set(names))!=len(names):raise ValueError('Duplicate frozen extension')
     with tarfile.open(output/'extensions.tar.gz','w:gz')as stream:
         for name in names:stream.add(name,arcname=name,recursive=False)
     shutil.copyfile('data/ppo_tuning/continuous_focus/protocol.json',output/'protocol.json')

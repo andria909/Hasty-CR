@@ -14,6 +14,7 @@ def summarize(root,verified=None):
     history=protocol.get('schema')=='continuous-public-history-pilot-v1'
     board=protocol.get('schema')=='continuous-board-potential-pilot-v1'
     bank=protocol.get('schema')=='continuous-bank-conservation-pilot-v1'
+    warm=protocol.get('schema')=='continuous-air-warmstart-pilot-v1'
     def stats(records):
         counts=Counter(r['outcome']for r in records);cards=Counter()
         for r in records:cards.update(r['accepted_card_counts'])
@@ -33,6 +34,7 @@ def summarize(root,verified=None):
         if history:row.update(history_frames=trial['history_frames'],focus=trial['focus'])
         if board:row.update(board_potential_weight=trial['board_potential_weight'],focus=trial['focus'])
         if bank:row.update(overflow_penalty=trial['overflow_penalty'],card_balance_weight=trial['card_balance_weight'])
+        if warm:row.update(warmstart_updates=trial['warmstart_updates'],warmstart_kl_weight=trial['warmstart_kl_weight'])
         rows.append(row)
     reference=json.loads((root/'collected/parent_reference.json').read_text())
     initial=verified.get('initial_selection',{}).get('selected','parent')
@@ -42,7 +44,8 @@ def summarize(root,verified=None):
         initial_reference=dict(id=initial,**stats(source['validation']['records']))
     return dict(schema='verified-history-pilot-validation-summary-v1'if history else
         'verified-board-pilot-validation-summary-v1'if board else
-        'verified-bank-pilot-validation-summary-v1'if bank else'verified-clock-pilot-validation-summary-v1',kernel=verified['kernel'],
+        'verified-bank-pilot-validation-summary-v1'if bank else
+        'verified-air-warmstart-pilot-validation-summary-v1'if warm else'verified-clock-pilot-validation-summary-v1',kernel=verified['kernel'],
         pilot_steps_verified=verified['pilot_steps_verified'],rows=rows,parent=stats(reference['validation']['records']),
         initial_reference=initial_reference,
         eligible_for_full=verified['pilot_selection']['gate_met'],quality_accepted=False,

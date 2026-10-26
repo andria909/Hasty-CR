@@ -29,6 +29,28 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
     row=json.loads((root/(run_id+'_summary.json')).read_text())
     boundary=json.loads((root/run_id/'training_result.json').read_text())
     config=json.loads((root/run_id/'config.json').read_text())
+    expected_initial=selected_initial
+    if trial.get('warmstart_updates',0):
+        warm=root/(run_id+'_warmstart');w=json.loads((warm/'result.json').read_text())
+        for name in('air_manifest.json','air_examples.npz'):
+            if sha(root.parent/'dataset'/name)!=c['pins'][name]:raise ValueError('Warmstart examples changed')
+        manifest=json.loads((root.parent/'dataset/air_manifest.json').read_text())
+        groups=set(manifest['seeds']);heldout=max(groups)
+        if(w.get('supervised_updates')!=trial['warmstart_updates']or w.get('environment_steps')!=0 or
+                not w.get('actual_cuda')or w.get('seed')!=seed or w.get('kl_weight')!=trial['warmstart_kl_weight']or
+                w.get('initial_sha256')!=selected_initial['sha256']or w.get('data_sha256')!=c['pins']['air_examples.npz']or
+                w.get('source_sha256')!=c['extensions']['scripts/attack/train_air_position_warmstart.py']or
+                w.get('heldout_seed')!=heldout or set(w.get('train_seeds',[]))!=groups-{heldout}):
+            raise ValueError('Warmstart origin, budget or grouped split differs')
+        updates=json.loads((warm/'updates.json').read_text())
+        if(len(updates)!=trial['warmstart_updates']or any(r['update']!=i or
+                not all(math.isfinite(r[k])for k in('loss','imitation','kl'))for i,r in enumerate(updates,1))):
+            raise ValueError('Warmstart optimizer updates incomplete')
+        expected_initial=dict(id=run_id+'_warmstart',file='/kaggle/working/continuous_focus/'+run_id+'_warmstart/policy.pt',sha256=sha(warm/'policy.pt'))
+        import torch
+        wb=torch.load(warm/'policy.pt',map_location='cpu',weights_only=False)
+        if wb['config'].get('supervised_warmstart')!=w or not all(torch.isfinite(t).all()for t in wb['state_dict'].values()):
+            raise ValueError('Warmstart checkpoint does not match its report')
     history_frames=trial.get('history_frames',1)
     expected_planes=41 if history_frames==2 else 20
     expected_contract=('joint_public_presence_continuous_slots_history2_v1'if history_frames==2
@@ -37,8 +59,8 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
             config.get('observation_contract')!=expected_contract):raise ValueError('History input contract differs')
     if not boundary.get('target_met')or boundary.get('step')!=steps or not row.get('target_met')or row.get('step')!=steps:
         raise ValueError('Incomplete focus training budget')
-    if(row['id']!=run_id or row['trial']!=trial or row['seed']!=seed or row['initial_model']!=selected_initial or
-        config['init_sha256']!=selected_initial['sha256']or config['continuous_focus']!=trial['focus']or
+    if(row['id']!=run_id or row['trial']!=trial or row['seed']!=seed or row['initial_model']!=expected_initial or
+        config['init_sha256']!=expected_initial['sha256']or config['continuous_focus']!=trial['focus']or
         config['seed']!=seed or
         config['validation_selection']!='worst_family'or config['validation_seed']!=900100 or
         config['entropy_coef']!=trial['entropy_coef']or config['num_scalars']!=309 or

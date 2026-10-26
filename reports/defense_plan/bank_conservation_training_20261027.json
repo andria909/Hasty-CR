@@ -2,7 +2,7 @@
   "kernel": "andreiperelaiko/hastycr-bank-conservation-pilot-20261027",
   "kernel_version": 1,
   "root": "tmp/kaggle/bank_conservation_pilot_20261027_account3",
-  "status": "training_steps_observed",
+  "status": "pilot_complete_budgets_verified",
   "pilot_target_steps": 819200,
   "quality_accepted": false,
   "live_stopped": true,
@@ -10,9 +10,9 @@
     "kernel": "andreiperelaiko/hastycr-bank-conservation-pilot-20261027",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "connected",
-    "reconnect_attempt": 1,
-    "checked_host_ns": 1793052679319540000,
+    "stream_state": "interrupted",
+    "reconnect_attempt": 0,
+    "checked_host_ns": 1793052799322548000,
     "trials": {
       "pilot_bank_overflow00_balance00_s102": {
         "update": 100,
@@ -56,10 +56,12 @@
         "percent": 99.0,
         "remote_log_seconds": 3082.918569171
       }
-    }
+    },
+    "error_type": "ConnectionError",
+    "http_status": null
   },
   "preflight_report": "reports/defense_plan/bank_conservation_preflight_20261027.json",
-  "last_local_sync_ns": 1793052693719034000,
+  "last_local_sync_ns": 1793053118043684000,
   "startup_evidence": [
     {
       "event": "INPUTS_VERIFIED",
@@ -74,5 +76,6 @@
     }
   ],
   "actual_training_steps_confirmed": true,
-  "observer_recovery": "Local SSE resumed with preserved log and counters after stale ConnectionError; GPU unchanged"
+  "observer_recovery": "Local SSE resumed with preserved log and counters after stale ConnectionError; GPU unchanged",
+  "verified_report": "reports/defense_plan/bank_conservation_verified_20261027.json"
 }
