@@ -47,7 +47,7 @@ def collect(api,kernel,destination,profile='defense'):
     if terminal_state(api.kernels_status(kernel))!=state:
         raise ValueError('Remote evaluation state changed during listing')
     prefetched={}
-    if profile in ('continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot'):
+    if profile in ('continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot'):
         import re
         import requests
         prefix='continuous_focus/';result_file='result.json'
@@ -55,7 +55,8 @@ def collect(api,kernel,destination,profile='defense'):
         run_pattern=(r'(?:pilot|full)_(?:uniform|air_golem)_(?:base|explore)_s6[234]'
             if profile=='continuous-focus' else r'pilot_history[12]_(?:uniform|air_golem)_s8[23]'
             if profile=='history-pilot' else r'pilot_board_(?:000|050|150|400)_s9[23]'
-            if profile=='board-potential-pilot'else r'pilot_(?:current|seconds_preserved)_(?:control|miss)_s7[23]')
+            if profile=='board-potential-pilot' else r'pilot_bank_overflow(?:00|15)_balance(?:00|10)_s10[23]'
+            if profile=='bank-conservation-pilot'else r'pilot_(?:current|seconds_preserved)_(?:control|miss)_s7[23]')
         for name in files:
             if not name.startswith(prefix):continue
             relative=name[len(prefix):]
@@ -208,7 +209,7 @@ def main():
     parser.add_argument('--poll-seconds',type=int,default=1200)
     parser.add_argument('--once',action='store_true')
     parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
-    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot'),default='defense')
+    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only

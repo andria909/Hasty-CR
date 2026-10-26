@@ -1,3 +1,6 @@
+## CURRENT verified600 results
+Corrected-slot600evaluation complete and independently verified: reports/defense_plan/continuous_slots_pool_verified_20261026.json; readable reports/continuous_slots_pool_20261026.md. Balanced90/120test,36/60tournament,13/20v25;strong99/120test,31/60tournament,14/20v25. Musketeer usage.03/.16 remainsbad, no promotion. Reused420/computed180 audit passed. Bank-conservation2x2short-study packet prepared tmp/kaggle/bank_conservation_pilot_20261027,not submitted, CPUpreflight running. Waitboardstudy beforeupload/newGPU.
+
 ## CURRENT 27 Oct: real training and evaluation recovery
 History study COMPLETE819200 verified steps; no eligible full continuation. Two corrected-slot full runs COMPLETE4096000 each. Evaluation V1 failed cache race after420games; fixed cache only, V2 submitted same handle and reuses420 verified partial games, computes180. Root tmp/kaggle/continuous_slots_eval_recovery_20261026. Hardfamily focus RUNNING vertel0. Board potential pilot SUBMITTED andriashadrin/hastycr-board-potential-pilot-20261026 VERSION1;root tmp/kaggle/board_potential_pilot_20261026_v4,monitoring.json authoritative. Never duplicate pushes. No live, no promotion. Older CURRENT notes below historical.
 

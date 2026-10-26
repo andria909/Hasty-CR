@@ -60,3 +60,16 @@ def test_selected_full_collection_omits_unselected_weight_archives(monkeypatch,t
     assert r['complete']
     assert all((tmp_path/'out'/p).read_bytes()==b'chosen'for p in chosen)
     assert not(tmp_path/'out'/a/'update_004000.pt').exists()
+
+
+@pytest.mark.parametrize('overflow',['00','15'])
+@pytest.mark.parametrize('balance',['00','10'])
+@pytest.mark.parametrize('seed',[102,103])
+def test_bank_control_preserves_selected_and_latest(monkeypatch,tmp_path,overflow,balance,seed):
+    run=f'pilot_bank_overflow{overflow}_balance{balance}_s{seed}'
+    setup(monkeypatch,run+'/update_000050.pt',run)
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','bank-conservation-pilot')
+    assert result['complete']
+    assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'chosen_eligible'
+    assert (tmp_path/'out'/run/'update_000100.pt').read_bytes()==b'latest_resume'
+    assert not (tmp_path/'out'/run/'update_999999.pt').exists()
