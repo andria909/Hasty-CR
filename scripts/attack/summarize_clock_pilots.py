@@ -18,7 +18,8 @@ def summarize(root,verified=None):
         counts=Counter(r['outcome']for r in records);cards=Counter()
         for r in records:cards.update(r['accepted_card_counts'])
         return dict(games=len(records),wins=counts['win'],draws=counts['draw'],
-            mean_missed_fireballs=sum(r['missed_fireballs']for r in records)/len(records),
+            mean_missed_fireballs=(sum(r['missed_fireballs']for r in records)/len(records)
+                if all('missed_fireballs'in r for r in records)else None),
             mean_card_plays={c:n/len(records)for c,n in sorted(cards.items())},
             by_family={f:dict(games=sum(r['family_id']==f for r in records),
                 wins=sum(r['family_id']==f and r['outcome']=='win'for r in records))
@@ -34,10 +35,16 @@ def summarize(root,verified=None):
         if bank:row.update(overflow_penalty=trial['overflow_penalty'],card_balance_weight=trial['card_balance_weight'])
         rows.append(row)
     reference=json.loads((root/'collected/parent_reference.json').read_text())
+    initial=verified.get('initial_selection',{}).get('selected','parent')
+    initial_reference=None
+    if initial!='parent':
+        source=json.loads((root/'collected'/f'{initial}_reference.json').read_text())
+        initial_reference=dict(id=initial,**stats(source['validation']['records']))
     return dict(schema='verified-history-pilot-validation-summary-v1'if history else
         'verified-board-pilot-validation-summary-v1'if board else
         'verified-bank-pilot-validation-summary-v1'if bank else'verified-clock-pilot-validation-summary-v1',kernel=verified['kernel'],
         pilot_steps_verified=verified['pilot_steps_verified'],rows=rows,parent=stats(reference['validation']['records']),
+        initial_reference=initial_reference,
         eligible_for_full=verified['pilot_selection']['gate_met'],quality_accepted=False,
         scope='72 distinct validation contexts replayed by two independently trained seeds; not144 independent contexts',
         test_used_for_selection=False)
@@ -48,7 +55,9 @@ def render(summary):
         f"Проверено CUDA-шагов: {summary['pilot_steps_verified']}. Два тренировочных seed повторяют72 validation-состояния;144 строки не являются144 независимыми контекстами.",'',
         '| Профиль | Победы | Воздух | Голем | Мушкетёр за игру | Hog за игру |',
         '|---|---:|---:|---:|---:|---:|']
-    for row in [dict(id='Исходник',**summary['parent'])]+summary['rows']:
+    references=[dict(id='Исходник',**summary['parent'])]
+    if summary.get('initial_reference'):references.append(summary['initial_reference'])
+    for row in references+summary['rows']:
         air=row['by_family']['air'];golem=row['by_family']['golem'];cards=row['mean_card_plays']
         lines.append(f"| {row['id']} | {row['wins']}/{row['games']} | {air['wins']}/{air['games']} | {golem['wins']}/{golem['games']} | {cards.get('musketeer',0):.2f} | {cards.get('hog_rider',0):.2f} |")
     lines+=['',('Порог для продолжения прошли минимум два профиля.'if summary['eligible_for_full']else

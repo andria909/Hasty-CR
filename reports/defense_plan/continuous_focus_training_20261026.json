@@ -1,14 +1,14 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-continuous-focus-20261026",
-  "status": "cuda_ready_reference_validation",
+  "status": "cohort_verified",
   "progress_snapshot": {
     "kernel": "vertel0/hastycr-continuous-focus-20261026",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "connected",
-    "reconnect_attempt": 3,
-    "checked_host_ns": 1793049154676053000,
+    "stream_state": "ended",
+    "reconnect_attempt": 4,
+    "checked_host_ns": 1793050327314017000,
     "trials": {
       "pilot_uniform_explore_s62": {
         "update": 100,
@@ -53,18 +53,18 @@
         "remote_log_seconds": 4468.673359629
       },
       "pilot_air_golem_explore_s63": {
-        "update": 98,
-        "steps": 100352,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 98.0,
-        "remote_log_seconds": 5211.119656618
+        "percent": 100.0,
+        "remote_log_seconds": 5587.167283272
       },
       "pilot_air_golem_base_s63": {
-        "update": 93,
-        "steps": 95232,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 93.0,
-        "remote_log_seconds": 5212.862503989
+        "percent": 100.0,
+        "remote_log_seconds": 5606.94542749
       }
     }
   },
@@ -85,5 +85,7 @@
       ]
     }
   ],
-  "last_local_sync_ns": 1793049156378871000
+  "last_local_sync_ns": 1793050357083711000,
+  "verified_report": "reports/defense_plan/continuous_focus_verified_20261026.json",
+  "summary_report": "reports/defense_plan/continuous_focus_summary_20261026.json"
 }

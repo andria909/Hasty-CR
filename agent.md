@@ -1,3 +1,6 @@
+## CURRENT hard-family study COMPLETE verified
+vertel0/hastycr-continuous-focus-20261026 completed819200CUDAsteps,zero full runs because no eligible pair. reports/defense_plan/continuous_focus_verified_20261026.json +summary +reports/continuous_focus_results_20261026.md. Wins144:uniformbase92,uniformexplore92,airbase93,airexplore97;bestair1/24,golem4/24. Initializerstrong46/72,originalparent42/72. Missing missed_fireballs oldsource recordedasNone,notzero. Localcoordinator66513 andstream66721 retiredONLYafterterminalproof+verification. ExistingGPUboard andbank studies continue;no newlive,promotion or re-push.
+
 ## CURRENT result postprocessing
 Local board/bank watchers now produce verified JSON+validation summary+readable Markdown and regenerate done.md after terminal collection. Old local watcher PIDs67270/67672 retired only; replacements67920/67922 recorded in roots monitoring.json. GPU kernels/datasets untouched. Summary reproduced completed history study819200steps and81/78/70/78 wins. Remote polling remains1200s. Never treat lostSSE as stoppedjob.
 

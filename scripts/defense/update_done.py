@@ -138,8 +138,18 @@ def render_reality(models,status,reports):
         verified=reports/'continuous_focus_verified_20261026.json'
         if verified.exists():
             v=json.loads(verified.read_text())
-            lines+=['','**Проверено:**819200 шагов коротких проб; '+str(v['full_steps_verified'])+' шагов больших обучений. '+
-                ('Гейт полного обучения пройден.'if v['full_gate_met']else'Гейт не пройден: большой бюджет не запускался.')]
+            lines=['# Текущий этап','',
+                '**Усиленная выборка воздуха/голема: завершено100%.** Проверены819200 CUDA-шагов. '+
+                ('Порог большого обучения пройден.'if v['full_gate_met']else'Порог не пройден; большие запуски не начинались.'),
+                'Сейчас идут отдельные исследования награды за размен и расхода эликсира.']
+            summary=reports/'continuous_focus_summary_20261026.json'
+            if summary.exists():
+                result=json.loads(summary.read_text())
+                lines+=['','| Профиль | Победы validation | Воздух | Голем |','|---|---:|---:|---:|---:|']
+                for row in result['rows']:
+                    lines.append(f"| {row['id']} | {row['wins']}/{row['games']} | {row['by_family']['air']['wins']}/24 | {row['by_family']['golem']['wins']}/24 |")
+                lines+=['','Два seed повторяют72 контекста; это не144 независимых состояния. '+
+                    '[Подробности и исходные модели](reports/continuous_focus_results_20261026.md).']
         lines+=['','Живые бои остановлены. Ни одна модель автоматически не продвигается. '+
                 '[Состояние](reports/defense_plan/continuous_focus_training_20261026.json).','',
                 'Предыдущая600-матчевая оценка: balanced41/60 в турнире и14/20 противv25, но81/120 наслучайных пушах '+
