@@ -40,3 +40,42 @@ def test_full_verifier_rejects_failed_original_gate_before_artifacts(monkeypatch
     monkeypatch.setattr(verifier,'verify_pilot',lambda *a:proof)
     with pytest.raises(ValueError,match='eligible'):
         verifier.verify(tmp_path/'missing_artifacts',prepared)
+
+
+def test_frozen_controller_runs_only_two_selected_full_trials(monkeypatch,tmp_path):
+    """Exercise real controller flow with GPU/trainer replaced by explicit spies."""
+    import json
+    import torch
+    import sys
+    monkeypatch.setattr(sys,'path',list(sys.path))
+    inputs=tmp_path/'input/study';inputs.mkdir(parents=True)
+    working=tmp_path/'working';working.mkdir()
+    trials=[dict(trial=dict(id=name,focus='uniform',entropy_coef=.01))for name in ('a','b')]
+    (inputs/'initial_selection.json').write_text(json.dumps(dict(selected='parent')))
+    (inputs/'selection.json').write_text(json.dumps(dict(gate_met=True,selected=trials)))
+    (inputs/'protocol.json').write_text('{}')
+    tree=ast.parse(module.full_only_bootstrap(inspect.getsource(execute)))
+    func=tree.body[0]
+    # This spy makes no model updates. Reported counters below are routing
+    # assertions inside a test, never evidence of actual training completion.
+    index=next(i for i,n in enumerate(func.body)if isinstance(n,ast.FunctionDef)and n.name=='run')
+    func.body[index]=ast.parse("def run(trial,device,seed,full=False):\n return dict(trial=trial,device=device,seed=seed,full=full)").body[0]
+    class TestPaths(ast.NodeTransformer):
+        def visit_Constant(self,node):
+            if node.value=='/kaggle/input':return ast.copy_location(ast.Constant(str(tmp_path/'input')),node)
+            if node.value=='/kaggle/working/focus_project':return ast.copy_location(ast.Constant(str(working/'project')),node)
+            if node.value=='/kaggle/working/continuous_focus':return ast.copy_location(ast.Constant(str(working/'output')),node)
+            return node
+    tree=TestPaths().visit(tree);ast.fix_missing_locations(tree)
+    monkeypatch.setattr(torch.cuda,'is_available',lambda:True)
+    monkeypatch.setattr(torch.cuda,'device_count',lambda:2)
+    monkeypatch.setattr(torch.cuda,'get_device_name',lambda i:'TEST_ONLY_NO_CUDA')
+    namespace=dict(Path=Path,json=json,sha=module.sha,prepare_source=lambda source,out,pin:out.mkdir())
+    exec(compile(tree,'test_full_routing.py','exec'),namespace)
+    namespace['execute'](dict(owner='owner',slug='study',source_slug='study',pins={'protocol.json':module.sha(inputs/'protocol.json')},
+        replaced={},extensions={},source_manifest_sha256='test',models=[dict(id='parent',file='parent.pt')],allow_full_training=True))
+    result=json.loads((working/'output/result.json').read_text())
+    assert result['pilot_steps']==0
+    assert len(result['full_runs'])==2
+    assert [(r['trial']['id'],r['device'],r['seed'],r['full'])for r in result['full_runs']]==[
+        ('a','cuda:0',64,True),('b','cuda:1',64,True)]
