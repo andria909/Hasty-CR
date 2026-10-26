@@ -1,0 +1,27 @@
+{
+  "schema": "air-position-examples-audit-v1",
+  "fixtures": 48,
+  "examples": 48,
+  "candidate_rollouts": 576,
+  "unique_public_states": 48,
+  "successful_cells": 336,
+  "data_path": "data/air_position_examples_20261027/examples.npz",
+  "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+  "all_labels_legal": true,
+  "all_inputs_finite": true,
+  "observation_planes": 20,
+  "observation_scalars": 309,
+  "actions": 2321,
+  "scope": "Successful single-action local defenses, not complete expert trajectories or full-game wins",
+  "split": "train",
+  "training_started": false,
+  "source_sha256": {
+    "scripts/attack/build_air_position_examples.py": "8672bf6c57f90ba73baf1bcb6e5dc6b12f38f117ac3b31abfd6621f30523ab22",
+    "sim/match.py": "02e19b325b0e9c217b354a8efa85394dcedf8f711a201868061e0d2db38b5b0a",
+    "sim/engine.py": "fa6da95053c68839954f9c7bccc8c5a832e3bc742dfce17bbf8e4863f28e205c",
+    "sim/entities.py": "1e5d85dd85b17ff51fa231316fce3334a43445a045551d4fc63514f3a48381b8",
+    "sim/env.py": "cda7ad6b1431132e39480ccb99214ba8eaedea80383a59d4836bebf2e32063f9",
+    "sim/eval_defense_duel.py": "659def3089d3afcdce539b5145371caf7ea407003b11a5c36016b3498a6feb5c",
+    "sim/arena.py": "eec33eccad91593c43f2c050c3c78f5f9b464150361354a977949ee9357f71e4"
+  }
+}

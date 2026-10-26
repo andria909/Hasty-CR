@@ -86,6 +86,8 @@ def history_progress_lines(reports):
             lines+=['','**Размещение мушкетёра:** все30 принудительно выбранных мушкетёров нанесли урон, но три TRAIN-матча проиграны. Частота карты сама по себе не решает защиту. [Трассы](reports/air_musketeer_placement_trace_20261027.md).']
         if (reports/'air_position_feasibility_20261027.json').exists():
             lines+=['','**Основа следующего упражнения:** одиночный шар защищается без урона в44/48 фиксированных постановках, шар+дракон —16/48. Это перебор, не обученная модель. [Достижимость](reports/air_position_feasibility_20261027.md).']
+        if (reports/'air_position_examples_audit_20261027.json').exists():
+            lines+=['','Собраны48 разных публичных TRAIN-состояний и336 успешных допустимых действий для локальной защиты. Обучение на них ещё не запускалось. [Данные](reports/air_position_examples_20261027.md).']
         return lines
     path=reports/'history_pilot_training_20261026.json'
     if not path.exists():return []
