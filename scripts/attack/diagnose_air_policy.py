@@ -51,5 +51,14 @@ def diagnose(weight,seed):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--weight',required=True);p.add_argument('--seed',type=int,default=781)
-    p.add_argument('--output',required=True);a=p.parse_args();r=diagnose(a.weight,a.seed)
-    Path(a.output).write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r['counts']))
+    p.add_argument('--output',required=True);p.add_argument('--compare-weight')
+    p.add_argument('--seeds',type=int,nargs='+',default=[781,782,783]);a=p.parse_args()
+    if a.compare_weight:
+        rows=[]
+        for name,path in [('parent',a.weight),('strong',a.compare_weight)]:
+            for seed in a.seeds:
+                row=diagnose(path,seed);row['model']=name;rows.append(row)
+        r=dict(schema='paired-air-policy-train-diagnostic-v1',rows=rows,
+            scope='Paired TRAIN seeds, diagnostic not model selection',live_games_started=False)
+    else:r=diagnose(a.weight,a.seed)
+    Path(a.output).write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r.get('counts',dict(games=len(r.get('rows',[]))))))
