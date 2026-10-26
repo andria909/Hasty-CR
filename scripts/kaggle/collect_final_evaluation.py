@@ -46,7 +46,13 @@ def collect(api,kernel,destination,profile='defense'):
     files,logs=list_outputs(api,kernel)
     if terminal_state(api.kernels_status(kernel))!=state:
         raise ValueError('Remote evaluation state changed during listing')
-    if profile=='continuous-ppo':
+    if profile=='continuous-pool':
+        import itertools
+        prefix='continuous_pool_evaluation/';result_file='result.json'
+        models=('full_balanced_s44','full_strong_s44','parent','v25')
+        allowed={result_file}|{name+'_test.json'for name in models}
+        allowed.update(a+'__'+b+'_duels.json'for a,b in itertools.combinations(models,2))
+    elif profile=='continuous-ppo':
         import re
         prefix='continuous_ppo/';result_file='result.json'
         allowed={result_file,'selection.json'}
@@ -154,7 +160,7 @@ def main():
     parser.add_argument('--poll-seconds',type=int,default=1200)
     parser.add_argument('--once',action='store_true')
     parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
-    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo'),default='defense')
+    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-pool'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only

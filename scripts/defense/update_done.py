@@ -58,6 +58,16 @@ def render_reality(models,status,reports):
             ('Бюджеты завершены и проверены; независимая оценка ещё требуется.' if finished else 'Большие модели пока не выбраны.'),'',
             '| Текущая проба | Последний полученный процент |','|---|---:|']
         for name,row in trials.items():lines.append(f"| {name} | {row['percent']:.0f}% |")
+        control=reports/'continuous_training_verified_20261026.json'
+        if slot_mode and control.exists():
+            prior=json.loads(control.read_text())
+            lines+=['','**Старый контроль с общей блокировкой завершён:** '+
+                '; '.join(f"{m['id']}: validation {m['validation']['wins']}/{m['validation']['games']} побед"for m in prior['models'])+
+                '. Это другие настройки исполнения; веса не продвинуты.']
+            if (reports/'continuous_control_pool_launch_20261026.json').exists():
+                lines+=['','**Независимая проверка:**600 полных игр двух контрольных моделей, исходника иv25; '+
+                    '480 игр со случайными пушами +120 турнирных. Исполнитель у всех исправленный, по слотам. '+
+                    '[Запуск](reports/defense_plan/continuous_control_pool_launch_20261026.json).']
         lines+=['','Проценты — снимок полученных логов, не оценка по времени. '+
             ('[Состояние](reports/defense_plan/continuous_slots_training_20261026.json).'if slot_mode else '[Состояние](reports/defense_plan/continuous_training_20261026.json).'),'',
             '**Что изменено:** непрерывные противники с настоящей рукой/циклом/эликсиром; '+

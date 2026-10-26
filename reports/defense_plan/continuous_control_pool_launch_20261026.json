@@ -1,0 +1,27 @@
+{
+  "schema": "continuous-control-pool-evaluation-launch-v1",
+  "kernel": "andriashadrin/hastycr-continuous-control-eval-20261026",
+  "version": 1,
+  "status": "running_confirmed_cuda",
+  "prepared": "tmp/kaggle/continuous_control_eval_20261026_v2",
+  "test_games": 480,
+  "duel_games": 120,
+  "total_games": 600,
+  "models": [
+    "full_balanced_s44",
+    "full_strong_s44",
+    "parent",
+    "v25"
+  ],
+  "execution": "independent_slots_v2",
+  "weights_frozen_before_test": true,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_games_started": false,
+  "gpus": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "input_pins_verified": true,
+  "protocol_sha256": "c0e0b5309f33a038dd3da57e6ef6fbaa5f18588e90890bea2669b71fdc81d668"
+}

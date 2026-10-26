@@ -1,0 +1,40 @@
+{
+  "schema": "verified-continuous-ppo-training-v1",
+  "kernel": "andriashadrin/hastycr-continuous-ppo-20261026",
+  "all_training_budgets_verified": true,
+  "pilot_steps": 819200,
+  "full_steps": 8192000,
+  "models": [
+    {
+      "id": "full_balanced_s44",
+      "checkpoint": "tmp/kaggle/continuous_ppo_20261026/collected/full_balanced_s44/best_validation_001250.pt",
+      "checkpoint_sha256": "041d9038d96bf6e44e3885a637b9592ac4b8fea500691c2348b322161640d37e",
+      "steps": 4096000,
+      "validation": {
+        "games": 48,
+        "wins": 28,
+        "losses": 20,
+        "draws": 0,
+        "score": 0.5833333333333334
+      },
+      "mean_elixir_overflow": 0.0
+    },
+    {
+      "id": "full_strong_s44",
+      "checkpoint": "tmp/kaggle/continuous_ppo_20261026/collected/full_strong_s44/best_validation_002500.pt",
+      "checkpoint_sha256": "1da05e8e60b83c7820226728b3498bf8e3a0fdcf156298b11390e6f58e1d9607",
+      "steps": 4096000,
+      "validation": {
+        "games": 48,
+        "wins": 30,
+        "losses": 18,
+        "draws": 0,
+        "score": 0.625
+      },
+      "mean_elixir_overflow": 0.0
+    }
+  ],
+  "quality_accepted": false,
+  "independent_test_pending": true,
+  "live_checkpoint_changed": false
+}
