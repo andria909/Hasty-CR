@@ -116,6 +116,10 @@ def render_reality(models,status,reports):
                 'Причина — провал TRAIN против воздуха/голема при хорошем среднем. '+
                 '[Протокол](data/ppo_tuning/continuous_focus/protocol.json), '+
                 '[диагностика](reports/defense_plan/continuous_train_family_diagnostics_20261026.json).']
+        if (reports/'continuous_train_reward_audit_20261026.json').exists():
+            lines+=['','**Разбор наград:**17 871 TRAIN-return пересчитаны без расхождений; '+
+                'в последних4713 играх штраф переполнения всегда0. Следующая отдельная гипотеза — '+
+                'gamma/lambda с учётом250мс шага. [Аудит](reports/continuous_reward_audit_20261026.md).']
         lines+=['','Проценты — снимок полученных логов, не оценка по времени. '+
             ('[Состояние](reports/defense_plan/continuous_slots_training_20261026.json).'if slot_mode else '[Состояние](reports/defense_plan/continuous_training_20261026.json).'),'',
             '**Что изменено:** непрерывные противники с настоящей рукой/циклом/эликсиром; '+
