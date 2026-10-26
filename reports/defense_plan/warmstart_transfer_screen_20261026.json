@@ -1,0 +1,2347 @@
+{
+  "schema": "controlled-warmstart-transfer-screen-v1",
+  "models": [
+    {
+      "id": "defense_economy_transfer",
+      "sha256": "b9b34f2b7d55b9e37080790df60ee9903a769b7037d154c3248773ee4876f6ba",
+      "source_coordinate_mode": "physical_live",
+      "migration": {
+        "source_scalar_count": 306,
+        "target_scalar_count": 309,
+        "appended_scalar_columns": 3,
+        "appended_timer_columns_zero_initialized": true,
+        "observation_contract": "joint_public_presence_continuous_slots_v2",
+        "source_plane_count": 20,
+        "target_plane_count": 20,
+        "exact_weight_shape": false
+      },
+      "validation": {
+        "mean_reward": -9.076512896825397,
+        "records": [
+          {
+            "scenario_id": "attack::air/heldout_push",
+            "family_id": "air",
+            "episode_seed": 900100,
+            "match_seed": 1000900100,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 293050,
+            "outcome": "loss",
+            "own_fraction_loss": 1.5357142857142856,
+            "enemy_fraction_damage": 0.2525111607142857,
+            "own_tower_fraction_loss": {
+              "left": 0.5357142857142857,
+              "right": 1.0,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": false,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 188,
+            "illegal_actions": 0,
+            "missed_fireballs": 1,
+            "missed_fireball_elixir": 4,
+            "accepted_card_counts": {
+              "cannon": 15,
+              "zap": 18,
+              "skeletons": 18,
+              "electro_spirit": 17,
+              "musketeer": 8,
+              "knight": 8,
+              "fireball": 4
+            },
+            "enemy_accepted_card_counts": {
+              "fireball": 7,
+              "minions": 6,
+              "valkyrie": 7,
+              "baby_dragon": 6,
+              "skeletons": 8,
+              "zap": 9,
+              "knight": 6,
+              "balloon": 8
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -25.385323660714285
+          },
+          {
+            "scenario_id": "attack::bridge/heldout_push",
+            "family_id": "bridge",
+            "episode_seed": 900101,
+            "match_seed": 1000900101,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 300000,
+            "outcome": "loss",
+            "own_fraction_loss": 1.0178571428571428,
+            "enemy_fraction_damage": 0.6484375,
+            "own_tower_fraction_loss": {
+              "left": 0.5904017857142857,
+              "right": 0.4274553571428571,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 196,
+            "illegal_actions": 0,
+            "missed_fireballs": 2,
+            "missed_fireball_elixir": 8,
+            "accepted_card_counts": {
+              "fireball": 7,
+              "musketeer": 1,
+              "cannon": 15,
+              "skeletons": 16,
+              "electro_spirit": 16,
+              "knight": 17,
+              "zap": 12,
+              "hog_rider": 3
+            },
+            "enemy_accepted_card_counts": {
+              "knight": 12,
+              "bandit": 11,
+              "zap": 12,
+              "dark_prince": 6,
+              "battle_ram": 4,
+              "fireball": 5,
+              "valkyrie": 6,
+              "musketeer": 5
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -22.12611607142857
+          },
+          {
+            "scenario_id": "attack::giant/heldout_push",
+            "family_id": "giant",
+            "episode_seed": 900102,
+            "match_seed": 1000900102,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 268100,
+            "outcome": "win",
+            "own_fraction_loss": 0.7963169642857143,
+            "enemy_fraction_damage": 1.3878348214285714,
+            "own_tower_fraction_loss": {
+              "left": 0.4243861607142857,
+              "right": 0.3719308035714286,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 161,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "cannon": 11,
+              "zap": 14,
+              "musketeer": 5,
+              "electro_spirit": 14,
+              "hog_rider": 5,
+              "skeletons": 13,
+              "knight": 11
+            },
+            "enemy_accepted_card_counts": {
+              "musketeer": 7,
+              "bomber": 10,
+              "valkyrie": 5,
+              "arrows": 8,
+              "spear_goblins": 10,
+              "mini_pekka": 6,
+              "fireball": 4,
+              "giant": 2
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": 20.978236607142854
+          },
+          {
+            "scenario_id": "attack::golem/heldout_push",
+            "family_id": "golem",
+            "episode_seed": 900103,
+            "match_seed": 1000900103,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 180000,
+            "outcome": "loss",
+            "own_fraction_loss": 1.7246558779761902,
+            "enemy_fraction_damage": 0.1078404017857143,
+            "own_tower_fraction_loss": {
+              "left": 1.0,
+              "right": 0.056361607142857095,
+              "king": 0.6682942708333333
+            },
+            "own_towers_alive": {
+              "left": false,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 90,
+            "illegal_actions": 0,
+            "missed_fireballs": 3,
+            "missed_fireball_elixir": 12,
+            "accepted_card_counts": {
+              "electro_spirit": 8,
+              "zap": 8,
+              "cannon": 8,
+              "fireball": 8,
+              "musketeer": 1,
+              "skeletons": 6
+            },
+            "enemy_accepted_card_counts": {
+              "skeletons": 4,
+              "lightning": 4,
+              "zap": 4,
+              "baby_dragon": 2,
+              "mega_minion": 2,
+              "golem": 3,
+              "night_witch": 1,
+              "valkyrie": 2
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -26.575102306547617
+          },
+          {
+            "scenario_id": "attack::hog/heldout_push",
+            "family_id": "hog",
+            "episode_seed": 900104,
+            "match_seed": 1000900104,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 180000,
+            "outcome": "win",
+            "own_fraction_loss": 0.5887276785714285,
+            "enemy_fraction_damage": 2.061662946428571,
+            "own_tower_fraction_loss": {
+              "left": 0.5323660714285714,
+              "right": 0.056361607142857095,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 89,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "musketeer": 5,
+              "hog_rider": 7,
+              "electro_spirit": 7,
+              "cannon": 7,
+              "skeletons": 7,
+              "knight": 2
+            },
+            "enemy_accepted_card_counts": {
+              "electro_spirit": 7,
+              "hog_rider": 2,
+              "knight": 7,
+              "zap": 7,
+              "cannon": 5,
+              "fireball": 3,
+              "valkyrie": 2,
+              "musketeer": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": 23.830078125
+          },
+          {
+            "scenario_id": "attack::swarm/heldout_push",
+            "family_id": "swarm",
+            "episode_seed": 900105,
+            "match_seed": 1000900105,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 251950,
+            "outcome": "win",
+            "own_fraction_loss": 0.3724888392857142,
+            "enemy_fraction_damage": 1.2433035714285714,
+            "own_tower_fraction_loss": {
+              "left": 0.1715959821428571,
+              "right": 0.2008928571428571,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 145,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "cannon": 13,
+              "skeletons": 13,
+              "zap": 12,
+              "electro_spirit": 13,
+              "musketeer": 13,
+              "hog_rider": 1
+            },
+            "enemy_accepted_card_counts": {
+              "goblin_barrel": 9,
+              "zap": 9,
+              "skeleton_army": 8,
+              "goblin_gang": 8,
+              "knight": 7,
+              "valkyrie": 5,
+              "inferno_tower": 2
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": 22.239955357142858
+          },
+          {
+            "scenario_id": "defense::air/heldout_push",
+            "family_id": "air",
+            "episode_seed": 900106,
+            "match_seed": 1000900106,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 220200,
+            "outcome": "loss",
+            "own_fraction_loss": 2.71533203125,
+            "enemy_fraction_damage": 1.6358816964285714,
+            "own_tower_fraction_loss": {
+              "left": 1.0,
+              "right": 1.0,
+              "king": 0.71533203125
+            },
+            "own_towers_alive": {
+              "left": false,
+              "right": false,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 116,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "electro_spirit": 10,
+              "zap": 10,
+              "hog_rider": 10,
+              "skeletons": 10,
+              "musketeer": 9
+            },
+            "enemy_accepted_card_counts": {
+              "minions": 6,
+              "valkyrie": 3,
+              "skeletons": 7,
+              "zap": 7,
+              "baby_dragon": 3,
+              "balloon": 4,
+              "knight": 6,
+              "fireball": 4
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -25.953683035714285
+          },
+          {
+            "scenario_id": "defense::bridge/heldout_push",
+            "family_id": "bridge",
+            "episode_seed": 900107,
+            "match_seed": 1000900107,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 236400,
+            "outcome": "loss",
+            "own_fraction_loss": 1.3724888392857144,
+            "enemy_fraction_damage": 0.1403459821428571,
+            "own_tower_fraction_loss": {
+              "left": 1.0,
+              "right": 0.3724888392857143,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": false,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 130,
+            "illegal_actions": 0,
+            "missed_fireballs": 4,
+            "missed_fireball_elixir": 16,
+            "accepted_card_counts": {
+              "zap": 12,
+              "fireball": 12,
+              "knight": 12,
+              "electro_spirit": 11,
+              "skeletons": 11
+            },
+            "enemy_accepted_card_counts": {
+              "zap": 8,
+              "valkyrie": 6,
+              "knight": 7,
+              "bandit": 7,
+              "battle_ram": 3,
+              "musketeer": 3,
+              "dark_prince": 4,
+              "fireball": 2
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -25.068917410714285
+          },
+          {
+            "scenario_id": "defense::giant/heldout_push",
+            "family_id": "giant",
+            "episode_seed": 900108,
+            "match_seed": 1000900108,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 180000,
+            "outcome": "win",
+            "own_fraction_loss": 0.2572544642857143,
+            "enemy_fraction_damage": 1.3623046875,
+            "own_tower_fraction_loss": {
+              "left": 0.0,
+              "right": 0.2572544642857143,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 90,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "zap": 1,
+              "hog_rider": 8,
+              "electro_spirit": 7,
+              "cannon": 7,
+              "knight": 7,
+              "skeletons": 7
+            },
+            "enemy_accepted_card_counts": {
+              "musketeer": 4,
+              "spear_goblins": 6,
+              "bomber": 6,
+              "mini_pekka": 3,
+              "arrows": 5,
+              "fireball": 3,
+              "valkyrie": 2
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": 23.057896205357142
+          },
+          {
+            "scenario_id": "defense::golem/heldout_push",
+            "family_id": "golem",
+            "episode_seed": 900109,
+            "match_seed": 1000900109,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 177700,
+            "outcome": "loss",
+            "own_fraction_loss": 2.0482700892857144,
+            "enemy_fraction_damage": 0.015904017857142905,
+            "own_tower_fraction_loss": {
+              "left": 0.0482700892857143,
+              "right": 1.0,
+              "king": 1.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": false,
+              "king": false
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 87,
+            "illegal_actions": 0,
+            "missed_fireballs": 2,
+            "missed_fireball_elixir": 8,
+            "accepted_card_counts": {
+              "skeletons": 8,
+              "knight": 8,
+              "musketeer": 3,
+              "electro_spirit": 8,
+              "fireball": 2,
+              "zap": 6,
+              "cannon": 5
+            },
+            "enemy_accepted_card_counts": {
+              "valkyrie": 3,
+              "zap": 4,
+              "mega_minion": 4,
+              "skeletons": 4,
+              "baby_dragon": 2,
+              "night_witch": 2,
+              "golem": 3,
+              "lightning": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -28.14536830357143
+          },
+          {
+            "scenario_id": "defense::hog/heldout_push",
+            "family_id": "hog",
+            "episode_seed": 900110,
+            "match_seed": 1000900110,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 180000,
+            "outcome": "loss",
+            "own_fraction_loss": 1.1735491071428572,
+            "enemy_fraction_damage": 0.4592633928571429,
+            "own_tower_fraction_loss": {
+              "left": 1.0,
+              "right": 0.1735491071428571,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": false,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 88,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "knight": 8,
+              "skeletons": 8,
+              "electro_spirit": 8,
+              "hog_rider": 8,
+              "zap": 8
+            },
+            "enemy_accepted_card_counts": {
+              "electro_spirit": 6,
+              "valkyrie": 3,
+              "knight": 6,
+              "cannon": 5,
+              "zap": 6,
+              "musketeer": 2,
+              "hog_rider": 2,
+              "fireball": 2
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -23.31640625
+          },
+          {
+            "scenario_id": "defense::swarm/heldout_push",
+            "family_id": "swarm",
+            "episode_seed": 900111,
+            "match_seed": 1000900111,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 300000,
+            "outcome": "loss",
+            "own_fraction_loss": 1.1116071428571428,
+            "enemy_fraction_damage": 0.6643415178571429,
+            "own_tower_fraction_loss": {
+              "left": 0.8696986607142857,
+              "right": 0.2419084821428571,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 195,
+            "illegal_actions": 0,
+            "missed_fireballs": 2,
+            "missed_fireball_elixir": 8,
+            "accepted_card_counts": {
+              "fireball": 6,
+              "zap": 19,
+              "skeletons": 17,
+              "cannon": 16,
+              "electro_spirit": 18,
+              "knight": 14,
+              "hog_rider": 2
+            },
+            "enemy_accepted_card_counts": {
+              "zap": 13,
+              "skeleton_army": 13,
+              "goblin_gang": 12,
+              "goblin_barrel": 12,
+              "knight": 12,
+              "valkyrie": 4,
+              "inferno_tower": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -22.453404017857142
+          }
+        ],
+        "summary": {
+          "episodes": 12,
+          "attack_success": {
+            "known": 0,
+            "count": 0,
+            "rate": null
+          },
+          "goal_success": {
+            "known": 0,
+            "count": 0,
+            "rate": null
+          },
+          "goal_window_missed": {
+            "known": 0,
+            "count": 0,
+            "rate": null
+          },
+          "successful_spell_finish": {
+            "known": 0,
+            "count": 0,
+            "rate": null
+          },
+          "episode_return": {
+            "known": 12,
+            "mean": -9.076512896825397
+          },
+          "time_to_first_goal_card_ms": {
+            "known": 0,
+            "mean": null
+          },
+          "anticipatory_goal_card_ms": {
+            "known": 0,
+            "mean": null
+          },
+          "hog_target_tower_damage": {
+            "known": 0,
+            "mean": null
+          },
+          "elixir_spent": {
+            "known": 12,
+            "mean": 131.25
+          },
+          "redundant_spells": {
+            "known": 0,
+            "mean": null
+          },
+          "missed_resolved_spells": {
+            "known": 0,
+            "mean": null
+          },
+          "by": {
+            "timer_visible": {
+              "None": {
+                "episodes": 12,
+                "attack_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_window_missed": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "successful_spell_finish": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "episode_return": {
+                  "known": 12,
+                  "mean": -9.076512896825397
+                },
+                "time_to_first_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "anticipatory_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "hog_target_tower_damage": {
+                  "known": 0,
+                  "mean": null
+                },
+                "elixir_spent": {
+                  "known": 12,
+                  "mean": 131.25
+                },
+                "redundant_spells": {
+                  "known": 0,
+                  "mean": null
+                },
+                "missed_resolved_spells": {
+                  "known": 0,
+                  "mean": null
+                }
+              }
+            },
+            "goal_kind": {
+              "None": {
+                "episodes": 12,
+                "attack_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_window_missed": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "successful_spell_finish": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "episode_return": {
+                  "known": 12,
+                  "mean": -9.076512896825397
+                },
+                "time_to_first_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "anticipatory_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "hog_target_tower_damage": {
+                  "known": 0,
+                  "mean": null
+                },
+                "elixir_spent": {
+                  "known": 12,
+                  "mean": 131.25
+                },
+                "redundant_spells": {
+                  "known": 0,
+                  "mean": null
+                },
+                "missed_resolved_spells": {
+                  "known": 0,
+                  "mean": null
+                }
+              }
+            },
+            "setup_kind": {
+              "None": {
+                "episodes": 12,
+                "attack_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_window_missed": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "successful_spell_finish": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "episode_return": {
+                  "known": 12,
+                  "mean": -9.076512896825397
+                },
+                "time_to_first_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "anticipatory_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "hog_target_tower_damage": {
+                  "known": 0,
+                  "mean": null
+                },
+                "elixir_spent": {
+                  "known": 12,
+                  "mean": 131.25
+                },
+                "redundant_spells": {
+                  "known": 0,
+                  "mean": null
+                },
+                "missed_resolved_spells": {
+                  "known": 0,
+                  "mean": null
+                }
+              }
+            }
+          }
+        },
+        "by_task": {
+          "attack": {
+            "episodes": 6,
+            "attack_success": {
+              "known": 0,
+              "count": 0,
+              "rate": null
+            },
+            "goal_success": {
+              "known": 0,
+              "count": 0,
+              "rate": null
+            },
+            "goal_window_missed": {
+              "known": 0,
+              "count": 0,
+              "rate": null
+            },
+            "successful_spell_finish": {
+              "known": 0,
+              "count": 0,
+              "rate": null
+            },
+            "episode_return": {
+              "known": 6,
+              "mean": -1.1730453249007937
+            },
+            "time_to_first_goal_card_ms": {
+              "known": 0,
+              "mean": null
+            },
+            "anticipatory_goal_card_ms": {
+              "known": 0,
+              "mean": null
+            },
+            "hog_target_tower_damage": {
+              "known": 0,
+              "mean": null
+            },
+            "elixir_spent": {
+              "known": 6,
+              "mean": 144.83333333333334
+            },
+            "redundant_spells": {
+              "known": 0,
+              "mean": null
+            },
+            "missed_resolved_spells": {
+              "known": 0,
+              "mean": null
+            },
+            "by": {
+              "timer_visible": {
+                "None": {
+                  "episodes": 6,
+                  "attack_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_window_missed": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "successful_spell_finish": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "episode_return": {
+                    "known": 6,
+                    "mean": -1.1730453249007937
+                  },
+                  "time_to_first_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "anticipatory_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "hog_target_tower_damage": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "elixir_spent": {
+                    "known": 6,
+                    "mean": 144.83333333333334
+                  },
+                  "redundant_spells": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "missed_resolved_spells": {
+                    "known": 0,
+                    "mean": null
+                  }
+                }
+              },
+              "goal_kind": {
+                "None": {
+                  "episodes": 6,
+                  "attack_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_window_missed": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "successful_spell_finish": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "episode_return": {
+                    "known": 6,
+                    "mean": -1.1730453249007937
+                  },
+                  "time_to_first_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "anticipatory_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "hog_target_tower_damage": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "elixir_spent": {
+                    "known": 6,
+                    "mean": 144.83333333333334
+                  },
+                  "redundant_spells": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "missed_resolved_spells": {
+                    "known": 0,
+                    "mean": null
+                  }
+                }
+              },
+              "setup_kind": {
+                "None": {
+                  "episodes": 6,
+                  "attack_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_window_missed": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "successful_spell_finish": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "episode_return": {
+                    "known": 6,
+                    "mean": -1.1730453249007937
+                  },
+                  "time_to_first_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "anticipatory_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "hog_target_tower_damage": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "elixir_spent": {
+                    "known": 6,
+                    "mean": 144.83333333333334
+                  },
+                  "redundant_spells": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "missed_resolved_spells": {
+                    "known": 0,
+                    "mean": null
+                  }
+                }
+              }
+            }
+          },
+          "defense": {
+            "n": 6,
+            "no_damage": 0,
+            "no_damage_pct": 0.0,
+            "no_damage_known": 6,
+            "mean_hp_loss": null,
+            "hp_loss_known": 0,
+            "mean_total_tower_fraction_loss": 1.446416945684524,
+            "fraction_loss_known": 6,
+            "princess_deaths": 5,
+            "princess_known": 12,
+            "princess_survival_pct": 58.333333333333336,
+            "king_deaths": 1,
+            "king_known": 6,
+            "king_survival_pct": 83.33333333333333,
+            "timeouts": 0,
+            "invalid": 0,
+            "terminal_known": 6,
+            "mean_return": -16.97998046875,
+            "return_std": 17.99890899338817,
+            "return_known": 6,
+            "return_alignment_complete": true,
+            "by_difficulty": {
+              "unknown": {
+                "n": 6,
+                "no_damage": 0,
+                "no_damage_pct": 0.0,
+                "no_damage_known": 6,
+                "mean_hp_loss": null,
+                "hp_loss_known": 0,
+                "mean_total_tower_fraction_loss": 1.446416945684524,
+                "fraction_loss_known": 6,
+                "princess_deaths": 5,
+                "princess_known": 12,
+                "princess_survival_pct": 58.333333333333336,
+                "king_deaths": 1,
+                "king_known": 6,
+                "king_survival_pct": 83.33333333333333,
+                "timeouts": 0,
+                "invalid": 0,
+                "terminal_known": 6,
+                "mean_return": -16.97998046875,
+                "return_std": 17.99890899338817,
+                "return_known": 6,
+                "return_alignment_complete": true
+              }
+            }
+          }
+        },
+        "split": "validation",
+        "seed": 900100,
+        "episodes_per_task": 6,
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "wins": 4,
+        "draws": 0,
+        "unknown": 0,
+        "games": 12,
+        "mean_elixir_overflow": 0.0,
+        "selection_score": 0.16666666666666666,
+        "macro_archetype_points": 0.3333333333333333,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 2,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 2,
+            "points": 0.0
+          },
+          "giant": {
+            "games": 2,
+            "points": 1.0
+          },
+          "golem": {
+            "games": 2,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 2,
+            "points": 0.5
+          },
+          "swarm": {
+            "games": 2,
+            "points": 0.5
+          }
+        }
+      }
+    },
+    {
+      "id": "parent",
+      "sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "source_coordinate_mode": "physical_live_cells_v2",
+      "migration": {
+        "source_scalar_count": 309,
+        "target_scalar_count": 309,
+        "appended_scalar_columns": 0,
+        "appended_timer_columns_zero_initialized": false,
+        "observation_contract": "joint_public_presence_continuous_slots_v2",
+        "source_plane_count": 20,
+        "target_plane_count": 20,
+        "exact_weight_shape": true
+      },
+      "validation": {
+        "mean_reward": 2.20273902529762,
+        "records": [
+          {
+            "scenario_id": "attack::air/heldout_push",
+            "family_id": "air",
+            "episode_seed": 900100,
+            "match_seed": 1000900100,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 259500,
+            "outcome": "loss",
+            "own_fraction_loss": 1.0892857142857144,
+            "enemy_fraction_damage": 0.2887834821428571,
+            "own_tower_fraction_loss": {
+              "left": 0.0892857142857143,
+              "right": 1.0,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": false,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 152,
+            "illegal_actions": 0,
+            "missed_fireballs": 1,
+            "missed_fireball_elixir": 4,
+            "accepted_card_counts": {
+              "hog_rider": 1,
+              "electro_spirit": 15,
+              "skeletons": 15,
+              "zap": 15,
+              "knight": 14,
+              "cannon": 14,
+              "fireball": 1
+            },
+            "enemy_accepted_card_counts": {
+              "fireball": 5,
+              "minions": 8,
+              "skeletons": 9,
+              "knight": 7,
+              "zap": 8,
+              "baby_dragon": 5,
+              "valkyrie": 4,
+              "balloon": 4
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -23.49079241071429
+          },
+          {
+            "scenario_id": "attack::bridge/heldout_push",
+            "family_id": "bridge",
+            "episode_seed": 900101,
+            "match_seed": 1000900101,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 300000,
+            "outcome": "loss",
+            "own_fraction_loss": 0.5619419642857143,
+            "enemy_fraction_damage": 0.1127232142857143,
+            "own_tower_fraction_loss": {
+              "left": 0.1936383928571429,
+              "right": 0.3683035714285714,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 197,
+            "illegal_actions": 0,
+            "missed_fireballs": 3,
+            "missed_fireball_elixir": 12,
+            "accepted_card_counts": {
+              "fireball": 5,
+              "zap": 19,
+              "cannon": 17,
+              "skeletons": 19,
+              "electro_spirit": 18,
+              "knight": 17
+            },
+            "enemy_accepted_card_counts": {
+              "knight": 11,
+              "bandit": 11,
+              "zap": 11,
+              "dark_prince": 5,
+              "valkyrie": 7,
+              "battle_ram": 5,
+              "fireball": 4,
+              "musketeer": 6
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -21.909598214285715
+          },
+          {
+            "scenario_id": "attack::giant/heldout_push",
+            "family_id": "giant",
+            "episode_seed": 900102,
+            "match_seed": 1000900102,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 284500,
+            "outcome": "win",
+            "own_fraction_loss": 0.5147879464285714,
+            "enemy_fraction_damage": 1.3816964285714286,
+            "own_tower_fraction_loss": {
+              "left": 0.5147879464285714,
+              "right": 0.0,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 180,
+            "illegal_actions": 1,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "knight": 17,
+              "skeletons": 18,
+              "zap": 17,
+              "electro_spirit": 17,
+              "cannon": 16,
+              "hog_rider": 3
+            },
+            "enemy_accepted_card_counts": {
+              "musketeer": 6,
+              "bomber": 10,
+              "arrows": 10,
+              "mini_pekka": 7,
+              "spear_goblins": 9,
+              "fireball": 6,
+              "giant": 4,
+              "valkyrie": 4
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": 21.985937500000002
+          },
+          {
+            "scenario_id": "attack::golem/heldout_push",
+            "family_id": "golem",
+            "episode_seed": 900103,
+            "match_seed": 1000900103,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 235300,
+            "outcome": "loss",
+            "own_fraction_loss": 1.9349888392857144,
+            "enemy_fraction_damage": 0.2126116071428571,
+            "own_tower_fraction_loss": {
+              "left": 1.0,
+              "right": 0.9349888392857143,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": false,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 127,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "knight": 13,
+              "electro_spirit": 13,
+              "skeletons": 13,
+              "zap": 13,
+              "cannon": 12
+            },
+            "enemy_accepted_card_counts": {
+              "skeletons": 7,
+              "baby_dragon": 5,
+              "zap": 6,
+              "mega_minion": 6,
+              "valkyrie": 5,
+              "golem": 3,
+              "night_witch": 4,
+              "lightning": 2
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -27.102120535714285
+          },
+          {
+            "scenario_id": "attack::hog/heldout_push",
+            "family_id": "hog",
+            "episode_seed": 900104,
+            "match_seed": 1000900104,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 300000,
+            "outcome": "win",
+            "own_fraction_loss": 0.7578125,
+            "enemy_fraction_damage": 1.2578125,
+            "own_tower_fraction_loss": {
+              "left": 0.6690848214285714,
+              "right": 0.0887276785714286,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 197,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "musketeer": 1,
+              "electro_spirit": 19,
+              "zap": 19,
+              "cannon": 17,
+              "skeletons": 18,
+              "knight": 17,
+              "hog_rider": 4
+            },
+            "enemy_accepted_card_counts": {
+              "electro_spirit": 15,
+              "hog_rider": 4,
+              "knight": 14,
+              "cannon": 13,
+              "zap": 14,
+              "fireball": 4,
+              "musketeer": 5,
+              "valkyrie": 5
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": 20.7421875
+          },
+          {
+            "scenario_id": "attack::swarm/heldout_push",
+            "family_id": "swarm",
+            "episode_seed": 900105,
+            "match_seed": 1000900105,
+            "split": "validation",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 180000,
+            "outcome": "win",
+            "own_fraction_loss": 0.6668526785714285,
+            "enemy_fraction_damage": 1.0,
+            "own_tower_fraction_loss": {
+              "left": 0.5998883928571428,
+              "right": 0.0669642857142857,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 90,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "knight": 9,
+              "skeletons": 9,
+              "zap": 9,
+              "electro_spirit": 9,
+              "cannon": 9
+            },
+            "enemy_accepted_card_counts": {
+              "goblin_barrel": 6,
+              "zap": 6,
+              "skeleton_army": 5,
+              "knight": 5,
+              "valkyrie": 2,
+              "goblin_gang": 5,
+              "inferno_tower": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": 20.33258928571429
+          },
+          {
+            "scenario_id": "defense::air/heldout_push",
+            "family_id": "air",
+            "episode_seed": 900106,
+            "match_seed": 1000900106,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 180000,
+            "outcome": "loss",
+            "own_fraction_loss": 1.0326450892857144,
+            "enemy_fraction_damage": 0.015904017857142905,
+            "own_tower_fraction_loss": {
+              "left": 1.0,
+              "right": 0.0326450892857143,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": false,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 90,
+            "illegal_actions": 1,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "cannon": 9,
+              "electro_spirit": 9,
+              "zap": 9,
+              "skeletons": 9,
+              "knight": 9
+            },
+            "enemy_accepted_card_counts": {
+              "minions": 5,
+              "balloon": 4,
+              "skeletons": 5,
+              "zap": 5,
+              "knight": 3,
+              "valkyrie": 2,
+              "fireball": 3,
+              "baby_dragon": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -24.18286830357143
+          },
+          {
+            "scenario_id": "defense::bridge/heldout_push",
+            "family_id": "bridge",
+            "episode_seed": 900107,
+            "match_seed": 1000900107,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 300000,
+            "outcome": "win",
+            "own_fraction_loss": 0.1556919642857143,
+            "enemy_fraction_damage": 0.4723772321428571,
+            "own_tower_fraction_loss": {
+              "left": 0.0,
+              "right": 0.1556919642857143,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 197,
+            "illegal_actions": 1,
+            "missed_fireballs": 4,
+            "missed_fireball_elixir": 16,
+            "accepted_card_counts": {
+              "electro_spirit": 19,
+              "zap": 19,
+              "knight": 18,
+              "cannon": 17,
+              "skeletons": 19,
+              "fireball": 4
+            },
+            "enemy_accepted_card_counts": {
+              "zap": 13,
+              "bandit": 12,
+              "knight": 11,
+              "valkyrie": 6,
+              "dark_prince": 5,
+              "battle_ram": 5,
+              "musketeer": 4,
+              "fireball": 5
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": 20.694363839285714
+          },
+          {
+            "scenario_id": "defense::giant/heldout_push",
+            "family_id": "giant",
+            "episode_seed": 900108,
+            "match_seed": 1000900108,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 300000,
+            "outcome": "win",
+            "own_fraction_loss": 0.4428013392857143,
+            "enemy_fraction_damage": 0.9009486607142857,
+            "own_tower_fraction_loss": {
+              "left": 0.0708705357142857,
+              "right": 0.3719308035714286,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 194,
+            "illegal_actions": 1,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "skeletons": 20,
+              "zap": 19,
+              "electro_spirit": 19,
+              "cannon": 17,
+              "knight": 18,
+              "hog_rider": 3
+            },
+            "enemy_accepted_card_counts": {
+              "musketeer": 8,
+              "spear_goblins": 12,
+              "bomber": 12,
+              "valkyrie": 6,
+              "giant": 3,
+              "arrows": 11,
+              "fireball": 5,
+              "mini_pekka": 6
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": 20.831640625
+          },
+          {
+            "scenario_id": "defense::golem/heldout_push",
+            "family_id": "golem",
+            "episode_seed": 900109,
+            "match_seed": 1000900109,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 180000,
+            "outcome": "loss",
+            "own_fraction_loss": 1.3367745535714286,
+            "enemy_fraction_damage": 0.6188616071428572,
+            "own_tower_fraction_loss": {
+              "left": 0.3367745535714286,
+              "right": 1.0,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": false,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 88,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "hog_rider": 1,
+              "skeletons": 9,
+              "zap": 9,
+              "electro_spirit": 9,
+              "cannon": 8,
+              "knight": 8
+            },
+            "enemy_accepted_card_counts": {
+              "valkyrie": 3,
+              "zap": 5,
+              "lightning": 3,
+              "skeletons": 5,
+              "mega_minion": 4,
+              "baby_dragon": 3,
+              "night_witch": 3,
+              "golem": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": -23.490513392857142
+          },
+          {
+            "scenario_id": "defense::hog/heldout_push",
+            "family_id": "hog",
+            "episode_seed": 900110,
+            "match_seed": 1000900110,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 300000,
+            "outcome": "win",
+            "own_fraction_loss": 0.0,
+            "enemy_fraction_damage": 0.6595982142857143,
+            "own_tower_fraction_loss": {
+              "left": 0.0,
+              "right": 0.0,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": true,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 197,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "accepted_card_counts": {
+              "skeletons": 19,
+              "knight": 19,
+              "electro_spirit": 19,
+              "cannon": 16,
+              "zap": 19,
+              "hog_rider": 4
+            },
+            "enemy_accepted_card_counts": {
+              "electro_spirit": 14,
+              "knight": 13,
+              "cannon": 14,
+              "valkyrie": 6,
+              "zap": 14,
+              "musketeer": 4,
+              "fireball": 5,
+              "hog_rider": 3
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": 21.978794642857142
+          },
+          {
+            "scenario_id": "defense::swarm/heldout_push",
+            "family_id": "swarm",
+            "episode_seed": 900111,
+            "match_seed": 1000900111,
+            "split": "validation",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 300000,
+            "outcome": "win",
+            "own_fraction_loss": 0.5962611607142857,
+            "enemy_fraction_damage": 0.8094308035714286,
+            "own_tower_fraction_loss": {
+              "left": 0.4288504464285714,
+              "right": 0.1674107142857143,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 197,
+            "illegal_actions": 0,
+            "missed_fireballs": 1,
+            "missed_fireball_elixir": 4,
+            "accepted_card_counts": {
+              "fireball": 1,
+              "zap": 19,
+              "skeletons": 19,
+              "cannon": 16,
+              "electro_spirit": 18,
+              "knight": 18,
+              "hog_rider": 4
+            },
+            "enemy_accepted_card_counts": {
+              "zap": 13,
+              "skeleton_army": 12,
+              "goblin_gang": 12,
+              "valkyrie": 5,
+              "goblin_barrel": 12,
+              "knight": 12,
+              "inferno_tower": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ],
+            "episode_return": 20.043247767857142
+          }
+        ],
+        "summary": {
+          "episodes": 12,
+          "attack_success": {
+            "known": 0,
+            "count": 0,
+            "rate": null
+          },
+          "goal_success": {
+            "known": 0,
+            "count": 0,
+            "rate": null
+          },
+          "goal_window_missed": {
+            "known": 0,
+            "count": 0,
+            "rate": null
+          },
+          "successful_spell_finish": {
+            "known": 0,
+            "count": 0,
+            "rate": null
+          },
+          "episode_return": {
+            "known": 12,
+            "mean": 2.20273902529762
+          },
+          "time_to_first_goal_card_ms": {
+            "known": 0,
+            "mean": null
+          },
+          "anticipatory_goal_card_ms": {
+            "known": 0,
+            "mean": null
+          },
+          "hog_target_tower_damage": {
+            "known": 0,
+            "mean": null
+          },
+          "elixir_spent": {
+            "known": 12,
+            "mean": 158.83333333333334
+          },
+          "redundant_spells": {
+            "known": 0,
+            "mean": null
+          },
+          "missed_resolved_spells": {
+            "known": 0,
+            "mean": null
+          },
+          "by": {
+            "timer_visible": {
+              "None": {
+                "episodes": 12,
+                "attack_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_window_missed": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "successful_spell_finish": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "episode_return": {
+                  "known": 12,
+                  "mean": 2.20273902529762
+                },
+                "time_to_first_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "anticipatory_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "hog_target_tower_damage": {
+                  "known": 0,
+                  "mean": null
+                },
+                "elixir_spent": {
+                  "known": 12,
+                  "mean": 158.83333333333334
+                },
+                "redundant_spells": {
+                  "known": 0,
+                  "mean": null
+                },
+                "missed_resolved_spells": {
+                  "known": 0,
+                  "mean": null
+                }
+              }
+            },
+            "goal_kind": {
+              "None": {
+                "episodes": 12,
+                "attack_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_window_missed": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "successful_spell_finish": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "episode_return": {
+                  "known": 12,
+                  "mean": 2.20273902529762
+                },
+                "time_to_first_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "anticipatory_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "hog_target_tower_damage": {
+                  "known": 0,
+                  "mean": null
+                },
+                "elixir_spent": {
+                  "known": 12,
+                  "mean": 158.83333333333334
+                },
+                "redundant_spells": {
+                  "known": 0,
+                  "mean": null
+                },
+                "missed_resolved_spells": {
+                  "known": 0,
+                  "mean": null
+                }
+              }
+            },
+            "setup_kind": {
+              "None": {
+                "episodes": 12,
+                "attack_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_success": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "goal_window_missed": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "successful_spell_finish": {
+                  "known": 0,
+                  "count": 0,
+                  "rate": null
+                },
+                "episode_return": {
+                  "known": 12,
+                  "mean": 2.20273902529762
+                },
+                "time_to_first_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "anticipatory_goal_card_ms": {
+                  "known": 0,
+                  "mean": null
+                },
+                "hog_target_tower_damage": {
+                  "known": 0,
+                  "mean": null
+                },
+                "elixir_spent": {
+                  "known": 12,
+                  "mean": 158.83333333333334
+                },
+                "redundant_spells": {
+                  "known": 0,
+                  "mean": null
+                },
+                "missed_resolved_spells": {
+                  "known": 0,
+                  "mean": null
+                }
+              }
+            }
+          }
+        },
+        "by_task": {
+          "attack": {
+            "episodes": 6,
+            "attack_success": {
+              "known": 0,
+              "count": 0,
+              "rate": null
+            },
+            "goal_success": {
+              "known": 0,
+              "count": 0,
+              "rate": null
+            },
+            "goal_window_missed": {
+              "known": 0,
+              "count": 0,
+              "rate": null
+            },
+            "successful_spell_finish": {
+              "known": 0,
+              "count": 0,
+              "rate": null
+            },
+            "episode_return": {
+              "known": 6,
+              "mean": -1.5736328124999996
+            },
+            "time_to_first_goal_card_ms": {
+              "known": 0,
+              "mean": null
+            },
+            "anticipatory_goal_card_ms": {
+              "known": 0,
+              "mean": null
+            },
+            "hog_target_tower_damage": {
+              "known": 0,
+              "mean": null
+            },
+            "elixir_spent": {
+              "known": 6,
+              "mean": 157.16666666666666
+            },
+            "redundant_spells": {
+              "known": 0,
+              "mean": null
+            },
+            "missed_resolved_spells": {
+              "known": 0,
+              "mean": null
+            },
+            "by": {
+              "timer_visible": {
+                "None": {
+                  "episodes": 6,
+                  "attack_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_window_missed": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "successful_spell_finish": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "episode_return": {
+                    "known": 6,
+                    "mean": -1.5736328124999996
+                  },
+                  "time_to_first_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "anticipatory_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "hog_target_tower_damage": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "elixir_spent": {
+                    "known": 6,
+                    "mean": 157.16666666666666
+                  },
+                  "redundant_spells": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "missed_resolved_spells": {
+                    "known": 0,
+                    "mean": null
+                  }
+                }
+              },
+              "goal_kind": {
+                "None": {
+                  "episodes": 6,
+                  "attack_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_window_missed": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "successful_spell_finish": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "episode_return": {
+                    "known": 6,
+                    "mean": -1.5736328124999996
+                  },
+                  "time_to_first_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "anticipatory_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "hog_target_tower_damage": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "elixir_spent": {
+                    "known": 6,
+                    "mean": 157.16666666666666
+                  },
+                  "redundant_spells": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "missed_resolved_spells": {
+                    "known": 0,
+                    "mean": null
+                  }
+                }
+              },
+              "setup_kind": {
+                "None": {
+                  "episodes": 6,
+                  "attack_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_success": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "goal_window_missed": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "successful_spell_finish": {
+                    "known": 0,
+                    "count": 0,
+                    "rate": null
+                  },
+                  "episode_return": {
+                    "known": 6,
+                    "mean": -1.5736328124999996
+                  },
+                  "time_to_first_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "anticipatory_goal_card_ms": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "hog_target_tower_damage": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "elixir_spent": {
+                    "known": 6,
+                    "mean": 157.16666666666666
+                  },
+                  "redundant_spells": {
+                    "known": 0,
+                    "mean": null
+                  },
+                  "missed_resolved_spells": {
+                    "known": 0,
+                    "mean": null
+                  }
+                }
+              }
+            }
+          },
+          "defense": {
+            "n": 6,
+            "no_damage": 1,
+            "no_damage_pct": 16.666666666666668,
+            "no_damage_known": 6,
+            "mean_hp_loss": null,
+            "hp_loss_known": 0,
+            "mean_total_tower_fraction_loss": 0.5940290178571429,
+            "fraction_loss_known": 6,
+            "princess_deaths": 2,
+            "princess_known": 12,
+            "princess_survival_pct": 83.33333333333333,
+            "king_deaths": 0,
+            "king_known": 6,
+            "king_survival_pct": 100.0,
+            "timeouts": 0,
+            "invalid": 0,
+            "terminal_known": 6,
+            "mean_return": 5.979110863095237,
+            "return_std": 21.091585523802543,
+            "return_known": 6,
+            "return_alignment_complete": true,
+            "by_difficulty": {
+              "unknown": {
+                "n": 6,
+                "no_damage": 1,
+                "no_damage_pct": 16.666666666666668,
+                "no_damage_known": 6,
+                "mean_hp_loss": null,
+                "hp_loss_known": 0,
+                "mean_total_tower_fraction_loss": 0.5940290178571429,
+                "fraction_loss_known": 6,
+                "princess_deaths": 2,
+                "princess_known": 12,
+                "princess_survival_pct": 83.33333333333333,
+                "king_deaths": 0,
+                "king_known": 6,
+                "king_survival_pct": 100.0,
+                "timeouts": 0,
+                "invalid": 0,
+                "terminal_known": 6,
+                "mean_return": 5.979110863095237,
+                "return_std": 21.091585523802543,
+                "return_known": 6,
+                "return_alignment_complete": true
+              }
+            }
+          }
+        },
+        "split": "validation",
+        "seed": 900100,
+        "episodes_per_task": 6,
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "wins": 7,
+        "draws": 0,
+        "unknown": 0,
+        "games": 12,
+        "mean_elixir_overflow": 0.0,
+        "selection_score": 0.2916666666666667,
+        "macro_archetype_points": 0.5833333333333334,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 2,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 2,
+            "points": 0.5
+          },
+          "giant": {
+            "games": 2,
+            "points": 1.0
+          },
+          "golem": {
+            "games": 2,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 2,
+            "points": 1.0
+          },
+          "swarm": {
+            "games": 2,
+            "points": 1.0
+          }
+        }
+      }
+    }
+  ],
+  "elapsed_seconds": 23.140013583004475,
+  "scope": "Twelve paired validation contexts per source; diagnostic only, not full warmstart selection",
+  "limits": [
+    "Defense source additionally changes physical_live/legacy geometry into new v2/native inputs; transfer may lose skills",
+    "No training or checkpoint promotion; both source files SHA preserved"
+  ],
+  "live_games_started": false,
+  "test_used_for_selection": false
+}

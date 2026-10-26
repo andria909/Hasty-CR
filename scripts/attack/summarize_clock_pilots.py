@@ -10,6 +10,7 @@ from scripts.attack.verify_continuous_focus import verify
 def summarize(root):
     root=Path(root);verified=verify(root/'collected',root)
     protocol=json.loads((root/'dataset/protocol.json').read_text());rows=[]
+    history=protocol.get('schema')=='continuous-public-history-pilot-v1'
     def stats(records):
         counts=Counter(r['outcome']for r in records);cards=Counter()
         for r in records:cards.update(r['accepted_card_counts'])
@@ -24,9 +25,11 @@ def summarize(root):
         for seed in protocol['pilot_seeds']:
             r=json.loads((root/'collected'/f"pilot_{trial['id']}_s{seed}_summary.json").read_text())
             records.extend(r['validation']['records'])
-        rows.append(dict(id=trial['id'],**stats(records)))
+        row=dict(id=trial['id'],**stats(records))
+        if history:row.update(history_frames=trial['history_frames'],focus=trial['focus'])
+        rows.append(row)
     reference=json.loads((root/'collected/parent_reference.json').read_text())
-    return dict(schema='verified-clock-pilot-validation-summary-v1',kernel=verified['kernel'],
+    return dict(schema='verified-history-pilot-validation-summary-v1'if history else'verified-clock-pilot-validation-summary-v1',kernel=verified['kernel'],
         pilot_steps_verified=verified['pilot_steps_verified'],rows=rows,parent=stats(reference['validation']['records']),
         eligible_for_full=verified['pilot_selection']['gate_met'],quality_accepted=False,
         scope='72 distinct validation contexts replayed by two independently trained seeds; not144 independent contexts',
