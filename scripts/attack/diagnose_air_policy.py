@@ -1,0 +1,55 @@
+"""Bounded TRAIN-only diagnosis of anti-air availability and policy preference."""
+import argparse
+from collections import Counter
+import hashlib
+import json
+from pathlib import Path
+import torch
+from sim.continuous_push import ContinuousPushEnv, CONTRACT
+from sim.env import ClashEnv
+from sim.train_attack_ppo import initialize_attack_policy
+
+
+def diagnose(weight,seed):
+    torch.set_num_threads(1)
+    blob=torch.load(weight,map_location='cpu',weights_only=False)
+    net,_,_=initialize_attack_policy(blob,device='cpu',num_scalars=309,observation_contract=CONTRACT)
+    net.eval();env=ContinuousPushEnv(seed=seed,split='train')
+    obs,info=env.reset(seed=seed,scenario_id='defense::air/push')
+    counts=Counter();mass=Counter();examples=[]
+    while not env.done:
+        mask=torch.as_tensor(info['action_mask'])
+        with torch.inference_mode():
+            logits,_=net(torch.as_tensor(obs['planes'])[None],torch.as_tensor(obs['scalars'])[None])
+            legal=logits[0].masked_fill(~mask,-torch.inf);probs=legal.softmax(0);action=int(legal.argmax())
+        air=[e for e in env.match.battle.entities.values()if e.alive and e.side==-1 and e.flying and not e.is_tower]
+        if air:
+            counts['decisions_with_enemy_air']+=1
+            if not mask[1:].any():counts['air_forced_idle']+=1
+            if 'musketeer'in env.match.players[1].hand:
+                counts['air_musketeer_in_hand']+=1
+                if env.match.players[1].elixir<4000:counts['air_musketeer_in_hand_bank_below_four']+=1
+            if env.match.players[1].elixir>=4000:counts['air_bank_at_least_four']+=1
+            for slot,card in enumerate(env.match.players[1].hand):
+                support=mask[1+slot*576:1+(slot+1)*576]
+                if support.any():
+                    counts['air_legal_'+card]+=1;mass[card]+=float(probs[1+slot*576:1+(slot+1)*576].sum())
+            if action:
+                slot,x,y=ClashEnv.decode(action);card=env.match.players[1].hand[slot]
+                counts['air_selected_'+card]+=1
+                if card!='musketeer' and 'musketeer'in env.match.players[1].hand:
+                    slot_m=env.match.players[1].hand.index('musketeer');part=legal[1+slot_m*576:1+(slot_m+1)*576]
+                    if torch.isfinite(part).any()and len(examples)<12:
+                        examples.append(dict(at_ms=env.match.elapsed_ms,selected=card,selected_logit=float(legal[action]),
+                            best_musketeer_logit=float(part.max()),elixir=env.match.players[1].elixir/1000))
+            else:counts['air_selected_idle']+=1
+        obs,_,_,_,info=env.step(action)
+    return dict(schema='air-policy-train-diagnostic-v1',weight_sha256=hashlib.sha256(Path(weight).read_bytes()).hexdigest(),
+        seed=seed,scenario='defense::air/push',counts=dict(counts),policy_probability_mass_sums=dict(mass),examples=examples,
+        final_metrics=info['metrics'],scope='One greedy TRAIN game; diagnostic only, no checkpoint selection or live claim')
+
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--weight',required=True);p.add_argument('--seed',type=int,default=781)
+    p.add_argument('--output',required=True);a=p.parse_args();r=diagnose(a.weight,a.seed)
+    Path(a.output).write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r['counts']))

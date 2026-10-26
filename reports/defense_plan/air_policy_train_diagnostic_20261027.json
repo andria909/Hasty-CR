@@ -1,0 +1,598 @@
+{
+  "schema": "paired-air-policy-train-diagnostic-v1",
+  "rows": [
+    {
+      "schema": "air-policy-train-diagnostic-v1",
+      "weight_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "seed": 781,
+      "scenario": "defense::air/push",
+      "counts": {
+        "decisions_with_enemy_air": 787,
+        "air_forced_idle": 732,
+        "air_musketeer_in_hand": 787,
+        "air_musketeer_in_hand_bank_below_four": 785,
+        "air_selected_idle": 732,
+        "air_legal_zap": 12,
+        "air_selected_zap": 12,
+        "air_legal_cannon": 12,
+        "air_legal_knight": 11,
+        "air_selected_knight": 10,
+        "air_legal_electro_spirit": 11,
+        "air_selected_electro_spirit": 11,
+        "air_legal_skeletons": 10,
+        "air_selected_skeletons": 10,
+        "air_selected_cannon": 11,
+        "air_bank_at_least_four": 2,
+        "air_legal_musketeer": 1,
+        "air_legal_fireball": 1,
+        "air_legal_hog_rider": 1,
+        "air_selected_hog_rider": 1
+      },
+      "policy_probability_mass_sums": {
+        "zap": 11.99999988079071,
+        "cannon": 11.000000298023224,
+        "knight": 10.000000238418579,
+        "electro_spirit": 10.999999582767487,
+        "skeletons": 9.999999523162842,
+        "musketeer": 0.07173655927181244,
+        "fireball": 1.0488774293548886e-09,
+        "hog_rider": 0.9282636642456055
+      },
+      "examples": [
+        {
+          "at_ms": 245250,
+          "selected": "hog_rider",
+          "selected_logit": 22.899259567260742,
+          "best_musketeer_logit": 20.480384826660156,
+          "elixir": 4.198
+        }
+      ],
+      "final_metrics": {
+        "scenario_id": "defense::air/push",
+        "family_id": "air",
+        "episode_seed": 781,
+        "match_seed": 781,
+        "split": "train",
+        "task": "defense",
+        "observation_contract": "joint_public_presence_continuous_slots_v2",
+        "terminal_reason": "game_top",
+        "elapsed_ms": 255000,
+        "outcome": "loss",
+        "own_fraction_loss": 1.5909598214285714,
+        "enemy_fraction_damage": 0.4143415178571429,
+        "own_tower_fraction_loss": {
+          "left": 0.5909598214285714,
+          "right": 1.0,
+          "king": 0.0
+        },
+        "own_towers_alive": {
+          "left": true,
+          "right": false,
+          "king": true
+        },
+        "no_tower_damage": false,
+        "elixir_overflow": 0.0,
+        "elixir_spent": 149,
+        "illegal_actions": 0,
+        "missed_fireballs": 0,
+        "missed_fireball_elixir": 0,
+        "board_potential": 0.0,
+        "board_shaping_return": 0.0,
+        "initial_board_potential": 0.0,
+        "board_shaping_discounted_return": 0.0,
+        "board_shaping_steps": 1020,
+        "accepted_card_counts": {
+          "hog_rider": 2,
+          "electro_spirit": 15,
+          "skeletons": 14,
+          "zap": 14,
+          "knight": 14,
+          "cannon": 14
+        },
+        "enemy_accepted_card_counts": {
+          "baby_dragon": 4,
+          "zap": 10,
+          "skeletons": 11,
+          "minions": 9,
+          "knight": 8,
+          "balloon": 5,
+          "fireball": 3,
+          "musketeer": 3
+        },
+        "coverage_flags": [
+          "simulator_mechanics_not_fully_validated",
+          "synthetic_legal_opponent_not_live_rating"
+        ]
+      },
+      "scope": "One greedy TRAIN game; diagnostic only, no checkpoint selection or live claim",
+      "model": "parent"
+    },
+    {
+      "schema": "air-policy-train-diagnostic-v1",
+      "weight_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "seed": 782,
+      "scenario": "defense::air/push",
+      "counts": {
+        "decisions_with_enemy_air": 475,
+        "air_forced_idle": 450,
+        "air_selected_idle": 450,
+        "air_legal_cannon": 8,
+        "air_legal_knight": 4,
+        "air_selected_cannon": 8,
+        "air_musketeer_in_hand": 440,
+        "air_musketeer_in_hand_bank_below_four": 440,
+        "air_legal_zap": 7,
+        "air_selected_zap": 7,
+        "air_legal_skeletons": 4,
+        "air_selected_skeletons": 4,
+        "air_selected_knight": 3,
+        "air_legal_electro_spirit": 3,
+        "air_selected_electro_spirit": 3
+      },
+      "policy_probability_mass_sums": {
+        "cannon": 7.999853074550629,
+        "knight": 3.000146968799527,
+        "zap": 6.999999940395355,
+        "skeletons": 4.0000001192092896,
+        "electro_spirit": 2.9999998807907104
+      },
+      "examples": [],
+      "final_metrics": {
+        "scenario_id": "defense::air/push",
+        "family_id": "air",
+        "episode_seed": 782,
+        "match_seed": 782,
+        "split": "train",
+        "task": "defense",
+        "observation_contract": "joint_public_presence_continuous_slots_v2",
+        "terminal_reason": "game_top",
+        "elapsed_ms": 180000,
+        "outcome": "loss",
+        "own_fraction_loss": 1.0354817708333335,
+        "enemy_fraction_damage": 0.0767299107142857,
+        "own_tower_fraction_loss": {
+          "left": 0.0,
+          "right": 1.0,
+          "king": 0.03548177083333337
+        },
+        "own_towers_alive": {
+          "left": true,
+          "right": false,
+          "king": true
+        },
+        "no_tower_damage": false,
+        "elixir_overflow": 0.0,
+        "elixir_spent": 88,
+        "illegal_actions": 0,
+        "missed_fireballs": 0,
+        "missed_fireball_elixir": 0,
+        "board_potential": 0.0,
+        "board_shaping_return": 0.0,
+        "initial_board_potential": 0.0,
+        "board_shaping_discounted_return": 0.0,
+        "board_shaping_steps": 720,
+        "accepted_card_counts": {
+          "musketeer": 1,
+          "electro_spirit": 9,
+          "skeletons": 9,
+          "zap": 9,
+          "cannon": 8,
+          "knight": 8
+        },
+        "enemy_accepted_card_counts": {
+          "zap": 5,
+          "balloon": 2,
+          "skeletons": 5,
+          "knight": 4,
+          "minions": 5,
+          "fireball": 2,
+          "musketeer": 3,
+          "baby_dragon": 3
+        },
+        "coverage_flags": [
+          "simulator_mechanics_not_fully_validated",
+          "synthetic_legal_opponent_not_live_rating"
+        ]
+      },
+      "scope": "One greedy TRAIN game; diagnostic only, no checkpoint selection or live claim",
+      "model": "parent"
+    },
+    {
+      "schema": "air-policy-train-diagnostic-v1",
+      "weight_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+      "seed": 783,
+      "scenario": "defense::air/push",
+      "counts": {
+        "decisions_with_enemy_air": 756,
+        "air_forced_idle": 694,
+        "air_musketeer_in_hand": 724,
+        "air_musketeer_in_hand_bank_below_four": 719,
+        "air_selected_idle": 694,
+        "air_legal_electro_spirit": 12,
+        "air_selected_electro_spirit": 12,
+        "air_legal_zap": 15,
+        "air_selected_zap": 15,
+        "air_legal_knight": 11,
+        "air_selected_knight": 11,
+        "air_legal_skeletons": 12,
+        "air_selected_skeletons": 12,
+        "air_legal_cannon": 10,
+        "air_selected_cannon": 10,
+        "air_bank_at_least_four": 5,
+        "air_legal_musketeer": 2,
+        "air_legal_fireball": 2,
+        "air_legal_hog_rider": 2,
+        "air_selected_musketeer": 1,
+        "air_selected_fireball": 1
+      },
+      "policy_probability_mass_sums": {
+        "electro_spirit": 12.000000298023224,
+        "zap": 14.999999701976776,
+        "knight": 10.999996542930603,
+        "skeletons": 12.000000417232513,
+        "cannon": 9.999999463558197,
+        "musketeer": 1.0046495869755745,
+        "fireball": 0.9487616792218176,
+        "hog_rider": 0.046589144569679775
+      },
+      "examples": [
+        {
+          "at_ms": 264750,
+          "selected": "fireball",
+          "selected_logit": 13.6057767868042,
+          "best_musketeer_logit": 9.054899215698242,
+          "elixir": 4.099
+        }
+      ],
+      "final_metrics": {
+        "scenario_id": "defense::air/push",
+        "family_id": "air",
+        "episode_seed": 783,
+        "match_seed": 783,
+        "split": "train",
+        "task": "defense",
+        "observation_contract": "joint_public_presence_continuous_slots_v2",
+        "terminal_reason": "game_top",
+        "elapsed_ms": 280350,
+        "outcome": "loss",
+        "own_fraction_loss": 1.5396205357142856,
+        "enemy_fraction_damage": 0.3286830357142857,
+        "own_tower_fraction_loss": {
+          "left": 1.0,
+          "right": 0.5396205357142857,
+          "king": 0.0
+        },
+        "own_towers_alive": {
+          "left": false,
+          "right": true,
+          "king": true
+        },
+        "no_tower_damage": false,
+        "elixir_overflow": 0.0,
+        "elixir_spent": 176,
+        "illegal_actions": 0,
+        "missed_fireballs": 0,
+        "missed_fireball_elixir": 0,
+        "board_potential": 0.0,
+        "board_shaping_return": 0.0,
+        "initial_board_potential": 0.0,
+        "board_shaping_discounted_return": 0.0,
+        "board_shaping_steps": 1122,
+        "accepted_card_counts": {
+          "hog_rider": 1,
+          "skeletons": 17,
+          "electro_spirit": 17,
+          "zap": 17,
+          "knight": 16,
+          "cannon": 16,
+          "musketeer": 1,
+          "fireball": 1
+        },
+        "enemy_accepted_card_counts": {
+          "skeletons": 12,
+          "zap": 11,
+          "knight": 10,
+          "musketeer": 4,
+          "minions": 9,
+          "fireball": 5,
+          "baby_dragon": 5,
+          "balloon": 4
+        },
+        "coverage_flags": [
+          "simulator_mechanics_not_fully_validated",
+          "synthetic_legal_opponent_not_live_rating"
+        ]
+      },
+      "scope": "One greedy TRAIN game; diagnostic only, no checkpoint selection or live claim",
+      "model": "parent"
+    },
+    {
+      "schema": "air-policy-train-diagnostic-v1",
+      "weight_sha256": "82e988f074937fe86d7c9ec1eb1dfce384142eabe98ebc75adf4e1986c71a7fd",
+      "seed": 781,
+      "scenario": "defense::air/push",
+      "counts": {
+        "decisions_with_enemy_air": 730,
+        "air_forced_idle": 681,
+        "air_musketeer_in_hand": 730,
+        "air_musketeer_in_hand_bank_below_four": 730,
+        "air_selected_idle": 681,
+        "air_legal_zap": 11,
+        "air_selected_zap": 11,
+        "air_legal_cannon": 10,
+        "air_legal_knight": 11,
+        "air_selected_knight": 11,
+        "air_legal_electro_spirit": 9,
+        "air_selected_electro_spirit": 9,
+        "air_selected_cannon": 9,
+        "air_legal_skeletons": 9,
+        "air_selected_skeletons": 9
+      },
+      "policy_probability_mass_sums": {
+        "zap": 10.99997740983963,
+        "cannon": 8.999989151954669,
+        "knight": 10.999215364456177,
+        "electro_spirit": 8.999999761581421,
+        "skeletons": 8.999979317188263
+      },
+      "examples": [],
+      "final_metrics": {
+        "scenario_id": "defense::air/push",
+        "family_id": "air",
+        "episode_seed": 781,
+        "match_seed": 781,
+        "split": "train",
+        "task": "defense",
+        "observation_contract": "joint_public_presence_continuous_slots_v2",
+        "terminal_reason": "game_top",
+        "elapsed_ms": 226350,
+        "outcome": "loss",
+        "own_fraction_loss": 1.3950892857142856,
+        "enemy_fraction_damage": 0.4271763392857143,
+        "own_tower_fraction_loss": {
+          "left": 1.0,
+          "right": 0.3950892857142857,
+          "king": 0.0
+        },
+        "own_towers_alive": {
+          "left": false,
+          "right": true,
+          "king": true
+        },
+        "no_tower_damage": false,
+        "elixir_overflow": 0.0,
+        "elixir_spent": 122,
+        "illegal_actions": 0,
+        "missed_fireballs": 0,
+        "missed_fireball_elixir": 0,
+        "board_potential": 0.0,
+        "board_shaping_return": 0.0,
+        "initial_board_potential": 0.0,
+        "board_shaping_discounted_return": 0.0,
+        "board_shaping_steps": 906,
+        "accepted_card_counts": {
+          "electro_spirit": 13,
+          "hog_rider": 1,
+          "skeletons": 12,
+          "zap": 12,
+          "knight": 12,
+          "cannon": 11
+        },
+        "enemy_accepted_card_counts": {
+          "baby_dragon": 6,
+          "zap": 9,
+          "skeletons": 9,
+          "minions": 7,
+          "knight": 6,
+          "fireball": 5,
+          "musketeer": 2,
+          "balloon": 1
+        },
+        "coverage_flags": [
+          "simulator_mechanics_not_fully_validated",
+          "synthetic_legal_opponent_not_live_rating"
+        ]
+      },
+      "scope": "One greedy TRAIN game; diagnostic only, no checkpoint selection or live claim",
+      "model": "strong"
+    },
+    {
+      "schema": "air-policy-train-diagnostic-v1",
+      "weight_sha256": "82e988f074937fe86d7c9ec1eb1dfce384142eabe98ebc75adf4e1986c71a7fd",
+      "seed": 782,
+      "scenario": "defense::air/push",
+      "counts": {
+        "decisions_with_enemy_air": 795,
+        "air_forced_idle": 737,
+        "air_musketeer_in_hand": 795,
+        "air_musketeer_in_hand_bank_below_four": 793,
+        "air_selected_idle": 737,
+        "air_legal_skeletons": 13,
+        "air_selected_skeletons": 13,
+        "air_legal_cannon": 13,
+        "air_selected_cannon": 12,
+        "air_legal_knight": 11,
+        "air_selected_knight": 11,
+        "air_legal_zap": 9,
+        "air_selected_zap": 9,
+        "air_legal_electro_spirit": 12,
+        "air_selected_electro_spirit": 12,
+        "air_bank_at_least_four": 2,
+        "air_legal_musketeer": 1,
+        "air_legal_hog_rider": 1,
+        "air_legal_fireball": 1,
+        "air_selected_hog_rider": 1
+      },
+      "policy_probability_mass_sums": {
+        "skeletons": 12.999997854232788,
+        "cannon": 11.999977469444275,
+        "knight": 10.999999761581421,
+        "zap": 8.99999988079071,
+        "electro_spirit": 11.999999284744263,
+        "musketeer": 0.046398501843214035,
+        "hog_rider": 0.9536015391349792,
+        "fireball": 1.3886492844505938e-08
+      },
+      "examples": [
+        {
+          "at_ms": 246000,
+          "selected": "hog_rider",
+          "selected_logit": 38.86338806152344,
+          "best_musketeer_logit": 35.89326477050781,
+          "elixir": 4.002
+        }
+      ],
+      "final_metrics": {
+        "scenario_id": "defense::air/push",
+        "family_id": "air",
+        "episode_seed": 782,
+        "match_seed": 782,
+        "split": "train",
+        "task": "defense",
+        "observation_contract": "joint_public_presence_continuous_slots_v2",
+        "terminal_reason": "game_top",
+        "elapsed_ms": 252000,
+        "outcome": "loss",
+        "own_fraction_loss": 1.5354352678571428,
+        "enemy_fraction_damage": 0.1768973214285714,
+        "own_tower_fraction_loss": {
+          "left": 1.0,
+          "right": 0.5354352678571428,
+          "king": 0.0
+        },
+        "own_towers_alive": {
+          "left": false,
+          "right": true,
+          "king": true
+        },
+        "no_tower_damage": false,
+        "elixir_overflow": 0.0,
+        "elixir_spent": 144,
+        "illegal_actions": 0,
+        "missed_fireballs": 0,
+        "missed_fireball_elixir": 0,
+        "board_potential": 0.0,
+        "board_shaping_return": 0.0,
+        "initial_board_potential": 0.0,
+        "board_shaping_discounted_return": 0.0,
+        "board_shaping_steps": 1008,
+        "accepted_card_counts": {
+          "knight": 15,
+          "zap": 14,
+          "electro_spirit": 14,
+          "skeletons": 14,
+          "cannon": 13,
+          "hog_rider": 1
+        },
+        "enemy_accepted_card_counts": {
+          "zap": 8,
+          "baby_dragon": 6,
+          "skeletons": 8,
+          "knight": 6,
+          "minions": 7,
+          "musketeer": 4,
+          "fireball": 5,
+          "balloon": 4
+        },
+        "coverage_flags": [
+          "simulator_mechanics_not_fully_validated",
+          "synthetic_legal_opponent_not_live_rating"
+        ]
+      },
+      "scope": "One greedy TRAIN game; diagnostic only, no checkpoint selection or live claim",
+      "model": "strong"
+    },
+    {
+      "schema": "air-policy-train-diagnostic-v1",
+      "weight_sha256": "82e988f074937fe86d7c9ec1eb1dfce384142eabe98ebc75adf4e1986c71a7fd",
+      "seed": 783,
+      "scenario": "defense::air/push",
+      "counts": {
+        "decisions_with_enemy_air": 498,
+        "air_forced_idle": 465,
+        "air_musketeer_in_hand": 498,
+        "air_musketeer_in_hand_bank_below_four": 498,
+        "air_selected_idle": 465,
+        "air_legal_zap": 8,
+        "air_selected_zap": 8,
+        "air_legal_knight": 7,
+        "air_selected_knight": 7,
+        "air_legal_electro_spirit": 6,
+        "air_selected_electro_spirit": 6,
+        "air_legal_skeletons": 6,
+        "air_selected_skeletons": 6,
+        "air_legal_cannon": 6,
+        "air_selected_cannon": 6
+      },
+      "policy_probability_mass_sums": {
+        "zap": 7.999999940395355,
+        "knight": 6.999218106269836,
+        "electro_spirit": 5.999985933303833,
+        "skeletons": 5.999998569488525,
+        "cannon": 5.999993979930878
+      },
+      "examples": [],
+      "final_metrics": {
+        "scenario_id": "defense::air/push",
+        "family_id": "air",
+        "episode_seed": 783,
+        "match_seed": 783,
+        "split": "train",
+        "task": "defense",
+        "observation_contract": "joint_public_presence_continuous_slots_v2",
+        "terminal_reason": "game_top",
+        "elapsed_ms": 184850,
+        "outcome": "loss",
+        "own_fraction_loss": 1.7396763392857144,
+        "enemy_fraction_damage": 0.3384486607142857,
+        "own_tower_fraction_loss": {
+          "left": 1.0,
+          "right": 0.7396763392857143,
+          "king": 0.0
+        },
+        "own_towers_alive": {
+          "left": false,
+          "right": true,
+          "king": true
+        },
+        "no_tower_damage": false,
+        "elixir_overflow": 0.0,
+        "elixir_spent": 91,
+        "illegal_actions": 0,
+        "missed_fireballs": 0,
+        "missed_fireball_elixir": 0,
+        "board_potential": 0.0,
+        "board_shaping_return": 0.0,
+        "initial_board_potential": 0.0,
+        "board_shaping_discounted_return": 0.0,
+        "board_shaping_steps": 740,
+        "accepted_card_counts": {
+          "hog_rider": 1,
+          "electro_spirit": 9,
+          "skeletons": 9,
+          "zap": 9,
+          "knight": 9,
+          "cannon": 8
+        },
+        "enemy_accepted_card_counts": {
+          "skeletons": 6,
+          "zap": 6,
+          "knight": 5,
+          "musketeer": 3,
+          "minions": 5,
+          "fireball": 2,
+          "baby_dragon": 2,
+          "balloon": 2
+        },
+        "coverage_flags": [
+          "simulator_mechanics_not_fully_validated",
+          "synthetic_legal_opponent_not_live_rating"
+        ]
+      },
+      "scope": "One greedy TRAIN game; diagnostic only, no checkpoint selection or live claim",
+      "model": "strong"
+    }
+  ],
+  "scope": "Three paired TRAIN seeds, diagnostic not model selection",
+  "live_games_started": false
+}

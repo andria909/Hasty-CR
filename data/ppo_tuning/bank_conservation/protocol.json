@@ -1,0 +1,72 @@
+{
+  "schema": "continuous-bank-conservation-proposal-v1",
+  "status": "prepared_not_submitted",
+  "rationale_source": "reports/defense_plan/air_policy_train_diagnostic_20261027.json",
+  "rationale_split": "train",
+  "pilot_seeds": [
+    102,
+    103
+  ],
+  "pilot_steps_each": 102400,
+  "initial_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+  "cases": [
+    {
+      "id": "bank_overflow00_balance00",
+      "overflow_penalty": 0.0,
+      "card_balance_weight": 0.0,
+      "board_potential_weight": 0.0,
+      "focus": "air_golem",
+      "entropy_coef": 0.01,
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "history_frames": 1,
+      "card_balance_target": "units",
+      "missed_fireball_penalty": 0.0
+    },
+    {
+      "id": "bank_overflow00_balance10",
+      "overflow_penalty": 0.0,
+      "card_balance_weight": 0.1,
+      "board_potential_weight": 0.0,
+      "focus": "air_golem",
+      "entropy_coef": 0.01,
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "history_frames": 1,
+      "card_balance_target": "units",
+      "missed_fireball_penalty": 0.0
+    },
+    {
+      "id": "bank_overflow15_balance00",
+      "overflow_penalty": 0.15,
+      "card_balance_weight": 0.0,
+      "board_potential_weight": 0.0,
+      "focus": "air_golem",
+      "entropy_coef": 0.01,
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "history_frames": 1,
+      "card_balance_target": "units",
+      "missed_fireball_penalty": 0.0
+    },
+    {
+      "id": "bank_overflow15_balance10",
+      "overflow_penalty": 0.15,
+      "card_balance_weight": 0.1,
+      "board_potential_weight": 0.0,
+      "focus": "air_golem",
+      "entropy_coef": 0.01,
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "history_frames": 1,
+      "card_balance_target": "units",
+      "missed_fireball_penalty": 0.0
+    }
+  ],
+  "guardrails": [
+    "Wait for currently active board study; no duplicate GPU submission",
+    "No changed action masks, geometry, inputs or game physics",
+    "Two seeds and all-archetype validation before full continuation",
+    "Do not retune on heldout test"
+  ]
+}
