@@ -1,0 +1,51 @@
+{
+  "schema": "air-local-position-warmstart-v1",
+  "supervised_updates": 5,
+  "environment_steps": 0,
+  "actual_cuda": null,
+  "heldout_seed": 300032,
+  "train_seeds": [
+    300001,
+    300008
+  ],
+  "baseline": {
+    "train": {
+      "examples": 32,
+      "successful_greedy_fraction": 0.0,
+      "mean_successful_probability": 0.0,
+      "mean_log_successful_probability": -203.96217346191406
+    },
+    "local_heldout": {
+      "examples": 16,
+      "successful_greedy_fraction": 0.0,
+      "mean_successful_probability": 0.0,
+      "mean_log_successful_probability": -183.6654052734375
+    }
+  },
+  "final": {
+    "train": {
+      "examples": 32,
+      "successful_greedy_fraction": 0.0,
+      "mean_successful_probability": 0.0,
+      "mean_log_successful_probability": -189.2418670654297
+    },
+    "local_heldout": {
+      "examples": 16,
+      "successful_greedy_fraction": 0.0,
+      "mean_successful_probability": 0.0,
+      "mean_log_successful_probability": -170.2176513671875
+    }
+  },
+  "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+  "initial_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+  "kl_weight": 0.1,
+  "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+  "quality_accepted": false,
+  "source_sha256": "9d60c984af235226ffe6950cbfc59cb061685ed1769a653cb387a5605c1f2cd3",
+  "checkpoint_sha256": "4b571a308fc45a8f29989dcea4dd914adad380f27e05ff4654c611ba0842c40f",
+  "checkpoint": "tmp/air_warmstart_preflight_20261027_v2/policy.pt",
+  "purpose": "Five CPU optimizer updates only; no candidate acceptance",
+  "initial_legal_logit_min": -178.57269287109375,
+  "initial_legal_logit_max": 262.2584228515625,
+  "initial_mean_best_legal_minus_best_successful_logit": 197.36534118652344
+}
