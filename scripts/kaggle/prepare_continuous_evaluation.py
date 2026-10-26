@@ -3,6 +3,7 @@ import argparse
 import inspect
 import itertools
 import json
+import re
 from pathlib import Path
 import shutil
 import tarfile
@@ -45,18 +46,35 @@ def bootstrap(config):
         '--output','/kaggle/working/continuous_pool_evaluation'],cwd=project,check=True)
 
 
-def prepare(output):
+def selected_models(verified,cohort):
+    kernels={'control':'andriashadrin/hastycr-continuous-ppo-20261026',
+             'slots':'andreiperelaiko/hastycr-continuous-slots-20261026'}
+    if (cohort not in kernels or verified.get('kernel')!=kernels[cohort] or
+            verified.get('schema')!='verified-continuous-ppo-training-v1' or
+            verified.get('all_training_budgets_verified') is not True):
+        raise ValueError('Matching verified training cohort required')
+    models=verified.get('models',[])
+    if (len(models)!=2 or len({m['id'] for m in models})!=2 or
+            any(not re.fullmatch(r'full_(control|leak|balanced|strong)_s44',m['id']) or
+                m.get('steps')!=4096000 for m in models)):
+        raise ValueError('Two distinct full-budget validation-selected models required')
+    return models
+
+
+def prepare(output,cohort='control',training_report=None):
+    training_report=Path(training_report or ('reports/defense_plan/continuous_slots_verified_20261026.json'
+        if cohort=='slots' else 'reports/defense_plan/continuous_training_verified_20261026.json'))
+    verified=json.loads(training_report.read_text())
+    selected=selected_models(verified,cohort)
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     dataset=output/'dataset';dataset.mkdir();job=output/'job';job.mkdir()
-    verified=json.loads(Path('reports/defense_plan/continuous_training_verified_20261026.json').read_text())
-    if not verified['all_training_budgets_verified']:raise ValueError('Completed weights required')
     models=[]
-    for item in verified['models']:
+    for item in selected:
         path=Path(item['checkpoint']);name=item['id'];digest=item['checkpoint_sha256']
         if sha(path)!=digest:raise ValueError('Verified model changed')
         shutil.copyfile(path,dataset/(name+'.pt'))
         models.append(dict(id=name,file=name+'.pt',sha256=digest,scalars=309,mode='joint_enemy_presence_v1',
-            training_executor='legacy_global_ack_block_2100ms'))
+            training_executor='independent_slots_v2' if cohort=='slots' else 'legacy_global_ack_block_2100ms'))
     for name,path,mode,count in(
         ('parent','checkpoints/ppo_joint_economy_soft_20261023/policy.pt','joint_enemy_presence_v1',309),
         ('v25','checkpoints/portable_v25/portable_v25_cannon_economy_best.pt','physical_live',306)):
@@ -66,6 +84,7 @@ def prepare(output):
         duel_seeds=list(range(920001,920011)),test_games=480,duel_games=120,total_games=600,
         evaluation_executor='independent_slots_v2',command_delay_ms=225,slot_refill_ms=2100,decision_interval_ms=250,
         selection_used='Only frozen validation-selected weights; this test never chooses coefficients/checkpoints',
+        training_cohort=cohort,training_report_sha256=sha(training_report),
         geometry='native_anchors_candidate_v1',physics_fully_validated=False,live_games_started=False)
     (dataset/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n')
     frozen=Path('tmp/kaggle/fireball_balanced_20261025/dataset');manifest=json.loads((frozen/'manifest.json').read_text())
@@ -75,7 +94,7 @@ def prepare(output):
     extensions={n:sha(n)for n in names}
     with tarfile.open(dataset/'extensions.tar.gz','w:gz')as stream:
         for name in names:stream.add(name,arcname=name,recursive=False)
-    owner='andriashadrin';slug='hastycr-continuous-control-eval-inputs-20261026'
+    owner='andriashadrin';slug=f'hastycr-continuous-{cohort}-eval-inputs-20261026'
     (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug,title=slug,licenses=[dict(name='other')],isPrivate=True),indent=2)+'\n')
     config=dict(owner=owner,slug=slug,source_slug='hastycr-fireball-balanced-inputs-20261025',
         source_manifest_sha256=sha(frozen/'manifest.json'),extensions=extensions,
@@ -83,8 +102,8 @@ def prepare(output):
         pins={n:sha(dataset/n)for n in ('protocol.json','extensions.tar.gz',*[m['file']for m in models])})
     code='import hashlib,json,shutil,tarfile\nfrom pathlib import Path,PurePosixPath\n'+inspect.getsource(sha)+'\n'+inspect.getsource(prepare_source)+'\n'+inspect.getsource(bootstrap)+'\nbootstrap('+repr(config)+')\n'
     compile(code,'train.py','exec');(job/'train.py').write_text(code)
-    kernel=owner+'/hastycr-continuous-control-eval-20261026'
-    (job/'kernel-metadata.json').write_text(json.dumps(dict(id=kernel,title='hastycr continuous control eval 20261026',
+    kernel=owner+f'/hastycr-continuous-{cohort}-eval-20261026'
+    (job/'kernel-metadata.json').write_text(json.dumps(dict(id=kernel,title=f'hastycr continuous {cohort} eval 20261026',
         code_file='train.py',language='python',kernel_type='script',is_private=True,enable_gpu=True,enable_internet=False,
         dataset_sources=[owner+'/'+slug,owner+'/'+config['source_slug']],competition_sources=[],kernel_sources=[]),indent=2)+'\n')
     (output/'preparation.json').write_text(json.dumps(dict(kernel=kernel,config=config,bootstrap_sha256=sha(job/'train.py'),submitted=False),indent=2)+'\n')
@@ -93,4 +112,6 @@ def prepare(output):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--output',required=True)
-    print(json.dumps(prepare(p.parse_args().output)))
+    p.add_argument('--cohort',choices=('control','slots'),default='control')
+    p.add_argument('--training-report')
+    a=p.parse_args();print(json.dumps(prepare(a.output,a.cohort,a.training_report)))

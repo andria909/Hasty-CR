@@ -67,10 +67,12 @@ def verify(collected,prepared):
         games=sum(counts.values())
         table[name]=dict(games=games,wins=counts['win'],losses=counts['loss'],draws=counts['draw'],
             win_rate=counts['win']/games,score=(counts['win']+.5*counts['draw'])/games)
+    executors=sorted({m['training_executor']for m in models if 'training_executor'in m})
     return dict(schema='verified-continuous-frozen-pool-v1',kernel=cfg['kernel'],models=models,
+        training_cohort=p.get('training_cohort','control'),training_executors=executors,
         total_games=600,tests=tests,standings=table,matrix=matrix,quality_accepted=False,
         limits=['Synthetic random opponents and four-model tournament only',
-            'Old full models trained with global ACK block; evaluation uses corrected slot execution',
+            'Training executors are recorded per model; all evaluation uses corrected slot execution',
             'Not live validation; no automatic promotion'],test_used_for_selection=False)
 
 
