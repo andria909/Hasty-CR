@@ -1,0 +1,198 @@
+{
+  "schema": "continuous-frozen-pool-seed-bootstrap-v1",
+  "kernel": "andriashadrin/hastycr-continuous-control-eval-20261026",
+  "tests": {
+    "full_balanced_s44": {
+      "points": 0.675,
+      "games": 120,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.6083333333333333,
+        0.725
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    },
+    "full_strong_s44": {
+      "points": 0.7833333333333333,
+      "games": 120,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.7083333333333334,
+        0.8583333333333334
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    },
+    "parent": {
+      "points": 0.8,
+      "games": 120,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.7333333333333333,
+        0.875
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    },
+    "v25": {
+      "points": 0.6333333333333333,
+      "games": 120,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.5666666666666667,
+        0.7166666666666667
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    }
+  },
+  "duels": {
+    "full_balanced_s44__full_strong_s44": {
+      "candidate": "full_balanced_s44",
+      "opponent": "full_strong_s44",
+      "points": 0.75,
+      "games": 20,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.55,
+        0.95
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    },
+    "full_balanced_s44__parent": {
+      "candidate": "full_balanced_s44",
+      "opponent": "parent",
+      "points": 0.6,
+      "games": 20,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.4,
+        0.8
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    },
+    "full_balanced_s44__v25": {
+      "candidate": "full_balanced_s44",
+      "opponent": "v25",
+      "points": 0.7,
+      "games": 20,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.45,
+        0.95
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    },
+    "full_strong_s44__parent": {
+      "candidate": "full_strong_s44",
+      "opponent": "parent",
+      "points": 0.55,
+      "games": 20,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.3,
+        0.8
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    },
+    "full_strong_s44__v25": {
+      "candidate": "full_strong_s44",
+      "opponent": "v25",
+      "points": 0.4,
+      "games": 20,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.2,
+        0.65
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    },
+    "parent__v25": {
+      "candidate": "parent",
+      "opponent": "v25",
+      "points": 0.4,
+      "games": 20,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.25,
+        0.5
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    }
+  },
+  "tournament": {
+    "full_balanced_s44": {
+      "points": 0.6833333333333333,
+      "games": 60,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.5666666666666667,
+        0.8
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    },
+    "full_strong_s44": {
+      "points": 0.39999999999999997,
+      "games": 60,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.26666666666666666,
+        0.5333333333333333
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    },
+    "parent": {
+      "points": 0.41666666666666663,
+      "games": 60,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.3,
+        0.5333333333333333
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    },
+    "v25": {
+      "points": 0.5,
+      "games": 60,
+      "independent_seed_blocks": 10,
+      "percentile_interval_95": [
+        0.41666666666666663,
+        0.6
+      ],
+      "replicates": 20000,
+      "bootstrap_seed": 20261026,
+      "cluster_unit": "seed; all seats/families retained together"
+    }
+  },
+  "test_used_for_selection": false,
+  "quality_accepted": false,
+  "limits": [
+    "Percentile bootstrap conditional on fixed models, opponents and simulator",
+    "Only10 seed clusters; intervals may be unstable and do not prove live quality",
+    "Not simultaneous confidence intervals; no multiple-comparison correction",
+    "Model/checkpoint selection still uses validation only"
+  ]
+}
