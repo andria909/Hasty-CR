@@ -1,0 +1,367 @@
+{
+  "schema": "portable-curriculum-asset-audit-v1",
+  "client_tables_available": false,
+  "client_tables_path": "/Users/andriashadrin/projects/Hasty-CR/tmp/gamedata/csv_logic",
+  "required_cards": 32,
+  "missing": [],
+  "cards": {
+    "archers": {
+      "cost": 3,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "arrows": {
+      "cost": 3,
+      "unit": false,
+      "spell": true,
+      "public_spell_audit": {
+        "playable_card": true,
+        "supported": true,
+        "missing": [],
+        "limitations": [
+          "Cast-to-first-wave projectile flight timing is absent from the portable rule; waves start at cast."
+        ],
+        "sources": [
+          "combat_rules.json:arrows",
+          "cards_stats_projectile.json:ArrowsSpell"
+        ],
+        "level": 11
+      }
+    },
+    "baby_dragon": {
+      "cost": 4,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "balloon": {
+      "cost": 5,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "bandit": {
+      "cost": 3,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "barbarians": {
+      "cost": 5,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "battle_ram": {
+      "cost": 4,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "bomber": {
+      "cost": 2,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "cannon": {
+      "cost": 3,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "dark_prince": {
+      "cost": 4,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "electro_spirit": {
+      "cost": 1,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "fireball": {
+      "cost": 4,
+      "unit": false,
+      "spell": true,
+      "public_spell_audit": null
+    },
+    "giant": {
+      "cost": 5,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "goblin_barrel": {
+      "cost": 3,
+      "unit": false,
+      "spell": true,
+      "public_spell_audit": {
+        "playable_card": true,
+        "supported": true,
+        "missing": [],
+        "limitations": [
+          "Requires battle.unit_lookup(\"Goblin\").",
+          "Common engine uses a fixed 0.5-tile circular spawn layout, not an audited barrel placement graph.",
+          "Common cast_spell uses constant-speed travel; projectile gravity trajectory is not modeled."
+        ],
+        "sources": [
+          "cards_stats_projectile.json:GoblinBarrelSpell",
+          "combat_rules.json:goblin_barrel"
+        ],
+        "level": 11
+      }
+    },
+    "goblin_gang": {
+      "cost": 3,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "golem": {
+      "cost": 8,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "hog_rider": {
+      "cost": 4,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "hunter": {
+      "cost": 4,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "inferno_tower": {
+      "cost": 5,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "knight": {
+      "cost": 3,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "lightning": {
+      "cost": 6,
+      "unit": false,
+      "spell": true,
+      "public_spell_audit": {
+        "playable_card": true,
+        "supported": true,
+        "missing": [],
+        "limitations": [],
+        "sources": [
+          "cards_stats_spell.json:Lightning",
+          "cards_stats_projectile.json:LighningSpell",
+          "combat_rules.json:lightning"
+        ],
+        "level": 11
+      }
+    },
+    "mega_minion": {
+      "cost": 3,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "mini_pekka": {
+      "cost": 4,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "minions": {
+      "cost": 3,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "musketeer": {
+      "cost": 4,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "night_witch": {
+      "cost": 4,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "rocket": {
+      "cost": 6,
+      "unit": false,
+      "spell": true,
+      "public_spell_audit": {
+        "playable_card": true,
+        "supported": true,
+        "missing": [],
+        "limitations": [
+          "Common cast_spell uses constant-speed travel; projectile gravity trajectory is not modeled."
+        ],
+        "sources": [
+          "cards_stats_projectile.json:RocketSpell",
+          "combat_rules.json:rocket"
+        ],
+        "level": 11
+      }
+    },
+    "skeleton_army": {
+      "cost": 3,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "skeletons": {
+      "cost": 1,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "spear_goblins": {
+      "cost": 2,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "valkyrie": {
+      "cost": 4,
+      "unit": true,
+      "spell": false,
+      "public_spell_audit": null
+    },
+    "zap": {
+      "cost": 2,
+      "unit": false,
+      "spell": true,
+      "public_spell_audit": null
+    }
+  },
+  "raw_loader_lightning": {
+    "card": false,
+    "spell": false
+  },
+  "lightning_paid_check": {
+    "accepted": true,
+    "spent": 6,
+    "tower_damage": 265,
+    "expected_tower_damage": 265,
+    "spell_spec": {
+      "name": "lightning",
+      "damage": 1056,
+      "radius_mt": 3500,
+      "radius_y_mt": 3500,
+      "crown_tower_percent": 30,
+      "pushback_mt": 0,
+      "target_buff": "ZapFreeze",
+      "buff_time_ms": 500,
+      "spawn_character": "",
+      "spawn_count": 0,
+      "life_duration_ms": 1500,
+      "damage_per_second": 0,
+      "heal_per_second": 0,
+      "hit_frequency_ms": 460,
+      "tower_damage_per_hit": 0,
+      "building_damage_percent": 100,
+      "area_speed_pct": 0,
+      "area_hit_speed_pct": 0,
+      "area_only_own_troops": false,
+      "area_buff_linger_ms": 0,
+      "attract_percentage": 0,
+      "falls_from_sky": true,
+      "deflect_behaviour": "NoDeflect",
+      "hits_air": true,
+      "hits_ground": true,
+      "ignore_buildings": false,
+      "area_spawn_character": "",
+      "area_spawn_period_ms": 0,
+      "convert_character": "",
+      "convert_count": 0,
+      "conversion_ignore_buildings": false,
+      "target_limit": 3,
+      "target_highest_hitpoints": true,
+      "only_own_troops": false,
+      "clone": false,
+      "grounds_air": false,
+      "waves": 0,
+      "wave_interval_ms": 0,
+      "damage_by_target_count": [
+        0,
+        0,
+        0
+      ],
+      "tower_damage_by_target_count": [
+        0,
+        0,
+        0
+      ],
+      "tower_damage_override": 265,
+      "initial_damage": true,
+      "resolves_card_as_spell": false,
+      "projectile_speed_mt_per_sec": 0,
+      "travels_from_king": false,
+      "impact_delay_ms": 0,
+      "spawn_deploy_time_ms": 0,
+      "deploy_own_side_only": false,
+      "can_place_on_water": true,
+      "sequential_targets": true,
+      "volley_waves": 0,
+      "volley_interval_ms": 0,
+      "area_spawn_events": [],
+      "area_spawn_deploy_time_ms": 0,
+      "rolling_range_mt": 0,
+      "rolling_speed_mt_per_sec": 0,
+      "rolling_captures_troops": false,
+      "rolling_release_slow_pct": 0,
+      "rolling_release_slow_ms": 0,
+      "pulse_events": [],
+      "secondary_spawn_character": "",
+      "secondary_spawn_count": 0,
+      "secondary_spawn_mirror_x": false
+    }
+  },
+  "collector": {
+    "in_curriculum": false,
+    "loaded_income": {
+      "generate_ms": 9000,
+      "amount_milli": 1000,
+      "death_milli": 1000,
+      "death_opp_milli": 0
+    }
+  },
+  "source_sha256": "af21cf7ebcb4e6b5ece8000a96b338d36eedb5017aef57b0467ee503c357b7ab",
+  "public_json_sha256": {
+    "arenas.json": "897b0aa40b144e3d77f1e4b68eb07b7f5809ba7a83c471d6c43f21973b18135c",
+    "buildings_evo.json": "d9ee27f6956feac738974eeade6fbc62c5fd9d43ea1e549281cf9b9395866b72",
+    "cards.json": "f59a4440435f779acda4febb0f5603f4ea02eafdeee5c37da70d8ff787fb5cbc",
+    "cards_evo.json": "6a99248d0c390c462afec1ccbe24e08303ee9d02805ca55c4118ec0b07e85e58",
+    "cards_stats_building.json": "84b1287e64253aa3e3d813d4c71c13b24d5057292d0f23fcd474fdba9c7d91a9",
+    "cards_stats_character_buff.json": "44886305e66bbdfbce04bb8c55ce2348040cbc3b89ae81f7357c1ad6171b76a2",
+    "cards_stats_characters.json": "bef4711885db88403bac160e2fde052133161e8413873f6d21cce594fcd9241f",
+    "cards_stats_projectile.json": "6c145a5145fe5641f1192a932605a9d892645b0ab9e80daa5828a12b3379bc1e",
+    "cards_stats_spell.json": "4c2a3e8cb2c27f507bc07a12052749dedcca273a32c9e8e1a8837ba0c59bbed7",
+    "cards_stats_troop.json": "0f2fd5eeac355b4a3072e0ef0b87a56883c4b32be868012cddf1992f048f2bae",
+    "combat_rules.json": "2dd3929abe8aa301f153669bcf783c6fc29ed65df8d54c2fb72ad01e1ad2ad85",
+    "datasets.json": "0c1d045eed2fe9f51414655910a69706c75f80e48b958e7c5d69ab9ce4176823",
+    "exp_levels.json": "d997b82b952111b8c70498e225c77863bfc6ed2829a88d19383b07aaa62a6ff8",
+    "projectiles_evo.json": "212afc7c8d6ae4bab27eabb84a47a135c1d091d7158e78ec6d5badcc0d41ebca",
+    "rarities.json": "ed71f6bef50f009d517830f80330efc5bcf45aa37382ef3d19d17147b7433c9b"
+  },
+  "live_parity_proven": false,
+  "quality_accepted": false,
+  "limitations": [
+    "Coverage and one paid spell behavior only, not proof all targeting/abilities are correct",
+    "Historical public tables are not an authoritative current live balance patch",
+    "Legacy tests expecting extracted client forms are not portable curriculum tests"
+  ]
+}
