@@ -1,3 +1,6 @@
+## CURRENT live BC first win; done renders per-model live counts
+BCmatch4won enemykingzero; series1W3L/4completed,supervisorQUEUEmatch5. Existingcontroller/runnerslive. donegenerator nowreadsbothlocalseries andrenderscounts/winrateonlyknownresults, labelsunfinishedsnapshot. Kaggle token2dataset_list(mine=True,searchnativefireball)empty too; creationOkbut403status/files remainsunresolved, no GPUjob/no duplicateupload.
+
 ## CURRENT native Fireball upload wait terminal; no GPU job
 Submission44222exitedRuntimeError Datasetnotready afterbounded40polls; no kernelrequest/receipt. Independentdataset_list_files ALSO403,notjuststatus. Localreceiptwaiter44229terminatedafterknownsubmissionfailure,filespreserved. Reportsupdated. Needresolveexistingdatasetaccessorcontrolledownerrebindbeforelaunch; doNOTblindduplicatecreate. OtherGPUjobscontinue. LiveBC3losses,match4overtimeactivelyPLAY_ACK,controller44421/runner44480/supervisor44488live.
 

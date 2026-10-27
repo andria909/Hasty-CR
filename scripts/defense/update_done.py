@@ -193,7 +193,17 @@ def render_live_feedback_studies(reports):
                   '| Модель | Победы | Воздух | Голем |','|---|---:|---:|---:|']
         for row in chosen['models']:
             lines.append(f"| {row['label']} | {row['wins']}/{row['games']} — {100*row['wins']/row['games']:.1f}% | {row['air_wins']}/12 | {row['golem_wins']}/12 |")
-        lines += ['', '**Реальная проверка:** для первых двух моделей разрешено по10 игр; текущий счёт: tmp/live/full_top2_20261028/comparison.json и отдельные series/series.json. Ручной матч до запуска исключён.','']
+        lines += ['', '**Реальные матчи двух новых лидеров (по10):**','',
+                  '| Модель | Завершено | Победы / поражения | Винрейт |','|---|---:|---:|---:|']
+        for slug,label in [('full_bc800','Накопление · BC800'),('full_cannon_spells_replay1','Пушка + спеллы · повторение ×1')]:
+            path=Path('tmp/live/full_top2_20261028')/slug/'series/series.json'
+            if path.exists():
+                live=json.loads(path.read_text());n=live['finished']
+                rate=f"{100*live['wins']/n:.1f}%" if n and not live['unknown'] else '—'
+                lines.append(f"| {label} | {n}/10 | {live['wins']} / {live['losses']} | {rate} |")
+            else:
+                lines.append(f'| {label} | 0/10 | — | ожидает |')
+        lines += ['', 'Счёт на момент обновления файла; незавершённые серии не являются итоговым результатом. Ручной матч до запуска исключён.','']
     if (reports/'tower_support_diagnostic_20261028.json').exists():
         lines += ['**Помощь башен:** диагностический счётчик проверен на48 эпизодах; бездействие не получает бонус. В reward ещё не включён. [Проверка](reports/tower_support_diagnostic_20261028.md).','']
     lines+=render_global_full_training(reports)
