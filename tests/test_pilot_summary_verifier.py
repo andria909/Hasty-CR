@@ -1,0 +1,23 @@
+"""Manual reporting must enforce the same study audit as background reporting."""
+import json
+import pytest
+from scripts.attack.summarize_clock_pilots import summarize
+
+
+@pytest.mark.parametrize('variant,module,function',[
+    ('own_pending_inputs_v1','scripts.attack.verify_pending_focus','verify'),
+    ('late_air_sequential_teacher_v1','scripts.attack.verify_sequence_pilot','verify_sequence'),
+    ('legacy','scripts.attack.summarize_clock_pilots','verify'),
+])
+def test_manual_summary_cannot_bypass_study_verifier(tmp_path,monkeypatch,variant,module,function):
+    import importlib
+    (tmp_path/'dataset').mkdir()
+    (tmp_path/'dataset/protocol.json').write_text(json.dumps({'study_variant':variant}))
+    calls=[]
+    def reject(collected,prepared):
+        calls.append((collected,prepared))
+        raise ValueError('study audit rejected')
+    monkeypatch.setattr(importlib.import_module(module),function,reject)
+    with pytest.raises(ValueError,match='study audit rejected'):
+        summarize(tmp_path)
+    assert calls==[(tmp_path/'collected',tmp_path)]

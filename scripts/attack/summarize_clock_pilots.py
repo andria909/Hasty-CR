@@ -9,8 +9,16 @@ from scripts.attack.verify_continuous_focus import verify
 
 def summarize(root,verified=None):
     root=Path(root)
-    if verified is None:verified=verify(root/'collected',root)
     protocol=json.loads((root/'dataset/protocol.json').read_text());rows=[]
+    if verified is None:
+        variant=protocol.get('study_variant')
+        if variant=='own_pending_inputs_v1':
+            from scripts.attack.verify_pending_focus import verify as verify_study
+        elif variant=='late_air_sequential_teacher_v1':
+            from scripts.attack.verify_sequence_pilot import verify_sequence as verify_study
+        else:
+            verify_study=verify
+        verified=verify_study(root/'collected',root)
     history=protocol.get('schema')=='continuous-public-history-pilot-v1'
     board=protocol.get('schema')=='continuous-board-potential-pilot-v1'
     bank=protocol.get('schema')=='continuous-bank-conservation-pilot-v1'

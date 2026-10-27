@@ -1,3 +1,6 @@
+## CURRENT manual pilot summary uses study-specific verifier
+Fixedsummarize_clock_pilots CLI dispatch:pending->verify_pending_focus,sequence->verify_sequence_pilot,legacy->original. Previouslybackgroundwatcherusedcorrectaudit butmanualsummarydefaulted20/309generic. Rejectionpropagationtestedfor3variants;24targetedtestsPASS. FrozenGPUbundlesunchanged. Full6300evalactual15gamesobserved;observerslive,20minAPIpolicy.
+
 ## CURRENT 6300 evaluation RUNNING with actual completed games
 Kernelandriashadrin/hastycr-full-candidate-eval-20261027 VERSION1 id141246734; collectorreceiptRUNNING andactualSSE2/6300games, observers43647/43648/43649live. Launchreportfull_candidate_eval_launch_20261027 recordsreceipts+preflightSHA. Sequence pilot submitted id141246659 lastremoteQUEUED, observers43594/43595/43597live. Pendingqueue43024stillwaitsverifiedsequence. PollAPI20min; no duplicatejobs. Awaitfullindependentresults, do notpromotequality.
 
