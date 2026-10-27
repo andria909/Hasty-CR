@@ -1,3 +1,6 @@
+## CURRENT early Fireball relabel paired results mixed, do not select yet
+LocalSSE2FOCUS_TRIAL_COMPLETE seed192:225score.319444->.347222 guardFalse->True;1350.357639->.291667 guardTrue->False. Reportfireball_labels_early_paired JSON/MD withstreamSHA/originalproofSHA. ScoresNOTwinrates/currentweightsnotyetverified;2of8logs,waitallseeds. Bothcohortsoldshifting-handphysics, notstablecandidatequality. ActualstreamSSLError lastobservedseed19323/6%, nojobfailure/restart; observers41466/7/8+queues42308/40485confirmedlive. Goalactive.
+
 ## CURRENT pending-input PPO opt-in integrated and actual smoke/resume verified
 Newsim/continuous_pending.py subclass appendsownpendingdata, overridesmetricscontract. sim/train_attack_ppo --pending-inputs supportsONLYcontinuousjoint/history1/no legacyreplay;training+validationfactoryandcontract313/24,fingerprintinclude2newmodules. load_attack_state explicitlyallowsbaseknown20/309->pending24/313, defaultunchanged.14tests pass; actualCPU16/32/resumeexactweightsAdamRNG and12technicalvalidationgamescompleted, reportpending_inputs_ppo_smoke. NoGPUstudy/liveadapteryet. Need controlledpendingon/offpilot withsameinit/PPO1350 andcorrectcollector/verifier for24/313; doNOTchangeexistingqueuedstable20/309study. Existingstablephysics7pins/fullqueue15pinscheckedunchanged. Goalactive.
 
