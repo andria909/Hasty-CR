@@ -34,13 +34,16 @@ class CurrentStateReader:
         self.memory = Memory(adb, serial, su=su) if su is not None else Memory(adb, serial)
         if own_state and binary == BINARY:
             binary = STATE_BINARY
+        profile = getattr(self.memory, 'profile', {})
+        if profile.get('binary') and binary != profile['binary']:
+            raise CaptureError('This build requires its matching native binary: ' + profile['binary'])
         if not binary.startswith('/data/local/tmp/') or any(
                 c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_/-.'
                 for c in binary):
             raise ValueError('Binary must be a simple /data/local/tmp/ path')
         m = self.memory
         self.command = m.adb + ['exec-out', binary, str(m.pid), hex(m.libg_base),
-                               hex(m.libg_base + 0x1936450), '1', '20',
+                               hex(m.libg_base + profile.get('vtable_offset', 0x1936450)), '1', '20',
                                '--auto-state-once' if own_state else '--auto-once']
         if su is not None:
             self.command = m.command(shlex.join(self.command[len(m.adb) + 1:]), exec_out=True)

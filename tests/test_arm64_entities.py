@@ -60,3 +60,22 @@ def test_short_batch_fails_instead_of_shifting_following_fields(monkeypatch):
 def test_names_fail_closed_for_non_names():
     with pytest.raises(CaptureError, match="Invalid internal"):
         Memory.decode_name(b"Knight\x00reused")
+
+
+@pytest.mark.parametrize('version', ['160402020', '160635001'])
+def test_each_supported_build_keeps_its_exact_hash_guard(monkeypatch, version):
+    from scripts.gamestate.arm64_entities import BUILD_PROFILES
+    digest = BUILD_PROFILES[version]['sha256']
+    def shell(self, command):
+        if command == 'id -u': return '0'
+        if command.startswith('getprop'): return 'arm64-v8a'
+        if command.startswith('dumpsys'): return 'versionCode=' + version
+        if command.startswith('pidof'): return '123'
+        if command.startswith('cat /proc/'): return '100000-200000 r-xp 00000000 00:00 1 /app/lib/arm64/libg.so'
+        if command.startswith('sha256sum'): return digest + ' libg.so'
+        raise AssertionError(command)
+    monkeypatch.setattr(Memory, 'shell', shell)
+    assert Memory('adb', 'serial').version == version
+    digest = '0' * 64
+    with pytest.raises(CaptureError, match='hash differs'):
+        Memory('adb', 'serial')

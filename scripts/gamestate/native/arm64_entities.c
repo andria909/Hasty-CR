@@ -14,6 +14,9 @@
 
 #define MAX_ENTITIES 1024
 #define MASK 0x00ffffffffffffffULL
+#ifndef HASTY_ROOT_OFFSET
+#define HASTY_ROOT_OFFSET 0x1a586a8
+#endif
 static int memfd;
 static uint64_t expected_vtable;
 static uint64_t resolved_world;
@@ -205,7 +208,7 @@ int main(int argc, char **argv) {
     if (argc == 7 && (!strcmp(argv[6], "--auto-once") || include_own_state)) {
         /* Pinned build only. Resolve anew on every request, including lobby. */
         uint64_t root, context, world, found, check;
-        if (!rd(collection + 0x1a586a8, &root, 8) ||
+        if (!rd(collection + HASTY_ROOT_OFFSET, &root, 8) ||
             !rd((root & MASK) + 0x28, &context, 8) ||
             !rd((context & MASK) + 0x90, &world, 8) ||
             !rd((world & MASK) + 0x40, &found, 8) ||

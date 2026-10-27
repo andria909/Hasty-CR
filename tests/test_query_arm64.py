@@ -102,3 +102,14 @@ def test_private_state_is_forwarded_without_inventing_missing_values(monkeypatch
              'elixir_raw':60000,'hand_indices':[0,1,2,3],'cycle_indices':[4,5,6,7]}
     reader = reader_with_response(monkeypatch, {'entity_count':0,'entities':[], 'own_state':state,'battle_tick':50})
     assert reader.query()['own_state'] == state
+
+
+def test_updated_build_requires_its_binary_and_uses_its_vtable(monkeypatch):
+    binary = '/data/local/tmp/hasty_arm64_entities_160635001_v9'
+    monkeypatch.setattr('scripts.gamestate.query_arm64.Memory', lambda adb, serial:
+                        SimpleNamespace(adb=[adb, '-s', serial], pid=1, libg_base=0x100000,
+                                        profile={'binary': binary, 'vtable_offset': 0x1a4f778}))
+    with pytest.raises(CaptureError, match='matching native binary'):
+        CurrentStateReader('adb', 'serial', own_state=True)
+    reader = CurrentStateReader('adb', 'serial', binary=binary, own_state=True)
+    assert hex(0x100000 + 0x1a4f778) in reader.command

@@ -18,6 +18,14 @@ from pathlib import Path
 PACKAGE = "com.supercell.clashroyale"
 VERSION = "160402020"
 LIBG_SHA256 = "347afc57c8d168bb67d0defa488a89f76297025cac1e8544b5182bb7e70ff433"
+BUILD_PROFILES = {
+    VERSION: {"sha256": LIBG_SHA256, "vtable_offset": 0x1936450},
+    "160635001": {
+        "sha256": "efe6f02c186a16b69b93cd9ae8daa230b823e41891c9a666db1732c4ddcb4fb9",
+        "vtable_offset": 0x1a4f778,
+        "binary": "/data/local/tmp/hasty_arm64_entities_160635001_v9",
+    },
+}
 PTR_MASK = 0x00FFFFFFFFFFFFFF
 
 
@@ -45,8 +53,11 @@ class Memory:
         if self.shell("getprop ro.product.cpu.abi").strip() != "arm64-v8a":
             raise CaptureError("Only arm64-v8a is supported")
         version = self.shell(f"dumpsys package {PACKAGE}")
-        if not re.search(rf"versionCode={VERSION}\b", version):
+        match = re.search(r"versionCode=(\d+)\b", version)
+        self.version = match.group(1) if match else None
+        if self.version not in BUILD_PROFILES:
             raise CaptureError("Client version differs from the pinned layout")
+        self.profile = BUILD_PROFILES[self.version]
         self.pid = int(self.shell(f"pidof {PACKAGE}").strip())
         self.maps = self.shell(f"cat /proc/{self.pid}/maps")
         libmaps = [line.split() for line in self.maps.splitlines()
@@ -57,7 +68,7 @@ class Memory:
                              for row in libmaps)
         libpath = libmaps[0][-1]
         digest = self.shell("sha256sum " + shlex.quote(libpath)).split()[0]
-        if digest != LIBG_SHA256:
+        if digest != self.profile["sha256"]:
             raise CaptureError("libg.so hash differs from the pinned layout")
         self.name_cache: dict[int, str] = {}
 
@@ -224,7 +235,7 @@ def main() -> None:
     tracker = FirstObservations()
     args.output.mkdir(parents=True, exist_ok=False)
     (args.output / "identity.json").write_text(json.dumps(
-        {"pid": memory.pid, "version": VERSION, "libg_sha256": LIBG_SHA256,
+        {"pid": memory.pid, "version": memory.version, "libg_sha256": memory.profile['sha256'],
          "serial": args.serial, "collection": hex(reader.collection)}, indent=2))
     stop = time.monotonic() + args.seconds
     frames, failures, appearances, latencies = 0, 0, 0, []
