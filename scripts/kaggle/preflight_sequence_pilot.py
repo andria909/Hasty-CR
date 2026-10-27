@@ -32,7 +32,7 @@ def child(path):
     report_path.write_text(json.dumps(report,indent=2)+'\n')
 
 
-def preflight(prepared):
+def preflight(prepared,child_script=None):
     from scripts.kaggle.preflight_global_full_pair import unpack
     from scripts.kaggle.local_artifact_transfer import file_sha
     root=Path(prepared).absolute();prep=json.loads((root/'preparation.json').read_text());config=prep['config']
@@ -45,7 +45,7 @@ def preflight(prepared):
             initial_selection=dict(selected=config['models'][0]['id']),bootstrap=str(root/'job/train.py'))
         path=target/'spec.json';path.write_text(json.dumps(spec,indent=2)+'\n')
         with(target/'run.log').open('x')as log:
-            subprocess.run([sys.executable,str(Path(__file__).absolute()),'--child',str(path)],cwd=project,
+            subprocess.run([sys.executable,str(Path(child_script or __file__).absolute()),'--child',str(path)],cwd=project,
                 env=dict(os.environ,PYTHONPATH=str(project)),stdout=log,stderr=subprocess.STDOUT,check=True)
         reports.append(json.loads((target/'child_preflight.json').read_text()))
         print(json.dumps(dict(profile=trial['id'],passed=True)),flush=True)
