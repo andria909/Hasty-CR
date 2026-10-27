@@ -19,6 +19,7 @@ from scripts.kaggle import collect_final_evaluation as collector
                                                   ('continuous-ppo','continuous_ppo/','result.json'),
                                                   ('continuous-pool','continuous_pool_evaluation/','result.json'),
                                                   ('continuous-focus','continuous_focus/','result.json'),
+                                                  ('sequence-pilot','continuous_focus/','result.json'),
                                                   ('fireball-evaluation','fireball_evaluation/','result.json')])
 def test_only_declared_terminal_report_files_are_collected(monkeypatch,tmp_path,profile,prefix,result):
     data={prefix+result:b'{"status":"completed"}',prefix+'project/secret.py':b'never',prefix+'policy.pt':b'never'}
@@ -52,14 +53,15 @@ def test_terminal_download_retry_preserves_partial_files_and_same_notebook(monke
     monkeypatch.setattr(collector,'configure_http_timeout',lambda:None)
     monkeypatch.setattr(collector,'make_api_client',lambda user:NS(kernels_status=lambda kernel:'COMPLETE'))
     monkeypatch.setattr(collector.time,'sleep',lambda seconds:sleeps.append(seconds))
-    def collect(api,kernel,destination,profile):
+    def collect(api,kernel,destination,profile,cache=None):
         calls.append((kernel,destination))
         if len(calls)==1:
             destination.mkdir();(destination/'partial.json').write_text('preserve me')
+            (destination/'collection_receipt.json').write_text(json.dumps(dict(kernel=kernel,remote_status='COMPLETE',complete=False,files={})))
             response=requests.Response();response.status_code=404
             raise requests.HTTPError(response=response)
-        assert destination!=output
-        assert (output/'partial.json').read_text()=='preserve me'
+        assert destination==output and cache!=output
+        assert (cache/'partial.json').read_text()=='preserve me'
         return dict(complete=True)
     monkeypatch.setattr(collector,'collect',collect)
     collector.main()

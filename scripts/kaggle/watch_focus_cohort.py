@@ -30,7 +30,12 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             try:r=json.loads(receipt.read_text())
             except (ValueError,OSError):continue
             if not r.get('complete'):continue
-            report=verify(receipt.parent,root)
+            prep=json.loads((root/'preparation.json').read_text())
+            if prep.get('study_variant')=='late_air_sequential_teacher_v1':
+                from scripts.attack.verify_sequence_pilot import verify_sequence
+                report=verify_sequence(receipt.parent,root)
+            else:
+                report=verify(receipt.parent,root)
             Path(verified_report).write_text(json.dumps(report,indent=2)+'\n')
             if summary_report or markdown_report:
                 if receipt.parent!=root/'collected':raise ValueError('Summary requires canonical collected directory')
