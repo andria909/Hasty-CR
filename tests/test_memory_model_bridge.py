@@ -157,3 +157,26 @@ def test_unconfirmed_battle_and_inconsistent_own_state_fail_closed():
         adapter.encode(row, replace(own, elixir=replace(own.elixir, minimum=float('nan'))))
     with pytest.raises(MissingModelInput, match='opponent'):
         adapter.encode(row, replace(own, opponent_events=({'at_ms': -1, 'cost': 1, 'card': 'skeletons'},)))
+
+
+@pytest.mark.parametrize('native_name,character,card_id',[('GoblinBrawler','GoblinBrawler',27000012),('Goblin_Stab','Goblin',26000002)])
+def test_native_child_and_guarded_melee_alias_match_simulator_tactical_planes(native_name,character,card_id):
+    from sim.gamedata import load_characters
+    from sim.eval_defense_duel import policy_observation
+    match,row,own=fixture()
+    character_spec=load_characters(11)[character]
+    entity=match.battle.add(make_unit(0,character_spec,-1,arena.tile(4,14)))
+    entity.hitpoints-=31
+    row['units'].append(dict(entity_id=5000000+entity.uid,name=native_name,card_id=card_id,side=1,
+        x=entity.pos.x,y=entity.pos.y,hp=entity.hitpoints,max_hp=entity.max_hitpoints))
+    view=NativeModelAdapter(own_side=0,coordinate_mode='physical_live_cells_v2').encode(row,own)
+    expected=policy_observation(match,1,'physical_live_cells_v2')
+    np.testing.assert_array_equal(view.observation['planes'],expected['planes'])
+    assert not any('unknown_tactical_profile:'+native_name==s for s in view.metadata['warnings'])
+    assert bool(view.metadata['resolved_profile_aliases'])==(native_name=='Goblin_Stab')
+
+
+def test_guarded_alias_does_not_apply_to_an_unverified_card_or_hero():
+    adapter=NativeModelAdapter(own_side=0)
+    assert adapter.unit_profile(dict(name='Goblin_Stab',card_id=123))[0]is None
+    assert adapter.unit_profile(dict(name='KnightHero',card_id=203000001))[0]is None

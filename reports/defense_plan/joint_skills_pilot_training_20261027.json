@@ -1,22 +1,38 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-joint-skills-pilot-20261027",
-  "status": "cuda_confirmed_waiting_ppo_counters",
+  "status": "training_steps_observed",
   "progress_snapshot": {
     "kernel": "vertel0/hastycr-joint-skills-pilot-20261027",
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
+    "reconnect_attempt": 1,
+    "checked_host_ns": 1793063888653258000,
+    "trials": {
+      "pilot_joint_control_s162": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1233.222209167
+      },
+      "pilot_joint_bc800_s162": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1303.573439934
+      }
+    },
     "error_type": "ConnectionError",
-    "http_status": null,
-    "reconnect_attempt": 0,
-    "checked_host_ns": 1793062668623419000
+    "http_status": null
   },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
   "quality_accepted": false,
   "live_stopped": true,
-  "last_local_sync_ns": 1793063092729764000,
+  "last_local_sync_ns": 1793064439866772000,
   "launch_receipt": {
     "ref": "/code/vertel0/hastycr-joint-skills-pilot-20261027",
     "url": "https://www.kaggle.com/code/vertel0/hastycr-joint-skills-pilot-20261027",
@@ -32,5 +48,6 @@
   "actual_gpu_names": [
     "Tesla T4",
     "Tesla T4"
-  ]
+  ],
+  "actual_training_steps_confirmed": true
 }

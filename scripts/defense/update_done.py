@@ -132,7 +132,7 @@ def slots_evaluation_lines(reports):
 def render_live_feedback_studies(reports):
     lines=['# Текущий этап','',
         '**PPO: сохранить выученные навыки и исправить ошибки реальных боёв.** Новая модель ещё не принята.','',
-        '| Серия | Вариант | PPO выполнено |','|---|---|---:|']
+        '| Серия | Вариант | PPO: запуск1 / запуск2 |','|---|---|---:|']
     studies=[('air_retention_pilot','Сохранение навыка',(142,143),
         [(f'replay{int(w*100):03d}',f'Повторение примеров: {w:g}')for w in(0.,.1,1.,5.)]),
         ('live_tactical_reward_pilot','Реварды по live',(152,153),
@@ -153,19 +153,20 @@ def render_live_feedback_studies(reports):
         proof=reports/f'{stem}_verified_20261027.json'
         complete=proof.exists()and json.loads(proof.read_text()).get('pilot_steps_verified')==819200
         for name,description in cases:
-            steps=sum(trials.get(f'pilot_{name}_s{seed}',{}).get('steps',0)for seed in seeds)
-            value=('100%'if complete else f'{100*steps/204800:.1f}%'if steps else
+            keys=[f'pilot_{name}_s{seed}'for seed in seeds]
+            value=('100% / 100%'if complete else ' / '.join(
+                f"{100*trials[key]['steps']/102400:.0f}%"if key in trials else'—'for key in keys)if any(key in trials for key in keys)else
                 'в очереди на свободный аккаунт'if state.get('status')=='queued_waiting_verified_free_account'else
                 'подготовлено; нет доступа'if state.get('status')=='prepared_auth_required'else'отправлено, шаги ожидаются')
             lines.append(f'| {label} | {description} | {value} |')
         links.append(f'[{label}](reports/defense_plan/{stem}_training_20261027.json)')
-    lines+=['',f'Каждый вариант: 2 seed × 102400 PPO-шагов. Отправлено серий: {sent} ({sent*8} прогонов / {sent*819200:,} шагов); в очереди {queued*8} прогонов. Четвёртый аккаунт исключён по просьбе пользователя. Проценты — полученные счётчики, не качество модели. '+', '.join(links)+'.','',
+    lines+=['',f'В ячейке — проценты двух запусков каждой настройки; «—» означает, что счётчик ещё не получен. Каждый прогон: 102400 PPO-шагов. Отправлено серий: {sent} ({sent*8} прогонов / {sent*819200:,} шагов); в очереди {queued*8} прогонов. Проценты не означают качество модели. '+', '.join(links)+'.','',
         'В reward-серии стартуем с balanced. Общие TRAIN-данные:35% колод с оплаченными варварами,50% отражённых эпизодов. Fireball оценивается после взрыва; отдельно считаются карты и потери башен слева/справа.','',
         '**Предыдущие пробы завершены:** warmstart и температура — по819200 проверенных CUDA-шагов; два профиля порог полного validation не прошли. После warmstart800 локальный навык упал с32/32 до9/32 после PPO. [Разбор](reports/air_warmstart_pilot_results_20261027.md).','',
         '**Последняя реальная серия balanced:** бот3/9 побед —33,3%; ещё одну игру доиграл пользователь. Игры остановлены. Это главный сигнал, что оценки симуляции не доказывают качество в игре.','',
         '**Прицел Fireball,48 локальных упражнений:** balanced20/48 попаданий по≥3юнитам,10пустых; strong35/48и4пустых. Это условная проверка прицела, не винрейт. [Разбор](reports/fireball_cluster_baselines_20261027.md).','',
         '**Реальное использование карт:** Fireball1,44 / Hog1,11 / мушкетёр1,22 подтверждённых применения за матч; пушка7,22. [Все карты и линии](reports/balanced_live_card_usage_20261027.md).','',
-        '[Исходный автор](reports/upstream_review_20261027.md): последний публичный коммит10октября уже в нашей базе; подтверждённого успеха новой self-play модели против людей не найдено.','',
+        '**Вход native исправлен:** точные профили GoblinBrawler и guarded Goblin_Stab теперь дают тактические признаки. Скорости по новым записям близки к симуляции. [Проверка](reports/balanced_native_parity_20261027.md).','',
         '**Далее:** проверить полные бюджеты и validation всех архетипов → выбрать2–4 прошедших профиля → большие обучения → независимый турнир и метрики. v25 и исходные веса сохранены; новые live-бои не запускаются.']
     return '\n'.join(lines)+'\n'
 

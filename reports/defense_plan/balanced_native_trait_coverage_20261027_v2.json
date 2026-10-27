@@ -1,0 +1,79 @@
+{
+  "schema": "recorded-native-trait-coverage-v1",
+  "autonomous_matches": 9,
+  "manual_match4_excluded": true,
+  "counters": {
+    "active_clock_valid_snapshots": 23306,
+    "unit_snapshot_instances": 102851
+  },
+  "unknown_before": {
+    "KnightHero": 1973,
+    "GoblinBrawler": 309,
+    "WizardHero": 244,
+    "WizardHero_air": 95,
+    "MiniPekkaHero": 144,
+    "Goblin_Stab": 3517
+  },
+  "unknown_after": {
+    "KnightHero": 1973,
+    "WizardHero": 244,
+    "WizardHero_air": 95,
+    "MiniPekkaHero": 144
+  },
+  "resolved_instances": {
+    "GoblinBrawler": 309,
+    "Goblin_Stab": 3517
+  },
+  "distinct_previously_unknown_bodies": {
+    "KnightHero": 15,
+    "GoblinBrawler": 2,
+    "WizardHero": 2,
+    "WizardHero_air": 2,
+    "MiniPekkaHero": 1,
+    "Goblin_Stab": 48
+  },
+  "native_card_ids": {
+    "KnightHero": [
+      203000000
+    ],
+    "GoblinBrawler": [
+      27000012
+    ],
+    "WizardHero": [
+      203000017
+    ],
+    "WizardHero_air": [
+      203000017
+    ],
+    "MiniPekkaHero": [
+      203000018
+    ],
+    "Goblin_Stab": [
+      26000002
+    ]
+  },
+  "sources": {
+    "tmp/live/balanced_20261027_live10/run/frames.jsonl": "bf6612101e511fe4a450b668e89c0d0f87ff1595220c6766845b83249245f0de",
+    "tmp/live/balanced_20261027_live10/run/events.jsonl": "ccbd143b00a770fa2bebffc1effe4ab4b7975ef65f206bf1bb90da13b6b2596c",
+    "tmp/live/balanced_20261027_live10/recovery_run/frames.jsonl": "f4ac35b8ef49cdc3eaeb6d78b68f9d96a952aa5c1ca9afe9a5e483e2637a7aa6",
+    "tmp/live/balanced_20261027_live10/recovery_run/events.jsonl": "8a5c5eb19cafba76101b2bcad9936720fd765537f492482ec0657bd5f0252c43"
+  },
+  "changed_sources": {
+    "scripts/gamestate/model_bridge.py": "0d43865499e8c2a09b600d9a241e7b02fb00a850679a5fd07aac7bb5635cc534",
+    "sim/gamedata.py": "e4213fabd898f850305f52391e8ba531a82efb38666bf0a4014e5c5cb5bbf183",
+    "data/royaleapi/cards.json": "f59a4440435f779acda4febb0f5603f4ea02eafdeee5c37da70d8ff787fb5cbc"
+  },
+  "known_resolution": [
+    "GoblinBrawler exact complete character-table lookup",
+    "Goblin_Stab guarded Goblins catalogue card26000002 alias"
+  ],
+  "limitations": [
+    "Snapshot instances are not independent decisions or matches",
+    "Tactical profiles remain nominal explicit level11; live HP is measured directly",
+    "Unverified hero forms retain warnings and are not assigned invented base statistics",
+    "This measures input coverage, not correct targeting, spell accuracy or win rate"
+  ],
+  "quality_accepted": false,
+  "live_games_started": false,
+  "training_sources_changed": false
+}

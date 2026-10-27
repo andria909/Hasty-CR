@@ -18,7 +18,7 @@ from sim import arena
 from sim.adapter import grid_to_point
 from sim.entities import make_tower, make_unit
 from sim.env import ACTIONS, DECK_26, NUM_PLANES, NUM_SCALARS, legal_mask, observe
-from sim.gamedata import load_gamedata, to_snake_case
+from sim.gamedata import load_gamedata, load_characters, to_snake_case
 from sim.match import PlayerState
 from sim.runner import resolve_deck
 
@@ -99,6 +99,22 @@ class NativeModelAdapter:
                 if key in self.units and self.units[key] != spec.unit:
                     raise ValueError(f'Ambiguous unit profile: {key}')
                 self.units[key] = spec.unit
+        # Death/hut spawns have character profiles but no standalone card.
+        # The simulator resolves them through this same character table.
+        for spec in load_characters(stats_level).values():
+            self.units.setdefault(to_snake_case(spec.name),spec)
+
+    def unit_profile(self,raw):
+        key=to_snake_case(raw['name'])
+        spec=self.units.get(key)
+        if spec is not None:return spec,None
+        # Recorded native Goblins use a melee-character suffix absent from
+        # the pinned table. Guard with the exact catalogue Goblins card ID;
+        # this is not a generic source-card substitution for unknown forms.
+        if raw['name']=='Goblin_Stab'and raw.get('card_id')==26000002:
+            profile=self.units.get('goblin')
+            return (profile,'Goblin_Stab:goblin:card26000002')if profile is not None else(None,None)
+        return None,None
 
     def encode(self, snapshot: dict, own: OwnState) -> ModelView:
         if snapshot.get('status') != 'ok':
@@ -131,7 +147,7 @@ class NativeModelAdapter:
         if (theirs[0]['y'] < arena.HEIGHT / 2) == rotated:
             raise MissingModelInput('King anchors do not define opposite ends')
         entities, towers, seen = {}, {1: {}, -1: {}}, set()
-        unknown_profiles = set()
+        unknown_profiles = set();profile_aliases=set()
         for raw in rows:
             uid, side = raw['entity_id'], raw['side']
             if side not in (0, 1) or uid in seen or uid // 1_000_000 != 5:
@@ -157,7 +173,9 @@ class NativeModelAdapter:
                 towers[side][lane] = entity
             else:
                 key = to_snake_case(raw['name'])
-                if key not in self.units:
+                profile,alias=self.unit_profile(raw)
+                if alias:profile_aliases.add(alias)
+                if profile is None:
                     if not self.allow_unknown_profiles:
                         raise MissingModelInput(f'No verified unit profile for native body {raw["name"]}')
                     # Explicit trial mode: retain measured bodies and HP, but
@@ -166,7 +184,7 @@ class NativeModelAdapter:
                     entity = SimpleNamespace(uid=uid, name=key, side=side, pos=pos,
                                              alive=hp > 0, is_tower=False, ability_buff=None)
                 else:
-                    entity = make_unit(uid, self.units[key], side, pos)
+                    entity = make_unit(uid, profile, side, pos)
             entity.hitpoints = hp
             entities[uid] = entity
         for engine_side in (0, 1):
@@ -247,6 +265,7 @@ class NativeModelAdapter:
             'stats_level': self.stats_level,
             'hp_source': 'native_current_hp',
             'traits_source': 'sim_unit_profile_at_explicit_stats_level',
+            'resolved_profile_aliases': sorted(profile_aliases),
             'blockers': blockers, 'ready_for_inference': not blockers,
             'warnings': (['incomplete_opponent_play_history']
                          if not own.public_history_complete and self.allow_incomplete_history else []) +
