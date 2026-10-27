@@ -50,10 +50,11 @@ def test_schedule_covers_two_separate_tests_and_every_pair_with_both_seats(count
 
 
 def test_lane_metrics_are_in_each_players_own_coordinates():
-    match=NS(tower_fractions=lambda side:dict(left=.5 if side==1 else .25,right=.75 if side==1 else 1.,king=1.),
+    match=NS(towers={side:{name:NS(hp_fraction=value)for name,value in dict(left=.5 if side==1 else .25,right=.75 if side==1 else 1.,king=1.).items()}for side in(1,-1)},
         play_log=[dict(side=1,card='cannon',x=3000),dict(side=-1,card='cannon',x=15000)],
         battle=NS(spell_cast_log=[]))
     result=module.public_duel_metrics(match)
+    assert result['1']['own_tower_fraction_loss']['king']==0
     assert result['1']['accepted_card_lane_counts']['left']['cannon']==1
     assert result['-1']['accepted_card_lane_counts']['left']['cannon']==1
     assert result['-1']['own_tower_fraction_loss']['left']==0

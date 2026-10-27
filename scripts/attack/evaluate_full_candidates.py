@@ -93,7 +93,7 @@ def test_game(network,entry,test,task,family,seed,device):
 def public_duel_metrics(match):
     result={}
     for side in(1,-1):
-        own=match.tower_fractions(side)
+        own={name:tower.hp_fraction for name,tower in match.towers[side].items()}
         if side==-1:own=dict(own,left=own['right'],right=own['left'])
         plays=[p for p in match.play_log if p['side']==side]
         def lane(play):
