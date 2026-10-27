@@ -2,7 +2,16 @@
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-air-lowbank-pilot-20261027",
   "status": "submitted_pending_cuda_proof",
-  "progress_snapshot": {},
+  "progress_snapshot": {
+    "kernel": "vertel0/hastycr-air-lowbank-pilot-20261027",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "error_type": "ConnectionError",
+    "http_status": null,
+    "reconnect_attempt": 0,
+    "checked_host_ns": 1793102653461473000
+  },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
   "quality_accepted": false,
@@ -16,5 +25,19 @@
     "kernelId": 141160173
   },
   "frozen_bootstrap_sha256": "61b70c6004cb0f33afec1284f1100883b5c0eb24032c255b29f3cf382677d200",
-  "last_local_sync_ns": 1793102521987759000
+  "last_local_sync_ns": 1793102521987759000,
+  "runtime_start_evidence": [
+    {
+      "event": "INPUTS_VERIFIED",
+      "protocol_sha256": "0e439fbcb1d2373fcaf4949d3283075161421610b1b77e0059e0837b1a3d5de4"
+    },
+    {
+      "event": "CUDA_READY",
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ]
+    }
+  ],
+  "actual_cuda_confirmed": true
 }

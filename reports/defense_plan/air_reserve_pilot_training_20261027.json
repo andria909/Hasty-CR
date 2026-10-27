@@ -1,8 +1,38 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "andriashadrin/hastycr-air-reserve-pilot-20261027",
-  "status": "submitted_pending_cuda_proof",
-  "progress_snapshot": {},
+  "status": "training_steps_observed",
+  "progress_snapshot": {
+    "kernel": "andriashadrin/hastycr-air-reserve-pilot-20261027",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "connected",
+    "reconnect_attempt": 0,
+    "checked_host_ns": 1793102758068199000,
+    "trials": {
+      "pilot_joint_control_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1397.693331372
+      },
+      "pilot_joint_bc800_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1312.915890694
+      },
+      "pilot_joint_bc800_s163": {
+        "update": 20,
+        "steps": 20480,
+        "target_steps": 102400,
+        "percent": 20.0,
+        "remote_log_seconds": 1404.330553587
+      }
+    }
+  },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
   "quality_accepted": false,
@@ -16,8 +46,19 @@
     "kernelId": 141157723
   },
   "frozen_bootstrap_sha256": "7f1ef480d434ba9293da3cd247bc4745712456589a40a2c896568c9a94b7074c",
-  "last_local_sync_ns": 1793101378142880000,
+  "last_local_sync_ns": 1793102578331302000,
   "runtime_start_evidence": [
+    {
+      "event": "INPUTS_VERIFIED",
+      "protocol_sha256": "5c2e333a5e100c8847f2aa109c171456f65e4f0262e2d66a84966c0fb5516aa2"
+    },
+    {
+      "event": "CUDA_READY",
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ]
+    },
     {
       "event": "INPUTS_VERIFIED",
       "protocol_sha256": "5c2e333a5e100c8847f2aa109c171456f65e4f0262e2d66a84966c0fb5516aa2"
@@ -30,5 +71,6 @@
       ]
     }
   ],
-  "actual_cuda_confirmed": true
+  "actual_cuda_confirmed": true,
+  "actual_training_steps_confirmed": true
 }

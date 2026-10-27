@@ -170,6 +170,10 @@ def render_live_feedback_studies(reports):
                 'подготовлено; нет доступа'if state.get('status')=='prepared_auth_required'else'отправлено, шаги ожидаются')
             lines.append(f'| {label} | {description} | {value} |')
         links.append(f'[{label}](reports/defense_plan/{stem}_training_20261027.json)')
+    selection_pointer=reports/'current_global_pilot_selection_20261027.json'
+    if selection_pointer.exists():
+        selection=json.loads(selection_pointer.read_text())
+        lines+=['',f"**Глобальный отбор:** проверено{selection['verified_models']} моделей; подходящих профилей{selection['eligible_profiles']}; выбрано{selection['selected_profiles']} для подготовки большого обучения. Большие обучения автоматически не запускались."]
     lines+=['',f'**Итоговые результаты проверены: {verified}/{sent*8} моделей.** Обучение и проверка результатов — разные этапы.','',f'В ячейке — проценты двух запусков каждой настройки; «—» означает, что счётчик ещё не получен. Каждый прогон: 102400 PPO-шагов. Отправлено серий: {sent} ({sent*8} прогонов / {sent*819200:,} шагов); в очереди {queued*8} прогонов. Проценты не означают качество модели. '+', '.join(links)+'.','',
         'В reward-серии стартуем с balanced. Общие TRAIN-данные:35% колод с оплаченными варварами,50% отражённых эпизодов. Fireball оценивается после взрыва; отдельно считаются карты и потери башен слева/справа.','',
         '**Защита шара:** проверены пушка + дух / Zap / Fireball. Новые метки спеллов включаются только там, где они уменьшают урон относительно той же пушки без помощи; подготовленные открытия с Baby Dragon пока не решены. [Проверка](reports/air_alternatives_pilot_design_20261027.md).','',
