@@ -1,3 +1,6 @@
+## CURRENT native Fireball readiness returns403, NOT confirmed processing
+SDKexplicitdataset_status forandreiperelaiko/hastycr-native-fireball-slot-inputs-20261028 givesHTTP403;datasetcreate receiptOk, publicusersearchnoresults(inconclusiveprivate). No kernel_push_requested/launch_receipt atcheck. submit44222near20minboundedwait;launcher44229waits30minreceipt. DoNOTduplicatecreate/push orcalltrainingfailed. Need inspect exactdataset access andprocess exit; reportnative_fireball_submission_observation20261028. LiveBC0/3match4ongoing,controller/runnersconfirmedlive.
+
 ## CURRENT tower-support instrumentation diagnostic passed, NOT reward-enabled
 Newsim/tower_support.py optionaldamage_logappendhook capturesowncrownTower->enemy whileenemy targetsalivefriendlynonTower. Paidvaluecapperenemy, tower-onlytankingnotcredited.2testsPASS. Actualaudit_tower_support.py48episodes24lateair controls/bestpaidplans preservesall24outcomes. NoCardsownHPlost2752/towerdamage2256/assist0;best0/1124.17/assist312.17/value1.005,nonzero16/24. reporttower_support_diagnostic JSON/MD. Notintegratedreward/PPOyet;noenginephysicschange/frozenpinschange. LiveBCcurrently0W3L,match4active,controller44421runner44480supervisor44488live;continue10+10. Fireballsubmit44222stilldatasetprocessing18min,samehandle,noGPUreceipt;launcher44229waits.
 

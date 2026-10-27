@@ -48,7 +48,7 @@ def submit(root,token_index,*,evaluation=False):
      try:status=str(api.dataset_status(slug))
      except Exception as exc:
       if getattr(getattr(exc,'response',None),'status_code',None)!=403:raise
-      print('DATASET processing; same handle retained',flush=True);time.sleep(30);continue
+      print('DATASET readiness unconfirmed (HTTP403); same handle retained',flush=True);time.sleep(30);continue
      print('DATASET',status,flush=True)
      if status.lower()=='ready':break
      time.sleep(30)
