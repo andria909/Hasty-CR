@@ -1,3 +1,6 @@
+## CURRENT native Fireball upload wait terminal; no GPU job
+Submission44222exitedRuntimeError Datasetnotready afterbounded40polls; no kernelrequest/receipt. Independentdataset_list_files ALSO403,notjuststatus. Localreceiptwaiter44229terminatedafterknownsubmissionfailure,filespreserved. Reportsupdated. Needresolveexistingdatasetaccessorcontrolledownerrebindbeforelaunch; doNOTblindduplicatecreate. OtherGPUjobscontinue. LiveBC3losses,match4overtimeactivelyPLAY_ACK,controller44421/runner44480/supervisor44488live.
+
 ## CURRENT native Fireball readiness returns403, NOT confirmed processing
 SDKexplicitdataset_status forandreiperelaiko/hastycr-native-fireball-slot-inputs-20261028 givesHTTP403;datasetcreate receiptOk, publicusersearchnoresults(inconclusiveprivate). No kernel_push_requested/launch_receipt atcheck. submit44222near20minboundedwait;launcher44229waits30minreceipt. DoNOTduplicatecreate/push orcalltrainingfailed. Need inspect exactdataset access andprocess exit; reportnative_fireball_submission_observation20261028. LiveBC0/3match4ongoing,controller/runnersconfirmedlive.
 
