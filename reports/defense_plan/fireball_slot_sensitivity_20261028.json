@@ -1,0 +1,91 @@
+{
+  "schema": "local-holdout-slot-sensitivity-v1",
+  "data_sha256": "8ffcf671f9013ea2410d63c40ce53499fa845651fcf310e0650ddf401b743ef4",
+  "heldout_seed": 3800085,
+  "models": [
+    {
+      "checkpoint": "tmp/kaggle/fireball_latency_pilot_20261027_on_available/collected/pilot_delay2025_s192_warmstart/policy.pt",
+      "sha256": "328512cc16bfce554999f0218de07e5a9214bff90c61872b07c9fd38d1b4f9b7",
+      "by_skill": {
+        "air_defense": {
+          "states": 16,
+          "original_correct": 0,
+          "permutation_mean_accuracy": 0.12239583333333333,
+          "any_permutation_correct": 14,
+          "every_permutation_correct": 0
+        },
+        "air_reserve_deploy": {
+          "states": 4,
+          "original_correct": 0,
+          "permutation_mean_accuracy": 0.11458333333333333,
+          "any_permutation_correct": 3,
+          "every_permutation_correct": 0
+        },
+        "air_reserve_wait": {
+          "states": 32,
+          "original_correct": 32,
+          "permutation_mean_accuracy": 0.82421875,
+          "any_permutation_correct": 32,
+          "every_permutation_correct": 0
+        },
+        "fireball_group": {
+          "states": 14,
+          "original_correct": 0,
+          "permutation_mean_accuracy": 0.24404761904761904,
+          "any_permutation_correct": 14,
+          "every_permutation_correct": 0
+        },
+        "fireball_restraint": {
+          "states": 4,
+          "original_correct": 4,
+          "permutation_mean_accuracy": 0.9479166666666666,
+          "any_permutation_correct": 4,
+          "every_permutation_correct": 1
+        }
+      }
+    },
+    {
+      "checkpoint": "tmp/kaggle/fireball_latency_pilot_20261027_on_available/collected/pilot_delay2025_s193_warmstart/policy.pt",
+      "sha256": "9581be93ed0a527e1af231b81dd6e4e644fd17c1967c15f92ed7c77b23fca301",
+      "by_skill": {
+        "air_defense": {
+          "states": 16,
+          "original_correct": 0,
+          "permutation_mean_accuracy": 0.13541666666666666,
+          "any_permutation_correct": 14,
+          "every_permutation_correct": 0
+        },
+        "air_reserve_deploy": {
+          "states": 4,
+          "original_correct": 0,
+          "permutation_mean_accuracy": 0.11458333333333333,
+          "any_permutation_correct": 3,
+          "every_permutation_correct": 0
+        },
+        "air_reserve_wait": {
+          "states": 32,
+          "original_correct": 32,
+          "permutation_mean_accuracy": 0.8294270833333334,
+          "any_permutation_correct": 32,
+          "every_permutation_correct": 0
+        },
+        "fireball_group": {
+          "states": 14,
+          "original_correct": 0,
+          "permutation_mean_accuracy": 0.24702380952380953,
+          "any_permutation_correct": 14,
+          "every_permutation_correct": 0
+        },
+        "fireball_restraint": {
+          "states": 4,
+          "original_correct": 4,
+          "permutation_mean_accuracy": 0.9270833333333334,
+          "any_permutation_correct": 4,
+          "every_permutation_correct": 0
+        }
+      }
+    }
+  ],
+  "scope": "Diagnostic only: oracle-any is not an implementable policy or win rate. Same board, permuted hand and matching action labels. No labels added to training.",
+  "quality_accepted": false
+}

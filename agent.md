@@ -1,3 +1,6 @@
+## CURRENT actual slot-sensitivity audit confirms heldout dependency
+Newaudit_slot_sensitivity.py actualtwo correctedFireball warmstarts192/193:70heldoutx24permutations, bothFireballoriginal0/14, oracleany14/14, uniformaccuracy24.4/24.7%;airoriginal0/16,any14/16,uniform12.2/13.5%. TRAINFireball28/28. Reportfireball_slot_sensitivity_20261028 JSON/MD. Notdeployableoracle/nottrainaugmentation/notlivequality. Beforefuturepilotinspectexistinghandaugmentationresults; do notduplicateoldphysicsstudy. Current6300eval andstablepilotunchanged.
+
 ## CURRENT manual pilot summary uses study-specific verifier
 Fixedsummarize_clock_pilots CLI dispatch:pending->verify_pending_focus,sequence->verify_sequence_pilot,legacy->original. Previouslybackgroundwatcherusedcorrectaudit butmanualsummarydefaulted20/309generic. Rejectionpropagationtestedfor3variants;24targetedtestsPASS. FrozenGPUbundlesunchanged. Full6300evalactual15gamesobserved;observerslive,20minAPIpolicy.
 
