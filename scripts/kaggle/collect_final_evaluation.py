@@ -40,13 +40,26 @@ def configure_http_timeout():
     requests.Session.send=bounded_send
 
 
-def collect(api,kernel,destination,profile='defense'):
+def collect(api,kernel,destination,profile='defense',cache=None):
     state=terminal_state(api.kernels_status(kernel))
     if state not in TERMINAL:raise ValueError('Evaluation is not terminal')
     files,logs=list_outputs(api,kernel)
     if terminal_state(api.kernels_status(kernel))!=state:
         raise ValueError('Remote evaluation state changed during listing')
-    prefetched={}
+    prefetched={};cache_files={}
+    if cache is not None:
+        cache=Path(cache);cached=json.loads((cache/'collection_receipt.json').read_text())
+        if cached.get('kernel')!=kernel or cached.get('remote_status')!=state:
+            raise ValueError('Cached collection belongs to another kernel/state')
+        cache_files=cached.get('files',{})
+    def cached_bytes(name):
+        if cache is None or name not in cache_files:return None
+        from scripts.kaggle.local_artifact_transfer import file_sha
+        path=cache/name
+        if path.is_symlink()or not path.resolve().is_relative_to(cache.resolve()):raise ValueError('Unsafe cached artifact')
+        if not path.is_file():return None
+        if file_sha(path)!=cache_files[name]['sha256']:raise ValueError('Cached artifact changed')
+        return path.read_bytes()
     if profile in ('continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot'):
         import re
         import requests
@@ -71,8 +84,11 @@ def collect(api,kernel,destination,profile='defense'):
             if re.fullmatch(run_pattern+r'(?:_summary\.json|_profile\.json|\.log)',relative):allowed.add(relative)
             if re.fullmatch(run_pattern+r'/(?:config\.json|metrics\.jsonl|training_result\.json)',relative):allowed.add(relative)
             if re.fullmatch(run_pattern+r'_summary\.json',relative):
-                response=requests.get(files[name].url,timeout=(30,300));response.raise_for_status()
-                raw=response.content;row=json.loads(raw);run=relative[:-len('_summary.json')]
+                raw=cached_bytes(relative)
+                if raw is None:
+                    response=requests.get(files[name].url,timeout=(30,300));response.raise_for_status()
+                    raw=response.content
+                row=json.loads(raw);run=relative[:-len('_summary.json')]
                 selected=row.get('checkpoint')
                 if row.get('id')!=run or not isinstance(selected,str)or not re.fullmatch(re.escape(run)+r'/update_\d{6}\.pt',selected):
                     raise ValueError('Focus summary checkpoint path differs')
@@ -196,15 +212,21 @@ def collect(api,kernel,destination,profile='defense'):
     receipt=dict(kernel=kernel,remote_status=state,files={},remote_job_changed=False,complete=False,
         remote_hash_note='No independent metadata SHA; downloaded artifacts checked against internal reports separately')
     try:
+        from scripts.kaggle.local_artifact_transfer import copy_verified_cache,download_preserving,file_sha
+        # Copy every verified cached file before attempting the first missing
+        # download, so another interrupted attempt retains the full cache.
+        for name in sorted(allowed):
+            if prefix+name not in files:continue
+            target=destination/name;target.parent.mkdir(parents=True,exist_ok=True)
+            if copy_verified_cache(cache,cache_files,name,target):
+                receipt['files'][name]=dict(sha256=file_sha(target),bytes=target.stat().st_size)
         for name in sorted(allowed):
             remote=prefix+name
-            if remote not in files:continue
-            if name in prefetched:raw=prefetched[name]
-            else:
-                response=requests.get(files[remote].url,timeout=(30,300));response.raise_for_status()
-                raw=response.content
-            target=destination/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(raw)
-            receipt['files'][name]=dict(sha256=hashlib.sha256(raw).hexdigest(),bytes=len(raw))
+            if remote not in files or name in receipt['files']:continue
+            target=destination/name;target.parent.mkdir(parents=True,exist_ok=True)
+            if name in prefetched:target.write_bytes(prefetched[name])
+            else:download_preserving(files[remote].url,target,stream=False)
+            receipt['files'][name]=dict(sha256=file_sha(target),bytes=target.stat().st_size)
         if result_file not in receipt['files']:raise ValueError('Terminal evaluation result absent')
         (destination/'kernel_log_receipt.json').write_text(json.dumps(logs)+'\n')
         receipt['complete']=True
@@ -213,11 +235,23 @@ def collect(api,kernel,destination,profile='defense'):
     return receipt
 
 
+def preserve_partial(destination,kernel,state):
+    destination=Path(destination)
+    receipt=json.loads((destination/'collection_receipt.json').read_text())
+    if receipt.get('kernel')!=kernel or receipt.get('remote_status')!=state:
+        raise ValueError('Existing output belongs to another kernel/state')
+    if receipt.get('complete'):raise ValueError('Completed collection already exists; preserve and use it')
+    archive=destination.with_name(destination.name+'_partial_'+str(time.time_ns()))
+    destination.rename(archive)
+    return archive
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--kernel',required=True);parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--poll-seconds',type=int,default=1200)
     parser.add_argument('--once',action='store_true')
+    parser.add_argument('--cache',type=Path,help='Reuse only SHA-verified files from a preserved partial collection')
     parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
     parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot'),default='defense')
     args=parser.parse_args()
@@ -242,9 +276,9 @@ def main():
             # Keep every partial attempt. A transient listing/download failure
             # after COMPLETE must not require restarting the remote notebook.
             destination=args.output
-            if destination.exists():destination=destination.with_name(destination.name+'_attempt_'+str(time.time_ns()))
+            if destination.exists():args.cache=preserve_partial(destination,args.kernel,state)
             try:
-                print(json.dumps(collect(api,args.kernel,destination,profile=args.profile)),flush=True)
+                print(json.dumps(collect(api,args.kernel,destination,profile=args.profile,cache=args.cache)),flush=True)
                 break
             except Exception as error:
                 print(json.dumps(dict(collection_error=type(error).__name__,destination=str(destination),remote_job_changed=False)),flush=True)

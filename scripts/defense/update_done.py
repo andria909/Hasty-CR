@@ -142,7 +142,7 @@ def render_live_feedback_studies(reports):
          ('joint_replay100','Примеры + повторение 1'),('joint_replay500','Примеры + повторение 5')]),
         ('card_exploration_pilot','Исследование карт',(172,173),
         [(f'explore_t{t:02d}_e{e:02d}',f'Температура {t}, доля исследования {e}%')for t in(1,10)for e in(0,20)])]
-    links=[];sent=queued=0
+    links=[];sent=queued=verified=0
     for stem,label,seeds,cases in studies:
         p=reports/f'{stem}_training_20261027.json'
         if not p.exists():
@@ -152,6 +152,7 @@ def render_live_feedback_studies(reports):
         queued+=state.get('status')=='queued_waiting_verified_free_account'
         proof=reports/f'{stem}_verified_20261027.json'
         complete=proof.exists()and json.loads(proof.read_text()).get('pilot_steps_verified')==819200
+        verified+=int(complete)*8
         for name,description in cases:
             keys=[f'pilot_{name}_s{seed}'for seed in seeds]
             value=('100% / 100%'if complete else ' / '.join(
@@ -160,7 +161,7 @@ def render_live_feedback_studies(reports):
                 'подготовлено; нет доступа'if state.get('status')=='prepared_auth_required'else'отправлено, шаги ожидаются')
             lines.append(f'| {label} | {description} | {value} |')
         links.append(f'[{label}](reports/defense_plan/{stem}_training_20261027.json)')
-    lines+=['',f'В ячейке — проценты двух запусков каждой настройки; «—» означает, что счётчик ещё не получен. Каждый прогон: 102400 PPO-шагов. Отправлено серий: {sent} ({sent*8} прогонов / {sent*819200:,} шагов); в очереди {queued*8} прогонов. Проценты не означают качество модели. '+', '.join(links)+'.','',
+    lines+=['',f'**Итоговые результаты проверены: {verified}/{sent*8} моделей.** Обучение и проверка результатов — разные этапы.','',f'В ячейке — проценты двух запусков каждой настройки; «—» означает, что счётчик ещё не получен. Каждый прогон: 102400 PPO-шагов. Отправлено серий: {sent} ({sent*8} прогонов / {sent*819200:,} шагов); в очереди {queued*8} прогонов. Проценты не означают качество модели. '+', '.join(links)+'.','',
         'В reward-серии стартуем с balanced. Общие TRAIN-данные:35% колод с оплаченными варварами,50% отражённых эпизодов. Fireball оценивается после взрыва; отдельно считаются карты и потери башен слева/справа.','',
         '**Предыдущие пробы завершены:** warmstart и температура — по819200 проверенных CUDA-шагов; два профиля порог полного validation не прошли. После warmstart800 локальный навык упал с32/32 до9/32 после PPO. [Разбор](reports/air_warmstart_pilot_results_20261027.md).','',
         '**Последняя реальная серия balanced:** бот3/9 побед —33,3%; ещё одну игру доиграл пользователь. Игры остановлены. Это главный сигнал, что оценки симуляции не доказывают качество в игре.','',

@@ -143,3 +143,22 @@ def test_additional_pilot_profiles_collect_selected_and_latest(monkeypatch,tmp_p
     assert result['complete']
     assert (tmp_path/'out'/run/'update_000050.pt').exists()
     assert (tmp_path/'out'/run/'update_000100.pt').exists()
+
+
+def test_recovery_reuses_all_verified_partial_cache_without_redownloading(monkeypatch,tmp_path):
+    run,calls=setup(monkeypatch,"pilot_uniform_base_s62/update_000050.pt")
+    api=NS(kernels_status=lambda k:'COMPLETE')
+    first=collector.collect(api,'owner/job',tmp_path/'partial','continuous-focus')
+    receipt=tmp_path/'partial/collection_receipt.json';r=json.loads(receipt.read_text());r['complete']=False;receipt.write_text(json.dumps(r))
+    monkeypatch.setattr(requests,'get',lambda *a,**kw:(_ for _ in ()).throw(AssertionError('Cached download repeated')))
+    final=collector.collect(api,'owner/job',tmp_path/'recovered','continuous-focus',cache=tmp_path/'partial')
+    assert final['complete']and final['files']==first['files']
+    assert receipt.exists()
+
+
+def test_partial_preservation_keeps_files_and_rejects_other_kernel(tmp_path):
+    root=tmp_path/'collected';root.mkdir();(root/'weight.pt').write_bytes(b'kept')
+    (root/'collection_receipt.json').write_text(json.dumps(dict(kernel='owner/job',remote_status='COMPLETE',complete=False)))
+    with pytest.raises(ValueError,match='another'):collector.preserve_partial(root,'other/job','COMPLETE')
+    archive=collector.preserve_partial(root,'owner/job','COMPLETE')
+    assert not root.exists()and(archive/'weight.pt').read_bytes()==b'kept'

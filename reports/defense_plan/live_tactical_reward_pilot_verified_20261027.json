@@ -1,0 +1,214 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "andreiperelaiko/hastycr-live-tactical-reward-pilot-20261027",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "live_precision",
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.1,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.0,
+          "own_hp_penalty": 4.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5
+        },
+        "score": 0.36458333333333337,
+        "minimum_family_points": 0.08333333333333333,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "live_control",
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.0,
+          "reserve_potential_weight": 0.0,
+          "own_hp_penalty": 4.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5
+        },
+        "score": 0.3298611111111111,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "live_economy",
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.0,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5
+        },
+        "score": 0.3229166666666667,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "live_combined",
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.1,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5
+        },
+        "score": 0.2986111111111111,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_live_control_s152",
+      "checkpoint": "tmp/kaggle/live_tactical_reward_pilot_20261027/collected/pilot_live_control_s152/update_000050.pt",
+      "checkpoint_sha256": "d92453d259ca731c898a9a032bfc81fb6b540e5699ed0942d677cbbea591f2b4",
+      "selection_score": 0.3333333333333333,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_live_control_s153",
+      "checkpoint": "tmp/kaggle/live_tactical_reward_pilot_20261027/collected/pilot_live_control_s153/update_000050.pt",
+      "checkpoint_sha256": "7cc2e2b1fa86ff77102ce4817dc0fc8cd14be9db40fab4300d25da5cc733a3e5",
+      "selection_score": 0.3263888888888889,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_live_precision_s152",
+      "checkpoint": "tmp/kaggle/live_tactical_reward_pilot_20261027/collected/pilot_live_precision_s152/update_000100.pt",
+      "checkpoint_sha256": "1ba34f9b179daecba903533cf7761f276aa191653c9c913e1a2c2727e5cfd5df",
+      "selection_score": 0.36111111111111116,
+      "worst_family_points": 0.08333333333333333,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_live_precision_s153",
+      "checkpoint": "tmp/kaggle/live_tactical_reward_pilot_20261027/collected/pilot_live_precision_s153/update_000100.pt",
+      "checkpoint_sha256": "d9f8f14a4b0f5187ba4486da1559de47e27f493026429b914fe02b27ee22ec39",
+      "selection_score": 0.3680555555555556,
+      "worst_family_points": 0.08333333333333333,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_live_economy_s152",
+      "checkpoint": "tmp/kaggle/live_tactical_reward_pilot_20261027/collected/pilot_live_economy_s152/update_000050.pt",
+      "checkpoint_sha256": "323555bd3b09709dc33346eb9b12a737484f639362e355b26c9e26dc4f58be62",
+      "selection_score": 0.2847222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_live_economy_s153",
+      "checkpoint": "tmp/kaggle/live_tactical_reward_pilot_20261027/collected/pilot_live_economy_s153/update_000100.pt",
+      "checkpoint_sha256": "99a71ee25f04ac0a3649d6aa0a394c7d9d8d081e2ebb57b8c451a3288381ff17",
+      "selection_score": 0.36111111111111116,
+      "worst_family_points": 0.08333333333333333,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_live_combined_s152",
+      "checkpoint": "tmp/kaggle/live_tactical_reward_pilot_20261027/collected/pilot_live_combined_s152/update_000050.pt",
+      "checkpoint_sha256": "a7948739cb892e934d4a1cb07806c824e7a01d009aec6ba7a08b61e542b2d9f8",
+      "selection_score": 0.2847222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_live_combined_s153",
+      "checkpoint": "tmp/kaggle/live_tactical_reward_pilot_20261027/collected/pilot_live_combined_s153/update_000100.pt",
+      "checkpoint_sha256": "ad391390a1a49d1ebbcf6ebdd87f1bb111f4f06045904b5898f49fd63368fcc5",
+      "selection_score": 0.3125,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "parent",
+    "ranking": [
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.3055555555555555,
+        "macro_archetype_points": 0.611111111111111,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 1.0
+          },
+          "giant": {
+            "games": 12,
+            "points": 0.9166666666666666
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.8333333333333334
+          },
+          "swarm": {
+            "games": 12,
+            "points": 0.9166666666666666
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false
+}

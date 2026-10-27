@@ -9,18 +9,22 @@ def file_sha(path):
     with Path(path).open('rb') as stream:return hashlib.file_digest(stream,'sha256').hexdigest()
 
 
-def download_preserving(url,path):
+def download_preserving(url,path,*,stream=True):
     import requests
     path=Path(path)
     if path.exists():raise FileExistsError('Refusing to overwrite artifact destination')
     for attempt in range(4):
         partial=path.with_name(path.name+'.download_attempt_'+str(attempt))
         try:
-            with requests.get(url,stream=True,timeout=(30,300)) as response:
-                response.raise_for_status()
-                with partial.open('xb') as stream:
-                    for chunk in response.iter_content(1024*1024):
-                        if chunk:stream.write(chunk)
+            if stream:
+                with requests.get(url,stream=True,timeout=(30,300)) as response:
+                    response.raise_for_status()
+                    with partial.open('xb') as output:
+                        for chunk in response.iter_content(1024*1024):
+                            if chunk:output.write(chunk)
+            else:
+                response=requests.get(url,timeout=(30,300));response.raise_for_status()
+                with partial.open('xb')as output:output.write(response.content)
             if path.exists():raise FileExistsError('Artifact destination appeared during transfer')
             partial.rename(path);return
         except requests.RequestException as error:

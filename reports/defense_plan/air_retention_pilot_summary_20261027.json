@@ -1,0 +1,924 @@
+{
+  "schema": "verified-air-retention-pilot-validation-summary-v1",
+  "kernel": "andriashadrin/hastycr-air-retention-pilot-20261027",
+  "pilot_steps_verified": 819200,
+  "rows": [
+    {
+      "id": "replay000",
+      "games": 144,
+      "wins": 50,
+      "draws": 0,
+      "mean_card_lane_plays": null,
+      "mean_own_tower_fraction_loss": {
+        "left": 0.6189003596230159,
+        "right": 0.4579089936755952,
+        "king": 0.09623548719618055
+      },
+      "mean_missed_fireballs": 1.7638888888888888,
+      "mean_card_plays": {
+        "cannon": 9.833333333333334,
+        "electro_spirit": 9.54861111111111,
+        "fireball": 2.875,
+        "hog_rider": 2.7847222222222223,
+        "knight": 8.8125,
+        "musketeer": 2.9166666666666665,
+        "skeletons": 10.104166666666666,
+        "zap": 9.625
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 1
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 12
+        },
+        "giant": {
+          "games": 24,
+          "wins": 21
+        },
+        "golem": {
+          "games": 24,
+          "wins": 1
+        },
+        "hog": {
+          "games": 24,
+          "wins": 7
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 8
+        }
+      },
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 142,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay000_s142_warmstart/policy.pt",
+            "checkpoint_sha256": "8e683ad54991f624667029d7f8270279a79658ca8eb88f0b0e00c3f73b9355ad",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5024981110280957
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5042406084952082
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5024981110280957
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5042406084952082
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay000_s142/update_000050.pt",
+            "checkpoint_sha256": "38e8b946031e362987562ef25e6a9c627153a86b388f655d242ac12efe465044",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 12,
+              "fraction": 0.375,
+              "mean_log_successful_probability": -6.504471434907097
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 6,
+              "fraction": 0.375,
+              "mean_log_successful_probability": -6.476992312049104
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 12,
+                  "fraction": 0.375,
+                  "mean_log_successful_probability": -6.504471434907097
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 6,
+                  "fraction": 0.375,
+                  "mean_log_successful_probability": -6.476992312049104
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 143,
+          "selected_update": 100,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay000_s143_warmstart/policy.pt",
+            "checkpoint_sha256": "d4edc9566c2b25341eec845ede911a6a67fc90a1c56889cbd0185e4a86ee37af",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.507908275961177
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5096707509316989
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.507908275961177
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5096707509316989
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay000_s143/update_000100.pt",
+            "checkpoint_sha256": "e3c96b470de2109f91591813a89aee32f53f126e19471e29deacffd24a56d270",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 8,
+              "fraction": 0.25,
+              "mean_log_successful_probability": -6.078168168775623
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 4,
+              "fraction": 0.25,
+              "mean_log_successful_probability": -6.342172439992303
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 8,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -6.078168168775623
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 4,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -6.342172439992303
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "supervised_replay_weight": 0.0,
+      "local_before_ppo": {
+        "successful_choices": 32,
+        "predictions": 32,
+        "distinct_states": 16
+      },
+      "local_after_ppo": {
+        "successful_choices": 10,
+        "predictions": 32,
+        "distinct_states": 16
+      }
+    },
+    {
+      "id": "replay010",
+      "games": 144,
+      "wins": 40,
+      "draws": 0,
+      "mean_card_lane_plays": null,
+      "mean_own_tower_fraction_loss": {
+        "left": 0.7031598772321428,
+        "right": 0.4769054594494048,
+        "king": 0.13725224247685186
+      },
+      "mean_missed_fireballs": 1.8263888888888888,
+      "mean_card_plays": {
+        "cannon": 7.125,
+        "electro_spirit": 7.541666666666667,
+        "fireball": 3.0625,
+        "hog_rider": 2.9444444444444446,
+        "knight": 6.354166666666667,
+        "musketeer": 3.173611111111111,
+        "skeletons": 7.958333333333333,
+        "zap": 7.152777777777778
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 0
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 10
+        },
+        "giant": {
+          "games": 24,
+          "wins": 16
+        },
+        "golem": {
+          "games": 24,
+          "wins": 2
+        },
+        "hog": {
+          "games": 24,
+          "wins": 7
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 5
+        }
+      },
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 142,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay010_s142_warmstart/policy.pt",
+            "checkpoint_sha256": "ac38d8afcb35cc10f4cd0aacff590e9dd1f080f6d66058ffb9ad94bf5f01aa33",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.505796557901637
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5075457333079525
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.505796557901637
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5075457333079525
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay010_s142/update_000050.pt",
+            "checkpoint_sha256": "4b2af05ea475ca614a0e2666aa3bd4bca0571ca5afc735a698a475c675055cf5",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5215845002950585
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5229637435179262
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5215845002950585
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5229637435179262
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 143,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay010_s143_warmstart/policy.pt",
+            "checkpoint_sha256": "e8219ff9df1a72c35b0ad25fcf3459bb4e525b2091db36c09cad803f4198d083",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.4929653822238067
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.494766466691722
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.4929653822238067
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.494766466691722
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay010_s143/update_000050.pt",
+            "checkpoint_sha256": "34445631e0e95a86a05cc143a6bb63aaf13ca7a7b751bb113f299516f1e9f3e1",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 30,
+              "fraction": 0.9375,
+              "mean_log_successful_probability": -0.5087598397301147
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5101774887068418
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 30,
+                  "fraction": 0.9375,
+                  "mean_log_successful_probability": -0.5087598397301147
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5101774887068418
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "supervised_replay_weight": 0.1,
+      "local_before_ppo": {
+        "successful_choices": 32,
+        "predictions": 32,
+        "distinct_states": 16
+      },
+      "local_after_ppo": {
+        "successful_choices": 32,
+        "predictions": 32,
+        "distinct_states": 16
+      }
+    },
+    {
+      "id": "replay100",
+      "games": 144,
+      "wins": 46,
+      "draws": 0,
+      "mean_card_lane_plays": null,
+      "mean_own_tower_fraction_loss": {
+        "left": 0.6571238684275794,
+        "right": 0.45732189360119047,
+        "king": 0.1093467429832176
+      },
+      "mean_missed_fireballs": 1.8958333333333333,
+      "mean_card_plays": {
+        "cannon": 9.590277777777779,
+        "electro_spirit": 9.555555555555555,
+        "fireball": 2.8333333333333335,
+        "hog_rider": 2.75,
+        "knight": 8.5625,
+        "musketeer": 2.8125,
+        "skeletons": 9.944444444444445,
+        "zap": 9.375
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 3
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 10
+        },
+        "giant": {
+          "games": 24,
+          "wins": 14
+        },
+        "golem": {
+          "games": 24,
+          "wins": 2
+        },
+        "hog": {
+          "games": 24,
+          "wins": 12
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 5
+        }
+      },
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 142,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay100_s142_warmstart/policy.pt",
+            "checkpoint_sha256": "6208ba74caac0cc1dbc2bd9f78d1ad9c1cc3381dda228f755ef9dbcbde441126",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5292997352650595
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5308938876423763
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5292997352650595
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5308938876423763
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay100_s142/update_000050.pt",
+            "checkpoint_sha256": "cb28073fd02f2ac4fde7717cf4da6d65f2ee0a2a02a96081274dd7b418e1dd7c",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.507339151550513
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5093209056073711
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.507339151550513
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5093209056073711
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 143,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay100_s143_warmstart/policy.pt",
+            "checkpoint_sha256": "79e93871b9e211aeb1235566372c72fdf13814425f44c219e4ee66e86fb4c70e",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5180855720442397
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5198772185977534
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5180855720442397
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5198772185977534
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay100_s143/update_000050.pt",
+            "checkpoint_sha256": "40d5a79d39d850675ecf2275e54a18f21b481c429a8dabaf2a50989dd1a4269c",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5045347480995996
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5055702155603949
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5045347480995996
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5055702155603949
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "supervised_replay_weight": 1.0,
+      "local_before_ppo": {
+        "successful_choices": 32,
+        "predictions": 32,
+        "distinct_states": 16
+      },
+      "local_after_ppo": {
+        "successful_choices": 32,
+        "predictions": 32,
+        "distinct_states": 16
+      }
+    },
+    {
+      "id": "replay500",
+      "games": 144,
+      "wins": 40,
+      "draws": 0,
+      "mean_card_lane_plays": null,
+      "mean_own_tower_fraction_loss": {
+        "left": 0.6620396205357143,
+        "right": 0.5190216548859127,
+        "king": 0.09090508355034722
+      },
+      "mean_missed_fireballs": 2.125,
+      "mean_card_plays": {
+        "cannon": 8.215277777777779,
+        "electro_spirit": 8.520833333333334,
+        "fireball": 3.1597222222222223,
+        "hog_rider": 3.0625,
+        "knight": 6.986111111111111,
+        "musketeer": 3.361111111111111,
+        "skeletons": 8.972222222222221,
+        "zap": 8.569444444444445
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 2
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 10
+        },
+        "giant": {
+          "games": 24,
+          "wins": 12
+        },
+        "golem": {
+          "games": 24,
+          "wins": 3
+        },
+        "hog": {
+          "games": 24,
+          "wins": 9
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 4
+        }
+      },
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 142,
+          "selected_update": 100,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay500_s142_warmstart/policy.pt",
+            "checkpoint_sha256": "097142c2622ac51f0920972176220a9062afeb4a1cc09c5a2cb594b2f48a63e0",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5338998646558908
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5354458870638306
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5338998646558908
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5354458870638306
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay500_s142/update_000100.pt",
+            "checkpoint_sha256": "c935791709efaa65fdc3562dccdff6bced31e893ee230364abc13627db2d6eb1",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.28715843796223783
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.2892175293210606
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.28715843796223783
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.2892175293210606
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 143,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay500_s143_warmstart/policy.pt",
+            "checkpoint_sha256": "87c115ec4797e64844c921cbc4f882ec01a5e8025284b7d689d99d55362e4af6",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5272443864491194
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.5289309082351608
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5272443864491194
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5289309082351608
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/air_retention_pilot_20261027/collected/pilot_replay500_s143/update_000050.pt",
+            "checkpoint_sha256": "a0090ded7be5f676d4e8787a69d18b1c9c78d1de5e65941b48533387464b6477",
+            "data_sha256": "a0c0a3b51a8261a3dde0b98aa54d899847ee060b6cd42c3053197104b7565fde",
+            "heldout_seed": 300032,
+            "train": {
+              "examples": 32,
+              "successful_choices": 32,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.4333800554258751
+            },
+            "local_heldout": {
+              "examples": 16,
+              "successful_choices": 16,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.4357695783418709
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 32,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.4333800554258751
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 16,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.4357695783418709
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "supervised_replay_weight": 5.0,
+      "local_before_ppo": {
+        "successful_choices": 32,
+        "predictions": 32,
+        "distinct_states": 16
+      },
+      "local_after_ppo": {
+        "successful_choices": 32,
+        "predictions": 32,
+        "distinct_states": 16
+      }
+    }
+  ],
+  "parent": {
+    "games": 72,
+    "wins": 42,
+    "draws": 0,
+    "mean_card_lane_plays": null,
+    "mean_own_tower_fraction_loss": {
+      "left": 0.321746341765873,
+      "right": 0.36843145461309523,
+      "king": 0.012132432725694444
+    },
+    "mean_missed_fireballs": 0.6666666666666666,
+    "mean_card_plays": {
+      "cannon": 14.194444444444445,
+      "electro_spirit": 15.347222222222221,
+      "fireball": 0.8333333333333334,
+      "hog_rider": 1.6805555555555556,
+      "knight": 14.51388888888889,
+      "musketeer": 0.1527777777777778,
+      "skeletons": 15.38888888888889,
+      "zap": 15.51388888888889
+    },
+    "by_family": {
+      "air": {
+        "games": 12,
+        "wins": 0
+      },
+      "bridge": {
+        "games": 12,
+        "wins": 9
+      },
+      "giant": {
+        "games": 12,
+        "wins": 12
+      },
+      "golem": {
+        "games": 12,
+        "wins": 0
+      },
+      "hog": {
+        "games": 12,
+        "wins": 9
+      },
+      "swarm": {
+        "games": 12,
+        "wins": 12
+      }
+    }
+  },
+  "initial_reference": null,
+  "eligible_for_full": false,
+  "quality_accepted": false,
+  "scope": "72 distinct validation contexts replayed by two independently trained seeds; not144 independent contexts",
+  "test_used_for_selection": false
+}
