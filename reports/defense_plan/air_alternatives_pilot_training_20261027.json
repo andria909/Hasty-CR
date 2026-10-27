@@ -1,16 +1,32 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
-  "status": "submitted_pending_cuda_proof",
+  "status": "training_steps_observed",
   "progress_snapshot": {
     "kernel": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
+    "reconnect_attempt": 1,
+    "checked_host_ns": 1793103434775029000,
+    "trials": {
+      "pilot_joint_control_s162": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1114.590106205
+      },
+      "pilot_joint_bc800_s162": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1168.37223828
+      }
+    },
     "error_type": "ConnectionError",
-    "http_status": null,
-    "reconnect_attempt": 0,
-    "checked_host_ns": 1793102253517645000
+    "http_status": null
   },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
@@ -25,7 +41,7 @@
     "kernelId": 141159339
   },
   "frozen_bootstrap_sha256": "b3dde07bebdf23f714f3e7446a979ae53d5f9f5915f814b02b6d7035c0e88a0a",
-  "last_local_sync_ns": 1793102112417747000,
+  "last_local_sync_ns": 1793103312609240000,
   "runtime_start_evidence": [
     {
       "event": "INPUTS_VERIFIED",
@@ -39,5 +55,6 @@
       ]
     }
   ],
-  "actual_cuda_confirmed": true
+  "actual_cuda_confirmed": true,
+  "actual_training_steps_confirmed": true
 }

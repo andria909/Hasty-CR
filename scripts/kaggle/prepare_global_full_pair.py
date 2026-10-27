@@ -160,7 +160,7 @@ def prepare(prepared_roots, output, owner, pair_index=0):
     compile(code, 'train.py', 'exec'); (job/'train.py').write_text(code)
     (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug, title=slug,
         licenses=[dict(name='other')], isPrivate=True), indent=2)+'\n')
-    result=dict(kernel=kernel, children=children, config=config, submitted=False,
+    result=dict(kernel=kernel, children=children, config=config, submitted=False, pair_index=pair_index,
         bootstrap_sha256=sha(job/'train.py'), full_steps=8192000, pilot_steps_repeated=0,
         requires_exact_package_preflight=True, requires_dedicated_collector_and_verifier=True,
         quality_accepted=False)

@@ -29,7 +29,8 @@ def metric_boundaries(path,target_steps,policy_temperature=None,card_exploration
     return validations
 
 
-def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
+def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps,*,dataset=None,remote_output='/kaggle/working/continuous_focus'):
+    dataset=Path(dataset) if dataset is not None else root.parent/'dataset'
     row=json.loads((root/(run_id+'_summary.json')).read_text())
     boundary=json.loads((root/run_id/'training_result.json').read_text())
     config=json.loads((root/run_id/'config.json').read_text())
@@ -37,8 +38,8 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
     if trial.get('warmstart_updates',0):
         warm=root/(run_id+'_warmstart');w=json.loads((warm/'result.json').read_text())
         for name in('air_manifest.json','air_examples.npz'):
-            if sha(root.parent/'dataset'/name)!=c['pins'][name]:raise ValueError('Warmstart examples changed')
-        manifest=json.loads((root.parent/'dataset/air_manifest.json').read_text())
+            if sha(dataset/name)!=c['pins'][name]:raise ValueError('Warmstart examples changed')
+        manifest=json.loads((dataset/'air_manifest.json').read_text())
         groups=set(manifest['seeds']);heldout=max(groups)
         if(w.get('supervised_updates')!=trial['warmstart_updates']or w.get('environment_steps')!=0 or
                 not w.get('actual_cuda')or w.get('seed')!=seed or w.get('kl_weight')!=trial['warmstart_kl_weight']or
@@ -50,7 +51,7 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
         if(len(updates)!=trial['warmstart_updates']or any(r['update']!=i or
                 not all(math.isfinite(r[k])for k in('loss','imitation','kl'))for i,r in enumerate(updates,1))):
             raise ValueError('Warmstart optimizer updates incomplete')
-        expected_initial=dict(id=run_id+'_warmstart',file='/kaggle/working/continuous_focus/'+run_id+'_warmstart/policy.pt',sha256=sha(warm/'policy.pt'))
+        expected_initial=dict(id=run_id+'_warmstart',file=remote_output+'/'+run_id+'_warmstart/policy.pt',sha256=sha(warm/'policy.pt'))
         import torch
         wb=torch.load(warm/'policy.pt',map_location='cpu',weights_only=False)
         if wb['config'].get('supervised_warmstart')!=w or not all(torch.isfinite(t).all()for t in wb['state_dict'].values()):
@@ -86,7 +87,7 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
         raise ValueError('Supervised replay coefficient differs')
     if replay_weight:
         from sim.supervised_replay import SuccessfulActionReplay
-        prepared=root.parent/'dataset'
+        prepared=dataset
         import tempfile,shutil
         with tempfile.TemporaryDirectory()as temporary:
             data=Path(temporary)
