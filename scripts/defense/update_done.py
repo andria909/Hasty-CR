@@ -169,6 +169,8 @@ def render_live_feedback_studies(reports):
         lines += ['**Следующая проверка — задержка:** Хог начинает двигаться примерно через2,50с в игре против1,35с в симуляции. Запущены прогоны с задержками225/1350/2025мс; общий validation1350мс. [Разбор BC800](reports/reserve_bc800_live_review_20261027.md).','']
     if (reports/'fireball_label_latency_audit_20261027.json').exists():
         lines += ['**Разметка Fireball:** при1350мс работают603/810 старых хороших точек; при2025мс483/810. Отдельный датасет1350мс готов:207 неверных меток убраны; Парный GPU-опыт в очереди после текущего. [Аудит](reports/fireball_label_latency_audit_20261027.md).','']
+    if (reports/'air_label_latency_audit_20261027.json').exists():
+        lines += ['**Разметка защиты шара:** при1350мс работают168/336 старых позиций; все24 поздних состояния потеряли прежние ответы без урона. Нужен поиск других защит. [Аудит](reports/air_label_latency_audit_20261027.md).','']
     if (reports/'reflection_ensemble_bc800_train_20261027.json').exists():
         lines += ['**Зеркальное усреднение — отклонено:** TRAIN22/48 →18/48 побед; перекос по линиям меньше, игра хуже. [Разбор](reports/reflection_ensemble_bc800_train_20261027.md).','']
     lines+=render_global_full_training(reports)+[

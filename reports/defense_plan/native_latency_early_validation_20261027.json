@@ -1,7 +1,7 @@
 {
   "schema": "early-latency-validation-log-v1",
   "events_file": "tmp/kaggle/native_latency_pilot_20261027/live_stream/events.jsonl",
-  "events_sha256": "6c641a16107d4763639d1da96dbcb6b5ed12af894c0f623dc60ac7fd9d376fbd",
+  "events_sha256": "073785516fd2d94fa8001ebde30dd43243cdfbcdef86ca8a8b3cdf51b7f9a184",
   "trials": [
     {
       "remote_log_seconds": 1305.362015581,
@@ -16,13 +16,41 @@
       "trial_id": "pilot_delay1350_s192",
       "score": 0.35763888888888884,
       "family_guard": true
+    },
+    {
+      "remote_log_seconds": 2299.475986975,
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_delay0225_s193",
+      "score": 0.3055555555555556,
+      "family_guard": false
+    },
+    {
+      "remote_log_seconds": 2360.053340212,
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_delay1350_s193",
+      "score": 0.3819444444444444,
+      "family_guard": true
+    },
+    {
+      "remote_log_seconds": 3343.806837809,
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_delay2025_s192",
+      "score": 0.3333333333333333,
+      "family_guard": true
+    },
+    {
+      "remote_log_seconds": 3441.032331499,
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_delay1350_replay100_s192",
+      "score": 0.2569444444444445,
+      "family_guard": false
     }
   ],
   "weights_verified": false,
   "quality_accepted": false,
   "limitations": [
-    "Incomplete first-seed evidence only",
-    "Score is the validation selection criterion, not win rate",
-    "All variants validated at1350ms; not comparable with older225ms cohort"
+    "Incomplete study evidence from logs only",
+    "Score is validation selection criterion, not win-rate",
+    "Common1350ms validation; cannot pool with225ms studies"
   ]
 }
