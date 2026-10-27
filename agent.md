@@ -1,3 +1,6 @@
+## CURRENT fresh native Fireball dataset built and actual smoke passed
+Builderbuild_native_fireball_examples.py:12newcommonseeds3810004..3810079,1350ms,stablephysics,current+projectedboundedcandidates,paidcards.168/192clusteraccepted+48restraint=216. TRAIN198=154+44,heldout18=14+4,maxseed;exactinput+maskoverlap0.24unsolvedretained. DatasetSHAf50af190164ef4ab936051820beb70feb38c26ac00251cdc5e258486f8764685. CPU5updatesactualPASS,tmp/native_fireball_smoke_20261028;noqualityclaim/GPUyet. Nextpreparecontrolled4casepilot samebalanced1350,ordinaryvsTRAINslotaugvsKL,2seeds/preflight/availableaccount. Do not alterexisting sequence/pending/evaljobs. Reportnative_fireball_data_prepared/design20261028.
+
 ## CURRENT previous hand augmentation local holdout coverage audited
 Oldhand_slot_examples globalmaxseed6200907 retainsONLY12airalternativecases; Fireball42allTRAIN,zeroFireballholdout. Actualfullvalidationexists:control89/144,BC58/144,replay1=32/144,replay5=24/144;cluster.07->1.30/2.18/1.97butoverallworse. Reporthand_slot_holdout_coverage JSON. Summaryrender nowexplicitнетпримеров, removedfalseallskillsheldoutclaim; regeneratedonlyoldhandreport fromsavedsummary, metricsunchanged. NextFireballstudyrequiresheldoutforeachskill,correctlatency/stableslotsandwholegameguard;do notrepeatoldaugblindly.
 

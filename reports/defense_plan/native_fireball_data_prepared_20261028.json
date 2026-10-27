@@ -1,0 +1,81 @@
+{
+  "schema": "native-fireball-data-prepared-v1",
+  "data": "data/native_fireball_examples_20261028",
+  "data_sha256": "f50af190164ef4ab936051820beb70feb38c26ac00251cdc5e258486f8764685",
+  "examples": 216,
+  "train": 198,
+  "local_heldout": 18,
+  "exact_input_overlap": 0,
+  "accepted_cluster_fixtures": 168,
+  "searched_cluster_fixtures": 192,
+  "rejected_fixtures_preserved_in_manifest": 24,
+  "command_delay_ms": 1350,
+  "physics_pins": {
+    "sim/match.py": "65932ba8fb6aacd022b2adffa7ca411b7728ad172cad8196f55981c46fdd7f5c",
+    "sim/continuous_push.py": "341e4be7d2e44c4c43b7e250e46cd4c086709fff7eee651085f6ca4c2712d44a",
+    "sim/eval_defense_duel.py": "659def3089d3afcdce539b5145371caf7ea407003b11a5c36016b3498a6feb5c",
+    "sim/engine.py": "fa6da95053c68839954f9c7bccc8c5a832e3bc742dfce17bbf8e4863f28e205c",
+    "sim/entities.py": "1e5d85dd85b17ff51fa231316fce3334a43445a045551d4fc63514f3a48381b8",
+    "sim/spells.py": "1e81607c315e95da8f832247c88f3f02420e232d3fa711762aeb8a77c5596dad",
+    "sim/adapter.py": "3d12212efeb1583179382281729c7e2bd52daeaec94079e29265fde9bbf7f428"
+  },
+  "technical_smoke": {
+    "schema": "air-local-position-warmstart-v1",
+    "supervised_updates": 5,
+    "environment_steps": 0,
+    "seed": 222,
+    "actual_cuda": null,
+    "heldout_seed": 3810079,
+    "train_seeds": [
+      3810004,
+      3810011,
+      3810015,
+      3810017,
+      3810022,
+      3810026,
+      3810036,
+      3810039,
+      3810047,
+      3810054,
+      3810065
+    ],
+    "baseline": {
+      "train": {
+        "examples": 198,
+        "successful_greedy_fraction": 0.26767677068710327,
+        "mean_successful_probability": 0.24956552684307098,
+        "mean_log_successful_probability": -49.3527946472168
+      },
+      "local_heldout": {
+        "examples": 18,
+        "successful_greedy_fraction": 0.1111111119389534,
+        "mean_successful_probability": 0.05338776111602783,
+        "mean_log_successful_probability": -37.19922637939453
+      }
+    },
+    "final": {
+      "train": {
+        "examples": 198,
+        "successful_greedy_fraction": 0.27272728085517883,
+        "mean_successful_probability": 0.25164127349853516,
+        "mean_log_successful_probability": -43.28116989135742
+      },
+      "local_heldout": {
+        "examples": 18,
+        "successful_greedy_fraction": 0.1111111119389534,
+        "mean_successful_probability": 0.06642378866672516,
+        "mean_log_successful_probability": -30.09734344482422
+      }
+    },
+    "data_sha256": "f50af190164ef4ab936051820beb70feb38c26ac00251cdc5e258486f8764685",
+    "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+    "kl_weight": 0.1,
+    "source_sha256": "c5984d1654da369aeff04a6602ee029442386787465198760bba45f7b4dcd2bc",
+    "sequence_wait_fraction": null,
+    "sampling": "uniform_without_replacement",
+    "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+    "quality_accepted": false
+  },
+  "gpu_submitted": false,
+  "quality_accepted": false
+}
