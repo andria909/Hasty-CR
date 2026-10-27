@@ -1,0 +1,131 @@
+{
+  "schema": "pending-position-observability-audit-v1",
+  "physics_pins": {
+    "sim/match.py": "65932ba8fb6aacd022b2adffa7ca411b7728ad172cad8196f55981c46fdd7f5c",
+    "sim/continuous_push.py": "341e4be7d2e44c4c43b7e250e46cd4c086709fff7eee651085f6ca4c2712d44a",
+    "sim/eval_defense_duel.py": "659def3089d3afcdce539b5145371caf7ea407003b11a5c36016b3498a6feb5c",
+    "sim/engine.py": "fa6da95053c68839954f9c7bccc8c5a832e3bc742dfce17bbf8e4863f28e205c",
+    "sim/entities.py": "1e5d85dd85b17ff51fa231316fce3334a43445a045551d4fc63514f3a48381b8",
+    "sim/spells.py": "1e81607c315e95da8f832247c88f3f02420e232d3fa711762aeb8a77c5596dad",
+    "sim/adapter.py": "3d12212efeb1583179382281729c7e2bd52daeaec94079e29265fde9bbf7f428"
+  },
+  "source_sha256": "06f1c01124823a7f5614e4d5ee173a56eb48dcb9f835eaeea0690543205a632b",
+  "dataset": "data/late_air_stable_diverse_sequences_20261027",
+  "data_sha256": "7602b10af862e589c77ac49f8685fefcc70550656f0ef302a36dfed06de6051e",
+  "frames": 540,
+  "unique_inputs": 540,
+  "train_conflict_groups": [],
+  "cross_split_identical_inputs": 0,
+  "counterexample": {
+    "opening": {
+      "seed": 3800057,
+      "lane": "left",
+      "support": false,
+      "initial_own_elixir": 10.0,
+      "reaction_ms": 1500,
+      "decision_ms": 2000
+    },
+    "observed_ms": 2250,
+    "input_arrays_equal": {
+      "planes": true,
+      "scalars": true,
+      "mask": true
+    },
+    "outcomes": [
+      {
+        "pending_cell": [
+          1,
+          18
+        ],
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              3,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true
+      },
+      {
+        "pending_cell": [
+          8,
+          28
+        ],
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              8,
+              28
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              3,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": false
+      }
+    ]
+  },
+  "interpretation": "Pending target position is not identifiable from current observation and legal mask; same next command can have different consequences",
+  "limitations": [
+    "Not proof different optimal next actions are required",
+    "Not an estimate of frequency or live loss attribution",
+    "No input/model change and no quality promotion"
+  ]
+}

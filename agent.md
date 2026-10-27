@@ -1,3 +1,6 @@
+## CURRENT pending-position observation gap reproduced, no input changes
+Newaudit_pending_observation.py:540stableframes unique,0exactTRAINconflicts,0crosssplitidenticalinputs. Paidcounterexample seed3800057leftnoSupportbank10: queuedMusk[1,18]vs[8,28],at+250ms identical20planes309scalarsmask; sameSpirit[3,21]nextcommand leads0vs640towerdamage,bothlegal5elixir/clear. Positionofpendingowncommand missing; notproofdifferentoptimalnextactions/notlivecausalrate. Reportpending_observation_auditJSON/MD,newtestpasses. Futureseparatependingplanes/memoryablation aftercurrentstablepilot; nochangequeuedsource/data/inputcontract. Goalactive,currentGPU jobsunchanged.
+
 ## CURRENT portable asset test failures diagnosed; active32cardcoverage verified
 Newaudit_curriculum_assets.py/reportportable_curriculum_assets JSON/MD. tmp/gamedata/csv_logic absent; rawloaders fallback excludesLightning/forms; actualload_defense_assets merges supportedpublicspells. All32required own+6family+Hunter/Valkyrie/Barbarians cards available. ActualpaidLightningcast nativeanchor5s spends6,deals265==spec; Collector notcurriculum(public9000vslegacytest13000). Newtest passes; doNOTclaimliveparity/allmechanicscorrect; old9testsunchanged. Source+publicJSONhashesrecorded. No simchanges/frozenjobchanges. Queues42308stablewaiting/40485fullwaiting+Fireballobserversconfirmedlive. Goalactive.
 
