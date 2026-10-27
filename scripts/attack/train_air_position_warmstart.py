@@ -23,7 +23,7 @@ def successful_set_loss(logits,legal,success):
         torch.logsumexp(logits.masked_fill(~success,-torch.inf),-1)).mean()
 
 
-def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112):
+def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,sequence_wait_fraction=None):
     if updates<1 or not 0<=kl_weight<=10:raise ValueError('Invalid supervised training controls')
     if device.startswith('cuda')and not torch.cuda.is_available():raise RuntimeError('CUDA unavailable; no CPU fallback')
     if device=='cpu'and updates>5:raise ValueError('CPU limited to five preflight updates')
@@ -41,6 +41,10 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112)
     if set(groups)!=set(range(len(planes)))or len(set(groups.values()))<3:raise ValueError('At least three complete seed groups required')
     heldout_seed=max(groups.values())
     train_ids=torch.tensor([i for i in groups if groups[i]!=heldout_seed],device=device)
+    sampling=None
+    if sequence_wait_fraction is not None:
+        from scripts.attack.sequence_sampling import sequence_probabilities
+        sampling=torch.as_tensor(sequence_probabilities(manifest['records'],train_ids.cpu().tolist(),sequence_wait_fraction),device=device,dtype=torch.float64)
     heldout_ids=torch.tensor([i for i in groups if groups[i]==heldout_seed],device=device)
     blob=torch.load(initial,map_location='cpu',weights_only=False)
     net,architecture,_=initialize_attack_policy(blob,device=device,num_scalars=309,observation_contract=CONTRACT)
@@ -58,7 +62,7 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112)
     baseline=dict(train=measure(train_ids),local_heldout=measure(heldout_ids))
     optimizer=torch.optim.Adam(net.parameters(),lr=5e-5);history=[]
     for update in range(1,updates+1):
-        ids=train_ids[torch.randperm(len(train_ids),device=device)[:32]]
+        ids=train_ids[torch.randperm(len(train_ids),device=device)[:32]] if sampling is None else train_ids[torch.multinomial(sampling,32,replacement=True)]
         logits,value=net(planes[ids],scalars[ids]);imitate=successful_set_loss(logits,masks[ids],success[ids])
         logp=logits.masked_fill(~masks[ids],-torch.inf).log_softmax(-1).masked_fill(~masks[ids],0)
         kl=(reference_probs[ids]*(reference_logp[ids]-logp)).sum(-1).mean()
@@ -75,6 +79,8 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112)
         final=dict(train=measure(train_ids),local_heldout=measure(heldout_ids)),data_sha256=digest,
         initial_sha256=hashlib.sha256(Path(initial).read_bytes()).hexdigest(),kl_weight=kl_weight,
         source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        sequence_wait_fraction=sequence_wait_fraction,
+        sampling='uniform_without_replacement' if sampling is None else 'equal_sequence_mass_bounded_wait_with_replacement',
         scope='Local action labels, not full-game validation/test; checkpoint for PPO initialization only',quality_accepted=False)
     config=dict(blob.get('config',{}));config.update(architecture=architecture,observation_contract=CONTRACT,num_scalars=309,num_planes=20,
         supervised_warmstart=result)
@@ -86,4 +92,5 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112)
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--data',required=True);p.add_argument('--init',required=True);p.add_argument('--output',required=True)
     p.add_argument('--device',default='cuda:0');p.add_argument('--updates',type=int,default=200);p.add_argument('--kl-weight',type=float,default=.1);p.add_argument('--seed',type=int,default=112)
-    a=p.parse_args();print(json.dumps(train(a.data,a.init,a.output,a.device,a.updates,a.kl_weight,a.seed)))
+    p.add_argument('--sequence-wait-fraction',type=float)
+    a=p.parse_args();print(json.dumps(train(a.data,a.init,a.output,a.device,a.updates,a.kl_weight,a.seed,a.sequence_wait_fraction)))
