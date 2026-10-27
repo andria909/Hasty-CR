@@ -146,7 +146,7 @@ def render_global_full_training(reports):
                 type(step)is int and target==4096000 and 0<=step<=target else '—')
             status=('бюджет проверен'if complete else 'ошибка; проверяется'if
                 state.get('status')=='remote_terminal_error_requires_inspection'else 'обучение')
-            rows.append(f"| {child['id']} | {progress} | {status} |")
+            rows.append(f"| {child.get('label',child['id'])} | {progress} | {status} |")
     if not rows:return []
     return ['**Большие PPO: по4096000 шагов на модель.**','',
         '| Модель | Выполнено | Состояние |','|---|---:|---|',*rows,'',
@@ -189,6 +189,10 @@ def render_live_feedback_studies(reports):
         proof=reports/f'{stem}_verified_20261027.json'
         complete=proof.exists()and json.loads(proof.read_text()).get('pilot_steps_verified')==819200
         verified+=int(complete)*8
+        if complete:
+            lines.append(f'| {label} | Все4 профиля · 8 моделей проверены | 100% / 100% |')
+            links.append(f'[{label}](reports/defense_plan/{stem}_training_20261027.json)')
+            continue
         for name,description in cases:
             keys=[f'pilot_{name}_s{seed}'for seed in seeds]
             value=('100% / 100%'if complete else ' / '.join(
@@ -200,7 +204,12 @@ def render_live_feedback_studies(reports):
     selection_pointer=reports/'current_global_pilot_selection_20261027.json'
     if selection_pointer.exists():
         selection=json.loads(selection_pointer.read_text())
-        lines+=['',f"**Глобальный отбор:** проверено{selection['verified_models']} моделей; подходящих профилей{selection['eligible_profiles']}; выбрано{selection['selected_profiles']} для подготовки большого обучения. Большие обучения автоматически не запускались."]
+        full_count=0
+        for full_path in reports.glob('global_full_pair[01]_training_20261027.json'):
+            try:full_state=json.loads(full_path.read_text())
+            except(ValueError,OSError):continue
+            if full_state.get('launch_receipt'):full_count+=len(full_state.get('children',[]))
+        lines+=['',f"**Глобальный отбор:** проверено{selection['verified_models']} моделей; подходящих профилей{selection['eligible_profiles']}; больших обучений отправлено{full_count}."]
     early_path=reports/'early_continuous_validation_20261027.json'
     if early_path.exists()and not(reports/'air_reserve_pilot_verified_20261027.json').exists():
         early=json.loads(early_path.read_text())
@@ -216,7 +225,7 @@ def render_live_feedback_studies(reports):
         '**Прицел Fireball,48 локальных упражнений:** balanced20/48 попаданий по≥3юнитам,10пустых; strong35/48и4пустых. Это условная проверка прицела, не винрейт. [Разбор](reports/fireball_cluster_baselines_20261027.md).','',
         '**Реальное использование карт:** Fireball1,44 / Hog1,11 / мушкетёр1,22 подтверждённых применения за матч; пушка7,22. [Все карты и линии](reports/balanced_live_card_usage_20261027.md).','',
         '**Вход native исправлен:** точные профили GoblinBrawler и guarded Goblin_Stab теперь дают тактические признаки. Скорости по новым записям близки к симуляции. [Проверка](reports/balanced_native_parity_20261027.md).','',
-        '**Далее:** проверить полные бюджеты и validation всех архетипов → выбрать2–4 прошедших профиля → большие обучения → независимый турнир и метрики. v25 и исходные веса сохранены; новые live-бои не запускаются.']
+        '**Далее:** проверить полные бюджеты и validation всех архетипов → выбрать2–4 прошедших профиля → большие обучения → [независимые тесты и турнир](reports/full_candidate_evaluation_design_20261027.md). v25 и исходные веса сохранены; новые live-бои не запускаются.']
     return '\n'.join(lines)+'\n'
 
 

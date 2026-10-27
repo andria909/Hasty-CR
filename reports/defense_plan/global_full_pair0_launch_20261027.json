@@ -1,0 +1,112 @@
+{
+  "schema": "global-full-pair-launch-evidence-v1",
+  "kernel": "andriashadrin/hastycr-global-full-7f1ef480-0",
+  "launch_receipt": {
+    "ref": "/code/andriashadrin/hastycr-global-full-7f1ef480-0",
+    "url": "https://www.kaggle.com/code/andriashadrin/hastycr-global-full-7f1ef480-0",
+    "versionNumber": 1,
+    "kernelId": 141170387
+  },
+  "root": "tmp/kaggle/global_full_pair0_20261027",
+  "targets": [
+    {
+      "label": "\u041d\u0430\u043a\u043e\u043f\u043b\u0435\u043d\u0438\u0435 \u00b7 BC800",
+      "id": "global0_full_joint_bc800_s64",
+      "target_steps": 4096000,
+      "trial": {
+        "id": "joint_bc800",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      }
+    },
+    {
+      "label": "\u041d\u0430\u043a\u043e\u043f\u043b\u0435\u043d\u0438\u0435 \u00b7 BC800 + \u043f\u043e\u0432\u0442\u043e\u0440\u0435\u043d\u0438\u04351",
+      "id": "global1_full_joint_replay100_s64",
+      "target_steps": 4096000,
+      "trial": {
+        "id": "joint_replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      }
+    }
+  ],
+  "total_target_steps": 8192000,
+  "selected_from": "reports/defense_plan/global_pilot_pool_auto_cohorts_5_20261027.json",
+  "pilot_proof_sha256": "37a7c967d6061b55c6f50cb56faf5cee99a249630291b71dc52218293311b9f6",
+  "preparation_sha256": "a2746b0eba47eb29bd22e94e4ba9e30e4a8d1959b5eacb487293d59e43b8f31c",
+  "bootstrap_sha256": "bc3bca2e9a2d1b3f1c0ea5444f40c2c22768e4fffdfb0c2556211e6007d3dbb8",
+  "preflight_summary": {
+    "frozen_sources_verified": true,
+    "exact_resume_16_to_32": true,
+    "validation_games": 24
+  },
+  "actual_cuda_confirmed": true,
+  "progress_snapshot": {
+    "kernel": "andriashadrin/hastycr-global-full-7f1ef480-0",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "trials": {
+      "global0_full_joint_bc800_s64": {
+        "update": 51,
+        "steps": 52224,
+        "target_steps": 4096000,
+        "percent": 1.275,
+        "remote_log_seconds": 236.713688682
+      },
+      "global1_full_joint_replay100_s64": {
+        "update": 51,
+        "steps": 52224,
+        "target_steps": 4096000,
+        "percent": 1.275,
+        "remote_log_seconds": 236.927251736
+      }
+    },
+    "checked_host_ns": 1793107659360871000,
+    "error_type": "SSLError",
+    "http_status": null,
+    "reconnect_attempt": 0
+  },
+  "monitoring": {
+    "kernel": "andriashadrin/hastycr-global-full-7f1ef480-0",
+    "pids": {
+      "stream": 5696,
+      "collector": 5697,
+      "postprocess": 5698
+    },
+    "poll_seconds": 1200
+  },
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false
+}

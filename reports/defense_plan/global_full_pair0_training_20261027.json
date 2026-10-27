@@ -1,0 +1,126 @@
+{
+  "schema": "global-full-training-status-v1",
+  "kernel": "andriashadrin/hastycr-global-full-7f1ef480-0",
+  "root": "tmp/kaggle/global_full_pair0_20261027",
+  "status": "full_training_steps_observed",
+  "launch_receipt": {
+    "ref": "/code/andriashadrin/hastycr-global-full-7f1ef480-0",
+    "url": "https://www.kaggle.com/code/andriashadrin/hastycr-global-full-7f1ef480-0",
+    "versionNumber": 1,
+    "kernelId": 141170387
+  },
+  "target_steps": 8192000,
+  "children": [
+    {
+      "id": "global0_full_joint_bc800_s64",
+      "trial": {
+        "id": "joint_bc800",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "origin": "andriashadrin/hastycr-air-reserve-pilot-20261027",
+      "target_steps": 4096000,
+      "label": "\u041d\u0430\u043a\u043e\u043f\u043b\u0435\u043d\u0438\u0435 \u00b7 BC800"
+    },
+    {
+      "id": "global1_full_joint_replay100_s64",
+      "trial": {
+        "id": "joint_replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "origin": "andriashadrin/hastycr-air-reserve-pilot-20261027",
+      "target_steps": 4096000,
+      "label": "\u041d\u0430\u043a\u043e\u043f\u043b\u0435\u043d\u0438\u0435 \u00b7 BC800 + \u043f\u043e\u0432\u0442\u043e\u0440\u0435\u043d\u0438\u04351"
+    }
+  ],
+  "progress_snapshot": {
+    "kernel": "andriashadrin/hastycr-global-full-7f1ef480-0",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "trials": {
+      "global0_full_joint_bc800_s64": {
+        "update": 51,
+        "steps": 52224,
+        "target_steps": 4096000,
+        "percent": 1.275,
+        "remote_log_seconds": 236.713688682
+      },
+      "global1_full_joint_replay100_s64": {
+        "update": 51,
+        "steps": 52224,
+        "target_steps": 4096000,
+        "percent": 1.275,
+        "remote_log_seconds": 236.927251736
+      }
+    },
+    "checked_host_ns": 1793107659360871000,
+    "error_type": "SSLError",
+    "http_status": null,
+    "reconnect_attempt": 0
+  },
+  "quality_accepted": false,
+  "live_checkpoint_changed": false,
+  "last_local_sync_ns": 1793107472030506000,
+  "actual_training_steps_confirmed": true,
+  "runtime_start_evidence": [
+    {
+      "event": "INPUTS_VERIFIED",
+      "protocol_sha256": "5c2e333a5e100c8847f2aa109c171456f65e4f0262e2d66a84966c0fb5516aa2",
+      "global_child": 1
+    },
+    {
+      "event": "INPUTS_VERIFIED",
+      "protocol_sha256": "5c2e333a5e100c8847f2aa109c171456f65e4f0262e2d66a84966c0fb5516aa2",
+      "global_child": 0
+    },
+    {
+      "event": "CUDA_READY",
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "global_child": 1
+    },
+    {
+      "event": "CUDA_READY",
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "global_child": 0
+    }
+  ],
+  "actual_cuda_confirmed": true
+}
