@@ -44,7 +44,10 @@ def build_attack_network(architecture=COMPACT_ARCHITECTURE,device='cpu',*,num_sc
 def load_attack_state(network,blob,*,exact=False,observation_contract=OBSERVATION_CONTRACT):
     incoming=blob['state_dict']['scalar.0.weight'].shape[1]
     target=network.state_dict()['scalar.0.weight'].shape[1]
-    if incoming not in (NUM_SCALARS,NUM_SCALARS+2,target) or incoming>target or (exact and incoming!=target):
+    pending_transfer=(not exact and incoming==309 and target==313
+        and observation_contract=='joint_public_presence_continuous_slots_pending_v1'
+        and blob.get('config',{}).get('observation_contract')=='joint_public_presence_continuous_slots_v2')
+    if (incoming not in (NUM_SCALARS,NUM_SCALARS+2,target) and not pending_transfer) or incoming>target or (exact and incoming!=target):
         raise ValueError('Unsupported attack scalar input shape')
     if exact and blob.get('config',{}).get('observation_contract')!=observation_contract:
         raise ValueError('Attack observation contract missing/mismatched')
@@ -90,7 +93,9 @@ def make_attack_env(*,split='train',seed=0,deadline_scale=1.,**options):
     return env
 
 
-def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',validation_selection='overall',continuous_focus='uniform',history_frames=1,**options):
+def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',validation_selection='overall',continuous_focus='uniform',history_frames=1,pending_inputs=False,**options):
+    if pending_inputs and (history_frames!=1 or curriculum!='continuous_v1' or task_mode!='joint'):
+        raise ValueError('Pending inputs require single-frame continuous joint policy')
     if history_frames not in (1,2)or(history_frames!=1 and curriculum!='continuous_v1'):
         raise ValueError('History2 requires continuous curriculum')
     if validation_selection not in ('overall','worst_family'):raise ValueError('Unknown validation selection')
@@ -98,7 +103,10 @@ def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='class
     if curriculum=='continuous_v1':
         if task_mode!='joint':raise ValueError('Continuous curriculum requires joint policy')
         from sim.continuous_push import ContinuousPushEnv
-        if history_frames==2:
+        if pending_inputs:
+            from sim.continuous_pending import PendingContinuousPushEnv
+            env=PendingContinuousPushEnv(split=split,seed=seed,**options)
+        elif history_frames==2:
             from sim.continuous_history import HistoryContinuousPushEnv
             env=HistoryContinuousPushEnv(split=split,seed=seed,**options)
         else:env=ContinuousPushEnv(split=split,seed=seed,**options)
@@ -125,7 +133,12 @@ def training_sampler(env,seed=42,initial_hand_mode='shuffle',task_mode='joint'):
     return StrategyScenarioCycle(env.scenarios,seed=seed,initial_hand_mode=initial_hand_mode)
 
 
-def observation_contract(task_mode,curriculum='classic',history_frames=1):
+def observation_contract(task_mode,curriculum='classic',history_frames=1,pending_inputs=False):
+    if pending_inputs:
+        if task_mode!='joint' or curriculum!='continuous_v1' or history_frames!=1:
+            raise ValueError('Unsupported pending input contract')
+        from sim.pending_inputs import CONTRACT
+        return CONTRACT
     if history_frames==2:
         if curriculum!='continuous_v1':raise ValueError('History2 requires continuous curriculum')
         from sim.public_frame_history import CONTRACT
@@ -245,7 +258,7 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
     return result
 
 
-def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.,history_frames=1):
+def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.,history_frames=1,pending_inputs=False):
     root=Path(__file__).resolve().parents[1]
     names=('sim/attack_env.py','sim/attack_scenarios.py','sim/attack_sampler.py',
            'sim/train_attack_ppo.py','sim/engine.py','sim/pathfind.py','sim/match.py','sim/env.py',
@@ -257,6 +270,7 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
         'sim/projectile_calibration.py','sim/kite_geometry.py','sim/opponents.py','sim/eval_defense_duel.py','sim/continuous_validation.py','sim/continuous_sampling.py')
     if curriculum=='continuous_v1':names+=('sim/board_potential.py','sim/tactical_rewards.py','sim/lane_reflection.py','sim/card_exploration.py')
     if card_balance_weight:names+=('sim/card_balance.py',)
+    if pending_inputs:names+=('sim/pending_inputs.py','sim/continuous_pending.py')
     if history_frames==2:names+=('sim/public_frame_history.py','sim/continuous_history.py')
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
                                      for name in names},sort_keys=True).encode()).hexdigest()
@@ -326,6 +340,9 @@ def train(args):
         'visible_fraction','initial_hand_mode','geometry','coordinate_mode')}
     curriculum=getattr(args,'curriculum','classic')
     history_frames=getattr(args,'history_frames',1)
+    pending_inputs=getattr(args,'pending_inputs',False)
+    if pending_inputs and (curriculum!='continuous_v1' or history_frames!=1 or replay_weight):
+        raise ValueError('Pending input prototype requires continuous history1 and no legacy replay')
     if history_frames!=1 and curriculum!='continuous_v1':raise ValueError('History2 requires continuous curriculum')
     if curriculum!='classic':options['curriculum']=curriculum
     if curriculum=='continuous_v1':
@@ -339,6 +356,7 @@ def train(args):
         options['validation_selection']=getattr(args,'validation_selection','overall')
         options['continuous_focus']=getattr(args,'continuous_focus','uniform')
         options['history_frames']=history_frames
+        options['pending_inputs']=pending_inputs
     reward_profile,reward_sha=load_reward_profile(getattr(args,'reward_profile',None))
     defense_rewards,attack_rewards=reward_objects(reward_profile)
     if args.task_mode=='joint':options.update(defense_rewards=defense_rewards,attack_rewards=attack_rewards)
@@ -348,12 +366,12 @@ def train(args):
     sampler=training_sampler(envs[0],seed=args.seed,initial_hand_mode=args.initial_hand_mode,task_mode=args.task_mode)
     observations,infos=map(list,zip(*[env.reset(**sampler.next())for env in envs]))
     num_scalars=len(observations[0]['scalars'])
-    expected_scalars=NUM_SCALARS+(3 if args.task_mode=='joint'else 2)
+    expected_scalars=NUM_SCALARS+(3 if args.task_mode=='joint'else 2)+(4 if pending_inputs else 0)
     if num_scalars!=expected_scalars or any(len(obs['scalars'])!=num_scalars for obs in observations):
         raise ValueError('Attack timer feature dimension mismatch')
     blob=torch.load(args.resume or args.init,map_location='cpu',weights_only=False)if args.resume or args.init else None
     architecture=checkpoint_architecture(blob)if blob else args.architecture
-    contract=observation_contract(args.task_mode,curriculum,history_frames)
+    contract=observation_contract(args.task_mode,curriculum,history_frames,pending_inputs)
     num_planes=observations[0]['planes'].shape[0]
     network=build_attack_network(architecture,device,num_scalars=num_scalars,num_planes=num_planes)
     initialization=load_attack_state(network,blob,exact=bool(args.resume),observation_contract=contract)if blob else {'fresh_initialization':True}
@@ -364,7 +382,7 @@ def train(args):
         replay=SuccessfulActionReplay(replay_data,device)
     config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,num_planes=num_planes,history_frames=history_frames,policy_temperature=temperature,
         reward_profile=reward_profile,reward_profile_sha256=reward_sha,
-        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames),
+        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames,pending_inputs),
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
         initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
             hashlib.sha256(Path(args.init).read_bytes()).hexdigest()if args.init else None))
@@ -522,6 +540,7 @@ def parser():
     p.add_argument('--task-mode',choices=('joint','attack'),default='joint')
     p.add_argument('--curriculum',choices=('classic','tactical_v1','continuous_v1'),default='classic')
     p.add_argument('--continuous-profile',help='Explicit full-game auxiliary reward and timing JSON')
+    p.add_argument('--pending-inputs',action='store_true',help='Opt-in own queued-command position/time inputs')
     p.add_argument('--history-frames',type=int,choices=(1,2),default=1)
     p.add_argument('--value-warmup-steps',type=int,default=0)
     p.add_argument('--target-kl',type=float,default=0.)
