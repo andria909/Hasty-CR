@@ -1,16 +1,32 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-native-latency-pilot-20261027",
-  "status": "submitted_pending_cuda_proof",
+  "status": "training_steps_observed",
   "progress_snapshot": {
     "kernel": "vertel0/hastycr-native-latency-pilot-20261027",
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
-    "error_type": "HTTPError",
-    "http_status": 500,
-    "reconnect_attempt": 0,
-    "checked_host_ns": 1793116100416596000
+    "reconnect_attempt": 1,
+    "checked_host_ns": 1793117427091511000,
+    "trials": {
+      "pilot_delay0225_s192": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1009.250103626
+      },
+      "pilot_delay1350_s192": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1028.80572664
+      }
+    },
+    "error_type": "SSLError",
+    "http_status": null
   },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
@@ -25,5 +41,21 @@
     "kernelId": 141195544
   },
   "frozen_bootstrap_sha256": "348ded37ada6b1721a246772ea1273e6e712979ee00e30533f085083cb85e623",
-  "last_local_sync_ns": 1793117239574595000
+  "last_local_sync_ns": 1793117576669227000,
+  "runtime_start_evidence": [
+    {
+      "remote_log_seconds": 34.054793283,
+      "event": "INPUTS_VERIFIED",
+      "protocol_sha256": "fbb710472fc2c5ae98058acc6ba27b5b1d85f16e17a3a78b3d68d47606a44528"
+    },
+    {
+      "remote_log_seconds": 34.079332407,
+      "event": "CUDA_READY",
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ]
+    }
+  ],
+  "actual_training_steps_confirmed": true
 }
