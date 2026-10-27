@@ -42,10 +42,15 @@ def test_complete_synthetic_manifest_verified_not_real_quality(tmp_path):
     protocol, blueprint, jobs = setup(tmp_path)
     path = tmp_path / 'protocol.json'; path.write_text(json.dumps(protocol))
     output = tmp_path / 'output'; output.mkdir()
+    from scripts.attack.full_evaluation_recovery import identity, commit_part
+    (output / 'source_manifest.json').write_text('{}')
+    source_digest = sha(output / 'source_manifest.json')
+    run_identity = identity(path, source_digest, jobs)
+    (output / 'run_identity.json').write_text(json.dumps(run_identity))
     for job in jobs:
-        (output / job['file']).write_text(json.dumps(part(job, protocol, blueprint)))
+        commit_part(output, job, part(job, protocol, blueprint), run_identity)
     result = dict(schema='full-candidate-independent-evaluation-v1', status='complete', protocol_sha256=sha(path),
-                  blueprint_sha256=protocol['blueprint_sha256'], models=protocol['models'], total_games=4200,
+                  source_manifest_sha256=source_digest, blueprint_sha256=protocol['blueprint_sha256'], models=protocol['models'], total_games=4200,
                   files={j['file']: sha(output / j['file']) for j in jobs},
                   test_used_for_selection=False, quality_accepted=False, live_checkpoint_changed=False)
     (output / 'result.json').write_text(json.dumps(result))

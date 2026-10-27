@@ -92,12 +92,18 @@ def seed_interval(rows, *, replicates=10000, seed=270010):
                 games=len(rows), independent_seed_blocks=len(values), bootstrap_replicates=replicates)
 
 
-def verify(protocol_path, weights, output):
+def verify(protocol_path, weights, output, *, expected_source_sha256=None):
     protocol_path, output = Path(protocol_path), Path(output)
     protocol = json.loads(protocol_path.read_text())
     blueprint = validate_protocol(protocol, weights)
     jobs = schedule(protocol, blueprint)
+    from scripts.attack.full_evaluation_recovery import identity
+    source_digest = sha(output / 'source_manifest.json')
+    if expected_source_sha256 is not None:
+        require(source_digest == expected_source_sha256, 'Submitted evaluation source differs')
+    require(json.loads((output / 'run_identity.json').read_text()) == identity(protocol_path, source_digest, jobs), 'Run identity differs')
     result = json.loads((output / 'result.json').read_text())
+    require(result['source_manifest_sha256'] == source_digest, 'Result source differs')
     require(result['schema'] == 'full-candidate-independent-evaluation-v1' and result['status'] == 'complete', 'Complete evaluation required')
     require(result['protocol_sha256'] == sha(protocol_path) and result['blueprint_sha256'] == protocol['blueprint_sha256'] and result['models'] == protocol['models'], 'Evaluation provenance differs')
     require(all(result[k] is False for k in ('test_used_for_selection', 'quality_accepted', 'live_checkpoint_changed')), 'Unexpected selection or promotion')
@@ -107,6 +113,8 @@ def verify(protocol_path, weights, output):
     for job in jobs:
         path = output / job['file']
         require(sha(path) == result['files'][job['file']], 'Part digest differs')
+        receipt = json.loads((output / (job['file'] + '.receipt.json')).read_text())
+        require(receipt == dict(schema='full-evaluation-part-receipt-v1', file=job['file'], sha256=result['files'][job['file']], games=job['games'], protocol_sha256=sha(protocol_path), source_manifest_sha256=source_digest), 'Part receipt differs')
         part = json.loads(path.read_text())
         rows = validate_part(part, job, protocol, blueprint)
         total += len(rows)
@@ -118,7 +126,7 @@ def verify(protocol_path, weights, output):
                               by_seat={str(s): dict(Counter(r['outcome'] for r in rows if r['candidate_side'] == s)) for s in (1, -1)}))
     require(total == result['total_games'] == sum(j['games'] for j in jobs), 'Total budget differs')
     return dict(schema='verified-full-candidate-evaluation-v1', result_sha256=sha(output / 'result.json'),
-                total_games_verified=total, tests=tests, duels=duels, quality_accepted=False,
+                source_manifest_sha256=source_digest, total_games_verified=total, tests=tests, duels=duels, quality_accepted=False,
                 limitations=['Simulator results are not live win rates', 'Test sets reported separately', 'Intervals resample whole seed blocks; no multiple-comparison correction'])
 
 

@@ -16,6 +16,7 @@ EVALUATORS = (
     'scripts/attack/evaluate_continuous_pool.py',
     'scripts/attack/evaluate_full_candidates.py',
     'scripts/attack/verify_full_candidate_evaluation.py',
+    'scripts/attack/full_evaluation_recovery.py',
 )
 
 

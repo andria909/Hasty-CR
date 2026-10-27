@@ -119,23 +119,33 @@ def summarize_test(rows):
         mean_cluster_fireballs=mean('cluster_fireballs'),mean_rejected_commands=mean('illegal_actions'))
 
 
-def evaluate(protocol_path,weights,output):
+def evaluate(protocol_path,weights,output,source_manifest,*,resume=None):
     protocol_path,weights,output=Path(protocol_path),Path(weights),Path(output)
     protocol=json.loads(protocol_path.read_text());blueprint=validate_protocol(protocol,weights)
     jobs=schedule(protocol,blueprint)
+    from scripts.attack.full_evaluation_recovery import source_identity,identity,write_json,restore_parts,commit_part
+    source_digest=source_identity(source_manifest,Path(__file__).resolve().parents[2])
+    run_identity=identity(protocol_path,source_digest,jobs)
     if not torch.cuda.is_available()or torch.cuda.device_count()<2:raise RuntimeError('Two CUDA devices required; no CPU fallback')
     output.mkdir(parents=True,exist_ok=False);torch.set_num_threads(1)
+    restored=restore_parts(resume,output,run_identity,protocol,blueprint)if resume else{}
+    write_json(output/'run_identity.json',run_identity)
+    with(output/'source_manifest.json').open('xb')as stream:stream.write(Path(source_manifest).read_bytes())
     models={m['id']:m for m in protocol['models']};tests={t['id']:t for t in blueprint['test_sets']}
     schedules=[[],[]];loads=[0,0]
     for job in sorted(jobs,key=lambda j:-j['games']):
+        if job['file']in restored:continue
         index=min(range(2),key=lambda i:loads[i]);schedules[index].append(job);loads[index]+=job['games']
-    lock=threading.Lock();completed=0;total=sum(loads)
+    reused=sum(len(r['rows'])for r in restored.values())
+    lock=threading.Lock();completed=reused;total=sum(j['games']for j in jobs)
+    print(json.dumps(dict(event='RECOVERY_VERIFIED',reused_games=reused,total=total)),flush=True)
     def finished_game():
         nonlocal completed
         with lock:
             completed+=1
             print(json.dumps(dict(event='heldout_game_progress',completed=completed,total=total)),flush=True)
     def worker(index):
+        if not schedules[index]:return
         device=f'cuda:{index}';nets={name:load(entry,weights,device)for name,entry in models.items()}
         cards,spells,*_=load_defense_assets();cards.update(resolve_deck(cards,list(DECK_26)))
         for job in schedules[index]:
@@ -157,7 +167,9 @@ def evaluate(protocol_path,weights,output):
                         rows.append(row);finished_game()
                 report=dict(kind='duel',pair=job['pair'],games=len(rows),counts=dict(Counter(r['outcome']for r in rows)),rows=rows)
             if len(rows)!=job['games']:raise ValueError('Incomplete scheduled evaluation part')
-            with(output/job['file']).open('x')as stream:json.dump(report,stream,indent=2);stream.write('\n')
+            from scripts.attack.verify_full_candidate_evaluation import validate_part
+            validate_part(report,job,protocol,blueprint)
+            commit_part(output,job,report,run_identity)
     print(json.dumps(dict(event='CUDA_READY',gpus=[torch.cuda.get_device_name(i)for i in(0,1)])),flush=True)
     with ThreadPoolExecutor(2)as pool:
         futures=[pool.submit(worker,i)for i in(0,1)]
@@ -165,7 +177,7 @@ def evaluate(protocol_path,weights,output):
     if completed!=total:raise ValueError('Evaluation game budget missing')
     result=dict(schema='full-candidate-independent-evaluation-v1',status='complete',
         protocol_sha256=sha(protocol_path),blueprint_sha256=protocol['blueprint_sha256'],models=list(models.values()),
-        total_games=total,files={j['file']:sha(output/j['file'])for j in jobs},
+        total_games=total,reused_games=reused,source_manifest_sha256=source_digest,files={j['file']:sha(output/j['file'])for j in jobs},
         test_used_for_selection=False,quality_accepted=False,live_checkpoint_changed=False)
     with(output/'result.json').open('x')as stream:json.dump(result,stream,indent=2);stream.write('\n')
     return result
@@ -174,4 +186,5 @@ def evaluate(protocol_path,weights,output):
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--protocol',required=True)
     parser.add_argument('--weights',required=True);parser.add_argument('--output',required=True)
-    args=parser.parse_args();evaluate(args.protocol,args.weights,args.output)
+    parser.add_argument('--source-manifest',required=True);parser.add_argument('--resume')
+    args=parser.parse_args();evaluate(args.protocol,args.weights,args.output,args.source_manifest,resume=args.resume)
