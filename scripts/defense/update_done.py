@@ -168,7 +168,7 @@ def render_live_feedback_studies(reports):
     if (reports/'reserve_bc800_live_audit_20261027.json').exists():
         lines += ['**Следующая проверка — задержка:** Хог начинает двигаться примерно через2,50с в игре против1,35с в симуляции. Запущены прогоны с задержками225/1350/2025мс; общий validation1350мс. [Разбор BC800](reports/reserve_bc800_live_review_20261027.md).','']
     if (reports/'fireball_label_latency_audit_20261027.json').exists():
-        lines += ['**Разметка Fireball:** при1350мс работают603/810 старых хороших точек; при2025мс483/810. Отдельный датасет1350мс готов:207 неверных меток убраны; GPU-опыт ещё не запущен. [Аудит](reports/fireball_label_latency_audit_20261027.md).','']
+        lines += ['**Разметка Fireball:** при1350мс работают603/810 старых хороших точек; при2025мс483/810. Отдельный датасет1350мс готов:207 неверных меток убраны; Парный GPU-опыт в очереди после текущего. [Аудит](reports/fireball_label_latency_audit_20261027.md).','']
     if (reports/'reflection_ensemble_bc800_train_20261027.json').exists():
         lines += ['**Зеркальное усреднение — отклонено:** TRAIN22/48 →18/48 побед; перекос по линиям меньше, игра хуже. [Разбор](reports/reflection_ensemble_bc800_train_20261027.md).','']
     lines+=render_global_full_training(reports)+[
@@ -195,6 +195,9 @@ def render_live_feedback_studies(reports):
         [('joint_control','Без примеров'),('joint_bc800','800 обновлений по примерам'),
          ('joint_replay100','Примеры + повторение 1'),('joint_replay500','Примеры + повторение 5')]),
         ('native_latency_pilot','Задержка по реальной игре',(192,193),
+        [('delay0225','225мс · контроль'),('delay1350','1350мс'),('delay2025','2025мс · запас ×1,5'),
+         ('delay1350_replay100','1350мс + повторение1')]),
+        ('fireball_latency_pilot','Исправленные метки Fireball',(192,193),
         [('delay0225','225мс · контроль'),('delay1350','1350мс'),('delay2025','2025мс · запас ×1,5'),
          ('delay1350_replay100','1350мс + повторение1')])]
     links=[];sent=queued=verified=0
