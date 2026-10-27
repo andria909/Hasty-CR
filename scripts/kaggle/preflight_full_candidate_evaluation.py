@@ -124,6 +124,10 @@ def enable_submission(prepared):
     backup = prepared / 'kernel-metadata.preflight-disabled.json'
     with backup.open('xb') as stream: stream.write(path.read_bytes())
     metadata['enable_gpu'] = True; path.write_text(json.dumps(metadata, indent=2) + '\n')
+    ready=dict(schema='full-evaluation-submission-ready-v1', preparation_sha256=file_sha(prepared/'preparation.json'),
+        preflight_sha256=file_sha(prepared/'preflight.json'), bootstrap_sha256=file_sha(prepared/'job/train.py'),
+        metadata_sha256=file_sha(path), transport_sha256=file_sha(prepared/'upload_dataset/evaluation_inputs.b64'))
+    with(prepared/'submission_ready.json').open('x')as stream:json.dump(ready,stream,indent=2);stream.write('\n')
     return dict(kernel=prep['kernel'], enabled=True, submitted=False)
 
 

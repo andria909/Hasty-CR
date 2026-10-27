@@ -7,20 +7,25 @@ import time
 from pathlib import Path
 
 
-def submit(root,token_index):
+def submit(root,token_index,*,evaluation=False):
     from scripts.kaggle.collect_final_evaluation import make_api_client,configure_http_timeout
     root=Path(root);index=int(token_index);prepared=json.loads((root/'preparation.json').read_text());owner=prepared['config']['owner'];kernel=prepared['kernel']
-    preflight=json.loads((root/'preflight.json').read_text())
-    if not preflight.get('exact_resume_16_to_32')or not preflight.get('frozen_sources_verified'):
-        raise ValueError('Verified frozen preflight required')
-    def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
-    if sha(root/'job/train.py')!=prepared['bootstrap_sha256']:raise ValueError('Prepared bootstrap changed')
-    for name,digest in prepared['config']['pins'].items():
-        if sha(root/'dataset'/name)!=digest:raise ValueError('Prepared input changed: '+name)
-    upload=root/prepared.get('upload_directory','dataset')
-    if not upload.resolve().is_relative_to(root.resolve()):raise ValueError('Upload folder escapes prepared root')
-    for name,digest in prepared.get('upload_pins',{}).items():
-        if sha(upload/name)!=digest:raise ValueError('Prepared transport changed')
+    if index not in (0,1,2):raise ValueError('Only three authorized working accounts allowed')
+    if evaluation:
+        from scripts.kaggle.validate_evaluation_submission import validate_submission
+        upload=validate_submission(root,prepared)
+    else:
+        preflight=json.loads((root/'preflight.json').read_text())
+        if not preflight.get('exact_resume_16_to_32')or not preflight.get('frozen_sources_verified'):
+            raise ValueError('Verified frozen preflight required')
+        def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+        if sha(root/'job/train.py')!=prepared['bootstrap_sha256']:raise ValueError('Prepared bootstrap changed')
+        for name,digest in prepared['config']['pins'].items():
+            if sha(root/'dataset'/name)!=digest:raise ValueError('Prepared input changed: '+name)
+        upload=root/prepared.get('upload_directory','dataset')
+        if not upload.resolve().is_relative_to(root.resolve()):raise ValueError('Upload folder escapes prepared root')
+        for name,digest in prepared.get('upload_pins',{}).items():
+            if sha(upload/name)!=digest:raise ValueError('Prepared transport changed')
     r=json.loads((Path.home()/'.kaggle/access_tokens.json').read_text())['tokens'][index]
     os.environ['KAGGLE_API_TOKEN']=(r if isinstance(r,str)else r['token']).strip()
     configure_http_timeout();api=make_api_client(owner)
@@ -57,4 +62,5 @@ def submit(root,token_index):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--token-index',type=int,required=True)
-    a=p.parse_args();submit(a.root,a.token_index)
+    p.add_argument('--evaluation',action='store_true')
+    a=p.parse_args();submit(a.root,a.token_index,evaluation=a.evaluation)

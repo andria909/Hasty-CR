@@ -62,3 +62,18 @@ def test_exact_subprocess_contract_and_enable_flow_with_stub_audit(tmp_path, mon
     assert json.loads((output/'job/kernel-metadata.json').read_text())['enable_gpu']
     assert not json.loads((output/'kernel-metadata.preflight-disabled.json').read_text())['enable_gpu']
     with pytest.raises(ValueError, match='already enabled'): module.enable_submission(output)
+    from scripts.kaggle.validate_evaluation_submission import validate_submission
+    prep=json.loads((output/'preparation.json').read_text())
+    assert validate_submission(output,prep)==output/'upload_dataset'
+    (output/'upload_dataset/evaluation_inputs.b64').write_text('changed')
+    with pytest.raises(ValueError,match='package changed'):validate_submission(output,prep)
+
+
+def test_submission_bridge_rejects_unenabled_package_before_credentials(tmp_path, monkeypatch):
+    from scripts.kaggle.submit_prepared_pilot import submit
+    from scripts.kaggle import collect_final_evaluation
+    output=package(tmp_path)
+    def forbidden(*args):raise AssertionError('API must not be created before package validation')
+    monkeypatch.setattr(collect_final_evaluation,'make_api_client',forbidden)
+    with pytest.raises(FileNotFoundError):submit(output,1,evaluation=True)
+    with pytest.raises(ValueError,match='three authorized'):submit(output,3,evaluation=True)
