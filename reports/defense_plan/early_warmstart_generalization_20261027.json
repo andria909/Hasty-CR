@@ -1,0 +1,327 @@
+{
+  "schema": "early-warmstart-generalization-audit-v1",
+  "observations": [
+    {
+      "study": "air_reserve_pilot",
+      "trial_id": "pilot_joint_bc800_s162",
+      "remote_log_seconds": 385.514058743,
+      "source": "tmp/kaggle/air_reserve_pilot_20261027/live_stream/events.jsonl",
+      "warmstart": {
+        "schema": "air-local-position-warmstart-v1",
+        "supervised_updates": 800,
+        "environment_steps": 0,
+        "seed": 162,
+        "actual_cuda": "Tesla T4",
+        "heldout_seed": 3800085,
+        "train_seeds": [
+          3800009,
+          3800057
+        ],
+        "baseline": {
+          "train": {
+            "examples": 140,
+            "successful_greedy_fraction": 0.11428571492433548,
+            "mean_successful_probability": 0.1120031327009201,
+            "mean_log_successful_probability": -49.80369186401367
+          },
+          "local_heldout": {
+            "examples": 70,
+            "successful_greedy_fraction": 0.08571428805589676,
+            "mean_successful_probability": 0.09462320059537888,
+            "mean_log_successful_probability": -43.776756286621094
+          }
+        },
+        "final": {
+          "train": {
+            "examples": 140,
+            "successful_greedy_fraction": 0.8999999761581421,
+            "mean_successful_probability": 0.8784501552581787,
+            "mean_log_successful_probability": -0.23794421553611755
+          },
+          "local_heldout": {
+            "examples": 70,
+            "successful_greedy_fraction": 0.5142857432365417,
+            "mean_successful_probability": 0.5137734413146973,
+            "mean_log_successful_probability": -8.527863502502441
+          }
+        },
+        "data_sha256": "0c5284b46257932758dd0aaa08f82342db8c4de605bf9d81b253b4303f7f27ff",
+        "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+        "kl_weight": 0.0,
+        "source_sha256": "c1ee9301e6b8c0ff377ae8e6924a249603de9a4a15dee48556b1dc37ada1c6ef",
+        "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+        "quality_accepted": false
+      }
+    },
+    {
+      "study": "air_reserve_pilot",
+      "trial_id": "pilot_joint_bc800_s163",
+      "remote_log_seconds": 1324.234623381,
+      "source": "tmp/kaggle/air_reserve_pilot_20261027/live_stream/events.jsonl",
+      "warmstart": {
+        "schema": "air-local-position-warmstart-v1",
+        "supervised_updates": 800,
+        "environment_steps": 0,
+        "seed": 163,
+        "actual_cuda": "Tesla T4",
+        "heldout_seed": 3800085,
+        "train_seeds": [
+          3800009,
+          3800057
+        ],
+        "baseline": {
+          "train": {
+            "examples": 140,
+            "successful_greedy_fraction": 0.11428571492433548,
+            "mean_successful_probability": 0.1120031327009201,
+            "mean_log_successful_probability": -49.80369186401367
+          },
+          "local_heldout": {
+            "examples": 70,
+            "successful_greedy_fraction": 0.08571428805589676,
+            "mean_successful_probability": 0.09462320059537888,
+            "mean_log_successful_probability": -43.776756286621094
+          }
+        },
+        "final": {
+          "train": {
+            "examples": 140,
+            "successful_greedy_fraction": 0.9071428775787354,
+            "mean_successful_probability": 0.8740238547325134,
+            "mean_log_successful_probability": -0.24440103769302368
+          },
+          "local_heldout": {
+            "examples": 70,
+            "successful_greedy_fraction": 0.5142857432365417,
+            "mean_successful_probability": 0.5132035613059998,
+            "mean_log_successful_probability": -8.254498481750488
+          }
+        },
+        "data_sha256": "0c5284b46257932758dd0aaa08f82342db8c4de605bf9d81b253b4303f7f27ff",
+        "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+        "kl_weight": 0.0,
+        "source_sha256": "c1ee9301e6b8c0ff377ae8e6924a249603de9a4a15dee48556b1dc37ada1c6ef",
+        "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+        "quality_accepted": false
+      }
+    },
+    {
+      "study": "air_reserve_pilot",
+      "trial_id": "pilot_joint_replay500_s162",
+      "remote_log_seconds": 2282.808476551,
+      "source": "tmp/kaggle/air_reserve_pilot_20261027/live_stream/events.jsonl",
+      "warmstart": {
+        "schema": "air-local-position-warmstart-v1",
+        "supervised_updates": 800,
+        "environment_steps": 0,
+        "seed": 162,
+        "actual_cuda": "Tesla T4",
+        "heldout_seed": 3800085,
+        "train_seeds": [
+          3800009,
+          3800057
+        ],
+        "baseline": {
+          "train": {
+            "examples": 140,
+            "successful_greedy_fraction": 0.11428571492433548,
+            "mean_successful_probability": 0.1120031327009201,
+            "mean_log_successful_probability": -49.80369186401367
+          },
+          "local_heldout": {
+            "examples": 70,
+            "successful_greedy_fraction": 0.08571428805589676,
+            "mean_successful_probability": 0.09462320059537888,
+            "mean_log_successful_probability": -43.776756286621094
+          }
+        },
+        "final": {
+          "train": {
+            "examples": 140,
+            "successful_greedy_fraction": 0.9071428775787354,
+            "mean_successful_probability": 0.8787137269973755,
+            "mean_log_successful_probability": -0.2374783158302307
+          },
+          "local_heldout": {
+            "examples": 70,
+            "successful_greedy_fraction": 0.5142857432365417,
+            "mean_successful_probability": 0.5137556791305542,
+            "mean_log_successful_probability": -8.558467864990234
+          }
+        },
+        "data_sha256": "0c5284b46257932758dd0aaa08f82342db8c4de605bf9d81b253b4303f7f27ff",
+        "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+        "kl_weight": 0.0,
+        "source_sha256": "c1ee9301e6b8c0ff377ae8e6924a249603de9a4a15dee48556b1dc37ada1c6ef",
+        "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+        "quality_accepted": false
+      }
+    },
+    {
+      "study": "air_reserve_pilot",
+      "trial_id": "pilot_joint_replay100_s162",
+      "remote_log_seconds": 2472.7455716,
+      "source": "tmp/kaggle/air_reserve_pilot_20261027/live_stream/events.jsonl",
+      "warmstart": {
+        "schema": "air-local-position-warmstart-v1",
+        "supervised_updates": 800,
+        "environment_steps": 0,
+        "seed": 162,
+        "actual_cuda": "Tesla T4",
+        "heldout_seed": 3800085,
+        "train_seeds": [
+          3800009,
+          3800057
+        ],
+        "baseline": {
+          "train": {
+            "examples": 140,
+            "successful_greedy_fraction": 0.11428571492433548,
+            "mean_successful_probability": 0.1120031327009201,
+            "mean_log_successful_probability": -49.80369186401367
+          },
+          "local_heldout": {
+            "examples": 70,
+            "successful_greedy_fraction": 0.08571428805589676,
+            "mean_successful_probability": 0.09462320059537888,
+            "mean_log_successful_probability": -43.776756286621094
+          }
+        },
+        "final": {
+          "train": {
+            "examples": 140,
+            "successful_greedy_fraction": 0.9071428775787354,
+            "mean_successful_probability": 0.8785291314125061,
+            "mean_log_successful_probability": -0.23794390261173248
+          },
+          "local_heldout": {
+            "examples": 70,
+            "successful_greedy_fraction": 0.5142857432365417,
+            "mean_successful_probability": 0.5137458443641663,
+            "mean_log_successful_probability": -8.520808219909668
+          }
+        },
+        "data_sha256": "0c5284b46257932758dd0aaa08f82342db8c4de605bf9d81b253b4303f7f27ff",
+        "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+        "kl_weight": 0.0,
+        "source_sha256": "c1ee9301e6b8c0ff377ae8e6924a249603de9a4a15dee48556b1dc37ada1c6ef",
+        "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+        "quality_accepted": false
+      }
+    },
+    {
+      "study": "air_alternatives_pilot",
+      "trial_id": "pilot_joint_bc800_s162",
+      "remote_log_seconds": 381.241483894,
+      "source": "tmp/kaggle/air_alternatives_pilot_20261027/live_stream/events.jsonl",
+      "warmstart": {
+        "schema": "air-local-position-warmstart-v1",
+        "supervised_updates": 800,
+        "environment_steps": 0,
+        "seed": 162,
+        "actual_cuda": "Tesla T4",
+        "heldout_seed": 6200907,
+        "train_seeds": [
+          3800009,
+          3800057,
+          3800085,
+          6200647,
+          6200723
+        ],
+        "baseline": {
+          "train": {
+            "examples": 226,
+            "successful_greedy_fraction": 0.09734512865543365,
+            "mean_successful_probability": 0.09869056940078735,
+            "mean_log_successful_probability": -52.66217041015625
+          },
+          "local_heldout": {
+            "examples": 8,
+            "successful_greedy_fraction": 0.0,
+            "mean_successful_probability": 4.13383046975821e-43,
+            "mean_log_successful_probability": -118.31092834472656
+          }
+        },
+        "final": {
+          "train": {
+            "examples": 226,
+            "successful_greedy_fraction": 0.8185840845108032,
+            "mean_successful_probability": 0.7589142322540283,
+            "mean_log_successful_probability": -0.6620846390724182
+          },
+          "local_heldout": {
+            "examples": 8,
+            "successful_greedy_fraction": 0.0,
+            "mean_successful_probability": 5.0612732593435794e-05,
+            "mean_log_successful_probability": -15.244621276855469
+          }
+        },
+        "data_sha256": "157c40557c479f43d50c9d812f363a7d452b8b2f67370274566b15ca7e108aae",
+        "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+        "kl_weight": 0.0,
+        "source_sha256": "c1ee9301e6b8c0ff377ae8e6924a249603de9a4a15dee48556b1dc37ada1c6ef",
+        "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+        "quality_accepted": false
+      }
+    },
+    {
+      "study": "air_lowbank_pilot",
+      "trial_id": "pilot_joint_bc800_s162",
+      "remote_log_seconds": 385.291913078,
+      "source": "tmp/kaggle/air_lowbank_pilot_20261027/live_stream/events.jsonl",
+      "warmstart": {
+        "schema": "air-local-position-warmstart-v1",
+        "supervised_updates": 800,
+        "environment_steps": 0,
+        "seed": 162,
+        "actual_cuda": "Tesla T4",
+        "heldout_seed": 6200907,
+        "train_seeds": [
+          3800009,
+          3800057,
+          3800085,
+          6200647,
+          6200723
+        ],
+        "baseline": {
+          "train": {
+            "examples": 234,
+            "successful_greedy_fraction": 0.09401709586381912,
+            "mean_successful_probability": 0.09531664103269577,
+            "mean_log_successful_probability": -51.68749237060547
+          },
+          "local_heldout": {
+            "examples": 12,
+            "successful_greedy_fraction": 0.0,
+            "mean_successful_probability": 5.1014630020329577e-11,
+            "mean_log_successful_probability": -101.36077117919922
+          }
+        },
+        "final": {
+          "train": {
+            "examples": 234,
+            "successful_greedy_fraction": 0.7905983328819275,
+            "mean_successful_probability": 0.7148745656013489,
+            "mean_log_successful_probability": -0.8033977746963501
+          },
+          "local_heldout": {
+            "examples": 12,
+            "successful_greedy_fraction": 0.0,
+            "mean_successful_probability": 2.6227244234178215e-06,
+            "mean_log_successful_probability": -15.782312393188477
+          }
+        },
+        "data_sha256": "4339aaa4f46b66c9a5b25b5ad0dafd185edf4a609366bae0fc2a444c3e84a13d",
+        "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+        "kl_weight": 0.0,
+        "source_sha256": "c1ee9301e6b8c0ff377ae8e6924a249603de9a4a15dee48556b1dc37ada1c6ef",
+        "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+        "quality_accepted": false
+      }
+    }
+  ],
+  "training_quality_accepted": false,
+  "test_used_for_selection": false,
+  "scope": "BC stage only, before PPO full-game results",
+  "next_dataset": "data/hand_slot_examples_20261027"
+}
