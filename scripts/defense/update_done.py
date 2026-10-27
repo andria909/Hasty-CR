@@ -194,6 +194,8 @@ def render_live_feedback_studies(reports):
         for row in chosen['models']:
             lines.append(f"| {row['label']} | {row['wins']}/{row['games']} — {100*row['wins']/row['games']:.1f}% | {row['air_wins']}/12 | {row['golem_wins']}/12 |")
         lines += ['', '**Реальная проверка:** для первых двух моделей разрешено по10 игр; текущий счёт: tmp/live/full_top2_20261028/comparison.json и отдельные series/series.json. Ручной матч до запуска исключён.','']
+    if (reports/'tower_support_diagnostic_20261028.json').exists():
+        lines += ['**Помощь башен:** диагностический счётчик проверен на48 эпизодах; бездействие не получает бонус. В reward ещё не включён. [Проверка](reports/tower_support_diagnostic_20261028.md).','']
     lines+=render_global_full_training(reports)
     studies=[('air_retention_pilot','Сохранение навыка',(142,143),
         [(f'replay{int(w*100):03d}',f'Повторение примеров: {w:g}')for w in(0.,.1,1.,5.)]),
