@@ -2,7 +2,7 @@
   "kernel": "andriashadrin/hastycr-air-warmstart-pilot-20261027",
   "kernel_version": 1,
   "root": "tmp/kaggle/air_warmstart_pilot_20261027",
-  "status": "training_steps_observed",
+  "status": "pilot_complete_budgets_verified",
   "pilot_target_steps": 819200,
   "quality_accepted": false,
   "live_stopped": true,
@@ -10,27 +10,71 @@
     "kernel": "andriashadrin/hastycr-air-warmstart-pilot-20261027",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "connected",
-    "reconnect_attempt": 0,
-    "checked_host_ns": 1793055376076631000,
+    "stream_state": "interrupted",
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793057961057824000,
     "trials": {
       "pilot_bc000_control_s122": {
-        "update": 99,
-        "steps": 101376,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 99.0,
-        "remote_log_seconds": 1048.65507129
+        "percent": 100.0,
+        "remote_log_seconds": 1370.009128117
       },
       "pilot_bc200_kl000_s122": {
-        "update": 99,
-        "steps": 101376,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 99.0,
-        "remote_log_seconds": 1058.116036937
+        "percent": 100.0,
+        "remote_log_seconds": 1369.385346526
+      },
+      "pilot_bc000_control_s123": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2416.821548843
+      },
+      "pilot_bc200_kl000_s123": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2417.850463405
+      },
+      "pilot_bc800_kl000_s122": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3415.555773751
+      },
+      "pilot_bc800_kl100_s122": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3544.392344422
+      },
+      "pilot_bc800_kl000_s123": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3620.91537029
+      },
+      "pilot_bc800_kl100_s123": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3754.546052283
       }
-    }
+    },
+    "error_type": "SSLError",
+    "http_status": null
   },
-  "last_local_sync_ns": 1793055448132002000,
+  "last_local_sync_ns": 1793058974074974000,
   "startup_evidence": [
     {
       "event": "INPUTS_VERIFIED",
@@ -66,5 +110,6 @@
       },
       "scope": "Preliminary live log; warmstart before PPO; checkpoint not yet independently verified"
     }
-  ]
+  ],
+  "verified_report": "reports/defense_plan/air_warmstart_pilot_verified_20261027.json"
 }

@@ -1,0 +1,90 @@
+{
+  "schema": "continuous-air-retention-pilot-v1",
+  "status": "frozen_parallel_parent_pilot",
+  "rationale_split": "train_fixture",
+  "rationale_source": "reports/defense_plan/air_warmstart_pilot_summary_20261027.json",
+  "cases": [
+    {
+      "id": "replay000",
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "supervised_replay_weight": 0.0,
+      "history_frames": 1,
+      "focus": "air_golem",
+      "entropy_coef": 0.01,
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "overflow_penalty": 0.15,
+      "card_balance_weight": 0.1,
+      "card_balance_target": "units",
+      "missed_fireball_penalty": 0.0
+    },
+    {
+      "id": "replay010",
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "supervised_replay_weight": 0.1,
+      "history_frames": 1,
+      "focus": "air_golem",
+      "entropy_coef": 0.01,
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "overflow_penalty": 0.15,
+      "card_balance_weight": 0.1,
+      "card_balance_target": "units",
+      "missed_fireball_penalty": 0.0
+    },
+    {
+      "id": "replay100",
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "supervised_replay_weight": 1.0,
+      "history_frames": 1,
+      "focus": "air_golem",
+      "entropy_coef": 0.01,
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "overflow_penalty": 0.15,
+      "card_balance_weight": 0.1,
+      "card_balance_target": "units",
+      "missed_fireball_penalty": 0.0
+    },
+    {
+      "id": "replay500",
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "supervised_replay_weight": 5.0,
+      "history_frames": 1,
+      "focus": "air_golem",
+      "entropy_coef": 0.01,
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "overflow_penalty": 0.15,
+      "card_balance_weight": 0.1,
+      "card_balance_target": "units",
+      "missed_fireball_penalty": 0.0
+    }
+  ],
+  "pilot_seeds": [
+    142,
+    143
+  ],
+  "pilot_steps_each": 102400,
+  "total_pilot_steps": 819200,
+  "constants": {
+    "overflow_penalty": 0.15,
+    "card_balance_weight": 0.1,
+    "card_balance_target": "units",
+    "decision_interval_ms": 250,
+    "command_delay_ms": 225,
+    "slot_refill_ms": 2100
+  },
+  "initialization": "Original9d6 parent only; fresh optimizer each run",
+  "after": "Compare these pilot results after verification; no full training submitted automatically",
+  "selection": "72 distinct balanced validation games; half macro + half worst family; floor.1 on both pilot seeds",
+  "full": "Disabled for this parallel pilot; final promotion/full study requires validation audit",
+  "penalty": "Per elixir of Fireball only after resolved cast with NO recorded hits; zero-damage hits and pending casts excluded",
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_games_authorized": false
+}

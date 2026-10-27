@@ -248,7 +248,7 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
     if curriculum=='tactical_v1':names+=('sim/tactical_strategy.py',)
     if curriculum=='continuous_v1':names+=('sim/continuous_push.py','sim/gamedata.py','sim/entities.py',
         'sim/projectile_calibration.py','sim/kite_geometry.py','sim/opponents.py','sim/eval_defense_duel.py','sim/continuous_validation.py','sim/continuous_sampling.py')
-    if curriculum=='continuous_v1':names+=('sim/board_potential.py',)
+    if curriculum=='continuous_v1':names+=('sim/board_potential.py','sim/tactical_rewards.py','sim/lane_reflection.py')
     if card_balance_weight:names+=('sim/card_balance.py',)
     if history_frames==2:names+=('sim/public_frame_history.py','sim/continuous_history.py')
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
@@ -263,9 +263,11 @@ def validate_resume(blob,config):
           'visible_fraction','initial_hand_mode','geometry','geometry_sha256','coordinate_mode',
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
-          'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes','policy_temperature')
+          'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes','policy_temperature',
+          'supervised_replay_weight','supervised_replay_metadata')
     for key in keys:
-        if blob['config'].get(key)!=config.get(key):
+        default=0. if key=='supervised_replay_weight'else None
+        if blob['config'].get(key,default)!=config.get(key,default):
             raise ValueError(f'Attack resume configuration mismatch: {key}')
     required=('optimiser','rng','sampler','environment_states','observations','infos',
               'episode_returns','episode_counters','step','update')
@@ -273,6 +275,12 @@ def validate_resume(blob,config):
 
 
 def train(args):
+    replay_weight=getattr(args,'supervised_replay_weight',0.)
+    replay_data=getattr(args,'supervised_replay_data',None)
+    if not np.isfinite(replay_weight)or not 0<=replay_weight<=10 or (replay_weight and not replay_data):
+        raise ValueError('Invalid supervised replay controls')
+    if replay_data and (getattr(args,'curriculum','classic')!='continuous_v1' or getattr(args,'history_frames',1)!=1):
+        raise ValueError('Supervised replay requires the continuous20-plane public contract')
     temperature=getattr(args,'policy_temperature',1.)
     tempered_logits(torch.empty(0),temperature)
     balance_weight=getattr(args,'card_balance_weight',0.)
@@ -305,7 +313,7 @@ def train(args):
     if curriculum=='continuous_v1':
         profile=getattr(args,'continuous_profile',None)
         if profile:profile=json.loads(Path(profile).read_text())
-        if profile and profile.get('board_potential_weight',0):
+        if profile and (profile.get('board_potential_weight',0)or profile.get('reserve_potential_weight',0)):
             if 'shaping_gamma'in profile and profile['shaping_gamma']!=args.gamma:
                 raise ValueError('Potential shaping gamma must equal PPO gamma')
             profile=dict(profile,shaping_gamma=args.gamma)
@@ -331,12 +339,17 @@ def train(args):
     network=build_attack_network(architecture,device,num_scalars=num_scalars,num_planes=num_planes)
     initialization=load_attack_state(network,blob,exact=bool(args.resume),observation_contract=contract)if blob else {'fresh_initialization':True}
     optimizer=torch.optim.Adam(network.parameters(),lr=args.lr)
+    replay=None
+    if replay_data:
+        from sim.supervised_replay import SuccessfulActionReplay
+        replay=SuccessfulActionReplay(replay_data,device)
     config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,num_planes=num_planes,history_frames=history_frames,policy_temperature=temperature,
         reward_profile=reward_profile,reward_profile_sha256=reward_sha,
         observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames),
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
         initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
             hashlib.sha256(Path(args.init).read_bytes()).hexdigest()if args.init else None))
+    config.update(supervised_replay_weight=replay_weight,supervised_replay_metadata=replay.metadata if replay else None)
     if curriculum=='continuous_v1':config['continuous_profile']=envs[0].profile
     step,start_update,best=0,0,-float('inf')
     counters=[0]*args.envs
@@ -403,7 +416,7 @@ def train(args):
         require_finite(advantages=advantages,returns=returns)
         planes,scalars=planes.flatten(0,1),scalars.flatten(0,1)
         masks,actions,old_log,returns=masks.flatten(0,1),actions.flatten(),old_log.flatten(),returns.flatten()
-        losses=[];balance_losses=[];kl_values=[];kl_stopped=False
+        losses=[];balance_losses=[];kl_values=[];kl_stopped=False;replay_losses=[]
         warmup=step<=getattr(args,'value_warmup_steps',0)
         for name,parameter in network.named_parameters():
             parameter.requires_grad_(not warmup or name.startswith('value'))
@@ -426,6 +439,10 @@ def train(args):
                     balance=card_balance_loss(logits,scalars[indices],masks[indices],balance_target)
                     loss=loss+balance_weight*balance
                     balance_losses.append(float(balance.detach()))
+                if replay_weight and not warmup:
+                    auxiliary=replay.loss(network)
+                    loss=loss+replay_weight*auxiliary
+                    replay_losses.append(float(auxiliary.detach()))
                 require_finite(loss=loss,ratio=ratio)
                 optimizer.zero_grad(set_to_none=True);loss.backward()
                 norm=torch.nn.utils.clip_grad_norm_(network.parameters(),args.max_grad_norm,error_if_nonfinite=True)
@@ -439,6 +456,9 @@ def train(args):
             target=balance_target,mean_balance_js=float(np.mean(balance_losses))if balance_losses else 0.)
         record['optimizer_controls']=dict(value_only_warmup=warmup,kl_stopped=kl_stopped,
             mean_approximate_kl=float(np.mean(kl_values)))
+        record['supervised_replay']=dict(weight=replay_weight,optimizer_batches=len(replay_losses),
+            mean_loss=float(np.mean(replay_losses))if replay_losses else None,
+            train_examples=replay.metadata['train_examples']if replay else 0)
         is_best=False
         if args.eval_every>0 and update%args.eval_every==0:
             record['validation']=evaluate(network,device,episodes=args.eval_episodes,
@@ -490,6 +510,8 @@ def parser():
     p.add_argument('--card-balance-weight',type=float,default=0.)
     p.add_argument('--card-balance-target',choices=('all_cards','units'),default='all_cards')
     p.add_argument('--policy-temperature',type=float,default=1.)
+    p.add_argument('--supervised-replay-data',help='Pinned TRAIN successful-action labels; grouped holdout excluded')
+    p.add_argument('--supervised-replay-weight',type=float,default=0.)
     p.add_argument('--architecture',default=COMPACT_ARCHITECTURE)
     p.add_argument('--initial-hand-mode',choices=('scenario','shuffle'),default='shuffle')
     p.add_argument('--geometry',choices=('legacy_v1','native_anchors_candidate_v1'),default='legacy_v1')

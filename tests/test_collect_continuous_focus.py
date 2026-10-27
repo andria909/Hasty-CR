@@ -102,3 +102,26 @@ def test_temperature_pilot_collects_selected_checkpoint(monkeypatch,tmp_path):
     run='pilot_temp030_s132';setup(monkeypatch,run+'/update_000050.pt',run)
     result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','temperature-pilot')
     assert result['complete']and(tmp_path/'out'/run/'update_000050.pt').exists()
+
+
+def test_retention_pilot_preserves_warmstart_and_ppo_boundaries(monkeypatch,tmp_path):
+    run='pilot_replay100_s142';prefix='continuous_focus/'
+    data={prefix+'result.json':b'{}',prefix+run+'_summary.json':json.dumps(dict(id=run,checkpoint=run+'/update_000050.pt')).encode(),
+        prefix+run+'/update_000050.pt':b'ppo',prefix+run+'/update_000100.pt':b'latest',
+        prefix+run+'_warmstart/policy.pt':b'warm',prefix+run+'_warmstart/result.json':b'{}',
+        prefix+run+'_warmstart/updates.json':b'[]'}
+    monkeypatch.setattr(collector,'list_outputs',lambda api,kernel:({n:NS(url=n)for n in data},[]))
+    monkeypatch.setattr(requests,'get',lambda url,**kw:NS(content=data[url],raise_for_status=lambda:None))
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','air-retention-pilot')
+    assert result['complete']
+    assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'ppo'
+    assert (tmp_path/'out'/run/'update_000100.pt').read_bytes()==b'latest'
+    assert (tmp_path/'out'/(run+'_warmstart')/'policy.pt').read_bytes()==b'warm'
+
+
+def test_live_tactical_collector_keeps_selected_and_latest(monkeypatch,tmp_path):
+    run='pilot_live_combined_s152';setup(monkeypatch,run+'/update_000050.pt',run)
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','live-tactical-pilot')
+    assert result['complete']
+    assert (tmp_path/'out'/run/'update_000050.pt').exists()
+    assert (tmp_path/'out'/run/'update_000100.pt').exists()

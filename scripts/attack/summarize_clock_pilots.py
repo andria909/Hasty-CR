@@ -14,12 +14,18 @@ def summarize(root,verified=None):
     history=protocol.get('schema')=='continuous-public-history-pilot-v1'
     board=protocol.get('schema')=='continuous-board-potential-pilot-v1'
     bank=protocol.get('schema')=='continuous-bank-conservation-pilot-v1'
-    warm=protocol.get('schema')=='continuous-air-warmstart-pilot-v1'
+    retention=protocol.get('schema')=='continuous-air-retention-pilot-v1'
+    warm=protocol.get('schema')=='continuous-air-warmstart-pilot-v1'or retention
     temperature=protocol.get('schema')=='continuous-temperature-pilot-v1'
+    tactical=protocol.get('schema')=='continuous-live-tactical-reward-pilot-v1'
     def stats(records):
         counts=Counter(r['outcome']for r in records);cards=Counter()
         for r in records:cards.update(r['accepted_card_counts'])
         return dict(games=len(records),wins=counts['win'],draws=counts['draw'],
+            mean_card_lane_plays=({lane:{card:sum(r['accepted_card_lane_counts'][lane].get(card,0)for r in records)/len(records)
+                for card in cards}for lane in('left','right')}if all('accepted_card_lane_counts'in r for r in records)else None),
+            mean_own_tower_fraction_loss=({lane:sum(r['own_tower_fraction_loss'][lane]for r in records)/len(records)
+                for lane in('left','right','king')}if all('own_tower_fraction_loss'in r for r in records)else None),
             mean_missed_fireballs=(sum(r['missed_fireballs']for r in records)/len(records)
                 if all('missed_fireballs'in r for r in records)else None),
             mean_card_plays={c:n/len(records)for c,n in sorted(cards.items())},
@@ -45,11 +51,16 @@ def summarize(root,verified=None):
         if bank:row.update(overflow_penalty=trial['overflow_penalty'],card_balance_weight=trial['card_balance_weight'])
         if warm:
             row.update(warmstart_updates=trial['warmstart_updates'],warmstart_kl_weight=trial['warmstart_kl_weight'],local_diagnostic_by_seed=local)
+            if retention:row['supervised_replay_weight']=trial['supervised_replay_weight']
             for phase in('before','after'):
                 scores=[r[phase]['local_heldout']for r in local]
                 row['local_'+phase+'_ppo']=dict(successful_choices=sum(r['successful_choices']for r in scores),
                     predictions=sum(r['examples']for r in scores),distinct_states=scores[0]['examples'])
         if temperature:row.update(policy_temperature=trial['policy_temperature'])
+        if tactical:
+            row.update(coefficients={k:trial[k]for k in('fireball_value_reward','reserve_potential_weight','own_hp_penalty','overflow_penalty','missed_fireball_penalty')},
+                mean_cluster_fireballs=sum(r['cluster_fireballs']for r in records)/len(records),
+                mean_fireball_unit_hits=sum(r['fireball_unit_hits']for r in records)/len(records))
         rows.append(row)
     reference=json.loads((root/'collected/parent_reference.json').read_text())
     initial=verified.get('initial_selection',{}).get('selected','parent')
@@ -60,8 +71,10 @@ def summarize(root,verified=None):
     return dict(schema='verified-history-pilot-validation-summary-v1'if history else
         'verified-board-pilot-validation-summary-v1'if board else
         'verified-bank-pilot-validation-summary-v1'if bank else
+        'verified-air-retention-pilot-validation-summary-v1'if retention else
         'verified-air-warmstart-pilot-validation-summary-v1'if warm else
-        'verified-temperature-pilot-validation-summary-v1'if temperature else'verified-clock-pilot-validation-summary-v1',kernel=verified['kernel'],
+        'verified-temperature-pilot-validation-summary-v1'if temperature else
+        'verified-live-tactical-reward-pilot-validation-summary-v1'if tactical else'verified-clock-pilot-validation-summary-v1',kernel=verified['kernel'],
         pilot_steps_verified=verified['pilot_steps_verified'],rows=rows,parent=stats(reference['validation']['records']),
         initial_reference=initial_reference,
         eligible_for_full=verified['pilot_selection']['gate_met'],quality_accepted=False,
@@ -87,6 +100,14 @@ def render(summary):
             lines.append(f"| {row['id']} | {before['successful_choices']}/{before['predictions']} | {after['successful_choices']}/{after['predictions']} |")
         states=summary['rows'][0]['local_after_ppo']['distinct_states']
         lines+=['',f'{states} локальных состояний повторяются для двух seed. Это успешные действия из учебного упражнения, не победы в матчах. Чекпойнт выбирается по полному validation, не по этой таблице.']
+    if summary['rows']and 'mean_cluster_fireballs'in summary['rows'][0]:
+        lines+=['','## Fireball и обе линии','',
+            '| Профиль | Fireball за матч | Пустые | По ≥3 юнитам | Целей за матч | Потери левой / правой башни |',
+            '|---|---:|---:|---:|---:|---:|']
+        for row in summary['rows']:
+            lost=row['mean_own_tower_fraction_loss']
+            lines.append(f"| {row['id']} | {row['mean_card_plays'].get('fireball',0):.2f} | {row['mean_missed_fireballs']:.2f} | {row['mean_cluster_fireballs']:.2f} | {row['mean_fireball_unit_hits']:.2f} | {lost['left']:.3f} / {lost['right']:.3f} |")
+        lines+=['','Потери — средняя доля исходного HP своей башни. Это не частота атак по линии. Все карты по каждой линии отдельно сохранены в JSON mean_card_lane_plays.']
     lines+=['',('Порог для продолжения прошли минимум два профиля.'if summary['eligible_for_full']else
         'Минимум два профиля порог не прошли: большое продолжение этого исследования не запускается.'),
         'Это validation для отбора; test и реальные бои не проводились. Частота карты сама по себе не доказывает качество.']

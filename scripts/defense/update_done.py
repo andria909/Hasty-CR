@@ -129,7 +129,38 @@ def slots_evaluation_lines(reports):
         'Два новых PPO, исходник иv25;480 test-игр +120 турнирных.']
 
 
+def render_live_feedback_studies(reports):
+    lines=['# Текущий этап','',
+        '**PPO: сохранить выученные навыки и исправить ошибки реальных боёв.** Новая модель ещё не принята.','',
+        '| Серия | Вариант | PPO выполнено |','|---|---|---:|']
+    studies=[('air_retention_pilot','Сохранение навыка',(142,143),
+        [(f'replay{int(w*100):03d}',f'Повторение примеров: {w:g}')for w in(0.,.1,1.,5.)]),
+        ('live_tactical_reward_pilot','Реварды по live',(152,153),
+        [('live_control','Контроль'),('live_precision','Fireball'),('live_economy','Эликсир + защита'),('live_combined','Вместе')])]
+    links=[]
+    for stem,label,seeds,cases in studies:
+        p=reports/f'{stem}_training_20261027.json'
+        if not p.exists():
+            lines.append(f'| {label} | Проверка пакета перед отправкой | — |');continue
+        state=json.loads(p.read_text());trials=state.get('progress_snapshot',{}).get('trials',{})
+        proof=reports/f'{stem}_verified_20261027.json'
+        complete=proof.exists()and json.loads(proof.read_text()).get('pilot_steps_verified')==819200
+        for name,description in cases:
+            steps=sum(trials.get(f'pilot_{name}_s{seed}',{}).get('steps',0)for seed in seeds)
+            value='100%'if complete else f'{100*steps/204800:.1f}%'if steps else 'отправлено, шаги ожидаются'
+            lines.append(f'| {label} | {description} | {value} |')
+        links.append(f'[{label}](reports/defense_plan/{stem}_training_20261027.json)')
+    lines+=['','Каждый вариант:2 seed ×102400 PPO-шагов. Всего две серии:1 638 400 шагов. Проценты — полученные счётчики, не качество модели. '+', '.join(links)+'.','',
+        'В reward-серии стартуем с balanced. Общие TRAIN-данные:35% колод с оплаченными варварами,50% отражённых эпизодов. Fireball оценивается после взрыва; отдельно считаются карты и потери башен слева/справа.','',
+        '**Предыдущие пробы завершены:** warmstart и температура — по819200 проверенных CUDA-шагов; два профиля порог полного validation не прошли. После warmstart800 локальный навык упал с32/32 до9/32 после PPO. [Разбор](reports/air_warmstart_pilot_results_20261027.md).','',
+        '**Последняя реальная серия balanced:** бот3/9 побед —33,3%; ещё одну игру доиграл пользователь. Игры остановлены. Это главный сигнал, что оценки симуляции не доказывают качество в игре.','',
+        '[Исходный автор](reports/upstream_review_20261027.md): последний публичный коммит10октября уже в нашей базе; подтверждённого успеха новой self-play модели против людей не найдено.','',
+        '**Далее:** проверить полные бюджеты и validation всех архетипов → выбрать2–4 прошедших профиля → большие обучения → независимый турнир и метрики. v25 и исходные веса сохранены; новые live-бои не запускаются.']
+    return '\n'.join(lines)+'\n'
+
+
 def render_active_studies(reports):
+    if(reports/'air_retention_pilot_training_20261027.json').exists():return render_live_feedback_studies(reports)
     lines=['# Текущий этап','',
         '**Учимся защищать воздух:** сравниваем подготовку на успешных действиях и более широкое исследование действий PPO. Новая модель пока не принята.','',
         '| Серия | Вариант | Получено бюджета PPO двух seed |','|---|---|---:|']

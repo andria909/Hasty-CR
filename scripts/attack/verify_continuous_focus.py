@@ -75,6 +75,34 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
         raise ValueError('Focus run configuration differs')
     if config['continuous_profile'].get('board_potential_weight',0.)!=trial.get('board_potential_weight',0.):
         raise ValueError('Potential coefficient differs')
+    for key in('fireball_value_reward','reserve_potential_weight','own_hp_penalty','barbarian_train_fraction','lane_reflection_fraction'):
+        if key in trial and config['continuous_profile'].get(key)!=trial[key]:
+            raise ValueError('Tactical reward coefficient differs: '+key)
+    replay_weight=trial.get('supervised_replay_weight',0.)
+    if config.get('supervised_replay_weight',0.)!=replay_weight:
+        raise ValueError('Supervised replay coefficient differs')
+    if replay_weight:
+        from sim.supervised_replay import SuccessfulActionReplay
+        prepared=root.parent/'dataset'
+        import tempfile,shutil
+        with tempfile.TemporaryDirectory()as temporary:
+            data=Path(temporary)
+            shutil.copyfile(prepared/'air_examples.npz',data/'examples.npz')
+            shutil.copyfile(prepared/'air_manifest.json',data/'manifest.json')
+            expected=SuccessfulActionReplay(data,'cpu').metadata
+        if (config.get('supervised_replay_metadata')!=expected or
+                expected['source_sha256']!=c['extensions']['sim/supervised_replay.py']):
+            raise ValueError('Replay data, split or source differs')
+        seen=0
+        for line in(root/run_id/'metrics.jsonl').read_text().splitlines():
+            metric=json.loads(line);replay=metric.get('supervised_replay',{})
+            n=replay.get('optimizer_batches',-1)
+            if (replay.get('weight')!=replay_weight or replay.get('train_examples')!=expected['train_examples']or
+                    type(n)is not int or not 0<=n<=12 or
+                    (n and (not math.isfinite(replay['mean_loss'])or metric['optimizer_controls']['value_only_warmup']))):
+                raise ValueError('Actual supervised replay updates differ')
+            seen+=n
+        if not seen:raise ValueError('No supervised replay optimizer batches observed')
     if trial.get('board_potential_weight',0.)and config['continuous_profile']['shaping_gamma']!=config['gamma']:
         raise ValueError('Potential shaping discount differs from PPO')
     validations=metric_boundaries(root/run_id/'metrics.jsonl',steps,trial.get('policy_temperature',1.))
@@ -88,6 +116,12 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
                 expected=-trial['board_potential_weight']*episode['initial_board_potential']
                 if not math.isclose(episode['board_shaping_discounted_return'],expected,abs_tol=1e-7):
                     raise ValueError('Potential return changed completed-game objective')
+        if trial.get('reserve_potential_weight',0):
+            for episode in v['records']:
+                # Regulation starts with five elixir; reserve Phi is capped4.
+                expected=-4*trial['reserve_potential_weight']
+                if not math.isclose(episode['reserve_shaping_discounted_return'],expected,abs_tol=1e-7):
+                    raise ValueError('Reserve potential created a terminal hoarding bonus')
     eligible=[r for r in validations if r['validation']['worst_archetype_points']>=.1]
     chosen=max(eligible or validations,key=lambda r:r['validation']['selection_score'])
     if(row['validation']!=chosen['validation']or row['selected_update']!=chosen['update']or
@@ -113,6 +147,9 @@ def verify(collected,prepared):
     if any(t.get('board_potential_weight',0)for t in protocol['cases']):
         if sha('sim/board_potential.py')!=c['extensions']['sim/board_potential.py']:
             raise ValueError('Use frozen potential reward version')
+    if protocol.get('schema')=='continuous-live-tactical-reward-pilot-v1':
+        for name in('sim/tactical_rewards.py','sim/lane_reflection.py'):
+            if sha(name)!=c['extensions'][name]:raise ValueError('Use frozen tactical reward/reflection version')
     if sha(prepared/'dataset/protocol.json')!=c['pins']['protocol.json']:raise ValueError('Prepared protocol changed')
     if result.get('schema')!='continuous-focus-cohort-result-v1'or result['protocol_sha256']!=c['pins']['protocol.json']:
         raise ValueError('Focus protocol differs')

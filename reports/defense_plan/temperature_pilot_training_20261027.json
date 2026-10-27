@@ -2,7 +2,7 @@
   "kernel": "vertel0/hastycr-temperature-pilot-20261027",
   "kernel_version": 1,
   "root": "tmp/kaggle/temperature_pilot_20261027",
-  "status": "training_steps_observed",
+  "status": "pilot_complete_budgets_verified",
   "pilot_target_steps": 819200,
   "quality_accepted": false,
   "live_stopped": true,
@@ -11,8 +11,8 @@
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
-    "reconnect_attempt": 1,
-    "checked_host_ns": 1793056144519354000,
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793058479937024000,
     "trials": {
       "pilot_temp001_s132": {
         "update": 100,
@@ -29,24 +29,52 @@
         "remote_log_seconds": 1338.576136675
       },
       "pilot_temp001_s133": {
-        "update": 25,
-        "steps": 25600,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 25.0,
-        "remote_log_seconds": 1424.502401368
+        "percent": 100.0,
+        "remote_log_seconds": 2337.468677007
       },
       "pilot_temp010_s133": {
-        "update": 23,
-        "steps": 23552,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 23.0,
-        "remote_log_seconds": 1424.760180471
+        "percent": 100.0,
+        "remote_log_seconds": 2355.262118133
+      },
+      "pilot_temp030_s132": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3368.313652598
+      },
+      "pilot_temp050_s132": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3382.68002926
+      },
+      "pilot_temp030_s133": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3565.245860346
+      },
+      "pilot_temp050_s133": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3576.467918397
       }
     },
-    "error_type": "SSLError",
+    "error_type": "ConnectionError",
     "http_status": null
   },
-  "last_local_sync_ns": 1793056293921353000,
+  "last_local_sync_ns": 1793059557438591000,
   "startup_evidence": [
     {
       "event": "INPUTS_VERIFIED",
@@ -60,5 +88,6 @@
       ]
     }
   ],
-  "actual_training_steps_confirmed": true
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/temperature_pilot_verified_20261027.json"
 }

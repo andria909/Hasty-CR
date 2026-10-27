@@ -89,6 +89,10 @@ def execute(config):
             missed_fireball_penalty=trial.get('missed_fireball_penalty',0.),
             board_potential_weight=trial.get('board_potential_weight',0.),shaping_gamma=trial.get('gamma',.999),
             action_cooldown_ms=2100,decision_interval_ms=250)))
+        tactical={k:trial[k]for k in('fireball_value_reward','reserve_potential_weight','own_hp_penalty','barbarian_train_fraction','lane_reflection_fraction')if k in trial}
+        if tactical:
+            coefficients=json.loads(profile.read_text());coefficients.update(tactical)
+            profile.write_text(json.dumps(coefficients))
         args=[sys.executable,'-c',"import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
             '--init',str(inputs/run_initial['file']),'--output',str(directory),'--device',device,
             '--task-mode','joint','--curriculum','continuous_v1','--geometry','native_anchors_candidate_v1',
@@ -104,6 +108,8 @@ def execute(config):
             '--gae-lambda',str(trial.get('gae_lambda',.95)),'--value-warmup-steps','20480','--target-kl','.02',
             '--checkpoint-every','250'if full else'50','--eval-every','250'if full else'50',
             '--wallclock-seconds','34000'if full else'7200']
+        if trial.get('supervised_replay_weight',0.):
+            args+=['--supervised-replay-data',str(air_data),'--supervised-replay-weight',str(trial['supervised_replay_weight'])]
         process=subprocess.Popen(args,cwd=project,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
         print(json.dumps(dict(event='TRIAL_START',trial_id=run_id,target_steps=steps,device=device)),flush=True)
         with(output/(run_id+'.log')).open('x')as log:
@@ -158,7 +164,7 @@ def freeze_template(output,extra_files=()):
     names=('sim/match.py','sim/train_attack_ppo.py','sim/continuous_push.py','sim/card_balance.py','sim/env.py',
         'sim/kite_geometry.py','sim/projectile_calibration.py','sim/entities.py','sim/gamedata.py','sim/public_gamedata.py',
         'sim/spells.py','sim/continuous_sampling.py','sim/continuous_validation.py','scripts/attack/select_continuous_focus.py',
-        'sim/public_frame_history.py','sim/continuous_history.py','sim/board_potential.py','sim/pathfind.py')
+        'sim/public_frame_history.py','sim/continuous_history.py','sim/board_potential.py','sim/pathfind.py','sim/tactical_rewards.py','sim/lane_reflection.py')
     names=names+tuple(extra_files)
     if len(set(names))!=len(names):raise ValueError('Duplicate frozen extension')
     with tarfile.open(output/'extensions.tar.gz','w:gz')as stream:

@@ -56,7 +56,8 @@ class ContinuousPushEnv:
         # by style; these are synthetic opponent tests, not unseen card claims.
         styles={'train':('random','push'),'validation':('heldout_push',),'test':('heldout_random',)}[split]
         self.scenarios=[PushCase(task,family,style,split) for task in ('attack','defense') for family in DECKS for style in styles]
-        self.profile=dict(overflow_penalty=.15,missed_fireball_penalty=0.,board_potential_weight=0.,shaping_gamma=.999,own_hp_penalty=4.,enemy_hp_reward=3.,
+        self.profile=dict(overflow_penalty=.15,missed_fireball_penalty=0.,board_potential_weight=0.,
+                          fireball_value_reward=0.,reserve_potential_weight=0.,barbarian_train_fraction=0.,lane_reflection_fraction=0.,shaping_gamma=.999,own_hp_penalty=4.,enemy_hp_reward=3.,
                           win_reward=20.,loss_penalty=20.,action_cooldown_ms=2100,decision_interval_ms=250)
         if continuous_profile:
             supplied=json.loads(Path(continuous_profile).read_text()) if isinstance(continuous_profile,(str,Path)) else dict(continuous_profile)
@@ -66,6 +67,8 @@ class ContinuousPushEnv:
             raise ValueError('Invalid continuous coefficient')
         if self.profile['decision_interval_ms']<50:raise ValueError('Decision interval below physics tick')
         if self.profile['shaping_gamma']>1:raise ValueError('Shaping discount above one')
+        if self.profile['barbarian_train_fraction']>1:raise ValueError('Invalid Barbarian training fraction')
+        if self.profile['lane_reflection_fraction']>1:raise ValueError('Invalid lane reflection fraction')
         self.cards,self.spells,_,_=load_defense_assets();self.cards.update(resolve_deck(self.cards,list(DECK_26)))
         self._board_values=None
         if self.profile['board_potential_weight']:
@@ -82,7 +85,12 @@ class ContinuousPushEnv:
         cases=[s for s in self.scenarios if scenario_id is None or s.scenario_id==scenario_id]
         if not cases: raise ValueError('Scenario outside split')
         self.scenario=self.rng.choice(cases)
+        self.reflected=bool(self.split=='train'and self.profile['lane_reflection_fraction']and self.rng.random()<self.profile['lane_reflection_fraction'])
         enemy=list(DECKS[self.scenario.family])
+        # TRAIN augmentation only; still an ordinary eight-card hand/cycle
+        # opponent that pays five elixir. Validation/test composition is fixed.
+        if self.split=='train'and self.profile['barbarian_train_fraction']and self.rng.random()<self.profile['barbarian_train_fraction']:
+            enemy[3]='barbarians'
         if self.split!='train':
             # Hold out deck compositions while preserving the push archetype.
             enemy[4]='valkyrie' if self.split=='validation' else 'hunter'
@@ -97,6 +105,7 @@ class ContinuousPushEnv:
         self.pending=[];self.slot_ready={};self.next_enemy=0;self.illegal=0
         self.actions=[];self.enemy_actions=[];self.done=False;self.terminal_reason='running'
         self._board_shaping_return=0.
+        self._reserve_shaping_return=0.;self._reserve_shaping_discounted_return=0.
         self._board_shaping_discounted_return=0.;self._board_shaping_steps=0;self._initial_board_potential=0.
         self._previous=self._metrics()
         self._initial_board_potential=self._previous['board_potential']
@@ -112,6 +121,9 @@ class ContinuousPushEnv:
             if (slot in busy or self.match.elapsed_ms<self.slot_ready.get(slot,0)
                     or self.cards[card].cost*1000>available):
                 mask[1+slot*576:1+(slot+1)*576]=False
+        if self.reflected:
+            from sim.lane_reflection import reflect_actions
+            mask=reflect_actions(mask)
         return mask
 
     def _observe(self):
@@ -119,6 +131,9 @@ class ContinuousPushEnv:
         reserved=sum(self.cards[e[1]].cost for e in self.pending)
         obs['scalars']=obs['scalars'].copy()
         obs['scalars'][0]=max(0,obs['scalars'][0]-reserved/10)
+        if self.reflected:
+            from sim.lane_reflection import reflect_observation
+            obs=reflect_observation(obs)
         return obs
 
     def _enemy(self):
@@ -163,6 +178,7 @@ class ContinuousPushEnv:
         if not isinstance(action,(int,np.integer)) or not 0<=action<ACTIONS or not mask[int(action)]:self.illegal+=1
         elif action:
             slot,x,y=ClashEnv.decode(int(action))
+            if self.reflected:x=17-x
             self.pending.append((self.match.elapsed_ms+self.action_delay_ms,self.match.players[1].hand[slot],slot,x,y))
         target=self.match.elapsed_ms+self.profile['decision_interval_ms']
         while not self.match.finished and self.match.elapsed_ms<min(target,self.max_ms):
@@ -179,6 +195,13 @@ class ContinuousPushEnv:
         self.done=self.match.finished or self.match.elapsed_ms>=self.max_ms
         self.terminal_reason='game_'+self.match.result if self.match.finished else 'technical_timeout' if self.done else 'running'
         after=self._metrics();p=self.profile
+        reserve_reward=0.
+        if p['reserve_potential_weight']:
+            from sim.board_potential import shaping
+            reserve_reward=p['reserve_potential_weight']*shaping(before['reserve_potential'],after['reserve_potential'],
+                p['shaping_gamma'],terminal=self.done)
+        self._reserve_shaping_return+=reserve_reward
+        self._reserve_shaping_discounted_return+=p['shaping_gamma']**self._board_shaping_steps*reserve_reward
         board_reward=0.
         if p['board_potential_weight']:
             from sim.board_potential import shaping
@@ -195,13 +218,15 @@ class ContinuousPushEnv:
             -p['own_hp_penalty']*(after['own_fraction_loss']-before['own_fraction_loss'])
             -p['overflow_penalty']*(after['elixir_overflow']-before['elixir_overflow'])
             -p['missed_fireball_penalty']*(after['missed_fireball_elixir']-before['missed_fireball_elixir'])
-            -.1*(after['illegal_actions']-before['illegal_actions'])+board_reward)
+            +p['fireball_value_reward']*(after['fireball_exchange_value']-before['fireball_exchange_value'])
+            -.1*(after['illegal_actions']-before['illegal_actions'])+board_reward+reserve_reward)
         if self.done:
             reward+=p['win_reward'] if after['outcome']=='win' else -p['loss_penalty'] if after['outcome']=='loss' else 0
         self._previous=after
         return self._observe(),float(reward),bool(self.match.finished),bool(self.done and not self.match.finished),self._info()
 
     def _metrics(self):
+        from sim.tactical_rewards import fireball_outcomes,reserve_potential
         own={k:t.hp_fraction for k,t in self.match.towers[1].items()}
         enemy={k:t.hp_fraction for k,t in self.match.towers[-1].items()}
         # Charge only instrumented, resolved Fireballs with NO recorded hits.
@@ -224,11 +249,16 @@ class ContinuousPushEnv:
             elixir_overflow=self.match.players[1].natural_elixir_overflow_milli/1000,
             elixir_spent=self.match.players[1].elixir_spent,illegal_actions=self.illegal,
             missed_fireballs=misses,missed_fireball_elixir=misses*self.cards['fireball'].cost,
+            **fireball_outcomes(self.match.battle.spell_cast_log),reserve_potential=reserve_potential(self.match),
+            reserve_shaping_return=self._reserve_shaping_return,
+            reserve_shaping_discounted_return=self._reserve_shaping_discounted_return,
             board_potential=potential,board_shaping_return=self._board_shaping_return,
             initial_board_potential=self._initial_board_potential,
             board_shaping_discounted_return=self._board_shaping_discounted_return,
             board_shaping_steps=self._board_shaping_steps,
             accepted_card_counts=dict(Counter(e['card']for e in self.actions)),
+            accepted_card_lane_counts={lane:dict(Counter(e['card']for e in self.actions
+                if (e['x']<9)==(lane=='left')))for lane in('left','right')},
             enemy_accepted_card_counts=dict(Counter(e['card']for e in self.enemy_actions)),
             coverage_flags=['simulator_mechanics_not_fully_validated','synthetic_legal_opponent_not_live_rating'])
 

@@ -1,0 +1,198 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "vertel0/hastycr-temperature-pilot-20261027",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "temp010",
+          "policy_temperature": 10.0,
+          "history_frames": 1,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.3020833333333333,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "temp001",
+          "policy_temperature": 1.0,
+          "history_frames": 1,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.28125,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "temp030",
+          "policy_temperature": 30.0,
+          "history_frames": 1,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.2604166666666667,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "temp050",
+          "policy_temperature": 50.0,
+          "history_frames": 1,
+          "focus": "air_golem",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.15,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0
+        },
+        "score": 0.2361111111111111,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_temp001_s132",
+      "checkpoint": "tmp/kaggle/temperature_pilot_20261027/collected/pilot_temp001_s132/update_000100.pt",
+      "checkpoint_sha256": "1b0fbcf78e96d796ab43ca36a2be984e340183191b590c68b431a2db9a994e63",
+      "selection_score": 0.2847222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_temp001_s133",
+      "checkpoint": "tmp/kaggle/temperature_pilot_20261027/collected/pilot_temp001_s133/update_000050.pt",
+      "checkpoint_sha256": "dc72d264be48995dcc7a94e52ec02605df4a8c6c1c99c8c70493d34be09df4cb",
+      "selection_score": 0.2777777777777778,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_temp010_s132",
+      "checkpoint": "tmp/kaggle/temperature_pilot_20261027/collected/pilot_temp010_s132/update_000050.pt",
+      "checkpoint_sha256": "5740bcc2159d2fe9a45519084e6bbd204b6843a042a360d157521bbc2656226f",
+      "selection_score": 0.3055555555555555,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_temp010_s133",
+      "checkpoint": "tmp/kaggle/temperature_pilot_20261027/collected/pilot_temp010_s133/update_000050.pt",
+      "checkpoint_sha256": "459d6a54150cc030db40670eb251b33fd7622de963c87c768a64790afb791868",
+      "selection_score": 0.2986111111111111,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_temp030_s132",
+      "checkpoint": "tmp/kaggle/temperature_pilot_20261027/collected/pilot_temp030_s132/update_000100.pt",
+      "checkpoint_sha256": "6eaeadf0454b0caf0b799f0464f4b757fe8ffaf23cfe8255c2488cb944e69fa3",
+      "selection_score": 0.2638888888888889,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_temp030_s133",
+      "checkpoint": "tmp/kaggle/temperature_pilot_20261027/collected/pilot_temp030_s133/update_000050.pt",
+      "checkpoint_sha256": "2fd0f0b28590a6e665c6dfdd7955a023d612ef932a76f81aed4d4fa9f03c851d",
+      "selection_score": 0.2569444444444445,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_temp050_s132",
+      "checkpoint": "tmp/kaggle/temperature_pilot_20261027/collected/pilot_temp050_s132/update_000050.pt",
+      "checkpoint_sha256": "80aa55339db59a8c98f6f547627eff51558462a8ef09a9e8e626dd47b80d1c30",
+      "selection_score": 0.2222222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_temp050_s133",
+      "checkpoint": "tmp/kaggle/temperature_pilot_20261027/collected/pilot_temp050_s133/update_000050.pt",
+      "checkpoint_sha256": "1ce2412ae13f32631ecacdfbef2da3d2107822a117425f462f6d871e1719dbc8",
+      "selection_score": 0.25,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "parent",
+    "ranking": [
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.2916666666666667,
+        "macro_archetype_points": 0.5833333333333334,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.75
+          },
+          "giant": {
+            "games": 12,
+            "points": 1.0
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.75
+          },
+          "swarm": {
+            "games": 12,
+            "points": 1.0
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false
+}
