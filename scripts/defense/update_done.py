@@ -148,9 +148,16 @@ def render_global_full_training(reports):
                 state.get('status')=='remote_terminal_error_requires_inspection'else 'обучение')
             rows.append(f"| {child.get('label',child['id'])} | {progress} | {status} |")
     if not rows:return []
+    evaluation_note='После проверки весов очередь запускает независимые замеры: 6300 игр четырёх новых моделей, balanced, strong и v25.'
+    launch_path=reports/'full_candidate_eval_launch_20261027.json'
+    if launch_path.exists():
+        evaluation_note='**Тесты и турнир на 6300 игр отправлены на Kaggle.** Результаты ещё проверяются; нового победителя пока нет. [Запуск](reports/defense_plan/full_candidate_eval_launch_20261027.json).'
+        proof=reports/'full_candidate_eval_verified_20261027.json'
+        if proof.exists():
+            evaluation_note='**Результаты независимых тестов и турнира собраны.** [Проверенный отчёт](reports/defense_plan/full_candidate_eval_verified_20261027.json).'
     return ['**Большие PPO: по4096000 шагов на модель.**','',
         '| Модель | Выполнено | Состояние |','|---|---:|---|',*rows,'',
-        'Проценты показывают шаги, а не качество. После проверки весов нужны независимые метрики и турнир. Автозапуск замеров включён: после проверки всех4 весов — технический прогон и6300 игр против друг друга, balanced, strong иv25. Очередь запускает замеры после проверки скачанных весов.','']
+        'Проценты показывают шаги, а не качество. '+evaluation_note,'']
 
 
 def render_live_feedback_studies(reports):

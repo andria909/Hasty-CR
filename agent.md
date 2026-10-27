@@ -1,3 +1,6 @@
+## CURRENT 6300 evaluation RUNNING with actual completed games
+Kernelandriashadrin/hastycr-full-candidate-eval-20261027 VERSION1 id141246734; collectorreceiptRUNNING andactualSSE2/6300games, observers43647/43648/43649live. Launchreportfull_candidate_eval_launch_20261027 recordsreceipts+preflightSHA. Sequence pilot submitted id141246659 lastremoteQUEUED, observers43594/43595/43597live. Pendingqueue43024stillwaitsverifiedsequence. PollAPI20min; no duplicatejobs. Awaitfullindependentresults, do notpromotequality.
+
 ## CURRENT sequence submitted and full evaluation submitting; paired Fireball analysis complete
 Sequence VERSION1 kernelId141246659, observers43594/43595/43597 alive. Fullqueue40485 exact actual-weight preflight passed, stagesubmitting_once. Final paired Fireball report20261028 verifies72identicalcontextkeys perseed, samecases/seeds:2025wins75->86/144 butclusterFireball.54->.27/game;1350wins76->66. Noautomaticfullpromotion. All4full budgets verified, continue6300evaluation andstable/pendingpilots.
 
