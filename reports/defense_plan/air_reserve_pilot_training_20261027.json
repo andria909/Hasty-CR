@@ -7,8 +7,8 @@
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
-    "reconnect_attempt": 1,
-    "checked_host_ns": 1793102765722811000,
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793105160236240000,
     "trials": {
       "pilot_joint_control_s162": {
         "update": 100,
@@ -25,21 +25,49 @@
         "remote_log_seconds": 1312.915890694
       },
       "pilot_joint_bc800_s163": {
-        "update": 21,
-        "steps": 21504,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 21.0,
-        "remote_log_seconds": 1408.616518432
+        "percent": 100.0,
+        "remote_log_seconds": 2271.468159266
       },
       "pilot_joint_control_s163": {
-        "update": 2,
-        "steps": 2048,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 2.0,
-        "remote_log_seconds": 1410.100348436
+        "percent": 100.0,
+        "remote_log_seconds": 2461.385966274
+      },
+      "pilot_joint_replay500_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3326.649843304
+      },
+      "pilot_joint_replay100_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3487.2910691
+      },
+      "pilot_joint_replay500_s163": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3530.07624824
+      },
+      "pilot_joint_replay100_s163": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3686.432671567
       }
     },
-    "error_type": "SSLError",
+    "error_type": "ConnectionError",
     "http_status": null
   },
   "pilot_target_steps": 819200,
@@ -55,7 +83,7 @@
     "kernelId": 141157723
   },
   "frozen_bootstrap_sha256": "7f1ef480d434ba9293da3cd247bc4745712456589a40a2c896568c9a94b7074c",
-  "last_local_sync_ns": 1793102578331302000,
+  "last_local_sync_ns": 1793104978802998000,
   "runtime_start_evidence": [
     {
       "event": "INPUTS_VERIFIED",

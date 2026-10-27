@@ -17,6 +17,10 @@ def submit(root,token_index):
     if sha(root/'job/train.py')!=prepared['bootstrap_sha256']:raise ValueError('Prepared bootstrap changed')
     for name,digest in prepared['config']['pins'].items():
         if sha(root/'dataset'/name)!=digest:raise ValueError('Prepared input changed: '+name)
+    upload=root/prepared.get('upload_directory','dataset')
+    if not upload.resolve().is_relative_to(root.resolve()):raise ValueError('Upload folder escapes prepared root')
+    for name,digest in prepared.get('upload_pins',{}).items():
+        if sha(upload/name)!=digest:raise ValueError('Prepared transport changed')
     r=json.loads((Path.home()/'.kaggle/access_tokens.json').read_text())['tokens'][index]
     os.environ['KAGGLE_API_TOKEN']=(r if isinstance(r,str)else r['token']).strip()
     configure_http_timeout();api=make_api_client(owner)
@@ -31,7 +35,7 @@ def submit(root,token_index):
     (root/'authentication_status.json').write_text(json.dumps(dict(owner=owner,ok=True),indent=2)+'\n')
     if not(root/'dataset_submission.json').exists():
      (root/'dataset_submission.json').write_text(json.dumps(dict(requested=True)))
-     r=api.dataset_create_new(str(root/'dataset'),public=False,quiet=True,convert_to_csv=False,dir_mode='tar')
+     r=api.dataset_create_new(str(upload),public=False,quiet=True,convert_to_csv=False,dir_mode='tar')
      result=r.to_dict()if hasattr(r,'to_dict')else str(r)
      (root/'dataset_create.json').write_text(json.dumps(result,indent=2)+'\n')
     slug=owner+'/'+prepared['config']['slug']

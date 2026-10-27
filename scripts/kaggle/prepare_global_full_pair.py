@@ -4,6 +4,10 @@ Preparation only. Exact-package preflight and dedicated output collection /
 verification must be completed before submission. No network calls here.
 """
 import argparse
+import base64
+import hashlib
+import io
+import tarfile
 import ast
 import copy
 import inspect
@@ -26,8 +30,7 @@ def isolated_child(source, index):
     run = next(n for n in execute.body if isinstance(n, ast.FunctionDef) and n.name == 'run')
     original_run = ast.dump(run)
     mount = next(n for n in execute.body if isinstance(n, ast.FunctionDef) and n.name == 'mount')
-    assert isinstance(mount.body[-1], ast.Return)
-    mount.body[-1].value = ast.parse("paths[0]/config['bundle']", mode='eval').body
+    mount.body = [ast.Return(value=ast.parse("Path('/kaggle/working/global_full_inputs')/config['bundle']", mode='eval').body)]
     for node in execute.body:
         if isinstance(node, ast.Assign):
             names = [n.id for n in node.targets if isinstance(n, ast.Name)]
@@ -59,6 +62,29 @@ def isolated_child(source, index):
     return ast.unparse(tree) + '\n'
 
 
+def transport_inputs(mounted, output, config):
+    import base64, hashlib, io, tarfile
+    from pathlib import Path
+    mounted, output = Path(mounted), Path(output)
+    encoded = (mounted/config['transport_file']).read_bytes()
+    if hashlib.sha256(encoded).hexdigest() != config['transport_sha256']:
+        raise ValueError('Full transport changed')
+    raw = base64.b64decode(encoded, validate=True)
+    if hashlib.sha256(raw).hexdigest() != config['archive_sha256']:
+        raise ValueError('Full transport archive changed')
+    with tarfile.open(fileobj=io.BytesIO(raw), mode='r:gz') as archive:
+        members = archive.getmembers()
+        if (len(members) != len(config['pins']) or {m.name for m in members} != set(config['pins']) or
+                any(not m.isfile() or Path(m.name).is_absolute() or '..' in Path(m.name).parts for m in members)):
+            raise ValueError('Unsafe full transport members')
+        output.mkdir(parents=True, exist_ok=False)
+        archive.extractall(output, filter='data')
+    for name, digest in config['pins'].items():
+        if hashlib.sha256((output/name).read_bytes()).hexdigest() != digest:
+            raise ValueError('Decoded full input changed')
+    return output
+
+
 def driver(config):
     import json, subprocess, sys
     from concurrent.futures import ThreadPoolExecutor
@@ -67,7 +93,7 @@ def driver(config):
               Path('/kaggle/input/datasets')/config['owner']/config['slug']) if p.is_dir()]
     if len(roots) != 1:
         raise ValueError('Ambiguous paired input mount')
-    inputs = roots[0]
+    inputs = transport_inputs(roots[0],Path('/kaggle/working/global_full_inputs'),config)
     for name, digest in config['pins'].items():
         if sha(inputs/name) != digest:
             raise ValueError('Paired input changed: '+name)
@@ -156,12 +182,24 @@ def prepare(prepared_roots, output, owner, pair_index=0):
             remote_output=f'global_full_child_{index}/continuous_focus'))
     config = dict(owner=owner, slug=slug,
         pins={str(path.relative_to(dataset)):sha(path) for path in dataset.rglob('*') if path.is_file()})
-    code='import hashlib\nfrom pathlib import Path\n'+inspect.getsource(sha)+'\n'+inspect.getsource(driver)+'\ndriver('+repr(config)+')\n'
+    # The SDK archives directories during dataset upload. Use one opaque
+    # transport file so mount layout never depends on recursive extraction.
+    archive = io.BytesIO()
+    with tarfile.open(fileobj=archive,mode='w:gz') as stream:
+        for name in sorted(config['pins']):stream.add(dataset/name,arcname=name,recursive=False)
+    upload = output/'upload_dataset';upload.mkdir()
+    encoded = base64.b64encode(archive.getvalue())
+    (upload/'full_inputs.b64').write_bytes(encoded)
+    config.update(transport_file='full_inputs.b64',transport_sha256=sha(upload/'full_inputs.b64'),
+                  archive_sha256=hashlib.sha256(archive.getvalue()).hexdigest())
+    code='import hashlib\nfrom pathlib import Path\n'+inspect.getsource(sha)+'\n'+inspect.getsource(transport_inputs)+'\n'+inspect.getsource(driver)+'\ndriver('+repr(config)+')\n'
     compile(code, 'train.py', 'exec'); (job/'train.py').write_text(code)
     (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug, title=slug,
         licenses=[dict(name='other')], isPrivate=True), indent=2)+'\n')
+    shutil.copyfile(dataset/'dataset-metadata.json',upload/'dataset-metadata.json')
     result=dict(kernel=kernel, children=children, config=config, submitted=False, pair_index=pair_index,
         bootstrap_sha256=sha(job/'train.py'), full_steps=8192000, pilot_steps_repeated=0,
+        upload_directory='upload_dataset',upload_pins={'full_inputs.b64':sha(upload/'full_inputs.b64')},
         requires_exact_package_preflight=True, requires_dedicated_collector_and_verifier=True,
         quality_accepted=False)
     # Deliberately no kernel-metadata.json until preflight/collection support

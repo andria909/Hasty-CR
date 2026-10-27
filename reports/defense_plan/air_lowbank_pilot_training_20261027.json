@@ -1,16 +1,60 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-air-lowbank-pilot-20261027",
-  "status": "submitted_pending_cuda_proof",
+  "status": "training_steps_observed",
   "progress_snapshot": {
     "kernel": "vertel0/hastycr-air-lowbank-pilot-20261027",
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
-    "error_type": "ConnectionError",
-    "http_status": null,
-    "reconnect_attempt": 0,
-    "checked_host_ns": 1793102653461473000
+    "reconnect_attempt": 2,
+    "checked_host_ns": 1793105110174598000,
+    "trials": {
+      "pilot_joint_control_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1408.154760467
+      },
+      "pilot_joint_bc800_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1368.434209828
+      },
+      "pilot_joint_bc800_s163": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2401.023343418
+      },
+      "pilot_joint_control_s163": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2484.013982226
+      },
+      "pilot_joint_replay500_s162": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 2616.620171884
+      },
+      "pilot_joint_replay100_s162": {
+        "update": 31,
+        "steps": 31744,
+        "target_steps": 102400,
+        "percent": 31.0,
+        "remote_log_seconds": 2622.301066618
+      }
+    },
+    "error_type": "SSLError",
+    "http_status": null
   },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
@@ -25,7 +69,7 @@
     "kernelId": 141160173
   },
   "frozen_bootstrap_sha256": "61b70c6004cb0f33afec1284f1100883b5c0eb24032c255b29f3cf382677d200",
-  "last_local_sync_ns": 1793102521987759000,
+  "last_local_sync_ns": 1793104922399226000,
   "runtime_start_evidence": [
     {
       "event": "INPUTS_VERIFIED",
@@ -39,5 +83,6 @@
       ]
     }
   ],
-  "actual_cuda_confirmed": true
+  "actual_cuda_confirmed": true,
+  "actual_training_steps_confirmed": true
 }
