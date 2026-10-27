@@ -1,0 +1,3866 @@
+{
+  "protocol": {
+    "schema": "late-air-native-delay-search-v1",
+    "source_data": "data/joint_skill_examples_20261027",
+    "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+    "contexts": 24,
+    "command_delay_ms": 1350,
+    "slot_refill_ms": 2100,
+    "beam_per_first_card": 2,
+    "helper_offsets_ms": [
+      250,
+      2000,
+      5000
+    ],
+    "helper_variants": 3,
+    "helpers": [
+      "cannon",
+      "musketeer",
+      "electro_spirit",
+      "zap",
+      "fireball"
+    ],
+    "rank": "King survival, enemies cleared, minimum own tower damage, then elixir spent",
+    "source_sha256": "be60d7e19a50d02a8f27eb91fc23cc6e947aff7841b40df2d71c10a32c21cd0d",
+    "training_data_modified": false,
+    "live_games_started": false
+  },
+  "contexts": [
+    {
+      "context": 0,
+      "opening": {
+        "seed": 3800009,
+        "lane": "left",
+        "support": false,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 1,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              5,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 3,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 3,
+        "clear_without_damage": true,
+        "context": 0,
+        "kind": "single",
+        "first": {
+          "card": "cannon",
+          "cell": [
+            5,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 0,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              5,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 3,
+            "placed_ms": 3350
+          },
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              3,
+              21
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 4,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 0,
+        "kind": "pair",
+        "first": {
+          "card": "cannon",
+          "cell": [
+            5,
+            18
+          ]
+        },
+        "second": {
+          "card": "musketeer",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "attempted": 209,
+      "legal": 83
+    },
+    {
+      "context": 1,
+      "opening": {
+        "seed": 3800009,
+        "lane": "left",
+        "support": false,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 3,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              5,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 3,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 3,
+        "clear_without_damage": true,
+        "context": 1,
+        "kind": "single",
+        "first": {
+          "card": "cannon",
+          "cell": [
+            5,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 1,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              6,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 3,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 1,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": {
+          "card": "cannon",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 209,
+      "legal": 125
+    },
+    {
+      "context": 2,
+      "opening": {
+        "seed": 3800009,
+        "lane": "left",
+        "support": true,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 5,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              5,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 3,
+            "placed_ms": 3350
+          },
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              6,
+              23
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 4,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 2,
+        "kind": "pair",
+        "first": {
+          "card": "cannon",
+          "cell": [
+            5,
+            18
+          ]
+        },
+        "second": {
+          "card": "musketeer",
+          "offset_ms": 5000,
+          "variant": 1
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 2,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              5,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 3,
+            "placed_ms": 3350
+          },
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              6,
+              23
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 4,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 2,
+        "kind": "pair",
+        "first": {
+          "card": "cannon",
+          "cell": [
+            5,
+            18
+          ]
+        },
+        "second": {
+          "card": "musketeer",
+          "offset_ms": 5000,
+          "variant": 1
+        }
+      },
+      "attempted": 209,
+      "legal": 83
+    },
+    {
+      "context": 3,
+      "opening": {
+        "seed": 3800009,
+        "lane": "left",
+        "support": true,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 7,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              2,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              6,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 3,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 3,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            2,
+            24
+          ]
+        },
+        "second": {
+          "card": "cannon",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 3,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              2,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              6,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 3,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 3,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            2,
+            24
+          ]
+        },
+        "second": {
+          "card": "cannon",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 209,
+      "legal": 125
+    },
+    {
+      "context": 4,
+      "opening": {
+        "seed": 3800009,
+        "lane": "right",
+        "support": false,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 9,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              12,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 3,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 3,
+        "clear_without_damage": true,
+        "context": 4,
+        "kind": "single",
+        "first": {
+          "card": "cannon",
+          "cell": [
+            12,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 4,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              12,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 3,
+            "placed_ms": 3350
+          },
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              14,
+              21
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 4,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 4,
+        "kind": "pair",
+        "first": {
+          "card": "cannon",
+          "cell": [
+            12,
+            18
+          ]
+        },
+        "second": {
+          "card": "musketeer",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "attempted": 209,
+      "legal": 83
+    },
+    {
+      "context": 5,
+      "opening": {
+        "seed": 3800009,
+        "lane": "right",
+        "support": false,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 11,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              12,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 3,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 3,
+        "clear_without_damage": true,
+        "context": 5,
+        "kind": "single",
+        "first": {
+          "card": "cannon",
+          "cell": [
+            12,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 5,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              11,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 3,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 5,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": {
+          "card": "cannon",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 209,
+      "legal": 125
+    },
+    {
+      "context": 6,
+      "opening": {
+        "seed": 3800009,
+        "lane": "right",
+        "support": true,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 13,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              12,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 3,
+            "placed_ms": 3350
+          },
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              11,
+              23
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 4,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 6,
+        "kind": "pair",
+        "first": {
+          "card": "cannon",
+          "cell": [
+            12,
+            18
+          ]
+        },
+        "second": {
+          "card": "musketeer",
+          "offset_ms": 5000,
+          "variant": 1
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 6,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              12,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 3,
+            "placed_ms": 3350
+          },
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              11,
+              23
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 4,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 6,
+        "kind": "pair",
+        "first": {
+          "card": "cannon",
+          "cell": [
+            12,
+            18
+          ]
+        },
+        "second": {
+          "card": "musketeer",
+          "offset_ms": 5000,
+          "variant": 1
+        }
+      },
+      "attempted": 209,
+      "legal": 83
+    },
+    {
+      "context": 7,
+      "opening": {
+        "seed": 3800009,
+        "lane": "right",
+        "support": true,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 15,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              15,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              11,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 3,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 7,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            15,
+            24
+          ]
+        },
+        "second": {
+          "card": "cannon",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 7,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 1,
+            "cell": [
+              15,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "cannon",
+            "slot": 2,
+            "cell": [
+              11,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 3,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 7,
+        "clear_without_damage": true,
+        "context": 7,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            15,
+            24
+          ]
+        },
+        "second": {
+          "card": "cannon",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 209,
+      "legal": 125
+    },
+    {
+      "context": 8,
+      "opening": {
+        "seed": 3800057,
+        "lane": "left",
+        "support": false,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 17,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              3,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 8,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 8,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              3,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 8,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 79
+    },
+    {
+      "context": 9,
+      "opening": {
+        "seed": 3800057,
+        "lane": "left",
+        "support": false,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 19,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              3,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 9,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 9,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              3,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 9,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 97
+    },
+    {
+      "context": 10,
+      "opening": {
+        "seed": 3800057,
+        "lane": "left",
+        "support": true,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 21,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              3,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 10,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 10,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              3,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 10,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 79
+    },
+    {
+      "context": 11,
+      "opening": {
+        "seed": 3800057,
+        "lane": "left",
+        "support": true,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 23,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              3,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 11,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 11,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              3,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 11,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 97
+    },
+    {
+      "context": 12,
+      "opening": {
+        "seed": 3800057,
+        "lane": "right",
+        "support": false,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 25,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              14,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 12,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 12,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              14,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 12,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 79
+    },
+    {
+      "context": 13,
+      "opening": {
+        "seed": 3800057,
+        "lane": "right",
+        "support": false,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 27,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              14,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 13,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 13,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              14,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 13,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 97
+    },
+    {
+      "context": 14,
+      "opening": {
+        "seed": 3800057,
+        "lane": "right",
+        "support": true,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 29,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              14,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 14,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 14,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              14,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 14,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 79
+    },
+    {
+      "context": 15,
+      "opening": {
+        "seed": 3800057,
+        "lane": "right",
+        "support": true,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 31,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              14,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 15,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 15,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 0,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "electro_spirit",
+            "slot": 3,
+            "cell": [
+              14,
+              21
+            ],
+            "requested_ms": 2250,
+            "due_ms": 3600,
+            "cost": 1,
+            "placed_ms": 3600
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 5,
+        "clear_without_damage": true,
+        "context": 15,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": {
+          "card": "electro_spirit",
+          "offset_ms": 250,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 97
+    },
+    {
+      "context": 16,
+      "opening": {
+        "seed": 3800085,
+        "lane": "left",
+        "support": false,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 33,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              3,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 16,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 16,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              3,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 16,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 55
+    },
+    {
+      "context": 17,
+      "opening": {
+        "seed": 3800085,
+        "lane": "left",
+        "support": false,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 35,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              3,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 17,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 17,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              3,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 17,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 73
+    },
+    {
+      "context": 18,
+      "opening": {
+        "seed": 3800085,
+        "lane": "left",
+        "support": true,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 37,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              3,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 18,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 18,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              3,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 18,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 55
+    },
+    {
+      "context": 19,
+      "opening": {
+        "seed": 3800085,
+        "lane": "left",
+        "support": true,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 39,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              3,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 19,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 640,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 19,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              1,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              3,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 19,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            1,
+            24
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 73
+    },
+    {
+      "context": 20,
+      "opening": {
+        "seed": 3800085,
+        "lane": "right",
+        "support": false,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 41,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              14,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 20,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 20,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              14,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 20,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 55
+    },
+    {
+      "context": 21,
+      "opening": {
+        "seed": 3800085,
+        "lane": "right",
+        "support": false,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 43,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              14,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 21,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 21,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              18
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              14,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 21,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            18
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 73
+    },
+    {
+      "context": 22,
+      "opening": {
+        "seed": 3800085,
+        "lane": "right",
+        "support": true,
+        "initial_own_elixir": 5.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 45,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              14,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 22,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 22,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              14,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 22,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 55
+    },
+    {
+      "context": 23,
+      "opening": {
+        "seed": 3800085,
+        "lane": "right",
+        "support": true,
+        "initial_own_elixir": 10.0,
+        "reaction_ms": 1500,
+        "decision_ms": 2000,
+        "accepted": true,
+        "array_index": 47,
+        "skill": "air_defense"
+      },
+      "best": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              14,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 23,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "best_single_musketeer": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          }
+        ],
+        "total_damage": 640,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 640,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 4,
+        "clear_without_damage": false,
+        "context": 23,
+        "kind": "single",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": null
+      },
+      "best_pair": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [
+          {
+            "card": "musketeer",
+            "slot": 3,
+            "cell": [
+              16,
+              24
+            ],
+            "requested_ms": 2000,
+            "due_ms": 3350,
+            "cost": 4,
+            "placed_ms": 3350
+          },
+          {
+            "card": "zap",
+            "slot": 3,
+            "cell": [
+              14,
+              22
+            ],
+            "requested_ms": 7000,
+            "due_ms": 8350,
+            "cost": 2,
+            "placed_ms": 8350
+          }
+        ],
+        "total_damage": 0,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 6,
+        "clear_without_damage": true,
+        "context": 23,
+        "kind": "pair",
+        "first": {
+          "card": "musketeer",
+          "cell": [
+            16,
+            24
+          ]
+        },
+        "second": {
+          "card": "zap",
+          "offset_ms": 5000,
+          "variant": 0
+        }
+      },
+      "attempted": 121,
+      "legal": 73
+    }
+  ],
+  "attempted": 3608,
+  "legal": 2048,
+  "zero_damage_contexts": 24,
+  "quality_accepted": false,
+  "limitations": [
+    "Bounded beam search, not globally optimal defense",
+    "No enemy reinforcements in this local fixture",
+    "Helper target uses current visible position plus bounded offsets, not future coordinates",
+    "Existing hand and paid elixir preserved; unavailable combinations are rejected"
+  ],
+  "raw_result_sha256": "6cb68b6683f2b343934647818c8025e4ae5b77dee96a5dfbcdbca16cb0de1c30",
+  "single_musketeer_zero_damage_contexts": 0
+}
