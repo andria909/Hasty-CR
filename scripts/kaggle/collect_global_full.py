@@ -93,7 +93,10 @@ if __name__ == '__main__':
     while True:
         try:
             state = terminal_state(api.kernels_status(kernel))
-            print(json.dumps(dict(kernel=kernel,remote_status=state,remote_job_changed=False)),flush=True)
+            status=dict(kernel=kernel,remote_status=state,remote_job_changed=False,checked_host_ns=time.time_ns())
+            status_path=Path(args.output).with_suffix('.status.json');status_path.parent.mkdir(parents=True,exist_ok=True)
+            status_path.write_text(json.dumps(status,indent=2)+'\n')
+            print(json.dumps(status),flush=True)
             if state in TERMINAL:
                 if state != 'COMPLETE':
                     raise ValueError('Full job ended unsuccessfully; inspect outputs')

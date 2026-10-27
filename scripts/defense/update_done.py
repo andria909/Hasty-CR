@@ -129,9 +129,33 @@ def slots_evaluation_lines(reports):
         'Два новых PPO, исходник иv25;480 test-игр +120 турнирных.']
 
 
+def render_global_full_training(reports):
+    rows=[]
+    for path in sorted(reports.glob('global_full_pair[01]_training_20261027.json')):
+        try:state=json.loads(path.read_text())
+        except(ValueError,OSError):continue
+        proof=path.with_name(path.name.replace('_training_','_verified_'))
+        complete=False
+        if proof.exists():
+            try:complete=json.loads(proof.read_text()).get('full_steps_verified')==8192000
+            except(ValueError,OSError):pass
+        trials=state.get('progress_snapshot',{}).get('trials',{})
+        for child in state.get('children',[]):
+            trial=trials.get(child['id'],{});step=trial.get('steps');target=trial.get('target_steps')
+            progress=('100%'if complete else f'{100*step/target:.1f}%'if
+                type(step)is int and target==4096000 and 0<=step<=target else '—')
+            status=('бюджет проверен'if complete else 'ошибка; проверяется'if
+                state.get('status')=='remote_terminal_error_requires_inspection'else 'обучение')
+            rows.append(f"| {child['id']} | {progress} | {status} |")
+    if not rows:return []
+    return ['**Большие PPO: по4096000 шагов на модель.**','',
+        '| Модель | Выполнено | Состояние |','|---|---:|---|',*rows,'',
+        'Проценты показывают шаги, а не качество. После проверки весов нужны независимые метрики и турнир.','']
+
+
 def render_live_feedback_studies(reports):
     lines=['# Текущий этап','',
-        '**PPO: сохранить выученные навыки и исправить ошибки реальных боёв.** Новая модель ещё не принята.','',
+        '**PPO: сохранить выученные навыки и исправить ошибки реальных боёв.** Новая модель ещё не принята.','']+render_global_full_training(reports)+[
         '| Серия | Вариант | PPO: запуск1 / запуск2 |','|---|---|---:|']
     studies=[('air_retention_pilot','Сохранение навыка',(142,143),
         [(f'replay{int(w*100):03d}',f'Повторение примеров: {w:g}')for w in(0.,.1,1.,5.)]),
