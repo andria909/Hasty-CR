@@ -1,3 +1,6 @@
+## CURRENT previous hand augmentation local holdout coverage audited
+Oldhand_slot_examples globalmaxseed6200907 retainsONLY12airalternativecases; Fireball42allTRAIN,zeroFireballholdout. Actualfullvalidationexists:control89/144,BC58/144,replay1=32/144,replay5=24/144;cluster.07->1.30/2.18/1.97butoverallworse. Reporthand_slot_holdout_coverage JSON. Summaryrender nowexplicitнетпримеров, removedfalseallskillsheldoutclaim; regeneratedonlyoldhandreport fromsavedsummary, metricsunchanged. NextFireballstudyrequiresheldoutforeachskill,correctlatency/stableslotsandwholegameguard;do notrepeatoldaugblindly.
+
 ## CURRENT actual slot-sensitivity audit confirms heldout dependency
 Newaudit_slot_sensitivity.py actualtwo correctedFireball warmstarts192/193:70heldoutx24permutations, bothFireballoriginal0/14, oracleany14/14, uniformaccuracy24.4/24.7%;airoriginal0/16,any14/16,uniform12.2/13.5%. TRAINFireball28/28. Reportfireball_slot_sensitivity_20261028 JSON/MD. Notdeployableoracle/nottrainaugmentation/notlivequality. Beforefuturepilotinspectexistinghandaugmentationresults; do notduplicateoldphysicsstudy. Current6300eval andstablepilotunchanged.
 

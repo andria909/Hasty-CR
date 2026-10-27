@@ -37,47 +37,47 @@
 | Профиль | Навык | До PPO | Выбранный PPO |
 |---|---|---:|---:|
 | joint_control | air_cannon_efficient | 0/8 | 0/8 |
-| joint_control | air_defense | 0/0 | 0/0 |
+| joint_control | air_defense | нет примеров | нет примеров |
 | joint_control | air_electro_spirit_recovery | 0/8 | 0/8 |
 | joint_control | air_fireball_recovery | 0/4 | 0/4 |
-| joint_control | air_reserve_deploy | 0/0 | 0/0 |
-| joint_control | air_reserve_wait | 0/0 | 0/0 |
+| joint_control | air_reserve_deploy | нет примеров | нет примеров |
+| joint_control | air_reserve_wait | нет примеров | нет примеров |
 | joint_control | air_zap_recovery | 0/4 | 0/4 |
-| joint_control | fireball_group | 0/0 | 0/0 |
-| joint_control | fireball_restraint | 0/0 | 0/0 |
-| joint_control | hand_slot_permutation | 0/0 | 0/0 |
+| joint_control | fireball_group | нет примеров | нет примеров |
+| joint_control | fireball_restraint | нет примеров | нет примеров |
+| joint_control | hand_slot_permutation | нет примеров | нет примеров |
 | joint_bc800 | air_cannon_efficient | 0/8 | 0/8 |
-| joint_bc800 | air_defense | 0/0 | 0/0 |
+| joint_bc800 | air_defense | нет примеров | нет примеров |
 | joint_bc800 | air_electro_spirit_recovery | 0/8 | 0/8 |
 | joint_bc800 | air_fireball_recovery | 0/4 | 0/4 |
-| joint_bc800 | air_reserve_deploy | 0/0 | 0/0 |
-| joint_bc800 | air_reserve_wait | 0/0 | 0/0 |
+| joint_bc800 | air_reserve_deploy | нет примеров | нет примеров |
+| joint_bc800 | air_reserve_wait | нет примеров | нет примеров |
 | joint_bc800 | air_zap_recovery | 0/4 | 0/4 |
-| joint_bc800 | fireball_group | 0/0 | 0/0 |
-| joint_bc800 | fireball_restraint | 0/0 | 0/0 |
-| joint_bc800 | hand_slot_permutation | 0/0 | 0/0 |
+| joint_bc800 | fireball_group | нет примеров | нет примеров |
+| joint_bc800 | fireball_restraint | нет примеров | нет примеров |
+| joint_bc800 | hand_slot_permutation | нет примеров | нет примеров |
 | joint_replay100 | air_cannon_efficient | 0/8 | 0/8 |
-| joint_replay100 | air_defense | 0/0 | 0/0 |
+| joint_replay100 | air_defense | нет примеров | нет примеров |
 | joint_replay100 | air_electro_spirit_recovery | 0/8 | 0/8 |
 | joint_replay100 | air_fireball_recovery | 0/4 | 0/4 |
-| joint_replay100 | air_reserve_deploy | 0/0 | 0/0 |
-| joint_replay100 | air_reserve_wait | 0/0 | 0/0 |
+| joint_replay100 | air_reserve_deploy | нет примеров | нет примеров |
+| joint_replay100 | air_reserve_wait | нет примеров | нет примеров |
 | joint_replay100 | air_zap_recovery | 0/4 | 0/4 |
-| joint_replay100 | fireball_group | 0/0 | 0/0 |
-| joint_replay100 | fireball_restraint | 0/0 | 0/0 |
-| joint_replay100 | hand_slot_permutation | 0/0 | 0/0 |
+| joint_replay100 | fireball_group | нет примеров | нет примеров |
+| joint_replay100 | fireball_restraint | нет примеров | нет примеров |
+| joint_replay100 | hand_slot_permutation | нет примеров | нет примеров |
 | joint_replay500 | air_cannon_efficient | 0/8 | 0/8 |
-| joint_replay500 | air_defense | 0/0 | 0/0 |
+| joint_replay500 | air_defense | нет примеров | нет примеров |
 | joint_replay500 | air_electro_spirit_recovery | 0/8 | 0/8 |
 | joint_replay500 | air_fireball_recovery | 0/4 | 0/4 |
-| joint_replay500 | air_reserve_deploy | 0/0 | 0/0 |
-| joint_replay500 | air_reserve_wait | 0/0 | 0/0 |
+| joint_replay500 | air_reserve_deploy | нет примеров | нет примеров |
+| joint_replay500 | air_reserve_wait | нет примеров | нет примеров |
 | joint_replay500 | air_zap_recovery | 0/4 | 1/4 |
-| joint_replay500 | fireball_group | 0/0 | 0/0 |
-| joint_replay500 | fireball_restraint | 0/0 | 0/0 |
-| joint_replay500 | hand_slot_permutation | 0/0 | 0/0 |
+| joint_replay500 | fireball_group | нет примеров | нет примеров |
+| joint_replay500 | fireball_restraint | нет примеров | нет примеров |
+| joint_replay500 | hand_slot_permutation | нет примеров | нет примеров |
 
-Удержание Fireball на пустом поле не компенсирует потерю защиты воздуха или группового прицела. Все группы входят в локальный holdout целиком.
+Удержание Fireball на пустом поле не компенсирует потерю защиты воздуха или группового прицела. Разделение выполнено по целым seed. Навыки без отложенных примеров здесь не проверены.
 
 Минимум два профиля порог не прошли: большое продолжение этого исследования не запускается.
 Это validation для отбора; test и реальные бои не проводились. Частота карты сама по себе не доказывает качество.

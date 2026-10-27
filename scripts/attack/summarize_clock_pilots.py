@@ -138,8 +138,9 @@ def render(summary):
         for row in summary['rows']:
             for skill,phases in row['local_skill_retention'].items():
                 before,after=phases['before'],phases['after']
-                lines.append(f"| {row['id']} | {skill} | {before['successful_choices']}/{before['predictions']} | {after['successful_choices']}/{after['predictions']} |")
-        lines+=['','Удержание Fireball на пустом поле не компенсирует потерю защиты воздуха или группового прицела. Все группы входят в локальный holdout целиком.']
+                show=lambda x: f"{x['successful_choices']}/{x['predictions']}" if x['predictions'] else 'нет примеров'
+                lines.append(f"| {row['id']} | {skill} | {show(before)} | {show(after)} |")
+        lines+=['','Удержание Fireball на пустом поле не компенсирует потерю защиты воздуха или группового прицела. Разделение выполнено по целым seed. Навыки без отложенных примеров здесь не проверены.']
     lines+=['',('Порог для продолжения прошли минимум два профиля.'if summary['eligible_for_full']else
         'Минимум два профиля порог не прошли: большое продолжение этого исследования не запускается.'),
         'Это validation для отбора; test и реальные бои не проводились. Частота карты сама по себе не доказывает качество.']

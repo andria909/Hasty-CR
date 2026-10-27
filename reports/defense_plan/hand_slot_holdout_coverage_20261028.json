@@ -1,0 +1,48 @@
+{
+  "schema": "local-holdout-coverage-audit-v1",
+  "manifest_sha256": "a01158191d3c89aeceaf9493fb21f6f4f80e9cfa1d958f2bdfe63deefa602b02",
+  "heldout_seed": 6200907,
+  "by_skill": {
+    "air_cannon_efficient": {
+      "train": 8,
+      "heldout": 4
+    },
+    "air_defense": {
+      "train": 48,
+      "heldout": 0
+    },
+    "air_electro_spirit_recovery": {
+      "train": 8,
+      "heldout": 4
+    },
+    "air_fireball_recovery": {
+      "train": 4,
+      "heldout": 2
+    },
+    "air_reserve_deploy": {
+      "train": 12,
+      "heldout": 0
+    },
+    "air_reserve_wait": {
+      "train": 96,
+      "heldout": 0
+    },
+    "air_zap_recovery": {
+      "train": 4,
+      "heldout": 2
+    },
+    "fireball_group": {
+      "train": 42,
+      "heldout": 0
+    },
+    "fireball_restraint": {
+      "train": 12,
+      "heldout": 0
+    },
+    "hand_slot_permutation": {
+      "train": 5186,
+      "heldout": 0
+    }
+  },
+  "conclusion": "No local Fireball holdout in old hand augmentation cohort; full-game validation still exists. Do not equate missing local examples with failed or successful generalization."
+}
