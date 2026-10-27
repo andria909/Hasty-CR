@@ -16,6 +16,8 @@ def summarize(root,verified=None):
             from scripts.attack.verify_pending_focus import verify as verify_study
         elif variant=='late_air_sequential_teacher_v1':
             from scripts.attack.verify_sequence_pilot import verify_sequence as verify_study
+        elif variant=='native_fireball_slot_v1':
+            from scripts.attack.verify_native_fireball_slot import verify_native_fireball as verify_study
         else:
             verify_study=verify
         verified=verify_study(root/'collected',root)

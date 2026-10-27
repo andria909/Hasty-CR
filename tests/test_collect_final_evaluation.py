@@ -21,6 +21,7 @@ from scripts.kaggle import collect_final_evaluation as collector
                                                   ('continuous-focus','continuous_focus/','result.json'),
                                                   ('sequence-pilot','continuous_focus/','result.json'),
                                                   ('pending-inputs-pilot','continuous_focus/','result.json'),
+                                                  ('native-fireball-slot-pilot','continuous_focus/','result.json'),
                                                   ('fireball-evaluation','fireball_evaluation/','result.json')])
 def test_only_declared_terminal_report_files_are_collected(monkeypatch,tmp_path,profile,prefix,result):
     data={prefix+result:b'{"status":"completed"}',prefix+'project/secret.py':b'never',prefix+'policy.pt':b'never'}

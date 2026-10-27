@@ -4,6 +4,7 @@ Local heldout groups measure this narrow exercise only. Full-game validation
 and PPO remain required; no checkpoint is promoted by this script.
 """
 import argparse
+from copy import deepcopy
 import hashlib
 import json
 from pathlib import Path
@@ -23,7 +24,8 @@ def successful_set_loss(logits,legal,success):
         torch.logsumexp(logits.masked_fill(~success,-torch.inf),-1)).mean()
 
 
-def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,sequence_wait_fraction=None):
+def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,sequence_wait_fraction=None,slot_augmentation=False):
+    if slot_augmentation and sequence_wait_fraction is not None:raise ValueError('Pending sequence slots require a separate permutation contract')
     if updates<1 or not 0<=kl_weight<=10:raise ValueError('Invalid supervised training controls')
     if device.startswith('cuda')and not torch.cuda.is_available():raise RuntimeError('CUDA unavailable; no CPU fallback')
     if device=='cpu'and updates>5:raise ValueError('CPU limited to five preflight updates')
@@ -49,6 +51,7 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
     blob=torch.load(initial,map_location='cpu',weights_only=False)
     net,architecture,_=initialize_attack_policy(blob,device=device,num_scalars=309,observation_contract=CONTRACT)
     net.eval()
+    reference_net=deepcopy(net).eval() if slot_augmentation else None
     with torch.no_grad():reference_logits,reference_value=net(planes,scalars)
     reference_logp=reference_logits.masked_fill(~masks,-torch.inf).log_softmax(-1).masked_fill(~masks,0)
     reference_probs=reference_logits.masked_fill(~masks,-torch.inf).softmax(-1)
@@ -63,10 +66,28 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
     optimizer=torch.optim.Adam(net.parameters(),lr=5e-5);history=[]
     for update in range(1,updates+1):
         ids=train_ids[torch.randperm(len(train_ids),device=device)[:32]] if sampling is None else train_ids[torch.multinomial(sampling,32,replacement=True)]
-        logits,value=net(planes[ids],scalars[ids]);imitate=successful_set_loss(logits,masks[ids],success[ids])
-        logp=logits.masked_fill(~masks[ids],-torch.inf).log_softmax(-1).masked_fill(~masks[ids],0)
-        kl=(reference_probs[ids]*(reference_logp[ids]-logp)).sum(-1).mean()
-        value_anchor=(value-reference_value[ids]).square().mean()
+        batch_scalars,batch_masks,batch_success=scalars[ids],masks[ids],success[ids]
+        ref_logp,ref_probs,ref_value=reference_logp[ids],reference_probs[ids],reference_value[ids]
+        if slot_augmentation:
+            from sim.hand_slot_augmentation import permute
+            packed=[]
+            for i in ids.cpu().tolist():
+                order=torch.randperm(4).tolist()
+                scalar,mask=permute(arrays['scalars'][i],arrays['masks'][i],order)
+                _,label=permute(arrays['scalars'][i],arrays['success_masks'][i],order)
+                packed.append((scalar,mask,label))
+            batch_scalars=torch.as_tensor(np.stack([x[0]for x in packed]),device=device,dtype=torch.float32)
+            batch_masks=torch.as_tensor(np.stack([x[1]for x in packed]),device=device,dtype=torch.bool)
+            batch_success=torch.as_tensor(np.stack([x[2]for x in packed]),device=device,dtype=torch.bool)
+            # Anchor to the parent on exactly the transformed observation.
+            with torch.no_grad():
+                ref_logits,ref_value=reference_net(planes[ids],batch_scalars)
+                ref_logp=ref_logits.masked_fill(~batch_masks,-torch.inf).log_softmax(-1).masked_fill(~batch_masks,0)
+                ref_probs=ref_logits.masked_fill(~batch_masks,-torch.inf).softmax(-1)
+        logits,value=net(planes[ids],batch_scalars);imitate=successful_set_loss(logits,batch_masks,batch_success)
+        logp=logits.masked_fill(~batch_masks,-torch.inf).log_softmax(-1).masked_fill(~batch_masks,0)
+        kl=(ref_probs*(ref_logp-logp)).sum(-1).mean()
+        value_anchor=(value-ref_value).square().mean()
         loss=imitate+kl_weight*kl+.1*value_anchor
         if not torch.isfinite(loss):raise ValueError('Nonfinite warmstart objective')
         optimizer.zero_grad();loss.backward();torch.nn.utils.clip_grad_norm_(net.parameters(),.5);optimizer.step()
@@ -79,7 +100,7 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
         final=dict(train=measure(train_ids),local_heldout=measure(heldout_ids)),data_sha256=digest,
         initial_sha256=hashlib.sha256(Path(initial).read_bytes()).hexdigest(),kl_weight=kl_weight,
         source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-        sequence_wait_fraction=sequence_wait_fraction,
+        sequence_wait_fraction=sequence_wait_fraction,slot_augmentation=slot_augmentation,
         sampling='uniform_without_replacement' if sampling is None else 'equal_sequence_mass_bounded_wait_with_replacement',
         scope='Local action labels, not full-game validation/test; checkpoint for PPO initialization only',quality_accepted=False)
     config=dict(blob.get('config',{}));config.update(architecture=architecture,observation_contract=CONTRACT,num_scalars=309,num_planes=20,
@@ -93,4 +114,5 @@ if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--data',required=True);p.add_argument('--init',required=True);p.add_argument('--output',required=True)
     p.add_argument('--device',default='cuda:0');p.add_argument('--updates',type=int,default=200);p.add_argument('--kl-weight',type=float,default=.1);p.add_argument('--seed',type=int,default=112)
     p.add_argument('--sequence-wait-fraction',type=float)
-    a=p.parse_args();print(json.dumps(train(a.data,a.init,a.output,a.device,a.updates,a.kl_weight,a.seed,a.sequence_wait_fraction)))
+    p.add_argument('--slot-augmentation',action='store_true')
+    a=p.parse_args();print(json.dumps(train(a.data,a.init,a.output,a.device,a.updates,a.kl_weight,a.seed,a.sequence_wait_fraction,a.slot_augmentation)))
