@@ -169,9 +169,11 @@ class PlayerState:
         """Move a card from hand to the back of the queue."""
         if card not in self.hand:
             return False
-        self.hand.remove(card)
+        # A replacement enters the played slot; other pending card commands
+        # keep referring to the same hand positions.
+        slot = self.hand.index(card)
         self.queue.append(card)
-        self.draw()
+        self.hand[slot] = self.queue.pop(0)
         return True
 
     @property
