@@ -1,0 +1,28 @@
+{
+  "schema": "early-latency-validation-log-v1",
+  "events_file": "tmp/kaggle/native_latency_pilot_20261027/live_stream/events.jsonl",
+  "events_sha256": "6c641a16107d4763639d1da96dbcb6b5ed12af894c0f623dc60ac7fd9d376fbd",
+  "trials": [
+    {
+      "remote_log_seconds": 1305.362015581,
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_delay0225_s192",
+      "score": 0.3194444444444445,
+      "family_guard": false
+    },
+    {
+      "remote_log_seconds": 1325.84077345,
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_delay1350_s192",
+      "score": 0.35763888888888884,
+      "family_guard": true
+    }
+  ],
+  "weights_verified": false,
+  "quality_accepted": false,
+  "limitations": [
+    "Incomplete first-seed evidence only",
+    "Score is the validation selection criterion, not win rate",
+    "All variants validated at1350ms; not comparable with older225ms cohort"
+  ]
+}

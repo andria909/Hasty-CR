@@ -167,6 +167,8 @@ def render_live_feedback_studies(reports):
             lines += [f"**Реальная проба BC800:** завершено {state['finished']}/{state['requested']}; побед {state['wins']}, поражений {state['losses']}, неизвестных {state['unknown']}. Статус: {state['status']}."+extra,'']
     if (reports/'reserve_bc800_live_audit_20261027.json').exists():
         lines += ['**Следующая проверка — задержка:** Хог начинает двигаться примерно через2,50с в игре против1,35с в симуляции. Запущены прогоны с задержками225/1350/2025мс; общий validation1350мс. [Разбор BC800](reports/reserve_bc800_live_review_20261027.md).','']
+    if (reports/'reflection_ensemble_bc800_train_20261027.json').exists():
+        lines += ['**Зеркальное усреднение — отклонено:** TRAIN22/48 →18/48 побед; перекос по линиям меньше, игра хуже. [Разбор](reports/reflection_ensemble_bc800_train_20261027.md).','']
     lines+=render_global_full_training(reports)+[
         '| Серия | Вариант | PPO: запуск1 / запуск2 |','|---|---|---:|']
     studies=[('air_retention_pilot','Сохранение навыка',(142,143),
