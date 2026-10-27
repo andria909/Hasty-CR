@@ -1,3 +1,6 @@
+## CURRENT sequence submitted and full evaluation submitting; paired Fireball analysis complete
+Sequence VERSION1 kernelId141246659, observers43594/43595/43597 alive. Fullqueue40485 exact actual-weight preflight passed, stagesubmitting_once. Final paired Fireball report20261028 verifies72identicalcontextkeys perseed, samecases/seeds:2025wins75->86/144 butclusterFireball.54->.27/game;1350wins76->66. Noautomaticfullpromotion. All4full budgets verified, continue6300evaluation andstable/pendingpilots.
+
 ## CURRENT all four FULL models verified; Fireball verified; sequence submitting
 Both full proofs present, each8192000steps=4x4096000 total. Fireball819200verified; best rawvalidationdelay2025=86/144,air5/24,golem7/24; repeated72contexts,notindependenttest/live. Sequencequeue enteredsubmitting_on_verified_free_account. Fullqueue alive waitingnextlocalcheck for6300eval. No livepromotion.
 
