@@ -186,6 +186,14 @@ def render_live_feedback_studies(reports):
         lines += ['**Разметка защиты шара:** при1350мс работают168/336 старых позиций; все24 поздних состояния потеряли прежние ответы без урона. Поиск нашёл комбинации без урона в24/24 TRAIN-состояний. Пересобрано540 кадров/72 последовательности на стабильных слотах, ограничен вес WAIT; новые руки дали48 успешных защит из92 легальных открытий. Исправленный пакет прошёл48 технических игр и снова в очереди после Fireball. [Разбор](reports/late_air_native_search_20261027.md).','']
     if (reports/'reflection_ensemble_bc800_train_20261027.json').exists():
         lines += ['**Зеркальное усреднение — отклонено:** TRAIN22/48 →18/48 побед; перекос по линиям меньше, игра хуже. [Разбор](reports/reflection_ensemble_bc800_train_20261027.md).','']
+    selection=reports/'full_four_validation_20261028.json'
+    if selection.exists():
+        chosen=json.loads(selection.read_text())
+        lines += ['**Новые большие модели — validation, не независимый test:**','',
+                  '| Модель | Победы | Воздух | Голем |','|---|---:|---:|---:|']
+        for row in chosen['models']:
+            lines.append(f"| {row['label']} | {row['wins']}/{row['games']} — {100*row['wins']/row['games']:.1f}% | {row['air_wins']}/12 | {row['golem_wins']}/12 |")
+        lines += ['', '**Реальная проверка:** для первых двух моделей разрешено по10 игр; текущий счёт: tmp/live/full_top2_20261028/comparison.json и отдельные series/series.json. Ручной матч до запуска исключён.','']
     lines+=render_global_full_training(reports)
     studies=[('air_retention_pilot','Сохранение навыка',(142,143),
         [(f'replay{int(w*100):03d}',f'Повторение примеров: {w:g}')for w in(0.,.1,1.,5.)]),
