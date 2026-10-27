@@ -56,7 +56,7 @@ def collect(api,kernel,destination,profile='defense'):
             if profile=='live-tactical-pilot'else r'pilot_replay(?:000|010|100|500)_s14[23]'
             if profile=='air-retention-pilot'else r'pilot_temp(?:001|010|030|050)_s13[23]'
             if profile=='temperature-pilot'else r'pilot_(?:bc000_control|bc200_kl000|bc800_kl000|bc800_kl100)_s12[23]'
-            if profile=='air-warmstart-pilot'else r'full_(?:temp(?:001|010|030|050)|bc000_control|bc200_kl000|bc800_kl000|bc800_kl100|board_(?:000|050|150|400)|bank_overflow(?:00|15)_balance(?:00|10)|history[12]_(?:uniform|air_golem)|(?:uniform|air_golem)_(?:base|explore)|(?:current|seconds_preserved)_(?:control|miss))_s64'
+            if profile=='air-warmstart-pilot'else r'full_(?:replay(?:000|010|100|500)|live_(?:control|precision|economy|combined)|temp(?:001|010|030|050)|bc000_control|bc200_kl000|bc800_kl000|bc800_kl100|board_(?:000|050|150|400)|bank_overflow(?:00|15)_balance(?:00|10)|history[12]_(?:uniform|air_golem)|(?:uniform|air_golem)_(?:base|explore)|(?:current|seconds_preserved)_(?:control|miss))_s64'
             if profile=='selected-continuous-full'else r'(?:pilot|full)_(?:uniform|air_golem)_(?:base|explore)_s6[234]'
             if profile=='continuous-focus' else r'pilot_history[12]_(?:uniform|air_golem)_s8[23]'
             if profile=='history-pilot' else r'pilot_board_(?:000|050|150|400)_s9[23]'

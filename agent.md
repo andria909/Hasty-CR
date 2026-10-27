@@ -1,3 +1,6 @@
+## CURRENT Fireball placement baseline measured offline
+reports/fireball_cluster_baselines_20261027.md + JSON:48 validation fixtures, balanced conditionalgroup20/48 empty10, strong35/48 empty4; freeFireball16/48both. ConditionalFireball aiming is diagnostic only, not liveoverride/notmatchwins. Source scripts/attack/evaluate_fireball_clusters.py; benchmarkstatesNOTtraininglabels. NewGPUfrozenpilots unchanged. Full-onlycollector now supports replay/live profile names; no fullsubmission without verified two-profile gate and exact-package preflight.
+
 ## CURRENT 27 Oct: training goal ACTIVE; live10 COMPLETE; two NEW frozen pilots
 Latest user explicitly resumed training and reward changes. Live balanced completed10 total: autonomous3W/9; match4 manual-assisted win excluded. No further live games authorized. Old live/paused banners below are historical.
 Retention andriashadrin/hastycr-air-retention-pilot-20261027 VERSION1 kernelId141070738; root tmp/kaggle/air_retention_pilot_20261027. replay0/.1/1/5, seeds142/143, all BC800 then102400PPO=819200. Successful TRAIN32 labels repeated during PPO; grouped16 holdout never optimized. Frozen package predates tactical rewards; NEVER hotfix it. Exact frozen preflight16->32 resume and12validation passed. GPU claim requires received CUDA/TRIAL evidence, not only submission.
