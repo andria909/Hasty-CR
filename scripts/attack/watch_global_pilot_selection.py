@@ -43,9 +43,13 @@ def refresh(config, previous_signature=None):
     # checkpoint and source/context verification before scoring anything.
     result = select([r['prepared'] for r in ready], limit=config.get('limit', 4))
     snapshot = Path(config['reports']) / f'global_pilot_pool_auto_cohorts_{len(ready)}_20261027.json'
-    with snapshot.open('x') as stream:
-        json.dump(result, stream, indent=2)
-        stream.write('\n')
+    if snapshot.exists():
+        if json.loads(snapshot.read_text()) != result:
+            raise ValueError('Existing immutable selection snapshot differs')
+    else:
+        with snapshot.open('x') as stream:
+            json.dump(result, stream, indent=2)
+            stream.write('\n')
     pointer = dict(report=str(snapshot), report_sha256=hashlib.sha256(snapshot.read_bytes()).hexdigest(),
         verified_cohorts=len(ready), expected_cohorts=len(config['studies']), verified_models=8*len(ready),
         eligible_profiles=result['eligible_profiles'], selected_profiles=len(result['selected']),

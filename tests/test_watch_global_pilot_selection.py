@@ -35,3 +35,17 @@ def test_refresh_invokes_full_verifier_via_selector_only_on_new_verified_cohorts
     snapshot=Path(pointer['report']);original=snapshot.read_bytes()
     assert json.loads(Path(config['pointer']).read_text())==pointer
     assert snapshot.read_bytes()==original
+
+
+def test_restart_reuses_only_identical_snapshot_without_overwriting(monkeypatch,tmp_path):
+    config=setup(tmp_path)
+    result=dict(eligible_profiles=0,selected=[],gate_met=False)
+    monkeypatch.setattr(module,'select',lambda *a,**kw:result)
+    signature,pointer=module.refresh(config)
+    path=Path(pointer['report']);before=path.read_bytes()
+    assert module.refresh(config)[1]==pointer
+    assert path.read_bytes()==before
+    result['eligible_profiles']=1
+    import pytest
+    with pytest.raises(ValueError,match='snapshot differs'):module.refresh(config)
+    assert path.read_bytes()==before

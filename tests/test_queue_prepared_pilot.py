@@ -46,3 +46,13 @@ def test_slot_requires_matching_verified_budget_and_terminal_remote_receipt(tmp_
     assert first_verified_free([slot])==slot
     Path(slot['verified_report']).write_text(json.dumps(dict(kernel='other/job',pilot_steps_verified=819200)))
     assert first_verified_free([slot])is None
+
+
+def test_optional_priority_keeps_successful_pair_account_free_for_full_training(tmp_path):
+    slot=dict(owner='newowner',kernel='newowner/job',root=str(tmp_path/'run'),verified_report=str(tmp_path/'proof.json'))
+    Path(slot['verified_report']).write_text(json.dumps(dict(kernel=slot['kernel'],pilot_steps_verified=819200,
+        pilot_selection=dict(gate_met=True))))
+    path=Path(slot['root'])/'collected/collection_receipt.json';path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(dict(kernel=slot['kernel'],remote_status='COMPLETE',complete=True)))
+    assert first_verified_free([slot])==slot
+    assert first_verified_free([slot],reserve_eligible_pairs=True)is None

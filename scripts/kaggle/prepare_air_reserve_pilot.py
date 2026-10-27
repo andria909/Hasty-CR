@@ -10,7 +10,7 @@ from scripts.kaggle.run_five_round_robin import sha
 
 
 def prepare(output, owner='andriashadrin', data='data/air_reserve_examples_20261027', variant='reserve'):
-    if variant not in ('reserve', 'alternatives', 'lowbank'):
+    if variant not in ('reserve', 'alternatives', 'lowbank', 'slots'):
         raise ValueError('Unknown demonstration variant')
     root = Path(output)
     data = Path(data)
@@ -20,7 +20,7 @@ def prepare(output, owner='andriashadrin', data='data/air_reserve_examples_20261
     prepare_joint(root, owner, 'jointskills')
     prep = json.loads((root / 'preparation.json').read_text())
     config = prep['config']
-    stem = 'hastycr-air-reserve-pilot' if variant == 'reserve' else 'hastycr-air-lowbank-pilot' if variant == 'lowbank' else 'hastycr-air-alternatives-pilot'
+    stem = {'reserve':'hastycr-air-reserve-pilot','alternatives':'hastycr-air-alternatives-pilot','lowbank':'hastycr-air-lowbank-pilot','slots':'hastycr-hand-slots-pilot'}[variant]
     slug = stem + '-inputs-20261027'
     kernel = owner + '/' + stem + '-20261027'
     config.update(slug=slug, source_slug=slug)
@@ -29,8 +29,8 @@ def prepare(output, owner='andriashadrin', data='data/air_reserve_examples_20261
         config['pins'][target] = sha(root / 'dataset' / target)
     protocol_path = root / 'dataset/protocol.json'
     protocol = json.loads(protocol_path.read_text())
-    protocol.update(study_variant=('air_reserve_wait_then_deploy_v1' if variant == 'reserve' else 'air_cannon_lowbank_v1' if variant == 'lowbank' else 'air_cannon_alternatives_v1'),
-        rationale_source=('reports/defense_plan/balanced_air_response_trace_20261027.json' if variant == 'reserve' else 'reports/defense_plan/balloon_combinations_bank3_20261027.json' if variant == 'lowbank' else 'reports/defense_plan/balloon_combinations_20261027.json'),
+    protocol.update(study_variant=('air_reserve_wait_then_deploy_v1' if variant == 'reserve' else 'hand_slot_augmentation_v1' if variant == 'slots' else 'air_cannon_lowbank_v1' if variant == 'lowbank' else 'air_cannon_alternatives_v1'),
+        rationale_source=('reports/defense_plan/balanced_air_response_trace_20261027.json' if variant == 'reserve' else 'reports/hand_slot_generalization_20261027.md' if variant == 'slots' else 'reports/defense_plan/balloon_combinations_bank3_20261027.json' if variant == 'lowbank' else 'reports/defense_plan/balloon_combinations_20261027.json'),
         rationale_split=('fresh_train_full_games' if variant == 'reserve' else 'fresh_train_local_fixture'),
         paired_comparison='Same profiles/seeds/physics/rewards as joint-skills; only TRAIN demonstration dataset differs',
         limitations='Local successes; full-game validation still required; no action override')
@@ -62,6 +62,6 @@ if __name__ == '__main__':
     parser.add_argument('--output', required=True)
     parser.add_argument('--owner', default='andriashadrin')
     parser.add_argument('--data', default='data/air_reserve_examples_20261027')
-    parser.add_argument('--variant', choices=('reserve','alternatives','lowbank'), default='reserve')
+    parser.add_argument('--variant', choices=('reserve','alternatives','lowbank','slots'), default='reserve')
     args = parser.parse_args()
     print(json.dumps(prepare(args.output, args.owner, args.data, args.variant)))

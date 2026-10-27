@@ -52,7 +52,7 @@ def rebind(source,output,owner):
     return result
 
 
-def first_verified_free(slots):
+def first_verified_free(slots,reserve_eligible_pairs=False):
     ready=[]
     for slot in slots:
         path=Path(slot['verified_report'])
@@ -60,6 +60,8 @@ def first_verified_free(slots):
         try:proof=json.loads(path.read_text())
         except(ValueError,OSError):continue
         if proof.get('kernel')!=slot['kernel']or proof.get('pilot_steps_verified')!=819200:continue
+        if reserve_eligible_pairs and proof.get('pilot_selection',{}).get('gate_met'):
+            continue
         receipt=Path(slot['root'])/'collected/collection_receipt.json'
         if not receipt.exists():continue
         try:receipt=json.loads(receipt.read_text())
@@ -81,7 +83,7 @@ def watch(config_path):
     save(status='waiting_verified_free_account',source=config['source'],slots=config['slots'])
     deadline=time.monotonic()+172800
     while time.monotonic()<deadline:
-        slot=first_verified_free(config['slots'])
+        slot=first_verified_free(config['slots'],config.get('reserve_eligible_pairs',False))
         if slot is None:time.sleep(30);continue
         root=Path(config['output']);save(status='binding_same_algorithm_to_free_owner',owner=slot['owner'])
         result=rebind(config['source'],root,slot['owner'])

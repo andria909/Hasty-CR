@@ -1,0 +1,53 @@
+{
+  "schema": "early-continuous-validation-signals-v1",
+  "studies": [
+    {
+      "study": "air_reserve_pilot",
+      "source": "tmp/kaggle/air_reserve_pilot_20261027/live_stream/events.jsonl",
+      "completed_trials": [
+        {
+          "event": "FOCUS_TRIAL_COMPLETE",
+          "trial_id": "pilot_joint_bc800_s162",
+          "score": 0.41666666666666663,
+          "family_guard": true,
+          "remote_log_seconds": 1313.896249054
+        },
+        {
+          "event": "FOCUS_TRIAL_COMPLETE",
+          "trial_id": "pilot_joint_control_s162",
+          "score": 0.3055555555555555,
+          "family_guard": false,
+          "remote_log_seconds": 1398.659636215
+        },
+        {
+          "event": "FOCUS_TRIAL_COMPLETE",
+          "trial_id": "pilot_joint_bc800_s163",
+          "score": 0.3611111111111111,
+          "family_guard": true,
+          "remote_log_seconds": 2272.419266377
+        },
+        {
+          "event": "FOCUS_TRIAL_COMPLETE",
+          "trial_id": "pilot_joint_control_s163",
+          "score": 0.3125,
+          "family_guard": false,
+          "remote_log_seconds": 2462.336704524
+        }
+      ]
+    },
+    {
+      "study": "air_alternatives_pilot",
+      "source": "tmp/kaggle/air_alternatives_pilot_20261027/live_stream/events.jsonl",
+      "completed_trials": []
+    },
+    {
+      "study": "air_lowbank_pilot",
+      "source": "tmp/kaggle/air_lowbank_pilot_20261027/live_stream/events.jsonl",
+      "completed_trials": []
+    }
+  ],
+  "scope": "Saved log announcements, not final artifact verification",
+  "requires_terminal_artifact_verification": true,
+  "test_used": false,
+  "quality_accepted": false
+}

@@ -150,6 +150,9 @@ def render_live_feedback_studies(reports):
          ('joint_replay100','Примеры + повторение 1'),('joint_replay500','Примеры + повторение 5')]),
         ('air_lowbank_pilot','Пушка + дух с3 эликсирами',(162,163),
         [('joint_control','Без примеров'),('joint_bc800','800 обновлений по примерам'),
+         ('joint_replay100','Примеры + повторение 1'),('joint_replay500','Примеры + повторение 5')]),
+        ('hand_slots_pilot','Порядок карт в руке',(162,163),
+        [('joint_control','Без примеров'),('joint_bc800','800 обновлений по примерам'),
          ('joint_replay100','Примеры + повторение 1'),('joint_replay500','Примеры + повторение 5')])]
     links=[];sent=queued=verified=0
     for stem,label,seeds,cases in studies:
@@ -174,9 +177,15 @@ def render_live_feedback_studies(reports):
     if selection_pointer.exists():
         selection=json.loads(selection_pointer.read_text())
         lines+=['',f"**Глобальный отбор:** проверено{selection['verified_models']} моделей; подходящих профилей{selection['eligible_profiles']}; выбрано{selection['selected_profiles']} для подготовки большого обучения. Большие обучения автоматически не запускались."]
+    early_path=reports/'early_continuous_validation_20261027.json'
+    if early_path.exists()and not(reports/'air_reserve_pilot_verified_20261027.json').exists():
+        early=json.loads(early_path.read_text())
+        trial_rows={r['trial_id']:r for study in early.get('studies',[])if study['study']=='air_reserve_pilot'for r in study['completed_trials']}
+        if all(trial_rows.get(f'pilot_joint_bc800_s{seed}',{}).get('family_guard')for seed in(162,163)):
+            lines+=['','**Ранний кандидат:** накопление · BC800 прошло порог всех архетипов на обоих seed по логам. Веса ещё не выгружены и не проверены; большой запуск требует минимум2 прошедших профиля.']
     lines+=['',f'**Итоговые результаты проверены: {verified}/{sent*8} моделей.** Обучение и проверка результатов — разные этапы.','',f'В ячейке — проценты двух запусков каждой настройки; «—» означает, что счётчик ещё не получен. Каждый прогон: 102400 PPO-шагов. Отправлено серий: {sent} ({sent*8} прогонов / {sent*819200:,} шагов); в очереди {queued*8} прогонов. Проценты не означают качество модели. '+', '.join(links)+'.','',
         'В reward-серии стартуем с balanced. Общие TRAIN-данные:35% колод с оплаченными варварами,50% отражённых эпизодов. Fireball оценивается после взрыва; отдельно считаются карты и потери башен слева/справа.','',
-        '**Следующий опыт подготовлен:** перестановки карт в руке с переносом меток; holdout не изменён, точные совпадения исключены. Пока не обучен. [Почему](reports/hand_slot_generalization_20261027.md).','',
+        '**Следующий опыт подготовлен:** перестановки карт в руке с переносом меток; holdout не изменён, точные совпадения исключены. В очереди после проверки пакета; пока не обучен. [Почему](reports/hand_slot_generalization_20261027.md).','',
         '**Защита шара:** проверены пушка + дух / Zap / Fireball. Новые метки спеллов включаются только там, где они уменьшают урон относительно той же пушки без помощи; подготовленные открытия с Baby Dragon пока не решены. [Проверка](reports/air_alternatives_pilot_design_20261027.md).','',
         '**Предыдущие пробы завершены:** warmstart и температура — по819200 проверенных CUDA-шагов; два профиля порог полного validation не прошли. После warmstart800 локальный навык упал с32/32 до9/32 после PPO. [Разбор](reports/air_warmstart_pilot_results_20261027.md).','',
         '**Последняя реальная серия balanced:** бот3/9 побед —33,3%; ещё одну игру доиграл пользователь. Игры остановлены. Это главный сигнал, что оценки симуляции не доказывают качество в игре.','',
