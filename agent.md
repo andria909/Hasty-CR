@@ -1,3 +1,6 @@
+## CURRENT actual CUDA progress and live card audit
+Retention SSE resumed same remote handle after transient ConnectionError: INPUTS_VERIFIED+2TeslaT4 and first two102400-step trials confirmed; next seeds training. No GPUrestart. Public status/done synced from saved logs. Tactical INPUTS_VERIFIED+2T4 also confirmed, waitsnext20minstream forPPOcounters. reports/balanced_live_card_usage_20261027.md:9 autonomousmatches,ACKmatchedsource_tick,Fireball13/9,Hog10/9,Musketeer11/9,Cannon65/9;manualmatch4excluded. Do not call unconfirmed commands provenfailedplacements.
+
 ## CURRENT Fireball placement baseline measured offline
 reports/fireball_cluster_baselines_20261027.md + JSON:48 validation fixtures, balanced conditionalgroup20/48 empty10, strong35/48 empty4; freeFireball16/48both. ConditionalFireball aiming is diagnostic only, not liveoverride/notmatchwins. Source scripts/attack/evaluate_fireball_clusters.py; benchmarkstatesNOTtraininglabels. NewGPUfrozenpilots unchanged. Full-onlycollector now supports replay/live profile names; no fullsubmission without verified two-profile gate and exact-package preflight.
 

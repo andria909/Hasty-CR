@@ -1,13 +1,50 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "andriashadrin/hastycr-air-retention-pilot-20261027",
-  "status": "submitted_pending_cuda_proof",
-  "progress_snapshot": {},
+  "status": "training_steps_observed",
+  "progress_snapshot": {
+    "kernel": "andriashadrin/hastycr-air-retention-pilot-20261027",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "connected",
+    "reconnect_attempt": 0,
+    "checked_host_ns": 1793061695596214000,
+    "trials": {
+      "pilot_replay010_s142": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1306.807456413
+      },
+      "pilot_replay000_s142": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1296.172043302
+      },
+      "pilot_replay000_s143": {
+        "update": 9,
+        "steps": 9216,
+        "target_steps": 102400,
+        "percent": 9.0,
+        "remote_log_seconds": 1342.334904236
+      },
+      "pilot_replay010_s143": {
+        "update": 6,
+        "steps": 6144,
+        "target_steps": 102400,
+        "percent": 6.0,
+        "remote_log_seconds": 1343.58484933
+      }
+    }
+  },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
   "quality_accepted": false,
   "live_stopped": true,
-  "last_local_sync_ns": 1793060434868459000,
+  "last_local_sync_ns": 1793061695913250000,
   "launch_receipt": {
     "ref": "/code/andriashadrin/hastycr-air-retention-pilot-20261027",
     "url": "https://www.kaggle.com/code/andriashadrin/hastycr-air-retention-pilot-20261027",
@@ -19,5 +56,14 @@
   "monitoring_file": "tmp/kaggle/air_retention_pilot_20261027/monitoring.json",
   "poll_seconds": 1200,
   "automatic_full_training": false,
-  "initial_checkpoint_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8"
+  "initial_checkpoint_sha256": "9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8",
+  "actual_gpu_names": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "input_verification_event": {
+    "event": "INPUTS_VERIFIED",
+    "protocol_sha256": "9e8ea0cd52dada16c2123ceaa904582d589016738adae637972417b46fcabb0e"
+  },
+  "actual_training_steps_confirmed": true
 }
