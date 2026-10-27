@@ -7,6 +7,7 @@ import io
 from pathlib import Path
 import shutil
 import tarfile
+from scripts.attack.sequence_physics import require_current_physics
 from scripts.kaggle.prepare_native_latency_pilot import prepare as prepare_latency
 from scripts.kaggle.local_artifact_transfer import file_sha as sha
 
@@ -16,9 +17,14 @@ def prepare(output, data, owner='vertel0'):
     labels=json.loads((data/'manifest.json').read_text())
     if labels['schema']!='late-air-diverse-hand-sequences-v1' or sha(data/'examples.npz')!=labels['data_sha256']:
         raise ValueError('Verified diverse sequential data required')
+    require_current_physics(labels)
     prepare_latency(root,owner)
     prep=json.loads((root/'preparation.json').read_text());config=prep['config']
     dataset=root/'dataset';job=root/'job'
+    source_manifest=json.loads((dataset/'manifest.json').read_text())
+    for name,digest in labels['physics_pins'].items():
+        if config['extensions'].get(name,source_manifest['files'].get(name))!=digest:
+            raise ValueError('Packaged physics differs from sequential dataset: '+name)
     for src,dst in [('examples.npz','air_examples.npz'),('manifest.json','air_manifest.json')]:
         shutil.copyfile(data/src,dataset/dst);config['pins'][dst]=sha(dataset/dst)
     # prepare_latency freezes current warmstart; add its optional sampler dependency.

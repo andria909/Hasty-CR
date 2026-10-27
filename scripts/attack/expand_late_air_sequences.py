@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import numpy as np
 from scripts.attack.audit_air_label_latency import opening
+from scripts.attack.sequence_physics import require_current_physics
 from scripts.attack.search_late_air_defense import rollout, rank
 from scripts.attack.build_late_air_sequences import replay
 from scripts.kaggle.local_artifact_transfer import file_sha
@@ -17,6 +18,8 @@ def expand(source, search, output):
     source, search, output = map(Path,(source,search,output))
     manifest=json.loads((source/'manifest.json').read_text())
     teachers=json.loads(search.read_text())
+    require_current_physics(manifest)
+    require_current_physics(teachers['protocol'])
     if file_sha(source/'examples.npz')!=manifest['data_sha256'] or file_sha(search)!=manifest['search_sha256']:
         raise ValueError('Pinned sequence source and teacher search required')
     # All below unchanged maximum held-out seed3800085, disjoint from original.

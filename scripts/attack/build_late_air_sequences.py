@@ -9,6 +9,7 @@ from pathlib import Path
 
 import numpy as np
 from scripts.attack.audit_air_label_latency import opening
+from scripts.attack.sequence_physics import require_current_physics
 from scripts.kaggle.local_artifact_transfer import file_sha
 from sim.adapter import grid_to_point
 from sim.continuous_push import ContinuousPushEnv
@@ -77,6 +78,7 @@ def build(search_path, output):
     search_path, output = Path(search_path), Path(output)
     result = json.loads(search_path.read_text())
     protocol = result['protocol']
+    require_current_physics(protocol)
     source = Path(protocol['source_data'])
     if (protocol['schema'] != 'late-air-native-delay-search-v1' or protocol['command_delay_ms'] != 1350
             or file_sha(source/'examples.npz') != protocol['data_sha256']
@@ -99,7 +101,7 @@ def build(search_path, output):
     output.mkdir(parents=True, exist_ok=False)
     np.savez_compressed(output/'examples.npz', **{k:np.stack(v) for k,v in arrays.items()})
     manifest = dict(schema='late-air-public-sequence-labels-v1', split='train', examples=len(records),
-        seeds=seeds, records=records, sequences=len(result['contexts']), command_delay_ms=1350,
+        physics_pins=protocol['physics_pins'], seeds=seeds, records=records, sequences=len(result['contexts']), command_delay_ms=1350,
         data_sha256=file_sha(output/'examples.npz'), search_sha256=file_sha(search_path),
         builder_sha256=file_sha(__file__), environment_sha256=file_sha('sim/continuous_push.py'),
         grouping='Maximum seed held out across complete sequences', quality_accepted=False,

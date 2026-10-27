@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 
 from scripts.attack.audit_air_label_latency import opening
+from scripts.attack.sequence_physics import physics_pins
 from scripts.kaggle.local_artifact_transfer import file_sha
 from sim.adapter import grid_to_point
 from sim.defense_assets import load_defense_assets
@@ -80,7 +81,7 @@ def search(data,output):
         contexts=len(contexts),command_delay_ms=1350,slot_refill_ms=2100,beam_per_first_card=2,
         helper_offsets_ms=[250,2000,5000],helper_variants=3,helpers=['cannon','musketeer','electro_spirit','zap','fireball'],
         rank='King survival, enemies cleared, minimum own tower damage, then elixir spent',
-        source_sha256=file_sha(__file__),training_data_modified=False,live_games_started=False)
+        source_sha256=file_sha(__file__),physics_pins=physics_pins(),training_data_modified=False,live_games_started=False)
     (output/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n')
     summaries=[];attempted=legal=0
     with(output/'trials.jsonl').open('x')as stream:
