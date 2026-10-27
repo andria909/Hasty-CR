@@ -141,7 +141,10 @@ def render_live_feedback_studies(reports):
         [('joint_control','Без примеров'),('joint_bc800','800 обновлений по примерам'),
          ('joint_replay100','Примеры + повторение 1'),('joint_replay500','Примеры + повторение 5')]),
         ('card_exploration_pilot','Исследование карт',(172,173),
-        [(f'explore_t{t:02d}_e{e:02d}',f'Температура {t}, доля исследования {e}%')for t in(1,10)for e in(0,20)])]
+        [(f'explore_t{t:02d}_e{e:02d}',f'Температура {t}, доля исследования {e}%')for t in(1,10)for e in(0,20)]),
+        ('air_reserve_pilot','Накопить на ответ',(162,163),
+        [('joint_control','Без примеров'),('joint_bc800','800 обновлений по примерам'),
+         ('joint_replay100','Примеры + повторение 1'),('joint_replay500','Примеры + повторение 5')])]
     links=[];sent=queued=verified=0
     for stem,label,seeds,cases in studies:
         p=reports/f'{stem}_training_20261027.json'
