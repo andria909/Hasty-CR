@@ -97,7 +97,8 @@ def child(spec_path):
     profile=json.loads((output/f"full_{trial['id']}_s64_profile.json").read_text())
     validation=evaluate(net,'cpu',episodes=6,seed=900100,task_mode='joint',env_options=dict(
         curriculum='continuous_v1',validation_selection='worst_family',continuous_profile=profile,
-        geometry='native_anchors_candidate_v1',coordinate_mode='physical_live_cells_v2',action_delay_ms=225,max_ms=310000))
+        geometry='native_anchors_candidate_v1',coordinate_mode='physical_live_cells_v2',
+        action_delay_ms=trial.get('validation_action_delay_ms',trial.get('action_delay_ms',225)),max_ms=310000))
     if len(validation['records'])!=12:raise ValueError('Full-game preflight coverage missing')
     result=dict(frozen_run_ast_sha256=hashlib.sha256(ast.dump(run).encode()).hexdigest(),
         original_full_command=args,original_warm_commands=warm_commands,actual_supervised_updates=warm_updates,

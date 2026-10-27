@@ -1,0 +1,1190 @@
+{
+  "schema": "verified-global-pilot-profile-selection-v1",
+  "studies": [
+    {
+      "kernel": "andriashadrin/hastycr-air-retention-pilot-20261027",
+      "prepared": "tmp/kaggle/air_retention_pilot_20261027",
+      "pilot_steps_verified": 819200
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-live-tactical-reward-pilot-20261027",
+      "prepared": "tmp/kaggle/live_tactical_reward_pilot_20261027",
+      "pilot_steps_verified": 819200
+    },
+    {
+      "kernel": "vertel0/hastycr-joint-skills-pilot-20261027",
+      "prepared": "tmp/kaggle/joint_skills_pilot_20261027",
+      "pilot_steps_verified": 819200
+    },
+    {
+      "kernel": "andriashadrin/hastycr-card-exploration-pilot-20261027",
+      "prepared": "tmp/kaggle/card_exploration_pilot_20261027_on_available",
+      "pilot_steps_verified": 819200
+    },
+    {
+      "kernel": "andriashadrin/hastycr-air-reserve-pilot-20261027",
+      "prepared": "tmp/kaggle/air_reserve_pilot_20261027",
+      "pilot_steps_verified": 819200
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "prepared": "tmp/kaggle/air_alternatives_pilot_20261027",
+      "pilot_steps_verified": 819200
+    },
+    {
+      "kernel": "vertel0/hastycr-air-lowbank-pilot-20261027",
+      "prepared": "tmp/kaggle/air_lowbank_pilot_20261027",
+      "pilot_steps_verified": 819200
+    },
+    {
+      "kernel": "vertel0/hastycr-hand-slots-pilot-20261027",
+      "prepared": "tmp/kaggle/hand_slots_pilot_20261027_on_available",
+      "pilot_steps_verified": 819200
+    }
+  ],
+  "ranking": [
+    {
+      "study": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "prepared": "tmp/kaggle/air_alternatives_pilot_20261027",
+      "trial": {
+        "id": "joint_bc800",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.3940972222222222,
+      "minimum_family_points": 0.08333333333333333,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-air-reserve-pilot-20261027",
+      "prepared": "tmp/kaggle/air_reserve_pilot_20261027",
+      "trial": {
+        "id": "joint_bc800",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.38888888888888884,
+      "minimum_family_points": 0.16666666666666666,
+      "eligible": true,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-air-reserve-pilot-20261027",
+      "prepared": "tmp/kaggle/air_reserve_pilot_20261027",
+      "trial": {
+        "id": "joint_replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.375,
+      "minimum_family_points": 0.16666666666666666,
+      "eligible": true,
+      "floor": 0.1
+    },
+    {
+      "study": "andreiperelaiko/hastycr-live-tactical-reward-pilot-20261027",
+      "prepared": "tmp/kaggle/live_tactical_reward_pilot_20261027",
+      "trial": {
+        "id": "live_precision",
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.15,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.0,
+        "own_hp_penalty": 4.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        152,
+        153
+      ],
+      "score": 0.36458333333333337,
+      "minimum_family_points": 0.08333333333333333,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "prepared": "tmp/kaggle/air_alternatives_pilot_20261027",
+      "trial": {
+        "id": "joint_replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.3298611111111111,
+      "minimum_family_points": 0.16666666666666666,
+      "eligible": true,
+      "floor": 0.1
+    },
+    {
+      "study": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "prepared": "tmp/kaggle/air_alternatives_pilot_20261027",
+      "trial": {
+        "id": "joint_replay500",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 5.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.3298611111111111,
+      "minimum_family_points": 0.16666666666666666,
+      "eligible": true,
+      "floor": 0.1
+    },
+    {
+      "study": "andreiperelaiko/hastycr-live-tactical-reward-pilot-20261027",
+      "prepared": "tmp/kaggle/live_tactical_reward_pilot_20261027",
+      "trial": {
+        "id": "live_control",
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.15,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.0,
+        "fireball_value_reward": 0.0,
+        "reserve_potential_weight": 0.0,
+        "own_hp_penalty": 4.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        152,
+        153
+      ],
+      "score": 0.3298611111111111,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andreiperelaiko/hastycr-live-tactical-reward-pilot-20261027",
+      "prepared": "tmp/kaggle/live_tactical_reward_pilot_20261027",
+      "trial": {
+        "id": "live_economy",
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.0,
+        "fireball_value_reward": 0.0,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        152,
+        153
+      ],
+      "score": 0.3229166666666667,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-card-exploration-pilot-20261027",
+      "prepared": "tmp/kaggle/card_exploration_pilot_20261027_on_available",
+      "trial": {
+        "id": "explore_t01_e20",
+        "policy_temperature": 1.0,
+        "card_exploration_epsilon": 0.2,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        172,
+        173
+      ],
+      "score": 0.3194444444444444,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-air-reserve-pilot-20261027",
+      "prepared": "tmp/kaggle/air_reserve_pilot_20261027",
+      "trial": {
+        "id": "joint_replay500",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 5.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.31770833333333337,
+      "minimum_family_points": 0.16666666666666666,
+      "eligible": true,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-air-lowbank-pilot-20261027",
+      "prepared": "tmp/kaggle/air_lowbank_pilot_20261027",
+      "trial": {
+        "id": "joint_bc800",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.31770833333333337,
+      "minimum_family_points": 0.08333333333333333,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-card-exploration-pilot-20261027",
+      "prepared": "tmp/kaggle/card_exploration_pilot_20261027_on_available",
+      "trial": {
+        "id": "explore_t01_e00",
+        "policy_temperature": 1.0,
+        "card_exploration_epsilon": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        172,
+        173
+      ],
+      "score": 0.3125,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "prepared": "tmp/kaggle/air_alternatives_pilot_20261027",
+      "trial": {
+        "id": "joint_control",
+        "warmstart_updates": 0,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.3090277777777778,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-air-reserve-pilot-20261027",
+      "prepared": "tmp/kaggle/air_reserve_pilot_20261027",
+      "trial": {
+        "id": "joint_control",
+        "warmstart_updates": 0,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.3090277777777778,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-card-exploration-pilot-20261027",
+      "prepared": "tmp/kaggle/card_exploration_pilot_20261027_on_available",
+      "trial": {
+        "id": "explore_t10_e00",
+        "policy_temperature": 10.0,
+        "card_exploration_epsilon": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        172,
+        173
+      ],
+      "score": 0.3090277777777778,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-air-lowbank-pilot-20261027",
+      "prepared": "tmp/kaggle/air_lowbank_pilot_20261027",
+      "trial": {
+        "id": "joint_control",
+        "warmstart_updates": 0,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.3090277777777778,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-hand-slots-pilot-20261027",
+      "prepared": "tmp/kaggle/hand_slots_pilot_20261027_on_available",
+      "trial": {
+        "id": "joint_control",
+        "warmstart_updates": 0,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.3090277777777778,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-joint-skills-pilot-20261027",
+      "prepared": "tmp/kaggle/joint_skills_pilot_20261027",
+      "trial": {
+        "id": "joint_control",
+        "warmstart_updates": 0,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.3090277777777778,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-joint-skills-pilot-20261027",
+      "prepared": "tmp/kaggle/joint_skills_pilot_20261027",
+      "trial": {
+        "id": "joint_replay500",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 5.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.29861111111111116,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andreiperelaiko/hastycr-live-tactical-reward-pilot-20261027",
+      "prepared": "tmp/kaggle/live_tactical_reward_pilot_20261027",
+      "trial": {
+        "id": "live_combined",
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        152,
+        153
+      ],
+      "score": 0.2986111111111111,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-card-exploration-pilot-20261027",
+      "prepared": "tmp/kaggle/card_exploration_pilot_20261027_on_available",
+      "trial": {
+        "id": "explore_t10_e20",
+        "policy_temperature": 10.0,
+        "card_exploration_epsilon": 0.2,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        172,
+        173
+      ],
+      "score": 0.2951388888888889,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-air-lowbank-pilot-20261027",
+      "prepared": "tmp/kaggle/air_lowbank_pilot_20261027",
+      "trial": {
+        "id": "joint_replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.29513888888888884,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-joint-skills-pilot-20261027",
+      "prepared": "tmp/kaggle/joint_skills_pilot_20261027",
+      "trial": {
+        "id": "joint_replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.2881944444444444,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-joint-skills-pilot-20261027",
+      "prepared": "tmp/kaggle/joint_skills_pilot_20261027",
+      "trial": {
+        "id": "joint_bc800",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.28298611111111116,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-hand-slots-pilot-20261027",
+      "prepared": "tmp/kaggle/hand_slots_pilot_20261027_on_available",
+      "trial": {
+        "id": "joint_bc800",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.26388888888888884,
+      "minimum_family_points": 0.08333333333333333,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-air-lowbank-pilot-20261027",
+      "prepared": "tmp/kaggle/air_lowbank_pilot_20261027",
+      "trial": {
+        "id": "joint_replay500",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 5.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.2604166666666667,
+      "minimum_family_points": 0.16666666666666666,
+      "eligible": true,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-air-retention-pilot-20261027",
+      "prepared": "tmp/kaggle/air_retention_pilot_20261027",
+      "trial": {
+        "id": "replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "air_golem",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.15,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.0
+      },
+      "seed_pair": [
+        142,
+        143
+      ],
+      "score": 0.2013888888888889,
+      "minimum_family_points": 0.08333333333333333,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-air-retention-pilot-20261027",
+      "prepared": "tmp/kaggle/air_retention_pilot_20261027",
+      "trial": {
+        "id": "replay000",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "air_golem",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.15,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.0
+      },
+      "seed_pair": [
+        142,
+        143
+      ],
+      "score": 0.19444444444444445,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-air-retention-pilot-20261027",
+      "prepared": "tmp/kaggle/air_retention_pilot_20261027",
+      "trial": {
+        "id": "replay500",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 5.0,
+        "history_frames": 1,
+        "focus": "air_golem",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.15,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.0
+      },
+      "seed_pair": [
+        142,
+        143
+      ],
+      "score": 0.18055555555555555,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-air-retention-pilot-20261027",
+      "prepared": "tmp/kaggle/air_retention_pilot_20261027",
+      "trial": {
+        "id": "replay010",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.1,
+        "history_frames": 1,
+        "focus": "air_golem",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.15,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.0
+      },
+      "seed_pair": [
+        142,
+        143
+      ],
+      "score": 0.1388888888888889,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-hand-slots-pilot-20261027",
+      "prepared": "tmp/kaggle/hand_slots_pilot_20261027_on_available",
+      "trial": {
+        "id": "joint_replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.13194444444444445,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    },
+    {
+      "study": "vertel0/hastycr-hand-slots-pilot-20261027",
+      "prepared": "tmp/kaggle/hand_slots_pilot_20261027_on_available",
+      "trial": {
+        "id": "joint_replay500",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 5.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.08506944444444445,
+      "minimum_family_points": 0.0,
+      "eligible": false,
+      "floor": 0.1
+    }
+  ],
+  "selected": [
+    {
+      "study": "andriashadrin/hastycr-air-reserve-pilot-20261027",
+      "prepared": "tmp/kaggle/air_reserve_pilot_20261027",
+      "trial": {
+        "id": "joint_bc800",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 0.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.38888888888888884,
+      "minimum_family_points": 0.16666666666666666,
+      "eligible": true,
+      "floor": 0.1
+    },
+    {
+      "study": "andriashadrin/hastycr-air-reserve-pilot-20261027",
+      "prepared": "tmp/kaggle/air_reserve_pilot_20261027",
+      "trial": {
+        "id": "joint_replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.375,
+      "minimum_family_points": 0.16666666666666666,
+      "eligible": true,
+      "floor": 0.1
+    },
+    {
+      "study": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "prepared": "tmp/kaggle/air_alternatives_pilot_20261027",
+      "trial": {
+        "id": "joint_replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.3298611111111111,
+      "minimum_family_points": 0.16666666666666666,
+      "eligible": true,
+      "floor": 0.1
+    },
+    {
+      "study": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "prepared": "tmp/kaggle/air_alternatives_pilot_20261027",
+      "trial": {
+        "id": "joint_replay500",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 5.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "seed_pair": [
+        162,
+        163
+      ],
+      "score": 0.3298611111111111,
+      "minimum_family_points": 0.16666666666666666,
+      "eligible": true,
+      "floor": 0.1
+    }
+  ],
+  "eligible_profiles": 6,
+  "gate_met": true,
+  "selection": "Same72 validation contexts; original per-profile two-seed/all-family floor retained",
+  "comparison_contract_sha256": "4180dc7c74d0d422ffda0aebc1d6fa29c884baf9127528e9f9c77c5fdf92af6c",
+  "common_runtime": {
+    "action_delay_ms": 225.0,
+    "max_ms": 310000,
+    "task_mode": "joint",
+    "observation_contract": "joint_public_presence_continuous_slots_v2",
+    "num_scalars": 309,
+    "num_planes": 20,
+    "history_frames": 1,
+    "coordinate_mode": "physical_live_cells_v2",
+    "geometry": "native_anchors_candidate_v1",
+    "geometry_sha256": "ab4a4200e2f35ee05272b30ef7fcdab113b8d489ab521b0c5439c2e80d278053",
+    "validation_selection": "worst_family",
+    "validation_seed": 900100,
+    "eval_episodes": 36,
+    "action_cooldown_ms": 2100,
+    "decision_interval_ms": 250
+  },
+  "test_used_for_selection": false,
+  "training_submitted": false,
+  "quality_accepted": false,
+  "live_checkpoint_changed": false
+}

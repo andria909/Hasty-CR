@@ -1,17 +1,89 @@
 {
-  "kernel": "andriashadrin/hastycr-hand-slots-pilot-20261027",
-  "status": "queued_waiting_verified_free_account",
-  "root": "tmp/kaggle/hand_slots_pilot_20261027",
-  "submitted": false,
-  "quality_accepted": false,
-  "progress_snapshot": {},
+  "schema": "continuous-focus-training-status-v1",
+  "kernel": "vertel0/hastycr-hand-slots-pilot-20261027",
+  "status": "pilot_complete_budgets_verified",
+  "progress_snapshot": {
+    "kernel": "vertel0/hastycr-hand-slots-pilot-20261027",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793112607208243000,
+    "trials": {
+      "pilot_joint_control_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1368.310231941
+      },
+      "pilot_joint_bc800_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1348.942508596
+      },
+      "pilot_joint_bc800_s163": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2409.4749826
+      },
+      "pilot_joint_control_s163": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2426.487800492
+      },
+      "pilot_joint_replay500_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3533.448892639
+      },
+      "pilot_joint_replay100_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3530.663136706
+      },
+      "pilot_joint_replay100_s163": {
+        "update": 67,
+        "steps": 68608,
+        "target_steps": 102400,
+        "percent": 67.0,
+        "remote_log_seconds": 4167.069740517
+      },
+      "pilot_joint_replay500_s163": {
+        "update": 66,
+        "steps": 67584,
+        "target_steps": 102400,
+        "percent": 66.0,
+        "remote_log_seconds": 4167.071600155
+      }
+    },
+    "error_type": "SSLError",
+    "http_status": null
+  },
   "pilot_target_steps": 819200,
-  "preflight": {
-    "frozen_sources_verified": true,
-    "profiles_checked": 4,
-    "supervised_updates_per_warm_case": 5,
-    "exact_resume_16_to_32": true,
-    "validation_games": 12,
-    "local_only": true
-  }
+  "conditional_full_steps": 0,
+  "quality_accepted": false,
+  "live_stopped": true,
+  "submitted": true,
+  "root": "tmp/kaggle/hand_slots_pilot_20261027_on_available",
+  "launch_receipt": {
+    "ref": "/code/vertel0/hastycr-hand-slots-pilot-20261027",
+    "url": "https://www.kaggle.com/code/vertel0/hastycr-hand-slots-pilot-20261027",
+    "versionNumber": 1,
+    "kernelId": 141172526
+  },
+  "frozen_bootstrap_sha256": "22c75c10b2e4bfc3c4a4c6d98628e0d25431d3c51b8da0c53ee06d3663f8747d",
+  "last_local_sync_ns": 1793113620084786000,
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/hand_slots_pilot_verified_20261027.json"
 }

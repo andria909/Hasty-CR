@@ -78,7 +78,7 @@ def choose(network,match,side,mode,mask,device,reserved_milli=0):
         return int(logits[0].masked_fill(~support,-torch.inf).argmax())
 
 
-def duel(a,b,device,seed,seat,cards,spells):
+def duel(a,b,device,seed,seat,cards,spells,*,on_complete=None):
     m=Match(cards=cards,spells=spells,decks=(list(DECK_26),list(DECK_26)),seed=seed,
             geometry='native_anchors_candidate_v1')
     networks={seat:a[0],-seat:b[0]};modes={seat:a[1],-seat:b[1]}
@@ -106,10 +106,12 @@ def duel(a,b,device,seed,seat,cards,spells):
                 ready[side][slot]=m.elapsed_ms+2100;pending[side].remove(command)
         m.step(50)
     counts={str(s):dict(Counter(e['card']for e in m.play_log if e['side']==s))for s in(1,-1)}
-    return dict(seed=seed,candidate_side=seat,outcome=outcome(m.result,seat,m.finished),elapsed_ms=m.elapsed_ms,
+    result=dict(seed=seed,candidate_side=seat,outcome=outcome(m.result,seat,m.finished),elapsed_ms=m.elapsed_ms,
         accepted_cards=counts,rejected_commands=dict(rejected),
         elixir_overflow={str(s):m.players[s].natural_elixir_overflow_milli/1000 for s in(1,-1)},
         quality_flags=['simulator_mechanics_not_fully_validated','no_live_validation'])
+    if on_complete is not None:result['public_metrics']=on_complete(m)
+    return result
 
 
 def evaluate(protocol,weights,output):

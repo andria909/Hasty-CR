@@ -56,3 +56,22 @@ def test_optional_priority_keeps_successful_pair_account_free_for_full_training(
     path.write_text(json.dumps(dict(kernel=slot['kernel'],remote_status='COMPLETE',complete=True)))
     assert first_verified_free([slot])==slot
     assert first_verified_free([slot],reserve_eligible_pairs=True)is None
+
+
+def test_new_full_job_keeps_owner_busy_after_its_pilot_finished(tmp_path):
+    from scripts.kaggle.queue_prepared_pilot import full_training_reservations
+    reports=tmp_path/'reports';reports.mkdir()
+    path=reports/'global_full_pair0_training_20261027.json'
+    report=dict(kernel='owner/full',launch_receipt={'versionNumber':1},children=[{},{}],status='full_training_steps_observed')
+    path.write_text(json.dumps(report))
+    busy,count=full_training_reservations(reports)
+    assert busy=={'owner'}and count==2
+    slot=dict(owner='owner',kernel='owner/pilot',root=str(tmp_path/'run'),verified_report=str(tmp_path/'proof.json'))
+    Path(slot['verified_report']).write_text(json.dumps(dict(kernel=slot['kernel'],pilot_steps_verified=819200)))
+    receipt=Path(slot['root'])/'collected/collection_receipt.json';receipt.parent.mkdir(parents=True)
+    receipt.write_text(json.dumps(dict(kernel=slot['kernel'],remote_status='COMPLETE',complete=True)))
+    assert first_verified_free([slot],busy_owners=busy)is None
+    report['status']='local_wait_expired_remote_job_unchanged';path.write_text(json.dumps(report))
+    assert full_training_reservations(reports)[0]=={'owner'}
+    report['status']='full_complete_budgets_verified';path.write_text(json.dumps(report))
+    assert not full_training_reservations(reports)[0]

@@ -136,7 +136,7 @@ def test_selected_full_collects_retention_and_tactical_profiles(monkeypatch,tmp_
     assert (tmp_path/'out'/run/'update_000100.pt').exists()
 
 
-@pytest.mark.parametrize('profile,run',[('joint-skills-pilot','pilot_joint_replay100_s162'),('card-exploration-pilot','pilot_explore_t10_e20_s172')])
+@pytest.mark.parametrize('profile,run',[('joint-skills-pilot','pilot_joint_replay100_s162'),('card-exploration-pilot','pilot_explore_t10_e20_s172'),('native-latency-pilot','pilot_delay1350_replay100_s192'),('native-latency-pilot','pilot_delay2025_s193')])
 def test_additional_pilot_profiles_collect_selected_and_latest(monkeypatch,tmp_path,profile,run):
     setup(monkeypatch,run+'/update_000050.pt',run)
     result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out',profile)

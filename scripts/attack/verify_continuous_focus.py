@@ -56,6 +56,9 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps,*
         wb=torch.load(warm/'policy.pt',map_location='cpu',weights_only=False)
         if wb['config'].get('supervised_warmstart')!=w or not all(torch.isfinite(t).all()for t in wb['state_dict'].values()):
             raise ValueError('Warmstart checkpoint does not match its report')
+    if (config.get('action_delay_ms')!=trial.get('action_delay_ms',225) or
+            config.get('validation_action_delay_ms')!=trial.get('validation_action_delay_ms')):
+        raise ValueError('Training or validation action delay differs')
     history_frames=trial.get('history_frames',1)
     expected_planes=41 if history_frames==2 else 20
     expected_contract=('joint_public_presence_continuous_slots_history2_v1'if history_frames==2

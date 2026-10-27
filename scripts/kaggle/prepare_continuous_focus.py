@@ -49,7 +49,7 @@ def execute(config):
     print(json.dumps(dict(event='INPUTS_VERIFIED',protocol_sha256=config['pins']['protocol.json'])),flush=True)
     print(json.dumps(dict(event='CUDA_READY',gpus=[torch.cuda.get_device_name(i)for i in(0,1)])),flush=True)
     options=dict(curriculum='continuous_v1',validation_selection='worst_family',continuous_focus='uniform',
-        geometry='native_anchors_candidate_v1',coordinate_mode='physical_live_cells_v2',action_delay_ms=225,max_ms=310000)
+        geometry='native_anchors_candidate_v1',coordinate_mode='physical_live_cells_v2',action_delay_ms=config.get('evaluation_action_delay_ms',225),max_ms=310000)
     def reference(model,index):
         blob=torch.load(inputs/model['file'],map_location='cpu',weights_only=False)
         net,_,_=initialize_attack_policy(blob,device=f'cuda:{index%2}',num_scalars=309,observation_contract=CONTRACT)
@@ -103,12 +103,14 @@ def execute(config):
             '--card-balance-weight',str(trial['card_balance_weight']),'--card-balance-target','units',
             '--policy-temperature',str(trial.get('policy_temperature',1.)),
             '--card-exploration-epsilon',str(trial.get('card_exploration_epsilon',0.)),
-            '--action-delay-ms','225','--max-ms','310000','--seed',str(seed),'--envs','8','--rollout','128',
+            '--action-delay-ms',str(trial.get('action_delay_ms',225)),'--max-ms','310000','--seed',str(seed),'--envs','8','--rollout','128',
             '--updates',str(steps//1024),'--target-environment-steps',str(steps),'--epochs','3','--minibatch-size','256',
             '--lr','0.00005','--gamma',str(trial.get('gamma',.999)),
             '--gae-lambda',str(trial.get('gae_lambda',.95)),'--value-warmup-steps','20480','--target-kl','.02',
             '--checkpoint-every','250'if full else'50','--eval-every','250'if full else'50',
             '--wallclock-seconds','34000'if full else'7200']
+        if trial.get('validation_action_delay_ms') is not None:
+            args+=['--validation-action-delay-ms',str(trial['validation_action_delay_ms'])]
         if trial.get('supervised_replay_weight',0.):
             args+=['--supervised-replay-data',str(air_data),'--supervised-replay-weight',str(trial['supervised_replay_weight'])]
         process=subprocess.Popen(args,cwd=project,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)

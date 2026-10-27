@@ -48,6 +48,8 @@ def summarize(root,verified=None):
                     after=score_checkpoint(root/'collected'/r['checkpoint'],root/'dataset')))
 
         row=dict(id=trial['id'],**stats(records))
+        if 'action_delay_ms' in trial:
+            row.update(action_delay_ms=trial['action_delay_ms'],validation_action_delay_ms=trial['validation_action_delay_ms'])
         if history:row.update(history_frames=trial['history_frames'],focus=trial['focus'])
         if board:row.update(board_potential_weight=trial['board_potential_weight'],focus=trial['focus'])
         if bank:row.update(overflow_penalty=trial['overflow_penalty'],card_balance_weight=trial['card_balance_weight'])
@@ -88,6 +90,7 @@ def summarize(root,verified=None):
         'verified-live-tactical-reward-pilot-validation-summary-v1'if tactical else'verified-clock-pilot-validation-summary-v1',kernel=verified['kernel'],
         pilot_steps_verified=verified['pilot_steps_verified'],rows=rows,parent=stats(reference['validation']['records']),
         initial_reference=initial_reference,
+        comparison_scope=protocol.get('comparison_scope'),
         eligible_for_full=verified['pilot_selection']['gate_met'],quality_accepted=False,
         scope='72 distinct validation contexts replayed by two independently trained seeds; not144 independent contexts',
         test_used_for_selection=False)

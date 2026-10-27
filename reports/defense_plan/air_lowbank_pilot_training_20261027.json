@@ -1,14 +1,14 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-air-lowbank-pilot-20261027",
-  "status": "training_steps_observed",
+  "status": "pilot_complete_budgets_verified",
   "progress_snapshot": {
     "kernel": "vertel0/hastycr-air-lowbank-pilot-20261027",
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
-    "reconnect_attempt": 2,
-    "checked_host_ns": 1793105110174598000,
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793107209927487000,
     "trials": {
       "pilot_joint_control_s162": {
         "update": 100,
@@ -39,21 +39,35 @@
         "remote_log_seconds": 2484.013982226
       },
       "pilot_joint_replay500_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3518.020189737
+      },
+      "pilot_joint_replay100_s162": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3601.039878134
+      },
+      "pilot_joint_replay500_s163": {
         "update": 49,
         "steps": 50176,
         "target_steps": 102400,
         "percent": 49.0,
-        "remote_log_seconds": 2616.620171884
+        "remote_log_seconds": 3730.297978925
       },
-      "pilot_joint_replay100_s162": {
-        "update": 31,
-        "steps": 31744,
+      "pilot_joint_replay100_s163": {
+        "update": 34,
+        "steps": 34816,
         "target_steps": 102400,
-        "percent": 31.0,
-        "remote_log_seconds": 2622.301066618
+        "percent": 34.0,
+        "remote_log_seconds": 3753.799908876
       }
     },
-    "error_type": "SSLError",
+    "error_type": "ChunkedEncodingError",
     "http_status": null
   },
   "pilot_target_steps": 819200,
@@ -69,7 +83,7 @@
     "kernelId": 141160173
   },
   "frozen_bootstrap_sha256": "61b70c6004cb0f33afec1284f1100883b5c0eb24032c255b29f3cf382677d200",
-  "last_local_sync_ns": 1793106122635107000,
+  "last_local_sync_ns": 1793108250805573000,
   "runtime_start_evidence": [
     {
       "event": "INPUTS_VERIFIED",
@@ -84,5 +98,6 @@
     }
   ],
   "actual_cuda_confirmed": true,
-  "actual_training_steps_confirmed": true
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/air_lowbank_pilot_verified_20261027.json"
 }

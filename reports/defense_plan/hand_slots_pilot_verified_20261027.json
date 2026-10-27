@@ -1,0 +1,226 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "vertel0/hastycr-hand-slots-pilot-20261027",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "joint_control",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.1,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5
+        },
+        "score": 0.3090277777777778,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "joint_bc800",
+          "warmstart_updates": 800,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.1,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5
+        },
+        "score": 0.26388888888888884,
+        "minimum_family_points": 0.08333333333333333,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "joint_replay100",
+          "warmstart_updates": 800,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 1.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.1,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5
+        },
+        "score": 0.13194444444444445,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "joint_replay500",
+          "warmstart_updates": 800,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 5.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.1,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5
+        },
+        "score": 0.08506944444444445,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_joint_control_s162",
+      "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_control_s162/update_000050.pt",
+      "checkpoint_sha256": "e89d02ad5326fac748fc387d3bff4ec2bac4806d1694332a7417441ac57e0d38",
+      "selection_score": 0.3055555555555555,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_joint_control_s163",
+      "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_control_s163/update_000050.pt",
+      "checkpoint_sha256": "28f808727f91c85b8dffe8d925b1c440cc9ba90eabba2e780b787af4b3ee687e",
+      "selection_score": 0.3125,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_joint_bc800_s162",
+      "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_bc800_s162/update_000100.pt",
+      "checkpoint_sha256": "a271b9bd9273bf02b47db9e7106c66be967212e86856355e8c16d00ca772be05",
+      "selection_score": 0.27777777777777773,
+      "worst_family_points": 0.08333333333333333,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_joint_bc800_s163",
+      "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_bc800_s163/update_000050.pt",
+      "checkpoint_sha256": "23ab8173c91ff23c694c3b92de36a6cb636bb99b0ed7305e0d8b48603a16e511",
+      "selection_score": 0.25,
+      "worst_family_points": 0.16666666666666666,
+      "family_guard": true
+    },
+    {
+      "id": "pilot_joint_replay100_s162",
+      "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay100_s162/update_000100.pt",
+      "checkpoint_sha256": "0e6bddb14b63f2635225832984639465fcf7506a23b5b738331c0aefba850ee9",
+      "selection_score": 0.1388888888888889,
+      "worst_family_points": 0.08333333333333333,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_joint_replay100_s163",
+      "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay100_s163/update_000100.pt",
+      "checkpoint_sha256": "e649f1b60ffcb28974ad23e6569e00e53b629d1e9b073081cd4dbda751ece55c",
+      "selection_score": 0.125,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_joint_replay500_s162",
+      "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay500_s162/update_000100.pt",
+      "checkpoint_sha256": "571067ee7d1b9b6612e663794001789e9c67e7928dd871c8a9a3a0e433d358ca",
+      "selection_score": 0.07291666666666667,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_joint_replay500_s163",
+      "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay500_s163/update_000100.pt",
+      "checkpoint_sha256": "2e8ab4dfe7a872b9767caba67a2c664b15f020e04be53342a1f2de612d9f1621",
+      "selection_score": 0.09722222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "parent",
+    "ranking": [
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.3055555555555555,
+        "macro_archetype_points": 0.611111111111111,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 1.0
+          },
+          "giant": {
+            "games": 12,
+            "points": 0.9166666666666666
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.8333333333333334
+          },
+          "swarm": {
+            "games": 12,
+            "points": 0.9166666666666666
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false
+}

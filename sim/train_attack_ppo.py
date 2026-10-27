@@ -271,7 +271,7 @@ def validate_resume(blob,config):
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
           'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes','policy_temperature',
-          'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon')
+          'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon','validation_action_delay_ms')
     for key in keys:
         default=0. if key in('supervised_replay_weight','card_exploration_epsilon')else None
         if blob['config'].get(key,default)!=config.get(key,default):
@@ -279,6 +279,15 @@ def validate_resume(blob,config):
     required=('optimiser','rng','sampler','environment_states','observations','infos',
               'episode_returns','episode_counters','step','update')
     if any(key not in blob for key in required):raise ValueError('Incomplete attack resume state')
+
+
+def validation_options(options, delay=None):
+    result=dict(options)
+    if delay is not None:
+        if not np.isfinite(delay) or not 0<=delay<=10000:
+            raise ValueError('Invalid validation action delay')
+        result['action_delay_ms']=float(delay)
+    return result
 
 
 def train(args):
@@ -334,6 +343,7 @@ def train(args):
     defense_rewards,attack_rewards=reward_objects(reward_profile)
     if args.task_mode=='joint':options.update(defense_rewards=defense_rewards,attack_rewards=attack_rewards)
     else:options['rewards']=attack_rewards
+    eval_options=validation_options(options,getattr(args,'validation_action_delay_ms',None))
     envs=[make_training_env(task_mode=args.task_mode,split='train',seed=args.seed+i,**options)for i in range(args.envs)]
     sampler=training_sampler(envs[0],seed=args.seed,initial_hand_mode=args.initial_hand_mode,task_mode=args.task_mode)
     observations,infos=map(list,zip(*[env.reset(**sampler.next())for env in envs]))
@@ -473,7 +483,7 @@ def train(args):
         is_best=False
         if args.eval_every>0 and update%args.eval_every==0:
             record['validation']=evaluate(network,device,episodes=args.eval_episodes,
-                seed=getattr(args,'validation_seed',900000),env_options=options,task_mode=args.task_mode)
+                seed=getattr(args,'validation_seed',900000),env_options=eval_options,task_mode=args.task_mode)
             score=record['validation'].get('selection_score',record['validation']['mean_reward']);is_best=score>best;best=max(best,score)
         budget_stop=time.monotonic()-started>=args.wallclock_seconds
         stop=budget_stop or step>=args.target_environment_steps or update==args.updates
@@ -518,6 +528,8 @@ def parser():
     p.add_argument('--validation-selection',choices=('overall','worst_family'),default='overall')
     p.add_argument('--continuous-focus',choices=('uniform','air_golem'),default='uniform')
     p.add_argument('--validation-seed',type=int,default=900000)
+    p.add_argument('--validation-action-delay-ms',type=float,default=None,
+                   help='Common validation delay for training-delay ablations; defaults to training delay')
     p.add_argument('--card-balance-weight',type=float,default=0.)
     p.add_argument('--card-balance-target',choices=('all_cards','units'),default='all_cards')
     p.add_argument('--policy-temperature',type=float,default=1.)

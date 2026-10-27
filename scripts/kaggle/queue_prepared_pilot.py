@@ -52,9 +52,10 @@ def rebind(source,output,owner):
     return result
 
 
-def first_verified_free(slots,reserve_eligible_pairs=False):
+def first_verified_free(slots,reserve_eligible_pairs=False,busy_owners=()):
     ready=[]
     for slot in slots:
+        if slot['owner']in busy_owners:continue
         path=Path(slot['verified_report'])
         if not path.exists():continue
         try:proof=json.loads(path.read_text())
@@ -71,6 +72,18 @@ def first_verified_free(slots,reserve_eligible_pairs=False):
     return min(ready,key=lambda r:r[0])[1]if ready else None
 
 
+def full_training_reservations(reports):
+    busy=set();models=0
+    for path in Path(reports).glob('global_full_pair[01]_training_20261027.json'):
+        try:state=json.loads(path.read_text())
+        except(ValueError,OSError):continue
+        if not state.get('launch_receipt'):continue
+        models+=len(state.get('children',[]))
+        if state.get('status')not in('full_complete_budgets_verified','remote_terminal_error_requires_inspection'):
+            busy.add(state['kernel'].split('/')[0])
+    return busy,models
+
+
 def watch(config_path):
     config=json.loads(Path(config_path).read_text());state_path=Path(config['state_file'])
     state_path.parent.mkdir(parents=True,exist_ok=True)
@@ -83,7 +96,9 @@ def watch(config_path):
     save(status='waiting_verified_free_account',source=config['source'],slots=config['slots'])
     deadline=time.monotonic()+172800
     while time.monotonic()<deadline:
-        slot=first_verified_free(config['slots'],config.get('reserve_eligible_pairs',False))
+        busy,full_models=full_training_reservations(config.get('full_reports','reports/defense_plan'))
+        reserve=config.get('reserve_eligible_pairs',False)and full_models<config.get('full_model_limit',4)
+        slot=first_verified_free(config['slots'],reserve,busy_owners=busy)
         if slot is None:time.sleep(30);continue
         root=Path(config['output']);save(status='binding_same_algorithm_to_free_owner',owner=slot['owner'])
         result=rebind(config['source'],root,slot['owner'])

@@ -1,0 +1,3565 @@
+{
+  "schema": "verified-joint-skills-pilot-validation-summary-v1",
+  "kernel": "vertel0/hastycr-hand-slots-pilot-20261027",
+  "pilot_steps_verified": 819200,
+  "rows": [
+    {
+      "id": "joint_control",
+      "games": 144,
+      "wins": 89,
+      "draws": 0,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 0.9583333333333334,
+          "electro_spirit": 6.027777777777778,
+          "skeletons": 6.048611111111111,
+          "zap": 6.173611111111111,
+          "knight": 5.784722222222222,
+          "cannon": 5.875,
+          "fireball": 0.2847222222222222,
+          "musketeer": 0.09027777777777778
+        },
+        "right": {
+          "hog_rider": 0.8958333333333334,
+          "electro_spirit": 9.42361111111111,
+          "skeletons": 9.375,
+          "zap": 9.270833333333334,
+          "knight": 8.555555555555555,
+          "cannon": 8.395833333333334,
+          "fireball": 0.1597222222222222,
+          "musketeer": 0.1597222222222222
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.3256990947420635,
+        "right": 0.3391791449652778,
+        "king": 0.01563065140335648
+      },
+      "mean_missed_fireballs": 0.2361111111111111,
+      "mean_card_plays": {
+        "cannon": 14.270833333333334,
+        "electro_spirit": 15.45138888888889,
+        "fireball": 0.4444444444444444,
+        "hog_rider": 1.8541666666666667,
+        "knight": 14.340277777777779,
+        "musketeer": 0.25,
+        "skeletons": 15.42361111111111,
+        "zap": 15.444444444444445
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 1
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 22
+        },
+        "giant": {
+          "games": 24,
+          "wins": 23
+        },
+        "golem": {
+          "games": 24,
+          "wins": 0
+        },
+        "hog": {
+          "games": 24,
+          "wins": 19
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 24
+        }
+      },
+      "warmstart_updates": 0,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 162,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/dataset/parent.pt",
+            "checkpoint_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 411,
+              "fraction": 0.07583025842905045,
+              "mean_log_successful_probability": -50.75573811653692
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -101.36077537138323
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -63.15918861225923
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -113.3012243762175
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 2,
+                  "fraction": 0.0416666679084301,
+                  "mean_log_successful_probability": -96.77706154959115
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -70.24180731290741
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -67.8224899258486
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -113.95458672561277
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -148.92535051295027
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -59.42778062362874
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -22.469342968054303
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -116.61529814012522
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -96.99187311121688
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 12,
+                  "fraction": 0.2857142984867096,
+                  "mean_log_successful_probability": -58.41830666444709
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 8,
+                  "fraction": 0.6666666865348816,
+                  "mean_log_successful_probability": -5.652580500084078
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 389,
+                  "fraction": 0.07500964403152466,
+                  "mean_log_successful_probability": -50.726903970702054
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_control_s162/update_000050.pt",
+            "checkpoint_sha256": "e89d02ad5326fac748fc387d3bff4ec2bac4806d1694332a7417441ac57e0d38",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 435,
+              "fraction": 0.08025830239057541,
+              "mean_log_successful_probability": -60.82454458829449
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -121.64564067383334
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -73.72636541700547
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -135.29531989534064
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 4,
+                  "fraction": 0.0833333358168602,
+                  "mean_log_successful_probability": -117.36969023224795
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -82.23009768425351
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -77.51970860229187
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -136.8924078548505
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -184.87770092361728
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -71.05118170445931
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -23.93891186590208
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -140.41029081336657
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -119.36608612411776
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 12,
+                  "fraction": 0.2857142984867096,
+                  "mean_log_successful_probability": -77.26419352283786
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 8,
+                  "fraction": 0.6666666865348816,
+                  "mean_log_successful_probability": -5.80017481033225
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 411,
+                  "fraction": 0.07925183326005936,
+                  "mean_log_successful_probability": -60.78152257860819
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 163,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/dataset/parent.pt",
+            "checkpoint_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 411,
+              "fraction": 0.07583025842905045,
+              "mean_log_successful_probability": -50.75573811653692
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -101.36077537138323
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -63.15918861225923
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -113.3012243762175
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 2,
+                  "fraction": 0.0416666679084301,
+                  "mean_log_successful_probability": -96.77706154959115
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -70.24180731290741
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -67.8224899258486
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -113.95458672561277
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -148.92535051295027
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -59.42778062362874
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -22.469342968054303
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -116.61529814012522
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -96.99187311121688
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 12,
+                  "fraction": 0.2857142984867096,
+                  "mean_log_successful_probability": -58.41830666444709
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 8,
+                  "fraction": 0.6666666865348816,
+                  "mean_log_successful_probability": -5.652580500084078
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 389,
+                  "fraction": 0.07500964403152466,
+                  "mean_log_successful_probability": -50.726903970702054
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_control_s163/update_000050.pt",
+            "checkpoint_sha256": "28f808727f91c85b8dffe8d925b1c440cc9ba90eabba2e780b787af4b3ee687e",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 437,
+              "fraction": 0.08062730729579926,
+              "mean_log_successful_probability": -55.48847492668166
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -110.50782669776383
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -69.39347523216455
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -126.48096853275905
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 4,
+                  "fraction": 0.0833333358168602,
+                  "mean_log_successful_probability": -106.53917379396243
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -76.38062463247941
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -73.43387213618331
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -124.68099082886232
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -159.0095936708701
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -64.48527182651347
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -24.42924419492819
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -125.92881318026703
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -104.2076851778281
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 12,
+                  "fraction": 0.2857142984867096,
+                  "mean_log_successful_probability": -64.32596598877714
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 8,
+                  "fraction": 0.6666666865348816,
+                  "mean_log_successful_probability": -4.837715563465486
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 413,
+                  "fraction": 0.07963748276233673,
+                  "mean_log_successful_probability": -55.45434783698983
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "local_before_ppo": {
+        "successful_choices": 0,
+        "predictions": 24,
+        "distinct_states": 12
+      },
+      "local_after_ppo": {
+        "successful_choices": 0,
+        "predictions": 24,
+        "distinct_states": 12
+      },
+      "local_skill_retention": {
+        "air_cannon_efficient": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        },
+        "air_defense": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_electro_spirit_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        },
+        "air_fireball_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          }
+        },
+        "air_reserve_deploy": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_reserve_wait": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_zap_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          }
+        },
+        "fireball_group": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "fireball_restraint": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "hand_slot_permutation": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        }
+      },
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.1
+      },
+      "mean_cluster_fireballs": 0.06944444444444445,
+      "mean_fireball_unit_hits": 0.4791666666666667
+    },
+    {
+      "id": "joint_bc800",
+      "games": 144,
+      "wins": 58,
+      "draws": 0,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 3.5625,
+          "zap": 5.291666666666667,
+          "skeletons": 4.944444444444445,
+          "electro_spirit": 5.333333333333333,
+          "fireball": 3.263888888888889,
+          "knight": 4.354166666666667,
+          "cannon": 3.611111111111111,
+          "musketeer": 1.6041666666666667
+        },
+        "right": {
+          "hog_rider": 1.4930555555555556,
+          "zap": 3.4027777777777777,
+          "skeletons": 3.3680555555555554,
+          "electro_spirit": 3.125,
+          "fireball": 2.0347222222222223,
+          "knight": 2.875,
+          "cannon": 2.7430555555555554,
+          "musketeer": 1.2291666666666667
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.6246318514384921,
+        "right": 0.5223427424355159,
+        "king": 0.04117273401331019
+      },
+      "mean_missed_fireballs": 0.4930555555555556,
+      "mean_card_plays": {
+        "cannon": 6.354166666666667,
+        "electro_spirit": 8.458333333333334,
+        "fireball": 5.298611111111111,
+        "hog_rider": 5.055555555555555,
+        "knight": 7.229166666666667,
+        "musketeer": 2.8333333333333335,
+        "skeletons": 8.3125,
+        "zap": 8.694444444444445
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 5
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 14
+        },
+        "giant": {
+          "games": 24,
+          "wins": 15
+        },
+        "golem": {
+          "games": 24,
+          "wins": 6
+        },
+        "hog": {
+          "games": 24,
+          "wins": 5
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 13
+        }
+      },
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 162,
+          "selected_update": 100,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_bc800_s162_warmstart/policy.pt",
+            "checkpoint_sha256": "5b5584f7658fd627a0d845cdbc3e61c4264a0e9e60ba9876416d2d5507270e76",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3535,
+              "fraction": 0.6522140502929688,
+              "mean_log_successful_probability": -1.5355154528261883
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -6.556100974837906
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.254227347130978
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.206380747622255
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 6,
+                  "fraction": 0.125,
+                  "mean_log_successful_probability": -3.8577944652428706
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.29967621339523
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.541431143359326
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.7141822542782843
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -2.84038589272689
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.8967102326378704
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 96,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.1272378716683087
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 1,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -2.407157147331399
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -5.000596174337379
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 31,
+                  "fraction": 0.738095223903656,
+                  "mean_log_successful_probability": -0.6230452894489013
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.058510825890700925
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 3389,
+                  "fraction": 0.6534901857376099,
+                  "mean_log_successful_probability": -1.5222826153791513
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_bc800_s162/update_000100.pt",
+            "checkpoint_sha256": "a271b9bd9273bf02b47db9e7106c66be967212e86856355e8c16d00ca772be05",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3022,
+              "fraction": 0.5575645565986633,
+              "mean_log_successful_probability": -3.7781480752299204
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -11.89545828586437
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -10.692103634232247
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -14.323265468972297
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.383203337746494
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -10.485829253079391
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -11.630938249005604
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -6.898857518768654
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.797243407862811
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -5.436407118080549
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 91,
+                  "fraction": 0.9479166865348816,
+                  "mean_log_successful_probability": -2.2594526716571885
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -6.9716035033092965
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -11.667098871367603
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 31,
+                  "fraction": 0.738095223903656,
+                  "mean_log_successful_probability": -0.97848409637093
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.9363238679630262
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 2888,
+                  "fraction": 0.5568839311599731,
+                  "mean_log_successful_probability": -3.772423243345226
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 163,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_bc800_s163_warmstart/policy.pt",
+            "checkpoint_sha256": "ed8c64455f1e57be324d20560cb03f679906674f428094eb172fd184a6193570",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3519,
+              "fraction": 0.649262011051178,
+              "mean_log_successful_probability": -1.5293308426021437
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -6.751908604135573
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.15580332303609
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.298709736614157
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 6,
+                  "fraction": 0.125,
+                  "mean_log_successful_probability": -3.6494326989986963
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.192879378627174
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.822991522656821
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.9068447904569474
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.05236687524687
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 1,
+                  "fraction": 0.0833333358168602,
+                  "mean_log_successful_probability": -3.729376208477871
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 96,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.13515960240039995
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 1,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -2.2467401886956404
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -5.21568223102461
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 28,
+                  "fraction": 0.6666666865348816,
+                  "mean_log_successful_probability": -0.7729973336048653
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.06395529458566862
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 3375,
+                  "fraction": 0.6507905721664429,
+                  "mean_log_successful_probability": -1.5170527203901194
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_bc800_s163/update_000050.pt",
+            "checkpoint_sha256": "23ab8173c91ff23c694c3b92de36a6cb636bb99b0ed7305e0d8b48603a16e511",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3110,
+              "fraction": 0.5738007426261902,
+              "mean_log_successful_probability": -3.143237206593515
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -7.6222443103855895
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.64811518801664
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -11.3267313033239
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 4,
+                  "fraction": 0.0833333358168602,
+                  "mean_log_successful_probability": -5.565869678506225
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.344499798594699
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.7790473371922495
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -4.103699008380033
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -5.93998540939119
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.79323370538688
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 88,
+                  "fraction": 0.9166666865348816,
+                  "mean_log_successful_probability": -1.2438088380024628
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 2,
+                  "fraction": 0.5,
+                  "mean_log_successful_probability": -2.423978944946616
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -1.581923171890046
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 20,
+                  "fraction": 0.4761904776096344,
+                  "mean_log_successful_probability": -4.3399284236508135
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.5977359642878014
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 2984,
+                  "fraction": 0.5753952860832214,
+                  "mean_log_successful_probability": -3.1370532212079993
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "local_before_ppo": {
+        "successful_choices": 0,
+        "predictions": 24,
+        "distinct_states": 12
+      },
+      "local_after_ppo": {
+        "successful_choices": 0,
+        "predictions": 24,
+        "distinct_states": 12
+      },
+      "local_skill_retention": {
+        "air_cannon_efficient": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        },
+        "air_defense": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_electro_spirit_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        },
+        "air_fireball_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          }
+        },
+        "air_reserve_deploy": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_reserve_wait": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_zap_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          }
+        },
+        "fireball_group": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "fireball_restraint": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "hand_slot_permutation": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        }
+      },
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.1
+      },
+      "mean_cluster_fireballs": 1.2986111111111112,
+      "mean_fireball_unit_hits": 10.416666666666666
+    },
+    {
+      "id": "joint_replay100",
+      "games": 144,
+      "wins": 32,
+      "draws": 0,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 3.2152777777777777,
+          "electro_spirit": 4.465277777777778,
+          "cannon": 3.5277777777777777,
+          "fireball": 3.8333333333333335,
+          "skeletons": 4.270833333333333,
+          "zap": 4.861111111111111,
+          "musketeer": 2.5694444444444446,
+          "knight": 3.986111111111111
+        },
+        "right": {
+          "hog_rider": 2.1458333333333335,
+          "electro_spirit": 3.2291666666666665,
+          "cannon": 2.6041666666666665,
+          "fireball": 2.7847222222222223,
+          "skeletons": 3.298611111111111,
+          "zap": 3.5902777777777777,
+          "musketeer": 2.2916666666666665,
+          "knight": 2.8819444444444446
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.634949699280754,
+        "right": 0.5817328559027778,
+        "king": 0.037512885199652776
+      },
+      "mean_missed_fireballs": 0.3819444444444444,
+      "mean_card_plays": {
+        "cannon": 6.131944444444445,
+        "electro_spirit": 7.694444444444445,
+        "fireball": 6.618055555555555,
+        "hog_rider": 5.361111111111111,
+        "knight": 6.868055555555555,
+        "musketeer": 4.861111111111111,
+        "skeletons": 7.569444444444445,
+        "zap": 8.45138888888889
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 4
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 10
+        },
+        "giant": {
+          "games": 24,
+          "wins": 3
+        },
+        "golem": {
+          "games": 24,
+          "wins": 3
+        },
+        "hog": {
+          "games": 24,
+          "wins": 1
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 11
+        }
+      },
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 162,
+          "selected_update": 100,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay100_s162_warmstart/policy.pt",
+            "checkpoint_sha256": "13b5ade1e44f24f6ddd359934bb0b302235037fdcfa353091591f92f04985215",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3549,
+              "fraction": 0.6547970771789551,
+              "mean_log_successful_probability": -1.5376872630680483
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -6.561163287850306
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.238662953453517
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.185626522686931
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 7,
+                  "fraction": 0.1458333283662796,
+                  "mean_log_successful_probability": -3.855874117503337
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.268737907806443
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.508506653743435
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.7516739732091535
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -2.9158635752419175
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.90575571435368
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 96,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.12806196048999383
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 1,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -2.440069241864107
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -5.062849798999185
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 30,
+                  "fraction": 0.7142857313156128,
+                  "mean_log_successful_probability": -0.6347041171550329
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.059314610791691126
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 3403,
+                  "fraction": 0.6561897397041321,
+                  "mean_log_successful_probability": -1.5244551607036234
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay100_s162/update_000100.pt",
+            "checkpoint_sha256": "0e6bddb14b63f2635225832984639465fcf7506a23b5b738331c0aefba850ee9",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3813,
+              "fraction": 0.7035055160522461,
+              "mean_log_successful_probability": -1.1692041803723296
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -6.117541433735764
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.984052114109094
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.115194328196432
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 10,
+                  "fraction": 0.2083333283662796,
+                  "mean_log_successful_probability": -2.66046299305853
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.000827296540725
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.109795070402364
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.62162364034961
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.3850531774879533
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 2,
+                  "fraction": 0.1666666716337204,
+                  "mean_log_successful_probability": -3.005338553714401
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 96,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.08954873863141388
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 1,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -1.3135422474023095
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -2.870216627729042
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 32,
+                  "fraction": 0.761904776096344,
+                  "mean_log_successful_probability": -0.5945400380670657
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.05990286681848692
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 3660,
+                  "fraction": 0.7057462334632874,
+                  "mean_log_successful_probability": -1.1568481445355157
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 163,
+          "selected_update": 100,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay100_s163_warmstart/policy.pt",
+            "checkpoint_sha256": "04f316e9b56cda69f2160999f918cd52924e48f486c331657422b01e6051143d",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3517,
+              "fraction": 0.6488929986953735,
+              "mean_log_successful_probability": -1.5291355909570195
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -6.754824815979087
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.158050199319558
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.310507668578833
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 6,
+                  "fraction": 0.125,
+                  "mean_log_successful_probability": -3.6502684582728797
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.19690900523051
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.848078733047983
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.8802230070530417
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.016228750334283
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 1,
+                  "fraction": 0.0833333358168602,
+                  "mean_log_successful_probability": -3.7295448894448087
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 96,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.1347371935658774
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 1,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -2.248298035103574
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -5.195547342286607
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 28,
+                  "fraction": 0.6666666865348816,
+                  "mean_log_successful_probability": -0.7738118620382947
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.06397265205358826
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 3373,
+                  "fraction": 0.6504049301147461,
+                  "mean_log_successful_probability": -1.5168513651945637
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay100_s163/update_000100.pt",
+            "checkpoint_sha256": "e649f1b60ffcb28974ad23e6569e00e53b629d1e9b073081cd4dbda751ece55c",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3748,
+              "fraction": 0.691512942314148,
+              "mean_log_successful_probability": -1.1868057217834538
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.923580424386144
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.91159788190426
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.9053434267356675
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 11,
+                  "fraction": 0.2291666716337204,
+                  "mean_log_successful_probability": -2.670709538014576
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -6.761710686720026
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -6.599757947781075
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 1,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -3.3761159361732496
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.1243947123128013
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.1807024507056867
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 96,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.09672701119924632
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 2,
+                  "fraction": 0.5,
+                  "mean_log_successful_probability": -1.3953477276926174
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.406885084970577
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 29,
+                  "fraction": 0.6904761791229248,
+                  "mean_log_successful_probability": -0.6847572996350847
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.06112560734627807
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 3597,
+                  "fraction": 0.6935981512069702,
+                  "mean_log_successful_probability": -1.1744838208023018
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "local_before_ppo": {
+        "successful_choices": 0,
+        "predictions": 24,
+        "distinct_states": 12
+      },
+      "local_after_ppo": {
+        "successful_choices": 0,
+        "predictions": 24,
+        "distinct_states": 12
+      },
+      "local_skill_retention": {
+        "air_cannon_efficient": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        },
+        "air_defense": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_electro_spirit_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        },
+        "air_fireball_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          }
+        },
+        "air_reserve_deploy": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_reserve_wait": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_zap_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          }
+        },
+        "fireball_group": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "fireball_restraint": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "hand_slot_permutation": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        }
+      },
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.1
+      },
+      "mean_cluster_fireballs": 2.1805555555555554,
+      "mean_fireball_unit_hits": 17.01388888888889
+    },
+    {
+      "id": "joint_replay500",
+      "games": 144,
+      "wins": 24,
+      "draws": 1,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 2.951388888888889,
+          "electro_spirit": 4.104166666666667,
+          "skeletons": 3.9166666666666665,
+          "fireball": 3.75,
+          "zap": 4.6875,
+          "knight": 3.6805555555555554,
+          "cannon": 3.3055555555555554,
+          "musketeer": 2.673611111111111
+        },
+        "right": {
+          "hog_rider": 1.9583333333333333,
+          "electro_spirit": 3.0,
+          "skeletons": 3.076388888888889,
+          "fireball": 2.6944444444444446,
+          "zap": 3.3194444444444446,
+          "knight": 2.5902777777777777,
+          "cannon": 2.548611111111111,
+          "musketeer": 2.3055555555555554
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.6541166759672619,
+        "right": 0.6480131603422619,
+        "king": 0.029760290075231486
+      },
+      "mean_missed_fireballs": 0.3472222222222222,
+      "mean_card_plays": {
+        "cannon": 5.854166666666667,
+        "electro_spirit": 7.104166666666667,
+        "fireball": 6.444444444444445,
+        "hog_rider": 4.909722222222222,
+        "knight": 6.270833333333333,
+        "musketeer": 4.979166666666667,
+        "skeletons": 6.993055555555555,
+        "zap": 8.006944444444445
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 5
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 7
+        },
+        "giant": {
+          "games": 24,
+          "wins": 0
+        },
+        "golem": {
+          "games": 24,
+          "wins": 6
+        },
+        "hog": {
+          "games": 24,
+          "wins": 2
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 4
+        }
+      },
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 162,
+          "selected_update": 100,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay500_s162_warmstart/policy.pt",
+            "checkpoint_sha256": "192724e2d9a86339935ae889be0e85d8ed3eb819f4c2576f865a0d9fa5a99b31",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3540,
+              "fraction": 0.6531365513801575,
+              "mean_log_successful_probability": -1.5351883743197643
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -6.553620211251739
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.24641895981481
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.202373091995764
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 7,
+                  "fraction": 0.1458333283662796,
+                  "mean_log_successful_probability": -3.855041047059443
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.290529117752143
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.5322965769053765
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.7188337932378444
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -2.849120754725051
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.8951032247674164
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 96,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.1276880224281687
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 1,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -2.411402918062544
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -5.003261174983097
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 31,
+                  "fraction": 0.738095223903656,
+                  "mean_log_successful_probability": -0.6240273483497658
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.05901750784767427
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 3393,
+                  "fraction": 0.6542614698410034,
+                  "mean_log_successful_probability": -1.521971816335009
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay500_s162/update_000100.pt",
+            "checkpoint_sha256": "571067ee7d1b9b6612e663794001789e9c67e7928dd871c8a9a3a0e433d358ca",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3946,
+              "fraction": 0.7280442714691162,
+              "mean_log_successful_probability": -1.0611174921778774
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 1,
+              "fraction": 0.0833333358168602,
+              "mean_log_successful_probability": -5.77857207583492
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.943506909104178
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.252651542985962
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 17,
+                  "fraction": 0.3541666567325592,
+                  "mean_log_successful_probability": -2.312513034927799
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -6.896547654422701
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -6.525557883088039
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.6889517340041986
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.2268342691107366
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 3,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -2.9298070019225677
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 96,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.0615541501358281
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 2,
+                  "fraction": 0.5,
+                  "mean_log_successful_probability": -0.9335730583444948
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 1,
+                  "fraction": 0.5,
+                  "mean_log_successful_probability": -1.888179333750782
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 30,
+                  "fraction": 0.7142857313156128,
+                  "mean_log_successful_probability": -0.6189497585359997
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.020357562172096538
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 3786,
+                  "fraction": 0.7300423979759216,
+                  "mean_log_successful_probability": -1.0481563022000124
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 163,
+          "selected_update": 100,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay500_s163_warmstart/policy.pt",
+            "checkpoint_sha256": "033b5dc6d3034bc7652bb2c57ff99ca8d8619863d5ccf3c9fc56ead56bd54b87",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3515,
+              "fraction": 0.6485239863395691,
+              "mean_log_successful_probability": -1.529863461574624
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -6.773442860071962
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.164218092073462
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.302138682400685
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 6,
+                  "fraction": 0.125,
+                  "mean_log_successful_probability": -3.6533486293560635
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -8.20172154480844
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.865021278917419
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.921836286831138
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.063439838806975
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 1,
+                  "fraction": 0.0833333358168602,
+                  "mean_log_successful_probability": -3.7474754761703255
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 96,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.13244070245293016
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 1,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -2.2639676215186464
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -5.2428973989885925
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 28,
+                  "fraction": 0.6666666865348816,
+                  "mean_log_successful_probability": -0.7741089864880428
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.06291207854576275
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 3371,
+                  "fraction": 0.6500192880630493,
+                  "mean_log_successful_probability": -1.5175235170212775
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/hand_slots_pilot_20261027_on_available/collected/pilot_joint_replay500_s163/update_000100.pt",
+            "checkpoint_sha256": "2e8ab4dfe7a872b9767caba67a2c664b15f020e04be53342a1f2de612d9f1621",
+            "data_sha256": "2c6f600c01c495f7097d77bd370edaacaa6de352cc0789592d512e859606621f",
+            "heldout_seed": 6200907,
+            "train": {
+              "examples": 5420,
+              "successful_choices": 3905,
+              "fraction": 0.7204797267913818,
+              "mean_log_successful_probability": -1.0723279674082906
+            },
+            "local_heldout": {
+              "examples": 12,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.737791811610073
+            },
+            "by_skill": {
+              "air_cannon_efficient": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.71343191053484
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -7.571650177936922
+                }
+              },
+              "air_defense": {
+                "train": {
+                  "examples": 48,
+                  "successful_choices": 11,
+                  "fraction": 0.2291666716337204,
+                  "mean_log_successful_probability": -2.492706809544277
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_electro_spirit_recovery": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -6.570238317840214
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -6.132528768750581
+                }
+              },
+              "air_fireball_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.6076112692792197
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.436003221154917
+                }
+              },
+              "air_reserve_deploy": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 3,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -2.844773088113611
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_reserve_wait": {
+                "train": {
+                  "examples": 96,
+                  "successful_choices": 96,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.11537494135075506
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "air_zap_recovery": {
+                "train": {
+                  "examples": 4,
+                  "successful_choices": 2,
+                  "fraction": 0.5,
+                  "mean_log_successful_probability": -0.9425048092844046
+                },
+                "local_heldout": {
+                  "examples": 2,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -3.582389755130518
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 42,
+                  "successful_choices": 32,
+                  "fraction": 0.761904776096344,
+                  "mean_log_successful_probability": -0.47412793406725984
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 12,
+                  "successful_choices": 12,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.03782720606099669
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              },
+              "hand_slot_permutation": {
+                "train": {
+                  "examples": 5186,
+                  "successful_choices": 3749,
+                  "fraction": 0.7229078412055969,
+                  "mean_log_successful_probability": -1.059451843274771
+                },
+                "local_heldout": {
+                  "examples": 0,
+                  "successful_choices": 0,
+                  "fraction": NaN,
+                  "mean_log_successful_probability": NaN
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "local_before_ppo": {
+        "successful_choices": 0,
+        "predictions": 24,
+        "distinct_states": 12
+      },
+      "local_after_ppo": {
+        "successful_choices": 1,
+        "predictions": 24,
+        "distinct_states": 12
+      },
+      "local_skill_retention": {
+        "air_cannon_efficient": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        },
+        "air_defense": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_electro_spirit_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        },
+        "air_fireball_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          }
+        },
+        "air_reserve_deploy": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_reserve_wait": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "air_zap_recovery": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 4,
+            "distinct_states": 2
+          },
+          "after": {
+            "successful_choices": 1,
+            "predictions": 4,
+            "distinct_states": 2
+          }
+        },
+        "fireball_group": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "fireball_restraint": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        },
+        "hand_slot_permutation": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 0,
+            "distinct_states": 0
+          }
+        }
+      },
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.1
+      },
+      "mean_cluster_fireballs": 1.9722222222222223,
+      "mean_fireball_unit_hits": 16.604166666666668
+    }
+  ],
+  "parent": {
+    "games": 72,
+    "wins": 44,
+    "draws": 0,
+    "mean_card_lane_plays": {
+      "left": {
+        "hog_rider": 0.8055555555555556,
+        "electro_spirit": 4.472222222222222,
+        "skeletons": 4.194444444444445,
+        "zap": 4.722222222222222,
+        "knight": 4.208333333333333,
+        "cannon": 4.111111111111111,
+        "fireball": 0.2777777777777778,
+        "musketeer": 0.05555555555555555
+      },
+      "right": {
+        "hog_rider": 1.1388888888888888,
+        "electro_spirit": 10.86111111111111,
+        "skeletons": 11.01388888888889,
+        "zap": 10.527777777777779,
+        "knight": 10.0,
+        "cannon": 10.041666666666666,
+        "fireball": 0.18055555555555555,
+        "musketeer": 0.06944444444444445
+      }
+    },
+    "mean_own_tower_fraction_loss": {
+      "left": 0.2704419332837302,
+      "right": 0.42251829117063494,
+      "king": 0.02578170211226852
+    },
+    "mean_missed_fireballs": 0.25,
+    "mean_card_plays": {
+      "cannon": 14.152777777777779,
+      "electro_spirit": 15.333333333333334,
+      "fireball": 0.4583333333333333,
+      "hog_rider": 1.9444444444444444,
+      "knight": 14.208333333333334,
+      "musketeer": 0.125,
+      "skeletons": 15.208333333333334,
+      "zap": 15.25
+    },
+    "by_family": {
+      "air": {
+        "games": 12,
+        "wins": 0
+      },
+      "bridge": {
+        "games": 12,
+        "wins": 12
+      },
+      "giant": {
+        "games": 12,
+        "wins": 11
+      },
+      "golem": {
+        "games": 12,
+        "wins": 0
+      },
+      "hog": {
+        "games": 12,
+        "wins": 10
+      },
+      "swarm": {
+        "games": 12,
+        "wins": 11
+      }
+    }
+  },
+  "initial_reference": null,
+  "eligible_for_full": false,
+  "quality_accepted": false,
+  "scope": "72 distinct validation contexts replayed by two independently trained seeds; not144 independent contexts",
+  "test_used_for_selection": false
+}

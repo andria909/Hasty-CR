@@ -1,14 +1,14 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
-  "status": "training_steps_observed",
+  "status": "pilot_complete_budgets_verified",
   "progress_snapshot": {
     "kernel": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
-    "reconnect_attempt": 2,
-    "checked_host_ns": 1793104635002737000,
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793105835466733000,
     "trials": {
       "pilot_joint_control_s162": {
         "update": 100,
@@ -25,18 +25,32 @@
         "remote_log_seconds": 1477.753139089
       },
       "pilot_joint_control_s163": {
-        "update": 99,
-        "steps": 101376,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 99.0,
-        "remote_log_seconds": 2242.026403222
+        "percent": 100.0,
+        "remote_log_seconds": 2593.523178318
       },
       "pilot_joint_bc800_s163": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2568.582856322
+      },
+      "pilot_joint_replay500_s162": {
         "update": 99,
         "steps": 101376,
         "target_steps": 102400,
         "percent": 99.0,
-        "remote_log_seconds": 2257.025344222
+        "remote_log_seconds": 3421.872711601
+      },
+      "pilot_joint_replay100_s162": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 3443.835798051
       }
     },
     "error_type": "ConnectionError",
@@ -55,7 +69,7 @@
     "kernelId": 141159339
   },
   "frozen_bootstrap_sha256": "b3dde07bebdf23f714f3e7446a979ae53d5f9f5915f814b02b6d7035c0e88a0a",
-  "last_local_sync_ns": 1793105713041468000,
+  "last_local_sync_ns": 1793107841221084000,
   "runtime_start_evidence": [
     {
       "event": "INPUTS_VERIFIED",
@@ -70,5 +84,6 @@
     }
   ],
   "actual_cuda_confirmed": true,
-  "actual_training_steps_confirmed": true
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/air_alternatives_pilot_verified_20261027.json"
 }

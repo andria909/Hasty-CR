@@ -61,7 +61,7 @@
       },
       "origin": "andriashadrin/hastycr-air-reserve-pilot-20261027",
       "target_steps": 4096000,
-      "label": "\u041d\u0430\u043a\u043e\u043f\u043b\u0435\u043d\u0438\u0435 \u00b7 BC800 + \u043f\u043e\u0432\u0442\u043e\u0440\u0435\u043d\u0438\u04351"
+      "label": "\u041d\u0430\u043a\u043e\u043f\u043b\u0435\u043d\u0438\u0435 \u00b7 \u043f\u043e\u0432\u0442\u043e\u0440\u0435\u043d\u0438\u04351"
     }
   ],
   "progress_snapshot": {
@@ -71,30 +71,56 @@
     "stream_state": "interrupted",
     "trials": {
       "global0_full_joint_bc800_s64": {
-        "update": 51,
-        "steps": 52224,
+        "update": 1210,
+        "steps": 1239040,
         "target_steps": 4096000,
-        "percent": 1.275,
-        "remote_log_seconds": 236.713688682
+        "percent": 30.25,
+        "remote_log_seconds": 6626.37422509
       },
       "global1_full_joint_replay100_s64": {
-        "update": 51,
-        "steps": 52224,
+        "update": 1170,
+        "steps": 1198080,
         "target_steps": 4096000,
-        "percent": 1.275,
-        "remote_log_seconds": 236.927251736
+        "percent": 29.25,
+        "remote_log_seconds": 6622.606187359
       }
     },
-    "checked_host_ns": 1793107659360871000,
+    "checked_host_ns": 1793114045577044000,
+    "reconnect_attempt": 5,
     "error_type": "SSLError",
-    "http_status": null,
-    "reconnect_attempt": 0
+    "http_status": null
   },
   "quality_accepted": false,
   "live_checkpoint_changed": false,
-  "last_local_sync_ns": 1793107472030506000,
+  "last_local_sync_ns": 1793115058142007000,
   "actual_training_steps_confirmed": true,
   "runtime_start_evidence": [
+    {
+      "event": "INPUTS_VERIFIED",
+      "protocol_sha256": "5c2e333a5e100c8847f2aa109c171456f65e4f0262e2d66a84966c0fb5516aa2",
+      "global_child": 1
+    },
+    {
+      "event": "INPUTS_VERIFIED",
+      "protocol_sha256": "5c2e333a5e100c8847f2aa109c171456f65e4f0262e2d66a84966c0fb5516aa2",
+      "global_child": 0
+    },
+    {
+      "event": "CUDA_READY",
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "global_child": 1
+    },
+    {
+      "event": "CUDA_READY",
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "global_child": 0
+    },
     {
       "event": "INPUTS_VERIFIED",
       "protocol_sha256": "5c2e333a5e100c8847f2aa109c171456f65e4f0262e2d66a84966c0fb5516aa2",

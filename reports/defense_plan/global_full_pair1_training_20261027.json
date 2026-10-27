@@ -1,0 +1,126 @@
+{
+  "schema": "global-full-training-status-v1",
+  "kernel": "andreiperelaiko/hastycr-global-full-b3dde07b-1",
+  "root": "tmp/kaggle/global_full_pair1_20261027",
+  "status": "full_training_steps_observed",
+  "launch_receipt": {
+    "ref": "/code/andreiperelaiko/hastycr-global-full-b3dde07b-1",
+    "url": "https://www.kaggle.com/code/andreiperelaiko/hastycr-global-full-b3dde07b-1",
+    "versionNumber": 1,
+    "kernelId": 141172830
+  },
+  "target_steps": 8192000,
+  "children": [
+    {
+      "id": "global0_full_joint_replay100_s64",
+      "trial": {
+        "id": "joint_replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "origin": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "target_steps": 4096000,
+      "label": "\u041f\u0443\u0448\u043a\u0430 + \u0441\u043f\u0435\u043b\u043b\u044b \u00b7 \u043f\u043e\u0432\u0442\u043e\u0440\u0435\u043d\u0438\u04351"
+    },
+    {
+      "id": "global1_full_joint_replay500_s64",
+      "trial": {
+        "id": "joint_replay500",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 5.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "origin": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "target_steps": 4096000,
+      "label": "\u041f\u0443\u0448\u043a\u0430 + \u0441\u043f\u0435\u043b\u043b\u044b \u00b7 \u043f\u043e\u0432\u0442\u043e\u0440\u0435\u043d\u0438\u04355"
+    }
+  ],
+  "progress_snapshot": {
+    "kernel": "andreiperelaiko/hastycr-global-full-b3dde07b-1",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "trials": {
+      "global1_full_joint_replay500_s64": {
+        "update": 999,
+        "steps": 1022976,
+        "target_steps": 4096000,
+        "percent": 24.975,
+        "remote_log_seconds": 5158.682073753
+      },
+      "global0_full_joint_replay100_s64": {
+        "update": 1029,
+        "steps": 1053696,
+        "target_steps": 4096000,
+        "percent": 25.725,
+        "remote_log_seconds": 5496.192794716
+      }
+    },
+    "checked_host_ns": 1793114093895740000,
+    "reconnect_attempt": 4,
+    "error_type": "SSLError",
+    "http_status": null
+  },
+  "quality_accepted": false,
+  "live_checkpoint_changed": false,
+  "last_local_sync_ns": 1793115105182075000,
+  "actual_training_steps_confirmed": true,
+  "runtime_start_evidence": [
+    {
+      "event": "INPUTS_VERIFIED",
+      "protocol_sha256": "f4cdc339b4fee55068a698ad1c94211feb0a4c58663172d2750976ea106285c8",
+      "global_child": 1
+    },
+    {
+      "event": "INPUTS_VERIFIED",
+      "protocol_sha256": "f4cdc339b4fee55068a698ad1c94211feb0a4c58663172d2750976ea106285c8",
+      "global_child": 0
+    },
+    {
+      "event": "CUDA_READY",
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "global_child": 1
+    },
+    {
+      "event": "CUDA_READY",
+      "gpus": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "global_child": 0
+    }
+  ],
+  "actual_cuda_confirmed": true
+}

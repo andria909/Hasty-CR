@@ -1,0 +1,4654 @@
+{
+  "schema": "native-lane-reflection-probe-v1",
+  "sources": {
+    "tmp/live/reserve_bc800_20261027_live10/series/series.json": "4312ea59d42413d2c90ed85e688e015d1725da4fa791fdfd3d64dff97bac535d",
+    "tmp/live/reserve_bc800_20261027_live10/run/events.jsonl": "cc4d730017ccdc8b3b43b36b7a72fb7323a02c9060de3356390b0e107ced627c",
+    "tmp/live/reserve_bc800_20261027_live10/run/frames.jsonl": "73faaba8b14897ac0b514259e38ad14e3d739aaaaf040998db943c274e07a77b",
+    "tmp/live/reserve_bc800_20261027_live10/remaining7/events.jsonl": "66650501c06842deaea61ab3b7556c80a4fcf799fa150b4840483f6e32810b2e",
+    "tmp/live/reserve_bc800_20261027_live10/remaining7/frames.jsonl": "63a8b97f96bcc372a87276077994cc1b3583824a042096a9d08752ea866e3399"
+  },
+  "results": [
+    {
+      "model": {
+        "id": "balanced",
+        "checkpoint": "tmp/kaggle/continuous_slots_20261026/collected_selected/full_balanced_s44/best_validation_001000.pt",
+        "sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9"
+      },
+      "samples": 71,
+      "rejected": {},
+      "mean_reflection_js": 0.6523585748263855,
+      "greedy_reflection_agreement": 0.09859154929577464,
+      "original_lanes": {
+        "left": 49,
+        "right": 22
+      },
+      "original_cards": {
+        "zap": 12,
+        "knight": 20,
+        "cannon": 23,
+        "electro_spirit": 2,
+        "fireball": 5,
+        "hog_rider": 3,
+        "skeletons": 4,
+        "musketeer": 2
+      },
+      "rows": [
+        {
+          "match": 1,
+          "tick": 23,
+          "js": 0.9186912489514727,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              2,
+              2
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              15,
+              2
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 123,
+          "js": 0.962274748367824,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              2,
+              1
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              15,
+              1
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 338,
+          "js": 0.99970591241486,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              2,
+              8
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              15,
+              4
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 506,
+          "js": 0.9895195519869067,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              3,
+              14
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              15,
+              6
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 901,
+          "js": 0.9095029038464763,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 1068,
+          "js": 0.7083193186936714,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              5,
+              19
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 1518,
+          "js": 0.9820800984585342,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 1686,
+          "js": 0.9301114129167158,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              5,
+              19
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 20,
+          "js": 0.023565740002909813,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              15,
+              1
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              2,
+              1
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 122,
+          "js": 0.013208153379034615,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              2,
+              1
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              15,
+              1
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 226,
+          "js": 0.9968669947970675,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 394,
+          "js": 0.9902834129307139,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              4,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 620,
+          "js": 0.9620482472166376,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              2,
+              14
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              15,
+              2
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1069,
+          "js": 0.9838804988390915,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1238,
+          "js": 0.9540483022291032,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              20
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1687,
+          "js": 0.9605678205580106,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1854,
+          "js": 0.973518286150631,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              17
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 2079,
+          "js": 0.9310834588593924,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              2,
+              3
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              15,
+              3
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 2437,
+          "js": 0.9994199912578006,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 2548,
+          "js": 0.946204861453854,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              4,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 20,
+          "js": 0.9975133915903355,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              2,
+              2
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "fireball",
+            "lane": "right",
+            "grid": [
+              15,
+              2
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 120,
+          "js": 0.9988590698420114,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              2,
+              2
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "fireball",
+            "lane": "right",
+            "grid": [
+              15,
+              2
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 506,
+          "js": 0.6228702975561002,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              4,
+              19
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 676,
+          "js": 0.08688122816046256,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              24
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              4,
+              24
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 1126,
+          "js": 0.3389112045690492,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 1293,
+          "js": 0.15351998007630008,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              17
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              17
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 23,
+          "js": 0.8910072016420865,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "hog_rider",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "hog_rider",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 123,
+          "js": 0.6508582812052238,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "hog_rider",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "hog_rider",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 223,
+          "js": 0.03470043426555199,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 620,
+          "js": 0.1631297686672358,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              20
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              20
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 787,
+          "js": 0.006189971353950551,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 20,
+          "js": 0.9999159032315634,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              2,
+              2
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "fireball",
+            "lane": "right",
+            "grid": [
+              15,
+              2
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 122,
+          "js": 0.9999680139747749,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              2,
+              1
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "fireball",
+            "lane": "right",
+            "grid": [
+              15,
+              1
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 222,
+          "js": 0.9845657637114543,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              2,
+              17
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "musketeer",
+            "lane": "left",
+            "grid": [
+              2,
+              17
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 675,
+          "js": 0.3062190654622006,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              18
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 843,
+          "js": 0.023710592390599014,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              24
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              24
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1295,
+          "js": 0.3823434882396293,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1462,
+          "js": 0.5593768396016515,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              17
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              17
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1631,
+          "js": 0.3053958060103517,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              15,
+              21
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              13,
+              23
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1731,
+          "js": 0.8992669264237491,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              13,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              14,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 2079,
+          "js": 0.020027978945023166,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 2248,
+          "js": 0.9995707340512818,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              13,
+              21
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              15,
+              21
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 2464,
+          "js": 0.07743451674374965,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              13,
+              23
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              13,
+              23
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 24,
+          "js": 0.08147683996529183,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              15,
+              1
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              2,
+              1
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 125,
+          "js": 0.0548806527905647,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              15,
+              1
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              2,
+              1
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 395,
+          "js": 0.0024788192013435427,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              19
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 618,
+          "js": 0.15077385784756386,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1012,
+          "js": 0.8499363687548408,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1180,
+          "js": 0.8282791094796399,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              12,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1630,
+          "js": 0.9411447879001684,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1798,
+          "js": 0.7637139846320024,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              12,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              13,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 22,
+          "js": 0.39918970483959404,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "skeletons",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 124,
+          "js": 0.40160305138782637,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "skeletons",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 229,
+          "js": 0.12710326217220613,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              17
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              17
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 508,
+          "js": 0.7338061156556345,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              4,
+              18
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 789,
+          "js": 0.8264533416580804,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              20
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              4,
+              20
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1068,
+          "js": 0.40437205805804305,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              6,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1349,
+          "js": 0.9124236852060794,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              1,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              19
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1632,
+          "js": 0.7929657397953286,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              5,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1911,
+          "js": 0.9999938973637297,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              1,
+              22
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              5,
+              22
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 21,
+          "js": 0.5721850755420083,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "musketeer",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "musketeer",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 122,
+          "js": 0.49267689410885385,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "musketeer",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "musketeer",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 452,
+          "js": 0.9970996873236849,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              4,
+              19
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 677,
+          "js": 0.5135905004017239,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              21
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              4,
+              21
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 22,
+          "js": 0.5310945936369016,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 123,
+          "js": 0.46217000955953086,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "hog_rider",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "hog_rider",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 223,
+          "js": 0.9978791126973952,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 675,
+          "js": 0.9988602737205675,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              17
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              5,
+              18
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 843,
+          "js": 0.9999349933058091,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              17
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              5,
+              18
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 1238,
+          "js": 0.8860080099468063,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 1461,
+          "js": 0.9582269646971169,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": {
+        "id": "strong",
+        "checkpoint": "tmp/kaggle/continuous_slots_20261026/collected_selected/full_strong_s44/best_validation_002750.pt",
+        "sha256": "82e988f074937fe86d7c9ec1eb1dfce384142eabe98ebc75adf4e1986c71a7fd"
+      },
+      "samples": 71,
+      "rejected": {},
+      "mean_reflection_js": 0.33575994139225684,
+      "greedy_reflection_agreement": 0.16901408450704225,
+      "original_lanes": {
+        "left": 55,
+        "right": 16
+      },
+      "original_cards": {
+        "fireball": 7,
+        "knight": 30,
+        "zap": 5,
+        "cannon": 19,
+        "electro_spirit": 5,
+        "hog_rider": 2,
+        "skeletons": 3
+      },
+      "rows": [
+        {
+          "match": 1,
+          "tick": 23,
+          "js": 0.9141075673406771,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              2,
+              11
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "fireball",
+            "lane": "right",
+            "grid": [
+              15,
+              11
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 123,
+          "js": 0.9205393745176444,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              2,
+              11
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "fireball",
+            "lane": "right",
+            "grid": [
+              15,
+              11
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 338,
+          "js": 0.40381380237334236,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 506,
+          "js": 0.7036809895955641,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              3,
+              12
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              5,
+              12
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 901,
+          "js": 0.007863208031182794,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 1068,
+          "js": 0.34216791104145006,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              5,
+              19
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 1518,
+          "js": 0.08712898529240395,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              4,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              4,
+              18
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 1686,
+          "js": 0.026482270166361878,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 20,
+          "js": 0.2745656585709007,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "electro_spirit",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 122,
+          "js": 0.1984687315197787,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "electro_spirit",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 226,
+          "js": 0.8701066660306819,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              3,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 394,
+          "js": 0.49485711817384165,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              4,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 620,
+          "js": 0.0798357815107589,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              6,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              6,
+              19
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1069,
+          "js": 0.39891917612978683,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1238,
+          "js": 0.1361799260432985,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              5,
+              20
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1687,
+          "js": 0.48604816679664864,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1854,
+          "js": 0.01295900291889834,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 2079,
+          "js": 0.012345323137728204,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              8,
+              13
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              9,
+              13
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 2437,
+          "js": 0.46182780707997656,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              20
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 2548,
+          "js": 0.044618163167315414,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 20,
+          "js": 0.12251143288332593,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              8,
+              12
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "fireball",
+            "lane": "right",
+            "grid": [
+              9,
+              12
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 120,
+          "js": 0.1450419555661141,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              8,
+              12
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "fireball",
+            "lane": "right",
+            "grid": [
+              9,
+              12
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 506,
+          "js": 0.6919366813291074,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              4,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              19
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 676,
+          "js": 0.13774191547409725,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 1126,
+          "js": 0.10512148238374279,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 1293,
+          "js": 0.12099332052632857,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 23,
+          "js": 0.09489897335236128,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "hog_rider",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "hog_rider",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 123,
+          "js": 0.11093862356652644,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "hog_rider",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "hog_rider",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 223,
+          "js": 0.7062765517623857,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 620,
+          "js": 0.009516449709830547,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              20
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              20
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 787,
+          "js": 0.7810702157831007,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              21
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 20,
+          "js": 0.25603418397513134,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              8,
+              12
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "fireball",
+            "lane": "right",
+            "grid": [
+              9,
+              12
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 122,
+          "js": 0.25191214679491425,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              8,
+              12
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "fireball",
+            "lane": "right",
+            "grid": [
+              9,
+              12
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 222,
+          "js": 0.705827634047971,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              2,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "fireball",
+            "lane": "left",
+            "grid": [
+              3,
+              19
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 675,
+          "js": 0.09825386042057344,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              18
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 843,
+          "js": 0.6563994332290354,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              4,
+              22
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              22
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1295,
+          "js": 0.09208472449605203,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1462,
+          "js": 0.09491817091576384,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1631,
+          "js": 0.9688487851970549,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              15,
+              21
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              13,
+              23
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1731,
+          "js": 0.7829532538273976,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              14,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              13,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 2079,
+          "js": 0.3958863050774839,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 2248,
+          "js": 0.7941427890578336,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              15,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              14,
+              18
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 2464,
+          "js": 0.8232662451636162,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              14,
+              23
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              13,
+              23
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 24,
+          "js": 0.6270195079951536,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 125,
+          "js": 0.564260286972901,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 395,
+          "js": 0.4241818367020129,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              13,
+              19
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 618,
+          "js": 0.145505126342719,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1012,
+          "js": 0.0057167879623907306,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1180,
+          "js": 0.08288169099778035,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              10,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1630,
+          "js": 0.4977085045338216,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1798,
+          "js": 0.11200349714500622,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 22,
+          "js": 0.46323277635053756,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "electro_spirit",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 124,
+          "js": 0.5039087370714022,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "electro_spirit",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 229,
+          "js": 0.14260309109205999,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              18
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 508,
+          "js": 0.6767588684251628,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              4,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 789,
+          "js": 0.2170482322708015,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              4,
+              21
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              21
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1068,
+          "js": 0.1321363559475376,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              6,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1349,
+          "js": 0.6132535006721418,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              1,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              19
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1632,
+          "js": 0.5250810912624954,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              4,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1911,
+          "js": 0.22108270878389805,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              23
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              23
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 21,
+          "js": 0.4116411627707359,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              15,
+              16
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 122,
+          "js": 0.3154412051580916,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "skeletons",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 452,
+          "js": 0.9643767203266692,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              4,
+              21
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              20
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 677,
+          "js": 0.04494466148106278,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              21
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              21
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 22,
+          "js": 0.040517682937492416,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 123,
+          "js": 0.037144425972384966,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 223,
+          "js": 0.03690182831996946,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 675,
+          "js": 0.09586876202274529,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 843,
+          "js": 0.08784327223709992,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 1238,
+          "js": 0.011529311142275811,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 1461,
+          "js": 0.015273441975896609,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              8,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              9,
+              16
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "model": {
+        "id": "reserve_bc800",
+        "checkpoint": "tmp/kaggle/air_reserve_pilot_20261027/collected/pilot_joint_bc800_s162/update_000100.pt",
+        "sha256": "1b00dc00b606caf529e55403dda80865674e3c1e4a59e614a97af6c46a11ba03"
+      },
+      "samples": 71,
+      "rejected": {},
+      "mean_reflection_js": 0.4909944360969865,
+      "greedy_reflection_agreement": 0.39436619718309857,
+      "original_lanes": {
+        "left": 47,
+        "none": 17,
+        "right": 7
+      },
+      "original_cards": {
+        "electro_spirit": 4,
+        "knight": 17,
+        "cannon": 18,
+        "wait": 17,
+        "zap": 7,
+        "hog_rider": 4,
+        "musketeer": 3,
+        "skeletons": 1
+      },
+      "rows": [
+        {
+          "match": 1,
+          "tick": 23,
+          "js": 0.9427418187960804,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "electro_spirit",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 123,
+          "js": 0.9668116506975849,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "electro_spirit",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 338,
+          "js": 0.1292607737783644,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              1,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              1,
+              17
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 506,
+          "js": 0.10697366029112548,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              19
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 901,
+          "js": 0.2064298729217122,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              23
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              23
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 1068,
+          "js": 1.701396257988359e-06,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 1,
+          "tick": 1518,
+          "js": 0.04610019678883647,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              18
+            ]
+          }
+        },
+        {
+          "match": 1,
+          "tick": 1686,
+          "js": 0.0026453044536438107,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              23
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              23
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 20,
+          "js": 0.8796187684759276,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              1,
+              13
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              16,
+              13
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 122,
+          "js": 0.9093942968024564,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              1,
+              13
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              16,
+              13
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 226,
+          "js": 0.5907579979566356,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              1,
+              21
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 394,
+          "js": 1.0750729689658708e-05,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 2,
+          "tick": 620,
+          "js": 7.765262685008987e-08,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1069,
+          "js": 0.039201311604414965,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              22
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              22
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1238,
+          "js": 0.0043066555173640825,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1687,
+          "js": 0.587354547287386,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              1,
+              17
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 1854,
+          "js": 1.2108423234636078e-06,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 2,
+          "tick": 2079,
+          "js": 6.155554705644488e-07,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 2,
+          "tick": 2437,
+          "js": 0.2114298385389212,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              20
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              20
+            ]
+          }
+        },
+        {
+          "match": 2,
+          "tick": 2548,
+          "js": 0.04462642639624359,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 4,
+          "tick": 20,
+          "js": 0.9394756962735449,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "hog_rider",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "hog_rider",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 120,
+          "js": 0.9524656318845383,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "hog_rider",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "hog_rider",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 506,
+          "js": 0.01787375650706266,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              18
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 676,
+          "js": 0.0002744476133071075,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 4,
+          "tick": 1126,
+          "js": 0.6901104835509206,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 4,
+          "tick": 1293,
+          "js": 0.0005530675693916167,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 5,
+          "tick": 23,
+          "js": 0.8774056097332995,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              1,
+              14
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              16,
+              14
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 123,
+          "js": 0.9078458510054132,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              1,
+              14
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              16,
+              14
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 223,
+          "js": 0.15488640373523646,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 5,
+          "tick": 620,
+          "js": 0.80516197547259,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              4,
+              20
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              20
+            ]
+          }
+        },
+        {
+          "match": 5,
+          "tick": 787,
+          "js": 0.09924572736376197,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              20
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              20
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 20,
+          "js": 0.802034900923277,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 122,
+          "js": 0.8692333381296006,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 222,
+          "js": 0.8442819231597734,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "musketeer",
+            "lane": "left",
+            "grid": [
+              1,
+              22
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "musketeer",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 675,
+          "js": 0.09367645617653436,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              18
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 843,
+          "js": 0.641349833391309,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              24
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1295,
+          "js": 0.8272556407243553,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1462,
+          "js": 8.537751405999303e-06,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1631,
+          "js": 0.4469834255403922,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 6,
+          "tick": 1731,
+          "js": 0.366695904724853,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              14,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              13,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 2079,
+          "js": 0.24445345270747648,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 2248,
+          "js": 0.9820035661789002,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "skeletons",
+            "lane": "right",
+            "grid": [
+              14,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              20
+            ]
+          }
+        },
+        {
+          "match": 6,
+          "tick": 2464,
+          "js": 0.35334790123476323,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              14,
+              23
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              13,
+              23
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 24,
+          "js": 0.7416058728375645,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 125,
+          "js": 0.8772521152174044,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "zap",
+            "lane": "left",
+            "grid": [
+              1,
+              14
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "zap",
+            "lane": "right",
+            "grid": [
+              16,
+              14
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 395,
+          "js": 0.25003506364990347,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              19
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 618,
+          "js": 0.0016114448559338653,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              14,
+              16
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1012,
+          "js": 0.902312653179204,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              12,
+              20
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              14,
+              20
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1180,
+          "js": 1.1336413233702494e-06,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1630,
+          "js": 0.2219003358039312,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              14,
+              23
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              14,
+              23
+            ]
+          }
+        },
+        {
+          "match": 7,
+          "tick": 1798,
+          "js": 4.5211503068737134e-07,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 8,
+          "tick": 22,
+          "js": 0.5426851064178243,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "electro_spirit",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 124,
+          "js": 0.5886685377356407,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "electro_spirit",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "electro_spirit",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 229,
+          "js": 0.9000567567478366,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              1,
+              22
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 508,
+          "js": 0.4512294192162187,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              23
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 8,
+          "tick": 789,
+          "js": 0.6194290107036609,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              20
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              20
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1068,
+          "js": 0.8449426805043883,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1349,
+          "js": 0.7822245633356918,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              1,
+              23
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1632,
+          "js": 0.8829830071007804,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 8,
+          "tick": 1911,
+          "js": 0.9993818971006344,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              21
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              2,
+              16
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 21,
+          "js": 0.9565061062925836,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "musketeer",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "musketeer",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 122,
+          "js": 0.9629946677443356,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "musketeer",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "musketeer",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 452,
+          "js": 0.3859413652956793,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              4,
+              19
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              19
+            ]
+          }
+        },
+        {
+          "match": 9,
+          "tick": 677,
+          "js": 0.23877832619864278,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              23
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              23
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 22,
+          "js": 0.9589610726423248,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "hog_rider",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "hog_rider",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 123,
+          "js": 0.9681812345377309,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "hog_rider",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "hog_rider",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 223,
+          "js": 0.9412326710347593,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              16
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              16,
+              16
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 675,
+          "js": 0.663768244883566,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              3,
+              17
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "knight",
+            "lane": "left",
+            "grid": [
+              4,
+              17
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 843,
+          "js": 0.7773622698304985,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              3,
+              17
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              5,
+              17
+            ]
+          }
+        },
+        {
+          "match": 10,
+          "tick": 1238,
+          "js": 0.0002623788273550992,
+          "equivariant_greedy": true,
+          "original": {
+            "card": "wait",
+            "lane": "none"
+          },
+          "mirrored_then_mapped_back": {
+            "card": "wait",
+            "lane": "none"
+          }
+        },
+        {
+          "match": 10,
+          "tick": 1461,
+          "js": 0.8160055676008156,
+          "equivariant_greedy": false,
+          "original": {
+            "card": "cannon",
+            "lane": "left",
+            "grid": [
+              1,
+              18
+            ]
+          },
+          "mirrored_then_mapped_back": {
+            "card": "cannon",
+            "lane": "right",
+            "grid": [
+              16,
+              18
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Off-policy recorded BC800 states: not a win-rate comparison.",
+    "Only states with six alive towers and at least three elixir; samples share matches.",
+    "Pending card commands and recent slot cooldowns are not replayed.",
+    "Reflection agreement alone does not establish tactical quality."
+  ],
+  "live_games_started": false
+}
