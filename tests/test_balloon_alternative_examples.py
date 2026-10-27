@@ -39,3 +39,24 @@ def test_search_successes_are_paid_and_respect_observed_command_delay():
             assert command['placed_ms']-command['decision_ms']==250
     for name in ('cannon+electro_spirit','cannon+zap','cannon+fireball'):
         assert any(r['sequence']==name and r['clear_without_tower_damage']for r in report['records'])
+
+
+def test_low_bank_examples_replay_actual_three_elixir_states():
+    root=Path('data/air_lowbank_examples_20261027')
+    report=json.loads((root/'manifest.json').read_text())
+    assert report['initial_own_elixir']==3
+    with np.load(root/'examples.npz',allow_pickle=False)as arrays, np.load(
+            'data/air_alternative_examples_20261027/examples.npz',allow_pickle=False)as base:
+        for key in base.files:
+            assert np.array_equal(arrays[key][:report['base_examples']],base[key])
+        added=[r for r in report['records']if r.get('array_index',-1)>=report['base_examples']]
+        assert {r['skill']for r in added}=={'air_cannon_efficient','air_electro_spirit_recovery'}
+        for row in added:
+            i=row['array_index'];assert row['initial_own_elixir']==3
+            assert arrays['scalars'][i,0]<.4
+            assert arrays['success_masks'][i].any()
+            assert not(arrays['success_masks'][i]&~arrays['masks'][i]).any()
+            if row['skill']=='air_electro_spirit_recovery':
+                assert row['cannon_alone_damage']>0
+                assert row['commands'][1]['decision_ms']>row['commands'][0]['placed_ms']
+    SuccessfulActionReplay(root,'cpu')

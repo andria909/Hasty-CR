@@ -17,7 +17,9 @@ from sim.match import Match
 from sim.runner import resolve_deck
 
 
-def probe(output, seed_count=3):
+def probe(output, seed_count=3, initial_bank=7):
+    if type(initial_bank) is not int or not 3 <= initial_bank <= 10:
+        raise ValueError('Initial own bank must be an integer from3to10')
     output = Path(output)
     if output.exists():
         raise FileExistsError('Preserve earlier sweep')
@@ -61,7 +63,7 @@ def probe(output, seed_count=3):
         for lane in ('left', 'right'):
             for support in (False, True):
                 initial = make(seed)
-                initial.players[1].elixir = 7000
+                initial.players[1].elixir = initial_bank * 1000
                 initial.players[-1].elixir = 10000
                 x = 3 if lane == 'left' else 14
                 assert initial.play_card(-1, 'balloon', grid_to_point(17 - x, 16, -1))
@@ -112,7 +114,7 @@ def probe(output, seed_count=3):
                            minimum_damage=min(r['total_damage'] for r in rows))
     result = dict(schema='train-balloon-combination-sweep-v1', split='train_diagnostic', seeds=seeds,
         source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), groups=groups, records=records,
-        command_delay_ms=225, slot_cooldown_ms=2100, initial_own_elixir=7,
+        command_delay_ms=225, slot_cooldown_ms=2100, initial_own_elixir=initial_bank,
         enemy_opening_paid=True, live_games_started=False, physics_changed=False, quality_accepted=False,
         limitations=['Local fixed paid opening, no enemy reinforcement',
                      'Grid/timing search is not proof of optimality or real-game success',
@@ -127,5 +129,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', required=True)
     parser.add_argument('--seed-count', type=int, default=3)
+    parser.add_argument('--initial-bank', type=int, default=7)
     args = parser.parse_args()
-    probe(args.output, args.seed_count)
+    probe(args.output, args.seed_count, args.initial_bank)

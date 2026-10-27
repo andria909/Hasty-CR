@@ -30,7 +30,7 @@ def summary(report):
 
 
 def watch(root, state_file, stem='air_reserve_pilot'):
-    if stem not in ('air_reserve_pilot', 'air_alternatives_pilot'):
+    if stem not in ('air_reserve_pilot', 'air_alternatives_pilot', 'air_lowbank_pilot'):
         raise ValueError('Unknown verified study')
     report_stem = stem.removesuffix('_pilot')
     root, state_file = Path(root), Path(state_file)
@@ -105,6 +105,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--root', required=True)
     parser.add_argument('--state-file', required=True)
-    parser.add_argument('--stem', choices=('air_reserve_pilot','air_alternatives_pilot'), default='air_reserve_pilot')
+    parser.add_argument('--stem', choices=('air_reserve_pilot','air_alternatives_pilot','air_lowbank_pilot'), default='air_reserve_pilot')
     args = parser.parse_args()
     watch(args.root, args.state_file, args.stem)

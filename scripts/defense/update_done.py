@@ -147,6 +147,9 @@ def render_live_feedback_studies(reports):
          ('joint_replay100','Примеры + повторение 1'),('joint_replay500','Примеры + повторение 5')]),
         ('air_alternatives_pilot','Пушка + дух / спеллы',(162,163),
         [('joint_control','Без примеров'),('joint_bc800','800 обновлений по примерам'),
+         ('joint_replay100','Примеры + повторение 1'),('joint_replay500','Примеры + повторение 5')]),
+        ('air_lowbank_pilot','Пушка + дух с3 эликсирами',(162,163),
+        [('joint_control','Без примеров'),('joint_bc800','800 обновлений по примерам'),
          ('joint_replay100','Примеры + повторение 1'),('joint_replay500','Примеры + повторение 5')])]
     links=[];sent=queued=verified=0
     for stem,label,seeds,cases in studies:

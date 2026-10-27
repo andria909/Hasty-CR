@@ -25,6 +25,9 @@ def build(output, sweep='reports/defense_plan/balloon_combinations_20261027.json
     output.mkdir(parents=True, exist_ok=False)
     report = json.loads(sweep.read_text())
     manifest = json.loads((base / 'manifest.json').read_text())
+    bank = report.get('initial_own_elixir')
+    if type(bank) is not int or not 3 <= bank <= 10:
+        raise ValueError('Replay requires the recorded legal initial bank')
     if report['split'] != 'train_diagnostic' or manifest['split'] != 'train':
         raise ValueError('TRAIN-only sources required')
     if hashlib.sha256((base / 'examples.npz').read_bytes()).hexdigest() != manifest['data_sha256']:
@@ -59,7 +62,7 @@ def build(output, sweep='reports/defense_plan/balloon_combinations_20261027.json
     def opening(row):
         match = Match(cards=cards, spells=spells, decks=(list(DECK_26), list(DECKS['air'])),
                       seed=row['seed'], geometry='native_anchors_candidate_v1')
-        match.players[1].elixir = 7000
+        match.players[1].elixir = bank * 1000
         match.players[-1].elixir = 10000
         x = 3 if row['lane'] == 'left' else 14
         assert match.play_card(-1, 'balloon', grid_to_point(17-x, 16, -1))
@@ -83,7 +86,7 @@ def build(output, sweep='reports/defense_plan/balloon_combinations_20261027.json
                            ('masks', mask), ('success_masks', label)]:
             data[key].append(value)
         records.append(dict(array_index=index, accepted=True, seed=row['seed'], lane=row['lane'],
-            support=row['support'], skill=skill, decision_ms=match.elapsed_ms,
+            support=row['support'], skill=skill, decision_ms=match.elapsed_ms, initial_own_elixir=bank,
             source_sequence=row['sequence'], commands=deepcopy(row['commands']),
             cannon_alone_damage=(alone[cannon_key(row)]['total_damage'] if len(row['commands']) > 1 else 0)))
     efficient = {}
@@ -109,7 +112,7 @@ def build(output, sweep='reports/defense_plan/balloon_combinations_20261027.json
         examples=len(data['planes']), base_examples=manifest['examples'], added_examples=added,
         data_sha256=hashlib.sha256((output/'examples.npz').read_bytes()).hexdigest(),
         source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-        base_data_sha256=manifest['data_sha256'], sweep_sha256=hashlib.sha256(sweep.read_bytes()).hexdigest(),
+        initial_own_elixir=bank, base_data_sha256=manifest['data_sha256'], sweep_sha256=hashlib.sha256(sweep.read_bytes()).hexdigest(),
         scope='Efficient Cannon openings plus recovery actions that strictly reduce damage over identical Cannon-only control',
         limitations=['Only single Balloon had zero-damage clears; supported Balloon not solved',
                      'Maximum seed held out now tests only new alternative fixtures; local accuracy is not cross-skill quality',
