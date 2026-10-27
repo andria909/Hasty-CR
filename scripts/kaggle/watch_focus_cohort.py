@@ -34,6 +34,9 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             if prep.get('study_variant')=='late_air_sequential_teacher_v1':
                 from scripts.attack.verify_sequence_pilot import verify_sequence
                 report=verify_sequence(receipt.parent,root)
+            elif prep.get('study_variant')=='own_pending_inputs_v1':
+                from scripts.attack.verify_pending_focus import verify as verify_pending
+                report=verify_pending(receipt.parent,root)
             else:
                 report=verify(receipt.parent,root)
             Path(verified_report).write_text(json.dumps(report,indent=2)+'\n')

@@ -2,7 +2,7 @@
   "schema": "global-full-training-status-v1",
   "kernel": "andreiperelaiko/hastycr-global-full-b3dde07b-1",
   "root": "tmp/kaggle/global_full_pair1_20261027",
-  "status": "full_training_steps_observed",
+  "status": "full_complete_budgets_verified",
   "launch_receipt": {
     "ref": "/code/andreiperelaiko/hastycr-global-full-b3dde07b-1",
     "url": "https://www.kaggle.com/code/andreiperelaiko/hastycr-global-full-b3dde07b-1",
@@ -71,28 +71,28 @@
     "stream_state": "interrupted",
     "trials": {
       "global1_full_joint_replay500_s64": {
-        "update": 1861,
-        "steps": 1905664,
+        "update": 2716,
+        "steps": 2781184,
         "target_steps": 4096000,
-        "percent": 46.525,
-        "remote_log_seconds": 10299.36645153
+        "percent": 67.9,
+        "remote_log_seconds": 15102.902933207
       },
       "global0_full_joint_replay100_s64": {
-        "update": 1942,
-        "steps": 1988608,
+        "update": 2771,
+        "steps": 2837504,
         "target_steps": 4096000,
-        "percent": 48.55,
-        "remote_log_seconds": 10298.317805908
+        "percent": 69.275,
+        "remote_log_seconds": 15099.245584559
       }
     },
-    "checked_host_ns": 1793118896534133000,
-    "reconnect_attempt": 8,
+    "checked_host_ns": 1793123699471879000,
+    "reconnect_attempt": 12,
     "error_type": "SSLError",
     "http_status": null
   },
   "quality_accepted": false,
   "live_checkpoint_changed": false,
-  "last_local_sync_ns": 1793119906402309000,
+  "last_local_sync_ns": 1793142854114237000,
   "actual_training_steps_confirmed": true,
   "runtime_start_evidence": [
     {
@@ -122,5 +122,7 @@
       "global_child": 0
     }
   ],
-  "actual_cuda_confirmed": true
+  "actual_cuda_confirmed": true,
+  "verified_report": "reports/defense_plan/global_full_pair1_verified_20261027.json",
+  "ready_for_independent_evaluation": true
 }

@@ -1,0 +1,68 @@
+{
+  "schema": "verified-global-selected-full-pair-v1",
+  "kernel": "andreiperelaiko/hastycr-global-full-b3dde07b-1",
+  "full_steps_verified": 8192000,
+  "pilot_steps_repeated": 0,
+  "models": [
+    {
+      "id": "global0_full_joint_replay100_s64",
+      "origin": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "trial": {
+        "id": "joint_replay100",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 1.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "checkpoint": "tmp/kaggle/global_full_pair1_20261027/collected/global_full_child_0/continuous_focus/full_joint_replay100_s64/update_003000.pt",
+      "checkpoint_sha256": "b22e1c9731ee8d49aa748a16ab082ac706832e2eb3df688fce4901dc215131d1",
+      "family_guard": true,
+      "selection_score": 0.4861111111111111
+    },
+    {
+      "id": "global1_full_joint_replay500_s64",
+      "origin": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "trial": {
+        "id": "joint_replay500",
+        "warmstart_updates": 800,
+        "warmstart_kl_weight": 0.0,
+        "supervised_replay_weight": 5.0,
+        "history_frames": 1,
+        "focus": "uniform",
+        "entropy_coef": 0.01,
+        "gamma": 0.999,
+        "gae_lambda": 0.95,
+        "overflow_penalty": 0.3,
+        "card_balance_weight": 0.1,
+        "card_balance_target": "units",
+        "missed_fireball_penalty": 0.1,
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "barbarian_train_fraction": 0.35,
+        "lane_reflection_fraction": 0.5
+      },
+      "checkpoint": "tmp/kaggle/global_full_pair1_20261027/collected/global_full_child_1/continuous_focus/full_joint_replay500_s64/update_003750.pt",
+      "checkpoint_sha256": "2701f3b613f9fb65f210f2025a2e05cd703a6d8a1f05773d1ecdd51fc77cabc6",
+      "family_guard": true,
+      "selection_score": 0.4513888888888889
+    }
+  ],
+  "ready_for_independent_evaluation": true,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false
+}

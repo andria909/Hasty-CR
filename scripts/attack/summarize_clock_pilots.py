@@ -17,6 +17,7 @@ def summarize(root,verified=None):
     retention=protocol.get('schema')=='continuous-air-retention-pilot-v1'
     jointskills=protocol.get('schema')=='continuous-joint-skills-pilot-v1'
     warm=protocol.get('schema')=='continuous-air-warmstart-pilot-v1'or retention or jointskills
+    if protocol.get('study_variant')=='own_pending_inputs_v1':warm=False
     temperature=protocol.get('schema')=='continuous-temperature-pilot-v1'
     tactical=protocol.get('schema')=='continuous-live-tactical-reward-pilot-v1'
     exploration=protocol.get('schema')=='continuous-card-exploration-pilot-v1'
@@ -79,7 +80,8 @@ def summarize(root,verified=None):
     if initial!='parent':
         source=json.loads((root/'collected'/f'{initial}_reference.json').read_text())
         initial_reference=dict(id=initial,**stats(source['validation']['records']))
-    return dict(schema='verified-history-pilot-validation-summary-v1'if history else
+    return dict(schema='verified-pending-inputs-pilot-summary-v1'if protocol.get('study_variant')=='own_pending_inputs_v1'else
+        'verified-history-pilot-validation-summary-v1'if history else
         'verified-board-pilot-validation-summary-v1'if board else
         'verified-bank-pilot-validation-summary-v1'if bank else
         'verified-joint-skills-pilot-validation-summary-v1'if jointskills else

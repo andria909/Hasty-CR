@@ -1,14 +1,75 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-fireball-latency-pilot-20261027",
-  "status": "queued_waiting_verified_free_account",
-  "root": "tmp/kaggle/fireball_latency_pilot_20261027_on_available",
-  "frozen_source": "tmp/kaggle/fireball_latency_pilot_20261027",
-  "progress_snapshot": {},
+  "status": "pilot_complete_budgets_verified",
+  "progress_snapshot": {
+    "kernel": "vertel0/hastycr-fireball-latency-pilot-20261027",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "reconnect_attempt": 2,
+    "checked_host_ns": 1793123605718917000,
+    "trials": {
+      "pilot_delay0225_s192": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1275.268904823
+      },
+      "pilot_delay1350_s192": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1341.847314905
+      },
+      "pilot_delay0225_s193": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2233.409520797
+      },
+      "pilot_delay1350_s193": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2408.627723125
+      },
+      "pilot_delay2025_s192": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 2465.563383099
+      },
+      "pilot_delay1350_replay100_s192": {
+        "update": 37,
+        "steps": 37888,
+        "target_steps": 102400,
+        "percent": 37.0,
+        "remote_log_seconds": 2580.142568332
+      }
+    },
+    "error_type": "SSLError",
+    "http_status": null
+  },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
-  "submitted": false,
   "quality_accepted": false,
-  "queue_pid": 40989,
-  "queue_state": "tmp/kaggle/fireball_latency_queue_20261027/state.json"
+  "live_stopped": true,
+  "submitted": true,
+  "root": "tmp/kaggle/fireball_latency_pilot_20261027_on_available",
+  "launch_receipt": {
+    "ref": "/code/vertel0/hastycr-fireball-latency-pilot-20261027",
+    "url": "https://www.kaggle.com/code/vertel0/hastycr-fireball-latency-pilot-20261027",
+    "versionNumber": 1,
+    "kernelId": 141206131
+  },
+  "frozen_bootstrap_sha256": "7a73940e7f0c7cbbcb5c4e98318ff8bd495776b315ddaa54df6d9656b280931b",
+  "last_local_sync_ns": 1793142765018216000,
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/fireball_latency_pilot_verified_20261027.json"
 }
