@@ -1,0 +1,1661 @@
+{
+  "schema": "verified-joint-skills-pilot-validation-summary-v1",
+  "kernel": "vertel0/hastycr-joint-skills-pilot-20261027",
+  "pilot_steps_verified": 819200,
+  "rows": [
+    {
+      "id": "joint_control",
+      "games": 144,
+      "wins": 89,
+      "draws": 0,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 0.9583333333333334,
+          "electro_spirit": 6.027777777777778,
+          "skeletons": 6.048611111111111,
+          "zap": 6.173611111111111,
+          "knight": 5.784722222222222,
+          "cannon": 5.875,
+          "fireball": 0.2847222222222222,
+          "musketeer": 0.09027777777777778
+        },
+        "right": {
+          "hog_rider": 0.8958333333333334,
+          "electro_spirit": 9.42361111111111,
+          "skeletons": 9.375,
+          "zap": 9.270833333333334,
+          "knight": 8.555555555555555,
+          "cannon": 8.395833333333334,
+          "fireball": 0.1597222222222222,
+          "musketeer": 0.1597222222222222
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.3256990947420635,
+        "right": 0.3391791449652778,
+        "king": 0.01563065140335648
+      },
+      "mean_missed_fireballs": 0.2361111111111111,
+      "mean_card_plays": {
+        "cannon": 14.270833333333334,
+        "electro_spirit": 15.45138888888889,
+        "fireball": 0.4444444444444444,
+        "hog_rider": 1.8541666666666667,
+        "knight": 14.340277777777779,
+        "musketeer": 0.25,
+        "skeletons": 15.42361111111111,
+        "zap": 15.444444444444445
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 1
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 22
+        },
+        "giant": {
+          "games": 24,
+          "wins": 23
+        },
+        "golem": {
+          "games": 24,
+          "wins": 0
+        },
+        "hog": {
+          "games": 24,
+          "wins": 19
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 24
+        }
+      },
+      "warmstart_updates": 0,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 162,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/dataset/parent.pt",
+            "checkpoint_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 16,
+              "fraction": 0.23529411852359772,
+              "mean_log_successful_probability": -70.13343286095062
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 6,
+              "fraction": 0.1764705926179886,
+              "mean_log_successful_probability": -70.51839311010355
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -111.40888705995239
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 2,
+                  "fraction": 0.125,
+                  "mean_log_successful_probability": -67.51341052886869
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 12,
+                  "fraction": 0.4285714328289032,
+                  "mean_log_successful_probability": -40.5771303003915
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -94.10065939255823
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 4,
+                  "fraction": 0.5,
+                  "mean_log_successful_probability": -8.478675026900351
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.00039144645153044166
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_control_s162/update_000050.pt",
+            "checkpoint_sha256": "fb6ed5a8ad24754ea4889b417f4d62623fbe8bd3fae202faf778d13c19204ae5",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 16,
+              "fraction": 0.23529411852359772,
+              "mean_log_successful_probability": -87.8211063193144
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 8,
+              "fraction": 0.23529411852359772,
+              "mean_log_successful_probability": -87.54729785640296
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -136.33489705729346
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 4,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -79.43927658215702
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 12,
+                  "fraction": 0.4285714328289032,
+                  "mean_log_successful_probability": -54.982757256208224
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -121.82706605609711
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 4,
+                  "fraction": 0.5,
+                  "mean_log_successful_probability": -8.700165088269738
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.0001942544572717253
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 163,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/dataset/parent.pt",
+            "checkpoint_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 16,
+              "fraction": 0.23529411852359772,
+              "mean_log_successful_probability": -70.13343286095062
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 6,
+              "fraction": 0.1764705926179886,
+              "mean_log_successful_probability": -70.51839311010355
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -111.40888705995239
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 2,
+                  "fraction": 0.125,
+                  "mean_log_successful_probability": -67.51341052886869
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 12,
+                  "fraction": 0.4285714328289032,
+                  "mean_log_successful_probability": -40.5771303003915
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -94.10065939255823
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 4,
+                  "fraction": 0.5,
+                  "mean_log_successful_probability": -8.478675026900351
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.00039144645153044166
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_control_s163/update_000050.pt",
+            "checkpoint_sha256": "8a4e19edff75bc392aeda20c0f738e65380bc4c37e8d2ef02943587dd3a3a77b",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 16,
+              "fraction": 0.23529411852359772,
+              "mean_log_successful_probability": -77.41729135130734
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 8,
+              "fraction": 0.23529411852359772,
+              "mean_log_successful_probability": -76.74257907386834
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -122.88934789915594
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 4,
+                  "fraction": 0.25,
+                  "mean_log_successful_probability": -73.83882558357539
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 12,
+                  "fraction": 0.4285714328289032,
+                  "mean_log_successful_probability": -45.49516178235602
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -101.98757440161941
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 4,
+                  "fraction": 0.5,
+                  "mean_log_successful_probability": -7.25651865124256
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.00010938791133874304
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "local_before_ppo": {
+        "successful_choices": 12,
+        "predictions": 68,
+        "distinct_states": 34
+      },
+      "local_after_ppo": {
+        "successful_choices": 16,
+        "predictions": 68,
+        "distinct_states": 34
+      },
+      "local_skill_retention": {
+        "air_defense": {
+          "before": {
+            "successful_choices": 4,
+            "predictions": 32,
+            "distinct_states": 16
+          },
+          "after": {
+            "successful_choices": 8,
+            "predictions": 32,
+            "distinct_states": 16
+          }
+        },
+        "fireball_group": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 28,
+            "distinct_states": 14
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 28,
+            "distinct_states": 14
+          }
+        },
+        "fireball_restraint": {
+          "before": {
+            "successful_choices": 8,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 8,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        }
+      },
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.1
+      },
+      "mean_cluster_fireballs": 0.06944444444444445,
+      "mean_fireball_unit_hits": 0.4791666666666667
+    },
+    {
+      "id": "joint_bc800",
+      "games": 144,
+      "wins": 81,
+      "draws": 1,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 0.7430555555555556,
+          "electro_spirit": 5.826388888888889,
+          "skeletons": 5.402777777777778,
+          "zap": 5.75,
+          "knight": 5.3125,
+          "cannon": 5.8125,
+          "fireball": 0.5763888888888888,
+          "musketeer": 0.5208333333333334
+        },
+        "right": {
+          "hog_rider": 0.5625,
+          "electro_spirit": 10.38888888888889,
+          "skeletons": 10.756944444444445,
+          "zap": 10.354166666666666,
+          "knight": 9.527777777777779,
+          "cannon": 8.75,
+          "fireball": 0.6875,
+          "musketeer": 0.5138888888888888
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.32824319506448413,
+        "right": 0.36728438120039686,
+        "king": 0.019896330656828706
+      },
+      "mean_missed_fireballs": 0.5,
+      "mean_card_plays": {
+        "cannon": 14.5625,
+        "electro_spirit": 16.21527777777778,
+        "fireball": 1.2638888888888888,
+        "hog_rider": 1.3055555555555556,
+        "knight": 14.840277777777779,
+        "musketeer": 1.0347222222222223,
+        "skeletons": 16.15972222222222,
+        "zap": 16.104166666666668
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 0
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 20
+        },
+        "giant": {
+          "games": 24,
+          "wins": 23
+        },
+        "golem": {
+          "games": 24,
+          "wins": 1
+        },
+        "hog": {
+          "games": 24,
+          "wins": 16
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 21
+        }
+      },
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 162,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_bc800_s162_warmstart/policy.pt",
+            "checkpoint_sha256": "82447fac6a71329a21fe8dc611c3b05ef3b3ca10a3e9b4e3f7aa0ea6344e60a2",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 57,
+              "fraction": 0.8382353186607361,
+              "mean_log_successful_probability": -0.3603723406925292
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 4,
+              "fraction": 0.11764705926179886,
+              "mean_log_successful_probability": -25.019782917473645
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 21,
+                  "fraction": 0.65625,
+                  "mean_log_successful_probability": -0.765700155672898
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -30.49959698773091
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 28,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.0001040780468000792
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -25.898863263584012
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -3.1106228703947636e-11
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.023745425058322667
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_bc800_s162/update_000050.pt",
+            "checkpoint_sha256": "130679b6dc40687757d7837d5632036433f5bcd6961bd2348567b5031e824ee0",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 36,
+              "fraction": 0.529411792755127,
+              "mean_log_successful_probability": -2.933503473619982
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 4,
+              "fraction": 0.11764705926179886,
+              "mean_log_successful_probability": -24.285311920555888
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 14,
+                  "fraction": 0.4375,
+                  "mean_log_successful_probability": -2.1756780375300964
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -25.967347479826692
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 14,
+                  "fraction": 0.5,
+                  "mean_log_successful_probability": -4.637733535595693
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -29.300150913302023
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -1.0645329062697328e-09
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.005233208861227467
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 163,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_bc800_s163_warmstart/policy.pt",
+            "checkpoint_sha256": "0869efabfbe0acb3b0649aab355512cd75bd5a33d82a9656dd22bac721acd6b8",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 58,
+              "fraction": 0.8529411554336548,
+              "mean_log_successful_probability": -0.3551494841566311
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 4,
+              "fraction": 0.11764705926179886,
+              "mean_log_successful_probability": -26.921800511117233
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 22,
+                  "fraction": 0.6875,
+                  "mean_log_successful_probability": -0.7546457659207677
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -33.13253331515659
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 28,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -5.358618506383956e-05
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -27.51207219200564
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -5.702105454474804e-13
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.012918411850305844
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_bc800_s163/update_000050.pt",
+            "checkpoint_sha256": "39a2428d14cd18cf64e3157a20a8980c6e804af974a8ac6c0d9a5d42b97eb840",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 47,
+              "fraction": 0.6911764740943909,
+              "mean_log_successful_probability": -0.7870356716825198
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 5,
+              "fraction": 0.14705882966518402,
+              "mean_log_successful_probability": -22.537358164707516
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 13,
+                  "fraction": 0.40625,
+                  "mean_log_successful_probability": -1.355423145981985
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -33.10349913889192
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 26,
+                  "fraction": 0.9285714030265808,
+                  "mean_log_successful_probability": -0.3623173215322151
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 1,
+                  "fraction": 0.0714285746216774,
+                  "mean_log_successful_probability": -16.802703489933922
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -1.0724754417879012e-11
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.3440856296774957
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "local_before_ppo": {
+        "successful_choices": 8,
+        "predictions": 68,
+        "distinct_states": 34
+      },
+      "local_after_ppo": {
+        "successful_choices": 9,
+        "predictions": 68,
+        "distinct_states": 34
+      },
+      "local_skill_retention": {
+        "air_defense": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 32,
+            "distinct_states": 16
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 32,
+            "distinct_states": 16
+          }
+        },
+        "fireball_group": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 28,
+            "distinct_states": 14
+          },
+          "after": {
+            "successful_choices": 1,
+            "predictions": 28,
+            "distinct_states": 14
+          }
+        },
+        "fireball_restraint": {
+          "before": {
+            "successful_choices": 8,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 8,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        }
+      },
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.1
+      },
+      "mean_cluster_fireballs": 0.2638888888888889,
+      "mean_fireball_unit_hits": 2.1597222222222223
+    },
+    {
+      "id": "joint_replay100",
+      "games": 144,
+      "wins": 83,
+      "draws": 0,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 0.75,
+          "electro_spirit": 5.493055555555555,
+          "skeletons": 5.118055555555555,
+          "zap": 5.576388888888889,
+          "knight": 5.027777777777778,
+          "cannon": 5.597222222222222,
+          "fireball": 0.5833333333333334,
+          "musketeer": 0.3472222222222222
+        },
+        "right": {
+          "hog_rider": 0.5347222222222222,
+          "electro_spirit": 11.166666666666666,
+          "skeletons": 11.48611111111111,
+          "zap": 11.020833333333334,
+          "knight": 10.229166666666666,
+          "cannon": 9.618055555555555,
+          "fireball": 0.6388888888888888,
+          "musketeer": 0.22916666666666666
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.31769864521329366,
+        "right": 0.3337944878472222,
+        "king": 0.02345897533275463
+      },
+      "mean_missed_fireballs": 0.4930555555555556,
+      "mean_card_plays": {
+        "cannon": 15.215277777777779,
+        "electro_spirit": 16.65972222222222,
+        "fireball": 1.2222222222222223,
+        "hog_rider": 1.2847222222222223,
+        "knight": 15.256944444444445,
+        "musketeer": 0.5763888888888888,
+        "skeletons": 16.604166666666668,
+        "zap": 16.59722222222222
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 0
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 20
+        },
+        "giant": {
+          "games": 24,
+          "wins": 24
+        },
+        "golem": {
+          "games": 24,
+          "wins": 0
+        },
+        "hog": {
+          "games": 24,
+          "wins": 16
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 23
+        }
+      },
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 162,
+          "selected_update": 50,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_replay100_s162_warmstart/policy.pt",
+            "checkpoint_sha256": "89629c55c968081bdbca20665201f828c3e72db616a61734ac39aa90e8ef8724",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 56,
+              "fraction": 0.8235294222831726,
+              "mean_log_successful_probability": -0.36475558848127476
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 4,
+              "fraction": 0.11764705926179886,
+              "mean_log_successful_probability": -24.058970515920315
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 20,
+                  "fraction": 0.625,
+                  "mean_log_successful_probability": -0.7750072786303248
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -28.976422828548003
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 28,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.00011239642085923509
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -25.301101012147853
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -9.652900700984901e-11
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.041704528613144554
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_replay100_s162/update_000050.pt",
+            "checkpoint_sha256": "444aef0b245057a3168d7d3b6fcb730ae3aed0d4dfe2ab42abb30c5874fa1080",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 58,
+              "fraction": 0.8529411554336548,
+              "mean_log_successful_probability": -0.35832527815547577
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 4,
+              "fraction": 0.11764705926179886,
+              "mean_log_successful_probability": -25.034846723509446
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 22,
+                  "fraction": 0.6875,
+                  "mean_log_successful_probability": -0.7604101240806798
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -29.13514677732729
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 28,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.0011783908521252329
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -27.486449314200748
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -1.638689184346731e-11
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.053037440818533454
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 163,
+          "selected_update": 100,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_replay100_s163_warmstart/policy.pt",
+            "checkpoint_sha256": "e062795c2558d82ab38ad109ab56c8d2612a601c9e75e8ce03f4838e6094f0d8",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 60,
+              "fraction": 0.8823529481887817,
+              "mean_log_successful_probability": -0.35351579818607587
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 4,
+              "fraction": 0.11764705926179886,
+              "mean_log_successful_probability": -27.205269560274285
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 24,
+                  "fraction": 0.75,
+                  "mean_log_successful_probability": -0.7511706675011549
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -33.475352827046535
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 28,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -5.760416476289062e-05
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -27.807972865988017
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -3.552713678800501e-13
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.015474923187234424
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_replay100_s163/update_000100.pt",
+            "checkpoint_sha256": "d15c901e4f37894df8834b38afb063e5a82ff454c06c9b1982904ade5c8b1f07",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 60,
+              "fraction": 0.8823529481887817,
+              "mean_log_successful_probability": -0.3232544517528616
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 3,
+              "fraction": 0.0882352963089943,
+              "mean_log_successful_probability": -28.5730704518706
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 24,
+                  "fraction": 0.75,
+                  "mean_log_successful_probability": -0.6867845964223762
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -37.969650072871396
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 28,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.00014984405994513037
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -25.94322111690416
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -1.0658141036401503e-14
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 3,
+                  "fraction": 0.75,
+                  "mean_log_successful_probability": -0.19122464024994024
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "local_before_ppo": {
+        "successful_choices": 8,
+        "predictions": 68,
+        "distinct_states": 34
+      },
+      "local_after_ppo": {
+        "successful_choices": 7,
+        "predictions": 68,
+        "distinct_states": 34
+      },
+      "local_skill_retention": {
+        "air_defense": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 32,
+            "distinct_states": 16
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 32,
+            "distinct_states": 16
+          }
+        },
+        "fireball_group": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 28,
+            "distinct_states": 14
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 28,
+            "distinct_states": 14
+          }
+        },
+        "fireball_restraint": {
+          "before": {
+            "successful_choices": 8,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 7,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        }
+      },
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.1
+      },
+      "mean_cluster_fireballs": 0.2638888888888889,
+      "mean_fireball_unit_hits": 1.9444444444444444
+    },
+    {
+      "id": "joint_replay500",
+      "games": 144,
+      "wins": 86,
+      "draws": 0,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 0.7083333333333334,
+          "electro_spirit": 5.409722222222222,
+          "skeletons": 5.4375,
+          "zap": 5.611111111111111,
+          "knight": 5.055555555555555,
+          "cannon": 5.027777777777778,
+          "fireball": 0.6805555555555556,
+          "musketeer": 0.4305555555555556
+        },
+        "right": {
+          "hog_rider": 1.125,
+          "electro_spirit": 9.770833333333334,
+          "skeletons": 9.833333333333334,
+          "zap": 9.618055555555555,
+          "knight": 8.770833333333334,
+          "cannon": 8.54861111111111,
+          "fireball": 1.2152777777777777,
+          "musketeer": 1.0763888888888888
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.3662768167162699,
+        "right": 0.31111459883432535,
+        "king": 0.01528026439525463
+      },
+      "mean_missed_fireballs": 1.2083333333333333,
+      "mean_card_plays": {
+        "cannon": 13.57638888888889,
+        "electro_spirit": 15.180555555555555,
+        "fireball": 1.8958333333333333,
+        "hog_rider": 1.8333333333333333,
+        "knight": 13.82638888888889,
+        "musketeer": 1.5069444444444444,
+        "skeletons": 15.270833333333334,
+        "zap": 15.229166666666666
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 0
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 22
+        },
+        "giant": {
+          "games": 24,
+          "wins": 22
+        },
+        "golem": {
+          "games": 24,
+          "wins": 3
+        },
+        "hog": {
+          "games": 24,
+          "wins": 18
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 21
+        }
+      },
+      "warmstart_updates": 800,
+      "warmstart_kl_weight": 0.0,
+      "local_diagnostic_by_seed": [
+        {
+          "seed": 162,
+          "selected_update": 100,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_replay500_s162_warmstart/policy.pt",
+            "checkpoint_sha256": "0d6e87c13b2f1ebc5af77148ddcf2d6e6101ea508495991a5353f0b0949f28ba",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 57,
+              "fraction": 0.8382353186607361,
+              "mean_log_successful_probability": -0.36033444522448405
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 4,
+              "fraction": 0.11764705926179886,
+              "mean_log_successful_probability": -24.98606762247005
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 21,
+                  "fraction": 0.65625,
+                  "mean_log_successful_probability": -0.7656092065498827
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -30.542098147192313
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 28,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.00011598805273622352
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -25.769041219346736
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -2.4006574506074685e-11
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.021537934512600998
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_replay500_s162/update_000100.pt",
+            "checkpoint_sha256": "f303747f49d6f421f1e33d1636c7165ffd6ad4126d4e829d697c178642bb8c32",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 60,
+              "fraction": 0.8823529481887817,
+              "mean_log_successful_probability": -0.28643037578030617
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 4,
+              "fraction": 0.11764705926179886,
+              "mean_log_successful_probability": -39.87703845605684
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 24,
+                  "fraction": 0.75,
+                  "mean_log_successful_probability": -0.6086563267893017
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -52.93366128494356
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 28,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -9.396278684395806e-06
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -36.34753227545617
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": 0.0
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.0038187726123073418
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        },
+        {
+          "seed": 163,
+          "selected_update": 100,
+          "before": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_replay500_s163_warmstart/policy.pt",
+            "checkpoint_sha256": "b2011b096525dc5488bf018931ddd0e2bd4a47854bd4b2663acbd108d3f1cbd8",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 59,
+              "fraction": 0.8676470518112183,
+              "mean_log_successful_probability": -0.3510665530442593
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 4,
+              "fraction": 0.11764705926179886,
+              "mean_log_successful_probability": -27.666796133251545
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 23,
+                  "fraction": 0.71875,
+                  "mean_log_successful_probability": -0.7459660797492424
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -34.249056475382275
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 28,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -5.7537679745526103e-05
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -28.04621101961281
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -1.2523315717771766e-13
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.00980266246416761
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          },
+          "after": {
+            "scorer_source_sha256": "8fb34dac680bc64a4d516ac5f3589c30444aeede2707410211bd5390300d58cf",
+            "checkpoint": "tmp/kaggle/joint_skills_pilot_20261027/collected/pilot_joint_replay500_s163/update_000100.pt",
+            "checkpoint_sha256": "82d796427122fbc6e7fd99de18bbc6b2ec84150766875ba25c42c63ccf5b53cb",
+            "data_sha256": "eaffd283839f2003721bcf85d34379eb3ad4bee60673819f0199f6624fd09e58",
+            "heldout_seed": 3800085,
+            "train": {
+              "examples": 68,
+              "successful_choices": 60,
+              "fraction": 0.8823529481887817,
+              "mean_log_successful_probability": -0.2818007560561509
+            },
+            "local_heldout": {
+              "examples": 34,
+              "successful_choices": 4,
+              "fraction": 0.11764705926179886,
+              "mean_log_successful_probability": -41.96428429461334
+            },
+            "by_skill": {
+              "air_defense": {
+                "train": {
+                  "examples": 32,
+                  "successful_choices": 24,
+                  "fraction": 0.75,
+                  "mean_log_successful_probability": -0.5988139471780072
+                },
+                "local_heldout": {
+                  "examples": 16,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -59.548591873378605
+                }
+              },
+              "fireball_group": {
+                "train": {
+                  "examples": 28,
+                  "successful_choices": 28,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -1.4467932929664227e-05
+                },
+                "local_heldout": {
+                  "examples": 14,
+                  "successful_choices": 0,
+                  "fraction": 0.0,
+                  "mean_log_successful_probability": -33.856878373875524
+                }
+              },
+              "fireball_restraint": {
+                "train": {
+                  "examples": 8,
+                  "successful_choices": 8,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": 0.0
+                },
+                "local_heldout": {
+                  "examples": 4,
+                  "successful_choices": 4,
+                  "fraction": 1.0,
+                  "mean_log_successful_probability": -0.0029747021346331337
+                }
+              }
+            },
+            "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+          }
+        }
+      ],
+      "local_before_ppo": {
+        "successful_choices": 8,
+        "predictions": 68,
+        "distinct_states": 34
+      },
+      "local_after_ppo": {
+        "successful_choices": 8,
+        "predictions": 68,
+        "distinct_states": 34
+      },
+      "local_skill_retention": {
+        "air_defense": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 32,
+            "distinct_states": 16
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 32,
+            "distinct_states": 16
+          }
+        },
+        "fireball_group": {
+          "before": {
+            "successful_choices": 0,
+            "predictions": 28,
+            "distinct_states": 14
+          },
+          "after": {
+            "successful_choices": 0,
+            "predictions": 28,
+            "distinct_states": 14
+          }
+        },
+        "fireball_restraint": {
+          "before": {
+            "successful_choices": 8,
+            "predictions": 8,
+            "distinct_states": 4
+          },
+          "after": {
+            "successful_choices": 8,
+            "predictions": 8,
+            "distinct_states": 4
+          }
+        }
+      },
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.1
+      },
+      "mean_cluster_fireballs": 0.3402777777777778,
+      "mean_fireball_unit_hits": 2.75
+    }
+  ],
+  "parent": {
+    "games": 72,
+    "wins": 44,
+    "draws": 0,
+    "mean_card_lane_plays": {
+      "left": {
+        "hog_rider": 0.8055555555555556,
+        "electro_spirit": 4.472222222222222,
+        "skeletons": 4.194444444444445,
+        "zap": 4.722222222222222,
+        "knight": 4.208333333333333,
+        "cannon": 4.111111111111111,
+        "fireball": 0.2777777777777778,
+        "musketeer": 0.05555555555555555
+      },
+      "right": {
+        "hog_rider": 1.1388888888888888,
+        "electro_spirit": 10.86111111111111,
+        "skeletons": 11.01388888888889,
+        "zap": 10.527777777777779,
+        "knight": 10.0,
+        "cannon": 10.041666666666666,
+        "fireball": 0.18055555555555555,
+        "musketeer": 0.06944444444444445
+      }
+    },
+    "mean_own_tower_fraction_loss": {
+      "left": 0.2704419332837302,
+      "right": 0.42251829117063494,
+      "king": 0.02578170211226852
+    },
+    "mean_missed_fireballs": 0.25,
+    "mean_card_plays": {
+      "cannon": 14.152777777777779,
+      "electro_spirit": 15.333333333333334,
+      "fireball": 0.4583333333333333,
+      "hog_rider": 1.9444444444444444,
+      "knight": 14.208333333333334,
+      "musketeer": 0.125,
+      "skeletons": 15.208333333333334,
+      "zap": 15.25
+    },
+    "by_family": {
+      "air": {
+        "games": 12,
+        "wins": 0
+      },
+      "bridge": {
+        "games": 12,
+        "wins": 12
+      },
+      "giant": {
+        "games": 12,
+        "wins": 11
+      },
+      "golem": {
+        "games": 12,
+        "wins": 0
+      },
+      "hog": {
+        "games": 12,
+        "wins": 10
+      },
+      "swarm": {
+        "games": 12,
+        "wins": 11
+      }
+    }
+  },
+  "initial_reference": null,
+  "eligible_for_full": false,
+  "quality_accepted": false,
+  "scope": "72 distinct validation contexts replayed by two independently trained seeds; not144 independent contexts",
+  "test_used_for_selection": false
+}

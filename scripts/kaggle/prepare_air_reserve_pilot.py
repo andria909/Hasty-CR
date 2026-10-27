@@ -9,7 +9,9 @@ from scripts.kaggle.prepare_continuous_spell_study import prepare as prepare_joi
 from scripts.kaggle.run_five_round_robin import sha
 
 
-def prepare(output, owner='andriashadrin', data='data/air_reserve_examples_20261027'):
+def prepare(output, owner='andriashadrin', data='data/air_reserve_examples_20261027', variant='reserve'):
+    if variant not in ('reserve', 'alternatives'):
+        raise ValueError('Unknown demonstration variant')
     root = Path(output)
     data = Path(data)
     manifest = json.loads((data / 'manifest.json').read_text())
@@ -18,16 +20,17 @@ def prepare(output, owner='andriashadrin', data='data/air_reserve_examples_20261
     prepare_joint(root, owner, 'jointskills')
     prep = json.loads((root / 'preparation.json').read_text())
     config = prep['config']
-    slug = 'hastycr-air-reserve-pilot-inputs-20261027'
-    kernel = owner + '/hastycr-air-reserve-pilot-20261027'
+    stem = 'hastycr-air-reserve-pilot' if variant == 'reserve' else 'hastycr-air-alternatives-pilot'
+    slug = stem + '-inputs-20261027'
+    kernel = owner + '/' + stem + '-20261027'
     config.update(slug=slug, source_slug=slug)
     for original, target in [('examples.npz', 'air_examples.npz'), ('manifest.json', 'air_manifest.json')]:
         shutil.copyfile(data / original, root / 'dataset' / target)
         config['pins'][target] = sha(root / 'dataset' / target)
     protocol_path = root / 'dataset/protocol.json'
     protocol = json.loads(protocol_path.read_text())
-    protocol.update(study_variant='air_reserve_wait_then_deploy_v1',
-        rationale_source='reports/defense_plan/balanced_air_response_trace_20261027.json',
+    protocol.update(study_variant=('air_reserve_wait_then_deploy_v1' if variant == 'reserve' else 'air_cannon_alternatives_v1'),
+        rationale_source=('reports/defense_plan/balanced_air_response_trace_20261027.json' if variant == 'reserve' else 'reports/defense_plan/balloon_combinations_20261027.json'),
         rationale_split='fresh_train_full_games',
         paired_comparison='Same profiles/seeds/physics/rewards as joint-skills; only TRAIN demonstration dataset differs',
         limitations='Local successes; full-game validation still required; no action override')
@@ -59,5 +62,6 @@ if __name__ == '__main__':
     parser.add_argument('--output', required=True)
     parser.add_argument('--owner', default='andriashadrin')
     parser.add_argument('--data', default='data/air_reserve_examples_20261027')
+    parser.add_argument('--variant', choices=('reserve','alternatives'), default='reserve')
     args = parser.parse_args()
-    print(json.dumps(prepare(args.output, args.owner, args.data)))
+    print(json.dumps(prepare(args.output, args.owner, args.data, args.variant)))

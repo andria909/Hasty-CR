@@ -1,14 +1,14 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "andreiperelaiko/hastycr-live-tactical-reward-pilot-20261027",
-  "status": "training_steps_observed",
+  "status": "pilot_complete_budgets_verified",
   "progress_snapshot": {
     "kernel": "andreiperelaiko/hastycr-live-tactical-reward-pilot-20261027",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "connected",
-    "reconnect_attempt": 2,
-    "checked_host_ns": 1793064437566178000,
+    "stream_state": "interrupted",
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793064557568135000,
     "trials": {
       "pilot_live_precision_s152": {
         "update": 100,
@@ -66,13 +66,15 @@
         "percent": 49.0,
         "remote_log_seconds": 3680.806865996
       }
-    }
+    },
+    "error_type": "ConnectionError",
+    "http_status": null
   },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
   "quality_accepted": false,
   "live_stopped": true,
-  "last_local_sync_ns": 1793064439866374000,
+  "last_local_sync_ns": 1793065593307336000,
   "launch_receipt": {
     "ref": "/code/andreiperelaiko/hastycr-live-tactical-reward-pilot-20261027",
     "url": "https://www.kaggle.com/code/andreiperelaiko/hastycr-live-tactical-reward-pilot-20261027",
@@ -93,5 +95,6 @@
     "event": "INPUTS_VERIFIED",
     "protocol_sha256": "59917fe41dad8aca8f0f171190d8cccec02f439e346d3f52541cecbc94ab6390"
   },
-  "actual_training_steps_confirmed": true
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/live_tactical_reward_pilot_verified_20261027.json"
 }

@@ -26,10 +26,13 @@ def summary(report):
         bank_below_four_fraction=(sum(g['unprotected_bank_below_four'] for g in games) / total if total else None),
         mean_own_tower_fraction_loss=sum(g['metrics']['own_fraction_loss'] for g in games) / len(games),
         mean_card_plays={card:sum(g['metrics']['accepted_card_counts'].get(card, 0) for g in games) / len(games)
-                         for card in ('musketeer', 'fireball', 'hog_rider', 'cannon')})
+                         for card in ('musketeer', 'fireball', 'hog_rider', 'cannon', 'electro_spirit', 'zap')})
 
 
-def watch(root, state_file):
+def watch(root, state_file, stem='air_reserve_pilot'):
+    if stem not in ('air_reserve_pilot', 'air_alternatives_pilot'):
+        raise ValueError('Unknown verified study')
+    report_stem = stem.removesuffix('_pilot')
     root, state_file = Path(root), Path(state_file)
     if state_file.exists():
         raise FileExistsError('Inspect existing diagnostic worker before restarting')
@@ -45,7 +48,7 @@ def watch(root, state_file):
     except OSError:
         pass
     deadline = time.monotonic() + 172800
-    proof_path = Path('reports/defense_plan/air_reserve_pilot_verified_20261027.json')
+    proof_path = Path(f'reports/defense_plan/{stem}_verified_20261027.json')
     while not proof_path.exists():
         if time.monotonic() >= deadline:
             state['status'] = 'local_wait_expired_remote_unchanged'
@@ -72,9 +75,10 @@ def watch(root, state_file):
             scope='Four fixed TRAIN games per model; descriptive mechanism audit, not independent quality test',
             limitations=['Frames are correlated', 'Four games do not establish a reliable win-rate',
                          'Lower spending alone does not prove better defense',
-                         'Any friendly Musketeer counts, including one in the other lane'],
+                         'Any friendly Musketeer counts, including one in the other lane',
+                         'Absence of Musketeer does not imply undefended air; Cannon and helper cards can defend too'],
             quality_accepted=False, live_games_started=False)
-        destination = Path('reports/defense_plan/air_reserve_full_game_diagnostics_20261027.json')
+        destination = Path(f'reports/defense_plan/{report_stem}_full_game_diagnostics_20261027.json')
         with destination.open('x') as stream:
             json.dump(result, stream, indent=2)
             stream.write('\n')
@@ -87,7 +91,7 @@ def watch(root, state_file):
             rate = '—' if fraction is None else f'{100 * fraction:.1f}%'
             lines.append(f"| {row['id']} | {row['wins']} | {rate} | {row['mean_card_plays']['musketeer']:.2f} | {row['mean_own_tower_fraction_loss']:.3f} |")
         lines += ['', 'Кадры зависимы. Меньшая частота нехватки банка не доказывает полезность ожидания: смотрим также потери башен и полный validation. Сумма потерь HP — по всем своим башням, в долях их начального HP.']
-        with Path('reports/air_reserve_full_game_diagnostics_20261027.md').open('x') as stream:
+        with Path(f'reports/{report_stem}_full_game_diagnostics_20261027.md').open('x') as stream:
             stream.write('\n'.join(lines) + '\n')
         state.update(status='complete', report=str(destination))
         save()
@@ -101,5 +105,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--root', required=True)
     parser.add_argument('--state-file', required=True)
+    parser.add_argument('--stem', choices=('air_reserve_pilot','air_alternatives_pilot'), default='air_reserve_pilot')
     args = parser.parse_args()
-    watch(args.root, args.state_file)
+    watch(args.root, args.state_file, args.stem)
