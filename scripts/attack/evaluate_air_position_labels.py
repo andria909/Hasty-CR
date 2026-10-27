@@ -40,9 +40,13 @@ def score_checkpoint(checkpoint,data):
     def summarize(ids):
         return dict(examples=len(ids),successful_choices=int(correct[ids].sum()),
             fraction=float(correct[ids].float().mean()),mean_log_successful_probability=float(log_mass[ids].mean()))
+    skills={r['array_index']:r.get('skill','air_defense')for r in manifest['records']if r['accepted']}
     return dict(scorer_source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),checkpoint=str(checkpoint),checkpoint_sha256=hashlib.sha256(checkpoint.read_bytes()).hexdigest(),data_sha256=digest,
         heldout_seed=heldout,train=summarize([i for i in groups if groups[i]!=heldout]),
         local_heldout=summarize([i for i in groups if groups[i]==heldout]),
+        by_skill={skill:dict(train=summarize([i for i in groups if groups[i]!=heldout and skills[i]==skill]),
+            local_heldout=summarize([i for i in groups if groups[i]==heldout and skills[i]==skill]))
+            for skill in sorted(set(skills.values()))},
         scope='Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance')
 
 

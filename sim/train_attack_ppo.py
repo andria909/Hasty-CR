@@ -28,6 +28,13 @@ def tempered_logits(logits,temperature=1.):
     return logits if temperature==1 else logits/temperature
 
 
+def training_distribution(logits,masks,epsilon=0.):
+    if epsilon:
+        from sim.card_exploration import card_mixture_distribution
+        return card_mixture_distribution(logits,masks,epsilon)
+    return masked_distribution(logits,masks)
+
+
 def build_attack_network(architecture=COMPACT_ARCHITECTURE,device='cpu',*,num_scalars=None,
                          num_planes=NUM_PLANES,num_actions=ACTIONS):
     return build_network(num_planes,NUM_SCALARS+2 if num_scalars is None else num_scalars,
@@ -248,7 +255,7 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
     if curriculum=='tactical_v1':names+=('sim/tactical_strategy.py',)
     if curriculum=='continuous_v1':names+=('sim/continuous_push.py','sim/gamedata.py','sim/entities.py',
         'sim/projectile_calibration.py','sim/kite_geometry.py','sim/opponents.py','sim/eval_defense_duel.py','sim/continuous_validation.py','sim/continuous_sampling.py')
-    if curriculum=='continuous_v1':names+=('sim/board_potential.py','sim/tactical_rewards.py','sim/lane_reflection.py')
+    if curriculum=='continuous_v1':names+=('sim/board_potential.py','sim/tactical_rewards.py','sim/lane_reflection.py','sim/card_exploration.py')
     if card_balance_weight:names+=('sim/card_balance.py',)
     if history_frames==2:names+=('sim/public_frame_history.py','sim/continuous_history.py')
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
@@ -264,9 +271,9 @@ def validate_resume(blob,config):
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
           'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes','policy_temperature',
-          'supervised_replay_weight','supervised_replay_metadata')
+          'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon')
     for key in keys:
-        default=0. if key=='supervised_replay_weight'else None
+        default=0. if key in('supervised_replay_weight','card_exploration_epsilon')else None
         if blob['config'].get(key,default)!=config.get(key,default):
             raise ValueError(f'Attack resume configuration mismatch: {key}')
     required=('optimiser','rng','sampler','environment_states','observations','infos',
@@ -275,6 +282,8 @@ def validate_resume(blob,config):
 
 
 def train(args):
+    exploration=getattr(args,'card_exploration_epsilon',0.)
+    if not np.isfinite(exploration)or not 0<=exploration<=.5:raise ValueError('Invalid card exploration share')
     replay_weight=getattr(args,'supervised_replay_weight',0.)
     replay_data=getattr(args,'supervised_replay_data',None)
     if not np.isfinite(replay_weight)or not 0<=replay_weight<=10 or (replay_weight and not replay_data):
@@ -349,7 +358,8 @@ def train(args):
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
         initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
             hashlib.sha256(Path(args.init).read_bytes()).hexdigest()if args.init else None))
-    config.update(supervised_replay_weight=replay_weight,supervised_replay_metadata=replay.metadata if replay else None)
+    config.update(supervised_replay_weight=replay_weight,supervised_replay_metadata=replay.metadata if replay else None,
+        card_exploration_epsilon=exploration)
     if curriculum=='continuous_v1':config['continuous_profile']=envs[0].profile
     step,start_update,best=0,0,-float('inf')
     counters=[0]*args.envs
@@ -388,7 +398,7 @@ def train(args):
                 logits,values=network(planes,scalars)
                 logits=tempered_logits(logits,temperature)
                 require_finite(logits=logits,values=values)
-                distribution=masked_distribution(logits,masks)
+                distribution=training_distribution(logits,masks,exploration)
                 actions=distribution.sample();log_prob=distribution.log_prob(actions)
             final_obs,rewards,terminals,truncations,final_infos=map(list,zip(*[
                 env.step(int(action))for env,action in zip(envs,actions.cpu().tolist())]))
@@ -424,7 +434,7 @@ def train(args):
             for indices in torch.randperm(len(actions),device=device).split(args.minibatch_size):
                 logits,predicted=network(planes[indices],scalars[indices])
                 logits=tempered_logits(logits,temperature)
-                dist=masked_distribution(logits,masks[indices])
+                dist=training_distribution(logits,masks[indices],exploration)
                 ratio=(dist.log_prob(actions[indices])-old_log[indices]).exp()
                 log_ratio=dist.log_prob(actions[indices])-old_log[indices]
                 kl=float(((ratio-1)-log_ratio).mean().detach())
@@ -449,6 +459,7 @@ def train(args):
                 optimizer.step();losses.append(float(loss.detach()))
             if kl_stopped:break
         record=dict(update=update,step=step,target_environment_steps=args.target_environment_steps,policy_temperature=temperature,
+            card_exploration_epsilon=exploration,
             percent=min(100.,100*step/args.target_environment_steps),elapsed_seconds=time.monotonic()-started,
             actual_cuda=actual_cuda,loss=float(np.mean(losses)),gradient_norm=float(norm),episodes=episodes,
             train_summary=summarize_attack(episodes),by_task=summarize_tasks(episodes))
@@ -510,6 +521,7 @@ def parser():
     p.add_argument('--card-balance-weight',type=float,default=0.)
     p.add_argument('--card-balance-target',choices=('all_cards','units'),default='all_cards')
     p.add_argument('--policy-temperature',type=float,default=1.)
+    p.add_argument('--card-exploration-epsilon',type=float,default=0.)
     p.add_argument('--supervised-replay-data',help='Pinned TRAIN successful-action labels; grouped holdout excluded')
     p.add_argument('--supervised-replay-weight',type=float,default=0.)
     p.add_argument('--architecture',default=COMPACT_ARCHITECTURE)

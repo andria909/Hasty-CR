@@ -19,15 +19,23 @@ from sim.match import Match
 from sim.runner import resolve_deck
 
 
-def build(output):
+def build(output,seeds=None):
     root=Path(output);root.mkdir(parents=True,exist_ok=False)
     cards,spells,_,_=load_defense_assets();cards.update(resolve_deck(cards,list(DECK_26)))
     def make(seed):return Match(cards=cards,spells=spells,decks=(list(DECK_26),list(DECKS['air'])),seed=seed,geometry='native_anchors_candidate_v1')
-    seeds=[]
-    for seed in range(300001,301001):
-        m=make(seed)
-        if 'musketeer'in m.players[1].hand and {'balloon','baby_dragon'}<=set(m.players[-1].hand):seeds.append(seed)
-        if len(seeds)==3:break
+    if seeds is None:
+        seeds=[]
+        for seed in range(300001,301001):
+            m=make(seed)
+            if 'musketeer'in m.players[1].hand and {'balloon','baby_dragon'}<=set(m.players[-1].hand):seeds.append(seed)
+            if len(seeds)==3:break
+    else:
+        seeds=list(seeds)
+        if len(set(seeds))!=len(seeds):raise ValueError('Distinct fixture seeds required')
+        for seed in seeds:
+            m=make(seed)
+            if 'musketeer'not in m.players[1].hand or not {'balloon','baby_dragon'}<=set(m.players[-1].hand):
+                raise ValueError('Supplied seed lacks legal opening cards')
     if len(seeds)!=3:raise ValueError('Insufficient legal opening hands')
     planes=[];scalars=[];masks=[];labels=[];records=[]
     for seed in seeds:

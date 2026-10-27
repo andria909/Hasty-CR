@@ -127,10 +127,19 @@ def test_live_tactical_collector_keeps_selected_and_latest(monkeypatch,tmp_path)
     assert (tmp_path/'out'/run/'update_000100.pt').exists()
 
 
-@pytest.mark.parametrize('run',['full_replay100_s64','full_live_precision_s64'])
+@pytest.mark.parametrize('run',['full_replay100_s64','full_live_precision_s64','full_joint_replay100_s64','full_explore_t10_e20_s64'])
 def test_selected_full_collects_retention_and_tactical_profiles(monkeypatch,tmp_path,run):
     setup(monkeypatch,run+'/update_000050.pt',run)
     result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','selected-continuous-full')
+    assert result['complete']
+    assert (tmp_path/'out'/run/'update_000050.pt').exists()
+    assert (tmp_path/'out'/run/'update_000100.pt').exists()
+
+
+@pytest.mark.parametrize('profile,run',[('joint-skills-pilot','pilot_joint_replay100_s162'),('card-exploration-pilot','pilot_explore_t10_e20_s172')])
+def test_additional_pilot_profiles_collect_selected_and_latest(monkeypatch,tmp_path,profile,run):
+    setup(monkeypatch,run+'/update_000050.pt',run)
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out',profile)
     assert result['complete']
     assert (tmp_path/'out'/run/'update_000050.pt').exists()
     assert (tmp_path/'out'/run/'update_000100.pt').exists()

@@ -136,21 +136,30 @@ def render_live_feedback_studies(reports):
     studies=[('air_retention_pilot','Сохранение навыка',(142,143),
         [(f'replay{int(w*100):03d}',f'Повторение примеров: {w:g}')for w in(0.,.1,1.,5.)]),
         ('live_tactical_reward_pilot','Реварды по live',(152,153),
-        [('live_control','Контроль'),('live_precision','Fireball'),('live_economy','Эликсир + защита'),('live_combined','Вместе')])]
-    links=[]
+        [('live_control','Контроль'),('live_precision','Fireball'),('live_economy','Эликсир + защита'),('live_combined','Вместе')]),
+        ('joint_skills_pilot','Совместные навыки',(162,163),
+        [('joint_control','Без примеров'),('joint_bc800','800 обновлений по примерам'),
+         ('joint_replay100','Примеры + повторение 1'),('joint_replay500','Примеры + повторение 5')]),
+        ('card_exploration_pilot','Исследование карт',(172,173),
+        [(f'explore_t{t:02d}_e{e:02d}',f'Температура {t}, доля исследования {e}%')for t in(1,10)for e in(0,20)])]
+    links=[];sent=queued=0
     for stem,label,seeds,cases in studies:
         p=reports/f'{stem}_training_20261027.json'
         if not p.exists():
             lines.append(f'| {label} | Проверка пакета перед отправкой | — |');continue
         state=json.loads(p.read_text());trials=state.get('progress_snapshot',{}).get('trials',{})
+        sent+=bool(state.get('launch_receipt'))
+        queued+=state.get('status')=='queued_waiting_verified_free_account'
         proof=reports/f'{stem}_verified_20261027.json'
         complete=proof.exists()and json.loads(proof.read_text()).get('pilot_steps_verified')==819200
         for name,description in cases:
             steps=sum(trials.get(f'pilot_{name}_s{seed}',{}).get('steps',0)for seed in seeds)
-            value='100%'if complete else f'{100*steps/204800:.1f}%'if steps else 'отправлено, шаги ожидаются'
+            value=('100%'if complete else f'{100*steps/204800:.1f}%'if steps else
+                'в очереди на свободный аккаунт'if state.get('status')=='queued_waiting_verified_free_account'else
+                'подготовлено; нет доступа'if state.get('status')=='prepared_auth_required'else'отправлено, шаги ожидаются')
             lines.append(f'| {label} | {description} | {value} |')
         links.append(f'[{label}](reports/defense_plan/{stem}_training_20261027.json)')
-    lines+=['','Каждый вариант:2 seed ×102400 PPO-шагов. Всего две серии:1 638 400 шагов. Проценты — полученные счётчики, не качество модели. '+', '.join(links)+'.','',
+    lines+=['',f'Каждый вариант: 2 seed × 102400 PPO-шагов. Отправлено серий: {sent} ({sent*8} прогонов / {sent*819200:,} шагов); в очереди {queued*8} прогонов. Четвёртый аккаунт исключён по просьбе пользователя. Проценты — полученные счётчики, не качество модели. '+', '.join(links)+'.','',
         'В reward-серии стартуем с balanced. Общие TRAIN-данные:35% колод с оплаченными варварами,50% отражённых эпизодов. Fireball оценивается после взрыва; отдельно считаются карты и потери башен слева/справа.','',
         '**Предыдущие пробы завершены:** warmstart и температура — по819200 проверенных CUDA-шагов; два профиля порог полного validation не прошли. После warmstart800 локальный навык упал с32/32 до9/32 после PPO. [Разбор](reports/air_warmstart_pilot_results_20261027.md).','',
         '**Последняя реальная серия balanced:** бот3/9 побед —33,3%; ещё одну игру доиграл пользователь. Игры остановлены. Это главный сигнал, что оценки симуляции не доказывают качество в игре.','',

@@ -9,9 +9,9 @@ from scripts.kaggle.run_five_round_robin import sha
 
 
 def prepare(output,owner='andriashadrin',study='clock'):
-    if study not in ('clock','history','board','bank','warmstart','temperature','retention','tactical'):raise ValueError('Unknown short study')
+    if study not in ('clock','history','board','bank','warmstart','temperature','retention','tactical','jointskills','exploration'):raise ValueError('Unknown short study')
     root=Path(output);root.mkdir(parents=True,exist_ok=False)
-    extra_files=(('scripts/attack/train_air_position_warmstart.py','sim/supervised_replay.py')if study=='retention'else
+    extra_files=(('scripts/attack/train_air_position_warmstart.py','sim/supervised_replay.py')if study in('retention','jointskills')else
         ('scripts/attack/train_air_position_warmstart.py',)if study=='warmstart'else())
     template=root/'template';manifest=freeze_template(template,extra_files=extra_files)
     dataset=root/'dataset';dataset.mkdir();job=root/'job';job.mkdir()
@@ -44,7 +44,7 @@ def prepare(output,owner='andriashadrin',study='clock'):
         proposal=json.loads(Path('data/ppo_tuning/bank_conservation/protocol.json').read_text())
         protocol.update(schema='continuous-bank-conservation-pilot-v1',pilot_seeds=proposal['pilot_seeds'],
             rationale_source=proposal['rationale_source'],rationale_split='train',cases=proposal['cases'])
-    if study in('warmstart','retention'):
+    if study in('warmstart','retention','jointskills'):
         protocol.update(schema='continuous-air-warmstart-pilot-v1',pilot_seeds=[122,123],
             rationale_source='reports/air_warmstart_preflight_20261027.md',rationale_split='train_fixture',
             cases=[dict(id=name,warmstart_updates=updates,warmstart_kl_weight=kl,history_frames=1,
@@ -58,7 +58,16 @@ def prepare(output,owner='andriashadrin',study='clock'):
                     supervised_replay_weight=weight,history_frames=1,focus='air_golem',entropy_coef=.01,
                     gamma=.999,gae_lambda=.95,overflow_penalty=.15,card_balance_weight=.1,
                     card_balance_target='units',missed_fireball_penalty=0.)for weight in(0.,.1,1.,5.)])
-        examples=Path('data/air_position_examples_20261027')
+        if study=='jointskills':
+            protocol.update(schema='continuous-joint-skills-pilot-v1',pilot_seeds=[162,163],
+                rationale_source='reports/fireball_cluster_baselines_20261027.md',rationale_split='fresh_train_fixture',
+                cases=[dict(id=name,warmstart_updates=updates,warmstart_kl_weight=0.,supervised_replay_weight=weight,
+                    history_frames=1,focus='uniform',entropy_coef=.01,gamma=.999,gae_lambda=.95,
+                    overflow_penalty=.3,card_balance_weight=.1,card_balance_target='units',missed_fireball_penalty=.1,
+                    fireball_value_reward=.25,reserve_potential_weight=.1,own_hp_penalty=6.,
+                    barbarian_train_fraction=.35,lane_reflection_fraction=.5)
+                    for name,updates,weight in [('joint_control',0,0.),('joint_bc800',800,0.),('joint_replay100',800,1.),('joint_replay500',800,5.)]])
+        examples=Path('data/joint_skill_examples_20261027'if study=='jointskills'else'data/air_position_examples_20261027')
         metadata=json.loads((examples/'manifest.json').read_text())
         if metadata['split']!='train'or sha(examples/'examples.npz')!=metadata['data_sha256']:
             raise ValueError('Verified TRAIN demonstrations required')
@@ -80,6 +89,17 @@ def prepare(output,owner='andriashadrin',study='clock'):
                 reserve_potential_weight=.1 if economy else 0.,own_hp_penalty=6. if economy else 4.,barbarian_train_fraction=.35,lane_reflection_fraction=.5)
                 for name,precision,economy in [('live_control',False,False),('live_precision',True,False),
                     ('live_economy',False,True),('live_combined',True,True)]])
+    if study=='exploration':
+        protocol.update(schema='continuous-card-exploration-pilot-v1',pilot_seeds=[172,173],
+            rationale_source='reports/balanced_live_card_usage_20261027.md',rationale_split='live_training_feedback',
+            cases=[dict(id=f'explore_t{int(t):02d}_e{int(e*100):02d}',policy_temperature=t,card_exploration_epsilon=e,
+                history_frames=1,focus='uniform',entropy_coef=.01,gamma=.999,gae_lambda=.95,
+                overflow_penalty=.3,card_balance_weight=.1,card_balance_target='units',missed_fireball_penalty=.1,
+                fireball_value_reward=.25,reserve_potential_weight=.1,own_hp_penalty=6.,
+                barbarian_train_fraction=.35,lane_reflection_fraction=.5)for t in(1.,10.)for e in(0.,.2)])
+        protocol['evaluation_policy']='Greedy raw learned logits; exploration only during PPO, explicit mixture log-prob/entropy in rollout and update'
+    if study in('tactical','jointskills','exploration'):
+        protocol['initialization']='Fixed balanced40d028 checkpoint; fresh optimizer, no test-based initializer search'
     (dataset/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n')
     for name in ('extensions.tar.gz',):shutil.copyfile(template/name,dataset/name)
     source=Path('tmp/kaggle/fireball_balanced_20261025/dataset')
@@ -87,7 +107,7 @@ def prepare(output,owner='andriashadrin',study='clock'):
     for name in ('manifest.json','source.tar.gz'):shutil.copyfile(source/name,dataset/name)
     parent=Path('checkpoints/ppo_joint_economy_soft_20261023/policy.pt')
     expected='9d6ac7d1d41ff00df6a9c74354fa8447793e0be8d69f723b27ff43b23c4c73e8'
-    if study=='tactical':
+    if study in('tactical','jointskills','exploration'):
         parent=Path('tmp/kaggle/continuous_slots_20261026/collected_selected/full_balanced_s44/best_validation_001000.pt')
         expected='40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9'
     digest=sha(parent)
@@ -100,7 +120,9 @@ def prepare(output,owner='andriashadrin',study='clock'):
         'hastycr-temperature-pilot'if study=='temperature'else'hastycr-clock-fireball-pilot')
     if study=='retention':stem='hastycr-air-retention-pilot'
     if study=='tactical':stem='hastycr-live-tactical-reward-pilot'
-    date='20261027'if study in('bank','warmstart','temperature','retention','tactical')else'20261026'
+    if study=='jointskills':stem='hastycr-joint-skills-pilot'
+    if study=='exploration':stem='hastycr-card-exploration-pilot'
+    date='20261027'if study in('bank','warmstart','temperature','retention','tactical','jointskills','exploration')else'20261026'
     slug=stem+'-inputs-'+date;kernel=owner+'/'+stem+'-'+date
     (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug,title=slug,
         licenses=[dict(name='other')],isPrivate=True),indent=2)+'\n')
@@ -108,7 +130,7 @@ def prepare(output,owner='andriashadrin',study='clock'):
         models=[dict(id='parent',file='parent.pt',sha256=digest)],
         source_manifest_sha256=manifest['source_manifest_sha256'],extensions=manifest['extensions'],replaced=manifest['replaced'],
         pins={n:sha(dataset/n)for n in ('manifest.json','extensions.tar.gz','protocol.json','parent.pt')})
-    if study in('warmstart','retention'):config['pins'].update({n:sha(dataset/n)for n in('air_examples.npz','air_manifest.json')})
+    if study in('warmstart','retention','jointskills'):config['pins'].update({n:sha(dataset/n)for n in('air_examples.npz','air_manifest.json')})
     code=(template/'bootstrap.txt').read_text()+'\nexecute('+repr(config)+')\n'
     compile(code,'train.py','exec');(job/'train.py').write_text(code)
     (job/'kernel-metadata.json').write_text(json.dumps(dict(id=kernel,title=kernel.split('/')[-1],code_file='train.py',
@@ -122,5 +144,5 @@ def prepare(output,owner='andriashadrin',study='clock'):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--owner',default='andriashadrin')
-    p.add_argument('--study',choices=('clock','history','board','bank','warmstart','temperature','retention','tactical'),default='clock')
+    p.add_argument('--study',choices=('clock','history','board','bank','warmstart','temperature','retention','tactical','jointskills','exploration'),default='clock')
     a=p.parse_args();print(json.dumps(prepare(a.output,a.owner,a.study)))

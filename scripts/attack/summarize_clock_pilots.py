@@ -15,9 +15,11 @@ def summarize(root,verified=None):
     board=protocol.get('schema')=='continuous-board-potential-pilot-v1'
     bank=protocol.get('schema')=='continuous-bank-conservation-pilot-v1'
     retention=protocol.get('schema')=='continuous-air-retention-pilot-v1'
-    warm=protocol.get('schema')=='continuous-air-warmstart-pilot-v1'or retention
+    jointskills=protocol.get('schema')=='continuous-joint-skills-pilot-v1'
+    warm=protocol.get('schema')=='continuous-air-warmstart-pilot-v1'or retention or jointskills
     temperature=protocol.get('schema')=='continuous-temperature-pilot-v1'
     tactical=protocol.get('schema')=='continuous-live-tactical-reward-pilot-v1'
+    exploration=protocol.get('schema')=='continuous-card-exploration-pilot-v1'
     def stats(records):
         counts=Counter(r['outcome']for r in records);cards=Counter()
         for r in records:cards.update(r['accepted_card_counts'])
@@ -56,8 +58,15 @@ def summarize(root,verified=None):
                 scores=[r[phase]['local_heldout']for r in local]
                 row['local_'+phase+'_ppo']=dict(successful_choices=sum(r['successful_choices']for r in scores),
                     predictions=sum(r['examples']for r in scores),distinct_states=scores[0]['examples'])
+            if jointskills:
+                row['local_skill_retention']={skill:{phase:dict(
+                    successful_choices=sum(r[phase]['by_skill'][skill]['local_heldout']['successful_choices']for r in local),
+                    predictions=sum(r[phase]['by_skill'][skill]['local_heldout']['examples']for r in local),
+                    distinct_states=local[0][phase]['by_skill'][skill]['local_heldout']['examples'])
+                    for phase in('before','after')}for skill in local[0]['before']['by_skill']}
         if temperature:row.update(policy_temperature=trial['policy_temperature'])
-        if tactical:
+        if exploration:row.update(policy_temperature=trial['policy_temperature'],card_exploration_epsilon=trial['card_exploration_epsilon'])
+        if tactical or jointskills or exploration:
             row.update(coefficients={k:trial[k]for k in('fireball_value_reward','reserve_potential_weight','own_hp_penalty','overflow_penalty','missed_fireball_penalty')},
                 mean_cluster_fireballs=sum(r['cluster_fireballs']for r in records)/len(records),
                 mean_fireball_unit_hits=sum(r['fireball_unit_hits']for r in records)/len(records))
@@ -71,6 +80,8 @@ def summarize(root,verified=None):
     return dict(schema='verified-history-pilot-validation-summary-v1'if history else
         'verified-board-pilot-validation-summary-v1'if board else
         'verified-bank-pilot-validation-summary-v1'if bank else
+        'verified-joint-skills-pilot-validation-summary-v1'if jointskills else
+        'verified-card-exploration-pilot-validation-summary-v1'if exploration else
         'verified-air-retention-pilot-validation-summary-v1'if retention else
         'verified-air-warmstart-pilot-validation-summary-v1'if warm else
         'verified-temperature-pilot-validation-summary-v1'if temperature else
@@ -108,6 +119,14 @@ def render(summary):
             lost=row['mean_own_tower_fraction_loss']
             lines.append(f"| {row['id']} | {row['mean_card_plays'].get('fireball',0):.2f} | {row['mean_missed_fireballs']:.2f} | {row['mean_cluster_fireballs']:.2f} | {row['mean_fireball_unit_hits']:.2f} | {lost['left']:.3f} / {lost['right']:.3f} |")
         lines+=['','Потери — средняя доля исходного HP своей башни. Это не частота атак по линии. Все карты по каждой линии отдельно сохранены в JSON mean_card_lane_plays.']
+    if summary['rows']and 'local_skill_retention'in summary['rows'][0]:
+        lines+=['','## Каждый локальный навык отдельно','',
+            '| Профиль | Навык | До PPO | Выбранный PPO |','|---|---|---:|---:|']
+        for row in summary['rows']:
+            for skill,phases in row['local_skill_retention'].items():
+                before,after=phases['before'],phases['after']
+                lines.append(f"| {row['id']} | {skill} | {before['successful_choices']}/{before['predictions']} | {after['successful_choices']}/{after['predictions']} |")
+        lines+=['','Удержание Fireball на пустом поле не компенсирует потерю защиты воздуха или группового прицела. Все группы входят в локальный holdout целиком.']
     lines+=['',('Порог для продолжения прошли минимум два профиля.'if summary['eligible_for_full']else
         'Минимум два профиля порог не прошли: большое продолжение этого исследования не запускается.'),
         'Это validation для отбора; test и реальные бои не проводились. Частота карты сама по себе не доказывает качество.']

@@ -102,6 +102,7 @@ def execute(config):
             '--history-frames',str(trial.get('history_frames',1)),
             '--card-balance-weight',str(trial['card_balance_weight']),'--card-balance-target','units',
             '--policy-temperature',str(trial.get('policy_temperature',1.)),
+            '--card-exploration-epsilon',str(trial.get('card_exploration_epsilon',0.)),
             '--action-delay-ms','225','--max-ms','310000','--seed',str(seed),'--envs','8','--rollout','128',
             '--updates',str(steps//1024),'--target-environment-steps',str(steps),'--epochs','3','--minibatch-size','256',
             '--lr','0.00005','--gamma',str(trial.get('gamma',.999)),
@@ -164,7 +165,7 @@ def freeze_template(output,extra_files=()):
     names=('sim/match.py','sim/train_attack_ppo.py','sim/continuous_push.py','sim/card_balance.py','sim/env.py',
         'sim/kite_geometry.py','sim/projectile_calibration.py','sim/entities.py','sim/gamedata.py','sim/public_gamedata.py',
         'sim/spells.py','sim/continuous_sampling.py','sim/continuous_validation.py','scripts/attack/select_continuous_focus.py',
-        'sim/public_frame_history.py','sim/continuous_history.py','sim/board_potential.py','sim/pathfind.py','sim/tactical_rewards.py','sim/lane_reflection.py')
+        'sim/public_frame_history.py','sim/continuous_history.py','sim/board_potential.py','sim/pathfind.py','sim/tactical_rewards.py','sim/lane_reflection.py','sim/card_exploration.py')
     names=names+tuple(extra_files)
     if len(set(names))!=len(names):raise ValueError('Duplicate frozen extension')
     with tarfile.open(output/'extensions.tar.gz','w:gz')as stream:

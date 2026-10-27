@@ -11,7 +11,7 @@ from scripts.attack.select_continuous_focus import select_initial,select_profile
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def metric_boundaries(path,target_steps,policy_temperature=None):
+def metric_boundaries(path,target_steps,policy_temperature=None,card_exploration_epsilon=0.):
     validations=[];update=0;step=0
     with Path(path).open()as stream:
         for line in stream:
@@ -22,6 +22,8 @@ def metric_boundaries(path,target_steps,policy_temperature=None):
                 raise ValueError('Nonconsecutive or inconsistent actual training counters')
             if policy_temperature is not None and record.get('policy_temperature',1.)!=policy_temperature:
                 raise ValueError('Actual rollout policy temperature differs')
+            if record.get('card_exploration_epsilon',0.)!=card_exploration_epsilon:
+                raise ValueError('Actual rollout card exploration differs')
             if'validation'in record:validations.append(record)
     if step!=target_steps:raise ValueError('Metrics do not reach the actual target budget')
     return validations
@@ -69,6 +71,7 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
         config.get('device')not in('cuda:0','cuda:1')or config.get('task_mode')!='joint'or
         config['card_balance_weight']!=trial['card_balance_weight']or config['card_balance_target']!='units'or
         config.get('policy_temperature',1.)!=trial.get('policy_temperature',1.)or
+        config.get('card_exploration_epsilon',0.)!=trial.get('card_exploration_epsilon',0.)or
         config['continuous_profile']['overflow_penalty']!=trial['overflow_penalty']or
         config['gamma']!=trial.get('gamma',.999)or config['gae_lambda']!=trial.get('gae_lambda',.95)or
         config['continuous_profile'].get('missed_fireball_penalty',0.)!=trial.get('missed_fireball_penalty',0.)):
@@ -105,7 +108,7 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps):
         if not seen:raise ValueError('No supervised replay optimizer batches observed')
     if trial.get('board_potential_weight',0.)and config['continuous_profile']['shaping_gamma']!=config['gamma']:
         raise ValueError('Potential shaping discount differs from PPO')
-    validations=metric_boundaries(root/run_id/'metrics.jsonl',steps,trial.get('policy_temperature',1.))
+    validations=metric_boundaries(root/run_id/'metrics.jsonl',steps,trial.get('policy_temperature',1.),trial.get('card_exploration_epsilon',0.))
     for record in validations:
         v=record['validation'];score=validation_score(v)
         if abs(score['selection_score']-v['selection_score'])>1e-12:raise ValueError('Validation score differs')
@@ -147,9 +150,12 @@ def verify(collected,prepared):
     if any(t.get('board_potential_weight',0)for t in protocol['cases']):
         if sha('sim/board_potential.py')!=c['extensions']['sim/board_potential.py']:
             raise ValueError('Use frozen potential reward version')
-    if protocol.get('schema')=='continuous-live-tactical-reward-pilot-v1':
+    if protocol.get('schema')in('continuous-live-tactical-reward-pilot-v1','continuous-joint-skills-pilot-v1','continuous-card-exploration-pilot-v1'):
         for name in('sim/tactical_rewards.py','sim/lane_reflection.py'):
             if sha(name)!=c['extensions'][name]:raise ValueError('Use frozen tactical reward/reflection version')
+    if protocol.get('schema')=='continuous-card-exploration-pilot-v1':
+        if sha('sim/card_exploration.py')!=c['extensions']['sim/card_exploration.py']:
+            raise ValueError('Use frozen card exploration distribution')
     if sha(prepared/'dataset/protocol.json')!=c['pins']['protocol.json']:raise ValueError('Prepared protocol changed')
     if result.get('schema')!='continuous-focus-cohort-result-v1'or result['protocol_sha256']!=c['pins']['protocol.json']:
         raise ValueError('Focus protocol differs')

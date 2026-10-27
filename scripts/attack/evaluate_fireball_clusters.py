@@ -28,7 +28,7 @@ GROUPS=(('barbarians',),('minions',),('barbarians','musketeer'),('barbarians','b
 COMMAND_DELAY_MS=225
 
 
-def fixture_cases():
+def fixture_cases(seed_start=7000000,seeds=None):
     cards,spells,_,_=load_defense_assets()
     cards.update(resolve_deck(cards,list(DECK_26)))
     for group_index,group in enumerate(GROUPS):
@@ -42,13 +42,14 @@ def fixture_cases():
         def make(seed):
             return Match(cards=cards,spells=spells,decks=(list(DECK_26),enemy),seed=seed,
                          geometry='native_anchors_candidate_v1')
-        seeds=[]
-        for seed in range(7000000+group_index*1000,7001000+group_index*1000):
+        selected=[]
+        candidates=seeds if seeds is not None else range(seed_start+group_index*1000,seed_start+1000+group_index*1000)
+        for seed in candidates:
             m=make(seed)
-            if 'fireball'in m.players[1].hand and set(group)<=set(m.players[-1].hand):seeds.append(seed)
-            if len(seeds)==3:break
-        if len(seeds)!=3:raise ValueError('Three legal hand groups required')
-        for seed in seeds:
+            if 'fireball'in m.players[1].hand and set(group)<=set(m.players[-1].hand):selected.append(seed)
+            if len(selected)==3:break
+        if len(selected)!=3 or len(set(selected))!=3:raise ValueError('Three legal hand groups required')
+        for seed in selected:
             for lane in ('left','right'):
                 for age_ms in (1500,4500):
                     m=make(seed);m.players[1].elixir=10000;m.players[-1].elixir=10000
