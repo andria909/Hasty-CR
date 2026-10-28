@@ -1,3 +1,6 @@
+## CURRENT user reinforces spell waste and tower support
+Confirmed Fireballmiss coefficient.1 =−.4 peremptycast; Zapnotloggedbycast_spell. Appendedplan+spell_waste_training_design20261028: controlledcontrol/.1/.5/1perpaidcost, no doubleFireballpenalty, preserveusefulreset/shield/towerfinish. NOTimplemented/trained. Towerrewardalreadyqueued, combineafterisolatedtests. FutureCannoncatalog+defenseundertowers, no blanketbridgeban. Currentlive20unchanged;BCcomplete1/10,secondRUNNINGconfirmed.
+
 ## CURRENT user requests future restricted Cannon placement catalog
 User says inspect professional placements per survivingtowerconfiguration andonlyallowthosepositions. Interpretedпуши/еёasCannon, explicitlytolduser; noresponsecorrectionyet. Appendedplan.md anddata/cannon_placements.md. Need16princesstowercombos+kingactivation/terminal+threat/side/timing/pocket cases; sameconditionalmaskPPO/live aftervalidatedcoordinates,others/WAITremain. Current10+10unchanged. Webfoundthaibm2.6matchupguide linksOyassuu NbxmEP2Zvec?t465; VIDEOFETCHFAILED, doNOTclaimwatchedorprovalidatedcoordinates. Sourcescandidateonly. Previousexact-inputlogging work notimplemented; stillneededbeforecombatreflectiondiagnostic.
 
