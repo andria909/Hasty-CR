@@ -210,7 +210,7 @@ def render_live_feedback_studies(reports):
     if (reports/'tower_support_diagnostic_20261028.json').exists():
         lines += ['**Помощь башен:** бонус подключён к PPO; короткое CPU-обучение и точное продолжение проверены, 19 тестов прошли. Четыре коэффициента прошли48 технических игр; опыт поставлен в очередь после проверки ожидающих карт. На GPU ещё не запущен. [Код](sim/continuous_tower_support.py), [диагностика48 эпизодов](reports/tower_support_diagnostic_20261028.md).','']
     if Path('sim/continuous_spell_waste.py').exists():
-        lines += ['**Пустые спеллы:** отдельная среда штрафует потраченный эликсир за пустые Fireball/Zap после срабатывания; без двойного штрафа Fireball.14 проверок прошли. К PPO ещё не подключена. [Код](sim/continuous_spell_waste.py).','']
+        lines += ['**Пустые спеллы:** отдельная среда штрафует потраченный эликсир за пустые Fireball/Zap после срабатывания; без двойного штрафа Fireball. PPO и точное продолжение проверены; четыре GPU-профиля прошли48 технических игр. Ещё не отправлены. [Код](sim/continuous_spell_waste.py).','']
     if (reports/'full_bc800_live_vs_validation_20261028.json').exists():
         lines += ['**Проблема BC800, первые8 реальных игр:**97,7% выставлений слева (validation80,6%); мушкетёр0,63/матч (validation0,39). Перекос присутствует уже в симуляции. [Карты и задержки](reports/full_bc800_live_vs_validation_20261028.md).','']
     lines+=render_global_full_training(reports)

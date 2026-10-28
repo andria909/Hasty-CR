@@ -82,3 +82,15 @@ def test_environment_charges_once_and_resumes_exactly():
     replay=penalized.step(action)
     assert replay[1:4]==result[1:4]
     assert replay[4]['metrics']==result[4]['metrics']
+
+
+def test_ppo_factory_combines_rewards_and_rejects_unsupported_inputs():
+    import pytest
+    from sim.train_attack_ppo import make_training_env
+    env=make_training_env(curriculum='continuous_v1',spell_waste_weight=.5,tower_support_weight=.15)
+    _,info=env.reset(seed=2)
+    assert info['metrics']['spell_waste_weight']==.5
+    assert info['metrics']['tower_support_weight']==.15
+    for kwargs in ({'curriculum':'classic'}, {'curriculum':'continuous_v1','pending_inputs':True},
+                   {'curriculum':'continuous_v1','history_frames':2}):
+        with pytest.raises(ValueError):make_training_env(spell_waste_weight=.5,**kwargs)
