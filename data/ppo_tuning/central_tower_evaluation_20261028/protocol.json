@@ -1,0 +1,256 @@
+{
+  "schema": "precommitted-full-candidate-evaluation-v2",
+  "candidate_binding": "Only completed full4096000-step validation-selected SHA-verified weights; bind identities before any test inference",
+  "baselines": [
+    {
+      "id": "balanced",
+      "checkpoint": "tmp/kaggle/continuous_slots_20261026/collected_selected/full_balanced_s44/best_validation_001000.pt",
+      "checkpoint_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+      "mode": "joint_enemy_presence_v1",
+      "scalars": 309
+    },
+    {
+      "id": "strong",
+      "checkpoint": "tmp/kaggle/continuous_slots_20261026/collected_selected/full_strong_s44/best_validation_002750.pt",
+      "checkpoint_sha256": "82e988f074937fe86d7c9ec1eb1dfce384142eabe98ebc75adf4e1986c71a7fd",
+      "mode": "joint_enemy_presence_v1",
+      "scalars": 309
+    },
+    {
+      "id": "v25",
+      "checkpoint": "checkpoints/portable_v25/portable_v25_cannon_economy_best.pt",
+      "checkpoint_sha256": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972",
+      "mode": "physical_live",
+      "scalars": 306
+    }
+  ],
+  "primary_endpoint": "Full-game points (win=1,draw=.5) versus fresh scripted test opponents; report every family separately",
+  "tasks": [
+    "attack",
+    "defense"
+  ],
+  "families": [
+    "air",
+    "bridge",
+    "giant",
+    "golem",
+    "hog",
+    "swarm"
+  ],
+  "test_sets": [
+    {
+      "id": "scripted_stress",
+      "split": "test",
+      "style": "heldout_push",
+      "seeds": [
+        290281000,
+        290281001,
+        290281002,
+        290281003,
+        290281004,
+        290281005,
+        290281006,
+        290281007,
+        290281008,
+        290281009,
+        290281010,
+        290281011,
+        290281012,
+        290281013,
+        290281014,
+        290281015,
+        290281016,
+        290281017,
+        290281018,
+        290281019,
+        290281020,
+        290281021,
+        290281022,
+        290281023,
+        290281024,
+        290281025,
+        290281026,
+        290281027,
+        290281028,
+        290281029
+      ],
+      "games_per_model": 360,
+      "setup": "Evaluation-only PushCase(task,family,heldout_push,test); test Hunter composition, ordinary scripted legal opponent"
+    },
+    {
+      "id": "legal_random_compatibility",
+      "split": "test",
+      "style": "heldout_random",
+      "seeds": [
+        290282000,
+        290282001,
+        290282002,
+        290282003,
+        290282004,
+        290282005,
+        290282006,
+        290282007,
+        290282008,
+        290282009,
+        290282010,
+        290282011,
+        290282012,
+        290282013,
+        290282014,
+        290282015,
+        290282016,
+        290282017,
+        290282018,
+        290282019,
+        290282020,
+        290282021,
+        290282022,
+        290282023,
+        290282024,
+        290282025,
+        290282026,
+        290282027,
+        290282028,
+        290282029
+      ],
+      "games_per_model": 360,
+      "setup": "Standard ContinuousPushEnv test scenarios; secondary descriptive endpoint"
+    }
+  ],
+  "tournament": {
+    "seeds": [
+      290283000,
+      290283001,
+      290283002,
+      290283003,
+      290283004,
+      290283005,
+      290283006,
+      290283007,
+      290283008,
+      290283009,
+      290283010,
+      290283011,
+      290283012,
+      290283013,
+      290283014,
+      290283015,
+      290283016,
+      290283017,
+      290283018,
+      290283019,
+      290283020,
+      290283021,
+      290283022,
+      290283023,
+      290283024,
+      290283025,
+      290283026,
+      290283027,
+      290283028,
+      290283029
+    ],
+    "seats": [
+      1,
+      -1
+    ],
+    "games_per_pair": 60,
+    "all_pairs": true,
+    "ranking": "Points (win=1,draw=.5), W/D/L, seat splits; retain ties. Uncertainty resamples paired seed blocks including both seats."
+  },
+  "comparison_contract_sha256": "4180dc7c74d0d422ffda0aebc1d6fa29c884baf9127528e9f9c77c5fdf92af6c",
+  "test_used_for_selection": false,
+  "retune_on_test": false,
+  "live_games_started": false,
+  "quality_accepted": false,
+  "metrics": [
+    "wins_draws_losses_by_task_and_family",
+    "tower_HP_loss_by_lane",
+    "elixir_overflow_per_game",
+    "mean_accepted_card_plays_per_game",
+    "per_card_per_lane_plays",
+    "empty_and_cluster_fireballs",
+    "rejected_commands",
+    "head_to_head_points_and_seat_splits",
+    "actual_end_to_end_latency_not_claimed_by_simulation"
+  ],
+  "limitations": [
+    "Synthetic simulator test is not human/live win-rate",
+    "24TRAIN air diagnostic games are development, excluded here",
+    "Two test sets have different opponent difficulty; never pool their wins into one score",
+    "No coefficients/checkpoint choices based on these results; future changes require a new test cycle"
+  ],
+  "budgets_by_candidate_count": {
+    "2": {
+      "models": 5,
+      "test_games": 3600,
+      "tournament_games": 600,
+      "total_games": 4200
+    },
+    "3": {
+      "models": 6,
+      "test_games": 4320,
+      "tournament_games": 900,
+      "total_games": 5220
+    },
+    "4": {
+      "models": 7,
+      "test_games": 5040,
+      "tournament_games": 1260,
+      "total_games": 6300
+    }
+  },
+  "allowed_candidate_counts": [
+    2,
+    3,
+    4
+  ],
+  "evaluation_runtime": {
+    "action_delay_ms": 1350,
+    "max_ms": 310000,
+    "geometry": "native_anchors_candidate_v1",
+    "geometry_sha256": "ab4a4200e2f35ee05272b30ef7fcdab113b8d489ab521b0c5439c2e80d278053",
+    "coordinate_mode": "physical_live_cells_v2",
+    "action_cooldown_ms": 0,
+    "decision_interval_ms": 250,
+    "cannon_placement_mode": "central_defense_v1",
+    "physics_tick_ms": 50
+  },
+  "candidate_input": {
+    "num_planes": 20,
+    "num_scalars": 309,
+    "history_frames": 1
+  },
+  "uncertainty": "Do not treat task/family or opposite-seat repeats of the same base seed as independent. Resample paired seed blocks; report sample counts.",
+  "full_family_guard_failure": "Retain finite completed full-budget models in the test table and flag failed guard; do not silently hide them or promote from pooled wins",
+  "execution": {
+    "schema": "evaluation-execution-v1",
+    "action_delay_ms": 1350,
+    "decision_interval_ms": 250,
+    "action_cooldown_ms": 0,
+    "cannon_placement_mode": "central_defense_v1",
+    "geometry": "native_anchors_candidate_v1",
+    "coordinate_mode": "physical_live_cells_v2",
+    "physics_tick_ms": 50,
+    "max_ms": 310000
+  },
+  "execution_scope": "All candidates and baselines use the same explicit timing and central Cannon mask; current physics must be frozen with training. Rewards are not evaluation endpoints.",
+  "historical_comparability": "Not comparable to old225ms/2100ms unrestricted results; baselines must be replayed under this contract.",
+  "historical_baseline_training_runtime": {
+    "action_delay_ms": 225.0,
+    "max_ms": 310000,
+    "task_mode": "joint",
+    "observation_contract": "joint_public_presence_continuous_slots_v2",
+    "num_scalars": 309,
+    "num_planes": 20,
+    "history_frames": 1,
+    "coordinate_mode": "physical_live_cells_v2",
+    "geometry": "native_anchors_candidate_v1",
+    "geometry_sha256": "ab4a4200e2f35ee05272b30ef7fcdab113b8d489ab521b0c5439c2e80d278053",
+    "validation_selection": "worst_family",
+    "validation_seed": 900100,
+    "eval_episodes": 36,
+    "action_cooldown_ms": 2100,
+    "decision_interval_ms": 250
+  }
+}

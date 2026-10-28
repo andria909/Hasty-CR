@@ -21,6 +21,8 @@ def child(spec_path):
     source_digest = source_identity(inputs / 'source/manifest.json', Path.cwd())
     protocol = json.loads((inputs / 'protocol.json').read_text())
     blueprint = validate_protocol(protocol, inputs / 'weights')
+    from scripts.attack.evaluation_execution import execution_for,check_row_execution
+    execution=execution_for(protocol)
     torch.set_num_threads(1)
     networks = {}; checked = []
     # These development seeds are deliberately outside both independent tests.
@@ -31,13 +33,14 @@ def child(spec_path):
     for entry in protocol['models']:
         network = load(entry, inputs / 'weights', 'cpu'); networks[entry['id']] = network
         for test, seed in zip(blueprint['test_sets'], seeds):
-            row = test_game(network, entry, test, 'defense', 'air', seed, 'cpu')
+            row = test_game(network, entry, test, 'defense', 'air', seed, 'cpu',execution=execution)
             check_cards(row)
+            if protocol['schema'].endswith('-v2'):check_row_execution(row,execution)
         checked.append(dict(id=entry['id'], sha256=entry['sha256'], technical_games=2))
     entries = {m['id']: m for m in protocol['models']}
     cards, spells, *_ = load_defense_assets(); cards.update(resolve_deck(cards, list(DECK_26)))
     row = duel((networks['balanced'], entries['balanced']['mode']), (networks['v25'], entries['v25']['mode']),
-               'cpu', 801003, -1, cards, spells, on_complete=public_duel_metrics)
+               'cpu', 801003, -1, cards, spells, on_complete=public_duel_metrics,execution=execution)
     for metrics in row['public_metrics'].values(): check_cards(metrics)
     # Exercise the previously failing pre-serialization side-counter validation.
     from scripts.attack.verify_full_candidate_evaluation import validate_part
@@ -57,6 +60,7 @@ def child(spec_path):
                   technical_games=2 * len(checked) + 1, source_manifest_sha256=source_digest,
                   protocol_sha256=sha(inputs / 'protocol.json'), actual_cuda=False,
                   independent_test_run=False, quality_accepted=False, restored_games=restored_games)
+    if protocol['schema'].endswith('-v2'):report['execution']=execution
     with Path(spec['report']).open('x') as stream: json.dump(report, stream, indent=2); stream.write('\n')
 
 
@@ -128,6 +132,9 @@ def enable_submission(prepared):
             or report.get('protocol_sha256') != prep['config']['files']['protocol.json']):
         raise ValueError('Exact actual-candidate package preflight required')
     protocol = audit_candidates(report['decoded_inputs'])
+    if protocol['schema'].endswith('-v2'):
+        from scripts.attack.evaluation_execution import execution_for
+        if report.get('execution')!=execution_for(protocol):raise ValueError('Preflight execution differs')
     expected = [dict(id=m['id'], sha256=m['sha256'], technical_games=2) for m in protocol['models']]
     if report.get('models') != expected or report.get('technical_games') != len(expected) * 2 + 1:
         raise ValueError('Preflight candidate coverage differs')

@@ -11,6 +11,8 @@ import shutil
 import numpy as np
 import torch
 
+from scripts.attack.evaluation_execution import (LEGACY, execution_for, validate_execution,
+    environment_kwargs, restrict_placements, check_row_execution, check_duel_execution)
 from sim.adapter import grid_to_point
 from sim.continuous_push import ContinuousPushEnv
 from sim.defense_assets import load_defense_assets
@@ -47,6 +49,10 @@ def restore_parts(protocol_path,protocol,weights,output):
             expected={(s,seat)for s in protocol['duel_seeds']for seat in(1,-1)}
             if report['pair']!=list(identity)or len(rows)!=len(expected)or {(r['seed'],r['candidate_side'])for r in rows}!=expected:
                 raise ValueError('Resume duel contexts differ')
+        if 'execution' in protocol:
+            for row in rows:
+                check_row_execution(row,execution_for(protocol))
+                if kind=='duel':check_duel_execution(row,execution_for(protocol))
         counts=Counter(r['outcome']for r in rows)
         if set(counts)-{'win','loss','draw'}or dict(counts)!=report['counts']:raise ValueError('Resume outcomes differ')
         reports[name]=report
@@ -78,13 +84,15 @@ def choose(network,match,side,mode,mask,device,reserved_milli=0):
         return int(logits[0].masked_fill(~support,-torch.inf).argmax())
 
 
-def duel(a,b,device,seed,seat,cards,spells,*,on_complete=None):
+def duel(a,b,device,seed,seat,cards,spells,*,on_complete=None,execution=None,on_command=None):
+    execution=validate_execution(LEGACY if execution is None else execution)
     m=Match(cards=cards,spells=spells,decks=(list(DECK_26),list(DECK_26)),seed=seed,
-            geometry='native_anchors_candidate_v1')
+            geometry=execution['geometry'])
     networks={seat:a[0],-seat:b[0]};modes={seat:a[1],-seat:b[1]}
     pending={1:[],-1:[]};ready={1:{},-1:{}};rejected=Counter();decision=0
     order=(1,-1)if seed%2 else(-1,1)
-    while not m.finished and m.elapsed_ms<310000:
+    command_delays=[];cannon_outside=0
+    while not m.finished and m.elapsed_ms<execution['max_ms']:
         if m.elapsed_ms>=decision:
             for side in order:
                 mask=mechanical_mask(m,cards,spells,side)
@@ -93,21 +101,29 @@ def duel(a,b,device,seed,seat,cards,spells,*,on_complete=None):
                 for slot,card in enumerate(m.players[side].hand):
                     if slot in busy or m.elapsed_ms<ready[side].get(slot,0)or cards[card].cost*1000>available:
                         mask[1+slot*576:1+(slot+1)*576]=False
+                mask=restrict_placements(mask,m.players[side].hand,execution)
                 action=choose(networks[side],m,side,modes[side],mask,device,reserved)
                 if action:
                     slot,x,y=ClashEnv.decode(action)
-                    pending[side].append((m.elapsed_ms+225,m.players[side].hand[slot],slot,x,y))
-            decision+=250
+                    pending[side].append((m.elapsed_ms+execution['action_delay_ms'],m.players[side].hand[slot],slot,x,y))
+            decision+=execution['decision_interval_ms']
         for side in order:
             for command in list(pending[side]):
                 if command[0]>m.elapsed_ms:continue
                 _,card,slot,x,y=command
                 accepted=m.play_card(side,card,grid_to_point(x,y,side));rejected[side]+=not accepted
-                ready[side][slot]=m.elapsed_ms+2100;pending[side].remove(command)
-        m.step(50)
+                requested=command[0]-execution['action_delay_ms']
+                command_delays.append(m.elapsed_ms-requested)
+                if accepted and card=='cannon' and not (6<=x<=11 and 18<=y<=23):cannon_outside+=1
+                if on_command is not None:on_command(dict(side=side,card=card,slot=slot,x=x,y=y,
+                    requested_ms=requested,executed_ms=m.elapsed_ms,accepted=accepted))
+                ready[side][slot]=m.elapsed_ms+execution['action_cooldown_ms'];pending[side].remove(command)
+        m.step(execution['physics_tick_ms'])
     counts={str(s):dict(Counter(e['card']for e in m.play_log if e['side']==s))for s in(1,-1)}
     result=dict(seed=seed,candidate_side=seat,outcome=outcome(m.result,seat,m.finished),elapsed_ms=m.elapsed_ms,
-        accepted_cards=counts,rejected_commands=dict(rejected),
+        accepted_cards=counts,rejected_commands=dict(rejected),execution=execution,cannon_outside_center=cannon_outside,
+        executed_commands=len(command_delays),actual_command_delay_min_ms=min(command_delays)if command_delays else None,
+        actual_command_delay_max_ms=max(command_delays)if command_delays else None,
         elixir_overflow={str(s):m.players[s].natural_elixir_overflow_milli/1000 for s in(1,-1)},
         quality_flags=['simulator_mechanics_not_fully_validated','no_live_validation'])
     if on_complete is not None:result['public_metrics']=on_complete(m)
@@ -117,6 +133,7 @@ def duel(a,b,device,seed,seat,cards,spells,*,on_complete=None):
 def evaluate(protocol,weights,output):
     protocol=Path(protocol);p=json.loads(protocol.read_text());output=Path(output);output.mkdir(exist_ok=False,parents=True)
     if not torch.cuda.is_available()or torch.cuda.device_count()<2:raise RuntimeError('Two CUDA devices required')
+    execution=execution_for(p)
     torch.set_num_threads(1);models=p['models'];pairs=list(itertools.combinations(models,2))
     resumed=restore_parts(protocol,p,weights,output);jobs=[]
     for entry in models:
@@ -139,15 +156,15 @@ def evaluate(protocol,weights,output):
             for task in ('attack','defense'):
                 for family in ('hog','giant','air','golem','swarm','bridge'):
                     for seed in p['test_seeds']:
-                        env=ContinuousPushEnv(split='test',action_delay_ms=225,max_ms=310000)
+                        env=ContinuousPushEnv(split='test',**environment_kwargs(execution))
                         env.reset(seed=seed,scenario_id=f'{task}::{family}/heldout_random')
-                        for _ in range(1242):
+                        for _ in range(execution['max_ms']//execution['decision_interval_ms']+2):
                             reserved=sum(env.cards[c[1]].cost*1000 for c in env.pending)
                             action=choose(nets[entry['id']],env.match,1,entry['mode'],env._mask(),device,reserved)
                             _,_,done,truncated,info=env.step(action)
                             if done or truncated:break
                         else:raise RuntimeError('Nonterminal heldout game')
-                        rows.append(dict(info['metrics'],seed=seed))
+                        rows.append(dict(info['metrics'],seed=seed,execution=execution))
             counts=Counter(r['outcome']for r in rows)
             if counts['unknown']:raise ValueError('Unknown heldout outcome')
             result=dict(model=entry,counts=dict(counts),games=len(rows),
@@ -159,7 +176,7 @@ def evaluate(protocol,weights,output):
         for a,b in [job[1]for job in schedules[index]if job[0]=='duel']:
             rows=[]
             for seed in p['duel_seeds']:
-                for seat in(1,-1):rows.append(duel((nets[a['id']],a['mode']),(nets[b['id']],b['mode']),device,seed,seat,cards,spells))
+                for seat in(1,-1):rows.append(duel((nets[a['id']],a['mode']),(nets[b['id']],b['mode']),device,seed,seat,cards,spells,execution=execution))
             (output/(a['id']+'__'+b['id']+'_duels.json')).write_text(json.dumps(dict(pair=[a['id'],b['id']],games=len(rows),counts=dict(Counter(r['outcome']for r in rows)),rows=rows),indent=2)+'\n')
             print(json.dumps(dict(event='POOL_PAIR_COMPLETE',pair=[a['id'],b['id']],games=len(rows))),flush=True)
     print(json.dumps(dict(event='CUDA_READY',gpus=[torch.cuda.get_device_name(i)for i in(0,1)])),flush=True)
@@ -168,7 +185,7 @@ def evaluate(protocol,weights,output):
         for f in futures:f.result()
     files={x.name:sha(x)for x in output.glob('*.json')}
     result=dict(schema='continuous-frozen-pool-evaluation-v1',status='complete',protocol_sha256=sha(protocol),
-        models=models,test_games=len(models)*12*len(p['test_seeds']),duel_games=len(pairs)*2*len(p['duel_seeds']),
+        execution=execution,models=models,test_games=len(models)*12*len(p['test_seeds']),duel_games=len(pairs)*2*len(p['duel_seeds']),
         files=files,quality_accepted=False,test_used_for_selection=False,live_checkpoint_changed=False)
     if resumed:
         result.update(resumed_parts_sha256={n:sha(output/n)for n in resumed},

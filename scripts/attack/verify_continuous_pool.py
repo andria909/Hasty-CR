@@ -7,6 +7,9 @@ import json
 from pathlib import Path
 
 
+from scripts.attack.evaluation_execution import execution_for,check_row_execution,check_duel_execution
+
+
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
@@ -24,6 +27,7 @@ def verify(collected,prepared):
     result=json.loads((root/'result.json').read_text())
     if result.get('status')!='complete'or result['protocol_sha256']!=sha(prepared/'dataset/protocol.json'):
         raise ValueError('Protocol/status changed')
+    if 'execution' in p and result.get('execution')!=execution_for(p):raise ValueError('Result execution differs')
     resumed_games=0;resume_path=prepared/'dataset/resume_manifest.json'
     if resume_path.exists():
         if sha(resume_path)!=cfg['config']['pins']['resume_manifest.json']:raise ValueError('Resume manifest changed')
@@ -50,6 +54,7 @@ def verify(collected,prepared):
         if abs(report['win_rate']-counts['win']/len(rows))>1e-12:raise ValueError('Heldout win rate differs')
         cards=Counter()
         for row in rows:
+            if 'execution' in p:check_row_execution(row,execution_for(p))
             if row['split']!='test':raise ValueError('Heldout row is not test')
             card_counts=row['accepted_card_counts']
             if any(type(v)is not int or v<0 for v in card_counts.values()):raise ValueError('Invalid card counts')
@@ -66,6 +71,8 @@ def verify(collected,prepared):
         contexts={(s,seat)for s in p['duel_seeds']for seat in(1,-1)}
         if report['pair']!=[a,b]or len(rows)!=len(contexts)or {(r['seed'],r['candidate_side'])for r in rows}!=contexts:
             raise ValueError('Changed/missing/duplicate paired duel')
+        if 'execution' in p:
+            for row in rows:check_duel_execution(row,execution_for(p))
         counts=Counter(r['outcome']for r in rows)
         if set(counts)-{'win','loss','draw'}or dict(counts)!=report['counts']:raise ValueError('Duel outcome counts differ')
         reverse=Counter(win=counts['loss'],loss=counts['win'],draw=counts['draw'])

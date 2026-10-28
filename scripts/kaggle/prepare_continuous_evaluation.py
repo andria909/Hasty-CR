@@ -90,7 +90,7 @@ def prepare(output,cohort='control',training_report=None,owner='andriashadrin'):
     frozen=Path('tmp/kaggle/fireball_balanced_20261025/dataset');manifest=json.loads((frozen/'manifest.json').read_text())
     names=('sim/match.py','sim/train_attack_ppo.py','sim/continuous_push.py','sim/card_balance.py','sim/env.py',
         'sim/kite_geometry.py','sim/projectile_calibration.py','sim/entities.py','sim/gamedata.py','sim/public_gamedata.py',
-        'sim/spells.py','scripts/attack/evaluate_continuous_pool.py')
+        'sim/spells.py','sim/cannon_placement.py','scripts/attack/evaluation_execution.py','scripts/attack/evaluate_continuous_pool.py')
     extensions={n:sha(n)for n in names}
     with tarfile.open(dataset/'extensions.tar.gz','w:gz')as stream:
         for name in names:stream.add(name,arcname=name,recursive=False)

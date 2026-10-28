@@ -8,6 +8,7 @@ from pathlib import Path
 
 import numpy as np
 from scripts.attack.evaluate_full_candidates import schedule, sha, summarize_test, validate_protocol
+from scripts.attack.evaluation_execution import execution_for,check_row_execution,check_duel_execution
 from sim.env import DECK_26
 
 
@@ -45,6 +46,10 @@ def check_cards(metrics):
 def validate_part(report, job, protocol, blueprint):
     require(report['kind'] == job['kind'], 'Wrong part kind')
     rows = report['rows']
+    if protocol['schema'].endswith('-v2'):
+        for row in rows:
+            check_row_execution(row,execution_for(protocol))
+            if job['kind']=='duel':check_duel_execution(row,execution_for(protocol))
     require(len(rows) == job['games'], 'Incomplete part')
     require(all(r['outcome'] in ('win', 'loss', 'draw') for r in rows), 'Unknown outcome')
     if job['kind'] == 'test':
@@ -107,6 +112,8 @@ def verify(protocol_path, weights, output, *, expected_source_sha256=None):
         require(source_digest == expected_source_sha256, 'Submitted evaluation source differs')
     require(json.loads((output / 'run_identity.json').read_text()) == identity(protocol_path, source_digest, jobs), 'Run identity differs')
     result = json.loads((output / 'result.json').read_text())
+    if protocol['schema'].endswith('-v2'):
+        require(result.get('execution')==execution_for(protocol), 'Result execution differs')
     require(result['source_manifest_sha256'] == source_digest, 'Result source differs')
     require(result['schema'] == 'full-candidate-independent-evaluation-v1' and result['status'] == 'complete', 'Complete evaluation required')
     require(result['protocol_sha256'] == sha(protocol_path) and result['blueprint_sha256'] == protocol['blueprint_sha256'] and result['models'] == protocol['models'], 'Evaluation provenance differs')

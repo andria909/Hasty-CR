@@ -15,6 +15,7 @@ import threading
 import numpy as np
 import torch
 from scripts.attack.evaluate_continuous_pool import choose,duel,load,sha
+from scripts.attack.evaluation_execution import (LEGACY, execution_for, validate_execution, environment_kwargs)
 from sim import arena
 from sim.continuous_push import ContinuousPushEnv,PushCase
 from sim.defense_assets import load_defense_assets
@@ -26,9 +27,14 @@ from sim.tactical_rewards import fireball_outcomes
 def validate_protocol(protocol,weights):
     weights=Path(weights)
     blueprint_path=weights/'evaluation_blueprint.json'
-    if protocol.get('schema')!='bound-full-candidate-evaluation-v1' or sha(blueprint_path)!=protocol.get('blueprint_sha256'):
+    if protocol.get('schema') not in ('bound-full-candidate-evaluation-v1','bound-full-candidate-evaluation-v2') or sha(blueprint_path)!=protocol.get('blueprint_sha256'):
         raise ValueError('Bound precommitted blueprint required')
     blueprint=json.loads(blueprint_path.read_text())
+    if protocol['schema'].endswith('-v2'):
+        if blueprint.get('schema')!='precommitted-full-candidate-evaluation-v2' or execution_for(protocol)!=execution_for(blueprint):
+            raise ValueError('Bound execution differs from precommitted blueprint')
+    elif 'execution' in protocol or 'execution' in blueprint:
+        raise ValueError('Explicit execution requires version2 protocol and blueprint')
     models=protocol['models'];names=[m['id']for m in models]
     if len(set(names))!=len(names)or any(not re.fullmatch(r'[a-z][a-z0-9]*(?:_[a-z0-9]+)*',n)for n in names):
         raise ValueError('Unique safe model identifiers required')
@@ -75,16 +81,17 @@ def schedule(protocol,blueprint):
     return jobs
 
 
-def test_game(network,entry,test,task,family,seed,device):
-    env=ContinuousPushEnv(split='test',action_delay_ms=225,max_ms=310000)
+def test_game(network,entry,test,task,family,seed,device,*,execution=None):
+    execution=validate_execution(LEGACY if execution is None else execution)
+    env=ContinuousPushEnv(split='test',**environment_kwargs(execution))
     case=PushCase(task,family,test['style'],'test');env.scenarios=[case]
     env.reset(seed=seed,scenario_id=case.scenario_id)
-    for _ in range(1242):
+    for _ in range(execution['max_ms']//execution['decision_interval_ms']+2):
         reserved=sum(env.cards[c[1]].cost*1000 for c in env.pending)
         action=choose(network,env.match,1,entry['mode'],env._mask(),device,reserved)
         _,_,done,truncated,info=env.step(action)
         if done or truncated:
-            row=dict(info['metrics'],seed=seed,test_set=test['id'])
+            row=dict(info['metrics'],seed=seed,test_set=test['id'],execution=execution)
             if row['outcome']not in('win','loss','draw'):raise ValueError('Nonterminal test outcome')
             return row
     raise RuntimeError('Finite evaluation game did not finish')
@@ -122,6 +129,7 @@ def summarize_test(rows):
 def evaluate(protocol_path,weights,output,source_manifest,*,resume=None):
     protocol_path,weights,output=Path(protocol_path),Path(weights),Path(output)
     protocol=json.loads(protocol_path.read_text());blueprint=validate_protocol(protocol,weights)
+    execution=execution_for(protocol)
     jobs=schedule(protocol,blueprint)
     from scripts.attack.full_evaluation_recovery import source_identity,identity,write_json,restore_parts,commit_part
     source_digest=source_identity(source_manifest,Path(__file__).resolve().parents[2])
@@ -155,14 +163,14 @@ def evaluate(protocol_path,weights,output,source_manifest,*,resume=None):
                 for task in blueprint['tasks']:
                     for family in blueprint['families']:
                         for seed in test['seeds']:
-                            rows.append(test_game(nets[entry['id']],entry,test,task,family,seed,device));finished_game()
+                            rows.append(test_game(nets[entry['id']],entry,test,task,family,seed,device,execution=execution));finished_game()
                 report=dict(kind='test',model=entry,test_set=test['id'],summary=summarize_test(rows),rows=rows,
                     by_task_family={f'{task}/{family}':summarize_test([r for r in rows if r['task']==task and r['family_id']==family])for task in blueprint['tasks']for family in blueprint['families']})
             else:
                 a,b=(models[name]for name in job['pair'])
                 for seed in blueprint['tournament']['seeds']:
                     for seat in blueprint['tournament']['seats']:
-                        row=duel((nets[a['id']],a['mode']),(nets[b['id']],b['mode']),device,seed,seat,cards,spells,on_complete=public_duel_metrics)
+                        row=duel((nets[a['id']],a['mode']),(nets[b['id']],b['mode']),device,seed,seat,cards,spells,on_complete=public_duel_metrics,execution=execution)
                         if row['outcome']not in('win','loss','draw'):raise ValueError('Nonterminal duel outcome')
                         rows.append(row);finished_game()
                 report=dict(kind='duel',pair=job['pair'],games=len(rows),counts=dict(Counter(r['outcome']for r in rows)),rows=rows)
@@ -177,7 +185,7 @@ def evaluate(protocol_path,weights,output,source_manifest,*,resume=None):
     if completed!=total:raise ValueError('Evaluation game budget missing')
     result=dict(schema='full-candidate-independent-evaluation-v1',status='complete',
         protocol_sha256=sha(protocol_path),blueprint_sha256=protocol['blueprint_sha256'],models=list(models.values()),
-        total_games=total,reused_games=reused,source_manifest_sha256=source_digest,files={j['file']:sha(output/j['file'])for j in jobs},
+        execution=execution,total_games=total,reused_games=reused,source_manifest_sha256=source_digest,files={j['file']:sha(output/j['file'])for j in jobs},
         test_used_for_selection=False,quality_accepted=False,live_checkpoint_changed=False)
     with(output/'result.json').open('x')as stream:json.dump(result,stream,indent=2);stream.write('\n')
     return result

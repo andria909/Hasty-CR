@@ -71,3 +71,18 @@ def test_existing_binding_is_never_overwritten(tmp_path, monkeypatch):
     with pytest.raises(ValueError, match='already exists'): module.bind(roots, output, blueprint_path=bp)
     assert (output / 'keep').read_text() == 'preserved'
     assert not calls
+
+
+def test_new_execution_is_bound_and_cannot_silently_become_legacy(tmp_path,monkeypatch):
+    from scripts.attack.evaluation_execution import CURRENT
+    bp,roots,_,_=inputs(tmp_path,monkeypatch,1)
+    spec=json.loads(bp.read_text())
+    spec.update(schema='precommitted-full-candidate-evaluation-v2',execution=CURRENT)
+    spec['evaluation_runtime'].update({k:v for k,v in CURRENT.items()if k!='schema'})
+    bp.write_text(json.dumps(spec))
+    output=tmp_path/'bound_new'
+    module.bind(roots,output,blueprint_path=bp)
+    protocol=json.loads((output/'protocol.json').read_text())
+    assert protocol['schema']=='bound-full-candidate-evaluation-v2'
+    assert protocol['execution']==CURRENT
+    module.validate_protocol(protocol,output/'weights')

@@ -11,7 +11,7 @@ import shutil
 from scripts.attack.evaluate_full_candidates import schedule, sha, validate_protocol
 from scripts.attack.verify_global_full_pair import verify as verify_full
 
-BLUEPRINT = Path('data/ppo_tuning/full_candidate_evaluation_20261027/protocol.json')
+BLUEPRINT = Path('data/ppo_tuning/central_tower_evaluation_20261028/protocol.json')
 
 
 def write_json(path, value):
@@ -30,7 +30,7 @@ def bind(prepared_roots, output, *, blueprint_path=BLUEPRINT):
     blueprint_path = Path(blueprint_path)
     blueprint_digest = sha(blueprint_path)
     blueprint = json.loads(blueprint_path.read_text())
-    if blueprint.get('schema') != 'precommitted-full-candidate-evaluation-v1':
+    if blueprint.get('schema') not in ('precommitted-full-candidate-evaluation-v1','precommitted-full-candidate-evaluation-v2'):
         raise ValueError('Precommitted evaluation blueprint required')
     # Complete every expensive audit before creating the package. An unfinished
     # run or bad digest must not leave a seemingly usable bound protocol.
@@ -84,6 +84,9 @@ def bind(prepared_roots, output, *, blueprint_path=BLUEPRINT):
     protocol = dict(schema='bound-full-candidate-evaluation-v1', blueprint_sha256=blueprint_digest,
                     models=models, test_used_for_selection=False, quality_accepted=False,
                     live_checkpoint_changed=False)
+    if blueprint['schema'].endswith('-v2'):
+        from scripts.attack.evaluation_execution import execution_for
+        protocol.update(schema='bound-full-candidate-evaluation-v2',execution=execution_for(blueprint))
     validated = validate_protocol(protocol, weights)
     jobs = schedule(protocol, validated)
     # The protocol is the final commit marker. Failed copies cannot be submitted
@@ -100,5 +103,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--prepared', nargs='+', required=True)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--blueprint',default=str(BLUEPRINT))
     args = parser.parse_args()
-    print(json.dumps(bind(args.prepared, args.output), indent=2))
+    print(json.dumps(bind(args.prepared, args.output,blueprint_path=args.blueprint), indent=2))

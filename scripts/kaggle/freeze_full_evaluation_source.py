@@ -13,6 +13,7 @@ from scripts.attack.evaluate_full_candidates import sha
 from scripts.kaggle.run_five_round_robin import prepare_source
 
 EVALUATORS = (
+    'scripts/attack/evaluation_execution.py',
     'scripts/attack/evaluate_continuous_pool.py',
     'scripts/attack/evaluate_full_candidates.py',
     'scripts/attack/verify_full_candidate_evaluation.py',
