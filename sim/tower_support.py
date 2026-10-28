@@ -11,6 +11,7 @@ class TowerSupport:
         if side not in (-1,1):raise ValueError('Simulator side required')
         self.battle=battle;self.side=side
         self.total_damage=0.;self.assisted_damage=0.;self.assisted_value=0.
+        self.total_paid_value=0.;self.total_credited={}
         self.credited={};self.events=[]
 
     def record(self, event):
@@ -20,6 +21,10 @@ class TowerSupport:
         source=self.battle.entities.get(source_id);target=self.battle.entities.get(target_id)
         if not source or not target or not source.is_tower or source.side!=self.side or target.side!=-self.side or target.is_tower:return
         self.total_damage+=damage
+        value=max(0,target.elixir_value)/1000
+        all_credit=min(max(0.,value-self.total_credited.get(target_id,0.)),value*damage/max(1,target.max_hitpoints))
+        self.total_credited[target_id]=self.total_credited.get(target_id,0.)+all_credit
+        self.total_paid_value+=all_credit
         defender=self.battle.entities.get(target.target_uid)
         supported=bool(defender and defender.side==self.side and not defender.is_tower and defender.alive)
         credit=0.
@@ -32,7 +37,7 @@ class TowerSupport:
             self.credited[target_id]=self.credited.get(target_id,0.)+credit
             self.assisted_value+=credit
         self.events.append(dict(time_ms=stamp,tower=source_id,enemy=target_id,damage=damage,
-            defender=defender.uid if supported else None,credited_value=credit))
+            defender=defender.uid if supported else None,credited_value=credit,total_credited_value=all_credit))
 
     def attach(self):
         if isinstance(self.battle.damage_log,ObservedDamageLog):raise ValueError('Already instrumented')
@@ -41,7 +46,7 @@ class TowerSupport:
 
     def metrics(self):
         return dict(tower_damage=self.total_damage,assisted_tower_damage=self.assisted_damage,
-                    assisted_paid_value=self.assisted_value,events=len(self.events))
+                    assisted_paid_value=self.assisted_value,total_paid_value=self.total_paid_value,events=len(self.events))
 
 
 class ObservedDamageLog(list):

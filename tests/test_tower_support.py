@@ -42,3 +42,15 @@ def test_snapshot_does_not_recredit_damage_and_rebinds_callback():
     copied.battle.damage_log.append((100,1,2,250))
     assert copied.assisted_value==2.5
     assert t.assisted_value==1.25
+
+
+def test_all_damage_includes_tower_aggro_but_caps_healing_and_ignores_enemy_towers():
+    b=fixture();t=TowerSupport(b).attach();b.entities[2].target_uid=1
+    b.damage_log.append((50,1,2,250))
+    assert t.total_paid_value==1.25 and t.assisted_value==0
+    b.damage_log.append((100,1,2,2000))
+    b.damage_log.append((150,1,2,1000))
+    assert t.total_paid_value==5
+    b.entities[1].side=-1
+    b.damage_log.append((200,1,2,1000))
+    assert t.total_paid_value==5

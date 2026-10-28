@@ -1,0 +1,114 @@
+{
+  "protocol": {
+    "seed": 8137,
+    "families": [
+      "hog",
+      "giant",
+      "air",
+      "golem",
+      "swarm",
+      "bridge"
+    ],
+    "cooldowns_ms": [
+      2100,
+      0
+    ],
+    "models": [
+      {
+        "id": "tower",
+        "path": "tmp/kaggle/tower_support_motionfix_20261028/collected/pilot_large_s232/update_000100.pt",
+        "sha256": "b4b250efec389c7270019a2971097f1323df7f36586ac2edef02f0abc2c5078f"
+      },
+      {
+        "id": "strong",
+        "path": "tmp/full_eval_recovery_build_20261028/full_eval_inputs/weights/strong.pt",
+        "sha256": "82e988f074937fe86d7c9ec1eb1dfce384142eabe98ebc75adf4e1986c71a7fd"
+      }
+    ],
+    "source_sha256": {
+      "sim/continuous_push.py": "1812819662d6055f7951e6a0516696d382da6ed24bcb656544ab8756aa467901",
+      "sim/engine.py": "2947c37fe5f2eb5fc146347fd09459c776f7f15cbd4275a9c989a95c41940796",
+      "sim/match.py": "65932ba8fb6aacd022b2adffa7ca411b7728ad172cad8196f55981c46fdd7f5c",
+      "/Users/andriashadrin/projects/Hasty-CR/scripts/attack/audit_slot_cooldown_transfer.py": "9fd808779b692730e299315c55145e1b3d1bdf9650e76a201d77f61184c46641"
+    },
+    "scope": "TRAIN development only; fresh current physics, fixed1350ms/250ms; isolate post-acceptance lock. No checkpoint selection, no live games, no training."
+  },
+  "summaries": [
+    {
+      "model": "tower",
+      "cooldown_ms": 2100,
+      "games": 6,
+      "wins": 1,
+      "available_below4_time_fraction": 0.9915170366181253,
+      "cards_per_game": {
+        "cannon": 10.166666666666666,
+        "electro_spirit": 12.166666666666666,
+        "fireball": 1.6666666666666667,
+        "hog_rider": 2.3333333333333335,
+        "knight": 10.0,
+        "musketeer": 2.6666666666666665,
+        "skeletons": 12.833333333333334,
+        "zap": 12.333333333333334
+      },
+      "mean_own_fraction_loss": 1.1392686631944446,
+      "voluntary_wait": 3,
+      "playable": 391
+    },
+    {
+      "model": "tower",
+      "cooldown_ms": 0,
+      "games": 6,
+      "wins": 1,
+      "available_below4_time_fraction": 0.9978373702422145,
+      "cards_per_game": {
+        "cannon": 12.833333333333334,
+        "electro_spirit": 13.166666666666666,
+        "knight": 12.5,
+        "musketeer": 0.6666666666666666,
+        "skeletons": 13.666666666666666,
+        "zap": 13.166666666666666
+      },
+      "mean_own_fraction_loss": 1.306640625,
+      "voluntary_wait": 6,
+      "playable": 405
+    },
+    {
+      "model": "strong",
+      "cooldown_ms": 2100,
+      "games": 6,
+      "wins": 2,
+      "available_below4_time_fraction": 0.9922255273120606,
+      "cards_per_game": {
+        "cannon": 10.5,
+        "electro_spirit": 12.333333333333334,
+        "fireball": 4.0,
+        "hog_rider": 1.8333333333333333,
+        "knight": 12.166666666666666,
+        "skeletons": 13.166666666666666,
+        "zap": 13.166666666666666
+      },
+      "mean_own_fraction_loss": 1.0374116443452381,
+      "voluntary_wait": 0,
+      "playable": 408
+    },
+    {
+      "model": "strong",
+      "cooldown_ms": 0,
+      "games": 6,
+      "wins": 1,
+      "available_below4_time_fraction": 0.99889819303658,
+      "cards_per_game": {
+        "cannon": 12.333333333333334,
+        "electro_spirit": 13.0,
+        "knight": 13.166666666666666,
+        "skeletons": 13.0,
+        "zap": 13.0
+      },
+      "mean_own_fraction_loss": 1.2454388330853174,
+      "voluntary_wait": 0,
+      "playable": 390
+    }
+  ],
+  "replication_matches_previous": true,
+  "full_result": "tmp/slot_cooldown_transfer_explicit_20261028/result.json"
+}

@@ -30,6 +30,7 @@ def replay(context, cards, spells, *, pending_inputs=False):
     else:
         env = object.__new__(ContinuousPushEnv)
     env.match, env.cards, env.spells = match, cards, spells
+    env.profile={'cannon_center_only':1}
     env.pending, env.slot_ready, env.reflected = [], {}, False
     commands = {c['requested_ms']: c for c in plan['commands']}
     if len(commands) != len(plan['commands']):

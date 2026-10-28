@@ -48,6 +48,23 @@ def test_delayed_command_locks_only_its_slot_and_reserves_mana():
     assert e.match.elapsed_ms>=3000
 
 
+def test_zero_extra_lock_releases_replacement_only_after_acceptance():
+    e=ContinuousPushEnv(action_delay_ms=750,continuous_profile={'action_cooldown_ms':0,'decision_interval_ms':250})
+    e.reset(seed=3);e._enemy=lambda:None
+    e.match.players[1].elixir=10000
+    a=int(np.flatnonzero(e._mask()[1:])[0]+1);slot=(a-1)//576
+    card=e.match.players[1].hand[slot]
+    e.step(a)
+    assert e.pending and not e.actions
+    assert not e._mask()[1+slot*576:1+(slot+1)*576].any()
+    e.step(0);e.step(0)
+    assert not e.actions and e.pending # due at750 is applied at next step start
+    e.step(0)
+    assert len(e.actions)==1 and not e.pending
+    assert e.match.players[1].hand[slot]!=card
+    assert e._mask()[1+slot*576:1+(slot+1)*576].any()
+
+
 def test_snapshot_replays_opponent_and_reward_exactly():
     e=ContinuousPushEnv();e.reset(seed=2);state=e.snapshot()
     first=e.step(0);events=list(e.enemy_actions)

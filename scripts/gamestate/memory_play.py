@@ -123,6 +123,8 @@ def main():
     report['geometry']=policy.geometry
     report['joint_policy']=policy.joint
     report['screenshot_every']=args.screenshot_every
+    from sim.cannon_placement import CENTRAL_MODE
+    report['cannon_placement_mode']=CENTRAL_MODE
     log = (args.output / 'events.jsonl').open('x')
     frames = (args.output / 'frames.jsonl').open('x')
     pool = ThreadPoolExecutor(max_workers=1)
@@ -212,7 +214,7 @@ def main():
                 report['started'] += 1
                 adapter = NativeModelAdapter(own_side=private['own_side'], allow_incomplete_history=True,
                                              allow_unknown_profiles=True, coordinate_mode=policy.coordinate_mode,
-                                             geometry=policy.geometry)
+                                             geometry=policy.geometry,cannon_placement_mode=CENTRAL_MODE)
                 active = {'number': report['started'], 'world': private['world'], 'last_tick': -1,
                           'last_progress': now, 'last_decide': -100, 'last_idle': now,
                           'plays': 0, 'cards': {}, 'seen_towers': set(), 'missing_towers': {},

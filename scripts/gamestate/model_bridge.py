@@ -74,7 +74,8 @@ class NativeModelAdapter:
                  allow_incomplete_history: bool = False,
                  allow_unknown_profiles: bool = False,
                  coordinate_mode: str = 'legacy_training',
-                 geometry=None, action_mask_mode: str | None = None):
+                 geometry=None, action_mask_mode: str | None = None,
+                 cannon_placement_mode='unrestricted'):
         if own_side not in (0, 1):
             raise ValueError('Own engine side must be explicitly supplied as 0 or 1')
         self.own_side, self.stats_level = own_side, stats_level
@@ -83,6 +84,11 @@ class NativeModelAdapter:
         if coordinate_mode not in ('legacy_training', 'physical_live', 'physical_live_cells_v2'):
             raise ValueError('Unknown coordinate mode')
         self.coordinate_mode = coordinate_mode
+        from sim.cannon_placement import MODES
+        if cannon_placement_mode not in MODES:raise ValueError('Unknown Cannon placement contract')
+        if cannon_placement_mode!='unrestricted'and coordinate_mode!='physical_live_cells_v2':
+            raise ValueError('Central Cannon placement requires physical cell coordinates')
+        self.cannon_placement_mode=cannon_placement_mode
         self.geometry = arena.resolve_geometry(geometry)
         self.action_mask_mode = action_mask_mode or (
             'mechanical' if coordinate_mode == 'physical_live_cells_v2' else 'legacy_strategic')
@@ -243,6 +249,8 @@ class NativeModelAdapter:
         observation = observe(encoder_match, side=1, coordinate_mode=encoding)
         mask = legal_mask(encoder_match, self.cards, side=1,
                           strategic=self.action_mask_mode == 'legacy_strategic')
+        from sim.cannon_placement import restrict_cannon
+        mask=restrict_cannon(mask,own.hand,self.cannon_placement_mode)
         blockers = []
         if not own.battle_active:
             blockers.append('active_battle_not_confirmed')
@@ -262,6 +270,7 @@ class NativeModelAdapter:
             'geometry': self.geometry.profile_id,
             'geometry_sha256': self.geometry.fingerprint,
             'action_mask_mode': self.action_mask_mode,
+            'cannon_placement_mode': self.cannon_placement_mode,
             'stats_level': self.stats_level,
             'hp_source': 'native_current_hp',
             'traits_source': 'sim_unit_profile_at_explicit_stats_level',
@@ -291,6 +300,9 @@ class MemoryPolicy:
         self.geometry = config.get('geometry', 'legacy_v1')
         self.input_contract = {key: config[key] for key in
             ('geometry', 'geometry_sha256', 'coordinate_mode', 'action_mask_mode') if key in config}
+        if isinstance(config.get('continuous_profile'),dict)and config['continuous_profile'].get('cannon_center_only'):
+            from sim.cannon_placement import CENTRAL_MODE
+            self.input_contract['cannon_placement_mode']=CENTRAL_MODE
         self.network = build_network(NUM_PLANES, NUM_SCALARS + (3 if self.joint else 0), ACTIONS,
                                      checkpoint_architecture(blob))
         self.network.load_state_dict(blob['state_dict'], strict=True)

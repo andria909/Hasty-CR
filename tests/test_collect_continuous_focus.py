@@ -55,6 +55,16 @@ def test_combined_rewards_keep_selected_and_resume_weights(monkeypatch,tmp_path,
 
 
 @pytest.mark.parametrize('variant',['control','small','medium','large'])
+@pytest.mark.parametrize('seed',[302,303])
+def test_central_tower_keeps_both_required_weights(monkeypatch,tmp_path,variant,seed):
+    run=f'pilot_{variant}_s{seed}';setup(monkeypatch,run+'/update_000050.pt',run)
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','central-tower-pilot')
+    assert result['complete']
+    assert (tmp_path/'out'/run/'update_000050.pt').exists()
+    assert (tmp_path/'out'/run/'update_000100.pt').exists()
+
+
+@pytest.mark.parametrize('variant',['control','small','medium','large'])
 @pytest.mark.parametrize('seed,profile',[(232,'tower-support-pilot'),(233,'tower-support-pilot'),
                                       (242,'spell-waste-pilot'),(243,'spell-waste-pilot')])
 def test_tower_support_keeps_selected_and_latest(monkeypatch,tmp_path,variant,seed,profile):

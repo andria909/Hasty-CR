@@ -43,6 +43,9 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             elif prep.get('study_variant')=='tower_support_reward_v1':
                 from scripts.attack.verify_tower_support_pilot import verify_tower_support
                 report=verify_tower_support(receipt.parent,root)
+            elif prep.get('study_variant')=='central_tower_damage_v1':
+                from scripts.attack.verify_central_tower_pilot import verify_central
+                report=verify_central(receipt.parent,root)
             elif prep.get('study_variant')=='combined_tower_spell_reward_v1':
                 from scripts.attack.verify_combined_reward_pilot import verify_combined
                 report=verify_combined(receipt.parent,root)

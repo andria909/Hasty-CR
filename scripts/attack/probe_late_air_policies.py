@@ -18,6 +18,7 @@ def episode(net,record,cards,spells):
     match,hp=opening(record,cards,spells)
     env=object.__new__(ContinuousPushEnv)
     env.match,env.cards,env.spells=match,cards,spells
+    env.profile={'cannon_center_only':1}
     env.pending,env.slot_ready,env.reflected=[],{},False
     start=match.elapsed_ms;actions=[];decisions=[];rejections=0;rejected_commands=[]
     while not match.finished and match.elapsed_ms<start+60000:

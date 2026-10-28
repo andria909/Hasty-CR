@@ -46,3 +46,28 @@ def test_training_factory_and_incompatible_modes():
                     {'curriculum':'continuous_v1','pending_inputs':True},
                     {'curriculum':'continuous_v1','history_frames':2}):
         with pytest.raises(ValueError):make_training_env(tower_support_weight=.1,**options)
+
+
+def test_real_tower_damage_rewards_all_mode_and_resume_without_recredit():
+    from sim.entities import make_unit
+    from sim import arena
+    base=TowerSupportContinuousPushEnv(tower_support_weight=.4)
+    all_damage=TowerSupportContinuousPushEnv(tower_support_weight=.4,continuous_profile={'tower_damage_all':1})
+    for e in (base,all_damage):
+        e.reset(seed=17);e._enemy=lambda:None
+        enemy=make_unit(0,e.cards['giant'].unit,-1,arena.tile(3,22),0)
+        enemy.elixir_value=5000;e.match.battle.add(enemy)
+    total_extra=0.
+    for _ in range(40):
+        a=base.step(0);b=all_damage.step(0)
+        assert a[2:4]==b[2:4]
+        assert base.match.battle.damage_log==all_damage.match.battle.damage_log
+        total_extra+=b[1]-a[1]
+    assert all_damage.tower_support.total_paid_value>0
+    assert base.tower_support.assisted_value==0
+    assert total_extra==pytest.approx(.4*all_damage.tower_support.total_paid_value)
+    state=all_damage.snapshot();expected=all_damage.step(0)
+    all_damage.restore(state);actual=all_damage.step(0)
+    assert expected[1:4]==actual[1:4]
+    assert expected[4]['metrics']==actual[4]['metrics']
+    with pytest.raises(ValueError):base.restore(state)

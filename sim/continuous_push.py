@@ -58,7 +58,8 @@ class ContinuousPushEnv:
         self.scenarios=[PushCase(task,family,style,split) for task in ('attack','defense') for family in DECKS for style in styles]
         self.profile=dict(overflow_penalty=.15,missed_fireball_penalty=0.,board_potential_weight=0.,
                           fireball_value_reward=0.,reserve_potential_weight=0.,barbarian_train_fraction=0.,lane_reflection_fraction=0.,shaping_gamma=.999,own_hp_penalty=4.,enemy_hp_reward=3.,
-                          win_reward=20.,loss_penalty=20.,action_cooldown_ms=2100,decision_interval_ms=250)
+                          win_reward=20.,loss_penalty=20.,action_cooldown_ms=0,decision_interval_ms=250,
+                          cannon_center_only=1,tower_damage_all=0)
         if continuous_profile:
             supplied=json.loads(Path(continuous_profile).read_text()) if isinstance(continuous_profile,(str,Path)) else dict(continuous_profile)
             if set(supplied)-set(self.profile): raise ValueError('Unknown continuous coefficient')
@@ -69,6 +70,8 @@ class ContinuousPushEnv:
         if self.profile['shaping_gamma']>1:raise ValueError('Shaping discount above one')
         if self.profile['barbarian_train_fraction']>1:raise ValueError('Invalid Barbarian training fraction')
         if self.profile['lane_reflection_fraction']>1:raise ValueError('Invalid lane reflection fraction')
+        if any(self.profile[k]not in (0,1)for k in ('cannon_center_only','tower_damage_all')):
+            raise ValueError('Cannon/tower mode flags must be 0 or 1')
         self.cards,self.spells,_,_=load_defense_assets();self.cards.update(resolve_deck(self.cards,list(DECK_26)))
         self._board_values=None
         if self.profile['board_potential_weight']:
@@ -121,6 +124,9 @@ class ContinuousPushEnv:
             if (slot in busy or self.match.elapsed_ms<self.slot_ready.get(slot,0)
                     or self.cards[card].cost*1000>available):
                 mask[1+slot*576:1+(slot+1)*576]=False
+        from sim.cannon_placement import restrict_cannon,CENTRAL_MODE
+        mask=restrict_cannon(mask,self.match.players[1].hand,
+            CENTRAL_MODE if self.profile['cannon_center_only']else 'unrestricted')
         if self.reflected:
             from sim.lane_reflection import reflect_actions
             mask=reflect_actions(mask)
@@ -238,6 +244,9 @@ class ContinuousPushEnv:
             from sim.board_potential import public_board_potential
             if not self.match.finished:potential=public_board_potential(self.match,self._board_values)
         return dict(scenario_id=self.scenario.scenario_id,family_id=self.scenario.family,
+            cannon_center_only=self.profile['cannon_center_only'],
+            action_cooldown_ms=self.profile['action_cooldown_ms'],
+            cannon_outside_center=sum(a['card']=='cannon'and not(6<=a['x']<=11 and 18<=a['y']<=23)for a in self.actions),
             episode_seed=self.seed,match_seed=self.match.seed,
             split=self.split,task=self.scenario.task,observation_contract=CONTRACT,
             terminal_reason=self.terminal_reason,elapsed_ms=self.match.elapsed_ms,
