@@ -258,6 +258,36 @@ def render_live_feedback_studies(reports):
         ('pending_inputs_pilot','Видимость ожидающих карт',(212,213),
         [('control1350','Обычный вход ·1350мс'),('pending1350','Очередь во входе ·1350мс'),
          ('control2025','Обычный вход ·2025мс'),('pending2025','Очередь во входе ·2025мс')])]
+    motionfix_path=reports/'motionfix_pilot_submission_20261028.json'
+    if motionfix_path.exists():
+        launch=json.loads(motionfix_path.read_text())
+        lines += ['**Новый цикл на исправленной физике:**','',
+                  '| Обучение | Прогресс | Состояние |','|---|---:|---|']
+        for row in launch['studies']:
+            root=Path(row['root']);state_path=root/'launch_state.json'
+            state=json.loads(state_path.read_text()) if state_path.exists() else {}
+            status={'preflight_running':'Техническая проверка', 'submitting':'Отправляется на Kaggle',
+                    'submitted_observers_started':'Kaggle принял; ожидаем счётчики',
+                    'failed_requires_inspection':'Ошибка запуска; нужна проверка'}.get(state.get('status'),'Подготовлен')
+            remote_path=root/'collected.status.json'
+            if remote_path.exists():
+                remote=json.loads(remote_path.read_text())
+                if remote.get('kernel')==row['kernel']:
+                    status='Kaggle: '+remote.get('remote_status','UNKNOWN')+'; ожидаем счётчики'
+            progress='—';stream=root/'live_stream/progress.json'
+            if stream.exists():
+                snapshot=json.loads(stream.read_text())
+                protocol=json.loads((root/'dataset/protocol.json').read_text())
+                expected={f"pilot_{case['id']}_s{seed}" for case in protocol['cases'] for seed in protocol['pilot_seeds']}
+                trials=snapshot.get('trials',{})
+                if snapshot.get('kernel')==row['kernel'] and trials and set(trials)<=expected and all(
+                        v.get('target_steps')==102400 and type(v.get('steps')) is int and 0<=v['steps']<=102400 for v in trials.values()):
+                    progress=f"{100*sum(v['steps'] for v in trials.values())/(102400*len(expected)):.1f}%"
+                    status='Шаги обучения подтверждены логами'
+            verified=reports/(row['stem']+'_verified_20261027.json')
+            if verified.exists(): status='Завершено, бюджет проверен';progress='100%'
+            lines.append(f"| {row['label']} | {progress} | {status} |")
+        lines += ['', 'Всего24 прогона,2457600 PPO-шагов. Мониторинг раз в20 минут. Старые веса сохранены.', '']
     parallel_path=reports/'parallel_pilot_submission_20261028.json'
     if parallel_path.exists():
         launch=json.loads(parallel_path.read_text())
@@ -286,6 +316,8 @@ def render_live_feedback_studies(reports):
                         v.get('target_steps')==102400 and type(v.get('steps'))is int and 0<=v['steps']<=102400 for v in trials.values()):
                     progress=f"{100*sum(v['steps']for v in trials.values())/(102400*len(expected)):.1f}%"
                     status='Шаги получены из логов; итог проверяется'
+            if (reports/(row['stem']+'_verified_20261027.json')).exists():
+                status='Завершено, бюджет проверен';progress='100%'
             lines.append(f"| {labels[row['stem']]} | {row['kernel'].split('/')[0]} | {progress} | {status} |")
         lines += ['','Каждый опыт:4 профиля ×2 seed, суммарно819200 PPO-шагов. Приём запуска не означает начало CUDA-обучения.','']
     lines += ['**Исправлены слоты руки:** отклонения выставлений33 →0 в144 одинаковых TRAIN-эпизодах; старые GPU-пакеты сохраняют прежнюю механику. [Разбор](reports/late_air_slot_fix_20261027.md).','']

@@ -18,13 +18,17 @@ from sim.env import ACTIONS, DECK_26
 from sim.runner import resolve_deck
 
 
-def replay(context, cards, spells):
+def replay(context, cards, spells, *, pending_inputs=False):
     match, hp = opening(context['opening'], cards, spells)
     plan = context['best']
     if not plan['valid'] or not plan['clear_without_damage'] or not plan['commands']:
         raise ValueError('Successful paid plan required')
     # Use the actual PPO environment observation/mask implementation unchanged.
-    env = object.__new__(ContinuousPushEnv)
+    if pending_inputs:
+        from sim.continuous_pending import PendingContinuousPushEnv
+        env = object.__new__(PendingContinuousPushEnv)
+    else:
+        env = object.__new__(ContinuousPushEnv)
     env.match, env.cards, env.spells = match, cards, spells
     env.pending, env.slot_ready, env.reflected = [], {}, False
     commands = {c['requested_ms']: c for c in plan['commands']}
@@ -74,7 +78,7 @@ def replay(context, cards, spells):
     return rows
 
 
-def build(search_path, output):
+def build(search_path, output, *, pending_inputs=False):
     search_path, output = Path(search_path), Path(output)
     result = json.loads(search_path.read_text())
     protocol = result['protocol']
@@ -88,7 +92,7 @@ def build(search_path, output):
     arrays = {k:[] for k in ('planes','scalars','masks','success_masks')}
     records = []
     for context in result['contexts']:
-        for row in replay(context, cards, spells):
+        for row in replay(context, cards, spells, pending_inputs=pending_inputs):
             index = len(records)
             for key in arrays:
                 arrays[key].append(row[key])
@@ -111,11 +115,19 @@ def build(search_path, output):
                      'WAIT is a valid successful continuation, not proof other actions are worse',
                      'Pending commands have no explicit spatial input in the current policy contract',
                      'Correlated TRAIN frames; local holdout is not a winrate; no full-game promotion'])
+    manifest['pending_inputs']=pending_inputs
+    if pending_inputs:
+        from sim.pending_inputs import CONTRACT
+        manifest.update(schema='late-air-pending-sequence-labels-v1',observation_contract=CONTRACT,
+            own_inputs='Exact PendingContinuousPushEnv._observe/_mask:24 planes,313 scalars; own pending cells/times only',
+            pending_source_sha256={name:file_sha(name)for name in ('sim/pending_inputs.py','sim/continuous_pending.py')})
+        manifest['limitations']=[text for text in manifest['limitations']if not text.startswith('Pending commands have no explicit')]
     (output/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     return manifest
 
 
 if __name__ == '__main__':
     p=argparse.ArgumentParser(); p.add_argument('--search',required=True); p.add_argument('--output',required=True)
-    a=p.parse_args(); r=build(a.search,a.output)
+    p.add_argument('--pending-inputs',action='store_true')
+    a=p.parse_args(); r=build(a.search,a.output,pending_inputs=a.pending_inputs)
     print(json.dumps({k:r[k] for k in ('examples','sequences','seeds','data_sha256')}))

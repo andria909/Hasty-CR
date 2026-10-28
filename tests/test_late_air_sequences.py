@@ -38,3 +38,22 @@ def test_cycled_zap_waits_for_real_slot_and_reproduces_clear():
     broken=deepcopy(context);broken['best']['own_tower_damage']['left']=1
     with pytest.raises(ValueError,match='outcome did not reproduce'):
         replay(broken,cards,spells)
+
+
+def test_pending_teacher_exposes_only_already_requested_card_position_and_time():
+    data,cards,spells=source()
+    context=next(c for c in data['contexts']if c['opening']['seed']==3800057)
+    base=replay(context,cards,spells)
+    pending=replay(context,cards,spells,pending_inputs=True)
+    command=context['best']['commands'][0];slot=command['slot'];x,y=command['cell']
+    assert len(pending)==len(base)==2
+    for before,after in zip(base,pending):
+        np.testing.assert_array_equal(before['planes'],after['planes'][:20])
+        np.testing.assert_array_equal(before['scalars'],after['scalars'][:309])
+        np.testing.assert_array_equal(before['masks'],after['masks'])
+        assert before['action']==after['action']
+    assert pending[0]['planes'][20:].sum()==0
+    assert pending[0]['scalars'][309:].sum()==0
+    assert pending[1]['planes'][20:].sum()==1
+    assert pending[1]['planes'][20+slot,y,x]==1
+    assert pending[1]['scalars'][309+slot]==pytest.approx(1100/3000)
