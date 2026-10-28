@@ -12,7 +12,7 @@ def summarize(root,verified=None):
     protocol=json.loads((root/'dataset/protocol.json').read_text());rows=[]
     if verified is None:
         variant=protocol.get('study_variant')
-        if variant=='own_pending_inputs_v1':
+        if variant in ('own_pending_inputs_v1','pending_sequence_retention_v1'):
             from scripts.attack.verify_frozen_pending import verify as verify_study
         elif variant=='late_air_sequential_teacher_v1':
             from scripts.attack.verify_sequence_pilot import verify_sequence as verify_study
@@ -78,7 +78,7 @@ def summarize(root,verified=None):
         if bank:row.update(overflow_penalty=trial['overflow_penalty'],card_balance_weight=trial['card_balance_weight'])
         if warm:
             row.update(warmstart_updates=trial['warmstart_updates'],warmstart_kl_weight=trial['warmstart_kl_weight'],local_diagnostic_by_seed=local)
-            if retention:row['supervised_replay_weight']=trial['supervised_replay_weight']
+            if retention or protocol.get('study_variant')=='pending_sequence_retention_v1':row['supervised_replay_weight']=trial['supervised_replay_weight']
             for phase in('before','after'):
                 scores=[r[phase]['local_heldout']for r in local]
                 row['local_'+phase+'_ppo']=dict(successful_choices=sum(r['successful_choices']for r in scores),

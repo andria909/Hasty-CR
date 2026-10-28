@@ -34,7 +34,7 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             if prep.get('study_variant')=='late_air_sequential_teacher_v1':
                 from scripts.attack.verify_sequence_pilot import verify_sequence
                 report=verify_sequence(receipt.parent,root)
-            elif prep.get('study_variant')=='own_pending_inputs_v1':
+            elif prep.get('study_variant') in ('own_pending_inputs_v1','pending_sequence_retention_v1'):
                 from scripts.attack.verify_frozen_pending import verify as verify_pending
                 report=verify_pending(receipt.parent,root)
             elif prep.get('study_variant')=='native_fireball_slot_v1':

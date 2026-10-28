@@ -5,7 +5,8 @@ from scripts.attack.summarize_clock_pilots import summarize
 
 
 @pytest.mark.parametrize('variant,module,function',[
-    ('own_pending_inputs_v1','scripts.attack.verify_pending_focus','verify'),
+    ('own_pending_inputs_v1','scripts.attack.verify_frozen_pending','verify'),
+    ('pending_sequence_retention_v1','scripts.attack.verify_frozen_pending','verify'),
     ('late_air_sequential_teacher_v1','scripts.attack.verify_sequence_pilot','verify_sequence'),
     ('native_fireball_slot_v1','scripts.attack.verify_native_fireball_slot','verify_native_fireball'),
     ('tower_support_reward_v1','scripts.attack.verify_tower_support_pilot','verify_tower_support'),

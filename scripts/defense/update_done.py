@@ -259,7 +259,7 @@ def render_live_feedback_studies(reports):
         [('control1350','Обычный вход ·1350мс'),('pending1350','Очередь во входе ·1350мс'),
          ('control2025','Обычный вход ·2025мс'),('pending2025','Очередь во входе ·2025мс')])]
     if (reports/'pending_sequence_replay_smoke_20261028.json').exists():
-        lines += ['**Следующий опыт:** повторение последовательностей защиты с входом24/313 подключено к PPO. Восстановление16→32 шага точно совпало с непрерывным запуском,16 тестов прошли. Отдельный GPU-пакет ещё не подготовлен.', '']
+        lines += ['**Следующий опыт:** повторение последовательностей защиты с входом24/313 подключено к PPO. Восстановление16→32 шага точно совпало с непрерывным запуском,16 тестов прошли. Четыре профиля прошли48 технических игр; отправка и прогресс указаны ниже.', '']
     elif (reports/'pending_sequence_warmstart_smoke_20261028.json').exists():
         lines += ['**Следующий опыт:** предварительное обучение последовательной защите с входом24/313 работает;5 CPU-обновлений и12 тестов пройдены. Удержание этого навыка в PPO ещё не подключено. Это техническая проверка, не новый винрейт.', '']
     motionfix_path=reports/'motionfix_pilot_submission_20261028.json'
@@ -291,7 +291,7 @@ def render_live_feedback_studies(reports):
             verified=reports/(row['stem']+'_verified_20261027.json')
             if verified.exists(): status='Завершено, бюджет проверен';progress='100%'
             lines.append(f"| {row['label']} | {progress} | {status} |")
-        lines += ['', 'Всего24 прогона,2457600 PPO-шагов. Мониторинг раз в20 минут. Старые веса сохранены.', '']
+        lines += ['', 'Всего32 прогона,3276800 PPO-шагов. Мониторинг раз в20 минут. Старые веса сохранены.', '']
     parallel_path=reports/'parallel_pilot_submission_20261028.json'
     if parallel_path.exists():
         launch=json.loads(parallel_path.read_text())

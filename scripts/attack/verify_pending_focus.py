@@ -71,6 +71,8 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps,*
                 w.get('source_sha256')!=c['extensions']['scripts/attack/train_air_position_warmstart.py']or
                 w.get('heldout_seed')!=heldout or set(w.get('train_seeds',[]))!=groups-{heldout}):
             raise ValueError('Warmstart origin, budget or grouped split differs')
+        if trial.get('pending_inputs') and (w.get('pending_inputs')is not True or w.get('sequence_wait_fraction')!=trial.get('sequence_wait_fraction') or w.get('sampling')!='equal_sequence_mass_bounded_wait_with_replacement'):
+            raise ValueError('Actual pending warmstart sampler differs')
         updates=json.loads((warm/'updates.json').read_text())
         if(len(updates)!=trial['warmstart_updates']or any(r['update']!=i or
                 not all(math.isfinite(r[k])for k in('loss','imitation','kl'))for i,r in enumerate(updates,1))):
@@ -118,7 +120,7 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps,*
             data=Path(temporary)
             shutil.copyfile(prepared/'air_examples.npz',data/'examples.npz')
             shutil.copyfile(prepared/'air_manifest.json',data/'manifest.json')
-            expected=SuccessfulActionReplay(data,'cpu').metadata
+            expected=SuccessfulActionReplay(data,'cpu',**(dict(pending_inputs=True) if trial['pending_inputs'] else {})).metadata
         if (config.get('supervised_replay_metadata')!=expected or
                 expected['source_sha256']!=c['extensions']['sim/supervised_replay.py']):
             raise ValueError('Replay data, split or source differs')
@@ -161,9 +163,24 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps,*
     if row['checkpoint']!=expected or sha(root/expected)!=row['checkpoint_sha256']:raise ValueError('Selected weight differs')
     return row
 
+def validate_protocol(protocol,config,variant):
+    if config.get('allow_full_training') is not False or len(protocol['cases'])!=4:
+        raise ValueError('Fixed pilot without automatic full training required')
+    if variant=='own_pending_inputs_v1':
+        if protocol['pilot_seeds']!=[212,213] or any(t.get('warmstart_updates') or t.get('supervised_replay_weight') for t in protocol['cases']):
+            raise ValueError('Expected fixed eight-run pending-only pilot')
+    elif variant=='pending_sequence_retention_v1':
+        expected=[('control',0,0.),('bc800',800,0.),('replay100',800,1.),('replay500',800,5.)]
+        if protocol['pilot_seeds']!=[252,253] or [(t['id'],t['warmstart_updates'],t['supervised_replay_weight'])for t in protocol['cases']]!=expected:
+            raise ValueError('Pending sequence profile mismatch')
+        if any(t.get('pending_inputs')is not True or t.get('sequence_wait_fraction')!=.25 or t.get('warmstart_kl_weight')!=.1 or t.get('action_delay_ms')!=1350 or t.get('validation_action_delay_ms')!=1350 for t in protocol['cases']):
+            raise ValueError('Pending sequence timing/sampler mismatch')
+    else:raise ValueError('Unknown pending study')
+
+
 def verify(collected,prepared):
     root=Path(collected);prepared=Path(prepared);cfg=json.loads((prepared/'preparation.json').read_text())
-    if cfg.get('study_variant')!='own_pending_inputs_v1':raise ValueError('Wrong pending study')
+    if cfg.get('study_variant') not in ('own_pending_inputs_v1','pending_sequence_retention_v1'):raise ValueError('Wrong pending study')
     c=cfg['config'];receipt=json.loads((root/'collection_receipt.json').read_text())
     if not receipt.get('complete')or receipt.get('remote_status')!='COMPLETE'or receipt['kernel']!=cfg['kernel']:
         raise ValueError('Complete matching focus receipt required')
@@ -173,9 +190,7 @@ def verify(collected,prepared):
     for name in('scripts/attack/select_continuous_focus.py','sim/continuous_validation.py'):
         if sha(name)!=c['extensions'][name]:raise ValueError('Use the frozen selector version to verify this cohort')
     protocol=json.loads((prepared/'dataset/protocol.json').read_text());result=json.loads((root/'result.json').read_text())
-    if (protocol['pilot_seeds']!=[212,213] or len(protocol['cases'])!=4 or c.get('allow_full_training')is not False
-            or any(t.get('warmstart_updates') or t.get('supervised_replay_weight') for t in protocol['cases'])):
-        raise ValueError('Expected fixed eight-run pending-only pilot')
+    validate_protocol(protocol,c,cfg['study_variant'])
     for name in ('sim/pending_inputs.py','sim/continuous_pending.py','sim/train_attack_ppo.py'):
         if sha(name)!=c['extensions'][name]:raise ValueError('Use frozen pending adapter/trainer to verify')
     if any(t.get('history_frames',1)==2 for t in protocol['cases']):

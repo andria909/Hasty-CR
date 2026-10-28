@@ -174,3 +174,14 @@ def test_partial_preservation_keeps_files_and_rejects_other_kernel(tmp_path):
     with pytest.raises(ValueError,match='another'):collector.preserve_partial(root,'other/job','COMPLETE')
     archive=collector.preserve_partial(root,'owner/job','COMPLETE')
     assert not root.exists()and(archive/'weight.pt').read_bytes()==b'kept'
+
+
+@pytest.mark.parametrize('variant',['control','bc800','replay100','replay500'])
+@pytest.mark.parametrize('seed',[252,253])
+def test_pending_sequence_keeps_selected_and_latest(monkeypatch,tmp_path,variant,seed):
+    run=f'pilot_{variant}_s{seed}'
+    setup(monkeypatch,run+'/update_000050.pt',run)
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','pending-sequence-pilot')
+    assert result['complete']
+    assert (tmp_path/'out'/run/'update_000050.pt').exists()
+    assert (tmp_path/'out'/run/'update_000100.pt').exists()

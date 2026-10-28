@@ -26,9 +26,18 @@ def score_checkpoint(checkpoint,data):
     heldout=max(groups.values());torch.set_num_threads(1)
     blob=torch.load(checkpoint,map_location='cpu',weights_only=False)
     state=blob['state_dict']
-    if state['conv.0.weight'].shape[1]!=20 or state['scalar.0.weight'].shape[1]!=309:
-        raise ValueError('Diagnostic requires20-plane309-scalar weights')
-    net,_,_=initialize_attack_policy(blob,device='cpu',num_scalars=309,observation_contract=CONTRACT);net.eval()
+    planes,scalars,contract=20,309,CONTRACT
+    if manifest.get('pending_inputs'):
+        from sim.pending_inputs import CONTRACT as pending_contract
+        if manifest.get('schema')!='late-air-pending-sequence-labels-v1' or manifest.get('observation_contract')!=pending_contract:
+            raise ValueError('Pending diagnostic contract differs')
+        planes,scalars,contract=24,313,pending_contract
+    source_shape=(state['conv.0.weight'].shape[1],state['scalar.0.weight'].shape[1])
+    if source_shape not in ((planes,scalars),(20,309)):
+        raise ValueError('Diagnostic weight input dimensions differ')
+    if arrays['planes'].shape[1:]!=(planes,32,18) or arrays['scalars'].shape!=(len(groups),scalars):
+        raise ValueError('Diagnostic data input dimensions differ')
+    net,_,_=initialize_attack_policy(blob,device='cpu',num_planes=planes,num_scalars=scalars,observation_contract=contract);net.eval()
     mask=torch.as_tensor(arrays['masks'],dtype=torch.bool);success=torch.as_tensor(arrays['success_masks'],dtype=torch.bool)
     if (success&~mask).any()or not success.any(-1).all():raise ValueError('Illegal or empty successful action set')
     with torch.inference_mode():
