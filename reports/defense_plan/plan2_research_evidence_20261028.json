@@ -1,0 +1,3249 @@
+{
+  "schema": "plan2-research-evidence-v1",
+  "source_hashes": {
+    "tmp/live/balanced_20261027_live10/run/events.jsonl": "ccbd143b00a770fa2bebffc1effe4ab4b7975ef65f206bf1bb90da13b6b2596c",
+    "tmp/live/balanced_20261027_live10/recovery_run/events.jsonl": "8a5c5eb19cafba76101b2bcad9936720fd765537f492482ec0657bd5f0252c43",
+    "tmp/live/tower_support_20261028_live5/run/events.jsonl": "e8ea54b7466e14918a358a307b7843623022f237f681f255d5e9a575bbabc931",
+    "tmp/live/tower_support_20261028_live5/recovery_run/events.jsonl": "69f595e195e48a215dd19211940cf61f400f9abf2f755625294b54eb8302f0e8"
+  },
+  "training_inventory": [
+    {
+      "path": "reports/defense_plan/air_alternatives_pilot_summary_20261027.json",
+      "sha256": "8c5c5d3d2c345778c10ab5fa284a0829c61be68ed19232f81d1910212f4c30e5",
+      "kernel": "andreiperelaiko/hastycr-air-alternatives-pilot-20261027",
+      "eligible_for_full": true,
+      "rows": [
+        {
+          "id": "joint_control",
+          "wins": 89,
+          "games": 144
+        },
+        {
+          "id": "joint_bc800",
+          "wins": 89,
+          "games": 144
+        },
+        {
+          "id": "joint_replay100",
+          "wins": 65,
+          "games": 144
+        },
+        {
+          "id": "joint_replay500",
+          "wins": 65,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/air_lowbank_pilot_summary_20261027.json",
+      "sha256": "0bf2945c31b451872c5fc7ac5a7dd3e3cc95744f5f615a274248cffb59b70e13",
+      "kernel": "vertel0/hastycr-air-lowbank-pilot-20261027",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "joint_control",
+          "wins": 89,
+          "games": 144
+        },
+        {
+          "id": "joint_bc800",
+          "wins": 73,
+          "games": 144
+        },
+        {
+          "id": "joint_replay100",
+          "wins": 73,
+          "games": 144
+        },
+        {
+          "id": "joint_replay500",
+          "wins": 51,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/air_reserve_pilot_summary_20261027.json",
+      "sha256": "d26507b01fd40fdc83f10ba990c159885164e849f31b1b215e6984f3c5cfc5d9",
+      "kernel": "andriashadrin/hastycr-air-reserve-pilot-20261027",
+      "eligible_for_full": true,
+      "rows": [
+        {
+          "id": "joint_control",
+          "wins": 89,
+          "games": 144
+        },
+        {
+          "id": "joint_bc800",
+          "wins": 88,
+          "games": 144
+        },
+        {
+          "id": "joint_replay100",
+          "wins": 78,
+          "games": 144
+        },
+        {
+          "id": "joint_replay500",
+          "wins": 67,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/air_retention_pilot_summary_20261027.json",
+      "sha256": "a0ccc86c15577e920bb0bdb525222df655d84d2da9408f2525c17ef1791613a0",
+      "kernel": "andriashadrin/hastycr-air-retention-pilot-20261027",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "replay000",
+          "wins": 50,
+          "games": 144
+        },
+        {
+          "id": "replay010",
+          "wins": 40,
+          "games": 144
+        },
+        {
+          "id": "replay100",
+          "wins": 46,
+          "games": 144
+        },
+        {
+          "id": "replay500",
+          "wins": 40,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/air_warmstart_pilot_summary_20261027.json",
+      "sha256": "e4a87aac4f48c426c7f739e06ad2170f2b901493b4d31ca3e90c8fd20e01bd0e",
+      "kernel": "andriashadrin/hastycr-air-warmstart-pilot-20261027",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "bc000_control",
+          "wins": 83,
+          "games": 144
+        },
+        {
+          "id": "bc200_kl000",
+          "wins": 53,
+          "games": 144
+        },
+        {
+          "id": "bc800_kl000",
+          "wins": 49,
+          "games": 144
+        },
+        {
+          "id": "bc800_kl100",
+          "wins": 70,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/bank_conservation_summary_20261027.json",
+      "sha256": "8fda4f83cac9a8697d35bceb5b5f0c7fc135e162e8e12c8d06d58276eaed4446",
+      "kernel": "andreiperelaiko/hastycr-bank-conservation-pilot-20261027",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "bank_overflow00_balance00",
+          "wins": 78,
+          "games": 144
+        },
+        {
+          "id": "bank_overflow00_balance10",
+          "wins": 81,
+          "games": 144
+        },
+        {
+          "id": "bank_overflow15_balance00",
+          "wins": 78,
+          "games": 144
+        },
+        {
+          "id": "bank_overflow15_balance10",
+          "wins": 81,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/board_potential_pilot_summary_20261026.json",
+      "sha256": "c296643c916bb65d01fefdb3482ca7b4b8effeeb93c6f21e3d69d6e31950f978",
+      "kernel": "andriashadrin/hastycr-board-potential-pilot-20261026",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "board_000",
+          "wins": 78,
+          "games": 144
+        },
+        {
+          "id": "board_050",
+          "wins": 82,
+          "games": 144
+        },
+        {
+          "id": "board_150",
+          "wins": 84,
+          "games": 144
+        },
+        {
+          "id": "board_400",
+          "wins": 82,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/card_exploration_pilot_summary_20261027.json",
+      "sha256": "03d97c6b4d2aae38eb4df8c92fcb6a80f25875a9346c88f92df96b2ecd638720",
+      "kernel": "andriashadrin/hastycr-card-exploration-pilot-20261027",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "explore_t01_e00",
+          "wins": 90,
+          "games": 144
+        },
+        {
+          "id": "explore_t01_e20",
+          "wins": 92,
+          "games": 144
+        },
+        {
+          "id": "explore_t10_e00",
+          "wins": 89,
+          "games": 144
+        },
+        {
+          "id": "explore_t10_e20",
+          "wins": 85,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/central_tower_pilot_summary_20261027.json",
+      "sha256": "0ced31b7beb11d5611aa8e09e12f63c30b58e974554b9c0b8c804e9321dc0d18",
+      "kernel": "vertel0/hastycr-central-tower-1028",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 21,
+          "games": 144
+        },
+        {
+          "id": "small",
+          "wins": 20,
+          "games": 144
+        },
+        {
+          "id": "medium",
+          "wins": 26,
+          "games": 144
+        },
+        {
+          "id": "large",
+          "wins": 19,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/clock_fireball_pilot_summary_20261026.json",
+      "sha256": "584c28173dcef9a145699ddd8d2f5923dd38c376bd8d230c53ba6afa80a7ef31",
+      "kernel": "andriashadrin/hastycr-clock-fireball-short-pilot",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "current_control",
+          "wins": 79,
+          "games": 144
+        },
+        {
+          "id": "current_miss",
+          "wins": 77,
+          "games": 144
+        },
+        {
+          "id": "seconds_preserved_control",
+          "wins": 83,
+          "games": 144
+        },
+        {
+          "id": "seconds_preserved_miss",
+          "wins": 80,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/combined_reward_pilot_summary_20261027.json",
+      "sha256": "106793316d0a9398716e254f2c633e75ef1c479291c489f5bd4c13acc992ddc6",
+      "kernel": "andreiperelaiko/hastycr-tower-spell-combined-1028",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 72,
+          "games": 144
+        },
+        {
+          "id": "tower",
+          "wins": 63,
+          "games": 144
+        },
+        {
+          "id": "spell",
+          "wins": 72,
+          "games": 144
+        },
+        {
+          "id": "combined",
+          "wins": 64,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/continuous_focus_summary_20261026.json",
+      "sha256": "1362ec83934e6b04a1fa1038c7e8e1a5f1ef6a1de7c0c0a20c543879c2d0f432",
+      "kernel": "vertel0/hastycr-continuous-focus-20261026",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "uniform_base",
+          "wins": 92,
+          "games": 144
+        },
+        {
+          "id": "uniform_explore",
+          "wins": 92,
+          "games": 144
+        },
+        {
+          "id": "air_golem_base",
+          "wins": 93,
+          "games": 144
+        },
+        {
+          "id": "air_golem_explore",
+          "wins": 97,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/fireball_latency_pilot_summary_20261027.json",
+      "sha256": "4e51d650ed035da67af38199cfd060ac74b65b85791191fa32ba5a888fda59e7",
+      "kernel": "vertel0/hastycr-fireball-latency-pilot-20261027",
+      "eligible_for_full": true,
+      "rows": [
+        {
+          "id": "delay0225",
+          "wins": 77,
+          "games": 144
+        },
+        {
+          "id": "delay1350",
+          "wins": 66,
+          "games": 144
+        },
+        {
+          "id": "delay2025",
+          "wins": 86,
+          "games": 144
+        },
+        {
+          "id": "delay1350_replay100",
+          "wins": 66,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/fireball_reward_ablation_summary_20261027.json",
+      "sha256": "15c20b76fa1cb13cb074f436dc68f2a66a6a2a1e5cbe61dee1016c729e9d1f9b",
+      "kernel": "vertel0/hastycr-fireball-reward-ablation-1028",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 68,
+          "games": 144
+        },
+        {
+          "id": "noaux",
+          "wins": 66,
+          "games": 144
+        },
+        {
+          "id": "slot800",
+          "wins": 57,
+          "games": 144
+        },
+        {
+          "id": "slot800noaux",
+          "wins": 51,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/hand_slots_pilot_summary_20261027.json",
+      "sha256": "03a492c81597568c9057b69eb804dd80f4085f60ae9a939bfa54fd03830a8b9d",
+      "kernel": "vertel0/hastycr-hand-slots-pilot-20261027",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "joint_control",
+          "wins": 89,
+          "games": 144
+        },
+        {
+          "id": "joint_bc800",
+          "wins": 58,
+          "games": 144
+        },
+        {
+          "id": "joint_replay100",
+          "wins": 32,
+          "games": 144
+        },
+        {
+          "id": "joint_replay500",
+          "wins": 24,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/history_pilot_summary_20261026.json",
+      "sha256": "157b595f582a0e9d3b5b1b20fadc2b1d3b55ed34e3a4b04165d4e7ebbe4612ef",
+      "kernel": "andriashadrin/hastycr-history-pilot-20261026",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "history1_uniform",
+          "wins": 81,
+          "games": 144
+        },
+        {
+          "id": "history1_air_golem",
+          "wins": 78,
+          "games": 144
+        },
+        {
+          "id": "history2_uniform",
+          "wins": 70,
+          "games": 144
+        },
+        {
+          "id": "history2_air_golem",
+          "wins": 78,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/joint_skills_pilot_summary_20261027.json",
+      "sha256": "72cdb09a70e6717671473d714f4890b687903126ba1c9362c4d0f9b940b38022",
+      "kernel": "vertel0/hastycr-joint-skills-pilot-20261027",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "joint_control",
+          "wins": 89,
+          "games": 144
+        },
+        {
+          "id": "joint_bc800",
+          "wins": 81,
+          "games": 144
+        },
+        {
+          "id": "joint_replay100",
+          "wins": 83,
+          "games": 144
+        },
+        {
+          "id": "joint_replay500",
+          "wins": 86,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/live_tactical_reward_pilot_summary_20261027.json",
+      "sha256": "04c3c9b0c58fcc9da78e5b1cc6354e1a979b4b22a2b493f92527f80daaa0d8f6",
+      "kernel": "andreiperelaiko/hastycr-live-tactical-reward-pilot-20261027",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "live_control",
+          "wins": 95,
+          "games": 144
+        },
+        {
+          "id": "live_precision",
+          "wins": 93,
+          "games": 144
+        },
+        {
+          "id": "live_economy",
+          "wins": 87,
+          "games": 144
+        },
+        {
+          "id": "live_combined",
+          "wins": 86,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/native_fireball_slot_motionfix_summary_20261027.json",
+      "sha256": "4d05be896ca025d607890387c73183a53d6961531b1c69aeb312f9856ff7b34e",
+      "kernel": "vertel0/hastycr-native-fireball-slot-motionfix-1028",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 65,
+          "games": 144
+        },
+        {
+          "id": "native800",
+          "wins": 56,
+          "games": 144
+        },
+        {
+          "id": "slot800",
+          "wins": 51,
+          "games": 144
+        },
+        {
+          "id": "slot800kl",
+          "wins": 53,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/native_fireball_slot_pilot_summary_20261027.json",
+      "sha256": "a4bb69d6c0bc29223193db50d2699cb0161b55852fac3a5178422a608e407f52",
+      "kernel": "vertel0/hastycr-native-fireball-slot-20261028",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 65,
+          "games": 144
+        },
+        {
+          "id": "native800",
+          "wins": 58,
+          "games": 144
+        },
+        {
+          "id": "slot800",
+          "wins": 51,
+          "games": 144
+        },
+        {
+          "id": "slot800kl",
+          "wins": 48,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/native_latency_pilot_summary_20261027.json",
+      "sha256": "9c67c91a83a113bbda8eddd2ae6d550d8e9b8abf480eef6e087cfca839ba987a",
+      "kernel": "vertel0/hastycr-native-latency-pilot-20261027",
+      "eligible_for_full": true,
+      "rows": [
+        {
+          "id": "delay0225",
+          "wins": 78,
+          "games": 144
+        },
+        {
+          "id": "delay1350",
+          "wins": 76,
+          "games": 144
+        },
+        {
+          "id": "delay2025",
+          "wins": 75,
+          "games": 144
+        },
+        {
+          "id": "delay1350_replay100",
+          "wins": 69,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/pending_diversity_pilot_summary_20261027.json",
+      "sha256": "f52b1a1b4e6c4fb07db18c0f303786ef11cc99d80f129ab0e74649923b0a3c9b",
+      "kernel": "andreiperelaiko/hastycr-pending-diversity-1028",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 68,
+          "games": 144
+        },
+        {
+          "id": "diverse200",
+          "wins": 52,
+          "games": 144
+        },
+        {
+          "id": "slot200",
+          "wins": 55,
+          "games": 144
+        },
+        {
+          "id": "slot800",
+          "wins": 40,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/pending_inputs_pilot_summary_20261027.json",
+      "sha256": "9eb5073a0ff161cf1f6b4db08c9c0aedd0214ab48e04a0df352e1a0e325a7fd4",
+      "kernel": "vertel0/hastycr-pending-inputs-pilot-20261027",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control1350",
+          "wins": 68,
+          "games": 144
+        },
+        {
+          "id": "pending1350",
+          "wins": 64,
+          "games": 144
+        },
+        {
+          "id": "control2025",
+          "wins": 68,
+          "games": 144
+        },
+        {
+          "id": "pending2025",
+          "wins": 78,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/pending_sequence_pilot_summary_20261027.json",
+      "sha256": "f37ba8f580f76f2a2815526a53e7ea16a40697963364548bae094725a994fd7a",
+      "kernel": "vertel0/hastycr-pending-sequence-1028",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 63,
+          "games": 144
+        },
+        {
+          "id": "bc800",
+          "wins": 46,
+          "games": 144
+        },
+        {
+          "id": "replay100",
+          "wins": 36,
+          "games": 144
+        },
+        {
+          "id": "replay500",
+          "wins": 32,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/sequence_pilot_summary_20261027.json",
+      "sha256": "5a3e4d29f787e747d77526bdcd3ecfd8b2f57aba3f598b24b5691480d61b00a7",
+      "kernel": "vertel0/hastycr-sequence-pilot-20261027",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 71,
+          "games": 144
+        },
+        {
+          "id": "seq200_wait25",
+          "wins": 62,
+          "games": 144
+        },
+        {
+          "id": "seq800_wait25",
+          "wins": 39,
+          "games": 144
+        },
+        {
+          "id": "seq800_wait50",
+          "wins": 43,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/spell_waste_motionfix_summary_20261027.json",
+      "sha256": "80a3557040f83c03c8134ae98f487fae095228c703bd9e39b7ba4a9832687c43",
+      "kernel": "andreiperelaiko/hastycr-spell-waste-motionfix-1028",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 62,
+          "games": 144
+        },
+        {
+          "id": "small",
+          "wins": 69,
+          "games": 144
+        },
+        {
+          "id": "medium",
+          "wins": 55,
+          "games": 144
+        },
+        {
+          "id": "large",
+          "wins": 67,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/spell_waste_pilot_summary_20261027.json",
+      "sha256": "8821dca7160fd8b4ed38f9f952788613d6fa68cf70b7c382cedb515cd806903f",
+      "kernel": "andreiperelaiko/hastycr-spell-waste-pilot-20261028",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 67,
+          "games": 144
+        },
+        {
+          "id": "small",
+          "wins": 67,
+          "games": 144
+        },
+        {
+          "id": "medium",
+          "wins": 61,
+          "games": 144
+        },
+        {
+          "id": "large",
+          "wins": 73,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/temperature_pilot_summary_20261027.json",
+      "sha256": "7f8b391c09e7281a7f2f4f504b6774d0cf6d15199d934eb7ccf763b5414b94dd",
+      "kernel": "vertel0/hastycr-temperature-pilot-20261027",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "temp001",
+          "wins": 81,
+          "games": 144
+        },
+        {
+          "id": "temp010",
+          "wins": 87,
+          "games": 144
+        },
+        {
+          "id": "temp030",
+          "wins": 75,
+          "games": 144
+        },
+        {
+          "id": "temp050",
+          "wins": 68,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/tower_support_motionfix_summary_20261027.json",
+      "sha256": "29d49b606e163daf99af6d1c3964311426f368cdf7b1ec88fc745c1544cfc411",
+      "kernel": "andreiperelaiko/hastycr-tower-support-motionfix-1028",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 68,
+          "games": 144
+        },
+        {
+          "id": "small",
+          "wins": 68,
+          "games": 144
+        },
+        {
+          "id": "medium",
+          "wins": 67,
+          "games": 144
+        },
+        {
+          "id": "large",
+          "wins": 72,
+          "games": 144
+        }
+      ]
+    },
+    {
+      "path": "reports/defense_plan/tower_support_pilot_summary_20261027.json",
+      "sha256": "ac951ca06aea2106e8202151927fd2a50924d26083d07faade1d440903956fc9",
+      "kernel": "andreiperelaiko/hastycr-tower-support-pilot-20261028",
+      "eligible_for_full": false,
+      "rows": [
+        {
+          "id": "control",
+          "wins": 79,
+          "games": 144
+        },
+        {
+          "id": "small",
+          "wins": 72,
+          "games": 144
+        },
+        {
+          "id": "medium",
+          "wins": 65,
+          "games": 144
+        },
+        {
+          "id": "large",
+          "wins": 65,
+          "games": 144
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Live ACK confirms hand rotation, not spawn or hit. Grid cells are command targets.",
+    "Simulation scenarios differ from live opponents; this is not paired causal evaluation or a new test benchmark.",
+    "River band is geometric, not a tactical quality label. All simulations are current corrected-physics TRAIN diagnostics."
+  ],
+  "script_sha256": "c9cfa1f0c89f0324172b1bb407b3a688895134b5974984ee0184f5f9c4f9ae88",
+  "raw_evidence": "tmp/plan2_research_20261028/evidence.json",
+  "raw_evidence_sha256": "3fca0cc22b25addcf0744705e03a3221ae29ded85097a904e7f7aa3cdefe3c0a",
+  "live": {
+    "balanced": {
+      "games": 9,
+      "cards": {
+        "cannon": {
+          "n": 65,
+          "per_game": 7.222222222222222,
+          "left": 38,
+          "own_river_band_y16_18": 52,
+          "central_cannon_region": 4,
+          "top_cells": [
+            {
+              "x": 2,
+              "y": 16,
+              "n": 12
+            },
+            {
+              "x": 9,
+              "y": 16,
+              "n": 10
+            },
+            {
+              "x": 2,
+              "y": 17,
+              "n": 5
+            },
+            {
+              "x": 12,
+              "y": 16,
+              "n": 3
+            },
+            {
+              "x": 9,
+              "y": 17,
+              "n": 3
+            }
+          ]
+        },
+        "electro_spirit": {
+          "n": 71,
+          "per_game": 7.888888888888889,
+          "left": 47,
+          "own_river_band_y16_18": 56,
+          "central_cannon_region": 16,
+          "top_cells": [
+            {
+              "x": 2,
+              "y": 18,
+              "n": 8
+            },
+            {
+              "x": 9,
+              "y": 18,
+              "n": 6
+            },
+            {
+              "x": 8,
+              "y": 18,
+              "n": 5
+            },
+            {
+              "x": 2,
+              "y": 16,
+              "n": 5
+            },
+            {
+              "x": 9,
+              "y": 16,
+              "n": 4
+            }
+          ]
+        },
+        "fireball": {
+          "n": 13,
+          "per_game": 1.4444444444444444,
+          "left": 5,
+          "own_river_band_y16_18": 8,
+          "central_cannon_region": 2,
+          "top_cells": [
+            {
+              "x": 2,
+              "y": 17,
+              "n": 2
+            },
+            {
+              "x": 11,
+              "y": 18,
+              "n": 2
+            },
+            {
+              "x": 15,
+              "y": 16,
+              "n": 1
+            },
+            {
+              "x": 2,
+              "y": 15,
+              "n": 1
+            },
+            {
+              "x": 1,
+              "y": 18,
+              "n": 1
+            }
+          ]
+        },
+        "hog_rider": {
+          "n": 10,
+          "per_game": 1.1111111111111112,
+          "left": 6,
+          "own_river_band_y16_18": 9,
+          "central_cannon_region": 1,
+          "top_cells": [
+            {
+              "x": 9,
+              "y": 16,
+              "n": 2
+            },
+            {
+              "x": 7,
+              "y": 18,
+              "n": 1
+            },
+            {
+              "x": 3,
+              "y": 17,
+              "n": 1
+            },
+            {
+              "x": 8,
+              "y": 17,
+              "n": 1
+            },
+            {
+              "x": 3,
+              "y": 16,
+              "n": 1
+            }
+          ]
+        },
+        "knight": {
+          "n": 65,
+          "per_game": 7.222222222222222,
+          "left": 42,
+          "own_river_band_y16_18": 52,
+          "central_cannon_region": 6,
+          "top_cells": [
+            {
+              "x": 2,
+              "y": 16,
+              "n": 12
+            },
+            {
+              "x": 9,
+              "y": 16,
+              "n": 7
+            },
+            {
+              "x": 2,
+              "y": 17,
+              "n": 5
+            },
+            {
+              "x": 9,
+              "y": 17,
+              "n": 3
+            },
+            {
+              "x": 3,
+              "y": 16,
+              "n": 3
+            }
+          ]
+        },
+        "musketeer": {
+          "n": 11,
+          "per_game": 1.2222222222222223,
+          "left": 7,
+          "own_river_band_y16_18": 9,
+          "central_cannon_region": 0,
+          "top_cells": [
+            {
+              "x": 9,
+              "y": 16,
+              "n": 3
+            },
+            {
+              "x": 2,
+              "y": 17,
+              "n": 2
+            },
+            {
+              "x": 9,
+              "y": 17,
+              "n": 1
+            },
+            {
+              "x": 3,
+              "y": 18,
+              "n": 1
+            },
+            {
+              "x": 3,
+              "y": 20,
+              "n": 1
+            }
+          ]
+        },
+        "skeletons": {
+          "n": 70,
+          "per_game": 7.777777777777778,
+          "left": 42,
+          "own_river_band_y16_18": 54,
+          "central_cannon_region": 14,
+          "top_cells": [
+            {
+              "x": 2,
+              "y": 17,
+              "n": 7
+            },
+            {
+              "x": 9,
+              "y": 18,
+              "n": 6
+            },
+            {
+              "x": 9,
+              "y": 17,
+              "n": 4
+            },
+            {
+              "x": 2,
+              "y": 16,
+              "n": 4
+            },
+            {
+              "x": 2,
+              "y": 18,
+              "n": 4
+            }
+          ]
+        },
+        "zap": {
+          "n": 70,
+          "per_game": 7.777777777777778,
+          "left": 44,
+          "own_river_band_y16_18": 22,
+          "central_cannon_region": 7,
+          "top_cells": [
+            {
+              "x": 9,
+              "y": 7,
+              "n": 5
+            },
+            {
+              "x": 2,
+              "y": 17,
+              "n": 4
+            },
+            {
+              "x": 2,
+              "y": 2,
+              "n": 4
+            },
+            {
+              "x": 2,
+              "y": 15,
+              "n": 3
+            },
+            {
+              "x": 2,
+              "y": 18,
+              "n": 3
+            }
+          ]
+        }
+      }
+    },
+    "tower_large": {
+      "games": 5,
+      "cards": {
+        "cannon": {
+          "n": 23,
+          "per_game": 4.6,
+          "left": 11,
+          "own_river_band_y16_18": 19,
+          "central_cannon_region": 1,
+          "top_cells": [
+            {
+              "x": 9,
+              "y": 16,
+              "n": 8
+            },
+            {
+              "x": 8,
+              "y": 16,
+              "n": 3
+            },
+            {
+              "x": 2,
+              "y": 16,
+              "n": 2
+            },
+            {
+              "x": 11,
+              "y": 16,
+              "n": 1
+            },
+            {
+              "x": 9,
+              "y": 19,
+              "n": 1
+            }
+          ]
+        },
+        "electro_spirit": {
+          "n": 26,
+          "per_game": 5.2,
+          "left": 11,
+          "own_river_band_y16_18": 24,
+          "central_cannon_region": 9,
+          "top_cells": [
+            {
+              "x": 9,
+              "y": 18,
+              "n": 6
+            },
+            {
+              "x": 2,
+              "y": 16,
+              "n": 3
+            },
+            {
+              "x": 9,
+              "y": 17,
+              "n": 2
+            },
+            {
+              "x": 15,
+              "y": 17,
+              "n": 1
+            },
+            {
+              "x": 6,
+              "y": 17,
+              "n": 1
+            }
+          ]
+        },
+        "fireball": {
+          "n": 4,
+          "per_game": 0.8,
+          "left": 2,
+          "own_river_band_y16_18": 0,
+          "central_cannon_region": 0,
+          "top_cells": [
+            {
+              "x": 8,
+              "y": 1,
+              "n": 1
+            },
+            {
+              "x": 9,
+              "y": 7,
+              "n": 1
+            },
+            {
+              "x": 2,
+              "y": 12,
+              "n": 1
+            },
+            {
+              "x": 9,
+              "y": 1,
+              "n": 1
+            }
+          ]
+        },
+        "hog_rider": {
+          "n": 6,
+          "per_game": 1.2,
+          "left": 4,
+          "own_river_band_y16_18": 5,
+          "central_cannon_region": 0,
+          "top_cells": [
+            {
+              "x": 2,
+              "y": 16,
+              "n": 2
+            },
+            {
+              "x": 15,
+              "y": 16,
+              "n": 1
+            },
+            {
+              "x": 6,
+              "y": 17,
+              "n": 1
+            },
+            {
+              "x": 2,
+              "y": 19,
+              "n": 1
+            },
+            {
+              "x": 9,
+              "y": 16,
+              "n": 1
+            }
+          ]
+        },
+        "knight": {
+          "n": 25,
+          "per_game": 5.0,
+          "left": 14,
+          "own_river_band_y16_18": 20,
+          "central_cannon_region": 8,
+          "top_cells": [
+            {
+              "x": 2,
+              "y": 16,
+              "n": 4
+            },
+            {
+              "x": 9,
+              "y": 18,
+              "n": 3
+            },
+            {
+              "x": 9,
+              "y": 16,
+              "n": 3
+            },
+            {
+              "x": 15,
+              "y": 16,
+              "n": 2
+            },
+            {
+              "x": 8,
+              "y": 17,
+              "n": 1
+            }
+          ]
+        },
+        "musketeer": {
+          "n": 1,
+          "per_game": 0.2,
+          "left": 0,
+          "own_river_band_y16_18": 1,
+          "central_cannon_region": 0,
+          "top_cells": [
+            {
+              "x": 15,
+              "y": 16,
+              "n": 1
+            }
+          ]
+        },
+        "skeletons": {
+          "n": 26,
+          "per_game": 5.2,
+          "left": 16,
+          "own_river_band_y16_18": 23,
+          "central_cannon_region": 11,
+          "top_cells": [
+            {
+              "x": 8,
+              "y": 18,
+              "n": 4
+            },
+            {
+              "x": 9,
+              "y": 18,
+              "n": 3
+            },
+            {
+              "x": 2,
+              "y": 16,
+              "n": 2
+            },
+            {
+              "x": 7,
+              "y": 18,
+              "n": 2
+            },
+            {
+              "x": 9,
+              "y": 16,
+              "n": 2
+            }
+          ]
+        },
+        "zap": {
+          "n": 26,
+          "per_game": 5.2,
+          "left": 10,
+          "own_river_band_y16_18": 8,
+          "central_cannon_region": 5,
+          "top_cells": [
+            {
+              "x": 9,
+              "y": 10,
+              "n": 2
+            },
+            {
+              "x": 8,
+              "y": 18,
+              "n": 2
+            },
+            {
+              "x": 9,
+              "y": 6,
+              "n": 2
+            },
+            {
+              "x": 15,
+              "y": 2,
+              "n": 2
+            },
+            {
+              "x": 12,
+              "y": 13,
+              "n": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "sim": {
+    "balanced": {
+      "checkpoint": "tmp/kaggle/continuous_slots_20261026/collected_selected/full_balanced_s44/best_validation_001000.pt",
+      "checkpoint_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+      "cards": {
+        "cannon": {
+          "n": 85,
+          "per_game": 14.166666666666666,
+          "left": 40,
+          "own_river_band_y16_18": 65,
+          "central_cannon_region": 85,
+          "top_cells": [
+            {
+              "x": 9,
+              "y": 18,
+              "n": 20
+            },
+            {
+              "x": 8,
+              "y": 18,
+              "n": 20
+            },
+            {
+              "x": 11,
+              "y": 18,
+              "n": 19
+            },
+            {
+              "x": 6,
+              "y": 19,
+              "n": 8
+            },
+            {
+              "x": 8,
+              "y": 21,
+              "n": 3
+            }
+          ]
+        },
+        "electro_spirit": {
+          "n": 88,
+          "per_game": 14.666666666666666,
+          "left": 42,
+          "own_river_band_y16_18": 69,
+          "central_cannon_region": 63,
+          "top_cells": [
+            {
+              "x": 9,
+              "y": 18,
+              "n": 16
+            },
+            {
+              "x": 8,
+              "y": 18,
+              "n": 14
+            },
+            {
+              "x": 11,
+              "y": 18,
+              "n": 12
+            },
+            {
+              "x": 7,
+              "y": 19,
+              "n": 5
+            },
+            {
+              "x": 10,
+              "y": 17,
+              "n": 4
+            }
+          ]
+        },
+        "fireball": {
+          "n": 1,
+          "per_game": 0.16666666666666666,
+          "left": 1,
+          "own_river_band_y16_18": 1,
+          "central_cannon_region": 1,
+          "top_cells": [
+            {
+              "x": 6,
+              "y": 18,
+              "n": 1
+            }
+          ]
+        },
+        "hog_rider": {
+          "n": 1,
+          "per_game": 0.16666666666666666,
+          "left": 1,
+          "own_river_band_y16_18": 1,
+          "central_cannon_region": 0,
+          "top_cells": [
+            {
+              "x": 2,
+              "y": 16,
+              "n": 1
+            }
+          ]
+        },
+        "knight": {
+          "n": 87,
+          "per_game": 14.5,
+          "left": 43,
+          "own_river_band_y16_18": 68,
+          "central_cannon_region": 62,
+          "top_cells": [
+            {
+              "x": 8,
+              "y": 18,
+              "n": 18
+            },
+            {
+              "x": 11,
+              "y": 18,
+              "n": 14
+            },
+            {
+              "x": 9,
+              "y": 18,
+              "n": 10
+            },
+            {
+              "x": 6,
+              "y": 19,
+              "n": 6
+            },
+            {
+              "x": 9,
+              "y": 16,
+              "n": 4
+            }
+          ]
+        },
+        "musketeer": {
+          "n": 1,
+          "per_game": 0.16666666666666666,
+          "left": 0,
+          "own_river_band_y16_18": 1,
+          "central_cannon_region": 0,
+          "top_cells": [
+            {
+              "x": 13,
+              "y": 16,
+              "n": 1
+            }
+          ]
+        },
+        "skeletons": {
+          "n": 87,
+          "per_game": 14.5,
+          "left": 41,
+          "own_river_band_y16_18": 70,
+          "central_cannon_region": 62,
+          "top_cells": [
+            {
+              "x": 8,
+              "y": 18,
+              "n": 15
+            },
+            {
+              "x": 11,
+              "y": 18,
+              "n": 13
+            },
+            {
+              "x": 9,
+              "y": 18,
+              "n": 11
+            },
+            {
+              "x": 10,
+              "y": 17,
+              "n": 4
+            },
+            {
+              "x": 8,
+              "y": 19,
+              "n": 4
+            }
+          ]
+        },
+        "zap": {
+          "n": 89,
+          "per_game": 14.833333333333334,
+          "left": 40,
+          "own_river_band_y16_18": 53,
+          "central_cannon_region": 41,
+          "top_cells": [
+            {
+              "x": 8,
+              "y": 18,
+              "n": 13
+            },
+            {
+              "x": 9,
+              "y": 18,
+              "n": 6
+            },
+            {
+              "x": 10,
+              "y": 17,
+              "n": 6
+            },
+            {
+              "x": 11,
+              "y": 18,
+              "n": 5
+            },
+            {
+              "x": 12,
+              "y": 17,
+              "n": 5
+            }
+          ]
+        }
+      },
+      "games": [
+        {
+          "scenario": "attack::air/push",
+          "seed": 8102800,
+          "metrics": {
+            "scenario_id": "attack::air/push",
+            "family_id": "air",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102800,
+            "match_seed": 8102800,
+            "split": "train",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 201250,
+            "outcome": "loss",
+            "own_fraction_loss": 1.3895089285714286,
+            "enemy_fraction_damage": 0.0,
+            "own_tower_fraction_loss": {
+              "left": 1.0,
+              "right": 0.3895089285714286,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": false,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 102,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": 0.0,
+            "resolved_fireballs": 0,
+            "fireball_unit_hits": 0,
+            "cluster_fireballs": 0,
+            "reserve_potential": 3.893,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 805,
+            "accepted_card_counts": {
+              "zap": 11,
+              "cannon": 10,
+              "electro_spirit": 10,
+              "skeletons": 10,
+              "knight": 10
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "zap": 6,
+                "cannon": 6,
+                "electro_spirit": 4,
+                "skeletons": 5,
+                "knight": 6
+              },
+              "right": {
+                "cannon": 4,
+                "electro_spirit": 6,
+                "skeletons": 5,
+                "knight": 4,
+                "zap": 5
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "musketeer": 3,
+              "knight": 6,
+              "zap": 6,
+              "minions": 4,
+              "skeletons": 6,
+              "baby_dragon": 5,
+              "fireball": 1,
+              "balloon": 3
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 805,
+          "below4": 804,
+          "can_play": 56,
+          "voluntary_wait": 4
+        },
+        {
+          "scenario": "attack::hog/push",
+          "seed": 8102801,
+          "metrics": {
+            "scenario_id": "attack::hog/push",
+            "family_id": "hog",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102801,
+            "match_seed": 8102801,
+            "split": "train",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 300000,
+            "outcome": "loss",
+            "own_fraction_loss": 0.1492745535714286,
+            "enemy_fraction_damage": 0.027622767857142905,
+            "own_tower_fraction_loss": {
+              "left": 0.1216517857142857,
+              "right": 0.027622767857142905,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 196,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": 0.0,
+            "resolved_fireballs": 0,
+            "fireball_unit_hits": 0,
+            "cluster_fireballs": 0,
+            "reserve_potential": 1.88,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 1200,
+            "accepted_card_counts": {
+              "electro_spirit": 20,
+              "knight": 20,
+              "zap": 20,
+              "skeletons": 19,
+              "cannon": 19
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "knight": 15,
+                "zap": 16,
+                "skeletons": 13,
+                "cannon": 12,
+                "electro_spirit": 12
+              },
+              "right": {
+                "electro_spirit": 8,
+                "cannon": 7,
+                "zap": 4,
+                "skeletons": 6,
+                "knight": 5
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "skeletons": 19,
+              "cannon": 12,
+              "electro_spirit": 18,
+              "zap": 17,
+              "knight": 15,
+              "musketeer": 5,
+              "fireball": 3,
+              "hog_rider": 3
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 1200,
+          "below4": 1198,
+          "can_play": 99,
+          "voluntary_wait": 0
+        },
+        {
+          "scenario": "attack::swarm/push",
+          "seed": 8102802,
+          "metrics": {
+            "scenario_id": "attack::swarm/push",
+            "family_id": "swarm",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102802,
+            "match_seed": 8102802,
+            "split": "train",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 175150,
+            "outcome": "loss",
+            "own_fraction_loss": 3.0,
+            "enemy_fraction_damage": 0.1690848214285714,
+            "own_tower_fraction_loss": {
+              "left": 1.0,
+              "right": 1.0,
+              "king": 1.0
+            },
+            "own_towers_alive": {
+              "left": false,
+              "right": false,
+              "king": false
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 86,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": 0.0,
+            "resolved_fireballs": 0,
+            "fireball_unit_hits": 0,
+            "cluster_fireballs": 0,
+            "reserve_potential": 1.25,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 701,
+            "accepted_card_counts": {
+              "knight": 9,
+              "zap": 9,
+              "electro_spirit": 9,
+              "skeletons": 8,
+              "cannon": 8
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "zap": 1,
+                "electro_spirit": 2,
+                "skeletons": 1,
+                "cannon": 1,
+                "knight": 1
+              },
+              "right": {
+                "knight": 8,
+                "zap": 8,
+                "electro_spirit": 7,
+                "skeletons": 7,
+                "cannon": 7
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "goblin_barrel": 4,
+              "knight": 5,
+              "skeleton_army": 5,
+              "musketeer": 4,
+              "goblin_gang": 5,
+              "zap": 4,
+              "inferno_tower": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 701,
+          "below4": 700,
+          "can_play": 44,
+          "voluntary_wait": 0
+        },
+        {
+          "scenario": "defense::air/push",
+          "seed": 8102803,
+          "metrics": {
+            "scenario_id": "defense::air/push",
+            "family_id": "air",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102803,
+            "match_seed": 8102803,
+            "split": "train",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 288550,
+            "outcome": "loss",
+            "own_fraction_loss": 1.5072544642857144,
+            "enemy_fraction_damage": 0.27734375,
+            "own_tower_fraction_loss": {
+              "left": 1.0,
+              "right": 0.5072544642857143,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": false,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 182,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": -1.5043478260869565,
+            "resolved_fireballs": 1,
+            "fireball_unit_hits": 3,
+            "cluster_fireballs": 1,
+            "reserve_potential": 3.608,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 1155,
+            "accepted_card_counts": {
+              "hog_rider": 1,
+              "electro_spirit": 18,
+              "zap": 18,
+              "cannon": 17,
+              "skeletons": 18,
+              "knight": 17,
+              "fireball": 1
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "hog_rider": 1,
+                "zap": 5,
+                "cannon": 10,
+                "skeletons": 12,
+                "knight": 9,
+                "electro_spirit": 11,
+                "fireball": 1
+              },
+              "right": {
+                "electro_spirit": 7,
+                "zap": 13,
+                "cannon": 7,
+                "skeletons": 6,
+                "knight": 8
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "skeletons": 13,
+              "zap": 11,
+              "minions": 10,
+              "musketeer": 7,
+              "knight": 11,
+              "fireball": 6,
+              "baby_dragon": 5,
+              "balloon": 3
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 1155,
+          "below4": 1153,
+          "can_play": 97,
+          "voluntary_wait": 6
+        },
+        {
+          "scenario": "defense::hog/push",
+          "seed": 8102804,
+          "metrics": {
+            "scenario_id": "defense::hog/push",
+            "family_id": "hog",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102804,
+            "match_seed": 8102804,
+            "split": "train",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 300000,
+            "outcome": "win",
+            "own_fraction_loss": 0.1768973214285714,
+            "enemy_fraction_damage": 0.248046875,
+            "own_tower_fraction_loss": {
+              "left": 0.1768973214285714,
+              "right": 0.0,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 195,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": 0.0,
+            "resolved_fireballs": 0,
+            "fireball_unit_hits": 0,
+            "cluster_fireballs": 0,
+            "reserve_potential": 2.88,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 1200,
+            "accepted_card_counts": {
+              "skeletons": 20,
+              "musketeer": 1,
+              "electro_spirit": 19,
+              "zap": 19,
+              "knight": 19,
+              "cannon": 19
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "zap": 2,
+                "electro_spirit": 3
+              },
+              "right": {
+                "skeletons": 20,
+                "musketeer": 1,
+                "electro_spirit": 16,
+                "knight": 19,
+                "cannon": 19,
+                "zap": 17
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "skeletons": 19,
+              "electro_spirit": 19,
+              "fireball": 4,
+              "zap": 18,
+              "knight": 13,
+              "cannon": 14,
+              "musketeer": 4,
+              "hog_rider": 2
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 1200,
+          "below4": 1198,
+          "can_play": 98,
+          "voluntary_wait": 0
+        },
+        {
+          "scenario": "defense::swarm/push",
+          "seed": 8102805,
+          "metrics": {
+            "scenario_id": "defense::swarm/push",
+            "family_id": "swarm",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102805,
+            "match_seed": 8102805,
+            "split": "train",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 226400,
+            "outcome": "loss",
+            "own_fraction_loss": 1.1004464285714286,
+            "enemy_fraction_damage": 0.1783621651785714,
+            "own_tower_fraction_loss": {
+              "left": 0.1004464285714286,
+              "right": 1.0,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": false,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 120,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": 0.0,
+            "resolved_fireballs": 0,
+            "fireball_unit_hits": 0,
+            "cluster_fireballs": 0,
+            "reserve_potential": 3.857,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 906,
+            "accepted_card_counts": {
+              "knight": 12,
+              "zap": 12,
+              "skeletons": 12,
+              "electro_spirit": 12,
+              "cannon": 12
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "knight": 12,
+                "skeletons": 10,
+                "electro_spirit": 10,
+                "cannon": 11,
+                "zap": 10
+              },
+              "right": {
+                "zap": 2,
+                "cannon": 1,
+                "skeletons": 2,
+                "electro_spirit": 2
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "goblin_barrel": 8,
+              "goblin_gang": 7,
+              "knight": 7,
+              "zap": 8,
+              "skeleton_army": 7,
+              "inferno_tower": 2,
+              "musketeer": 2
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 906,
+          "below4": 905,
+          "can_play": 61,
+          "voluntary_wait": 0
+        }
+      ]
+    },
+    "tower_large": {
+      "checkpoint": "tmp/kaggle/tower_support_motionfix_20261028/collected/pilot_large_s232/update_000100.pt",
+      "checkpoint_sha256": "b4b250efec389c7270019a2971097f1323df7f36586ac2edef02f0abc2c5078f",
+      "cards": {
+        "cannon": {
+          "n": 66,
+          "per_game": 11.0,
+          "left": 27,
+          "own_river_band_y16_18": 61,
+          "central_cannon_region": 66,
+          "top_cells": [
+            {
+              "x": 11,
+              "y": 18,
+              "n": 16
+            },
+            {
+              "x": 8,
+              "y": 18,
+              "n": 10
+            },
+            {
+              "x": 9,
+              "y": 18,
+              "n": 10
+            },
+            {
+              "x": 10,
+              "y": 18,
+              "n": 9
+            },
+            {
+              "x": 7,
+              "y": 18,
+              "n": 8
+            }
+          ]
+        },
+        "electro_spirit": {
+          "n": 76,
+          "per_game": 12.666666666666666,
+          "left": 25,
+          "own_river_band_y16_18": 66,
+          "central_cannon_region": 41,
+          "top_cells": [
+            {
+              "x": 9,
+              "y": 18,
+              "n": 10
+            },
+            {
+              "x": 11,
+              "y": 18,
+              "n": 8
+            },
+            {
+              "x": 7,
+              "y": 17,
+              "n": 6
+            },
+            {
+              "x": 12,
+              "y": 16,
+              "n": 4
+            },
+            {
+              "x": 8,
+              "y": 18,
+              "n": 4
+            }
+          ]
+        },
+        "fireball": {
+          "n": 4,
+          "per_game": 0.6666666666666666,
+          "left": 4,
+          "own_river_band_y16_18": 0,
+          "central_cannon_region": 1,
+          "top_cells": [
+            {
+              "x": 4,
+              "y": 13,
+              "n": 1
+            },
+            {
+              "x": 3,
+              "y": 23,
+              "n": 1
+            },
+            {
+              "x": 6,
+              "y": 24,
+              "n": 1
+            },
+            {
+              "x": 6,
+              "y": 19,
+              "n": 1
+            }
+          ]
+        },
+        "hog_rider": {
+          "n": 4,
+          "per_game": 0.6666666666666666,
+          "left": 2,
+          "own_river_band_y16_18": 2,
+          "central_cannon_region": 0,
+          "top_cells": [
+            {
+              "x": 2,
+              "y": 16,
+              "n": 2
+            },
+            {
+              "x": 14,
+              "y": 21,
+              "n": 1
+            },
+            {
+              "x": 12,
+              "y": 24,
+              "n": 1
+            }
+          ]
+        },
+        "knight": {
+          "n": 73,
+          "per_game": 12.166666666666666,
+          "left": 29,
+          "own_river_band_y16_18": 68,
+          "central_cannon_region": 43,
+          "top_cells": [
+            {
+              "x": 11,
+              "y": 18,
+              "n": 11
+            },
+            {
+              "x": 8,
+              "y": 18,
+              "n": 10
+            },
+            {
+              "x": 10,
+              "y": 18,
+              "n": 10
+            },
+            {
+              "x": 7,
+              "y": 17,
+              "n": 8
+            },
+            {
+              "x": 9,
+              "y": 18,
+              "n": 4
+            }
+          ]
+        },
+        "musketeer": {
+          "n": 2,
+          "per_game": 0.3333333333333333,
+          "left": 0,
+          "own_river_band_y16_18": 2,
+          "central_cannon_region": 0,
+          "top_cells": [
+            {
+              "x": 9,
+              "y": 16,
+              "n": 1
+            },
+            {
+              "x": 13,
+              "y": 16,
+              "n": 1
+            }
+          ]
+        },
+        "skeletons": {
+          "n": 75,
+          "per_game": 12.5,
+          "left": 27,
+          "own_river_band_y16_18": 71,
+          "central_cannon_region": 39,
+          "top_cells": [
+            {
+              "x": 10,
+              "y": 18,
+              "n": 13
+            },
+            {
+              "x": 11,
+              "y": 18,
+              "n": 8
+            },
+            {
+              "x": 8,
+              "y": 18,
+              "n": 7
+            },
+            {
+              "x": 7,
+              "y": 17,
+              "n": 7
+            },
+            {
+              "x": 7,
+              "y": 18,
+              "n": 5
+            }
+          ]
+        },
+        "zap": {
+          "n": 74,
+          "per_game": 12.333333333333334,
+          "left": 27,
+          "own_river_band_y16_18": 42,
+          "central_cannon_region": 29,
+          "top_cells": [
+            {
+              "x": 10,
+              "y": 17,
+              "n": 6
+            },
+            {
+              "x": 8,
+              "y": 18,
+              "n": 6
+            },
+            {
+              "x": 9,
+              "y": 19,
+              "n": 6
+            },
+            {
+              "x": 11,
+              "y": 18,
+              "n": 5
+            },
+            {
+              "x": 7,
+              "y": 17,
+              "n": 5
+            }
+          ]
+        }
+      },
+      "games": [
+        {
+          "scenario": "attack::air/push",
+          "seed": 8102800,
+          "metrics": {
+            "scenario_id": "attack::air/push",
+            "family_id": "air",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102800,
+            "match_seed": 8102800,
+            "split": "train",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 200250,
+            "outcome": "loss",
+            "own_fraction_loss": 1.0,
+            "enemy_fraction_damage": 0.1774553571428571,
+            "own_tower_fraction_loss": {
+              "left": 0.0,
+              "right": 1.0,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": false,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 103,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": 0.0,
+            "resolved_fireballs": 0,
+            "fireball_unit_hits": 0,
+            "cluster_fireballs": 0,
+            "reserve_potential": 2.178,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 801,
+            "accepted_card_counts": {
+              "musketeer": 1,
+              "zap": 10,
+              "electro_spirit": 10,
+              "skeletons": 10,
+              "cannon": 8,
+              "knight": 9,
+              "hog_rider": 2
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "cannon": 5,
+                "knight": 5,
+                "electro_spirit": 4,
+                "skeletons": 4,
+                "zap": 3
+              },
+              "right": {
+                "musketeer": 1,
+                "zap": 7,
+                "electro_spirit": 6,
+                "skeletons": 6,
+                "cannon": 3,
+                "knight": 4,
+                "hog_rider": 2
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "musketeer": 3,
+              "knight": 6,
+              "zap": 7,
+              "minions": 5,
+              "skeletons": 7,
+              "baby_dragon": 2,
+              "fireball": 5,
+              "balloon": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 801,
+          "below4": 798,
+          "can_play": 68,
+          "voluntary_wait": 18
+        },
+        {
+          "scenario": "attack::hog/push",
+          "seed": 8102801,
+          "metrics": {
+            "scenario_id": "attack::hog/push",
+            "family_id": "hog",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102801,
+            "match_seed": 8102801,
+            "split": "train",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_draw",
+            "elapsed_ms": 300000,
+            "outcome": "draw",
+            "own_fraction_loss": 0.0,
+            "enemy_fraction_damage": 0.0,
+            "own_tower_fraction_loss": {
+              "left": 0.0,
+              "right": 0.0,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": true,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 195,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": -1.334,
+            "resolved_fireballs": 1,
+            "fireball_unit_hits": 2,
+            "cluster_fireballs": 0,
+            "reserve_potential": 2.88,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 1200,
+            "accepted_card_counts": {
+              "electro_spirit": 20,
+              "fireball": 1,
+              "zap": 19,
+              "skeletons": 19,
+              "knight": 19,
+              "cannon": 19
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "fireball": 1,
+                "cannon": 4,
+                "zap": 5,
+                "skeletons": 4,
+                "knight": 4,
+                "electro_spirit": 1
+              },
+              "right": {
+                "electro_spirit": 19,
+                "zap": 14,
+                "skeletons": 15,
+                "knight": 15,
+                "cannon": 15
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "skeletons": 18,
+              "cannon": 12,
+              "electro_spirit": 18,
+              "zap": 18,
+              "fireball": 6,
+              "knight": 15,
+              "musketeer": 3,
+              "hog_rider": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 1200,
+          "below4": 1198,
+          "can_play": 99,
+          "voluntary_wait": 1
+        },
+        {
+          "scenario": "attack::swarm/push",
+          "seed": 8102802,
+          "metrics": {
+            "scenario_id": "attack::swarm/push",
+            "family_id": "swarm",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102802,
+            "match_seed": 8102802,
+            "split": "train",
+            "task": "attack",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 180000,
+            "outcome": "loss",
+            "own_fraction_loss": 2.070172991071429,
+            "enemy_fraction_damage": 0.0,
+            "own_tower_fraction_loss": {
+              "left": 0.9637276785714286,
+              "right": 1.0,
+              "king": 0.1064453125
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": false,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 87,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": 0.0,
+            "resolved_fireballs": 0,
+            "fireball_unit_hits": 0,
+            "cluster_fireballs": 0,
+            "reserve_potential": 3.714,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 720,
+            "accepted_card_counts": {
+              "knight": 9,
+              "zap": 9,
+              "electro_spirit": 9,
+              "skeletons": 9,
+              "cannon": 8
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "zap": 1
+              },
+              "right": {
+                "knight": 9,
+                "zap": 8,
+                "electro_spirit": 9,
+                "skeletons": 9,
+                "cannon": 8
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "goblin_barrel": 5,
+              "knight": 5,
+              "skeleton_army": 5,
+              "musketeer": 3,
+              "goblin_gang": 5,
+              "zap": 4,
+              "inferno_tower": 2
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 720,
+          "below4": 719,
+          "can_play": 45,
+          "voluntary_wait": 0
+        },
+        {
+          "scenario": "defense::air/push",
+          "seed": 8102803,
+          "metrics": {
+            "scenario_id": "defense::air/push",
+            "family_id": "air",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102803,
+            "match_seed": 8102803,
+            "split": "train",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 180000,
+            "outcome": "loss",
+            "own_fraction_loss": 1.1785714285714286,
+            "enemy_fraction_damage": 0.3256138392857143,
+            "own_tower_fraction_loss": {
+              "left": 1.0,
+              "right": 0.1785714285714286,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": false,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 89,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": 0.1845161696237576,
+            "resolved_fireballs": 3,
+            "fireball_unit_hits": 4,
+            "cluster_fireballs": 0,
+            "reserve_potential": 1.714,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 720,
+            "accepted_card_counts": {
+              "hog_rider": 2,
+              "electro_spirit": 9,
+              "zap": 8,
+              "cannon": 4,
+              "skeletons": 8,
+              "knight": 8,
+              "fireball": 3
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "hog_rider": 2,
+                "zap": 3,
+                "cannon": 3,
+                "skeletons": 5,
+                "knight": 6,
+                "electro_spirit": 5,
+                "fireball": 3
+              },
+              "right": {
+                "electro_spirit": 4,
+                "zap": 5,
+                "skeletons": 3,
+                "knight": 2,
+                "cannon": 1
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "skeletons": 5,
+              "zap": 5,
+              "minions": 5,
+              "musketeer": 4,
+              "knight": 5,
+              "fireball": 4,
+              "baby_dragon": 2,
+              "balloon": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 720,
+          "below4": 715,
+          "can_play": 82,
+          "voluntary_wait": 40
+        },
+        {
+          "scenario": "defense::hog/push",
+          "seed": 8102804,
+          "metrics": {
+            "scenario_id": "defense::hog/push",
+            "family_id": "hog",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102804,
+            "match_seed": 8102804,
+            "split": "train",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_bottom",
+            "elapsed_ms": 300000,
+            "outcome": "win",
+            "own_fraction_loss": 0.0,
+            "enemy_fraction_damage": 0.2562081473214286,
+            "own_tower_fraction_loss": {
+              "left": 0.0,
+              "right": 0.0,
+              "king": 0.0
+            },
+            "own_towers_alive": {
+              "left": true,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": true,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 195,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": 0.0,
+            "resolved_fireballs": 0,
+            "fireball_unit_hits": 0,
+            "cluster_fireballs": 0,
+            "reserve_potential": 2.88,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 1200,
+            "accepted_card_counts": {
+              "skeletons": 20,
+              "musketeer": 1,
+              "electro_spirit": 19,
+              "zap": 19,
+              "knight": 19,
+              "cannon": 19
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "zap": 12,
+                "cannon": 15,
+                "electro_spirit": 14,
+                "knight": 13,
+                "skeletons": 13
+              },
+              "right": {
+                "skeletons": 7,
+                "musketeer": 1,
+                "electro_spirit": 5,
+                "knight": 6,
+                "cannon": 4,
+                "zap": 7
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "skeletons": 17,
+              "electro_spirit": 18,
+              "fireball": 2,
+              "zap": 17,
+              "knight": 14,
+              "cannon": 13,
+              "musketeer": 5,
+              "hog_rider": 4
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 1200,
+          "below4": 1198,
+          "can_play": 98,
+          "voluntary_wait": 0
+        },
+        {
+          "scenario": "defense::swarm/push",
+          "seed": 8102805,
+          "metrics": {
+            "scenario_id": "defense::swarm/push",
+            "family_id": "swarm",
+            "normal_range_mode": "edge_to_edge_v1",
+            "target_lock_mode": "legacy_periodic_v1",
+            "cannon_center_only": 1,
+            "action_cooldown_ms": 0,
+            "cannon_outside_center": 0,
+            "episode_seed": 8102805,
+            "match_seed": 8102805,
+            "split": "train",
+            "task": "defense",
+            "observation_contract": "joint_public_presence_continuous_slots_v2",
+            "terminal_reason": "game_top",
+            "elapsed_ms": 180000,
+            "outcome": "loss",
+            "own_fraction_loss": 1.3017578125,
+            "enemy_fraction_damage": 0.1815011160714286,
+            "own_tower_fraction_loss": {
+              "left": 1.0,
+              "right": 0.0,
+              "king": 0.3017578125
+            },
+            "own_towers_alive": {
+              "left": false,
+              "right": true,
+              "king": true
+            },
+            "no_tower_damage": false,
+            "elixir_overflow": 0.0,
+            "elixir_spent": 87,
+            "illegal_actions": 0,
+            "missed_fireballs": 0,
+            "missed_fireball_elixir": 0,
+            "fireball_exchange_value": 0.0,
+            "resolved_fireballs": 0,
+            "fireball_unit_hits": 0,
+            "cluster_fireballs": 0,
+            "reserve_potential": 3.714,
+            "reserve_shaping_return": 0.0,
+            "reserve_shaping_discounted_return": 0.0,
+            "board_potential": 0.0,
+            "board_shaping_return": 0.0,
+            "initial_board_potential": 0.0,
+            "board_shaping_discounted_return": 0.0,
+            "board_shaping_steps": 720,
+            "accepted_card_counts": {
+              "knight": 9,
+              "zap": 9,
+              "skeletons": 9,
+              "electro_spirit": 9,
+              "cannon": 8
+            },
+            "accepted_card_lane_counts": {
+              "left": {
+                "knight": 1,
+                "skeletons": 1,
+                "electro_spirit": 1,
+                "zap": 3
+              },
+              "right": {
+                "zap": 6,
+                "cannon": 8,
+                "knight": 8,
+                "skeletons": 8,
+                "electro_spirit": 8
+              }
+            },
+            "enemy_accepted_card_counts": {
+              "goblin_barrel": 4,
+              "goblin_gang": 6,
+              "zap": 6,
+              "musketeer": 3,
+              "knight": 5,
+              "skeleton_army": 5,
+              "inferno_tower": 1
+            },
+            "coverage_flags": [
+              "simulator_mechanics_not_fully_validated",
+              "synthetic_legal_opponent_not_live_rating"
+            ]
+          },
+          "decisions": 720,
+          "below4": 719,
+          "can_play": 45,
+          "voluntary_wait": 0
+        }
+      ]
+    }
+  },
+  "exact_live_replay": {
+    "path": "tmp/plan2_exact_live_decisions_20261028.json",
+    "sha256": "941c779b927018023f6db82b58c1c49f226af0a06cb70b31724294e8d768a33a",
+    "summaries": [
+      {
+        "match": 1,
+        "samples": 180,
+        "same_actions": 180,
+        "max_value_error": 0.0,
+        "confirmed_card_counts": {
+          "fireball": 1,
+          "knight": 2,
+          "zap": 2,
+          "electro_spirit": 2,
+          "skeletons": 2,
+          "cannon": 2
+        },
+        "attempted_card_counts": {
+          "fireball": 2,
+          "zap": 3,
+          "electro_spirit": 3,
+          "knight": 2,
+          "skeletons": 2,
+          "cannon": 2
+        },
+        "captured_policy_choices": {
+          "fireball": 2,
+          "wait": 175,
+          "skeletons": 1,
+          "cannon": 2
+        },
+        "decisions_with_play_available": 5,
+        "voluntary_waits": 0,
+        "available_elixir_below4": 178,
+        "expensive_cards": {
+          "hog_rider": {
+            "in_hand": 151,
+            "legal": 0,
+            "chosen": 0
+          },
+          "musketeer": {
+            "in_hand": 150,
+            "legal": 0,
+            "chosen": 0
+          },
+          "fireball": {
+            "in_hand": 162,
+            "legal": 2,
+            "chosen": 2
+          }
+        },
+        "timings_ms": {
+          "parser_ms": {
+            "n": 14,
+            "mean": 34.567928571428574,
+            "p95": 48.2477669
+          },
+          "inference_ms": {
+            "n": 14,
+            "mean": 2.3753126428571427,
+            "p95": 5.614205699999996
+          },
+          "parser_request_to_input_return_ms": {
+            "n": 14,
+            "mean": 124.70628571428571,
+            "p95": 150.07635
+          }
+        }
+      },
+      {
+        "match": 2,
+        "samples": 327,
+        "same_actions": 327,
+        "max_value_error": 0.0,
+        "confirmed_card_counts": {
+          "musketeer": 1,
+          "hog_rider": 1,
+          "electro_spirit": 4,
+          "skeletons": 4,
+          "zap": 3,
+          "knight": 3,
+          "cannon": 3
+        },
+        "attempted_card_counts": {
+          "fireball": 1,
+          "skeletons": 5,
+          "musketeer": 1,
+          "hog_rider": 1,
+          "electro_spirit": 4,
+          "zap": 4,
+          "knight": 3,
+          "cannon": 3
+        },
+        "captured_policy_choices": {
+          "fireball": 1,
+          "wait": 320,
+          "knight": 2,
+          "cannon": 3,
+          "electro_spirit": 1
+        },
+        "decisions_with_play_available": 7,
+        "voluntary_waits": 0,
+        "available_elixir_below4": 326,
+        "expensive_cards": {
+          "hog_rider": {
+            "in_hand": 267,
+            "legal": 1,
+            "chosen": 0
+          },
+          "musketeer": {
+            "in_hand": 293,
+            "legal": 1,
+            "chosen": 0
+          },
+          "fireball": {
+            "in_hand": 327,
+            "legal": 1,
+            "chosen": 1
+          }
+        },
+        "timings_ms": {
+          "parser_ms": {
+            "n": 22,
+            "mean": 37.05260795454546,
+            "p95": 50.71082535
+          },
+          "inference_ms": {
+            "n": 22,
+            "mean": 1.91982,
+            "p95": 2.7853021
+          },
+          "parser_request_to_input_return_ms": {
+            "n": 22,
+            "mean": 129.1685909090909,
+            "p95": 147.9812
+          }
+        }
+      },
+      {
+        "match": 3,
+        "samples": 233,
+        "same_actions": 233,
+        "max_value_error": 0.0,
+        "confirmed_card_counts": {
+          "hog_rider": 1,
+          "skeletons": 3,
+          "zap": 3,
+          "electro_spirit": 3,
+          "cannon": 3,
+          "knight": 2
+        },
+        "attempted_card_counts": {
+          "hog_rider": 2,
+          "skeletons": 4,
+          "zap": 4,
+          "knight": 3,
+          "electro_spirit": 3,
+          "cannon": 3
+        },
+        "captured_policy_choices": {
+          "wait": 223,
+          "zap": 3,
+          "skeletons": 2,
+          "knight": 3,
+          "electro_spirit": 1,
+          "cannon": 1
+        },
+        "decisions_with_play_available": 10,
+        "voluntary_waits": 0,
+        "available_elixir_below4": 231,
+        "expensive_cards": {
+          "hog_rider": {
+            "in_hand": 213,
+            "legal": 0,
+            "chosen": 0
+          },
+          "musketeer": {
+            "in_hand": 205,
+            "legal": 0,
+            "chosen": 0
+          },
+          "fireball": {
+            "in_hand": 233,
+            "legal": 2,
+            "chosen": 0
+          }
+        },
+        "timings_ms": {
+          "parser_ms": {
+            "n": 19,
+            "mean": 37.03894073684211,
+            "p95": 47.1488169
+          },
+          "inference_ms": {
+            "n": 19,
+            "mean": 1.7824099999999998,
+            "p95": 2.385733099999998
+          },
+          "parser_request_to_input_return_ms": {
+            "n": 19,
+            "mean": 131.16052631578947,
+            "p95": 152.9335999999999
+          }
+        }
+      },
+      {
+        "match": 4,
+        "samples": 618,
+        "same_actions": 618,
+        "max_value_error": 0.0,
+        "confirmed_card_counts": {
+          "knight": 9,
+          "fireball": 3,
+          "zap": 9,
+          "electro_spirit": 8,
+          "skeletons": 8,
+          "cannon": 6,
+          "hog_rider": 1
+        },
+        "attempted_card_counts": {
+          "zap": 10,
+          "hog_rider": 2,
+          "knight": 9,
+          "fireball": 3,
+          "electro_spirit": 10,
+          "skeletons": 9,
+          "cannon": 7
+        },
+        "captured_policy_choices": {
+          "wait": 606,
+          "electro_spirit": 3,
+          "skeletons": 2,
+          "knight": 1,
+          "cannon": 3,
+          "fireball": 1,
+          "hog_rider": 1,
+          "zap": 1
+        },
+        "decisions_with_play_available": 12,
+        "voluntary_waits": 0,
+        "available_elixir_below4": 616,
+        "expensive_cards": {
+          "hog_rider": {
+            "in_hand": 587,
+            "legal": 2,
+            "chosen": 1
+          },
+          "musketeer": {
+            "in_hand": 599,
+            "legal": 2,
+            "chosen": 0
+          },
+          "fireball": {
+            "in_hand": 490,
+            "legal": 1,
+            "chosen": 1
+          }
+        },
+        "timings_ms": {
+          "parser_ms": {
+            "n": 50,
+            "mean": 35.121558300000004,
+            "p95": 49.0035352
+          },
+          "inference_ms": {
+            "n": 50,
+            "mean": 2.1177449600000005,
+            "p95": 4.768256249999993
+          },
+          "parser_request_to_input_return_ms": {
+            "n": 50,
+            "mean": 125.42116000000001,
+            "p95": 143.33765
+          }
+        }
+      }
+    ]
+  }
+}
