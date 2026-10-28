@@ -1,8 +1,33 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-mana-balance-1029",
-  "status": "submitted_pending_cuda_proof",
-  "progress_snapshot": {},
+  "status": "training_steps_observed",
+  "progress_snapshot": {
+    "kernel": "vertel0/hastycr-mana-balance-1029",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "reconnect_attempt": 1,
+    "checked_host_ns": 1793231445317645000,
+    "trials": {
+      "pilot_control_s342": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1366.852029309
+      },
+      "pilot_low_s342": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1368.243044423
+      }
+    },
+    "error_type": "SSLError",
+    "http_status": null
+  },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
   "quality_accepted": false,
@@ -16,5 +41,6 @@
     "kernelId": 141414810
   },
   "frozen_bootstrap_sha256": "9949885a06749f59857cf8531a3982bc1ee674e113ad6bef62846bd9a49f046d",
-  "last_local_sync_ns": 1793230057047515000
+  "last_local_sync_ns": 1793231565773948000,
+  "actual_training_steps_confirmed": true
 }

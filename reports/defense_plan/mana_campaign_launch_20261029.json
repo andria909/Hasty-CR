@@ -97,5 +97,41 @@
       "reason": "Load finalized tie breakers and full-run verifier before any selection",
       "previous_state": "campaign_state_before_selector_update.json"
     }
+  },
+  "first_scheduled_training_observation": {
+    "checked_host_ns": 1793231565774268000,
+    "series": {
+      "reserve": {
+        "steps_lower_bound": 202752,
+        "target_steps": 819200,
+        "percent_lower_bound": 24.75,
+        "actual_cuda_events": 198,
+        "last_cuda_event": {
+          "event": "TRIAL_PROGRESS",
+          "trial_id": "pilot_low_s342",
+          "step": 101376,
+          "update": 99,
+          "target_steps": 102400,
+          "percent": 99.0,
+          "actual_cuda": "Tesla T4"
+        }
+      },
+      "balance": {
+        "steps_lower_bound": 202752,
+        "target_steps": 819200,
+        "percent_lower_bound": 24.75,
+        "actual_cuda_events": 198,
+        "last_cuda_event": {
+          "event": "TRIAL_PROGRESS",
+          "trial_id": "pilot_low_s342",
+          "step": 101376,
+          "update": 99,
+          "target_steps": 102400,
+          "percent": 99.0,
+          "actual_cuda": "Tesla T4"
+        }
+      }
+    },
+    "terminal_budgets_verified": false
   }
 }
