@@ -1,3 +1,6 @@
+## CURRENT emptyspell tracker+environment implemented, NOT PPOwired
+Newsim/spell_waste.py optinMatch.play_logcallback afterpaymentbeforecast injectsZap outcome (existingapply_spell recordsactualhits). BaseinstantZaponly guard; paidreceiptsmatchFireball/Zap byclock/caster; unresolvednotmiss, anycontactincludingzeroHP/shieldnotempty. No7physicsfileschanged/frozenjobsintact. sim/continuous_spell_waste.py extendsTowerSupportenv, emptycostdelta*weight, setsoldmissed_fireball_penalty0 toavoid double;optional towerweightcompatible; snapshotrestoreguards.14testsPASS actualpaidZapempty/tower/shield+reset/Fireballflight,onceonlypenalty,exactenvrestore. Nextwire --spell-waste-weight PPO fingerprint/config/resume/factory, actualtrainingpreflightthenpilot. LivefirstBCcomplete1/10; second2finishedmatch3active confirmedPLAY atlastcheck.
+
 ## CURRENT user reinforces spell waste and tower support
 Confirmed Fireballmiss coefficient.1 =−.4 peremptycast; Zapnotloggedbycast_spell. Appendedplan+spell_waste_training_design20261028: controlledcontrol/.1/.5/1perpaidcost, no doubleFireballpenalty, preserveusefulreset/shield/towerfinish. NOTimplemented/trained. Towerrewardalreadyqueued, combineafterisolatedtests. FutureCannoncatalog+defenseundertowers, no blanketbridgeban. Currentlive20unchanged;BCcomplete1/10,secondRUNNINGconfirmed.
 
