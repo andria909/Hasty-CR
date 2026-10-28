@@ -20,6 +20,7 @@ from scripts.gamestate.model_bridge import (
 from scripts.gamestate.query_arm64 import CurrentStateReader
 from sim.env import DECK_26
 from scripts.gamestate.placement_budget import PlacementBudget
+from scripts.gamestate.hand_readiness import HandReadiness
 
 # Explicit deck-screen order, visually checked on this account, slot 1.
 # This is NOT the seen-card list at KingTower+0x288, which is play-history order.
@@ -123,6 +124,7 @@ def main():
     report['geometry']=policy.geometry
     report['joint_policy']=policy.joint
     report['screenshot_every']=args.screenshot_every
+    report['hand_readiness']='fresh_tick_after_slot_rotation_v1'
     from sim.cannon_placement import CENTRAL_MODE
     report['cannon_placement_mode']=CENTRAL_MODE
     log = (args.output / 'events.jsonl').open('x')
@@ -220,6 +222,7 @@ def main():
                           'plays': 0, 'cards': {}, 'seen_towers': set(), 'missing_towers': {},
                           'destroyed': set(), 'pending': {}, 'slot_cooldowns': {},
                           'budget': PlacementBudget(),
+                          'hand_readiness': HandReadiness(),
                           'warnings': set()}
                 report['matches'].append({'number': active['number'], 'world': active['world'], 'plays': []})
                 emit('MATCH_START', match=active['number'], checkpoint=str(args.checkpoint.resolve()), checkpoint_sha256=checkpoint_sha256, side=private['own_side'], tick=private['tick'], hand=own_context(private, deck).hand)
@@ -249,6 +252,8 @@ def main():
                 time.sleep(.1)
                 continue
             active['budget'].observe(private['tick'],private['elixir_raw']/10000)
+            rotation_guard_slots = active['hand_readiness'].observe(
+                private['tick'], private['hand_indices'])
             for pending_slot,pending in list(active['pending'].items()):
                 if private['hand_indices'][pending_slot] != pending['hand'][pending_slot]:
                     ack_ns=snapshot['received_host_ns']
@@ -265,7 +270,8 @@ def main():
                     del active['pending'][pending_slot]
                 elif now - pending['sent'] > 4:
                     emit('PLAY_NOT_CONFIRMED', match=active['number'], card=pending['card'],
-                         tick=private['tick'], detail='fresh hand unchanged; reconsider other slots')
+                         tick=private['tick'], source_tick=pending['source_tick'],
+                         slot=pending_slot, detail='fresh hand unchanged; reconsider other slots')
                     active['slot_cooldowns'][pending['slot']] = now + 2
                     del active['pending'][pending_slot]
             active['budget'].reconcile(private['elixir_raw']/10000,all_confirmed=not active['pending'])
@@ -305,7 +311,7 @@ def main():
             for slot, until in active['slot_cooldowns'].items():
                 if now < until:
                     view.action_mask[1+slot*576:1+(slot+1)*576] = False
-            for slot in active['pending']:
+            for slot in set(active['pending']) | set(rotation_guard_slots):
                 view.action_mask[1+slot*576:1+(slot+1)*576] = False
             inference_start=time.perf_counter_ns()
             capture=None
@@ -313,6 +319,8 @@ def main():
                 context=dict(match=active['number'],tick=private['tick'],host_ns=time.time_ns(),
                     checkpoint_sha256=checkpoint_sha256,hand=list(own.hand),
                     reserved_elixir=own.elixir.reserved,pending_slots=list(active['pending']),
+                    rotation_guard_slots=list(rotation_guard_slots),
+                    native_elixir=private['elixir_raw']/10000,world=private['world'],
                     coordinate_mode=policy.coordinate_mode,geometry=policy.geometry)
                 capture=lambda planes,scalars,mask,result: decision_capture.capture(
                     planes,scalars,mask,result,context)

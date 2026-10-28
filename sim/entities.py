@@ -101,6 +101,9 @@ class Entity:
     target_only_troops: bool
     splash_radius_mt: int
     jump_enabled: bool = False     # can leap the river instead of using a bridge
+    # Preserved from both loaders in mt/s. Routing/takeoff/landing are not yet
+    # implemented; merely carrying this field must not accelerate walking.
+    jump_speed_mt_per_sec: int = 0
     retarget_after_attack: bool = False
     retarget_each_tick: bool = False
     sight_clip_mt: int = 0
@@ -781,6 +784,7 @@ def make_unit(uid: int, spec, side: int, pos: Point, now_ms: int = 0) -> Entity:
         target_only_troops=bool(getattr(spec, "target_only_troops", False)),
         splash_radius_mt=spec.splash_radius_mt,
         jump_enabled=bool(getattr(spec, "jump_enabled", False)),
+        jump_speed_mt_per_sec=int(getattr(spec, "jump_speed_mt_per_sec", 0) or 0),
         retarget_after_attack=bool(getattr(spec, "retarget_after_attack", False)),
         retarget_each_tick=bool(getattr(spec, "retarget_each_tick", False)),
         sight_clip_mt=int(getattr(spec, "sight_clip_mt", 0) or 0),

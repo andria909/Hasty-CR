@@ -1099,6 +1099,9 @@ def _projectile_field(raw: dict, proj_name, key: str, default):
 
 
 def build_unit_spec(name: str, raw: dict, level: int, card_rarity: str, rarities_dict: dict, proj_dict: dict) -> UnitSpec:
+    # Import lazily: entities imports the UnitSpec declaration. JumpSpeed,
+    # unlike the legacy raw Speed field, is already in mt/s in public specs.
+    from .entities import speed_to_mt_per_sec
     snake_name = to_snake_case(name)
     
     hp_base = int(raw.get('Hitpoints', 0))
@@ -1469,7 +1472,7 @@ def build_unit_spec(name: str, raw: dict, level: int, card_rarity: str, rarities
         target_only_troops=bool(raw.get('TargetOnlyTroops', False)),
         splash_radius_mt=splash,
         jump_enabled=bool(raw.get('JumpEnabled', False)),
-        jump_speed_mt_per_sec=int(raw.get('JumpSpeed', 0)),
+        jump_speed_mt_per_sec=speed_to_mt_per_sec(int(raw.get('JumpSpeed', 0) or 0)),
         retarget_after_attack=bool(raw.get('RetargetAfterAttack', False)),
         retarget_each_tick=bool(raw.get('RetargetEachTick', False)),
         sight_clip_mt=int(raw.get('SightClip', 0) or 0),

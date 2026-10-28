@@ -45,6 +45,13 @@ def render(reports):
         '**Улучшаем PPO после ошибок реальных боёв. Новая модель для live пока не принята.**', '',
         '| Короткое обучение | Прогресс | Результат / состояние |','|---|---:|---|']
     mechanics=read(reports/'recorded_episode_replay_20261028.json')
+    offline=read(reports/'balanced_offline_decisions_20261029.json')
+    if offline and offline.get('schema')=='saved-live-decision-audit-v1':
+        counts=offline['commands']['counts']
+        lines[4:4]=['**29 октября: реальные бои остановлены по просьбе пользователя; продолжаем офлайн.** '
+            f"balanced: {counts.get('confirmed',0)} подтверждённых команд, исход единственного боя неизвестен. "
+            'Добавлена защита нового слота; накопление эликсира остаётся проблемой. '
+            '[Разбор и изменения](reports/balanced_offline_diagnosis_20261029.md).','']
     if mechanics and mechanics.get('schema')=='recorded-episode-replay-report-v1':
         note='**Проверка реальных эпизодов:** исправлены скорости снарядов пушки и лучницы. '
         fireball=read(reports/'native_fireball_crown_overlap_verified_20261028.json')
@@ -121,6 +128,8 @@ def render(reports):
         lines+=['','Это симуляция; цифры не сопоставимы напрямую с новыми опытами1350мс или реальными боями. [Подробности](reports/full_candidate_partial_tests_20261028.md).','']
     lines+=['**Последние реальные серии:**','',
         '| Модель | Завершено | Победы / поражения | Винрейт |','|---|---:|---:|---:|']
+    if offline and offline.get('schema')=='saved-live-decision-audit-v1':
+        lines.append('| balanced · 29 октября, остановлена | 1; ещё4 отменены | исход неизвестен | — |')
     for slug,label in [('full_bc800','Накопление · BC800'),('full_cannon_spells_replay1','Пушка + спеллы · повторение1')]:
         live=read(Path('tmp/live/full_top2_20261028')/slug/'series/series.json')
         if live:

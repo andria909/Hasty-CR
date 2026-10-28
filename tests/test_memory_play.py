@@ -85,3 +85,47 @@ def test_diagnostic_screenshot_brackets_engine_time_without_using_cv(tmp_path,mo
     assert result['engine_tick_after_capture']==103
     assert (tmp_path/'sample.png').read_bytes()==b'PNG'
     assert result['capture_ms']>=0
+
+
+def test_runner_applies_rotation_guard_to_one_slot_without_android(tmp_path, monkeypatch):
+    from copy import deepcopy
+    from types import SimpleNamespace
+    import sys
+    from scripts.gamestate import memory_play
+
+    _, native, _ = fixture()
+    snapshots = []
+    for tick, hand in [(0, [0, 1, 2, 3]), (2, [0, 5, 2, 3]), (4, [0, 5, 2, 3])]:
+        row = deepcopy(native)
+        row.update(round_trip_ms=1, request_host_ns=tick+1, received_host_ns=tick+2,
+            frame=dict(battle_tick=tick, read_us=1),
+            own_state=dict(status='ok', world='test_world', tick=tick, own_side=0,
+                elixir_raw=100000, hand_indices=hand,
+                cycle_indices=[card for card in range(8) if card not in hand]))
+        snapshots.append(row)
+    snapshots.append(dict(status='no_battle'))
+    iterator = iter(snapshots)
+    masks = []
+
+    def decide(view, capture=None):
+        masks.append([bool(view.action_mask[1+i*576:1+(i+1)*576].any()) for i in range(4)])
+        return dict(action=0, placement=None)
+
+    policy = SimpleNamespace(coordinate_mode='physical_live_cells_v2', geometry='legacy_v1',
+                             joint=False, decide=decide)
+    checkpoint = tmp_path/'fake.pt'
+    checkpoint.write_bytes(b'not loaded: test policy is injected')
+    monkeypatch.setattr(memory_play, 'MemoryPolicy', lambda _: policy)
+    monkeypatch.setattr(memory_play, 'CurrentStateReader',
+                        lambda *a, **k: SimpleNamespace(query=lambda: next(iterator)))
+    monkeypatch.setattr(memory_play.time, 'sleep', lambda _: None)
+
+    def unexpected_android(*args, **kwargs):
+        raise AssertionError('Offline integration must not contact Android')
+
+    monkeypatch.setattr(memory_play.subprocess, 'run', unexpected_android)
+    monkeypatch.setattr(memory_play.subprocess, 'check_output', unexpected_android)
+    monkeypatch.setattr(sys, 'argv', ['memory_play', '--serial', 'offline-test',
+        '--checkpoint', str(checkpoint), '--max-matches', '1', '--output', str(tmp_path/'run')])
+    memory_play.main()
+    assert masks == [[True, True, True, True], [True, False, True, True], [True, True, True, True]]
