@@ -258,6 +258,8 @@ def render_live_feedback_studies(reports):
         ('pending_inputs_pilot','Видимость ожидающих карт',(212,213),
         [('control1350','Обычный вход ·1350мс'),('pending1350','Очередь во входе ·1350мс'),
          ('control2025','Обычный вход ·2025мс'),('pending2025','Очередь во входе ·2025мс')])]
+    if (reports/'pending_sequence_warmstart_smoke_20261028.json').exists():
+        lines += ['**Следующий опыт:** предварительное обучение последовательной защите с входом24/313 работает;5 CPU-обновлений и12 тестов пройдены. Удержание этого навыка в PPO ещё не подключено. Это техническая проверка, не новый винрейт.', '']
     motionfix_path=reports/'motionfix_pilot_submission_20261028.json'
     if motionfix_path.exists():
         launch=json.loads(motionfix_path.read_text())

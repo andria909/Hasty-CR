@@ -1,0 +1,53 @@
+{
+  "schema": "air-local-position-warmstart-v1",
+  "supervised_updates": 5,
+  "environment_steps": 0,
+  "seed": 112,
+  "actual_cuda": null,
+  "heldout_seed": 3800085,
+  "train_seeds": [
+    3800009,
+    3800057
+  ],
+  "baseline": {
+    "train": {
+      "examples": 80,
+      "successful_greedy_fraction": 0.0,
+      "mean_successful_probability": 1.6737124381750734e-13,
+      "mean_log_successful_probability": -99.98237609863281
+    },
+    "local_heldout": {
+      "examples": 168,
+      "successful_greedy_fraction": 0.0059523810632526875,
+      "mean_successful_probability": 0.009035843424499035,
+      "mean_log_successful_probability": -54.7327995300293
+    }
+  },
+  "final": {
+    "train": {
+      "examples": 80,
+      "successful_greedy_fraction": 0.0,
+      "mean_successful_probability": 1.3409457192640334e-13,
+      "mean_log_successful_probability": -93.15470123291016
+    },
+    "local_heldout": {
+      "examples": 168,
+      "successful_greedy_fraction": 0.0059523810632526875,
+      "mean_successful_probability": 0.007373774889856577,
+      "mean_log_successful_probability": -51.96476364135742
+    }
+  },
+  "data_sha256": "0a90d722cf70a02cc246af69560e8c4fe650a4af2cc56a42f5f853613cbd7993",
+  "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+  "kl_weight": 0.1,
+  "source_sha256": "739ddb4a284a28c7b3a484a354e44b97c551a979997a08de76b3ee1bbe0d1ae0",
+  "sequence_wait_fraction": 0.25,
+  "slot_augmentation": false,
+  "pending_inputs": true,
+  "sampling": "equal_sequence_mass_bounded_wait_with_replacement",
+  "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+  "quality_accepted": false,
+  "test_result": "12 passed: warmstart, sequence replay, pending observation",
+  "gpu_job_changed": false,
+  "ppo_replay_supported": false
+}
