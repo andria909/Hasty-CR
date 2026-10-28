@@ -1,0 +1,221 @@
+{
+  "schema": "completed-live-decision-audit-v1",
+  "run": "tmp/live/strong_20261028_live5/run",
+  "checkpoint_sha256": "82e988f074937fe86d7c9ec1eb1dfce384142eabe98ebc75adf4e1986c71a7fd",
+  "events_prefix_sha256": "bc99e966413a1997b8e3d0be24f18eec4d33ac64896b4769c54ba238ebdcd2ee",
+  "summaries": [
+    {
+      "match": 1,
+      "samples": 500,
+      "same_actions": 500,
+      "max_value_error": 0.0,
+      "confirmed_card_counts": {
+        "fireball": 1,
+        "musketeer": 2,
+        "electro_spirit": 6,
+        "zap": 6,
+        "skeletons": 6,
+        "knight": 5,
+        "cannon": 6
+      },
+      "attempted_card_counts": {
+        "fireball": 2,
+        "knight": 7,
+        "musketeer": 2,
+        "skeletons": 7,
+        "electro_spirit": 7,
+        "zap": 6,
+        "cannon": 6
+      },
+      "captured_policy_choices": {
+        "fireball": 2,
+        "wait": 488,
+        "skeletons": 4,
+        "knight": 1,
+        "zap": 3,
+        "cannon": 1,
+        "musketeer": 1
+      },
+      "decisions_with_play_available": 12,
+      "voluntary_waits": 0,
+      "available_elixir_below4": 497,
+      "expensive_cards": {
+        "hog_rider": {
+          "in_hand": 450,
+          "legal": 1,
+          "chosen": 0
+        },
+        "musketeer": {
+          "in_hand": 412,
+          "legal": 3,
+          "chosen": 1
+        },
+        "fireball": {
+          "in_hand": 471,
+          "legal": 3,
+          "chosen": 2
+        }
+      },
+      "timings_ms": {
+        "parser_ms": {
+          "n": 37,
+          "mean": 37.19047416216216,
+          "p95": 48.218650000000004
+        },
+        "inference_ms": {
+          "n": 37,
+          "mean": 1.980664324324325,
+          "p95": 2.5484746
+        },
+        "parser_request_to_input_return_ms": {
+          "n": 37,
+          "mean": 129.1992972972973,
+          "p95": 147.4874
+        }
+      }
+    },
+    {
+      "match": 2,
+      "samples": 569,
+      "same_actions": 569,
+      "max_value_error": 0.0,
+      "confirmed_card_counts": {
+        "zap": 9,
+        "electro_spirit": 8,
+        "skeletons": 8,
+        "hog_rider": 2,
+        "knight": 7,
+        "cannon": 6,
+        "fireball": 1
+      },
+      "attempted_card_counts": {
+        "electro_spirit": 11,
+        "skeletons": 10,
+        "musketeer": 1,
+        "zap": 9,
+        "cannon": 7,
+        "hog_rider": 2,
+        "knight": 8,
+        "fireball": 1
+      },
+      "captured_policy_choices": {
+        "musketeer": 1,
+        "wait": 552,
+        "cannon": 4,
+        "zap": 5,
+        "knight": 3,
+        "skeletons": 2,
+        "electro_spirit": 1,
+        "fireball": 1
+      },
+      "decisions_with_play_available": 17,
+      "voluntary_waits": 0,
+      "available_elixir_below4": 562,
+      "expensive_cards": {
+        "hog_rider": {
+          "in_hand": 469,
+          "legal": 1,
+          "chosen": 0
+        },
+        "musketeer": {
+          "in_hand": 569,
+          "legal": 2,
+          "chosen": 1
+        },
+        "fireball": {
+          "in_hand": 517,
+          "legal": 1,
+          "chosen": 1
+        }
+      },
+      "timings_ms": {
+        "parser_ms": {
+          "n": 49,
+          "mean": 34.49678830612245,
+          "p95": 46.096607799999994
+        },
+        "inference_ms": {
+          "n": 49,
+          "mean": 1.8309292857142858,
+          "p95": 2.733874799999998
+        },
+        "parser_request_to_input_return_ms": {
+          "n": 49,
+          "mean": 123.90912244897959,
+          "p95": 144.7088
+        }
+      }
+    },
+    {
+      "match": 3,
+      "samples": 241,
+      "same_actions": 241,
+      "max_value_error": 0.0,
+      "confirmed_card_counts": {
+        "musketeer": 1,
+        "knight": 3,
+        "skeletons": 3,
+        "electro_spirit": 3,
+        "zap": 3,
+        "cannon": 2
+      },
+      "attempted_card_counts": {
+        "hog_rider": 1,
+        "zap": 4,
+        "musketeer": 1,
+        "knight": 3,
+        "skeletons": 3,
+        "electro_spirit": 3,
+        "cannon": 2
+      },
+      "captured_policy_choices": {
+        "hog_rider": 1,
+        "wait": 234,
+        "musketeer": 1,
+        "cannon": 2,
+        "skeletons": 2,
+        "zap": 1
+      },
+      "decisions_with_play_available": 7,
+      "voluntary_waits": 0,
+      "available_elixir_below4": 239,
+      "expensive_cards": {
+        "hog_rider": {
+          "in_hand": 241,
+          "legal": 1,
+          "chosen": 1
+        },
+        "musketeer": {
+          "in_hand": 217,
+          "legal": 2,
+          "chosen": 1
+        },
+        "fireball": {
+          "in_hand": 219,
+          "legal": 0,
+          "chosen": 0
+        }
+      },
+      "timings_ms": {
+        "parser_ms": {
+          "n": 17,
+          "mean": 36.665414235294115,
+          "p95": 49.6553
+        },
+        "inference_ms": {
+          "n": 17,
+          "mean": 2.043529529411765,
+          "p95": 3.2122164
+        },
+        "parser_request_to_input_return_ms": {
+          "n": 17,
+          "mean": 126.81152941176472,
+          "p95": 154.0546
+        }
+      }
+    }
+  ],
+  "training_performed": false,
+  "limitation": "Captured every-N policy calls, not independent states or all placements. Exact replay validates choice reproduction, not parser/physics correctness. No counterfactual gameplay or tactical success labels.",
+  "full_local_audit": "tmp/live/strong_20261028_live5/first3_decision_audit.json"
+}
