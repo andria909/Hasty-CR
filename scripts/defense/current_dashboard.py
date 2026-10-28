@@ -12,6 +12,7 @@ STUDIES = (
     ('fireball_reward_ablation','Награда Fireball × обучение на примерах'),
     ('combined_reward_pilot','Помощь башен × штраф пустых спеллов'),
     ('central_tower_pilot','Пушка в центре + исправленный слот + урон башен'),
+    ('tactical_starts_pilot','Разные защитные старты → полный матч'),
 )
 
 

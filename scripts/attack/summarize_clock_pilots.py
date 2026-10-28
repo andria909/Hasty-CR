@@ -20,6 +20,8 @@ def summarize(root,verified=None):
             from scripts.attack.verify_native_fireball_slot import verify_native_fireball as verify_study
         elif variant=='tower_support_reward_v1':
             from scripts.attack.verify_tower_support_pilot import verify_tower_support as verify_study
+        elif variant=='paid_tactical_fullgame_starts_v1':
+            from scripts.attack.verify_tactical_starts_pilot import verify_tactical as verify_study
         elif variant=='central_tower_damage_v1':
             from scripts.attack.verify_central_tower_pilot import verify_central as verify_study
         elif variant=='combined_tower_spell_reward_v1':
@@ -35,7 +37,7 @@ def summarize(root,verified=None):
     retention=protocol.get('schema')=='continuous-air-retention-pilot-v1'
     jointskills=protocol.get('schema')=='continuous-joint-skills-pilot-v1'
     warm=protocol.get('schema')=='continuous-air-warmstart-pilot-v1'or retention or jointskills
-    if protocol.get('study_variant')=='central_tower_damage_v1':warm=False
+    if protocol.get('study_variant') in ('central_tower_damage_v1','paid_tactical_fullgame_starts_v1'):warm=False
     if protocol.get('study_variant') in ('own_pending_inputs_v1','tower_support_reward_v1','spell_waste_reward_v1','combined_tower_spell_reward_v1'):warm=False
     temperature=protocol.get('schema')=='continuous-temperature-pilot-v1'
     tactical=protocol.get('schema')=='continuous-live-tactical-reward-pilot-v1'
