@@ -299,13 +299,46 @@ class Battle:
     _buildings_cache: List = field(default_factory=list)
     _buildings_stamp: int = -1
     geometry: arena.ArenaGeometry = field(default_factory=lambda: arena.LEGACY_GEOMETRY)
+    # Ordinary attack/sight distances use both bodies' edges. Keep the old
+    # contract explicit for replaying historical audits; frozen GPU jobs carry
+    # their own source and are not migrated by changing these defaults.
+    normal_range_mode: str = 'edge_to_edge_v1'
+    # Retention is a separate experimental switch: the recorded trajectories
+    # validate reach more strongly than the game's reset/stun rules.
+    target_lock_mode: str = 'legacy_periodic_v1'
 
     def __post_init__(self):
         self.geometry=arena.resolve_geometry(self.geometry)
+        self._validate_combat_geometry()
 
     def __setstate__(self,state):
         self.__dict__.update(state)
         self.geometry=arena.resolve_geometry(state.get('geometry'))
+        self.normal_range_mode=state.get('normal_range_mode','legacy_target_edge_v1')
+        self.target_lock_mode=state.get('target_lock_mode','legacy_periodic_v1')
+        self._validate_combat_geometry()
+
+    def _validate_combat_geometry(self):
+        if self.normal_range_mode not in ('edge_to_edge_v1','legacy_target_edge_v1'):
+            raise ValueError('Unknown normal attack range contract')
+        if self.target_lock_mode not in ('in_range_v1','legacy_periodic_v1'):
+            raise ValueError('Unknown target retention contract')
+
+    def _normal_attack_reach(self, source: Entity, target: Entity) -> int:
+        radius = source.collision_radius_mt if self.normal_range_mode == 'edge_to_edge_v1' else 0
+        return source.range_mt + radius + target.collision_radius_mt
+
+    def _attack_reach(self, source: Entity, target: Entity) -> int:
+        # Special ability distances retain their separate declared contracts.
+        if self._siege_active(source):
+            return source.ability_siege_range_mt + target.collision_radius_mt
+        return self._normal_attack_reach(source, target)
+
+    def _sight_range(self, source: Entity) -> int:
+        if self._siege_active(source):
+            return source.ability_siege_range_mt
+        radius = source.collision_radius_mt if self.normal_range_mode == 'edge_to_edge_v1' else 0
+        return source.sight_range_mt + radius
 
     # ------------------------------------------------------------- lifecycle
 
@@ -2254,7 +2287,7 @@ class Battle:
                 continue
             target = self.get(entity.target_uid)
             attacking = bool(target and target.alive and distance(entity.pos, target.pos)
-                             <= entity.range_mt + target.collision_radius_mt)
+                             <= self._normal_attack_reach(entity, target))
             if not attacking:
                 entity.damage_reduction_pct = max(
                     entity.damage_reduction_pct, entity.idle_damage_reduction_pct)
@@ -2436,7 +2469,7 @@ class Battle:
         if dy * source.side >= 0:
             return False
         gap = distance(source.pos, target.pos)
-        normal_reach = source.range_mt + target.collision_radius_mt
+        normal_reach = self._normal_attack_reach(source, target)
         if gap <= normal_reach:
             return False
         if (gap < source.sniper_min_range_mt
@@ -2470,9 +2503,9 @@ class Battle:
             current is not None
             and current.alive
             and entity.is_valid_target(current, self.now_ms)
+            and not current.invisible(self.now_ms)
             and (distance(entity.pos, current.pos)
-                 <= (entity.ability_siege_range_mt if self._siege_active(entity)
-                     else entity.sight_range_mt) + current.collision_radius_mt
+                 <= self._sight_range(entity) + current.collision_radius_mt
                  or self._is_sniper_target(entity, current))
         )
         # Re-scanning every entity every tick is the single most expensive
@@ -2480,8 +2513,24 @@ class Battle:
         # that. Throttle the full sweep to the retarget interval whether or not
         # a target is currently held, staggered by uid so they do not all sweep
         # on the same tick and spike one frame.
-        due = (self.now_ms + entity.uid * TICK_MS) % RETARGET_INTERVAL_MS == 0
-        if keep and not due:
+        every_tick = entity.retarget_each_tick
+        due = every_tick or (self.now_ms + entity.uid * TICK_MS) % RETARGET_INTERVAL_MS == 0
+        # A previously out-of-sight walking destination can become attackable
+        # between scheduled scans. Check that single known body now, otherwise
+        # a 500ms search throttle makes a moving Musketeer overshoot its range
+        # by up to 0.6 tiles and walk into a Cannon's reach.
+        if self.normal_range_mode == 'edge_to_edge_v1' and entity.target_uid is None:
+            walking = self.get(entity.walk_target_uid)
+            if (walking is not None and entity.is_valid_target(walking, self.now_ms)
+                    and not walking.invisible(self.now_ms)
+                    and distance(entity.pos, walking.pos) <= self._sight_range(entity)+walking.collision_radius_mt):
+                due = True
+        # A nearer arrival must not interrupt an ordinary attack already in
+        # range. Invalid/hidden/dead targets, taunts and explicit retarget flags
+        # still break the lock; moving units continue scanning for a kite.
+        in_range_lock = (self.target_lock_mode == 'in_range_v1' and keep
+                         and distance(entity.pos, current.pos) <= self._attack_reach(entity, current))
+        if keep and not every_tick and (not due or in_range_lock):
             return
         if not keep and not due and entity.target_uid is None                 and entity.last_scan_ms and self.now_ms - entity.last_scan_ms < RETARGET_INTERVAL_MS:
             return
@@ -2501,8 +2550,7 @@ class Battle:
         # Loop-invariant, and this is the hottest loop in the engine: how far
         # the unit can see does not depend on which candidate is being looked
         # at, but it was recomputed for every one of them.
-        sight = (entity.ability_siege_range_mt if self._siege_active(entity)
-                 else entity.sight_range_mt)
+        sight = self._sight_range(entity)
         now_ms = self.now_ms
         own_side = entity.side
         own_pos = entity.pos
@@ -3000,7 +3048,7 @@ class Battle:
             if target is None or not target.alive:
                 entity.dashing = False
                 return
-            reach = entity.range_mt + target.collision_radius_mt
+            reach = self._normal_attack_reach(entity, target)
             gap = distance(entity.pos, target.pos)
             if gap <= reach:
                 # Arrived. The dash hit replaces the normal one and starts the
@@ -3056,8 +3104,7 @@ class Battle:
             return False
         gap = distance(entity.pos, target.pos)
         uses_siege = self._siege_active(entity)
-        reach = ((entity.ability_siege_range_mt if uses_siege else entity.range_mt)
-                 + target.collision_radius_mt)
+        reach = self._attack_reach(entity, target)
         uses_sniper = self._is_sniper_target(entity, target)
         uses_pull = (entity.special_range_mt > 0
                      and entity.special_min_range_mt <= gap <= entity.special_range_mt
@@ -3699,7 +3746,7 @@ class Battle:
             extras = [other for other in self.entities.values()
                       if other.uid != target.uid and entity.is_valid_target(other, self.now_ms)
                       and distance(entity.pos, other.pos)
-                          <= entity.range_mt + other.collision_radius_mt]
+                          <= self._normal_attack_reach(entity, other)]
             extras.sort(key=lambda other: (distance(entity.pos, other.pos), other.uid))
             for other in extras[:entity.multiple_targets - 1]:
                 self._land(entity, other, amount)
@@ -3894,8 +3941,7 @@ class Battle:
         a rule that only holds when the arena is fully populated is a rule
         that will be wrong somewhere else later.
         """
-        sight = (entity.ability_siege_range_mt if self._siege_active(entity)
-                 else entity.sight_range_mt)
+        sight = self._sight_range(entity)
         best, best_gap = None, None
         offlane, offlane_gap = None, None
         distant, distant_gap = None, None
@@ -4606,7 +4652,7 @@ class Battle:
                 target and target.alive
                 and entity.is_valid_target(target, self.now_ms)
                 and distance(entity.pos, target.pos)
-                    <= entity.range_mt + target.collision_radius_mt)
+                    <= self._normal_attack_reach(entity, target))
             if engaged:
                 entity.hot_spawn_moving_ms = 0
                 if not entity.hot_spawn_active:

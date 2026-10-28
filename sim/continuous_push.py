@@ -59,7 +59,8 @@ class ContinuousPushEnv:
         self.profile=dict(overflow_penalty=.15,missed_fireball_penalty=0.,board_potential_weight=0.,
                           fireball_value_reward=0.,reserve_potential_weight=0.,barbarian_train_fraction=0.,lane_reflection_fraction=0.,shaping_gamma=.999,own_hp_penalty=4.,enemy_hp_reward=3.,
                           win_reward=20.,loss_penalty=20.,action_cooldown_ms=0,decision_interval_ms=250,
-                          cannon_center_only=1,tower_damage_all=0)
+                          cannon_center_only=1,tower_damage_all=0,
+                          source_radius_reach=1,target_lock_in_range=0)
         if continuous_profile:
             supplied=json.loads(Path(continuous_profile).read_text()) if isinstance(continuous_profile,(str,Path)) else dict(continuous_profile)
             if set(supplied)-set(self.profile): raise ValueError('Unknown continuous coefficient')
@@ -70,8 +71,8 @@ class ContinuousPushEnv:
         if self.profile['shaping_gamma']>1:raise ValueError('Shaping discount above one')
         if self.profile['barbarian_train_fraction']>1:raise ValueError('Invalid Barbarian training fraction')
         if self.profile['lane_reflection_fraction']>1:raise ValueError('Invalid lane reflection fraction')
-        if any(self.profile[k]not in (0,1)for k in ('cannon_center_only','tower_damage_all')):
-            raise ValueError('Cannon/tower mode flags must be 0 or 1')
+        if any(self.profile[k]not in (0,1)for k in ('cannon_center_only','tower_damage_all','source_radius_reach','target_lock_in_range')):
+            raise ValueError('Cannon/tower/combat mode flags must be 0 or 1')
         self.cards,self.spells,_,_=load_defense_assets();self.cards.update(resolve_deck(self.cards,list(DECK_26)))
         self._board_values=None
         if self.profile['board_potential_weight']:
@@ -99,6 +100,8 @@ class ContinuousPushEnv:
             enemy[4]='valkyrie' if self.split=='validation' else 'hunter'
         self.match=Match(cards=self.cards,spells=self.spells,decks=(list(DECK_26),enemy),
                          seed=low+self.seed,geometry=self.geometry)
+        self.match.battle.normal_range_mode=('edge_to_edge_v1' if self.profile['source_radius_reach'] else 'legacy_target_edge_v1')
+        self.match.battle.target_lock_mode=('in_range_v1' if self.profile['target_lock_in_range'] else 'legacy_periodic_v1')
         from sim.defense_env import UnitLookup
         self.match.battle.unit_lookup=UnitLookup(self.match)
         from sim.opponents import ScriptedOpponent
@@ -244,6 +247,8 @@ class ContinuousPushEnv:
             from sim.board_potential import public_board_potential
             if not self.match.finished:potential=public_board_potential(self.match,self._board_values)
         return dict(scenario_id=self.scenario.scenario_id,family_id=self.scenario.family,
+            normal_range_mode=self.match.battle.normal_range_mode,
+            target_lock_mode=self.match.battle.target_lock_mode,
             cannon_center_only=self.profile['cannon_center_only'],
             action_cooldown_ms=self.profile['action_cooldown_ms'],
             cannon_outside_center=sum(a['card']=='cannon'and not(6<=a['x']<=11 and 18<=a['y']<=23)for a in self.actions),

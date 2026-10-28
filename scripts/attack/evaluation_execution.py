@@ -47,7 +47,11 @@ def environment_kwargs(execution):
     return dict(action_delay_ms=e['action_delay_ms'],max_ms=e['max_ms'],geometry=e['geometry'],
         coordinate_mode=e['coordinate_mode'],continuous_profile=dict(
             action_cooldown_ms=e['action_cooldown_ms'],decision_interval_ms=e['decision_interval_ms'],
-            cannon_center_only=int(e['cannon_placement_mode']=='central_defense_v1'),tower_damage_all=0))
+            cannon_center_only=int(e['cannon_placement_mode']=='central_defense_v1'),tower_damage_all=0,
+            # Existing execution-v1 protocols predate the range correction.
+            # A new blueprint must explicitly version corrected geometry;
+            # rerunning an old protocol must not inherit new env defaults.
+            source_radius_reach=0,target_lock_in_range=0))
 
 
 def restrict_placements(mask,hand,execution):

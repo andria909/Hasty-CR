@@ -60,7 +60,10 @@ def isolated_impact(projectile, before, after):
 
 def predict_fresh_target(bodies, source_id, profiles, *, prior_target_id=None,
                          force_rescan=True, include_source_radius=False):
-    battle = Battle()
+    # This diagnostic was defined against the pre-correction engine contract.
+    # Keep its historical fresh/lock hypotheses explicit instead of silently
+    # reinterpreting already-pinned reports when production defaults change.
+    battle = Battle(normal_range_mode='legacy_target_edge_v1', target_lock_mode='legacy_periodic_v1')
     for raw in bodies:
         side = 1 if raw['side'] == 1 else -1
         pos = Point(raw['x'], raw['y'])

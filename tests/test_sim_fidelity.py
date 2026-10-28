@@ -69,17 +69,15 @@ def test_attack_cadence_matches_the_card_data():
 
 
 @pytest.mark.parametrize("target_name", ["knight", "giant"])
-def test_attack_reach_is_own_range_plus_the_target_hitbox(target_name):
-    """Range is measured to the edge of the target, not its centre.
-
-    This is why a Giant can be hit from further away than a Knight, and it is
-    the mechanic behind the Cannon losing to a Musketeer live.
-    """
+@pytest.mark.parametrize("range_mode", ['edge_to_edge_v1', 'legacy_target_edge_v1'])
+def test_attack_reach_uses_the_declared_geometry_contract(target_name, range_mode):
+    """Current reach includes the source radius; historical replay stays explicit."""
     spec = ALL["musketeer"].unit
-    reach = (spec.range_mt + ALL[target_name].unit.collision_radius_mt) / MT
+    own_radius = spec.collision_radius_mt if range_mode == 'edge_to_edge_v1' else 0
+    reach = (spec.range_mt + own_radius + ALL[target_name].unit.collision_radius_mt) / MT
 
     for offset, should_hit in ((reach - 0.25, True), (reach + 0.40, False)):
-        battle = Battle()
+        battle = Battle(normal_range_mode=range_mode)
         shooter = _spawn(battle, "musketeer", 1, 9, 20, uid=1)
         target = _spawn(battle, target_name, -1, 9, 20 + offset, uid=2)
         shooter.speed_mt_per_sec = target.speed_mt_per_sec = 0
@@ -107,6 +105,7 @@ def test_a_musketeer_kills_a_cannon_without_being_touched():
     assert not cannon.alive, "the musketeer failed to kill the cannon"
     assert musketeer.hitpoints == musketeer.max_hitpoints, musketeer.hitpoints
     reach = (ALL["musketeer"].unit.range_mt
+             + ALL["musketeer"].unit.collision_radius_mt
              + ALL["cannon"].unit.collision_radius_mt) / MT
     assert distance(musketeer.pos, cannon.pos) / MT == pytest.approx(reach, abs=0.2)
 
@@ -160,7 +159,7 @@ def test_movement_speed_matches_the_card_data():
     _spawn(battle, "giant", -1, 9, 21, uid=2)
     start = knight.pos
 
-    seconds = 1.5
+    seconds = 1.0  # End before the corrected edge-to-edge attack boundary.
     _run(battle, seconds)
     tiles = distance(start, knight.pos) / MT
     per_second = speed_to_mt_per_sec(ALL["knight"].unit.speed_mt_per_sec) / 1000.0
@@ -315,8 +314,8 @@ def test_opponents_engaged_with_each_other_are_still_pushed_apart():
     separation entirely - "let engaged units touch" - so a fight was two bodies
     sunk into one another by half a tile. The exemption is gone.
 
-    It costs them no reach: attack range is a unit's own range plus the
-    *target's* collision radius, so a melee unit sitting at exactly the
+    It costs them no reach: ordinary attack range includes both collision
+    radii, so a melee unit sitting at exactly the
     separation distance is still in range.
     """
     battle = Battle(trace_contacts=True)
@@ -340,10 +339,9 @@ def test_tower_hitboxes_match_the_building_data():
     """Both towers were built at a flat 1500 millitiles.
 
     buildings.csv gives every PrincessTower variant CollisionRadius 1000 and
-    every KingTower variant 1400. It matters because reach is range plus the
-    *target's* radius, so an oversized princess tower could be attacked from
-    half a tile further away than the game allows - and it is the tower that
-    every push is trying to reach.
+    every KingTower variant 1400. These are body collision radii; normal
+    attack reach separately accounts for both bodies. Enlarging tower bodies
+    to compensate for a missing source radius would change collision too.
     """
     from sim.entities import KING_COLLISION_MT, PRINCESS_COLLISION_MT, make_tower
 

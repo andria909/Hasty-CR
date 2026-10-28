@@ -17,6 +17,7 @@ from sim.arena import Point
 from sim.engine import Battle
 from sim.entities import KING_COLLISION_MT, PRINCESS_COLLISION_MT, make_tower, make_unit
 from sim.gamedata import to_snake_case
+from sim.towers import princess_tower, king_tower
 
 
 def identity(body):
@@ -64,14 +65,23 @@ def trajectory_geometry(points, source, target):
                 first_distance_to_source_mt=gap(first, source), last_distance_to_target_mt=gap(last, target))
 
 
+def make_source(source, profiles):
+    if source['name'] in ('PrincessTower', 'KingTower'):
+        king = source['name'] == 'KingTower'
+        spec = (king_tower if king else princess_tower)(11)
+        return make_tower(1, 1, Point(source['x'], source['y']), spec.hitpoints,
+                          spec.damage, spec.hit_speed_ms, spec.range_mt, king=king)
+    return make_unit(1, profiles[to_snake_case(source['name'])], 1, Point(source['x'], source['y']))
+
+
 def isolated_attack_probe(source, target, profiles, include_source_radius):
     """Actual engine attack at measured positions; no movement or target choice.
 
     Only a freshly constructed source instance is modified in the hypothesis.
     Target is forced and timers cleared: this tests reach, not live timing/AI.
     """
-    battle = Battle()
-    shooter = make_unit(1, profiles[to_snake_case(source['name'])], 1, Point(source['x'], source['y']))
+    battle = Battle(normal_range_mode='legacy_target_edge_v1', target_lock_mode='legacy_periodic_v1')
+    shooter = make_source(source, profiles)
     if target['name'] in ('KingTower', 'PrincessTower'):
         victim = make_tower(2, -1, Point(target['x'], target['y']), 100000, 0, 1000, 0,
                             king=target['name'] == 'KingTower')
@@ -148,7 +158,7 @@ def inspect_event(event, frames, profiles):
     result['static_trajectory_supported'] = bool(
         source_motion <= 10 and target_motion <= 10 and geometry['accepted']
         and result['stationary_prelaunch_ticks'] >= 12 and len(set(prior)) >= 3)
-    source_profile = profiles[to_snake_case(source['name'])]
+    source_profile = make_source(source, profiles)
     target_profile = profiles.get(to_snake_case(target['name']))
     radius = (KING_COLLISION_MT if target['name'] == 'KingTower' else
               PRINCESS_COLLISION_MT if target['name'] == 'PrincessTower' else
@@ -171,7 +181,8 @@ def inspect_event(event, frames, profiles):
         for rescan in (False, True):
             predicted, _ = predict_fresh_target(event['launch_bodies'], ids[0], profiles,
                 prior_target_id=ids[1], force_rescan=rescan, include_source_radius=radius_extension)
-            result['assumed_lock_hypotheses'][f'source_radius_{int(radius_extension)}_rescan_{int(rescan)}'] = predicted == ids[1]
+            result['assumed_lock_hypotheses'][f'source_radius_{int(radius_extension)}_rescan_{int(rescan)}'] = (
+                predicted == ids[1] if source['name'] not in ('PrincessTower', 'KingTower') else None)
     return result
 
 
@@ -212,7 +223,7 @@ def previous_shot_evidence(event, prior_events, frames):
                 native_lock_verified=False)
 
 
-def audit(manifest_path):
+def audit(manifest_path, include_crown_sources=False):
     manifest = json.loads(manifest_path.read_text())
     profiles = unit_profiles()
     sources, rows = [], []
@@ -226,15 +237,16 @@ def audit(manifest_path):
         if evidence['source_sha256'] != source['source_sha256']:
             raise ValueError('Evidence points to different recording')
         frames = [clock_frame(json.loads(line)) for line in raw.splitlines()]
-        comparable = [e for e in evidence['evidence'] if e.get('fresh_prediction_agrees') is not None]
+        comparable = [e for e in evidence['evidence'] if e.get('fresh_prediction_agrees') is not None
+                      or include_crown_sources and e['source_name'] in ('PrincessTower', 'KingTower')]
         for event in comparable:
-            if event.get('fresh_prediction_agrees') is not None:
-                rows.append(dict(run=source['name'], **inspect_event(event, frames, profiles),
-                    previous_observed_same_victim=previous_shot_evidence(event, comparable, frames)))
+            rows.append(dict(run=source['name'], **inspect_event(event, frames, profiles),
+                previous_observed_same_victim=previous_shot_evidence(event, comparable, frames)))
         sources.append({k: source[k] for k in ('name', 'source', 'source_sha256', 'evidence_path', 'evidence_sha256')})
     supported = [r for r in rows if r['static_trajectory_supported']]
     outside = [r for r in supported if r.get('excess_over_current_reach_mt', 0) > 80]
     return dict(schema='native-targeting-history-v1', sources=sources, rows=rows,
+                includes_crown_sources=include_crown_sources,
                 comparable_events=len(rows), stationary_trajectory_supported=len(supported),
                 stationary_outside_current_reach=len(outside),
                 outside_cases=[dict(run=r['run'], launch_frame=r['launch_frame']) for r in outside],
@@ -257,8 +269,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--include-crown-sources', action='store_true')
     args = parser.parse_args()
-    report = audit(args.manifest)
+    report = audit(args.manifest, args.include_crown_sources)
     with args.output.open('x') as stream:
         json.dump(report, stream, indent=2)
         stream.write('\n')

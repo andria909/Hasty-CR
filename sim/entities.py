@@ -102,6 +102,7 @@ class Entity:
     splash_radius_mt: int
     jump_enabled: bool = False     # can leap the river instead of using a bridge
     retarget_after_attack: bool = False
+    retarget_each_tick: bool = False
     attack_self_pushback_mt: int = 0
     # Charge: after walking charge_range_mt uninterrupted the unit moves at
     # charge_speed_multiplier percent and its next hit deals damage_special,
@@ -779,6 +780,7 @@ def make_unit(uid: int, spec, side: int, pos: Point, now_ms: int = 0) -> Entity:
         splash_radius_mt=spec.splash_radius_mt,
         jump_enabled=bool(getattr(spec, "jump_enabled", False)),
         retarget_after_attack=bool(getattr(spec, "retarget_after_attack", False)),
+        retarget_each_tick=bool(getattr(spec, "retarget_each_tick", False)),
         attack_self_pushback_mt=int(getattr(
             spec, "attack_self_pushback_mt", 0) or 0),
         projectile_speed_mt_per_sec=int(getattr(spec, "projectile_speed_mt_per_sec", 0) or 0),
@@ -1322,9 +1324,9 @@ def make_unit(uid: int, spec, side: int, pos: Point, now_ms: int = 0) -> Entity:
 
 # Tower hitboxes, straight out of buildings.csv: every PrincessTower variant
 # carries CollisionRadius 1000 and every KingTower variant 1400. Both towers
-# were built at a flat 1500, which made the princess tower half a tile wider
-# than it is - and since reach is range plus the *target's* radius, that let
-# everything attack it from half a tile further out than the game allows.
+# were built at a flat 1500, which also changed body collision. Ordinary
+# attack reach now accounts for both source and target radii separately;
+# enlarging tower bodies is not a substitute for that geometry correction.
 PRINCESS_COLLISION_MT = 1000
 KING_COLLISION_MT = 1400
 # TowerPrincessProjectile has Speed 600 - the same tiles-per-minute unit as

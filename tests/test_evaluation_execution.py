@@ -30,9 +30,14 @@ def test_legacy_environment_defaults_do_not_drift_to_current_training_defaults()
     assert env.action_delay_ms==225
     assert env.profile['action_cooldown_ms']==2100
     assert env.profile['cannon_center_only']==0
+    env.reset(seed=1)
+    assert env.match.battle.normal_range_mode=='legacy_target_edge_v1'
+    assert env.match.battle.target_lock_mode=='legacy_periodic_v1'
     new=ContinuousPushEnv(**environment_kwargs(CURRENT))
     assert new.action_delay_ms==1350 and new.profile['action_cooldown_ms']==0
     assert new.profile['cannon_center_only']==1
+    new.reset(seed=1)
+    assert new.match.battle.normal_range_mode=='legacy_target_edge_v1'
 
 
 @pytest.mark.parametrize('key,value', [('action_delay_ms',True),('action_delay_ms',-1),
@@ -65,6 +70,8 @@ def test_new_verifier_rejects_old_rows_and_outside_cannon(tmp_path):
 def test_actual_duel_queue_parallel_slots_reservation_and_central_cells(monkeypatch,execution):
     env=ContinuousPushEnv();decisions=[];commands=[]
     def greedy(network,match,side,mode,mask,device,reserved_milli=0):
+        assert match.battle.normal_range_mode=='legacy_target_edge_v1'
+        assert match.battle.target_lock_mode=='legacy_periodic_v1'
         legal=np.flatnonzero(mask[1:])+1
         # Try Cannon first, then cheap cards so reuse is exercised repeatedly.
         selected=0

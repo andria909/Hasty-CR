@@ -88,6 +88,10 @@ def duel(a,b,device,seed,seat,cards,spells,*,on_complete=None,execution=None,on_
     execution=validate_execution(LEGACY if execution is None else execution)
     m=Match(cards=cards,spells=spells,decks=(list(DECK_26),list(DECK_26)),seed=seed,
             geometry=execution['geometry'])
+    # execution-v1 predates corrected ordinary range. Match the historical
+    # scenario environment instead of silently using Battle's new defaults.
+    m.battle.normal_range_mode='legacy_target_edge_v1'
+    m.battle.target_lock_mode='legacy_periodic_v1'
     networks={seat:a[0],-seat:b[0]};modes={seat:a[1],-seat:b[1]}
     pending={1:[],-1:[]};ready={1:{},-1:{}};rejected=Counter();decision=0
     order=(1,-1)if seed%2 else(-1,1)

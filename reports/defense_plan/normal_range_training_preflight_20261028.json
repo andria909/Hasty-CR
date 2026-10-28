@@ -1,0 +1,98 @@
+{
+  "schema": "tactical-start-preflight-v1",
+  "cases": [
+    {
+      "fraction": 0.0,
+      "actual_steps": 32,
+      "source_code_sha256": "9c094aaac3f0a6bf5e15747406c3f4a216ee32299eae04f4c7d6e36912d43d3b",
+      "tactical_start": null,
+      "exact_resume": true,
+      "checkpoint_sha256": "66109cc159686be5f0b1176eb369c5bda70e20739691d169a25fbbb45227981f"
+    },
+    {
+      "fraction": 1.0,
+      "actual_steps": 32,
+      "source_code_sha256": "9c094aaac3f0a6bf5e15747406c3f4a216ee32299eae04f4c7d6e36912d43d3b",
+      "tactical_start": {
+        "schema": "paid-tactical-start-v1",
+        "family": "bridge",
+        "lane": "right",
+        "own_princess_mask": 3,
+        "enemy_princess_mask": 1,
+        "clock_ms": 30000,
+        "decision_start_ms": 32000,
+        "warmup_ms": 2000,
+        "own_hand": [
+          "knight",
+          "hog_rider",
+          "musketeer",
+          "zap"
+        ],
+        "own_queue": [
+          "fireball",
+          "electro_spirit",
+          "cannon",
+          "skeletons"
+        ],
+        "own_elixir": 4714,
+        "enemy_setup": [
+          {
+            "at_ms": 30000,
+            "card": "battle_ram",
+            "cell": [
+              13,
+              15
+            ],
+            "elixir_before": 10000,
+            "elixir_after": 6000
+          }
+        ],
+        "synthetic_history": true,
+        "initial_own_fraction_loss": 0.0,
+        "initial_enemy_fraction_damage": 1.0,
+        "initial_elixir_overflow": 0.0
+      },
+      "exact_resume": true,
+      "checkpoint_sha256": "dacae6c6e0b3ee72ef6755e145c207b088441d4120bcfbe63aed816c4992011f"
+    }
+  ],
+  "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+  "device": "cpu",
+  "quality_accepted": false,
+  "validation_unchanged_test": "tests/test_continuous_tactical_starts.py",
+  "note": "Technical 16-to-32-step check only; not a quality training run or GPU submission.",
+  "technical_validation_games": 24,
+  "identical_validation_pairs": 12,
+  "validation_control_sha256": "56d6df241c793fa176da9b968fa64da677f5f1d9fa5a23c308b6ca057d789087",
+  "validation_tactical_option_sha256": "aceb391efbd881d3e27f805361df39344c832e1af853e7012303423d76b64215",
+  "profile": {
+    "overflow_penalty": 0.3,
+    "missed_fireball_penalty": 0.0,
+    "fireball_value_reward": 0.25,
+    "reserve_potential_weight": 0.1,
+    "own_hp_penalty": 6.0,
+    "barbarian_train_fraction": 0.35,
+    "lane_reflection_fraction": 0.5,
+    "action_cooldown_ms": 0,
+    "cannon_center_only": 1,
+    "tower_damage_all": 1,
+    "source_radius_reach": 1,
+    "target_lock_in_range": 0
+  },
+  "tests": {
+    "targeted_passed": 116,
+    "evaluation_contract_passed": 30,
+    "legacy_fidelity_failed": 113,
+    "current_fidelity_failed": 113,
+    "new_fidelity_failures": [],
+    "current_fidelity_passed": 33
+  },
+  "source_result": "tmp/range_training_preflight_20261028/result.json",
+  "source_result_sha256": "14f613662aad5e9edcecb741b0c3f58ac58b55d7b64e0c8243617f6bb86a9a6a",
+  "evidence_files": {
+    "tmp/range_targeted_tests_20261028.log": "dc9691e02116eb44995f8ebb1174e24ddde82e9c9a35aea9116feb7442981b18",
+    "tmp/range_evaluation_tests_20261028.log": "de7acffdca7663a79222ae4afd079d9c1e3a411e7d7e135213782e1083300102",
+    "tmp/range_baseline_20261028/baseline.xml": "d5bdd00d993d77bd8381e13da343f14ed9d1bd183167128e5f8da6cfec26d972",
+    "tmp/range_current_final_20261028.xml": "7f5354bb257ab10e10bc4882375e70c5bd73b03c1b25241e7c76ce43dd680e9f"
+  }
+}
