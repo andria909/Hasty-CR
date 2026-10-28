@@ -1,0 +1,1448 @@
+{
+  "schema": "native-targeting-history-v1",
+  "sources": [
+    {
+      "name": "strong",
+      "source": "tmp/live/strong_20261028_live5/run/frames.jsonl",
+      "source_sha256": "cea45f129aaa290b7cf2e1787525a6663ea97d4a71e756a6d2148510065b0f2b",
+      "evidence_path": "tmp/current_native_targets_strong_20261028.json",
+      "evidence_sha256": "7dab99da550f63ddc4e2fe15abbd4d92ccf430295953d66e93fa5a3c7bc3b98e"
+    },
+    {
+      "name": "tower_first",
+      "source": "tmp/live/tower_support_20261028_live5/run/frames.jsonl",
+      "source_sha256": "9a524c38fdde1cc3ffe4233d42ca73e84f21fe0b3f19c362875fc673d545cd22",
+      "evidence_path": "tmp/current_native_targets_tower_first_20261028.json",
+      "evidence_sha256": "0d062e69c90f666575ff6fe4be996f5b04130746b10eb3330c379fd2ee0e45c1"
+    },
+    {
+      "name": "tower_recovery",
+      "source": "tmp/live/tower_support_20261028_live5/recovery_run/frames.jsonl",
+      "source_sha256": "a43cb9789bbbefcc744045b401f0d78d5267c8ac0130dabf43ab3aef20b28729",
+      "evidence_path": "tmp/current_native_targets_tower_recovery_20261028.json",
+      "evidence_sha256": "e9ab2a956a8a63fe8415b40956abc570e789749d04cfca8dd18912c0f9354c0e"
+    }
+  ],
+  "rows": [
+    {
+      "run": "strong",
+      "launch_frame": 546,
+      "impact_frame": 552,
+      "source_id": 5000018,
+      "projectile_id": 4000031,
+      "inferred_target_id": 5000017,
+      "source_name": "Archer",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        4146,
+        15525
+      ],
+      "target_position": [
+        4409,
+        20975
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 237.65521244020718,
+      "stationary_prelaunch_ticks": 10,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 17.641563306332362,
+        "observed_travel_mt": 2997.8635726130033,
+        "first_distance_to_source_mt": 1648.8935684270225,
+        "last_distance_to_target_mt": 809.7363768536029
+      },
+      "distance_mt": 5456.3420897154165,
+      "current_attack_reach_mt": 5500,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": -43.65791028458352,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "strong",
+      "launch_frame": 648,
+      "impact_frame": 652,
+      "source_id": 5000018,
+      "projectile_id": 4000052,
+      "inferred_target_id": 5000020,
+      "source_name": "Archer",
+      "inferred_target_name": "Cannon",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        4146,
+        15525
+      ],
+      "target_position": [
+        3500,
+        18500
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": false,
+        "reason": "fewer_than_three_distinct_positions"
+      },
+      "distance_mt": 3044.3293185856223,
+      "current_attack_reach_mt": 5600,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": -2555.6706814143777,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "strong",
+      "launch_frame": 1072,
+      "impact_frame": 1077,
+      "source_id": 5000032,
+      "projectile_id": 4000090,
+      "inferred_target_id": 5000033,
+      "source_name": "Cannon",
+      "inferred_target_name": "Barbarian",
+      "fresh_prediction_agrees": false,
+      "static_trajectory_supported": false,
+      "source_position": [
+        12500,
+        18500
+      ],
+      "target_position": [
+        14653,
+        12971
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 126.53062870309307,
+      "stationary_prelaunch_ticks": 14,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 78.95510769058994,
+        "observed_travel_mt": 3997.208150697184,
+        "first_distance_to_source_mt": 999.4723607984365,
+        "last_distance_to_target_mt": 939.4147114027968
+      },
+      "distance_mt": 5933.401216840135,
+      "current_attack_reach_mt": 6000,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -66.59878315986498,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": false,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": false
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "strong",
+      "launch_frame": 2251,
+      "impact_frame": 2260,
+      "source_id": 5000078,
+      "projectile_id": 4000206,
+      "inferred_target_id": 5000003,
+      "source_name": "Archer",
+      "inferred_target_name": "KingTower",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        5188,
+        23275
+      ],
+      "target_position": [
+        9000,
+        29000
+      ],
+      "source_motion_during_flight_mt": 113.63538181394033,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 9,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 0.9248803496310096,
+        "observed_travel_mt": 5395.292485120709,
+        "first_distance_to_source_mt": 1048.661051055106,
+        "last_distance_to_target_mt": 434.05299215648773
+      },
+      "distance_mt": 6878.006179119062,
+      "current_attack_reach_mt": 6400,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": 478.0061791190619,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "strong",
+      "launch_frame": 2317,
+      "impact_frame": 2325,
+      "source_id": 5000078,
+      "projectile_id": 4000226,
+      "inferred_target_id": 5000003,
+      "source_name": "Archer",
+      "inferred_target_name": "KingTower",
+      "fresh_prediction_agrees": false,
+      "static_trajectory_supported": true,
+      "source_position": [
+        5308,
+        23216
+      ],
+      "target_position": [
+        9000,
+        29000
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 14,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 0.7375340320278249,
+        "observed_travel_mt": 4792.999165449542,
+        "first_distance_to_source_mt": 1647.5184369226342,
+        "last_distance_to_target_mt": 421.37156999493925
+      },
+      "distance_mt": 6861.888952759291,
+      "current_attack_reach_mt": 6400,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": 461.888952759291,
+      "within_source_radius_extended_reach": true,
+      "isolated_attack_probes": {
+        "0": {
+          "attack_tick": false,
+          "homing_projectiles_created": 0,
+          "target_forced": true,
+          "timers_cleared": true
+        },
+        "1": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        }
+      },
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": false,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": false
+      },
+      "previous_observed_same_victim": {
+        "launch_frame": 2251,
+        "impact_frame": 2260,
+        "projectile_id": 4000206,
+        "tick_difference": 91,
+        "source_max_motion_mt": 133.71985641631537,
+        "victim_max_motion_mt": 0.0,
+        "native_lock_verified": false
+      }
+    },
+    {
+      "run": "strong",
+      "launch_frame": 5244,
+      "impact_frame": 5252,
+      "source_id": 5000006,
+      "projectile_id": 4000007,
+      "inferred_target_id": 5000002,
+      "source_name": "Musketeer",
+      "inferred_target_name": "PrincessTower",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        14793,
+        13945
+      ],
+      "target_position": [
+        14500,
+        6500
+      ],
+      "source_motion_during_flight_mt": 139.20488497175666,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 14,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 1.3994047972769608,
+        "observed_travel_mt": 6999.404331798528,
+        "first_distance_to_source_mt": 449.32171102674306,
+        "last_distance_to_target_mt": 2.23606797749979
+      },
+      "distance_mt": 7450.763316600522,
+      "current_attack_reach_mt": 7000,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": 450.76331660052165,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "strong",
+      "launch_frame": 6396,
+      "impact_frame": 6402,
+      "source_id": 5000007,
+      "projectile_id": 4000000,
+      "inferred_target_id": 5000016,
+      "source_name": "Musketeer",
+      "inferred_target_name": "Valkyrie",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        4280,
+        15648
+      ],
+      "target_position": [
+        2636,
+        21563
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 296.05742686174926,
+      "stationary_prelaunch_ticks": 13,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 52.51913037179141,
+        "observed_travel_mt": 4998.4262523318275,
+        "first_distance_to_source_mt": 449.0545623863541,
+        "last_distance_to_target_mt": 693.4853999905117
+      },
+      "distance_mt": 6139.215014967304,
+      "current_attack_reach_mt": 6500,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": -360.78498503269566,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "strong",
+      "launch_frame": 6411,
+      "impact_frame": 6415,
+      "source_id": 5000007,
+      "projectile_id": 4000002,
+      "inferred_target_id": 5000016,
+      "source_name": "Musketeer",
+      "inferred_target_name": "Valkyrie",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        4280,
+        15673
+      ],
+      "target_position": [
+        2702,
+        20383
+      ],
+      "source_motion_during_flight_mt": 13.341664064126334,
+      "target_motion_during_flight_mt": 239.10248848558643,
+      "stationary_prelaunch_ticks": 0,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 67.2578347573591,
+        "observed_travel_mt": 3998.002626312294,
+        "first_distance_to_source_mt": 449.67766233158613,
+        "last_distance_to_target_mt": 523.4739726099092
+      },
+      "distance_mt": 4967.311546500783,
+      "current_attack_reach_mt": 6500,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": -1532.6884534992168,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": {
+        "launch_frame": 6396,
+        "impact_frame": 6402,
+        "projectile_id": 4000000,
+        "tick_difference": 20,
+        "source_max_motion_mt": 25.0,
+        "victim_max_motion_mt": 1181.8443213892429,
+        "native_lock_verified": false
+      }
+    },
+    {
+      "run": "strong",
+      "launch_frame": 7017,
+      "impact_frame": 7020,
+      "source_id": 5000029,
+      "projectile_id": 4000081,
+      "inferred_target_id": 5000028,
+      "source_name": "Cannon",
+      "inferred_target_name": "BombTower",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": true,
+      "source_position": [
+        10500,
+        13500
+      ],
+      "target_position": [
+        7500,
+        12500
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 0.6838437595493755,
+        "observed_travel_mt": 2000.456947799677,
+        "first_distance_to_source_mt": 999.2797406132079,
+        "last_distance_to_target_mt": 162.5423021862309
+      },
+      "distance_mt": 3162.2776601683795,
+      "current_attack_reach_mt": 6100,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -2937.7223398316205,
+      "within_source_radius_extended_reach": true,
+      "isolated_attack_probes": {
+        "0": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        },
+        "1": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        }
+      },
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_first",
+      "launch_frame": 830,
+      "impact_frame": 833,
+      "source_id": 5000012,
+      "projectile_id": 4000013,
+      "inferred_target_id": 5000006,
+      "source_name": "Musketeer",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        12500,
+        8500
+      ],
+      "target_position": [
+        14169,
+        9528
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": false,
+        "reason": "fewer_than_three_distinct_positions"
+      },
+      "distance_mt": 1960.1900418071714,
+      "current_attack_reach_mt": 6500,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": -4539.809958192829,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_first",
+      "launch_frame": 845,
+      "impact_frame": 847,
+      "source_id": 5000012,
+      "projectile_id": 4000016,
+      "inferred_target_id": 5000006,
+      "source_name": "Musketeer",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        12500,
+        8500
+      ],
+      "target_position": [
+        14169,
+        9528
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": false,
+        "reason": "fewer_than_three_distinct_positions"
+      },
+      "distance_mt": 1960.1900418071714,
+      "current_attack_reach_mt": 6500,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": -4539.809958192829,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": {
+        "launch_frame": 830,
+        "impact_frame": 833,
+        "projectile_id": 4000013,
+        "tick_difference": 20,
+        "source_max_motion_mt": 0.0,
+        "victim_max_motion_mt": 0.0,
+        "native_lock_verified": false
+      }
+    },
+    {
+      "run": "tower_first",
+      "launch_frame": 1783,
+      "impact_frame": 1785,
+      "source_id": 5000052,
+      "projectile_id": 4000101,
+      "inferred_target_id": 5000048,
+      "source_name": "Cannon",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        8500,
+        18500
+      ],
+      "target_position": [
+        6234,
+        17261
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 59.033888572581766,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": false,
+        "reason": "fewer_than_three_distinct_positions"
+      },
+      "distance_mt": 2582.610501024109,
+      "current_attack_reach_mt": 6000,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -3417.389498975891,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_first",
+      "launch_frame": 2261,
+      "impact_frame": 2265,
+      "source_id": 5000075,
+      "projectile_id": 4000137,
+      "inferred_target_id": 5000076,
+      "source_name": "Cannon",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        8500,
+        18500
+      ],
+      "target_position": [
+        13820,
+        16882
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 236.29853998702575,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 2.53741045934524,
+        "observed_travel_mt": 3998.5647425044904,
+        "first_distance_to_source_mt": 999.3082607484039,
+        "last_distance_to_target_mt": 562.7335070883909
+      },
+      "distance_mt": 5560.604643381869,
+      "current_attack_reach_mt": 6000,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -439.3953566181308,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 1206,
+      "impact_frame": 1214,
+      "source_id": 5000006,
+      "projectile_id": 4000005,
+      "inferred_target_id": 5000002,
+      "source_name": "Musketeer",
+      "inferred_target_name": "PrincessTower",
+      "fresh_prediction_agrees": false,
+      "static_trajectory_supported": true,
+      "source_position": [
+        14793,
+        13945
+      ],
+      "target_position": [
+        14500,
+        6500
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 0.9206497716848122,
+        "observed_travel_mt": 6999.404331798528,
+        "first_distance_to_source_mt": 449.32171102674306,
+        "last_distance_to_target_mt": 2.23606797749979
+      },
+      "distance_mt": 7450.763316600522,
+      "current_attack_reach_mt": 7000,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": 450.76331660052165,
+      "within_source_radius_extended_reach": true,
+      "isolated_attack_probes": {
+        "0": {
+          "attack_tick": false,
+          "homing_projectiles_created": 0,
+          "target_forced": true,
+          "timers_cleared": true
+        },
+        "1": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        }
+      },
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": false,
+        "source_radius_0_rescan_1": false,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": false
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 2886,
+      "impact_frame": 2889,
+      "source_id": 5000018,
+      "projectile_id": 4000012,
+      "inferred_target_id": 5000014,
+      "source_name": "Cannon",
+      "inferred_target_name": "Barbarian",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        2500,
+        18500
+      ],
+      "target_position": [
+        2673,
+        13566
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 179.22611416866684,
+      "stationary_prelaunch_ticks": 14,
+      "trajectory": {
+        "accepted": false,
+        "reason": "fewer_than_three_distinct_positions"
+      },
+      "distance_mt": 4937.0320031371075,
+      "current_attack_reach_mt": 6000,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -1062.9679968628925,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 4659,
+      "impact_frame": 4661,
+      "source_id": 5000026,
+      "projectile_id": 4000076,
+      "inferred_target_id": 5000025,
+      "source_name": "Cannon",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        9500,
+        18500
+      ],
+      "target_position": [
+        12479,
+        18281
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 60.00833275470999,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": false,
+        "reason": "fewer_than_three_distinct_positions"
+      },
+      "distance_mt": 2987.039002088858,
+      "current_attack_reach_mt": 6000,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -3012.960997911142,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 5198,
+      "impact_frame": 5200,
+      "source_id": 5000037,
+      "projectile_id": 4000123,
+      "inferred_target_id": 5000040,
+      "source_name": "Cannon",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        9500,
+        18500
+      ],
+      "target_position": [
+        7499,
+        17500
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 13,
+      "trajectory": {
+        "accepted": false,
+        "reason": "fewer_than_three_distinct_positions"
+      },
+      "distance_mt": 2236.9624493942674,
+      "current_attack_reach_mt": 6000,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -3763.0375506057326,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 5324,
+      "impact_frame": 5331,
+      "source_id": 5000038,
+      "projectile_id": 4000130,
+      "inferred_target_id": 5000005,
+      "source_name": "Musketeer",
+      "inferred_target_name": "PrincessTower",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": true,
+      "source_position": [
+        14219,
+        18018
+      ],
+      "target_position": [
+        14500,
+        25500
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 1.585695999734116,
+        "observed_travel_mt": 5999.258370832182,
+        "first_distance_to_source_mt": 1448.969633912319,
+        "last_distance_to_target_mt": 39.05124837953327
+      },
+      "distance_mt": 7487.274871406819,
+      "current_attack_reach_mt": 7000,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": 487.27487140681933,
+      "within_source_radius_extended_reach": true,
+      "isolated_attack_probes": {
+        "0": {
+          "attack_tick": false,
+          "homing_projectiles_created": 0,
+          "target_forced": true,
+          "timers_cleared": true
+        },
+        "1": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        }
+      },
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 5352,
+      "impact_frame": 5359,
+      "source_id": 5000038,
+      "projectile_id": 4000138,
+      "inferred_target_id": 5000005,
+      "source_name": "Musketeer",
+      "inferred_target_name": "PrincessTower",
+      "fresh_prediction_agrees": false,
+      "static_trajectory_supported": true,
+      "source_position": [
+        14219,
+        18018
+      ],
+      "target_position": [
+        14500,
+        25500
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 15,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 1.585695999734116,
+        "observed_travel_mt": 5999.258370832182,
+        "first_distance_to_source_mt": 1448.969633912319,
+        "last_distance_to_target_mt": 39.05124837953327
+      },
+      "distance_mt": 7487.274871406819,
+      "current_attack_reach_mt": 7000,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": 487.27487140681933,
+      "within_source_radius_extended_reach": true,
+      "isolated_attack_probes": {
+        "0": {
+          "attack_tick": false,
+          "homing_projectiles_created": 0,
+          "target_forced": true,
+          "timers_cleared": true
+        },
+        "1": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        }
+      },
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": false,
+        "source_radius_0_rescan_1": false,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": false
+      },
+      "previous_observed_same_victim": {
+        "launch_frame": 5324,
+        "impact_frame": 5331,
+        "projectile_id": 4000130,
+        "tick_difference": 40,
+        "source_max_motion_mt": 0.0,
+        "victim_max_motion_mt": 0.0,
+        "native_lock_verified": false
+      }
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 5480,
+      "impact_frame": 5485,
+      "source_id": 5000047,
+      "projectile_id": 4000150,
+      "inferred_target_id": 5000050,
+      "source_name": "Cannon",
+      "inferred_target_name": "Cannon",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": true,
+      "source_position": [
+        9500,
+        13500
+      ],
+      "target_position": [
+        8500,
+        18500
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 13,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 0.0,
+        "observed_travel_mt": 3997.631298656743,
+        "first_distance_to_source_mt": 999.4078246641858,
+        "last_distance_to_target_mt": 101.9803902718557
+      },
+      "distance_mt": 5099.019513592785,
+      "current_attack_reach_mt": 6100,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -1000.9804864072148,
+      "within_source_radius_extended_reach": true,
+      "isolated_attack_probes": {
+        "0": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        },
+        "1": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        }
+      },
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 5480,
+      "impact_frame": 5485,
+      "source_id": 5000050,
+      "projectile_id": 4000151,
+      "inferred_target_id": 5000047,
+      "source_name": "Cannon",
+      "inferred_target_name": "Cannon",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": true,
+      "source_position": [
+        8500,
+        18500
+      ],
+      "target_position": [
+        9500,
+        13500
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 13,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 0.0,
+        "observed_travel_mt": 3997.631298656743,
+        "first_distance_to_source_mt": 999.4078246641858,
+        "last_distance_to_target_mt": 101.9803902718557
+      },
+      "distance_mt": 5099.019513592785,
+      "current_attack_reach_mt": 6100,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -1000.9804864072148,
+      "within_source_radius_extended_reach": true,
+      "isolated_attack_probes": {
+        "0": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        },
+        "1": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        }
+      },
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 5549,
+      "impact_frame": 5553,
+      "source_id": 5000050,
+      "projectile_id": 4000163,
+      "inferred_target_id": 5000051,
+      "source_name": "Cannon",
+      "inferred_target_name": "ElectroSpirit",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        8500,
+        18500
+      ],
+      "target_position": [
+        12853,
+        17563
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 358.8328301591146,
+      "stationary_prelaunch_ticks": 13,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 32.68264287838677,
+        "observed_travel_mt": 2999.512627077939,
+        "first_distance_to_source_mt": 999.1045991286397,
+        "last_distance_to_target_mt": 455.1087782058263
+      },
+      "distance_mt": 4452.704571381309,
+      "current_attack_reach_mt": 5900,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -1447.2954286186914,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 5858,
+      "impact_frame": 5862,
+      "source_id": 5000061,
+      "projectile_id": 4000190,
+      "inferred_target_id": 5000057,
+      "source_name": "Musketeer",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        8289,
+        8710
+      ],
+      "target_position": [
+        4732,
+        12327
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 237.65521244020718,
+      "stationary_prelaunch_ticks": 14,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 3.7196768346472835,
+        "observed_travel_mt": 3997.390273666058,
+        "first_distance_to_source_mt": 449.02672526253934,
+        "last_distance_to_target_mt": 626.5540678983738
+      },
+      "distance_mt": 5072.961462499001,
+      "current_attack_reach_mt": 6500,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": -1427.0385375009992,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 5872,
+      "impact_frame": 5876,
+      "source_id": 5000061,
+      "projectile_id": 4000192,
+      "inferred_target_id": 5000057,
+      "source_name": "Musketeer",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        8289,
+        8710
+      ],
+      "target_position": [
+        5552,
+        11471
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 176.08236708995025,
+      "stationary_prelaunch_ticks": 14,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 1.8792704255904789,
+        "observed_travel_mt": 2999.5683022728454,
+        "first_distance_to_source_mt": 449.01781701843413,
+        "last_distance_to_target_mt": 439.1275441144634
+      },
+      "distance_mt": 3887.7101229386944,
+      "current_attack_reach_mt": 6500,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": -2612.2898770613056,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": {
+        "launch_frame": 5858,
+        "impact_frame": 5862,
+        "projectile_id": 4000190,
+        "tick_difference": 20,
+        "source_max_motion_mt": 0.0,
+        "victim_max_motion_mt": 1185.384325862292,
+        "native_lock_verified": false
+      }
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 6006,
+      "impact_frame": 6011,
+      "source_id": 5000061,
+      "projectile_id": 4000218,
+      "inferred_target_id": 5000068,
+      "source_name": "Musketeer",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        8121,
+        8878
+      ],
+      "target_position": [
+        5765,
+        14912
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 295.4657340538831,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": false,
+        "reason": "ray_geometry_failed",
+        "max_perpendicular_error_mt": 187.19702189115338,
+        "observed_travel_mt": 4996.965178986142,
+        "first_distance_to_source_mt": 449.1970614329528,
+        "last_distance_to_target_mt": 1045.4898373489816
+      },
+      "distance_mt": 6477.64555992376,
+      "current_attack_reach_mt": 6500,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": -22.35444007624028,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 6041,
+      "impact_frame": 6043,
+      "source_id": 5000067,
+      "projectile_id": 4000223,
+      "inferred_target_id": 5000068,
+      "source_name": "Cannon",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": false,
+      "source_position": [
+        8500,
+        13500
+      ],
+      "target_position": [
+        6524,
+        14659
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": false,
+        "reason": "fewer_than_three_distinct_positions"
+      },
+      "distance_mt": 2290.8201588077577,
+      "current_attack_reach_mt": 6000,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -3709.1798411922423,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 6067,
+      "impact_frame": 6070,
+      "source_id": 5000061,
+      "projectile_id": 4000227,
+      "inferred_target_id": 5000070,
+      "source_name": "Musketeer",
+      "inferred_target_name": "Cannon",
+      "fresh_prediction_agrees": false,
+      "static_trajectory_supported": false,
+      "source_position": [
+        8121,
+        8878
+      ],
+      "target_position": [
+        5500,
+        13500
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": false,
+        "reason": "fewer_than_three_distinct_positions"
+      },
+      "distance_mt": 5313.428742347073,
+      "current_attack_reach_mt": 6600,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": -1286.5712576529268,
+      "within_source_radius_extended_reach": true,
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": false,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": false
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 6076,
+      "impact_frame": 6081,
+      "source_id": 5000070,
+      "projectile_id": 4000230,
+      "inferred_target_id": 5000061,
+      "source_name": "Cannon",
+      "inferred_target_name": "Musketeer",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": true,
+      "source_position": [
+        5500,
+        13500
+      ],
+      "target_position": [
+        8121,
+        8878
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 12,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 0.24661356086439434,
+        "observed_travel_mt": 3998.158075914458,
+        "first_distance_to_source_mt": 999.1045991286397,
+        "last_distance_to_target_mt": 316.16609558901155
+      },
+      "distance_mt": 5313.428742347073,
+      "current_attack_reach_mt": 6000,
+      "source_radius_extension_mt": 600,
+      "excess_over_current_reach_mt": -686.5712576529268,
+      "within_source_radius_extended_reach": true,
+      "isolated_attack_probes": {
+        "0": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        },
+        "1": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        }
+      },
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 6303,
+      "impact_frame": 6308,
+      "source_id": 5000078,
+      "projectile_id": 4000261,
+      "inferred_target_id": 5000076,
+      "source_name": "Musketeer",
+      "inferred_target_name": "Knight",
+      "fresh_prediction_agrees": true,
+      "static_trajectory_supported": true,
+      "source_position": [
+        9500,
+        500
+      ],
+      "target_position": [
+        6934,
+        5242
+      ],
+      "source_motion_during_flight_mt": 0.0,
+      "target_motion_during_flight_mt": 0.0,
+      "stationary_prelaunch_ticks": 13,
+      "trajectory": {
+        "accepted": true,
+        "reason": "static_ray_consistent",
+        "max_perpendicular_error_mt": 0.4397768717241475,
+        "observed_travel_mt": 3997.481707275219,
+        "first_distance_to_source_mt": 449.24492206367785,
+        "last_distance_to_target_mt": 945.0190474270876
+      },
+      "distance_mt": 5391.745542957308,
+      "current_attack_reach_mt": 6500,
+      "source_radius_extension_mt": 500,
+      "excess_over_current_reach_mt": -1108.2544570426917,
+      "within_source_radius_extended_reach": true,
+      "isolated_attack_probes": {
+        "0": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        },
+        "1": {
+          "attack_tick": true,
+          "homing_projectiles_created": 1,
+          "target_forced": true,
+          "timers_cleared": true
+        }
+      },
+      "assumed_lock_hypotheses": {
+        "source_radius_0_rescan_0": true,
+        "source_radius_0_rescan_1": true,
+        "source_radius_1_rescan_0": true,
+        "source_radius_1_rescan_1": true
+      },
+      "previous_observed_same_victim": null
+    }
+  ],
+  "comparable_events": 29,
+  "stationary_trajectory_supported": 9,
+  "stationary_outside_current_reach": 4,
+  "outside_cases": [
+    {
+      "run": "strong",
+      "launch_frame": 2317
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 1206
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 5324
+    },
+    {
+      "run": "tower_recovery",
+      "launch_frame": 5352
+    }
+  ],
+  "rejections": {
+    "analysed": 29
+  },
+  "labels_verified": false,
+  "physics_changed": false,
+  "live_games_started": false,
+  "unit_profiles_sha256": "5ffd0880e301054679342be259c122b37c6465e1335e7ca1a8726a0a07de4aae",
+  "source_fingerprints": {
+    "scripts/gamestate/audit_targeting_history.py": "38a595bff7ac0a8d6ae755ab8f45572649a50de28deb9b6971dd085ef1766039",
+    "scripts/gamestate/audit_projectile_targets.py": "70b12bd8d5786e82a276bc46c6a6b20a48e8efe6b8fa19924508cb5c6248a3a2",
+    "scripts/gamestate/audit_sim_alignment.py": "478b2f0222d9ed2217751507b2e3a802bfae7997b81bfa296f0369d06bd55c76",
+    "sim/engine.py": "2947c37fe5f2eb5fc146347fd09459c776f7f15cbd4275a9c989a95c41940796",
+    "sim/entities.py": "1e5d85dd85b17ff51fa231316fce3334a43445a045551d4fc63514f3a48381b8",
+    "sim/gamedata.py": "e4213fabd898f850305f52391e8ba531a82efb38666bf0a4014e5c5cb5bbf183"
+  },
+  "limitations": [
+    "Victim inference is strengthened by trajectory, not replaced with an actual target pointer.",
+    "Coordinates precede clock read; stable endpoints reduce but do not eliminate sampling uncertainty.",
+    "Source-radius extension and a larger target hitbox can be confounded for stationary towers.",
+    "Assumed prior locks are counterfactuals, not measured retention histories.",
+    "No production attack, movement, collision, or target selection changes from this audit."
+  ]
+}
