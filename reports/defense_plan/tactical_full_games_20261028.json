@@ -1,0 +1,42 @@
+{
+  "schema": "tactical-full-game-accounting-v1",
+  "source_code_sha256": "9c56b85c562eb52aab56c132d531bd6861f17da35af2be8e0b77a609dcf99d73",
+  "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+  "source_sha256": "6593626dce1700bd2eebbf2596a4549dce38cfac37715a320326905400fcbcc9",
+  "episodes_sha256": "c6975039b95dbd2003bd37e8b1674bcdb5ba089ca6a8bc609c49e73898ef857e",
+  "games": 24,
+  "seed_by_mask": {
+    "1": 844000,
+    "0": 844001,
+    "2": 844003,
+    "3": 844006
+  },
+  "continued_after_initial_bodies_died": 21,
+  "games_with_further_enemy_plays": 24,
+  "reward_accounting_verified": true,
+  "quality_accepted": false,
+  "options": {
+    "action_delay_ms": 1350,
+    "max_ms": 310000,
+    "continuous_profile": {
+      "overflow_penalty": 0.3,
+      "missed_fireball_penalty": 0.0,
+      "fireball_value_reward": 0.25,
+      "reserve_potential_weight": 0.1,
+      "own_hp_penalty": 6.0,
+      "barbarian_train_fraction": 0.35,
+      "lane_reflection_fraction": 0.5,
+      "action_cooldown_ms": 0,
+      "cannon_center_only": 1,
+      "tower_damage_all": 1
+    },
+    "tower_support_weight": 0.15,
+    "spell_waste_weight": 0.1,
+    "tactical_start_fraction": 1.0
+  },
+  "limitations": [
+    "TRAIN technical games with only four correlated initial seeds.",
+    "Cleared initial body IDs excludes later children spawned by those bodies.",
+    "No training or checkpoint promotion; synthetic states are not real-history reconstructions."
+  ]
+}

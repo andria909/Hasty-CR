@@ -10,13 +10,13 @@ from scripts.kaggle.local_artifact_transfer import file_sha
 from sim.train_attack_ppo import parser, train, evaluate
 
 
-def preflight(root, initial):
+def preflight(root, initial, supplied_profile=None):
     root = Path(root)
     root.mkdir(parents=True, exist_ok=False)
     torch.set_num_threads(1)
     profile = root/'profile.json'
-    profile.write_text(json.dumps(dict(cannon_center_only=1, action_cooldown_ms=0,
-                                      tower_damage_all=1)))
+    profile.write_text(Path(supplied_profile).read_text() if supplied_profile else
+        json.dumps(dict(cannon_center_only=1,action_cooldown_ms=0,tower_damage_all=1)))
     evidence = []
     for fraction in (0., 1.):
         case = root/('control' if fraction == 0 else 'tactical')
@@ -24,6 +24,7 @@ def preflight(root, initial):
             '--continuous-profile',str(profile),'--tower-support-weight','.15','--spell-waste-weight','.1',
             '--tactical-start-fraction',str(fraction),'--action-delay-ms','1350',
             '--geometry','native_anchors_candidate_v1','--max-ms','310000',
+            '--gamma','.999','--gae-lambda','.95',
             '--envs','1','--rollout','16','--epochs','1','--minibatch-size','16',
             '--seed','34001','--checkpoint-every','1','--eval-every','0','--wallclock-seconds','600']
         for name, steps in (('first',16), ('whole',32), ('resumed',32)):
@@ -75,5 +76,6 @@ if __name__ == '__main__':
     p=argparse.ArgumentParser()
     p.add_argument('--root', required=True)
     p.add_argument('--initial', required=True)
+    p.add_argument('--profile')
     a=p.parse_args()
-    preflight(a.root, a.initial)
+    preflight(a.root, a.initial, a.profile)

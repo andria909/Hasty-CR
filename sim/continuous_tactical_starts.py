@@ -12,7 +12,7 @@ from sim.eval_defense_duel import mechanical_mask
 from sim.tower_support import TowerSupport
 
 PRIMARY = dict(air='balloon', hog='hog_rider', giant='giant', golem='golem',
-               bridge='battle_ram', swarm='knight')
+               bridge='battle_ram', swarm='goblin_gang')
 
 
 class TacticalStartContinuousPushEnv(SpellWasteContinuousPushEnv):
@@ -48,6 +48,8 @@ class TacticalStartContinuousPushEnv(SpellWasteContinuousPushEnv):
         own.elixir = rng.randrange(3, 11)*1000
         enemy.elixir = 10000
         primary = PRIMARY[self.scenario.family]
+        if primary not in enemy.deck:
+            raise ValueError('Tactical primary must belong to the actual enemy deck')
         rest = [c for c in enemy.deck if c != primary]
         rng.shuffle(rest)
         order = [primary, *rest]

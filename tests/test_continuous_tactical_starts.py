@@ -36,6 +36,7 @@ def test_paid_diverse_starts_keep_real_hand_and_continue_enemy_play():
         hands.add(tuple(start['own_hand']));banks.add(start['own_elixir'])
         masks.add(start['own_princess_mask']);lanes.add(start['lane']);families.add(start['family'])
         assert sorted(env.match.players[1].hand+env.match.players[1].queue) == sorted(DECK_26)
+        assert sorted(env.match.players[-1].hand+env.match.players[-1].queue) == sorted(env.match.players[-1].deck)
         paid = sum(env.cards[r['card']].cost for r in start['enemy_setup'])
         assert env.match.players[-1].elixir_spent == paid
         assert paid <= 10
@@ -75,3 +76,14 @@ def test_training_factory_requires_explicit_coefficients():
     env=make_training_env(curriculum='continuous_v1', tactical_start_fraction=.25, **OPTIONS)
     assert isinstance(env,TacticalStartContinuousPushEnv)
     with pytest.raises(ValueError):make_training_env(curriculum='continuous_v1',tactical_start_fraction=.25)
+
+
+def test_barbarian_augmentation_does_not_inject_a_ninth_card():
+    options=dict(OPTIONS,continuous_profile=dict(tower_damage_all=1,barbarian_train_fraction=1.,lane_reflection_fraction=1.))
+    env=TacticalStartContinuousPushEnv(tactical_start_fraction=1,**options)
+    obs,_=env.reset(seed=33011,scenario_id='defense::swarm/push')
+    player=env.match.players[-1]
+    assert 'knight' not in player.deck and 'barbarians' in player.deck
+    assert sorted(player.hand+player.queue)==sorted(player.deck) and len(player.deck)==8
+    assert env.tactical_start['enemy_setup'][0]['card']=='goblin_gang'
+    assert env.reflected and obs['scalars'].shape==(309,)
