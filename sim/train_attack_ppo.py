@@ -93,7 +93,9 @@ def make_attack_env(*,split='train',seed=0,deadline_scale=1.,**options):
     return env
 
 
-def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',validation_selection='overall',continuous_focus='uniform',history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None,**options):
+def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',validation_selection='overall',continuous_focus='uniform',history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None,tactical_start_fraction=None,**options):
+    if tactical_start_fraction is not None and (tower_support_weight is None or spell_waste_weight is None):
+        raise ValueError('Tactical starts require explicit tower and spell coefficients')
     if (tower_support_weight is not None or spell_waste_weight is not None) and (history_frames!=1 or pending_inputs or curriculum!='continuous_v1' or task_mode!='joint'):
         raise ValueError('Tower support requires single-frame continuous joint policy without pending inputs')
     if pending_inputs and (history_frames!=1 or curriculum!='continuous_v1' or task_mode!='joint'):
@@ -105,7 +107,11 @@ def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='class
     if curriculum=='continuous_v1':
         if task_mode!='joint':raise ValueError('Continuous curriculum requires joint policy')
         from sim.continuous_push import ContinuousPushEnv
-        if spell_waste_weight is not None:
+        if tactical_start_fraction is not None:
+            from sim.continuous_tactical_starts import TacticalStartContinuousPushEnv
+            env=TacticalStartContinuousPushEnv(split=split,seed=seed,tactical_start_fraction=tactical_start_fraction,
+                tower_support_weight=tower_support_weight,spell_waste_weight=spell_waste_weight,**options)
+        elif spell_waste_weight is not None:
             from sim.continuous_spell_waste import SpellWasteContinuousPushEnv
             env=SpellWasteContinuousPushEnv(split=split,seed=seed,spell_waste_weight=spell_waste_weight,
                 tower_support_weight=tower_support_weight or 0.,**options)
@@ -267,7 +273,7 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
     return result
 
 
-def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.,history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None):
+def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.,history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None,tactical_start_fraction=None):
     root=Path(__file__).resolve().parents[1]
     names=('sim/attack_env.py','sim/attack_scenarios.py','sim/attack_sampler.py',
            'sim/train_attack_ppo.py','sim/engine.py','sim/pathfind.py','sim/match.py','sim/env.py',
@@ -283,6 +289,7 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
     if tower_support_weight is not None or spell_waste_weight is not None:names+=('sim/tower_support.py','sim/continuous_tower_support.py')
     if pending_inputs:names+=('sim/pending_inputs.py','sim/continuous_pending.py')
     if history_frames==2:names+=('sim/public_frame_history.py','sim/continuous_history.py')
+    if tactical_start_fraction is not None:names+=('sim/continuous_tactical_starts.py',)
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
                                      for name in names},sort_keys=True).encode()).hexdigest()
 
@@ -296,7 +303,7 @@ def validate_resume(blob,config):
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
           'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes','policy_temperature',
-          'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon','validation_action_delay_ms','tower_support_weight','spell_waste_weight')
+          'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon','validation_action_delay_ms','tower_support_weight','spell_waste_weight','tactical_start_fraction')
     for key in keys:
         default=0. if key in('supervised_replay_weight','card_exploration_epsilon')else None
         if blob['config'].get(key,default)!=config.get(key,default):
@@ -362,6 +369,8 @@ def train(args):
         if not np.isfinite(tower_support_weight) or tower_support_weight<0:
             raise ValueError('Invalid tower support weight')
         options['tower_support_weight']=tower_support_weight
+    tactical_start_fraction=getattr(args,'tactical_start_fraction',None)
+    if tactical_start_fraction is not None:options['tactical_start_fraction']=tactical_start_fraction
     if pending_inputs and (curriculum!='continuous_v1' or history_frames!=1):
         raise ValueError('Pending input prototype requires continuous history1')
     if history_frames!=1 and curriculum!='continuous_v1':raise ValueError('History2 requires continuous curriculum')
@@ -403,7 +412,7 @@ def train(args):
         replay=SuccessfulActionReplay(replay_data,device,**(dict(pending_inputs=True) if pending_inputs else {}))
     config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,num_planes=num_planes,history_frames=history_frames,policy_temperature=temperature,
         reward_profile=reward_profile,reward_profile_sha256=reward_sha,
-        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames,pending_inputs,tower_support_weight,spell_waste_weight),
+        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames,pending_inputs,tower_support_weight,spell_waste_weight,tactical_start_fraction),
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
         initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
             hashlib.sha256(Path(args.init).read_bytes()).hexdigest()if args.init else None))
@@ -563,6 +572,7 @@ def parser():
     p.add_argument('--continuous-profile',help='Explicit full-game auxiliary reward and timing JSON')
     p.add_argument('--spell-waste-weight',type=float,default=None,help='Replace Fireball-only miss penalty with paid empty Fireball/Zap cost')
     p.add_argument('--tower-support-weight',type=float,default=None,help='Opt-in reward per assisted enemy elixir value; zero is instrumented control')
+    p.add_argument('--tactical-start-fraction',type=float,default=None,help='TRAIN-only paid defensive starts followed by full games; validation stays unchanged')
     p.add_argument('--pending-inputs',action='store_true',help='Opt-in own queued-command position/time inputs')
     p.add_argument('--history-frames',type=int,choices=(1,2),default=1)
     p.add_argument('--value-warmup-steps',type=int,default=0)

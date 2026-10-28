@@ -1,0 +1,68 @@
+{
+  "schema": "tactical-start-preflight-v1",
+  "cases": [
+    {
+      "fraction": 0.0,
+      "actual_steps": 32,
+      "source_code_sha256": "de475504665e1753eb70ba1ee3834e7389b1e6e1cb433acc40f296d81d112161",
+      "tactical_start": null,
+      "exact_resume": true,
+      "checkpoint_sha256": "e99cf8966a37990fb4a6b916f8ed81ebf46aa936d18aca9331becc8f7ad02fec"
+    },
+    {
+      "fraction": 1.0,
+      "actual_steps": 32,
+      "source_code_sha256": "de475504665e1753eb70ba1ee3834e7389b1e6e1cb433acc40f296d81d112161",
+      "tactical_start": {
+        "schema": "paid-tactical-start-v1",
+        "family": "bridge",
+        "lane": "right",
+        "own_princess_mask": 3,
+        "enemy_princess_mask": 1,
+        "clock_ms": 30000,
+        "decision_start_ms": 32000,
+        "warmup_ms": 2000,
+        "own_hand": [
+          "knight",
+          "hog_rider",
+          "musketeer",
+          "zap"
+        ],
+        "own_queue": [
+          "fireball",
+          "electro_spirit",
+          "cannon",
+          "skeletons"
+        ],
+        "own_elixir": 4714,
+        "enemy_setup": [
+          {
+            "at_ms": 30000,
+            "card": "battle_ram",
+            "cell": [
+              13,
+              15
+            ],
+            "elixir_before": 10000,
+            "elixir_after": 6000
+          }
+        ],
+        "synthetic_history": true,
+        "initial_own_fraction_loss": 0.0,
+        "initial_enemy_fraction_damage": 1.0,
+        "initial_elixir_overflow": 0.0
+      },
+      "exact_resume": true,
+      "checkpoint_sha256": "7654d6eecf418d0833de32d550bc1549832f96d07b779d63df36dc9e893a06af"
+    }
+  ],
+  "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+  "device": "cpu",
+  "quality_accepted": false,
+  "validation_unchanged_test": "tests/test_continuous_tactical_starts.py",
+  "note": "Technical 16-to-32-step check only; not a quality training run or GPU submission.",
+  "technical_validation_games": 24,
+  "identical_validation_pairs": 12,
+  "validation_control_sha256": "a70c8d17a89b028ea57b7487c6aa37e8dce6cd13009164980dc86170930e6b83",
+  "validation_tactical_option_sha256": "29c4eeac1b73db1c253210feef37cc31451c374f606d4e5d196bf6ef299246e5"
+}
