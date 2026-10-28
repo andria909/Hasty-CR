@@ -56,12 +56,25 @@ def render(reports):
         score=lambda r:f"{r['wins']}/{r['games']}"
         values='; '.join(r['id']+': '+score(r)for r in rows if r is not control)
         lines.append(f'| [{label}](reports/{stem}_results_20261027.md) | {score(control)if control else "—"} | {values} |')
-    lines+=['','В каждой строке72 одинаковых контекста на двух seed: это не144 независимых ситуации. Между опытами seed различаются; сравниваем прежде всего с их собственным контролем.','',
-        '**Следующая гипотеза:** отделяем пользу примеров Fireball от влияния награды за размен. [Дизайн и измерения](reports/fireball_reward_ablation_design_20261028.md).','']
+    lines+=['','В каждой строке72 одинаковых контекста на двух seed: это не144 независимых ситуации. Между опытами seed различаются; сравниваем прежде всего с их собственным контролем.','']
+    ablation=read(reports/'fireball_reward_ablation_summary_20261027.json')
+    if ablation:
+        lines+=['**Последние опыты завершены:** отключение вспомогательной награды Fireball не улучшило результат; расширенные примеры защиты тоже не прошли отбор. Большое продолжение этих вариантов не запущено. Следующий этап — разбор переноса локального навыка в полный матч. [Fireball](reports/fireball_reward_ablation_results_20261027.md), [защита](reports/pending_diversity_pilot_results_20261027.md).','']
+    else:
+        lines+=['**Следующая гипотеза:** отделяем пользу примеров Fireball от влияния награды за размен. [Дизайн и измерения](reports/fireball_reward_ablation_design_20261028.md).','']
     recovery=read(reports/'full_candidate_recovered_evaluation_20261028.json')
     stream=read('tmp/kaggle/full_candidate_eval_recovery_20261028/live_stream/progress.json')
     if recovery and recovery.get('total_games_verified')==6300:
         lines+=['**Большой тест и турнир проверены.** [Полный отчёт](reports/defense_plan/full_candidate_recovered_evaluation_20261028.md).','']
+        from scripts.attack.report_full_candidate_evaluation import standings
+        table=standings(recovery,list(recovery['model_labels']))
+        lines+=['| Модель | Победы / 360 | Очки с половиной ничьих | Победы против v25 / 60 |',
+                '|---|---:|---:|---:|']
+        for name in table['order']:
+            opponent=table['matrix'][name].get('v25')
+            versus='—'if opponent is None else str(opponent.get('win',0))+'/60'
+            lines.append(f"| {recovery['model_labels'][name]} | {table['totals'][name].get('win',0)}/360 | {table['points'][name]:.1%} | {versus} |")
+        lines+=['','Турнир в симуляторе на прежней физике и225мс. Небольшой разрыв strong/balanced не доказывает превосходства; реальные винрейты ниже отдельно.','']
     elif stream and stream.get('kernel')=='vertel0/hastycr-full-eval-recovery-1028':
         games=stream.get('evaluation',{}).get('games',{})
         if games.get('total')==6300:

@@ -1,8 +1,75 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-fireball-reward-ablation-1028",
-  "status": "submitted_pending_cuda_proof",
-  "progress_snapshot": {},
+  "status": "pilot_complete_budgets_verified",
+  "progress_snapshot": {
+    "kernel": "vertel0/hastycr-fireball-reward-ablation-1028",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793193508739258000,
+    "trials": {
+      "pilot_control_s272": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1259.643972958
+      },
+      "pilot_noaux_s272": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1301.521707222
+      },
+      "pilot_control_s273": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2240.8544466
+      },
+      "pilot_noaux_s273": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2278.896808373
+      },
+      "pilot_slot800_s272": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3408.090317908
+      },
+      "pilot_slot800noaux_s272": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3476.156042343
+      },
+      "pilot_slot800_s273": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3723.98467516
+      },
+      "pilot_slot800noaux_s273": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3793.868131879
+      }
+    },
+    "error_type": "SSLError",
+    "http_status": null
+  },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
   "quality_accepted": false,
@@ -16,5 +83,7 @@
     "kernelId": 141336872
   },
   "frozen_bootstrap_sha256": "448d1d31047608804fd4aa5732022f29f1e7ffa795d3bf04cd0790793f166809",
-  "last_local_sync_ns": 1793189720250651000
+  "last_local_sync_ns": 1793194521592506000,
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/fireball_reward_ablation_verified_20261027.json"
 }

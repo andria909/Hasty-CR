@@ -1,0 +1,253 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "andreiperelaiko/hastycr-pending-diversity-1028",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "control",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.1,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.1,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "pending_inputs": true,
+          "sequence_wait_fraction": 0.25,
+          "slot_augmentation": false
+        },
+        "score": 0.2361111111111111,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "slot200",
+          "warmstart_updates": 200,
+          "warmstart_kl_weight": 0.1,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.1,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "pending_inputs": true,
+          "sequence_wait_fraction": 0.25,
+          "slot_augmentation": true
+        },
+        "score": 0.19097222222222224,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "diverse200",
+          "warmstart_updates": 200,
+          "warmstart_kl_weight": 0.1,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.1,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "pending_inputs": true,
+          "sequence_wait_fraction": 0.25,
+          "slot_augmentation": false
+        },
+        "score": 0.18055555555555552,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "slot800",
+          "warmstart_updates": 800,
+          "warmstart_kl_weight": 0.1,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.1,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "pending_inputs": true,
+          "sequence_wait_fraction": 0.25,
+          "slot_augmentation": true
+        },
+        "score": 0.1597222222222222,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_control_s262",
+      "checkpoint": "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/collected/pilot_control_s262/update_000100.pt",
+      "checkpoint_sha256": "20a49a076d875c8bc7da0203d51774570e45dcc035a3ebbbf59275cf36bb264f",
+      "selection_score": 0.25,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_control_s263",
+      "checkpoint": "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/collected/pilot_control_s263/update_000050.pt",
+      "checkpoint_sha256": "745575c3b93c75d2635f0393395fac6d22531d004b3279b750a81dd8b81c1ecf",
+      "selection_score": 0.2222222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_diverse200_s262",
+      "checkpoint": "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/collected/pilot_diverse200_s262/update_000100.pt",
+      "checkpoint_sha256": "1a5066ec4c2125d8d5923b2e7264c31257d01650a0ab54bc2bef07925019ae71",
+      "selection_score": 0.20138888888888887,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_diverse200_s263",
+      "checkpoint": "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/collected/pilot_diverse200_s263/update_000100.pt",
+      "checkpoint_sha256": "551cd28b4736e0129529eba3a76640ef9f0cbaa5a607bb7a30db24c4568ce283",
+      "selection_score": 0.1597222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_slot200_s262",
+      "checkpoint": "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/collected/pilot_slot200_s262/update_000100.pt",
+      "checkpoint_sha256": "023be668f4dd2a4b6b4736c73b5916a8c927dbd7bc58299a6f00673b35598a63",
+      "selection_score": 0.18055555555555555,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_slot200_s263",
+      "checkpoint": "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/collected/pilot_slot200_s263/update_000100.pt",
+      "checkpoint_sha256": "2a2914e789ceaf9ac515391cd8bd0e06ebef8580495dd9d5e11f430112146661",
+      "selection_score": 0.20138888888888892,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_slot800_s262",
+      "checkpoint": "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/collected/pilot_slot800_s262/update_000100.pt",
+      "checkpoint_sha256": "931d85e8d057ff1079deb35e3a850a1c4ea919012a8111479db900c9b4f68c2f",
+      "selection_score": 0.13194444444444445,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_slot800_s263",
+      "checkpoint": "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/collected/pilot_slot800_s263/update_000100.pt",
+      "checkpoint_sha256": "81c246a8438e4abfea989b13d00dc3d5a48fc61af0c171d1da30b20b2b34ce31",
+      "selection_score": 0.1875,
+      "worst_family_points": 0.08333333333333333,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "parent",
+    "ranking": [
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.20138888888888887,
+        "macro_archetype_points": 0.40277777777777773,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.5833333333333334
+          },
+          "giant": {
+            "games": 12,
+            "points": 0.9166666666666666
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.5833333333333334
+          },
+          "swarm": {
+            "games": 12,
+            "points": 0.3333333333333333
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false,
+  "verification_sources": {
+    "mode": "isolated_frozen_training_package",
+    "project": "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/frozen_verification_1793195265992687000/project",
+    "bootstrap_sha256": "1a707c9f5c91018f37a5370983ccf5e336ba789b4a5eec6a1177ff50ab93af4c",
+    "extensions_sha256": "0353d50497dc8d65d88085326ce93cbe9dc7596b59c63e8e5e8d24c5c064ae53",
+    "verifier_sha256": "c1391566a6f52a8912dac6785ec22036b7c5c3a07557af9ae3ead6579301653a"
+  }
+}
