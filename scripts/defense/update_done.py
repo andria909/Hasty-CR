@@ -208,7 +208,7 @@ def render_live_feedback_studies(reports):
         if controller.exists() and json.loads(controller.read_text()).get('status')=='stopped_error':
             lines += ['**Серия остановлена с ошибкой запуска следующего боя.** Завершённые матчи сохранены; продолжение ещё не запущено.','']
     if (reports/'tower_support_diagnostic_20261028.json').exists():
-        lines += ['**Помощь башен:** бонус подключён к PPO; короткое CPU-обучение и точное продолжение проверены, 19 тестов прошли. GPU-сравнение четырёх коэффициентов ещё не отправлено. [Код](sim/continuous_tower_support.py), [диагностика48 эпизодов](reports/tower_support_diagnostic_20261028.md).','']
+        lines += ['**Помощь башен:** бонус подключён к PPO; короткое CPU-обучение и точное продолжение проверены, 19 тестов прошли. GPU-пакет четырёх коэффициентов подготовлен: точное продолжение и48 технических игр прошли; ещё не отправлен. [Код](sim/continuous_tower_support.py), [диагностика48 эпизодов](reports/tower_support_diagnostic_20261028.md).','']
     lines+=render_global_full_training(reports)
     studies=[('air_retention_pilot','Сохранение навыка',(142,143),
         [(f'replay{int(w*100):03d}',f'Повторение примеров: {w:g}')for w in(0.,.1,1.,5.)]),
