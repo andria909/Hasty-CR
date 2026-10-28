@@ -208,11 +208,11 @@ def render_live_feedback_studies(reports):
         if controller.exists() and json.loads(controller.read_text()).get('status')=='stopped_error':
             lines += ['**Серия остановлена с ошибкой запуска следующего боя.** Завершённые матчи сохранены; продолжение ещё не запущено.','']
     if (reports/'tower_support_diagnostic_20261028.json').exists():
-        lines += ['**Помощь башен:** бонус подключён к PPO; короткое CPU-обучение и точное продолжение проверены, 19 тестов прошли. Четыре коэффициента прошли48 технических игр; опыт поставлен в очередь после проверки ожидающих карт. На GPU ещё не запущен. [Код](sim/continuous_tower_support.py), [диагностика48 эпизодов](reports/tower_support_diagnostic_20261028.md).','']
+        lines += ['**Помощь башен:** бонус подключён к PPO; короткое CPU-обучение и точное продолжение проверены, 19 тестов прошли. Четыре коэффициента прошли48 технических игр; пакет готов. Актуальная отправка на GPU указана ниже. [Код](sim/continuous_tower_support.py), [диагностика48 эпизодов](reports/tower_support_diagnostic_20261028.md).','']
     if (reports/'sequence_pilot_verified_20261027.json').exists():
         lines += ['**Последовательная защита — отклонена:** контроль71/144 побед, новые62/144,39/144,43/144 на validation; большой запуск не прошёл порог. [Результаты](reports/sequence_pilot_results_20261027.md).','']
     if Path('sim/continuous_spell_waste.py').exists():
-        lines += ['**Пустые спеллы:** отдельная среда штрафует потраченный эликсир за пустые Fireball/Zap после срабатывания; без двойного штрафа Fireball. PPO и точное продолжение проверены; четыре GPU-профиля прошли48 технических игр и стоят в очереди после опыта с башнями. На GPU ещё не запущены. [Код](sim/continuous_spell_waste.py).','']
+        lines += ['**Пустые спеллы:** отдельная среда штрафует потраченный эликсир за пустые Fireball/Zap после срабатывания; без двойного штрафа Fireball. PPO и точное продолжение проверены; четыре GPU-профиля прошли48 технических игр. Актуальная отправка на GPU указана ниже. [Код](sim/continuous_spell_waste.py).','']
     if (reports/'full_bc800_live_vs_validation_20261028.json').exists():
         lines += ['**Проблема BC800, первые8 реальных игр:**97,7% выставлений слева (validation80,6%); мушкетёр0,63/матч (validation0,39). Перекос присутствует уже в симуляции. [Карты и задержки](reports/full_bc800_live_vs_validation_20261028.md).','']
     lines+=render_global_full_training(reports)
@@ -249,6 +249,25 @@ def render_live_feedback_studies(reports):
         ('pending_inputs_pilot','Видимость ожидающих карт',(212,213),
         [('control1350','Обычный вход ·1350мс'),('pending1350','Очередь во входе ·1350мс'),
          ('control2025','Обычный вход ·2025мс'),('pending2025','Очередь во входе ·2025мс')])]
+    parallel_path=reports/'parallel_pilot_submission_20261028.json'
+    if parallel_path.exists():
+        launch=json.loads(parallel_path.read_text())
+        labels={'tower_support_pilot':'Помощь башен','spell_waste_pilot':'Пустые спеллы',
+                'native_fireball_slot_pilot':'Прицел Fireball и порядок руки'}
+        lines += ['**Параллельная отправка новых опытов:**','',
+                  '| Опыт | Аккаунт | Состояние |','|---|---|---|']
+        for row in launch['studies']:
+            root=Path(row['root']);receipt=root/'launch_receipt.json'
+            status='Подготовлена отправка; GPU не подтверждён'
+            if receipt.exists():
+                response=json.loads(receipt.read_text())
+                status=('Kaggle принял запуск; шаги проверяются' if response.get('ref')=='/code/'+row['kernel'] and not response.get('error') else 'Kaggle отклонил запуск; обучение не началось')
+            elif (root/'parallel_launch_status.json').exists():
+                status='Отправка завершилась ошибкой; проверяется'
+            elif (root/'dataset_submission.json').exists():
+                status='Датасет отправляется/проверяется; GPU ещё не запрошен'
+            lines.append(f"| {labels[row['stem']]} | {row['kernel'].split('/')[0]} | {status} |")
+        lines += ['','Каждый опыт:4 профиля ×2 seed, суммарно819200 PPO-шагов. Приём запуска не означает начало CUDA-обучения.','']
     lines += ['**Исправлены слоты руки:** отклонения выставлений33 →0 в144 одинаковых TRAIN-эпизодах; старые GPU-пакеты сохраняют прежнюю механику. [Разбор](reports/late_air_slot_fix_20261027.md).','']
     lines += ['**Данные симуляции:** все32 карты текущего обучения доступны; оплаченный Lightning проверен. Старые9 падений тестов связаны с другим набором данных; соответствие актуальной игре ещё не доказано. [Аудит](reports/portable_curriculum_assets_20261027.md).','']
     pending_path=reports/'pending_inputs_pilot_training_20261027.json'

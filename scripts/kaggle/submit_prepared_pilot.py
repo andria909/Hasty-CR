@@ -7,6 +7,13 @@ import time
 from pathlib import Path
 
 
+
+def validate_launch_receipt(receipt,kernel):
+    if (not isinstance(receipt,dict) or receipt.get('error') or
+            receipt.get('ref')!='/code/'+kernel or receipt.get('versionNumber')!=1):
+        raise RuntimeError('Kaggle did not accept the first kernel submission; inspect saved receipt')
+
+
 def submit(root,token_index,*,evaluation=False):
     from scripts.kaggle.collect_final_evaluation import make_api_client,configure_http_timeout
     root=Path(root);index=int(token_index);prepared=json.loads((root/'preparation.json').read_text());owner=prepared['config']['owner'];kernel=prepared['kernel']
@@ -57,6 +64,7 @@ def submit(root,token_index,*,evaluation=False):
     (root/'kernel_push_requested.json').write_text(json.dumps(dict(kernel=kernel,requested=True)))
     r=api.kernels_push(str(root/'job'),acc='NvidiaTeslaT4');receipt=r.to_dict()if hasattr(r,'to_dict')else str(r)
     (root/'launch_receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt),flush=True)
+    validate_launch_receipt(receipt,kernel)
     return receipt
 
 
