@@ -20,6 +20,8 @@ def summarize(root,verified=None):
             from scripts.attack.verify_native_fireball_slot import verify_native_fireball as verify_study
         elif variant=='tower_support_reward_v1':
             from scripts.attack.verify_tower_support_pilot import verify_tower_support as verify_study
+        elif variant=='spell_waste_reward_v1':
+            from scripts.attack.verify_spell_waste_pilot import verify_spell_waste as verify_study
         else:
             verify_study=verify
         verified=verify_study(root/'collected',root)
@@ -29,7 +31,7 @@ def summarize(root,verified=None):
     retention=protocol.get('schema')=='continuous-air-retention-pilot-v1'
     jointskills=protocol.get('schema')=='continuous-joint-skills-pilot-v1'
     warm=protocol.get('schema')=='continuous-air-warmstart-pilot-v1'or retention or jointskills
-    if protocol.get('study_variant') in ('own_pending_inputs_v1','tower_support_reward_v1'):warm=False
+    if protocol.get('study_variant') in ('own_pending_inputs_v1','tower_support_reward_v1','spell_waste_reward_v1'):warm=False
     temperature=protocol.get('schema')=='continuous-temperature-pilot-v1'
     tactical=protocol.get('schema')=='continuous-live-tactical-reward-pilot-v1'
     exploration=protocol.get('schema')=='continuous-card-exploration-pilot-v1'
@@ -61,6 +63,14 @@ def summarize(root,verified=None):
                     after=score_checkpoint(root/'collected'/r['checkpoint'],root/'dataset')))
 
         row=dict(id=trial['id'],**stats(records))
+        if protocol.get('study_variant')=='spell_waste_reward_v1':
+            known=all('empty_spell_counts' in r for r in records)
+            minutes=sum(r['elapsed_ms'] for r in records)/60000
+            row.update(spell_waste_weight=trial['spell_waste_weight'],
+                mean_empty_spells=({card:sum(r['empty_spell_counts'].get(card,0) for r in records)/len(records)
+                    for card in ('fireball','zap')} if known else None),
+                mean_empty_spell_elixir=sum(r['empty_spell_elixir'] for r in records)/len(records) if known else None,
+                empty_spell_elixir_per_minute=sum(r['empty_spell_elixir'] for r in records)/minutes if known and minutes else None)
         if 'action_delay_ms' in trial:
             row.update(action_delay_ms=trial['action_delay_ms'],validation_action_delay_ms=trial['validation_action_delay_ms'])
         if history:row.update(history_frames=trial['history_frames'],focus=trial['focus'])
@@ -120,6 +130,16 @@ def render(summary):
     for row in references+summary['rows']:
         air=row['by_family']['air'];golem=row['by_family']['golem'];cards=row['mean_card_plays']
         lines.append(f"| {row['id']} | {row['wins']}/{row['games']} | {air['wins']}/{air['games']} | {golem['wins']}/{golem['games']} | {cards.get('musketeer',0):.2f} | {cards.get('hog_rider',0):.2f} |")
+    if summary['rows']and 'mean_empty_spells'in summary['rows'][0]:
+        lines+=['','## Пустые заклинания','',
+            '| Профиль | Пустые Fireball / матч | Пустые Zap / матч | Эликсир впустую / матч | Эликсир впустую / минуту |',
+            '|---|---:|---:|---:|---:|']
+        for row in summary['rows']:
+            if row['mean_empty_spells'] is None:
+                lines.append(f"| {row['id']} | {row['mean_missed_fireballs']:.2f} | не измерялось | не измерялось | не измерялось |")
+            else:
+                lines.append(f"| {row['id']} | {row['mean_empty_spells']['fireball']:.2f} | {row['mean_empty_spells']['zap']:.2f} | {row['mean_empty_spell_elixir']:.2f} | {row['empty_spell_elixir_per_minute']:.2f} |")
+        lines+=['','Старый контроль не записывает Zap: отсутствие измерения не означает нулевые промахи. Для полного сравнения расходов нужен повторный прогон его выбранных весов с диагностическим счётчиком на тех же validation-сценах.']
     if summary['rows']and 'local_after_ppo'in summary['rows'][0]:
         lines+=['','## Локальный навык: перед PPO и выбранный PPO-чекпойнт','',
             '| Профиль | До PPO | Выбранный чекпойнт PPO |','|---|---:|---:|']

@@ -26,6 +26,7 @@ def prepare(output,owner='vertel0'):
     cases=[]
     for name,weight in [('control',None),('small',.1),('medium',.5),('large',1.)]:
         trial=deepcopy(base);trial.update(id=name,spell_waste_weight=weight,
+            missed_fireball_penalty=.1 if weight is None else 0.,
             action_delay_ms=1350,validation_action_delay_ms=1350,warmstart_updates=0,supervised_replay_weight=0.)
         cases.append(trial)
     protocol.update(study_variant='spell_waste_reward_v1',cases=cases,pilot_seeds=[242,243],

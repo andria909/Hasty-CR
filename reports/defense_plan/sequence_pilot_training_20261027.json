@@ -1,8 +1,75 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-sequence-pilot-20261027",
-  "status": "submitted_pending_cuda_proof",
-  "progress_snapshot": {},
+  "status": "pilot_complete_budgets_verified",
+  "progress_snapshot": {
+    "kernel": "vertel0/hastycr-sequence-pilot-20261027",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793146751963607000,
+    "trials": {
+      "pilot_control_s202": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1271.58578969
+      },
+      "pilot_seq200_wait25_s202": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1387.464911144
+      },
+      "pilot_control_s203": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2242.397363834
+      },
+      "pilot_seq200_wait25_s203": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2455.686296796
+      },
+      "pilot_seq800_wait25_s202": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3332.83781161
+      },
+      "pilot_seq800_wait50_s202": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3579.040932271
+      },
+      "pilot_seq800_wait25_s203": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3570.034289579
+      },
+      "pilot_seq800_wait50_s203": {
+        "update": 40,
+        "steps": 40960,
+        "target_steps": 102400,
+        "percent": 40.0,
+        "remote_log_seconds": 3775.613757628
+      }
+    },
+    "error_type": "SSLError",
+    "http_status": null
+  },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
   "quality_accepted": false,
@@ -16,5 +83,7 @@
     "kernelId": 141246659
   },
   "frozen_bootstrap_sha256": "bfe7c66de16b70b2080133be122fb1a76337b6a4aff80aaee0d2d794b566059e",
-  "last_local_sync_ns": 1793142963312767000
+  "last_local_sync_ns": 1793147764344133000,
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/sequence_pilot_verified_20261027.json"
 }

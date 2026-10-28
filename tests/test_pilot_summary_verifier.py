@@ -9,6 +9,7 @@ from scripts.attack.summarize_clock_pilots import summarize
     ('late_air_sequential_teacher_v1','scripts.attack.verify_sequence_pilot','verify_sequence'),
     ('native_fireball_slot_v1','scripts.attack.verify_native_fireball_slot','verify_native_fireball'),
     ('tower_support_reward_v1','scripts.attack.verify_tower_support_pilot','verify_tower_support'),
+    ('spell_waste_reward_v1','scripts.attack.verify_spell_waste_pilot','verify_spell_waste'),
     ('legacy','scripts.attack.summarize_clock_pilots','verify'),
 ])
 def test_manual_summary_cannot_bypass_study_verifier(tmp_path,monkeypatch,variant,module,function):

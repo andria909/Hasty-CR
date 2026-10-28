@@ -43,11 +43,12 @@ def test_clock_pilot_collects_selected_and_latest_boundaries(monkeypatch,tmp_pat
 
 
 @pytest.mark.parametrize('variant',['control','small','medium','large'])
-@pytest.mark.parametrize('seed',[232,233])
-def test_tower_support_keeps_selected_and_latest(monkeypatch,tmp_path,variant,seed):
+@pytest.mark.parametrize('seed,profile',[(232,'tower-support-pilot'),(233,'tower-support-pilot'),
+                                      (242,'spell-waste-pilot'),(243,'spell-waste-pilot')])
+def test_tower_support_keeps_selected_and_latest(monkeypatch,tmp_path,variant,seed,profile):
     run=f'pilot_{variant}_s{seed}'
     setup(monkeypatch,run+'/update_000050.pt',run)
-    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','tower-support-pilot')
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out',profile)
     assert result['complete']
     assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'chosen_eligible'
     assert (tmp_path/'out'/run/'update_000100.pt').read_bytes()==b'latest_resume'
