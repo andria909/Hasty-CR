@@ -37,7 +37,7 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             elif prep.get('study_variant') in ('own_pending_inputs_v1','pending_sequence_retention_v1','pending_diversity_slots_v1'):
                 from scripts.attack.verify_frozen_pending import verify as verify_pending
                 report=verify_pending(receipt.parent,root)
-            elif prep.get('study_variant')=='native_fireball_slot_v1':
+            elif prep.get('study_variant') in ('native_fireball_slot_v1','fireball_reward_ablation_v1'):
                 from scripts.attack.verify_native_fireball_slot import verify_native_fireball
                 report=verify_native_fireball(receipt.parent,root)
             elif prep.get('study_variant')=='tower_support_reward_v1':

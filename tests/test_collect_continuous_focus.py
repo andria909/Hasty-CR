@@ -196,3 +196,22 @@ def test_pending_diversity_keeps_selected_and_latest(monkeypatch,tmp_path,varian
     assert result['complete']
     assert (tmp_path/'out'/run/'update_000050.pt').exists()
     assert (tmp_path/'out'/run/'update_000100.pt').exists()
+
+
+@pytest.mark.parametrize('variant',['control','noaux','slot800','slot800noaux'])
+@pytest.mark.parametrize('seed',[272,273])
+def test_fireball_reward_keeps_selected_latest_and_warmstart(monkeypatch,tmp_path,variant,seed):
+    run=f'pilot_{variant}_s{seed}';prefix='continuous_focus/'
+    data={prefix+'result.json':b'{}',
+          prefix+run+'_summary.json':json.dumps(dict(id=run,checkpoint=run+'/update_000050.pt')).encode(),
+          prefix+run+'/update_000050.pt':b'chosen',prefix+run+'/update_000100.pt':b'latest',
+          prefix+run+'_warmstart/policy.pt':b'warm',prefix+run+'_warmstart/result.json':b'{}',
+          prefix+run+'_warmstart/updates.json':b'[]',prefix+'pilot_control_s222/update_000100.pt':b'old'}
+    monkeypatch.setattr(collector,'list_outputs',lambda api,kernel:({n:NS(url=n)for n in data},[]))
+    monkeypatch.setattr(requests,'get',lambda url,**kw:NS(content=data[url],raise_for_status=lambda:None))
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','fireball-reward-pilot')
+    assert result['complete']
+    assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'chosen'
+    assert (tmp_path/'out'/run/'update_000100.pt').read_bytes()==b'latest'
+    assert (tmp_path/'out'/(run+'_warmstart')/'policy.pt').read_bytes()==b'warm'
+    assert not (tmp_path/'out'/'pilot_control_s222').exists()

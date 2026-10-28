@@ -14,7 +14,12 @@ def audit_augmentation(report, trial):
 def verify_native_fireball(collected, prepared):
     collected,prepared=Path(collected),Path(prepared)
     prep=json.loads((prepared/'preparation.json').read_text())
-    if prep.get('study_variant')!='native_fireball_slot_v1':raise ValueError('Wrong study variant')
+    variant=prep.get('study_variant')
+    if variant not in ('native_fireball_slot_v1','fireball_reward_ablation_v1'):raise ValueError('Wrong study variant')
+    protocol=json.loads((prepared/'dataset/protocol.json').read_text())
+    if variant=='fireball_reward_ablation_v1':
+        from scripts.kaggle.prepare_fireball_reward_ablation import validate_protocol
+        validate_protocol(protocol)
     # Revalidate all budgets, source/weight hashes, CUDA, split, selection and metrics.
     result=verify(collected,prepared)
     protocol=json.loads((prepared/'dataset/protocol.json').read_text())
@@ -25,6 +30,7 @@ def verify_native_fireball(collected, prepared):
             if trial['warmstart_updates']:
                 report=json.loads((collected/(name+'_warmstart')/'result.json').read_text())
                 audit_augmentation(report,trial);audited.append(name)
-    if len(audited)!=6:raise ValueError('Six native Fireball warmstarts required')
+    expected=4 if variant=='fireball_reward_ablation_v1' else 6
+    if len(audited)!=expected:raise ValueError('Native Fireball warmstart coverage differs')
     result['slot_augmentation_audit']=dict(runs=audited,verified=True)
     return result

@@ -773,7 +773,10 @@ if __name__=='__main__':
     status=args.reports/'fireball_refinement_status.json'
     mechanics=args.reports/'recorded_native_tick_speeds.json'
     reality=args.reports/'realism_status.json'
-    if reality.exists():
+    if (args.reports/'fireball_trade_diagnostic_20261028.json').exists():
+        from scripts.defense.current_dashboard import render as render_current
+        args.output.write_text(render_current(args.reports))
+    elif reality.exists():
         args.output.write_text(render_reality(load_models(args.reports),json.loads(reality.read_text()),args.reports))
     else:
         args.output.write_text(render(load_models(args.reports),json.loads(status.read_text()) if status.exists() else None,
