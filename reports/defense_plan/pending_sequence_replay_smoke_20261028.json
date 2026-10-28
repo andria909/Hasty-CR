@@ -1,0 +1,67 @@
+{
+  "exact_resume": {
+    "state_dict": true,
+    "optimiser": true,
+    "rng": true,
+    "sampler": true,
+    "environment_states": true,
+    "observations": true,
+    "infos": true,
+    "episode_returns": true,
+    "episode_counters": true,
+    "step": true,
+    "update": true
+  },
+  "replay_metrics": [
+    {
+      "weight": 1.0,
+      "optimizer_batches": 1,
+      "mean_loss": 107.74271392822266,
+      "train_examples": 80
+    },
+    {
+      "weight": 1.0,
+      "optimizer_batches": 1,
+      "mean_loss": 105.32884979248047,
+      "train_examples": 80
+    }
+  ],
+  "metadata": {
+    "data_sha256": "0a90d722cf70a02cc246af69560e8c4fe650a4af2cc56a42f5f853613cbd7993",
+    "manifest_sha256": "eeabc6b673c2eb570c865c44b5422aac10866298f13be016459bde46e35c0058",
+    "source_sha256": "51791a64f00aa6af959e3c9d36139e7e91e6594f6e94455e1a77702862cd03f6",
+    "train_seeds": [
+      3800009,
+      3800057
+    ],
+    "heldout_seed": 3800085,
+    "train_examples": 80,
+    "heldout_examples": 168,
+    "pending_inputs": true,
+    "observation_contract": "joint_public_presence_continuous_slots_pending_v1",
+    "num_planes": 24,
+    "num_scalars": 313,
+    "sequence_wait_fraction": 0.25,
+    "sampling": "equal_sequence_mass_bounded_wait_with_replacement",
+    "sampler_sha256": "d66b31f71ed792dc0e64ef1baa52b6a8e064488bf02070fcfcbfc5e45dba1b3c",
+    "physics_pins": {
+      "sim/match.py": "65932ba8fb6aacd022b2adffa7ca411b7728ad172cad8196f55981c46fdd7f5c",
+      "sim/continuous_push.py": "341e4be7d2e44c4c43b7e250e46cd4c086709fff7eee651085f6ca4c2712d44a",
+      "sim/eval_defense_duel.py": "659def3089d3afcdce539b5145371caf7ea407003b11a5c36016b3498a6feb5c",
+      "sim/engine.py": "2947c37fe5f2eb5fc146347fd09459c776f7f15cbd4275a9c989a95c41940796",
+      "sim/entities.py": "1e5d85dd85b17ff51fa231316fce3334a43445a045551d4fc63514f3a48381b8",
+      "sim/spells.py": "1e81607c315e95da8f832247c88f3f02420e232d3fa711762aeb8a77c5596dad",
+      "sim/adapter.py": "3d12212efeb1583179382281729c7e2bd52daeaec94079e29265fde9bbf7f428"
+    },
+    "pending_source_sha256": {
+      "sim/pending_inputs.py": "a083b0e0b5a47548fa98b58ba50359eae67006dfc64f8a426bfa5ffff64fa1f0",
+      "sim/continuous_pending.py": "df0fbff311b3300c5f248f8cbfcbd9a49cd058c71e86cdd1e4dcf0bd10acd0d1"
+    }
+  },
+  "num_planes": 24,
+  "num_scalars": 313,
+  "changed_sampler_rejected": true,
+  "actual_cuda": false,
+  "quality_accepted": false,
+  "source_code_sha256": "9561c21ee31509595bc94815080bac85dcb8db452e0062733fb3c5d1e7b0d478"
+}

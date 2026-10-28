@@ -36,3 +36,32 @@ def test_changed_or_validation_data_are_rejected(tmp_path):
     with pytest.raises(ValueError,match='TRAIN'):SuccessfulActionReplay(tmp_path,'cpu')
     m['split']='train';p.write_text(json.dumps(m));(tmp_path/'examples.npz').write_bytes(b'changed')
     with pytest.raises(ValueError,match='TRAIN'):SuccessfulActionReplay(tmp_path,'cpu')
+
+
+def test_pending_replay_excludes_holdout_and_trains_queued_features():
+    from sim.train_attack_ppo import initialize_attack_policy
+    from sim.pending_inputs import CONTRACT
+    data=Path('data/late_air_pending_motionfix_20261028')
+    replay=SuccessfulActionReplay(data,'cpu',pending_inputs=True)
+    assert replay.metadata['train_examples']==80 and replay.metadata['heldout_examples']==168
+    assert replay.metadata['heldout_seed']not in replay.metadata['train_seeds']
+    assert replay.sampling.sum().item()==pytest.approx(1.)
+    assert replay.metadata['sequence_wait_fraction']==.25
+    net,_,_=initialize_attack_policy(num_planes=24,num_scalars=313,observation_contract=CONTRACT)
+    replay.loss(net,64).backward()
+    assert net.conv[0].weight.grad[:,20:].abs().sum()>0
+    assert net.scalar[0].weight.grad[:,309:].abs().sum()>0
+    with pytest.raises(ValueError,match='explicit pending'):
+        SuccessfulActionReplay(data,'cpu')
+    with pytest.raises(ValueError,match='pending sequence'):
+        SuccessfulActionReplay(DATA,'cpu',pending_inputs=True)
+
+
+def test_resume_comparison_handles_cycles_and_detects_changed_state():
+    from types import SimpleNamespace
+    from scripts.attack.smoke_pending_replay import equal_state
+    a=SimpleNamespace(value=1);a.self=a
+    b=SimpleNamespace(value=1);b.self=b
+    assert equal_state(a,b)
+    b.value=2
+    assert not equal_state(a,b)

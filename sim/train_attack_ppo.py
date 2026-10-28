@@ -323,7 +323,7 @@ def train(args):
     if not np.isfinite(replay_weight)or not 0<=replay_weight<=10 or (replay_weight and not replay_data):
         raise ValueError('Invalid supervised replay controls')
     if replay_data and (getattr(args,'curriculum','classic')!='continuous_v1' or getattr(args,'history_frames',1)!=1):
-        raise ValueError('Supervised replay requires the continuous20-plane public contract')
+        raise ValueError('Supervised replay requires continuous history1 public inputs')
     temperature=getattr(args,'policy_temperature',1.)
     tempered_logits(torch.empty(0),temperature)
     balance_weight=getattr(args,'card_balance_weight',0.)
@@ -362,8 +362,8 @@ def train(args):
         if not np.isfinite(tower_support_weight) or tower_support_weight<0:
             raise ValueError('Invalid tower support weight')
         options['tower_support_weight']=tower_support_weight
-    if pending_inputs and (curriculum!='continuous_v1' or history_frames!=1 or replay_weight):
-        raise ValueError('Pending input prototype requires continuous history1 and no legacy replay')
+    if pending_inputs and (curriculum!='continuous_v1' or history_frames!=1):
+        raise ValueError('Pending input prototype requires continuous history1')
     if history_frames!=1 and curriculum!='continuous_v1':raise ValueError('History2 requires continuous curriculum')
     if curriculum!='classic':options['curriculum']=curriculum
     if curriculum=='continuous_v1':
@@ -400,7 +400,7 @@ def train(args):
     replay=None
     if replay_data:
         from sim.supervised_replay import SuccessfulActionReplay
-        replay=SuccessfulActionReplay(replay_data,device)
+        replay=SuccessfulActionReplay(replay_data,device,**(dict(pending_inputs=True) if pending_inputs else {}))
     config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,num_planes=num_planes,history_frames=history_frames,policy_temperature=temperature,
         reward_profile=reward_profile,reward_profile_sha256=reward_sha,
         observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames,pending_inputs,tower_support_weight,spell_waste_weight),
