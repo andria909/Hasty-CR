@@ -31,3 +31,15 @@ def test_pending_sequence_protocol_rejects_drift():
     for key,value in [('pending_inputs',False),('sequence_wait_fraction',.9),('action_delay_ms',225),('supervised_replay_weight',2.)]:
         changed=deepcopy(p);changed['cases'][2][key]=value
         with pytest.raises(ValueError):validate_protocol(changed,dict(allow_full_training=False),'pending_sequence_retention_v1')
+
+
+def test_pending_diversity_protocol_keeps_replay_off():
+    from copy import deepcopy
+    from scripts.attack.verify_pending_focus import validate_protocol
+    p=dict(pilot_seeds=[262,263],cases=[dict(id=name,warmstart_updates=bc,slot_augmentation=slots,
+        pending_inputs=True,supervised_replay_weight=0.,sequence_wait_fraction=.25,warmstart_kl_weight=.1,action_delay_ms=1350,validation_action_delay_ms=1350)
+        for name,bc,slots in [('control',0,False),('diverse200',200,False),('slot200',200,True),('slot800',800,True)]])
+    validate_protocol(p,dict(allow_full_training=False),'pending_diversity_slots_v1')
+    for key,value in [('supervised_replay_weight',1.),('slot_augmentation',False),('action_delay_ms',225)]:
+        changed=deepcopy(p);changed['cases'][2][key]=value
+        with pytest.raises(ValueError):validate_protocol(changed,dict(allow_full_training=False),'pending_diversity_slots_v1')

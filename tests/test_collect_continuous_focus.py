@@ -185,3 +185,14 @@ def test_pending_sequence_keeps_selected_and_latest(monkeypatch,tmp_path,variant
     assert result['complete']
     assert (tmp_path/'out'/run/'update_000050.pt').exists()
     assert (tmp_path/'out'/run/'update_000100.pt').exists()
+
+
+@pytest.mark.parametrize('variant',['control','diverse200','slot200','slot800'])
+@pytest.mark.parametrize('seed',[262,263])
+def test_pending_diversity_keeps_selected_and_latest(monkeypatch,tmp_path,variant,seed):
+    run=f'pilot_{variant}_s{seed}'
+    setup(monkeypatch,run+'/update_000050.pt',run)
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','pending-diversity-pilot')
+    assert result['complete']
+    assert (tmp_path/'out'/run/'update_000050.pt').exists()
+    assert (tmp_path/'out'/run/'update_000100.pt').exists()

@@ -25,8 +25,7 @@ def successful_set_loss(logits,legal,success):
 
 
 def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,sequence_wait_fraction=None,slot_augmentation=False,pending_inputs=False):
-    if slot_augmentation and pending_inputs:raise ValueError('Pending slot permutation is not implemented')
-    if slot_augmentation and sequence_wait_fraction is not None:raise ValueError('Pending sequence slots require a separate permutation contract')
+    if slot_augmentation and sequence_wait_fraction is not None and not pending_inputs:raise ValueError('Pending sequence slots require a separate permutation contract')
     if updates<1 or not 0<=kl_weight<=10:raise ValueError('Invalid supervised training controls')
     if device.startswith('cuda')and not torch.cuda.is_available():raise RuntimeError('CUDA unavailable; no CPU fallback')
     if device=='cpu'and updates>5:raise ValueError('CPU limited to five preflight updates')
@@ -77,10 +76,26 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
             log_mass=torch.logsumexp(logits.masked_fill(~success[ids],-torch.inf),-1)-torch.logsumexp(logits.masked_fill(~masks[ids],-torch.inf),-1)
             return dict(examples=len(ids),successful_greedy_fraction=float(success[ids].gather(1,choice[:,None]).float().mean()),
                 mean_successful_probability=float((probs*success[ids]).sum(-1).mean()),mean_log_successful_probability=float(log_mass.mean()))
+    original_measure=measure
+    action_by_index={r['array_index']:r.get('action') for r in manifest['records'] if r['accepted']}
+    def measure(ids):
+        result=original_measure(ids)
+        if all(action_by_index[i] is not None for i in ids.cpu().tolist()):
+            result['by_decision_type']={}
+            for kind,wait in [('wait',True),('deploy',False)]:
+                subset=torch.tensor([i for i in ids.cpu().tolist() if (action_by_index[i]==0)==wait],device=device,dtype=torch.long)
+                result['by_decision_type'][kind]=original_measure(subset) if len(subset) else dict(examples=0)
+        return result
+    def input_identity(p,s,m):return hashlib.sha256(p.tobytes()+s.tobytes()+m.tobytes()).digest()
+    heldout_inputs={input_identity(arrays['planes'][i],arrays['scalars'][i],arrays['masks'][i]) for i in heldout_ids.cpu().tolist()} if slot_augmentation and pending_inputs else set()
+    if heldout_inputs and any(input_identity(arrays['planes'][i],arrays['scalars'][i],arrays['masks'][i])in heldout_inputs for i in train_ids.cpu().tolist()):
+        raise ValueError('TRAIN inputs overlap heldout before augmentation')
+    excluded_permutations=0
     baseline=dict(train=measure(train_ids),local_heldout=measure(heldout_ids))
     optimizer=torch.optim.Adam(net.parameters(),lr=5e-5);history=[]
     for update in range(1,updates+1):
         ids=train_ids[torch.randperm(len(train_ids),device=device)[:32]] if sampling is None else train_ids[torch.multinomial(sampling,32,replacement=True)]
+        batch_planes=planes[ids]
         batch_scalars,batch_masks,batch_success=scalars[ids],masks[ids],success[ids]
         ref_logp,ref_probs,ref_value=reference_logp[ids],reference_probs[ids],reference_value[ids]
         if slot_augmentation:
@@ -88,18 +103,30 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
             packed=[]
             for i in ids.cpu().tolist():
                 order=torch.randperm(4).tolist()
-                scalar,mask=permute(arrays['scalars'][i],arrays['masks'][i],order)
-                _,label=permute(arrays['scalars'][i],arrays['success_masks'][i],order)
-                packed.append((scalar,mask,label))
-            batch_scalars=torch.as_tensor(np.stack([x[0]for x in packed]),device=device,dtype=torch.float32)
-            batch_masks=torch.as_tensor(np.stack([x[1]for x in packed]),device=device,dtype=torch.bool)
-            batch_success=torch.as_tensor(np.stack([x[2]for x in packed]),device=device,dtype=torch.bool)
+                if pending_inputs:
+                    from sim.pending_slot_augmentation import permute_pending
+                    obs=dict(planes=arrays['planes'][i],scalars=arrays['scalars'][i])
+                    changed,mask=permute_pending(obs,arrays['masks'][i],order)
+                    _,label=permute_pending(obs,arrays['success_masks'][i],order)
+                    if input_identity(changed['planes'],changed['scalars'],mask) in heldout_inputs:
+                        changed,mask,label=obs,arrays['masks'][i],arrays['success_masks'][i]
+                        excluded_permutations+=1
+                    scalar,plane=changed['scalars'],changed['planes']
+                else:
+                    scalar,mask=permute(arrays['scalars'][i],arrays['masks'][i],order)
+                    _,label=permute(arrays['scalars'][i],arrays['success_masks'][i],order)
+                    plane=arrays['planes'][i]
+                packed.append((plane,scalar,mask,label))
+            batch_planes=torch.as_tensor(np.stack([x[0]for x in packed]),device=device,dtype=torch.float32)
+            batch_scalars=torch.as_tensor(np.stack([x[1]for x in packed]),device=device,dtype=torch.float32)
+            batch_masks=torch.as_tensor(np.stack([x[2]for x in packed]),device=device,dtype=torch.bool)
+            batch_success=torch.as_tensor(np.stack([x[3]for x in packed]),device=device,dtype=torch.bool)
             # Anchor to the parent on exactly the transformed observation.
             with torch.no_grad():
-                ref_logits,ref_value=reference_net(planes[ids],batch_scalars)
+                ref_logits,ref_value=reference_net(batch_planes,batch_scalars)
                 ref_logp=ref_logits.masked_fill(~batch_masks,-torch.inf).log_softmax(-1).masked_fill(~batch_masks,0)
                 ref_probs=ref_logits.masked_fill(~batch_masks,-torch.inf).softmax(-1)
-        logits,value=net(planes[ids],batch_scalars);imitate=successful_set_loss(logits,batch_masks,batch_success)
+        logits,value=net(batch_planes,batch_scalars);imitate=successful_set_loss(logits,batch_masks,batch_success)
         logp=logits.masked_fill(~batch_masks,-torch.inf).log_softmax(-1).masked_fill(~batch_masks,0)
         kl=(ref_probs*(ref_logp-logp)).sum(-1).mean()
         value_anchor=(value-ref_value).square().mean()
@@ -116,6 +143,7 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
         initial_sha256=hashlib.sha256(Path(initial).read_bytes()).hexdigest(),kl_weight=kl_weight,
         source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         sequence_wait_fraction=sequence_wait_fraction,slot_augmentation=slot_augmentation,pending_inputs=pending_inputs,
+        heldout_overlap_permutations_excluded=excluded_permutations,
         sampling='uniform_without_replacement' if sampling is None else 'equal_sequence_mass_bounded_wait_with_replacement',
         scope='Local action labels, not full-game validation/test; checkpoint for PPO initialization only',quality_accepted=False)
     config=dict(blob.get('config',{}));config.update(architecture=architecture,observation_contract=contract,num_scalars=num_scalars,num_planes=num_planes,

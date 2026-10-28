@@ -1,0 +1,822 @@
+{
+  "frozen_sources_verified": true,
+  "exact_resume_16_to_32": true,
+  "children": [
+    {
+      "frozen_run_ast_sha256": "d1633d68fead6b75fee47c040d98a67e15e011f59b9444e98e733e890c203d64",
+      "original_full_command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-c",
+        "import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
+        "--init",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/dataset/parent.pt",
+        "--output",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_0/controller_output/full_control_s64",
+        "--device",
+        "cpu",
+        "--task-mode",
+        "joint",
+        "--curriculum",
+        "continuous_v1",
+        "--geometry",
+        "native_anchors_candidate_v1",
+        "--coordinate-mode",
+        "physical_live_cells_v2",
+        "--continuous-profile",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_0/controller_output/full_control_s64_profile.json",
+        "--continuous-focus",
+        "uniform",
+        "--validation-selection",
+        "worst_family",
+        "--validation-seed",
+        "900100",
+        "--eval-episodes",
+        "36",
+        "--entropy-coef",
+        "0.01",
+        "--history-frames",
+        "1",
+        "--card-balance-weight",
+        "0.1",
+        "--card-balance-target",
+        "units",
+        "--policy-temperature",
+        "1.0",
+        "--card-exploration-epsilon",
+        "0.0",
+        "--action-delay-ms",
+        "1350",
+        "--max-ms",
+        "310000",
+        "--seed",
+        "64",
+        "--envs",
+        "8",
+        "--rollout",
+        "128",
+        "--updates",
+        "4000",
+        "--target-environment-steps",
+        "4096000",
+        "--epochs",
+        "3",
+        "--minibatch-size",
+        "256",
+        "--lr",
+        "0.00005",
+        "--gamma",
+        "0.999",
+        "--gae-lambda",
+        "0.95",
+        "--value-warmup-steps",
+        "20480",
+        "--target-kl",
+        ".02",
+        "--checkpoint-every",
+        "250",
+        "--eval-every",
+        "250",
+        "--wallclock-seconds",
+        "34000",
+        "--validation-action-delay-ms",
+        "1350",
+        "--pending-inputs"
+      ],
+      "original_warm_commands": [],
+      "actual_supervised_updates": 0,
+      "actual_smoke_target_steps": 32,
+      "exact_resume_16_to_32": true,
+      "optimizer_and_rng_equal": true,
+      "validation_games": 12,
+      "actual_cuda": false,
+      "quality_accepted": false,
+      "technical_fixture": false,
+      "pending_inputs": true,
+      "actual_input_shape": [
+        24,
+        313
+      ],
+      "warmstart_reports": [],
+      "supervised_replay_weight": 0.0,
+      "supervised_replay_metadata": null
+    },
+    {
+      "frozen_run_ast_sha256": "d1633d68fead6b75fee47c040d98a67e15e011f59b9444e98e733e890c203d64",
+      "original_full_command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-c",
+        "import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
+        "--init",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_1/controller_output/full_diverse200_s64_warmstart/policy.pt",
+        "--output",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_1/controller_output/full_diverse200_s64",
+        "--device",
+        "cpu",
+        "--task-mode",
+        "joint",
+        "--curriculum",
+        "continuous_v1",
+        "--geometry",
+        "native_anchors_candidate_v1",
+        "--coordinate-mode",
+        "physical_live_cells_v2",
+        "--continuous-profile",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_1/controller_output/full_diverse200_s64_profile.json",
+        "--continuous-focus",
+        "uniform",
+        "--validation-selection",
+        "worst_family",
+        "--validation-seed",
+        "900100",
+        "--eval-episodes",
+        "36",
+        "--entropy-coef",
+        "0.01",
+        "--history-frames",
+        "1",
+        "--card-balance-weight",
+        "0.1",
+        "--card-balance-target",
+        "units",
+        "--policy-temperature",
+        "1.0",
+        "--card-exploration-epsilon",
+        "0.0",
+        "--action-delay-ms",
+        "1350",
+        "--max-ms",
+        "310000",
+        "--seed",
+        "64",
+        "--envs",
+        "8",
+        "--rollout",
+        "128",
+        "--updates",
+        "4000",
+        "--target-environment-steps",
+        "4096000",
+        "--epochs",
+        "3",
+        "--minibatch-size",
+        "256",
+        "--lr",
+        "0.00005",
+        "--gamma",
+        "0.999",
+        "--gae-lambda",
+        "0.95",
+        "--value-warmup-steps",
+        "20480",
+        "--target-kl",
+        ".02",
+        "--checkpoint-every",
+        "250",
+        "--eval-every",
+        "250",
+        "--wallclock-seconds",
+        "34000",
+        "--validation-action-delay-ms",
+        "1350",
+        "--pending-inputs"
+      ],
+      "original_warm_commands": [
+        [
+          "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+          "-m",
+          "scripts.attack.train_air_position_warmstart",
+          "--data",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_1/project/preflight_demonstrations",
+          "--init",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/dataset/parent.pt",
+          "--output",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_1/controller_output/full_diverse200_s64_warmstart",
+          "--device",
+          "cpu",
+          "--updates",
+          "200",
+          "--kl-weight",
+          "0.1",
+          "--seed",
+          "64",
+          "--pending-inputs",
+          "--sequence-wait-fraction",
+          "0.25"
+        ]
+      ],
+      "actual_supervised_updates": 5,
+      "actual_smoke_target_steps": 32,
+      "exact_resume_16_to_32": true,
+      "optimizer_and_rng_equal": true,
+      "validation_games": 12,
+      "actual_cuda": false,
+      "quality_accepted": false,
+      "technical_fixture": false,
+      "pending_inputs": true,
+      "actual_input_shape": [
+        24,
+        313
+      ],
+      "warmstart_reports": [
+        {
+          "schema": "air-local-position-warmstart-v1",
+          "supervised_updates": 5,
+          "environment_steps": 0,
+          "seed": 64,
+          "actual_cuda": null,
+          "heldout_seed": 3800085,
+          "train_seeds": [
+            3800009,
+            3800010,
+            3800014,
+            3800018,
+            3800021,
+            3800023,
+            3800024,
+            3800028,
+            3800033,
+            3800057
+          ],
+          "baseline": {
+            "train": {
+              "examples": 372,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 2.541756884966162e-07,
+              "mean_log_successful_probability": -102.87980651855469,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 280,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.1211405371323053e-07,
+                  "mean_log_successful_probability": -100.62528228759766
+                },
+                "deploy": {
+                  "examples": 92,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 7.784147015854614e-08,
+                  "mean_log_successful_probability": -109.74137878417969
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 168,
+              "successful_greedy_fraction": 0.0059523810632526875,
+              "mean_successful_probability": 0.009035843424499035,
+              "mean_log_successful_probability": -54.7327995300293,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 152,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 2.4567519130158644e-09,
+                  "mean_log_successful_probability": -54.67082214355469
+                },
+                "deploy": {
+                  "examples": 16,
+                  "successful_greedy_fraction": 0.0625,
+                  "mean_successful_probability": 0.09487634897232056,
+                  "mean_log_successful_probability": -55.32160949707031
+                }
+              }
+            }
+          },
+          "final": {
+            "train": {
+              "examples": 372,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 2.606070097499469e-07,
+              "mean_log_successful_probability": -95.71444702148438,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 280,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.07955730249887e-07,
+                  "mean_log_successful_probability": -93.9161376953125
+                },
+                "deploy": {
+                  "examples": 92,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 1.1650223541437299e-07,
+                  "mean_log_successful_probability": -101.18754577636719
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 168,
+              "successful_greedy_fraction": 0.0059523810632526875,
+              "mean_successful_probability": 0.007287052925676107,
+              "mean_log_successful_probability": -52.0367317199707,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 152,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.1856159932175387e-09,
+                  "mean_log_successful_probability": -52.03696823120117
+                },
+                "deploy": {
+                  "examples": 16,
+                  "successful_greedy_fraction": 0.0625,
+                  "mean_successful_probability": 0.07651402056217194,
+                  "mean_log_successful_probability": -52.034420013427734
+                }
+              }
+            }
+          },
+          "data_sha256": "ba78f4cc616ac09ec6cd35ab0832f739cd863b17edb6d66d79e950b86770aa6a",
+          "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+          "kl_weight": 0.1,
+          "source_sha256": "3b64260768fc340a130b0c37778b6b91cbd03d1031bc9d5017deb60f8b362049",
+          "sequence_wait_fraction": 0.25,
+          "slot_augmentation": false,
+          "pending_inputs": true,
+          "heldout_overlap_permutations_excluded": 0,
+          "sampling": "equal_sequence_mass_bounded_wait_with_replacement",
+          "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+          "quality_accepted": false
+        }
+      ],
+      "supervised_replay_weight": 0.0,
+      "supervised_replay_metadata": null
+    },
+    {
+      "frozen_run_ast_sha256": "d1633d68fead6b75fee47c040d98a67e15e011f59b9444e98e733e890c203d64",
+      "original_full_command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-c",
+        "import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
+        "--init",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_2/controller_output/full_slot200_s64_warmstart/policy.pt",
+        "--output",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_2/controller_output/full_slot200_s64",
+        "--device",
+        "cpu",
+        "--task-mode",
+        "joint",
+        "--curriculum",
+        "continuous_v1",
+        "--geometry",
+        "native_anchors_candidate_v1",
+        "--coordinate-mode",
+        "physical_live_cells_v2",
+        "--continuous-profile",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_2/controller_output/full_slot200_s64_profile.json",
+        "--continuous-focus",
+        "uniform",
+        "--validation-selection",
+        "worst_family",
+        "--validation-seed",
+        "900100",
+        "--eval-episodes",
+        "36",
+        "--entropy-coef",
+        "0.01",
+        "--history-frames",
+        "1",
+        "--card-balance-weight",
+        "0.1",
+        "--card-balance-target",
+        "units",
+        "--policy-temperature",
+        "1.0",
+        "--card-exploration-epsilon",
+        "0.0",
+        "--action-delay-ms",
+        "1350",
+        "--max-ms",
+        "310000",
+        "--seed",
+        "64",
+        "--envs",
+        "8",
+        "--rollout",
+        "128",
+        "--updates",
+        "4000",
+        "--target-environment-steps",
+        "4096000",
+        "--epochs",
+        "3",
+        "--minibatch-size",
+        "256",
+        "--lr",
+        "0.00005",
+        "--gamma",
+        "0.999",
+        "--gae-lambda",
+        "0.95",
+        "--value-warmup-steps",
+        "20480",
+        "--target-kl",
+        ".02",
+        "--checkpoint-every",
+        "250",
+        "--eval-every",
+        "250",
+        "--wallclock-seconds",
+        "34000",
+        "--validation-action-delay-ms",
+        "1350",
+        "--pending-inputs"
+      ],
+      "original_warm_commands": [
+        [
+          "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+          "-m",
+          "scripts.attack.train_air_position_warmstart",
+          "--data",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_2/project/preflight_demonstrations",
+          "--init",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/dataset/parent.pt",
+          "--output",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_2/controller_output/full_slot200_s64_warmstart",
+          "--device",
+          "cpu",
+          "--updates",
+          "200",
+          "--kl-weight",
+          "0.1",
+          "--seed",
+          "64",
+          "--pending-inputs",
+          "--sequence-wait-fraction",
+          "0.25",
+          "--slot-augmentation"
+        ]
+      ],
+      "actual_supervised_updates": 5,
+      "actual_smoke_target_steps": 32,
+      "exact_resume_16_to_32": true,
+      "optimizer_and_rng_equal": true,
+      "validation_games": 12,
+      "actual_cuda": false,
+      "quality_accepted": false,
+      "technical_fixture": false,
+      "pending_inputs": true,
+      "actual_input_shape": [
+        24,
+        313
+      ],
+      "warmstart_reports": [
+        {
+          "schema": "air-local-position-warmstart-v1",
+          "supervised_updates": 5,
+          "environment_steps": 0,
+          "seed": 64,
+          "actual_cuda": null,
+          "heldout_seed": 3800085,
+          "train_seeds": [
+            3800009,
+            3800010,
+            3800014,
+            3800018,
+            3800021,
+            3800023,
+            3800024,
+            3800028,
+            3800033,
+            3800057
+          ],
+          "baseline": {
+            "train": {
+              "examples": 372,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 2.541756884966162e-07,
+              "mean_log_successful_probability": -102.87980651855469,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 280,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.1211405371323053e-07,
+                  "mean_log_successful_probability": -100.62528228759766
+                },
+                "deploy": {
+                  "examples": 92,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 7.784147015854614e-08,
+                  "mean_log_successful_probability": -109.74137878417969
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 168,
+              "successful_greedy_fraction": 0.0059523810632526875,
+              "mean_successful_probability": 0.009035843424499035,
+              "mean_log_successful_probability": -54.7327995300293,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 152,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 2.4567519130158644e-09,
+                  "mean_log_successful_probability": -54.67082214355469
+                },
+                "deploy": {
+                  "examples": 16,
+                  "successful_greedy_fraction": 0.0625,
+                  "mean_successful_probability": 0.09487634897232056,
+                  "mean_log_successful_probability": -55.32160949707031
+                }
+              }
+            }
+          },
+          "final": {
+            "train": {
+              "examples": 372,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 2.643509162680857e-07,
+              "mean_log_successful_probability": -95.69562530517578,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 280,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.135019994715549e-07,
+                  "mean_log_successful_probability": -93.90090942382812
+                },
+                "deploy": {
+                  "examples": 92,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 1.1476068095817027e-07,
+                  "mean_log_successful_probability": -101.15782165527344
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 168,
+              "successful_greedy_fraction": 0.0059523810632526875,
+              "mean_successful_probability": 0.0072745573706924915,
+              "mean_log_successful_probability": -52.1047248840332,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 152,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 2.9746012319975534e-09,
+                  "mean_log_successful_probability": -52.10878372192383
+                },
+                "deploy": {
+                  "examples": 16,
+                  "successful_greedy_fraction": 0.0625,
+                  "mean_successful_probability": 0.0763828232884407,
+                  "mean_log_successful_probability": -52.06614303588867
+                }
+              }
+            }
+          },
+          "data_sha256": "ba78f4cc616ac09ec6cd35ab0832f739cd863b17edb6d66d79e950b86770aa6a",
+          "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+          "kl_weight": 0.1,
+          "source_sha256": "3b64260768fc340a130b0c37778b6b91cbd03d1031bc9d5017deb60f8b362049",
+          "sequence_wait_fraction": 0.25,
+          "slot_augmentation": true,
+          "pending_inputs": true,
+          "heldout_overlap_permutations_excluded": 0,
+          "sampling": "equal_sequence_mass_bounded_wait_with_replacement",
+          "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+          "quality_accepted": false
+        }
+      ],
+      "supervised_replay_weight": 0.0,
+      "supervised_replay_metadata": null
+    },
+    {
+      "frozen_run_ast_sha256": "d1633d68fead6b75fee47c040d98a67e15e011f59b9444e98e733e890c203d64",
+      "original_full_command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-c",
+        "import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
+        "--init",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_3/controller_output/full_slot800_s64_warmstart/policy.pt",
+        "--output",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_3/controller_output/full_slot800_s64",
+        "--device",
+        "cpu",
+        "--task-mode",
+        "joint",
+        "--curriculum",
+        "continuous_v1",
+        "--geometry",
+        "native_anchors_candidate_v1",
+        "--coordinate-mode",
+        "physical_live_cells_v2",
+        "--continuous-profile",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_3/controller_output/full_slot800_s64_profile.json",
+        "--continuous-focus",
+        "uniform",
+        "--validation-selection",
+        "worst_family",
+        "--validation-seed",
+        "900100",
+        "--eval-episodes",
+        "36",
+        "--entropy-coef",
+        "0.01",
+        "--history-frames",
+        "1",
+        "--card-balance-weight",
+        "0.1",
+        "--card-balance-target",
+        "units",
+        "--policy-temperature",
+        "1.0",
+        "--card-exploration-epsilon",
+        "0.0",
+        "--action-delay-ms",
+        "1350",
+        "--max-ms",
+        "310000",
+        "--seed",
+        "64",
+        "--envs",
+        "8",
+        "--rollout",
+        "128",
+        "--updates",
+        "4000",
+        "--target-environment-steps",
+        "4096000",
+        "--epochs",
+        "3",
+        "--minibatch-size",
+        "256",
+        "--lr",
+        "0.00005",
+        "--gamma",
+        "0.999",
+        "--gae-lambda",
+        "0.95",
+        "--value-warmup-steps",
+        "20480",
+        "--target-kl",
+        ".02",
+        "--checkpoint-every",
+        "250",
+        "--eval-every",
+        "250",
+        "--wallclock-seconds",
+        "34000",
+        "--validation-action-delay-ms",
+        "1350",
+        "--pending-inputs"
+      ],
+      "original_warm_commands": [
+        [
+          "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+          "-m",
+          "scripts.attack.train_air_position_warmstart",
+          "--data",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_3/project/preflight_demonstrations",
+          "--init",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/dataset/parent.pt",
+          "--output",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/pending_diversity_pilot_20261028/actual_preflight/child_3/controller_output/full_slot800_s64_warmstart",
+          "--device",
+          "cpu",
+          "--updates",
+          "800",
+          "--kl-weight",
+          "0.1",
+          "--seed",
+          "64",
+          "--pending-inputs",
+          "--sequence-wait-fraction",
+          "0.25",
+          "--slot-augmentation"
+        ]
+      ],
+      "actual_supervised_updates": 5,
+      "actual_smoke_target_steps": 32,
+      "exact_resume_16_to_32": true,
+      "optimizer_and_rng_equal": true,
+      "validation_games": 12,
+      "actual_cuda": false,
+      "quality_accepted": false,
+      "technical_fixture": false,
+      "pending_inputs": true,
+      "actual_input_shape": [
+        24,
+        313
+      ],
+      "warmstart_reports": [
+        {
+          "schema": "air-local-position-warmstart-v1",
+          "supervised_updates": 5,
+          "environment_steps": 0,
+          "seed": 64,
+          "actual_cuda": null,
+          "heldout_seed": 3800085,
+          "train_seeds": [
+            3800009,
+            3800010,
+            3800014,
+            3800018,
+            3800021,
+            3800023,
+            3800024,
+            3800028,
+            3800033,
+            3800057
+          ],
+          "baseline": {
+            "train": {
+              "examples": 372,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 2.541756884966162e-07,
+              "mean_log_successful_probability": -102.87980651855469,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 280,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.1211405371323053e-07,
+                  "mean_log_successful_probability": -100.62528228759766
+                },
+                "deploy": {
+                  "examples": 92,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 7.784147015854614e-08,
+                  "mean_log_successful_probability": -109.74137878417969
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 168,
+              "successful_greedy_fraction": 0.0059523810632526875,
+              "mean_successful_probability": 0.009035843424499035,
+              "mean_log_successful_probability": -54.7327995300293,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 152,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 2.4567519130158644e-09,
+                  "mean_log_successful_probability": -54.67082214355469
+                },
+                "deploy": {
+                  "examples": 16,
+                  "successful_greedy_fraction": 0.0625,
+                  "mean_successful_probability": 0.09487634897232056,
+                  "mean_log_successful_probability": -55.32160949707031
+                }
+              }
+            }
+          },
+          "final": {
+            "train": {
+              "examples": 372,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 2.643509162680857e-07,
+              "mean_log_successful_probability": -95.69562530517578,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 280,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.135019994715549e-07,
+                  "mean_log_successful_probability": -93.90090942382812
+                },
+                "deploy": {
+                  "examples": 92,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 1.1476068095817027e-07,
+                  "mean_log_successful_probability": -101.15782165527344
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 168,
+              "successful_greedy_fraction": 0.0059523810632526875,
+              "mean_successful_probability": 0.0072745573706924915,
+              "mean_log_successful_probability": -52.1047248840332,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 152,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 2.9746012319975534e-09,
+                  "mean_log_successful_probability": -52.10878372192383
+                },
+                "deploy": {
+                  "examples": 16,
+                  "successful_greedy_fraction": 0.0625,
+                  "mean_successful_probability": 0.0763828232884407,
+                  "mean_log_successful_probability": -52.06614303588867
+                }
+              }
+            }
+          },
+          "data_sha256": "ba78f4cc616ac09ec6cd35ab0832f739cd863b17edb6d66d79e950b86770aa6a",
+          "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+          "kl_weight": 0.1,
+          "source_sha256": "3b64260768fc340a130b0c37778b6b91cbd03d1031bc9d5017deb60f8b362049",
+          "sequence_wait_fraction": 0.25,
+          "slot_augmentation": true,
+          "pending_inputs": true,
+          "heldout_overlap_permutations_excluded": 0,
+          "sampling": "equal_sequence_mass_bounded_wait_with_replacement",
+          "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+          "quality_accepted": false
+        }
+      ],
+      "supervised_replay_weight": 0.0,
+      "supervised_replay_metadata": null
+    }
+  ],
+  "validation_games": 48,
+  "actual_cuda": false,
+  "quality_accepted": false,
+  "bootstrap_sha256": "1a707c9f5c91018f37a5370983ccf5e336ba789b4a5eec6a1177ff50ab93af4c",
+  "preparation_sha256": "88fdb35394bf6ed757bfb1263ba973dbdde7fc8b61a7c1a58b965158004ec66c"
+}

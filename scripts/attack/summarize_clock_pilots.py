@@ -12,7 +12,7 @@ def summarize(root,verified=None):
     protocol=json.loads((root/'dataset/protocol.json').read_text());rows=[]
     if verified is None:
         variant=protocol.get('study_variant')
-        if variant in ('own_pending_inputs_v1','pending_sequence_retention_v1'):
+        if variant in ('own_pending_inputs_v1','pending_sequence_retention_v1','pending_diversity_slots_v1'):
             from scripts.attack.verify_frozen_pending import verify as verify_study
         elif variant=='late_air_sequential_teacher_v1':
             from scripts.attack.verify_sequence_pilot import verify_sequence as verify_study
@@ -83,6 +83,11 @@ def summarize(root,verified=None):
                 scores=[r[phase]['local_heldout']for r in local]
                 row['local_'+phase+'_ppo']=dict(successful_choices=sum(r['successful_choices']for r in scores),
                     predictions=sum(r['examples']for r in scores),distinct_states=scores[0]['examples'])
+            if all(r[phase].get('by_decision_type') for r in local for phase in ('before','after')):
+                row['local_decision_retention']={kind:{phase:dict(
+                    successful_choices=sum(r[phase]['by_decision_type'][kind]['local_heldout']['successful_choices'] for r in local),
+                    predictions=sum(r[phase]['by_decision_type'][kind]['local_heldout']['examples'] for r in local))
+                    for phase in ('before','after')}for kind in ('deploy','wait')}
             if jointskills:
                 row['local_skill_retention']={skill:{phase:dict(
                     successful_choices=sum(r[phase]['by_skill'][skill]['local_heldout']['successful_choices']for r in local),
@@ -156,6 +161,13 @@ def render(summary):
             lost=row['mean_own_tower_fraction_loss']
             lines.append(f"| {row['id']} | {row['mean_card_plays'].get('fireball',0):.2f} | {row['mean_missed_fireballs']:.2f} | {row['mean_cluster_fireballs']:.2f} | {row['mean_fireball_unit_hits']:.2f} | {lost['left']:.3f} / {lost['right']:.3f} |")
         lines+=['','Потери — средняя доля исходного HP своей башни. Это не частота атак по линии. Все карты по каждой линии отдельно сохранены в JSON mean_card_lane_plays.']
+    if summary['rows']and 'local_decision_retention'in summary['rows'][0]:
+        lines += ['', 'Локальные выставления и ожидания показаны отдельно; это не победы в матчах.', '',
+                  '| Профиль | Тип ответа | До PPO | После PPO |','|---|---|---:|---:|']
+        for row in summary['rows']:
+            for kind,phases in row['local_decision_retention'].items():
+                a,b=phases['before'],phases['after']
+                lines.append(f"| {row['id']} | {kind} | {a['successful_choices']}/{a['predictions']} | {b['successful_choices']}/{b['predictions']} |")
     if summary['rows']and 'local_skill_retention'in summary['rows'][0]:
         lines+=['','## Каждый локальный навык отдельно','',
             '| Профиль | Навык | До PPO | Выбранный PPO |','|---|---|---:|---:|']

@@ -73,6 +73,7 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps,*
             raise ValueError('Warmstart origin, budget or grouped split differs')
         if trial.get('pending_inputs') and (w.get('pending_inputs')is not True or w.get('sequence_wait_fraction')!=trial.get('sequence_wait_fraction') or w.get('sampling')!='equal_sequence_mass_bounded_wait_with_replacement'):
             raise ValueError('Actual pending warmstart sampler differs')
+        if w.get('slot_augmentation',False)!=trial.get('slot_augmentation',False):raise ValueError('Warmstart augmentation differs')
         updates=json.loads((warm/'updates.json').read_text())
         if(len(updates)!=trial['warmstart_updates']or any(r['update']!=i or
                 not all(math.isfinite(r[k])for k in('loss','imitation','kl'))for i,r in enumerate(updates,1))):
@@ -175,12 +176,18 @@ def validate_protocol(protocol,config,variant):
             raise ValueError('Pending sequence profile mismatch')
         if any(t.get('pending_inputs')is not True or t.get('sequence_wait_fraction')!=.25 or t.get('warmstart_kl_weight')!=.1 or t.get('action_delay_ms')!=1350 or t.get('validation_action_delay_ms')!=1350 for t in protocol['cases']):
             raise ValueError('Pending sequence timing/sampler mismatch')
+    elif variant=='pending_diversity_slots_v1':
+        expected=[('control',0,False),('diverse200',200,False),('slot200',200,True),('slot800',800,True)]
+        if protocol['pilot_seeds']!=[262,263] or [(t['id'],t['warmstart_updates'],t.get('slot_augmentation'))for t in protocol['cases']]!=expected:
+            raise ValueError('Pending diversity profile mismatch')
+        if any(t.get('pending_inputs')is not True or t.get('supervised_replay_weight')!=0 or t.get('sequence_wait_fraction')!=.25 or t.get('warmstart_kl_weight')!=.1 or t.get('action_delay_ms')!=1350 or t.get('validation_action_delay_ms')!=1350 for t in protocol['cases']):
+            raise ValueError('Pending diversity timing/sampler mismatch')
     else:raise ValueError('Unknown pending study')
 
 
 def verify(collected,prepared):
     root=Path(collected);prepared=Path(prepared);cfg=json.loads((prepared/'preparation.json').read_text())
-    if cfg.get('study_variant') not in ('own_pending_inputs_v1','pending_sequence_retention_v1'):raise ValueError('Wrong pending study')
+    if cfg.get('study_variant') not in ('own_pending_inputs_v1','pending_sequence_retention_v1','pending_diversity_slots_v1'):raise ValueError('Wrong pending study')
     c=cfg['config'];receipt=json.loads((root/'collection_receipt.json').read_text())
     if not receipt.get('complete')or receipt.get('remote_status')!='COMPLETE'or receipt['kernel']!=cfg['kernel']:
         raise ValueError('Complete matching focus receipt required')

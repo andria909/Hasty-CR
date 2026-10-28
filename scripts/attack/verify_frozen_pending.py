@@ -12,7 +12,7 @@ from scripts.kaggle.preflight_global_full_pair import unpack
 def verify(collected,prepared):
     prepared=Path(prepared).resolve();collected=Path(collected).resolve()
     prep=json.loads((prepared/'preparation.json').read_text())
-    if prep.get('study_variant') not in ('own_pending_inputs_v1','pending_sequence_retention_v1'):raise ValueError('Pending study required')
+    if prep.get('study_variant') not in ('own_pending_inputs_v1','pending_sequence_retention_v1','pending_diversity_slots_v1'):raise ValueError('Pending study required')
     if hashlib.sha256((prepared/'job/train.py').read_bytes()).hexdigest()!=prep['bootstrap_sha256']:
         raise ValueError('Frozen bootstrap changed')
     output=prepared/f'frozen_verification_{time.time_ns()}'

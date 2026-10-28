@@ -26,7 +26,8 @@ def test_any_successful_cell_is_acceptable_not_one_arbitrary_position():
     loss.backward();assert logits.grad[0,1]==logits.grad[0,2]<0
 
 
-def test_pending_sequence_training_updates_new_inputs_and_preserves_split(tmp_path):
+@pytest.mark.parametrize('augment',[False,True])
+def test_pending_sequence_training_updates_new_inputs_and_preserves_split(tmp_path,augment):
     from pathlib import Path
     from scripts.attack.train_air_position_warmstart import train
     from sim.train_attack_ppo import initialize_attack_policy
@@ -35,18 +36,20 @@ def test_pending_sequence_training_updates_new_inputs_and_preserves_split(tmp_pa
     initial=tmp_path/'initial.pt'
     torch.save(dict(state_dict=net.state_dict(),config=dict(architecture=architecture,observation_contract=CONTRACT)),initial)
     data=Path('data/late_air_pending_motionfix_20261028')
-    result=train(data,initial,tmp_path/'trained','cpu',1,0.,112,.25,pending_inputs=True)
+    result=train(data,initial,tmp_path/'trained','cpu',1,0.,112,.25,pending_inputs=True,slot_augmentation=augment)
     checkpoint=torch.load(tmp_path/'trained/policy.pt',map_location='cpu',weights_only=False)
     assert checkpoint['config']['num_planes']==24 and checkpoint['config']['num_scalars']==313
     assert checkpoint['state_dict']['conv.0.weight'][:,20:].abs().sum()>0
     assert checkpoint['state_dict']['scalar.0.weight'][:,309:].abs().sum()>0
     assert result['heldout_seed'] not in result['train_seeds']
     assert result['pending_inputs'] and result['environment_steps']==0
+    assert result['slot_augmentation']==augment
+    assert result['final']['local_heldout']['by_decision_type']['deploy']['examples']==16
     with pytest.raises(ValueError,match='explicit pending'):
         train(data,initial,tmp_path/'wrong','cpu',1)
 
 
-def test_pending_slot_augmentation_requires_matching_contract(tmp_path):
+def test_sequence_slot_augmentation_requires_pending_contract(tmp_path):
     from scripts.attack.train_air_position_warmstart import train
-    with pytest.raises(ValueError,match='Pending slot permutation'):
-        train(tmp_path,tmp_path,tmp_path,slot_augmentation=True,pending_inputs=True)
+    with pytest.raises(ValueError,match='separate permutation contract'):
+        train(tmp_path,tmp_path,tmp_path,slot_augmentation=True,sequence_wait_fraction=.25)
