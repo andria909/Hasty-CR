@@ -1,0 +1,1999 @@
+{
+  "schema": "air-card-opportunity-comparison-v1",
+  "search_result_sha256": "a115d443a4bc32b929423d2a48ee61a9d6fcb455f1fe8329e5e15de29fe4b006",
+  "sources": {
+    "tmp/central_policy_probe_20261028": {
+      "result_sha256": "7a789c2d0aea69552fa041d027bd42249571a4a838a79230243bf688c058abd9",
+      "episodes_sha256": "f8d96320dec0be4c143a6cfc2f895d164b55cf363060a357eca17aef7745124b"
+    },
+    "tmp/combined_central_probe_20261028": {
+      "result_sha256": "9f43ee8f30fff562a4c444a73feae6e0b56f9bb02ac8e192c86a52bd38a98840",
+      "episodes_sha256": "4af7b47dc55529b4a37f8153e911e814cd7d2f9c58ae18f734e8f8b48f33f5f0"
+    }
+  },
+  "contexts": 16,
+  "trials": 1952,
+  "musketeer_zero_damage": 16,
+  "cannon_zero_damage": 12,
+  "models": [
+    {
+      "model": {
+        "id": "balanced",
+        "path": "tmp/kaggle/continuous_slots_20261026/collected_selected/full_balanced_s44/best_validation_001000.pt",
+        "sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9"
+      },
+      "contexts": 16,
+      "zero_damage": 6,
+      "mean_damage": 880.0,
+      "mean_elixir": 12.4375,
+      "no_princess_contexts": 4,
+      "no_princess_zero_damage": 0,
+      "actual_card_counts": {
+        "knight": 20,
+        "cannon": 15,
+        "electro_spirit": 16,
+        "zap": 14,
+        "skeletons": 14,
+        "fireball": 9
+      }
+    },
+    {
+      "model": {
+        "id": "strong",
+        "path": "tmp/kaggle/continuous_slots_20261026/collected_selected/full_strong_s44/best_validation_002750.pt",
+        "sha256": "82e988f074937fe86d7c9ec1eb1dfce384142eabe98ebc75adf4e1986c71a7fd"
+      },
+      "contexts": 16,
+      "zero_damage": 12,
+      "mean_damage": 200.0,
+      "mean_elixir": 10.875,
+      "no_princess_contexts": 4,
+      "no_princess_zero_damage": 2,
+      "actual_card_counts": {
+        "musketeer": 12,
+        "knight": 17,
+        "electro_spirit": 16,
+        "zap": 6,
+        "skeletons": 11,
+        "cannon": 12
+      }
+    },
+    {
+      "model": {
+        "id": "pilot_control_s282",
+        "path": "tmp/kaggle/combined_reward_pilot_20261028/collected/pilot_control_s282/update_000100.pt",
+        "sha256": "9a3e7db062d72ba07b063c20461511aaf289b76de249922095fa25715a41db95"
+      },
+      "contexts": 16,
+      "zero_damage": 5,
+      "mean_damage": 1080.0,
+      "mean_elixir": 12.3125,
+      "no_princess_contexts": 4,
+      "no_princess_zero_damage": 0,
+      "actual_card_counts": {
+        "fireball": 12,
+        "knight": 19,
+        "electro_spirit": 16,
+        "zap": 13,
+        "skeletons": 14,
+        "cannon": 12
+      }
+    },
+    {
+      "model": {
+        "id": "pilot_control_s283",
+        "path": "tmp/kaggle/combined_reward_pilot_20261028/collected/pilot_control_s283/update_000100.pt",
+        "sha256": "328dd011da27eaa7207493bfbec0a694fdad4032d19aaac1ab192d4ad6b43108"
+      },
+      "contexts": 16,
+      "zero_damage": 8,
+      "mean_damage": 720.0,
+      "mean_elixir": 12.5,
+      "no_princess_contexts": 4,
+      "no_princess_zero_damage": 0,
+      "actual_card_counts": {
+        "knight": 20,
+        "cannon": 16,
+        "electro_spirit": 16,
+        "zap": 14,
+        "skeletons": 16,
+        "fireball": 8
+      }
+    },
+    {
+      "model": {
+        "id": "pilot_tower_s282",
+        "path": "tmp/kaggle/combined_reward_pilot_20261028/collected/pilot_tower_s282/update_000050.pt",
+        "sha256": "613b5de328811dc296aeab89f808695cc40ce71316e469f9964886b81a6d202f"
+      },
+      "contexts": 16,
+      "zero_damage": 6,
+      "mean_damage": 840.0,
+      "mean_elixir": 12.4375,
+      "no_princess_contexts": 4,
+      "no_princess_zero_damage": 0,
+      "actual_card_counts": {
+        "knight": 20,
+        "cannon": 16,
+        "electro_spirit": 16,
+        "zap": 14,
+        "skeletons": 15,
+        "fireball": 8
+      }
+    },
+    {
+      "model": {
+        "id": "pilot_tower_s283",
+        "path": "tmp/kaggle/combined_reward_pilot_20261028/collected/pilot_tower_s283/update_000100.pt",
+        "sha256": "fdb3fe75930d488992e127add79c1fae52383fe29a0d4f46f61cb417e8b350e6"
+      },
+      "contexts": 16,
+      "zero_damage": 7,
+      "mean_damage": 840.0,
+      "mean_elixir": 12.5,
+      "no_princess_contexts": 4,
+      "no_princess_zero_damage": 0,
+      "actual_card_counts": {
+        "knight": 20,
+        "cannon": 15,
+        "electro_spirit": 16,
+        "zap": 14,
+        "skeletons": 15,
+        "fireball": 9
+      }
+    },
+    {
+      "model": {
+        "id": "pilot_spell_s282",
+        "path": "tmp/kaggle/combined_reward_pilot_20261028/collected/pilot_spell_s282/update_000100.pt",
+        "sha256": "0a853c7ddfd38a8fbdd458384839aae4a374a84768b61aed20cd73bfcd796384"
+      },
+      "contexts": 16,
+      "zero_damage": 8,
+      "mean_damage": 720.0,
+      "mean_elixir": 12.5,
+      "no_princess_contexts": 4,
+      "no_princess_zero_damage": 0,
+      "actual_card_counts": {
+        "knight": 20,
+        "cannon": 16,
+        "electro_spirit": 16,
+        "zap": 14,
+        "skeletons": 16,
+        "fireball": 8
+      }
+    },
+    {
+      "model": {
+        "id": "pilot_spell_s283",
+        "path": "tmp/kaggle/combined_reward_pilot_20261028/collected/pilot_spell_s283/update_000100.pt",
+        "sha256": "ea22cd3d35abb7f36bfc1eea61a746383398659c4edef8aa67b9cd4c729f246f"
+      },
+      "contexts": 16,
+      "zero_damage": 8,
+      "mean_damage": 720.0,
+      "mean_elixir": 12.5,
+      "no_princess_contexts": 4,
+      "no_princess_zero_damage": 0,
+      "actual_card_counts": {
+        "knight": 20,
+        "cannon": 16,
+        "electro_spirit": 16,
+        "zap": 14,
+        "skeletons": 16,
+        "fireball": 8
+      }
+    },
+    {
+      "model": {
+        "id": "pilot_combined_s282",
+        "path": "tmp/kaggle/combined_reward_pilot_20261028/collected/pilot_combined_s282/update_000050.pt",
+        "sha256": "194c0c89978c12fc6496bd8ce3d57348a4ac37d265247530a24282f3d16ae8a9"
+      },
+      "contexts": 16,
+      "zero_damage": 6,
+      "mean_damage": 840.0,
+      "mean_elixir": 12.4375,
+      "no_princess_contexts": 4,
+      "no_princess_zero_damage": 0,
+      "actual_card_counts": {
+        "knight": 20,
+        "cannon": 16,
+        "electro_spirit": 16,
+        "zap": 14,
+        "skeletons": 15,
+        "fireball": 8
+      }
+    },
+    {
+      "model": {
+        "id": "pilot_combined_s283",
+        "path": "tmp/kaggle/combined_reward_pilot_20261028/collected/pilot_combined_s283/update_000100.pt",
+        "sha256": "77d1338e7dc5ab4eb6d97b9eb65c8e3eb11027816fb830ac8f56f684023f6fcc"
+      },
+      "contexts": 16,
+      "zero_damage": 8,
+      "mean_damage": 720.0,
+      "mean_elixir": 12.5,
+      "no_princess_contexts": 4,
+      "no_princess_zero_damage": 0,
+      "actual_card_counts": {
+        "knight": 20,
+        "cannon": 16,
+        "electro_spirit": 16,
+        "zap": 14,
+        "skeletons": 16,
+        "fireball": 8
+      }
+    }
+  ],
+  "groups": [
+    {
+      "context": 16,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 0,
+        "lane": "left",
+        "threat": "balloon",
+        "initial_own_elixir": 6,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 3200,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 3200
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 16,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false,
+          "context": 16,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 16,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              1,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 17,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 0,
+        "lane": "left",
+        "threat": "balloon",
+        "initial_own_elixir": 10,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 3200,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 3200
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 17,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false,
+          "context": 17,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 17,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              1,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 18,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 0,
+        "lane": "right",
+        "threat": "balloon",
+        "initial_own_elixir": 6,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 3200,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 3200
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 18,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false,
+          "context": 18,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 18,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              16,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 19,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 0,
+        "lane": "right",
+        "threat": "balloon",
+        "initial_own_elixir": 10,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 3200,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 3200
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 19,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false,
+          "context": 19,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 19,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              16,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 20,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 1,
+        "lane": "left",
+        "threat": "balloon",
+        "initial_own_elixir": 6,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1280,
+        "own_tower_damage": {
+          "left": 1280,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 20,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                6,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 20,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 20,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              1,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 21,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 1,
+        "lane": "left",
+        "threat": "balloon",
+        "initial_own_elixir": 10,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1280,
+        "own_tower_damage": {
+          "left": 1280,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 21,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                6,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 21,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 21,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              1,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 22,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 1,
+        "lane": "right",
+        "threat": "balloon",
+        "initial_own_elixir": 6,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1280,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 1280
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 22,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                6,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 22,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 22,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              16,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 23,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 1,
+        "lane": "right",
+        "threat": "balloon",
+        "initial_own_elixir": 10,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1280,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 1280
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 23,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                6,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 23,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 23,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              16,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 24,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 2,
+        "lane": "left",
+        "threat": "balloon",
+        "initial_own_elixir": 6,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1280,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 1280
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 24,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                6,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 24,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 24,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              1,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 25,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 2,
+        "lane": "left",
+        "threat": "balloon",
+        "initial_own_elixir": 10,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1280,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 0,
+          "king": 1280
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 25,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                6,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 25,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 25,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              1,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 26,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 2,
+        "lane": "right",
+        "threat": "balloon",
+        "initial_own_elixir": 6,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1280,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 1280,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 26,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                9,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 26,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              9,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 26,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              16,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 27,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 2,
+        "lane": "right",
+        "threat": "balloon",
+        "initial_own_elixir": 10,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1280,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 1280,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 27,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                9,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 27,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              9,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 27,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              16,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 28,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 3,
+        "lane": "left",
+        "threat": "balloon",
+        "initial_own_elixir": 6,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1920,
+        "own_tower_damage": {
+          "left": 1920,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 28,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                6,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 28,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 28,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              1,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 29,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 3,
+        "lane": "left",
+        "threat": "balloon",
+        "initial_own_elixir": 10,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1920,
+        "own_tower_damage": {
+          "left": 1920,
+          "right": 0,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 29,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                6,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 29,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 29,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              1,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 30,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 3,
+        "lane": "right",
+        "threat": "balloon",
+        "initial_own_elixir": 6,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1920,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 1920,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 30,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                9,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 30,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              9,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 30,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              16,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    },
+    {
+      "context": 31,
+      "opening": {
+        "seed": 814219,
+        "own_mask": 3,
+        "lane": "right",
+        "threat": "balloon",
+        "initial_own_elixir": 10,
+        "decision_ms": 1500
+      },
+      "hand": [
+        "knight",
+        "musketeer",
+        "fireball",
+        "cannon"
+      ],
+      "no_card": {
+        "valid": true,
+        "invalid_reasons": [],
+        "commands": [],
+        "total_damage": 1920,
+        "own_tower_damage": {
+          "left": 0,
+          "right": 1920,
+          "king": 0
+        },
+        "own_king_dead": false,
+        "remaining_enemies": 0,
+        "elixir_spent": 0,
+        "clear_without_damage": false,
+        "context": 31,
+        "first": null
+      },
+      "best": {
+        "cannon": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 3,
+              "cell": [
+                9,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": true,
+          "context": 31,
+          "first": {
+            "card": "cannon",
+            "cell": [
+              9,
+              18
+            ]
+          }
+        },
+        "musketeer": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 1,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 4,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true,
+          "context": 31,
+          "first": {
+            "card": "musketeer",
+            "cell": [
+              16,
+              18
+            ]
+          }
+        }
+      },
+      "attempted": 85,
+      "invalid": 0
+    }
+  ],
+  "quality_accepted": false,
+  "limitations": [
+    "Only two correlated hand seeds and one unsupported Balloon.",
+    "Best placement selected with hindsight from a bounded grid.",
+    "Single cards only; this cannot rank complete policies or defense combinations.",
+    "Simulator opportunities are not validated real-game tactics."
+  ]
+}
