@@ -270,7 +270,7 @@ def render_live_feedback_studies(reports):
         if (reports/(stem+'_summary_20261027.json')).exists():
             lines += short_study_lines(reports,stem,'20261027',title)
     if (Path('reports')/'pending_sequence_failure_analysis_20261028.md').exists():
-        lines += ['**Почему защита не улучшилась:** в проверенном локальном holdout0/16 правильных выставлений; прежний общий процент набирался на WAIT. Пустые Fireball выросли0,78→2,35/матч. Расширяем TRAIN-руки, holdout сохраняем. [Разбор](reports/pending_sequence_failure_analysis_20261028.md).', '']
+        lines += ['**Почему защита не улучшилась:** в проверенном локальном holdout0/16 правильных выставлений; прежний общий процент набирался на WAIT. Пустые Fireball выросли0,78→2,35/матч. Новый набор:540 кадров/72 последовательности, holdout неизменён, точных пересечений0. Ещё не обучался на GPU. [Разбор](reports/pending_sequence_failure_analysis_20261028.md).', '']
     motionfix_path=reports/'motionfix_pilot_submission_20261028.json'
     if motionfix_path.exists():
         launch=json.loads(motionfix_path.read_text())
