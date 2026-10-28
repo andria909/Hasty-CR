@@ -18,6 +18,8 @@ def summarize(root,verified=None):
             from scripts.attack.verify_sequence_pilot import verify_sequence as verify_study
         elif variant=='native_fireball_slot_v1':
             from scripts.attack.verify_native_fireball_slot import verify_native_fireball as verify_study
+        elif variant=='tower_support_reward_v1':
+            from scripts.attack.verify_tower_support_pilot import verify_tower_support as verify_study
         else:
             verify_study=verify
         verified=verify_study(root/'collected',root)
@@ -27,7 +29,7 @@ def summarize(root,verified=None):
     retention=protocol.get('schema')=='continuous-air-retention-pilot-v1'
     jointskills=protocol.get('schema')=='continuous-joint-skills-pilot-v1'
     warm=protocol.get('schema')=='continuous-air-warmstart-pilot-v1'or retention or jointskills
-    if protocol.get('study_variant')=='own_pending_inputs_v1':warm=False
+    if protocol.get('study_variant') in ('own_pending_inputs_v1','tower_support_reward_v1'):warm=False
     temperature=protocol.get('schema')=='continuous-temperature-pilot-v1'
     tactical=protocol.get('schema')=='continuous-live-tactical-reward-pilot-v1'
     exploration=protocol.get('schema')=='continuous-card-exploration-pilot-v1'

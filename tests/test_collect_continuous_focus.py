@@ -42,6 +42,17 @@ def test_clock_pilot_collects_selected_and_latest_boundaries(monkeypatch,tmp_pat
     assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'chosen_eligible'
 
 
+@pytest.mark.parametrize('variant',['control','small','medium','large'])
+@pytest.mark.parametrize('seed',[232,233])
+def test_tower_support_keeps_selected_and_latest(monkeypatch,tmp_path,variant,seed):
+    run=f'pilot_{variant}_s{seed}'
+    setup(monkeypatch,run+'/update_000050.pt',run)
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','tower-support-pilot')
+    assert result['complete']
+    assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'chosen_eligible'
+    assert (tmp_path/'out'/run/'update_000100.pt').read_bytes()==b'latest_resume'
+
+
 def test_history_pilot_keeps_the_selected_temporal_checkpoint(monkeypatch,tmp_path):
     run='pilot_history2_air_golem_s82';setup(monkeypatch,run+'/update_000050.pt',run)
     r=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','history-pilot')

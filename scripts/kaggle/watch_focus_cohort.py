@@ -40,6 +40,9 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             elif prep.get('study_variant')=='native_fireball_slot_v1':
                 from scripts.attack.verify_native_fireball_slot import verify_native_fireball
                 report=verify_native_fireball(receipt.parent,root)
+            elif prep.get('study_variant')=='tower_support_reward_v1':
+                from scripts.attack.verify_tower_support_pilot import verify_tower_support
+                report=verify_tower_support(receipt.parent,root)
             else:
                 report=verify(receipt.parent,root)
             Path(verified_report).write_text(json.dumps(report,indent=2)+'\n')
