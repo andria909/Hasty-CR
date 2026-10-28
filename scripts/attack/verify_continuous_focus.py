@@ -89,14 +89,8 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps,*
     if config.get('supervised_replay_weight',0.)!=replay_weight:
         raise ValueError('Supervised replay coefficient differs')
     if replay_weight:
-        from sim.supervised_replay import SuccessfulActionReplay
-        prepared=dataset
-        import tempfile,shutil
-        with tempfile.TemporaryDirectory()as temporary:
-            data=Path(temporary)
-            shutil.copyfile(prepared/'air_examples.npz',data/'examples.npz')
-            shutil.copyfile(prepared/'air_manifest.json',data/'manifest.json')
-            expected=SuccessfulActionReplay(data,'cpu').metadata
+        from scripts.attack.frozen_replay_metadata import metadata
+        expected=metadata(dataset,c)
         if (config.get('supervised_replay_metadata')!=expected or
                 expected['source_sha256']!=c['extensions']['sim/supervised_replay.py']):
             raise ValueError('Replay data, split or source differs')

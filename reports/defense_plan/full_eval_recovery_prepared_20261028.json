@@ -1,8 +1,8 @@
 {
   "kernel": "vertel0/hastycr-full-eval-recovery-1028",
   "root": "tmp/kaggle/full_candidate_eval_recovery_20261028",
-  "submitted": false,
-  "gpu_enabled": false,
+  "submitted": true,
+  "gpu_enabled": true,
   "migration": {
     "schema": "report-validator-only-recovery-v1",
     "changed_source_files": [
@@ -121,5 +121,79 @@
     "restored_games": 5040
   },
   "tests": "24 passed",
-  "remaining": "Reverify candidate training in frozen context or explicitly preserve the validated original audit; current-source audit rejects changed replay fingerprint"
+  "remaining": "1260 tournament games; observers poll every1200seconds",
+  "preflight": {
+    "schema": "full-evaluation-exact-package-preflight-v1",
+    "models": [
+      {
+        "id": "pair0_candidate0",
+        "sha256": "b22e1c9731ee8d49aa748a16ab082ac706832e2eb3df688fce4901dc215131d1",
+        "technical_games": 2
+      },
+      {
+        "id": "pair0_candidate1",
+        "sha256": "2701f3b613f9fb65f210f2025a2e05cd703a6d8a1f05773d1ecdd51fc77cabc6",
+        "technical_games": 2
+      },
+      {
+        "id": "pair1_candidate0",
+        "sha256": "eb720be4592cf12b309006ebc2e0d251f087c5064a12ed5b0428f12e1d549853",
+        "technical_games": 2
+      },
+      {
+        "id": "pair1_candidate1",
+        "sha256": "4fd054b0d1cc1e2ff4fe034cf7b303166dcf9f3ef3ee20de2cecd60d59d05d86",
+        "technical_games": 2
+      },
+      {
+        "id": "balanced",
+        "sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+        "technical_games": 2
+      },
+      {
+        "id": "strong",
+        "sha256": "82e988f074937fe86d7c9ec1eb1dfce384142eabe98ebc75adf4e1986c71a7fd",
+        "technical_games": 2
+      },
+      {
+        "id": "v25",
+        "sha256": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972",
+        "technical_games": 2
+      }
+    ],
+    "technical_games": 15,
+    "source_manifest_sha256": "6bc5367852301fa276d101691b4e9106346b5cfe64bfea17efacbafff18e7de3",
+    "protocol_sha256": "d15bfff8a98d76580962c4aff47348f8fbaf27e69f5698561f44dbde0325203a",
+    "actual_cuda": false,
+    "independent_test_run": false,
+    "quality_accepted": false,
+    "restored_games": 5040,
+    "preparation_sha256": "3e41f16f21a9c8ac36c98d4a6afc96dba4f774b8bdce706f61fead9b067474c1",
+    "bootstrap_sha256": "a8773ab03aa5397cad5fdf6c61002c7b82e2bbe75c1d3c050cc4f5b8c6bd3c99",
+    "decoded_inputs": "/Users/andriashadrin/projects/Hasty-CR/tmp/full_eval_recovery_preflight_20261028_v2/full_eval_inputs",
+    "actual_full_training_reverified": true
+  },
+  "queue": {
+    "pid": 96485,
+    "status": "submitted_observers_started",
+    "wait_kernel": "vertel0/hastycr-pending-sequence-1028",
+    "poll_seconds": 1200,
+    "monitoring": {
+      "kernel": "vertel0/hastycr-full-eval-recovery-1028",
+      "pids": {
+        "stream": 96496,
+        "collector": 96497,
+        "postprocess": 96498
+      },
+      "poll_seconds": 1200,
+      "report": "reports/defense_plan/full_candidate_recovered_evaluation_20261028.json",
+      "remote_job_changed": false
+    }
+  },
+  "launch_receipt": {
+    "ref": "/code/vertel0/hastycr-full-eval-recovery-1028",
+    "url": "https://www.kaggle.com/code/vertel0/hastycr-full-eval-recovery-1028",
+    "versionNumber": 1,
+    "kernelId": 141328973
+  }
 }

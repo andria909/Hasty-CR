@@ -1,0 +1,431 @@
+{
+  "schema": "verified-joint-skills-pilot-validation-summary-v1",
+  "kernel": "andreiperelaiko/hastycr-spell-waste-motionfix-1028",
+  "pilot_steps_verified": 819200,
+  "rows": [
+    {
+      "id": "control",
+      "games": 144,
+      "wins": 62,
+      "draws": 0,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 1.2013888888888888,
+          "electro_spirit": 4.722222222222222,
+          "skeletons": 4.666666666666667,
+          "zap": 4.444444444444445,
+          "cannon": 3.8402777777777777,
+          "knight": 4.027777777777778,
+          "fireball": 0.8888888888888888,
+          "musketeer": 0.4444444444444444
+        },
+        "right": {
+          "hog_rider": 1.4166666666666667,
+          "electro_spirit": 6.722222222222222,
+          "skeletons": 6.75,
+          "zap": 6.868055555555555,
+          "cannon": 5.611111111111111,
+          "knight": 5.770833333333333,
+          "fireball": 1.0625,
+          "musketeer": 0.4652777777777778
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.5313371930803572,
+        "right": 0.49246458023313494,
+        "king": 0.08397985387731483
+      },
+      "mean_missed_fireballs": 1.0416666666666667,
+      "mean_card_plays": {
+        "cannon": 9.45138888888889,
+        "electro_spirit": 11.444444444444445,
+        "fireball": 1.9513888888888888,
+        "hog_rider": 2.6180555555555554,
+        "knight": 9.79861111111111,
+        "musketeer": 0.9097222222222222,
+        "skeletons": 11.416666666666666,
+        "zap": 11.3125
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 0
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 14
+        },
+        "giant": {
+          "games": 24,
+          "wins": 18
+        },
+        "golem": {
+          "games": 24,
+          "wins": 0
+        },
+        "hog": {
+          "games": 24,
+          "wins": 17
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 13
+        }
+      },
+      "spell_waste_weight": null,
+      "mean_empty_spells": null,
+      "mean_empty_spell_elixir": null,
+      "empty_spell_elixir_per_minute": null,
+      "action_delay_ms": 1350,
+      "validation_action_delay_ms": 1350,
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.1
+      },
+      "mean_cluster_fireballs": 0.2222222222222222,
+      "mean_fireball_unit_hits": 1.9583333333333333
+    },
+    {
+      "id": "small",
+      "games": 144,
+      "wins": 69,
+      "draws": 0,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 1.3194444444444444,
+          "electro_spirit": 5.201388888888889,
+          "skeletons": 4.916666666666667,
+          "zap": 4.743055555555555,
+          "cannon": 4.208333333333333,
+          "knight": 4.5,
+          "musketeer": 0.4722222222222222,
+          "fireball": 0.9722222222222222
+        },
+        "right": {
+          "hog_rider": 1.3819444444444444,
+          "electro_spirit": 6.361111111111111,
+          "skeletons": 6.625,
+          "zap": 6.680555555555555,
+          "cannon": 5.402777777777778,
+          "knight": 5.402777777777778,
+          "musketeer": 0.5625,
+          "fireball": 0.9236111111111112
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.4960511222718254,
+        "right": 0.44893004402281744,
+        "king": 0.08033130787037038
+      },
+      "mean_missed_fireballs": 0.8680555555555556,
+      "mean_card_plays": {
+        "cannon": 9.61111111111111,
+        "electro_spirit": 11.5625,
+        "fireball": 1.8958333333333333,
+        "hog_rider": 2.701388888888889,
+        "knight": 9.902777777777779,
+        "musketeer": 1.0347222222222223,
+        "skeletons": 11.541666666666666,
+        "zap": 11.42361111111111
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 1
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 18
+        },
+        "giant": {
+          "games": 24,
+          "wins": 20
+        },
+        "golem": {
+          "games": 24,
+          "wins": 2
+        },
+        "hog": {
+          "games": 24,
+          "wins": 13
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 15
+        }
+      },
+      "spell_waste_weight": 0.1,
+      "mean_empty_spells": {
+        "fireball": 0.8680555555555556,
+        "zap": 4.854166666666667
+      },
+      "mean_empty_spell_elixir": 13.180555555555555,
+      "empty_spell_elixir_per_minute": 3.4965926030547596,
+      "action_delay_ms": 1350,
+      "validation_action_delay_ms": 1350,
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.0
+      },
+      "mean_cluster_fireballs": 0.2569444444444444,
+      "mean_fireball_unit_hits": 1.9861111111111112
+    },
+    {
+      "id": "medium",
+      "games": 144,
+      "wins": 55,
+      "draws": 0,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 1.5555555555555556,
+          "electro_spirit": 5.513888888888889,
+          "skeletons": 5.506944444444445,
+          "zap": 5.222222222222222,
+          "cannon": 4.513888888888889,
+          "knight": 4.791666666666667,
+          "fireball": 0.9375,
+          "musketeer": 0.2638888888888889
+        },
+        "right": {
+          "hog_rider": 1.3541666666666667,
+          "electro_spirit": 5.736111111111111,
+          "skeletons": 5.729166666666667,
+          "zap": 5.895833333333333,
+          "cannon": 4.875,
+          "knight": 4.881944444444445,
+          "fireball": 0.8680555555555556,
+          "musketeer": 0.3611111111111111
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.5654199993799603,
+        "right": 0.5726047092013888,
+        "king": 0.09371383101851852
+      },
+      "mean_missed_fireballs": 0.7361111111111112,
+      "mean_card_plays": {
+        "cannon": 9.38888888888889,
+        "electro_spirit": 11.25,
+        "fireball": 1.8055555555555556,
+        "hog_rider": 2.9097222222222223,
+        "knight": 9.67361111111111,
+        "musketeer": 0.625,
+        "skeletons": 11.23611111111111,
+        "zap": 11.118055555555555
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 0
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 14
+        },
+        "giant": {
+          "games": 24,
+          "wins": 16
+        },
+        "golem": {
+          "games": 24,
+          "wins": 1
+        },
+        "hog": {
+          "games": 24,
+          "wins": 18
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 6
+        }
+      },
+      "spell_waste_weight": 0.5,
+      "mean_empty_spells": {
+        "fireball": 0.7361111111111112,
+        "zap": 5.340277777777778
+      },
+      "mean_empty_spell_elixir": 13.625,
+      "empty_spell_elixir_per_minute": 3.6812233219194144,
+      "action_delay_ms": 1350,
+      "validation_action_delay_ms": 1350,
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.0
+      },
+      "mean_cluster_fireballs": 0.18055555555555555,
+      "mean_fireball_unit_hits": 1.9513888888888888
+    },
+    {
+      "id": "large",
+      "games": 144,
+      "wins": 67,
+      "draws": 0,
+      "mean_card_lane_plays": {
+        "left": {
+          "hog_rider": 1.7152777777777777,
+          "electro_spirit": 6.638888888888889,
+          "skeletons": 6.388888888888889,
+          "zap": 5.694444444444445,
+          "cannon": 5.479166666666667,
+          "knight": 5.819444444444445,
+          "musketeer": 0.4652777777777778,
+          "fireball": 1.1319444444444444
+        },
+        "right": {
+          "hog_rider": 0.9791666666666666,
+          "electro_spirit": 4.645833333333333,
+          "skeletons": 4.833333333333333,
+          "zap": 5.381944444444445,
+          "cannon": 3.8541666666666665,
+          "knight": 3.7708333333333335,
+          "musketeer": 0.4652777777777778,
+          "fireball": 0.6597222222222222
+        }
+      },
+      "mean_own_tower_fraction_loss": {
+        "left": 0.5376964750744048,
+        "right": 0.48063538566468256,
+        "king": 0.08586516203703703
+      },
+      "mean_missed_fireballs": 0.875,
+      "mean_card_plays": {
+        "cannon": 9.333333333333334,
+        "electro_spirit": 11.284722222222221,
+        "fireball": 1.7916666666666667,
+        "hog_rider": 2.6944444444444446,
+        "knight": 9.590277777777779,
+        "musketeer": 0.9305555555555556,
+        "skeletons": 11.222222222222221,
+        "zap": 11.07638888888889
+      },
+      "by_family": {
+        "air": {
+          "games": 24,
+          "wins": 0
+        },
+        "bridge": {
+          "games": 24,
+          "wins": 15
+        },
+        "giant": {
+          "games": 24,
+          "wins": 21
+        },
+        "golem": {
+          "games": 24,
+          "wins": 0
+        },
+        "hog": {
+          "games": 24,
+          "wins": 17
+        },
+        "swarm": {
+          "games": 24,
+          "wins": 14
+        }
+      },
+      "spell_waste_weight": 1.0,
+      "mean_empty_spells": {
+        "fireball": 0.875,
+        "zap": 4.402777777777778
+      },
+      "mean_empty_spell_elixir": 12.305555555555555,
+      "empty_spell_elixir_per_minute": 3.318901066655845,
+      "action_delay_ms": 1350,
+      "validation_action_delay_ms": 1350,
+      "coefficients": {
+        "fireball_value_reward": 0.25,
+        "reserve_potential_weight": 0.1,
+        "own_hp_penalty": 6.0,
+        "overflow_penalty": 0.3,
+        "missed_fireball_penalty": 0.0
+      },
+      "mean_cluster_fireballs": 0.24305555555555555,
+      "mean_fireball_unit_hits": 2.2777777777777777
+    }
+  ],
+  "parent": {
+    "games": 72,
+    "wins": 29,
+    "draws": 0,
+    "mean_card_lane_plays": {
+      "left": {
+        "hog_rider": 1.0694444444444444,
+        "electro_spirit": 4.277777777777778,
+        "skeletons": 4.194444444444445,
+        "zap": 4.208333333333333,
+        "knight": 3.8333333333333335,
+        "cannon": 3.2777777777777777,
+        "fireball": 0.9722222222222222,
+        "musketeer": 0.19444444444444445
+      },
+      "right": {
+        "hog_rider": 1.6666666666666667,
+        "electro_spirit": 6.347222222222222,
+        "skeletons": 6.444444444444445,
+        "zap": 6.347222222222222,
+        "knight": 5.277777777777778,
+        "cannon": 5.5,
+        "fireball": 0.6944444444444444,
+        "musketeer": 0.2361111111111111
+      }
+    },
+    "mean_own_tower_fraction_loss": {
+      "left": 0.6319948226686507,
+      "right": 0.48793247767857145,
+      "king": 0.123291015625
+    },
+    "mean_missed_fireballs": 0.875,
+    "mean_card_plays": {
+      "cannon": 8.777777777777779,
+      "electro_spirit": 10.625,
+      "fireball": 1.6666666666666667,
+      "hog_rider": 2.736111111111111,
+      "knight": 9.11111111111111,
+      "musketeer": 0.4305555555555556,
+      "skeletons": 10.63888888888889,
+      "zap": 10.555555555555555
+    },
+    "by_family": {
+      "air": {
+        "games": 12,
+        "wins": 0
+      },
+      "bridge": {
+        "games": 12,
+        "wins": 7
+      },
+      "giant": {
+        "games": 12,
+        "wins": 11
+      },
+      "golem": {
+        "games": 12,
+        "wins": 0
+      },
+      "hog": {
+        "games": 12,
+        "wins": 7
+      },
+      "swarm": {
+        "games": 12,
+        "wins": 4
+      }
+    }
+  },
+  "initial_reference": null,
+  "comparison_scope": "Independent corrected-physics cohort; do not pool with old physics results.",
+  "eligible_for_full": false,
+  "quality_accepted": false,
+  "scope": "72 distinct validation contexts replayed by two independently trained seeds; not144 independent contexts",
+  "test_used_for_selection": false
+}

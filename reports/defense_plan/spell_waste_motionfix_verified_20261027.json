@@ -1,0 +1,251 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "andreiperelaiko/hastycr-spell-waste-motionfix-1028",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "small",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1
+        },
+        "score": 0.26041666666666663,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "large",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 1.0
+        },
+        "score": 0.2326388888888889,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "control",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.1,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": null
+        },
+        "score": 0.2152777777777778,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "medium",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.5
+        },
+        "score": 0.1909722222222222,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_control_s242",
+      "checkpoint": "tmp/kaggle/spell_waste_motionfix_20261028/collected/pilot_control_s242/update_000100.pt",
+      "checkpoint_sha256": "3f6bb088bd30dc11725bcb92fb394c7db440dabd5dab232087b30db916a3d550",
+      "selection_score": 0.20833333333333334,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_control_s243",
+      "checkpoint": "tmp/kaggle/spell_waste_motionfix_20261028/collected/pilot_control_s243/update_000050.pt",
+      "checkpoint_sha256": "981f5834918864764310feffa2fe725f3bf0d695b84f86fc8f5c51be6d64c30a",
+      "selection_score": 0.2222222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_small_s242",
+      "checkpoint": "tmp/kaggle/spell_waste_motionfix_20261028/collected/pilot_small_s242/update_000050.pt",
+      "checkpoint_sha256": "214e594ec7af0f748b432cf171a0f53807690a600ad1627050c1865ba1c0ce4d",
+      "selection_score": 0.2708333333333333,
+      "worst_family_points": 0.08333333333333333,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_small_s243",
+      "checkpoint": "tmp/kaggle/spell_waste_motionfix_20261028/collected/pilot_small_s243/update_000100.pt",
+      "checkpoint_sha256": "e0985a87e57f0759f369f0b017cba5dc5c9d1c66dc9c6fc6d8618ff3ec446cf4",
+      "selection_score": 0.25,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_medium_s242",
+      "checkpoint": "tmp/kaggle/spell_waste_motionfix_20261028/collected/pilot_medium_s242/update_000050.pt",
+      "checkpoint_sha256": "f1f12a9b13c09c345a1dfaee023b585bd480af8fc4eadf99cc43e966134635b1",
+      "selection_score": 0.1597222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_medium_s243",
+      "checkpoint": "tmp/kaggle/spell_waste_motionfix_20261028/collected/pilot_medium_s243/update_000050.pt",
+      "checkpoint_sha256": "93e82432b0df6d16c9e384c4a95185e8e943104d4311c31f3de45f36024e667a",
+      "selection_score": 0.2222222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_large_s242",
+      "checkpoint": "tmp/kaggle/spell_waste_motionfix_20261028/collected/pilot_large_s242/update_000050.pt",
+      "checkpoint_sha256": "f50defa9e0cd3bd905a0050bf537046cba88f3351b68075e24cb42036d10803c",
+      "selection_score": 0.20833333333333334,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_large_s243",
+      "checkpoint": "tmp/kaggle/spell_waste_motionfix_20261028/collected/pilot_large_s243/update_000100.pt",
+      "checkpoint_sha256": "1c3d8f14d1008c0ce444c33f319dcaa8e66818253cc8234849c721ff7cff0295",
+      "selection_score": 0.2569444444444444,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "parent",
+    "ranking": [
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.20138888888888887,
+        "macro_archetype_points": 0.40277777777777773,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.5833333333333334
+          },
+          "giant": {
+            "games": 12,
+            "points": 0.9166666666666666
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.5833333333333334
+          },
+          "swarm": {
+            "games": 12,
+            "points": 0.3333333333333333
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false,
+  "spell_waste_audit": {
+    "runs": [
+      "pilot_control_s242",
+      "pilot_control_s243",
+      "pilot_small_s242",
+      "pilot_small_s243",
+      "pilot_medium_s242",
+      "pilot_medium_s243",
+      "pilot_large_s242",
+      "pilot_large_s243"
+    ],
+    "verified": true
+  }
+}
