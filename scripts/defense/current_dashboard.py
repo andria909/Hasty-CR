@@ -97,7 +97,12 @@ def render(reports):
         if live:
             n=live['finished'];rate=f"{live['wins']/n:.1%}"if n and not live['unknown']else'—'
             lines.append(f"| {label} | {n}/10 | {live['wins']} / {live['losses']} | {rate} |")
-    lines+=['','Бои остановлены: разрыв связи и отказ входа по региону. У второй серии исход6-го неизвестен, ещё4 игры не начаты.','',
+    strong=read('tmp/live/strong_20261028_live5/series/series.json')
+    if strong:
+        n=strong['finished'];rate=f"{strong['wins']/n:.1%}"if n and not strong['unknown']else'—'
+        lines.append(f"| strong · новая серия | {n}/5 | {strong['wins']} / {strong['losses']} | {rate} |")
+        lines+=['',f"**Новая серия strong:** {strong['status']}, лимит5; решения записываются. Старые серии не возобновлены."]
+    lines+=['','Старая серия прервалась из-за связи и отказа входа. У второй старой серии исход6-го неизвестен, ещё4 игры не начаты.','',
         '**Исправлено:** асимметрия движения —0 расхождений в908 зеркальных парах; запись точных входов модели готова. Live-маска пушки ещё не включена. Соответствие всех механик реальной игре не доказано.','',
         '[Все прежние таблицы train/val/test и этапы](reports/training_dashboard_history_20261028.md). Исторический снимок содержит прежние статусы; актуальные — выше.','']
     return '\n'.join(lines)
