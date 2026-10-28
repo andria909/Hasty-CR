@@ -1,3 +1,6 @@
+## CURRENT tower-support optional environment implemented; live series STOPPED
+New sim/continuous_tower_support.py optional subclass adds weight*delta assisted paid value, unchanged observation/physics. NOT wired PPO/NOT trained yet. 8 tests PASS including real160step parity and snapshot/resume. Fixed ObservedDamageLog deepcopy to avoid recrediting past events. done generator records stopped live controller. BC4completed1W3L, second0; controller44421 and children missing, comparison stopped_error (no MATCH_START after queue5). Need inspect screenshot/current UI and recover remaining6+10 without resetting counts. GPU observer processes43594/5/7 and43647/8/9 confirmedlive; last eval progress841/6300, SSE SSL reconnect2, not terminal.
+
 ## CURRENT live BC first win; done renders per-model live counts
 BCmatch4won enemykingzero; series1W3L/4completed,supervisorQUEUEmatch5. Existingcontroller/runnerslive. donegenerator nowreadsbothlocalseries andrenderscounts/winrateonlyknownresults, labelsunfinishedsnapshot. Kaggle token2dataset_list(mine=True,searchnativefireball)empty too; creationOkbut403status/files remainsunresolved, no GPUjob/no duplicateupload.
 

@@ -31,3 +31,14 @@ def test_dead_defender_or_non_tower_source_never_gets_bonus():
     b.entities[3].alive=True;b.damage_log.append((100,3,2,100))
     assert t.assisted_value==0
     assert t.total_damage==100
+
+
+def test_snapshot_does_not_recredit_damage_and_rebinds_callback():
+    from copy import deepcopy
+    b=fixture();t=TowerSupport(b).attach()
+    b.damage_log.append((50,1,2,250))
+    copied=deepcopy(t)
+    assert copied.assisted_value==t.assisted_value==1.25
+    copied.battle.damage_log.append((100,1,2,250))
+    assert copied.assisted_value==2.5
+    assert t.assisted_value==1.25

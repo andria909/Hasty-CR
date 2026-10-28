@@ -204,8 +204,11 @@ def render_live_feedback_studies(reports):
             else:
                 lines.append(f'| {label} | 0/10 | — | ожидает |')
         lines += ['', 'Счёт на момент обновления файла; незавершённые серии не являются итоговым результатом. Ручной матч до запуска исключён.','']
+        controller=Path('tmp/live/full_top2_20261028/comparison.json')
+        if controller.exists() and json.loads(controller.read_text()).get('status')=='stopped_error':
+            lines += ['**Серия остановлена с ошибкой запуска следующего боя.** Завершённые матчи сохранены; продолжение ещё не запущено.','']
     if (reports/'tower_support_diagnostic_20261028.json').exists():
-        lines += ['**Помощь башен:** диагностический счётчик проверен на48 эпизодах; бездействие не получает бонус. В reward ещё не включён. [Проверка](reports/tower_support_diagnostic_20261028.md).','']
+        lines += ['**Помощь башен:** подготовлена отдельная среда с бонусом за обстрел врага, отвлечённого на нашего защитника; 8 проверок прошли. PPO с этим бонусом ещё не запущен. [Код](sim/continuous_tower_support.py), [диагностика48 эпизодов](reports/tower_support_diagnostic_20261028.md).','']
     lines+=render_global_full_training(reports)
     studies=[('air_retention_pilot','Сохранение навыка',(142,143),
         [(f'replay{int(w*100):03d}',f'Повторение примеров: {w:g}')for w in(0.,.1,1.,5.)]),

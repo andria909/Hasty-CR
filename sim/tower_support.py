@@ -50,3 +50,13 @@ class ObservedDamageLog(list):
 
     def append(self, event):
         super().append(event);self.callback(event)
+
+    def __deepcopy__(self, memo):
+        # Snapshotting must not replay old damage through the callback.
+        from copy import deepcopy
+        copied = type(self).__new__(type(self))
+        memo[id(self)] = copied
+        copied.callback = deepcopy(self.callback, memo)
+        for event in self:
+            list.append(copied, deepcopy(event, memo))
+        return copied
