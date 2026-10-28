@@ -64,7 +64,7 @@ def expand(source, search, output):
                     trials.append(trial)
                     if not successes:continue
                     chosen=dict(context=context,opening=record,best=min(successes,key=rank))
-                    rows=replay(chosen,cards,spells)
+                    rows=replay(chosen,cards,spells,pending_inputs=manifest.get('pending_inputs',False))
                     accepted.append(chosen)
                     for row in rows:
                         index=len(records)
@@ -74,7 +74,8 @@ def expand(source, search, output):
         print(json.dumps(dict(seed=seed,attempted_contexts=len(trials),accepted=len(accepted))),flush=True)
     np.savez_compressed(output/'examples.npz',**{k:np.stack(v)for k,v in arrays.items()})
     result=deepcopy(manifest)
-    result.update(schema='late-air-diverse-hand-sequences-v1',examples=len(records),records=records,
+    result.update(schema=('late-air-pending-sequence-labels-v1' if manifest.get('pending_inputs') else 'late-air-diverse-hand-sequences-v1'),
+        expansion_kind='fixed_teacher_new_train_hands_v1',examples=len(records),records=records,
         seeds=sorted(set(manifest['seeds'])|{r['seed']for r in records}),
         sequences=manifest['sequences']+len(accepted),data_sha256=file_sha(output/'examples.npz'),
         source_data_sha256=manifest['data_sha256'],source_dataset=str(source),expansion_protocol=protocol,

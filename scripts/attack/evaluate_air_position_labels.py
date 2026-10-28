@@ -48,7 +48,7 @@ def score_checkpoint(checkpoint,data):
         log_mass=torch.logsumexp(logits.double().masked_fill(~success,-torch.inf),-1)-torch.logsumexp(logits.double().masked_fill(~mask,-torch.inf),-1)
     def summarize(ids):
         return dict(examples=len(ids),successful_choices=int(correct[ids].sum()),
-            fraction=float(correct[ids].float().mean()),mean_log_successful_probability=float(log_mass[ids].mean()))
+            fraction=float(correct[ids].float().mean()) if ids else None,mean_log_successful_probability=float(log_mass[ids].mean()) if ids else None)
     skills={r['array_index']:r.get('skill','air_defense')for r in manifest['records']if r['accepted']}
     return dict(scorer_source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),checkpoint=str(checkpoint),checkpoint_sha256=hashlib.sha256(checkpoint.read_bytes()).hexdigest(),data_sha256=digest,
         heldout_seed=heldout,train=summarize([i for i in groups if groups[i]!=heldout]),
@@ -56,6 +56,9 @@ def score_checkpoint(checkpoint,data):
         by_skill={skill:dict(train=summarize([i for i in groups if groups[i]!=heldout and skills[i]==skill]),
             local_heldout=summarize([i for i in groups if groups[i]==heldout and skills[i]==skill]))
             for skill in sorted(set(skills.values()))},
+        by_decision_type=({kind:dict(train=summarize([r['array_index']for r in manifest['records'] if r['accepted'] and r['seed']!=heldout and (r['action']==0)==wait]),
+            local_heldout=summarize([r['array_index']for r in manifest['records'] if r['accepted'] and r['seed']==heldout and (r['action']==0)==wait]))
+            for kind,wait in [('wait',True),('deploy',False)]} if all('action'in r for r in manifest['records']if r['accepted']) else None),
         scope='Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance')
 
 
