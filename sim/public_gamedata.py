@@ -300,6 +300,7 @@ def load_public_spells(level: int = 11):
         # 77 native flight fits: median599.48mt/tick; client clock20Hz.
         projectile_speed_mt_per_sec=int(fireball["speed"]) * 20,
         travels_from_king=True,
+        princess_hitbox_mode='rectangle_v1',
         deflect_behaviour=str(fireball.get("deflect_behaviour") or ""))
     rolling = SpellSpec(
         name="the_log", damage=damage(log, "Legendary"),

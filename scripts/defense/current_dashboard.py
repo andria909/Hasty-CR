@@ -46,8 +46,11 @@ def render(reports):
         '| Короткое обучение | Прогресс | Результат / состояние |','|---|---:|---|']
     mechanics=read(reports/'recorded_episode_replay_20261028.json')
     if mechanics and mechanics.get('schema')=='recorded-episode-replay-report-v1':
-        lines[4:4]=['**Проверка реальных эпизодов:** исправлены скорости снарядов пушки и лучницы. '
-            'Путь хога расходится до7,31 клетки; исправление прыжка/выбора цели ещё не принято. '
+        note='**Проверка реальных эпизодов:** исправлены скорости снарядов пушки и лучницы. '
+        fireball=read(reports/'native_fireball_crown_overlap_verified_20261028.json')
+        if fireball and fireball.get('schema')=='recorded-fireball-crown-overlap-v1':
+            note+='[Исправлены угловые попадания Fireball по Princess](reports/fireball_crown_overlap_20261028.md). '
+        lines[4:4]=[note+'Путь хога расходится до7,31 клетки; исправление прыжка/выбора цели ещё не принято. '
             '[Сравнение и график](reports/recorded_mechanics_comparison_20261028.md).', '']
     completed=[]
     for stem,label in STUDIES:

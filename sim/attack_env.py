@@ -231,10 +231,8 @@ class AttackEnv:
         if (not target.alive or target.untargetable or not spec.initial_damage or
                 not spec.hits_ground or spec.ignore_buildings or spec.only_own_troops):
             return False
-        rx=spec.radius_mt+target.collision_radius_mt
-        ry=spec.radius_y_mt+target.collision_radius_mt
-        dx,dy=target.pos.x-point.x,target.pos.y-point.y
-        return rx>0 and ry>0 and dx*dx*ry*ry+dy*dy*rx*rx<=rx*rx*ry*ry
+        from .spells import spell_overlaps
+        return spell_overlaps(spec,point,target)
 
     def _pending_lethal_evidence(self,card,point):
         """Conservative CURRENT-SIM redundancy evidence, not live guarantees.

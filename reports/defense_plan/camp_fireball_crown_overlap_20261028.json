@@ -1,0 +1,2759 @@
+{
+  "schema": "recorded-fireball-crown-overlap-v1",
+  "sources": [
+    {
+      "path": "tmp/fireball_boundary_camp_20261028/first_camp_frames.jsonl",
+      "sha256": "edc2f8a6d1a7d7bb597a37a68583efe4d482076579eac54b53eec4a10b0f54fa"
+    },
+    {
+      "path": "tmp/fireball_boundary_camp_20261028/defended_run/frames.jsonl",
+      "sha256": "f8427e87d437a481bd79ce8b2cafd6492c3fc1f3336f21e731dcb8753d53b607"
+    },
+    {
+      "path": "tmp/fireball_boundary_camp_20261028/confirmed_run/frames.jsonl",
+      "sha256": "0f0ed57f1018697619aca70d2c3ade5cc50fdec2574e62044e2dd8236672e708"
+    }
+  ],
+  "source_fingerprints": {
+    "scripts/gamestate/audit_fireball_crown_overlap.py": "be84ac11e18c9a9d6ef1b18ca71b46003993ac24370672551192704be014f048",
+    "scripts/gamestate/audit_projectile_motion_clips.py": "56da0e2bd1aa1adb856b1bf2cba5439c1b63c9e1fbbba729f2792c22170b283a",
+    "scripts/gamestate/audit_targeting_history.py": "8d0076f6be1aae5f20aa1cb5942a13e835bba8b5ee10d1f28cc669caf67b3372",
+    "scripts/gamestate/audit_recorded_fireball.py": "d01ef20693d2bd6c4d5c3f2481ba94cef19a4cfc318be40a1a031f53f93efbbb",
+    "sim/spells.py": "dd492c5958cbd54360d6a8b327168e70c0a065901983a66771e58616c14cf13d",
+    "sim/public_gamedata.py": "883758a0113fff0c0bb263e5dacbaa0ed1d41257db0488d38aa31bf82da4052d",
+    "sim/attack_env.py": "55601f481e1f015d8b359de2b67eb09b67e1518dea5188454a576171b66e02ff",
+    "sim/engine.py": "6850c7deda57c5933b9a22b4eac48ca695cea3a1d1336bb8a750f3af3091150f",
+    "sim/entities.py": "d4e9504adfbfb7f2606ff46ed1c9d98e8a7e7b1604cfa403ae9091ecf9aa94c1",
+    "sim/projectile_calibration.py": "88e78fad22aa3e3af440a07150e16d4b617ffc88aeb59282d10e8c35019c44fc"
+  },
+  "velocity_manifest": "reports/defense_plan/camp_projectile_clips_20261028.json",
+  "velocity_manifest_sha256": "97b4576e218dc4a1acee2c510d371f81e72d021b6d04fd5846322d9594ed28be",
+  "counts": {
+    "fitted_fireball_clips": 7,
+    "uncertain_impact_bracketing": 1,
+    "no_contiguous_disappearance": 1
+  },
+  "summary": {
+    "candidates": 4,
+    "accepted": 4,
+    "distinct_geometries": 4,
+    "native_hits": 2,
+    "disagreements": {
+      "legacy": 1,
+      "rectangle": 0,
+      "current": 0
+    },
+    "flight_timing": {
+      "unique_flights": 4,
+      "birth_supported": 4,
+      "engine_inside_native_window": 4
+    }
+  },
+  "cases": [
+    {
+      "source": "tmp/fireball_boundary_camp_20261028/first_camp_frames.jsonl",
+      "first_frame": 216,
+      "last_frame": 236,
+      "after_frame": 237,
+      "world": [
+        "0x6f18442270",
+        [
+          [
+            5000000,
+            "0x6f367bcb40",
+            "KingTower",
+            0
+          ],
+          [
+            5000003,
+            "0x6f367ba470",
+            "KingTower",
+            1
+          ]
+        ]
+      ],
+      "preimpact_frame": 235,
+      "projectile": {
+        "address": "0x6f184f5840",
+        "entity_id": 4000000,
+        "name": "FireballSpell",
+        "side": 1,
+        "x": 3530,
+        "y": 10600,
+        "card_id": 28000000,
+        "level_index": null,
+        "hp": -1,
+        "max_hp": -1,
+        "deployment_tick_candidate": 341,
+        "play_sequence_candidate": 0,
+        "deck_index_candidate": 5,
+        "target_position_candidate": {
+          "x": 3500,
+          "y": 10500
+        },
+        "source_position_fields": {
+          "x": 9000,
+          "y": 29000
+        }
+      },
+      "aim": {
+        "x": 3500,
+        "y": 10500
+      },
+      "origin": {
+        "x": 9000,
+        "y": 29000
+      },
+      "flight_points": [
+        [
+          342,
+          8830,
+          28425
+        ],
+        [
+          344,
+          8488,
+          27275
+        ],
+        [
+          346,
+          8146,
+          26125
+        ],
+        [
+          347,
+          7975,
+          25550
+        ],
+        [
+          349,
+          7633,
+          24400
+        ],
+        [
+          350,
+          7462,
+          23825
+        ],
+        [
+          352,
+          7120,
+          22675
+        ],
+        [
+          354,
+          6778,
+          21525
+        ],
+        [
+          355,
+          6607,
+          20950
+        ],
+        [
+          356,
+          6437,
+          20375
+        ],
+        [
+          358,
+          6095,
+          19225
+        ],
+        [
+          359,
+          5924,
+          18650
+        ],
+        [
+          361,
+          5582,
+          17500
+        ],
+        [
+          363,
+          5240,
+          16350
+        ],
+        [
+          364,
+          5069,
+          15775
+        ],
+        [
+          366,
+          4727,
+          14625
+        ],
+        [
+          367,
+          4556,
+          14050
+        ],
+        [
+          369,
+          4214,
+          12900
+        ],
+        [
+          370,
+          4043,
+          12325
+        ],
+        [
+          372,
+          3701,
+          11175
+        ],
+        [
+          373,
+          3530,
+          10600
+        ]
+      ],
+      "ray_residual_mt": 1.1398810723318475,
+      "remaining_mt": 704.2911329840807,
+      "interval_ticks": [
+        372,
+        375
+      ],
+      "flight_timing": {
+        "accepted": true,
+        "birth_tick_candidate": 341,
+        "phase_error_ticks": [
+          -0.0069061271724528694,
+          -0.0006599399826126007
+        ],
+        "engine_resolution_tick": 374,
+        "engine_in_observed_impact_window": true,
+        "native_impact_window": [
+          372,
+          375
+        ]
+      },
+      "target_before": {
+        "address": "0x6f184b2050",
+        "entity_id": 5000001,
+        "name": "PrincessTower",
+        "side": 0,
+        "x": 3500,
+        "y": 6500,
+        "card_id": -1,
+        "level_index": 8,
+        "hp": 2534,
+        "max_hp": 2534,
+        "deployment_tick_candidate": -1,
+        "play_sequence_candidate": -1,
+        "deck_index_candidate": -1
+      },
+      "target_after": {
+        "address": "0x6f184b2050",
+        "entity_id": 5000001,
+        "name": "PrincessTower",
+        "side": 0,
+        "x": 3500,
+        "y": 6500,
+        "card_id": -1,
+        "level_index": 8,
+        "hp": 2534,
+        "max_hp": 2534,
+        "deployment_tick_candidate": -1,
+        "play_sequence_candidate": -1,
+        "deck_index_candidate": -1
+      },
+      "offset": [
+        0,
+        4000
+      ],
+      "observed_hp_drop": 0,
+      "observed_hit": false,
+      "threats": [],
+      "accepted": true,
+      "interval_context": [
+        {
+          "tick": 372,
+          "bodies": [
+            {
+              "address": "0x6f184f5840",
+              "entity_id": 4000000,
+              "name": "FireballSpell",
+              "side": 1,
+              "x": 3701,
+              "y": 11175,
+              "card_id": 28000000,
+              "level_index": null,
+              "hp": -1,
+              "max_hp": -1,
+              "deployment_tick_candidate": 341,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 5,
+              "target_position_candidate": {
+                "x": 3500,
+                "y": 10500
+              },
+              "source_position_fields": {
+                "x": 9000,
+                "y": 29000
+              }
+            },
+            {
+              "address": "0x6f367bcb40",
+              "entity_id": 5000000,
+              "name": "KingTower",
+              "side": 0,
+              "x": 9000,
+              "y": 3000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f184b2050",
+              "entity_id": 5000001,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 3500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f184485e0",
+              "entity_id": 5000002,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 14500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f367ba470",
+              "entity_id": 5000003,
+              "name": "KingTower",
+              "side": 1,
+              "x": 9000,
+              "y": 29000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1844a640",
+              "entity_id": 5000004,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 3500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1844cb40",
+              "entity_id": 5000005,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 14500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1852f0a0",
+              "entity_id": 5000006,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 12835,
+              "y": 7371,
+              "card_id": 26000010,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 263,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 7
+            },
+            {
+              "address": "0x6f1852a8f0",
+              "entity_id": 5000007,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 12650,
+              "y": 6244,
+              "card_id": 26000010,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 263,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 7
+            },
+            {
+              "address": "0x6f1852d980",
+              "entity_id": 5000008,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 5359,
+              "y": 6472,
+              "card_id": 26000010,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 263,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 7
+            },
+            {
+              "address": "0x6f184ead20",
+              "entity_id": 5000009,
+              "name": "BabyDragon",
+              "side": 0,
+              "x": 8335,
+              "y": 1468,
+              "card_id": 26000015,
+              "level_index": 6,
+              "hp": 792,
+              "max_hp": 792,
+              "deployment_tick_candidate": 341,
+              "play_sequence_candidate": 1,
+              "deck_index_candidate": 5
+            }
+          ]
+        },
+        {
+          "tick": 373,
+          "bodies": [
+            {
+              "address": "0x6f184f5840",
+              "entity_id": 4000000,
+              "name": "FireballSpell",
+              "side": 1,
+              "x": 3530,
+              "y": 10600,
+              "card_id": 28000000,
+              "level_index": null,
+              "hp": -1,
+              "max_hp": -1,
+              "deployment_tick_candidate": 341,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 5,
+              "target_position_candidate": {
+                "x": 3500,
+                "y": 10500
+              },
+              "source_position_fields": {
+                "x": 9000,
+                "y": 29000
+              }
+            },
+            {
+              "address": "0x6f367bcb40",
+              "entity_id": 5000000,
+              "name": "KingTower",
+              "side": 0,
+              "x": 9000,
+              "y": 3000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f184b2050",
+              "entity_id": 5000001,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 3500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f184485e0",
+              "entity_id": 5000002,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 14500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f367ba470",
+              "entity_id": 5000003,
+              "name": "KingTower",
+              "side": 1,
+              "x": 9000,
+              "y": 29000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1844a640",
+              "entity_id": 5000004,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 3500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1844cb40",
+              "entity_id": 5000005,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 14500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1852f0a0",
+              "entity_id": 5000006,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 12884,
+              "y": 7445,
+              "card_id": 26000010,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 263,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 7
+            },
+            {
+              "address": "0x6f1852a8f0",
+              "entity_id": 5000007,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 12640,
+              "y": 6334,
+              "card_id": 26000010,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 263,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 7
+            },
+            {
+              "address": "0x6f1852d980",
+              "entity_id": 5000008,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 5357,
+              "y": 6562,
+              "card_id": 26000010,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 263,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 7
+            },
+            {
+              "address": "0x6f184ead20",
+              "entity_id": 5000009,
+              "name": "BabyDragon",
+              "side": 0,
+              "x": 8320,
+              "y": 1556,
+              "card_id": 26000015,
+              "level_index": 6,
+              "hp": 792,
+              "max_hp": 792,
+              "deployment_tick_candidate": 341,
+              "play_sequence_candidate": 1,
+              "deck_index_candidate": 5
+            }
+          ]
+        },
+        {
+          "tick": 375,
+          "bodies": [
+            {
+              "address": "0x6f367bcb40",
+              "entity_id": 5000000,
+              "name": "KingTower",
+              "side": 0,
+              "x": 9000,
+              "y": 3000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f184b2050",
+              "entity_id": 5000001,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 3500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f184485e0",
+              "entity_id": 5000002,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 14500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f367ba470",
+              "entity_id": 5000003,
+              "name": "KingTower",
+              "side": 1,
+              "x": 9000,
+              "y": 29000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1844a640",
+              "entity_id": 5000004,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 3500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1844cb40",
+              "entity_id": 5000005,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 14500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1852f0a0",
+              "entity_id": 5000006,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 12982,
+              "y": 7593,
+              "card_id": 26000010,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 263,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 7
+            },
+            {
+              "address": "0x6f1852a8f0",
+              "entity_id": 5000007,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 12632,
+              "y": 6514,
+              "card_id": 26000010,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 263,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 7
+            },
+            {
+              "address": "0x6f1852d980",
+              "entity_id": 5000008,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 5326,
+              "y": 6740,
+              "card_id": 26000010,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 263,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 7
+            },
+            {
+              "address": "0x6f184ead20",
+              "entity_id": 5000009,
+              "name": "BabyDragon",
+              "side": 0,
+              "x": 8290,
+              "y": 1732,
+              "card_id": 26000015,
+              "level_index": 6,
+              "hp": 792,
+              "max_hp": 792,
+              "deployment_tick_candidate": 341,
+              "play_sequence_candidate": 1,
+              "deck_index_candidate": 5
+            }
+          ]
+        }
+      ],
+      "legacy": {
+        "hit": false,
+        "level11_damage": 0
+      },
+      "rectangle": {
+        "hit": false,
+        "level11_damage": 0
+      },
+      "current": {
+        "hit": false,
+        "level11_damage": 0
+      }
+    },
+    {
+      "source": "tmp/fireball_boundary_camp_20261028/defended_run/frames.jsonl",
+      "first_frame": 209,
+      "last_frame": 231,
+      "after_frame": 232,
+      "world": [
+        "0x6f184def80",
+        [
+          [
+            5000000,
+            "0x6f367c5540",
+            "KingTower",
+            0
+          ],
+          [
+            5000003,
+            "0x6f367c50f0",
+            "KingTower",
+            1
+          ]
+        ]
+      ],
+      "preimpact_frame": 230,
+      "projectile": {
+        "address": "0x6f1854bf20",
+        "entity_id": 4000000,
+        "name": "FireballSpell",
+        "side": 1,
+        "x": 6560,
+        "y": 9960,
+        "card_id": 28000000,
+        "level_index": null,
+        "hp": -1,
+        "max_hp": -1,
+        "deployment_tick_candidate": 161,
+        "play_sequence_candidate": 0,
+        "deck_index_candidate": 5,
+        "target_position_candidate": {
+          "x": 6500,
+          "y": 9500
+        },
+        "source_position_fields": {
+          "x": 9000,
+          "y": 29000
+        }
+      },
+      "aim": {
+        "x": 6500,
+        "y": 9500
+      },
+      "origin": {
+        "x": 9000,
+        "y": 29000
+      },
+      "flight_points": [
+        [
+          162,
+          8924,
+          28405
+        ],
+        [
+          164,
+          8772,
+          27215
+        ],
+        [
+          165,
+          8696,
+          26620
+        ],
+        [
+          168,
+          8468,
+          24835
+        ],
+        [
+          171,
+          8240,
+          23050
+        ],
+        [
+          173,
+          8088,
+          21860
+        ],
+        [
+          174,
+          8012,
+          21265
+        ],
+        [
+          177,
+          7784,
+          19480
+        ],
+        [
+          180,
+          7556,
+          17695
+        ],
+        [
+          183,
+          7328,
+          15910
+        ],
+        [
+          184,
+          7252,
+          15315
+        ],
+        [
+          187,
+          7022,
+          13530
+        ],
+        [
+          190,
+          6791,
+          11745
+        ],
+        [
+          191,
+          6714,
+          11150
+        ],
+        [
+          193,
+          6560,
+          9960
+        ]
+      ],
+      "ray_residual_mt": 6.434514388859492,
+      "remaining_mt": 1663.8197017705975,
+      "interval_ticks": [
+        191,
+        194
+      ],
+      "flight_timing": {
+        "accepted": true,
+        "birth_tick_candidate": 161,
+        "phase_error_ticks": [
+          -0.007153577366359798,
+          -0.0002764270948582004
+        ],
+        "engine_resolution_tick": 194,
+        "engine_in_observed_impact_window": true,
+        "native_impact_window": [
+          191,
+          194
+        ]
+      },
+      "target_before": {
+        "address": "0x6f1875d5d0",
+        "entity_id": 5000001,
+        "name": "PrincessTower",
+        "side": 0,
+        "x": 3500,
+        "y": 6500,
+        "card_id": -1,
+        "level_index": 8,
+        "hp": 2534,
+        "max_hp": 2534,
+        "deployment_tick_candidate": -1,
+        "play_sequence_candidate": -1,
+        "deck_index_candidate": -1
+      },
+      "target_after": {
+        "address": "0x6f1875d5d0",
+        "entity_id": 5000001,
+        "name": "PrincessTower",
+        "side": 0,
+        "x": 3500,
+        "y": 6500,
+        "card_id": -1,
+        "level_index": 8,
+        "hp": 2534,
+        "max_hp": 2534,
+        "deployment_tick_candidate": -1,
+        "play_sequence_candidate": -1,
+        "deck_index_candidate": -1
+      },
+      "offset": [
+        3000,
+        3000
+      ],
+      "observed_hp_drop": 0,
+      "observed_hit": false,
+      "threats": [],
+      "accepted": true,
+      "interval_context": [
+        {
+          "tick": 191,
+          "bodies": [
+            {
+              "address": "0x6f1854bf20",
+              "entity_id": 4000000,
+              "name": "FireballSpell",
+              "side": 1,
+              "x": 6714,
+              "y": 11150,
+              "card_id": 28000000,
+              "level_index": null,
+              "hp": -1,
+              "max_hp": -1,
+              "deployment_tick_candidate": 161,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 5,
+              "target_position_candidate": {
+                "x": 6500,
+                "y": 9500
+              },
+              "source_position_fields": {
+                "x": 9000,
+                "y": 29000
+              }
+            },
+            {
+              "address": "0x6f367c5540",
+              "entity_id": 5000000,
+              "name": "KingTower",
+              "side": 0,
+              "x": 9000,
+              "y": 3000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1875d5d0",
+              "entity_id": 5000001,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 3500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1852e070",
+              "entity_id": 5000002,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 14500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f367c50f0",
+              "entity_id": 5000003,
+              "name": "KingTower",
+              "side": 1,
+              "x": 9000,
+              "y": 29000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1853b530",
+              "entity_id": 5000004,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 3500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f18447ca0",
+              "entity_id": 5000005,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 14500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            }
+          ]
+        },
+        {
+          "tick": 193,
+          "bodies": [
+            {
+              "address": "0x6f1854bf20",
+              "entity_id": 4000000,
+              "name": "FireballSpell",
+              "side": 1,
+              "x": 6560,
+              "y": 9960,
+              "card_id": 28000000,
+              "level_index": null,
+              "hp": -1,
+              "max_hp": -1,
+              "deployment_tick_candidate": 161,
+              "play_sequence_candidate": 0,
+              "deck_index_candidate": 5,
+              "target_position_candidate": {
+                "x": 6500,
+                "y": 9500
+              },
+              "source_position_fields": {
+                "x": 9000,
+                "y": 29000
+              }
+            },
+            {
+              "address": "0x6f367c5540",
+              "entity_id": 5000000,
+              "name": "KingTower",
+              "side": 0,
+              "x": 9000,
+              "y": 3000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1875d5d0",
+              "entity_id": 5000001,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 3500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1852e070",
+              "entity_id": 5000002,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 14500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f367c50f0",
+              "entity_id": 5000003,
+              "name": "KingTower",
+              "side": 1,
+              "x": 9000,
+              "y": 29000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1853b530",
+              "entity_id": 5000004,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 3500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f18447ca0",
+              "entity_id": 5000005,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 14500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            }
+          ]
+        },
+        {
+          "tick": 194,
+          "bodies": [
+            {
+              "address": "0x6f367c5540",
+              "entity_id": 5000000,
+              "name": "KingTower",
+              "side": 0,
+              "x": 9000,
+              "y": 3000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1875d5d0",
+              "entity_id": 5000001,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 3500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1852e070",
+              "entity_id": 5000002,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 14500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f367c50f0",
+              "entity_id": 5000003,
+              "name": "KingTower",
+              "side": 1,
+              "x": 9000,
+              "y": 29000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1853b530",
+              "entity_id": 5000004,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 3500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f18447ca0",
+              "entity_id": 5000005,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 14500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            }
+          ]
+        }
+      ],
+      "legacy": {
+        "hit": false,
+        "level11_damage": 0
+      },
+      "rectangle": {
+        "hit": false,
+        "level11_damage": 0
+      },
+      "current": {
+        "hit": false,
+        "level11_damage": 0
+      }
+    },
+    {
+      "source": "tmp/fireball_boundary_camp_20261028/confirmed_run/frames.jsonl",
+      "first_frame": 494,
+      "last_frame": 517,
+      "after_frame": 518,
+      "world": [
+        "0x6f18679010",
+        [
+          [
+            5000000,
+            "0x6f36886950",
+            "KingTower",
+            0
+          ],
+          [
+            5000003,
+            "0x6f366ffc30",
+            "KingTower",
+            1
+          ]
+        ]
+      ],
+      "preimpact_frame": 516,
+      "projectile": {
+        "address": "0x6f18650ae0",
+        "entity_id": 4000030,
+        "name": "FireballSpell",
+        "side": 1,
+        "x": 12494,
+        "y": 9530,
+        "card_id": 28000000,
+        "level_index": null,
+        "hp": -1,
+        "max_hp": -1,
+        "deployment_tick_candidate": 533,
+        "play_sequence_candidate": 5,
+        "deck_index_candidate": 5,
+        "target_position_candidate": {
+          "x": 12500,
+          "y": 9500
+        },
+        "source_position_fields": {
+          "x": 9000,
+          "y": 29000
+        }
+      },
+      "aim": {
+        "x": 12500,
+        "y": 9500
+      },
+      "origin": {
+        "x": 9000,
+        "y": 29000
+      },
+      "flight_points": [
+        [
+          535,
+          9211,
+          27820
+        ],
+        [
+          538,
+          9529,
+          26050
+        ],
+        [
+          540,
+          9741,
+          24870
+        ],
+        [
+          541,
+          9847,
+          24280
+        ],
+        [
+          544,
+          10164,
+          22510
+        ],
+        [
+          546,
+          10376,
+          21330
+        ],
+        [
+          547,
+          10482,
+          20740
+        ],
+        [
+          550,
+          10800,
+          18970
+        ],
+        [
+          553,
+          11118,
+          17200
+        ],
+        [
+          556,
+          11435,
+          15430
+        ],
+        [
+          557,
+          11541,
+          14840
+        ],
+        [
+          558,
+          11647,
+          14250
+        ],
+        [
+          561,
+          11965,
+          12480
+        ],
+        [
+          564,
+          12283,
+          10710
+        ],
+        [
+          566,
+          12494,
+          9530
+        ]
+      ],
+      "ray_residual_mt": 0.8580825907126169,
+      "remaining_mt": 1229.3042747830987,
+      "interval_ticks": [
+        564,
+        567
+      ],
+      "flight_timing": {
+        "accepted": true,
+        "birth_tick_candidate": 533,
+        "phase_error_ticks": [
+          -0.03162559192353598,
+          -0.002139338636895083
+        ],
+        "engine_resolution_tick": 566,
+        "engine_in_observed_impact_window": true,
+        "native_impact_window": [
+          564,
+          567
+        ]
+      },
+      "target_before": {
+        "address": "0x6f186bf640",
+        "entity_id": 5000002,
+        "name": "PrincessTower",
+        "side": 0,
+        "x": 14500,
+        "y": 6500,
+        "card_id": -1,
+        "level_index": 8,
+        "hp": 2534,
+        "max_hp": 2534,
+        "deployment_tick_candidate": -1,
+        "play_sequence_candidate": -1,
+        "deck_index_candidate": -1
+      },
+      "target_after": {
+        "address": "0x6f186bf640",
+        "entity_id": 5000002,
+        "name": "PrincessTower",
+        "side": 0,
+        "x": 14500,
+        "y": 6500,
+        "card_id": -1,
+        "level_index": 8,
+        "hp": 2414,
+        "max_hp": 2534,
+        "deployment_tick_candidate": -1,
+        "play_sequence_candidate": -1,
+        "deck_index_candidate": -1
+      },
+      "offset": [
+        2000,
+        3000
+      ],
+      "observed_hp_drop": 120,
+      "observed_hit": true,
+      "threats": [],
+      "accepted": true,
+      "interval_context": [
+        {
+          "tick": 564,
+          "bodies": [
+            {
+              "address": "0x6f18650ae0",
+              "entity_id": 4000030,
+              "name": "FireballSpell",
+              "side": 1,
+              "x": 12283,
+              "y": 10710,
+              "card_id": 28000000,
+              "level_index": null,
+              "hp": -1,
+              "max_hp": -1,
+              "deployment_tick_candidate": 533,
+              "play_sequence_candidate": 5,
+              "deck_index_candidate": 5,
+              "target_position_candidate": {
+                "x": 12500,
+                "y": 9500
+              },
+              "source_position_fields": {
+                "x": 9000,
+                "y": 29000
+              }
+            },
+            {
+              "address": "0x6f1856f110",
+              "entity_id": 4000033,
+              "name": "TowerPrincessProjectile",
+              "side": 1,
+              "x": 3354,
+              "y": 25239,
+              "card_id": -1,
+              "level_index": null,
+              "hp": -1,
+              "max_hp": -1,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f36886950",
+              "entity_id": 5000000,
+              "name": "KingTower",
+              "side": 0,
+              "x": 9000,
+              "y": 3000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f184d0a90",
+              "entity_id": 5000001,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 3500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1958,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f186bf640",
+              "entity_id": 5000002,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 14500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f366ffc30",
+              "entity_id": 5000003,
+              "name": "KingTower",
+              "side": 1,
+              "x": 9000,
+              "y": 29000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f18753f80",
+              "entity_id": 5000004,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 3500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2418,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f186b5900",
+              "entity_id": 5000005,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 14500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1742,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1873e4a0",
+              "entity_id": 5000012,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 4051,
+              "y": 21305,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f18586310",
+              "entity_id": 5000013,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3101,
+              "y": 21109,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f186e3d00",
+              "entity_id": 5000014,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3170,
+              "y": 20014,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f18721620",
+              "entity_id": 5000015,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 2519,
+              "y": 23812,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f185be8f0",
+              "entity_id": 5000016,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3018,
+              "y": 22191,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f184c1a10",
+              "entity_id": 5000019,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3151,
+              "y": 23203,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f18780c60",
+              "entity_id": 5000023,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 4394,
+              "y": 23746,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f1873cb30",
+              "entity_id": 5000024,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3983,
+              "y": 22390,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f186ae7b0",
+              "entity_id": 5000025,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 4119,
+              "y": 20309,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f18525a50",
+              "entity_id": 5000027,
+              "name": "BabyDragon",
+              "side": 0,
+              "x": 3301,
+              "y": 20552,
+              "card_id": 26000015,
+              "level_index": 6,
+              "hp": 792,
+              "max_hp": 792,
+              "deployment_tick_candidate": 461,
+              "play_sequence_candidate": 3,
+              "deck_index_candidate": 5
+            }
+          ]
+        },
+        {
+          "tick": 566,
+          "bodies": [
+            {
+              "address": "0x6f18650ae0",
+              "entity_id": 4000030,
+              "name": "FireballSpell",
+              "side": 1,
+              "x": 12494,
+              "y": 9530,
+              "card_id": 28000000,
+              "level_index": null,
+              "hp": -1,
+              "max_hp": -1,
+              "deployment_tick_candidate": 533,
+              "play_sequence_candidate": 5,
+              "deck_index_candidate": 5,
+              "target_position_candidate": {
+                "x": 12500,
+                "y": 9500
+              },
+              "source_position_fields": {
+                "x": 9000,
+                "y": 29000
+              }
+            },
+            {
+              "address": "0x6f1856f110",
+              "entity_id": 4000033,
+              "name": "TowerPrincessProjectile",
+              "side": 1,
+              "x": 2617,
+              "y": 24295,
+              "card_id": -1,
+              "level_index": null,
+              "hp": -1,
+              "max_hp": -1,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f36886950",
+              "entity_id": 5000000,
+              "name": "KingTower",
+              "side": 0,
+              "x": 9000,
+              "y": 3000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f184d0a90",
+              "entity_id": 5000001,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 3500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1958,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f186bf640",
+              "entity_id": 5000002,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 14500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2534,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f366ffc30",
+              "entity_id": 5000003,
+              "name": "KingTower",
+              "side": 1,
+              "x": 9000,
+              "y": 29000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f18753f80",
+              "entity_id": 5000004,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 3500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2418,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f186b5900",
+              "entity_id": 5000005,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 14500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1742,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1873e4a0",
+              "entity_id": 5000012,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 4045,
+              "y": 21487,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f18586310",
+              "entity_id": 5000013,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3101,
+              "y": 21279,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f186e3d00",
+              "entity_id": 5000014,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3174,
+              "y": 20190,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f18721620",
+              "entity_id": 5000015,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 2338,
+              "y": 23980,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f185be8f0",
+              "entity_id": 5000016,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3026,
+              "y": 22362,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f184c1a10",
+              "entity_id": 5000019,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3012,
+              "y": 23415,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f18780c60",
+              "entity_id": 5000023,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 4394,
+              "y": 23746,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f1873cb30",
+              "entity_id": 5000024,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3985,
+              "y": 22573,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f186ae7b0",
+              "entity_id": 5000025,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 4128,
+              "y": 20493,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f18525a50",
+              "entity_id": 5000027,
+              "name": "BabyDragon",
+              "side": 0,
+              "x": 3301,
+              "y": 20552,
+              "card_id": 26000015,
+              "level_index": 6,
+              "hp": 792,
+              "max_hp": 792,
+              "deployment_tick_candidate": 461,
+              "play_sequence_candidate": 3,
+              "deck_index_candidate": 5
+            }
+          ]
+        },
+        {
+          "tick": 567,
+          "bodies": [
+            {
+              "address": "0x6f36886950",
+              "entity_id": 5000000,
+              "name": "KingTower",
+              "side": 0,
+              "x": 9000,
+              "y": 3000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f184d0a90",
+              "entity_id": 5000001,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 3500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1958,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f186bf640",
+              "entity_id": 5000002,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 14500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2414,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f366ffc30",
+              "entity_id": 5000003,
+              "name": "KingTower",
+              "side": 1,
+              "x": 9000,
+              "y": 29000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f18753f80",
+              "entity_id": 5000004,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 3500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2418,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f186b5900",
+              "entity_id": 5000005,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 14500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1742,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f1873e4a0",
+              "entity_id": 5000012,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 4042,
+              "y": 21579,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f18586310",
+              "entity_id": 5000013,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3096,
+              "y": 21364,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f186e3d00",
+              "entity_id": 5000014,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3180,
+              "y": 20279,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f185be8f0",
+              "entity_id": 5000016,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3021,
+              "y": 22446,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f184c1a10",
+              "entity_id": 5000019,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 2947,
+              "y": 23509,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f18780c60",
+              "entity_id": 5000023,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 4394,
+              "y": 23746,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f1873cb30",
+              "entity_id": 5000024,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 3982,
+              "y": 22665,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f186ae7b0",
+              "entity_id": 5000025,
+              "name": "Skeleton",
+              "side": 0,
+              "x": 4132,
+              "y": 20585,
+              "card_id": 26000012,
+              "level_index": 6,
+              "hp": 56,
+              "max_hp": 56,
+              "deployment_tick_candidate": 382,
+              "play_sequence_candidate": 2,
+              "deck_index_candidate": 6
+            },
+            {
+              "address": "0x6f18525a50",
+              "entity_id": 5000027,
+              "name": "BabyDragon",
+              "side": 0,
+              "x": 3301,
+              "y": 20552,
+              "card_id": 26000015,
+              "level_index": 6,
+              "hp": 792,
+              "max_hp": 792,
+              "deployment_tick_candidate": 461,
+              "play_sequence_candidate": 3,
+              "deck_index_candidate": 5
+            }
+          ]
+        }
+      ],
+      "legacy": {
+        "hit": false,
+        "level11_damage": 0
+      },
+      "rectangle": {
+        "hit": true,
+        "level11_damage": 206
+      },
+      "current": {
+        "hit": true,
+        "level11_damage": 206
+      }
+    },
+    {
+      "source": "tmp/fireball_boundary_camp_20261028/confirmed_run/frames.jsonl",
+      "first_frame": 937,
+      "last_frame": 958,
+      "after_frame": 959,
+      "world": [
+        "0x6f18679010",
+        [
+          [
+            5000000,
+            "0x6f36886950",
+            "KingTower",
+            0
+          ],
+          [
+            5000003,
+            "0x6f366ffc30",
+            "KingTower",
+            1
+          ]
+        ]
+      ],
+      "preimpact_frame": 958,
+      "projectile": {
+        "address": "0x6f185790a0",
+        "entity_id": 4000064,
+        "name": "FireballSpell",
+        "side": 1,
+        "x": 3956,
+        "y": 11113,
+        "card_id": 28000000,
+        "level_index": null,
+        "hp": -1,
+        "max_hp": -1,
+        "deployment_tick_candidate": 1152,
+        "play_sequence_candidate": 10,
+        "deck_index_candidate": 5,
+        "target_position_candidate": {
+          "x": 3500,
+          "y": 9500
+        },
+        "source_position_fields": {
+          "x": 9000,
+          "y": 29000
+        }
+      },
+      "aim": {
+        "x": 3500,
+        "y": 9500
+      },
+      "origin": {
+        "x": 9000,
+        "y": 29000
+      },
+      "flight_points": [
+        [
+          1155,
+          8514,
+          27269
+        ],
+        [
+          1156,
+          8352,
+          26692
+        ],
+        [
+          1157,
+          8190,
+          26115
+        ],
+        [
+          1160,
+          7702,
+          24384
+        ],
+        [
+          1162,
+          7376,
+          23230
+        ],
+        [
+          1163,
+          7213,
+          22653
+        ],
+        [
+          1166,
+          6724,
+          20922
+        ],
+        [
+          1169,
+          6236,
+          19191
+        ],
+        [
+          1172,
+          5747,
+          17460
+        ],
+        [
+          1175,
+          5258,
+          15729
+        ],
+        [
+          1176,
+          5096,
+          15152
+        ],
+        [
+          1179,
+          4607,
+          13421
+        ],
+        [
+          1180,
+          4444,
+          12844
+        ],
+        [
+          1182,
+          4119,
+          11690
+        ],
+        [
+          1183,
+          3956,
+          11113
+        ]
+      ],
+      "ray_residual_mt": 3.8004423103052867,
+      "remaining_mt": 1676.217467991549,
+      "interval_ticks": [
+        1183,
+        1186
+      ],
+      "flight_timing": {
+        "accepted": true,
+        "birth_tick_candidate": 1152,
+        "phase_error_ticks": [
+          -0.025695909530284666,
+          -0.003447814570885832
+        ],
+        "engine_resolution_tick": 1186,
+        "engine_in_observed_impact_window": true,
+        "native_impact_window": [
+          1183,
+          1186
+        ]
+      },
+      "target_before": {
+        "address": "0x6f184d0a90",
+        "entity_id": 5000001,
+        "name": "PrincessTower",
+        "side": 0,
+        "x": 3500,
+        "y": 6500,
+        "card_id": -1,
+        "level_index": 8,
+        "hp": 1958,
+        "max_hp": 2534,
+        "deployment_tick_candidate": -1,
+        "play_sequence_candidate": -1,
+        "deck_index_candidate": -1
+      },
+      "target_after": {
+        "address": "0x6f184d0a90",
+        "entity_id": 5000001,
+        "name": "PrincessTower",
+        "side": 0,
+        "x": 3500,
+        "y": 6500,
+        "card_id": -1,
+        "level_index": 8,
+        "hp": 1838,
+        "max_hp": 2534,
+        "deployment_tick_candidate": -1,
+        "play_sequence_candidate": -1,
+        "deck_index_candidate": -1
+      },
+      "offset": [
+        0,
+        3000
+      ],
+      "observed_hp_drop": 120,
+      "observed_hit": true,
+      "threats": [],
+      "accepted": true,
+      "interval_context": [
+        {
+          "tick": 1183,
+          "bodies": [
+            {
+              "address": "0x6f185790a0",
+              "entity_id": 4000064,
+              "name": "FireballSpell",
+              "side": 1,
+              "x": 3956,
+              "y": 11113,
+              "card_id": 28000000,
+              "level_index": null,
+              "hp": -1,
+              "max_hp": -1,
+              "deployment_tick_candidate": 1152,
+              "play_sequence_candidate": 10,
+              "deck_index_candidate": 5,
+              "target_position_candidate": {
+                "x": 3500,
+                "y": 9500
+              },
+              "source_position_fields": {
+                "x": 9000,
+                "y": 29000
+              }
+            },
+            {
+              "address": "0x6f36886950",
+              "entity_id": 5000000,
+              "name": "KingTower",
+              "side": 0,
+              "x": 9000,
+              "y": 3000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f184d0a90",
+              "entity_id": 5000001,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 3500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1958,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f186bf640",
+              "entity_id": 5000002,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 14500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2414,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f366ffc30",
+              "entity_id": 5000003,
+              "name": "KingTower",
+              "side": 1,
+              "x": 9000,
+              "y": 29000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f18753f80",
+              "entity_id": 5000004,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 3500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1274,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f186b5900",
+              "entity_id": 5000005,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 14500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1742,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            }
+          ]
+        },
+        {
+          "tick": 1186,
+          "bodies": [
+            {
+              "address": "0x6f36886950",
+              "entity_id": 5000000,
+              "name": "KingTower",
+              "side": 0,
+              "x": 9000,
+              "y": 3000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f184d0a90",
+              "entity_id": 5000001,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 3500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1838,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f186bf640",
+              "entity_id": 5000002,
+              "name": "PrincessTower",
+              "side": 0,
+              "x": 14500,
+              "y": 6500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 2414,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f366ffc30",
+              "entity_id": 5000003,
+              "name": "KingTower",
+              "side": 1,
+              "x": 9000,
+              "y": 29000,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 4008,
+              "max_hp": 4008,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f18753f80",
+              "entity_id": 5000004,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 3500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1274,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            },
+            {
+              "address": "0x6f186b5900",
+              "entity_id": 5000005,
+              "name": "PrincessTower",
+              "side": 1,
+              "x": 14500,
+              "y": 25500,
+              "card_id": -1,
+              "level_index": 8,
+              "hp": 1742,
+              "max_hp": 2534,
+              "deployment_tick_candidate": -1,
+              "play_sequence_candidate": -1,
+              "deck_index_candidate": -1
+            }
+          ]
+        }
+      ],
+      "legacy": {
+        "hit": true,
+        "level11_damage": 206
+      },
+      "rectangle": {
+        "hit": true,
+        "level11_damage": 206
+      },
+      "current": {
+        "hit": true,
+        "level11_damage": 206
+      }
+    }
+  ],
+  "limitations": [
+    "No damage-source pointer: isolated means no other observed hostile within ten tiles.",
+    "Unobserved instantaneous spells and non-atomic reads cannot be categorically excluded.",
+    "Stable aim fields, ray and disappearance constrain the endpoint; these are not screen clicks.",
+    "Level11 simulated damage is reported only to exercise the engine; native level scaling is unvalidated.",
+    "Agreement on these coordinates does not uniquely identify the full hitbox; intermediate circle radii can also fit.",
+    "Same-match repeated shots are correlated; troop, King and other-spell geometry are not recalibrated."
+  ]
+}

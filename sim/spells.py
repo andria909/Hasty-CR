@@ -134,6 +134,12 @@ class SpellSpec:
     # Timing and placement semantics used when a card is cast from Match.
     projectile_speed_mt_per_sec: int = 0
     travels_from_king: bool = False
+    # CollisionRadius remains the movement/ordinary-attack radius. Recorded
+    # Fireballs at Princess offsets (2000,3000) hit, while (0,4000) misses.
+    # Use a radius-halfwidth rectangular Princess footprint for this calibrated
+    # spell only. This is an empirical overlap model, not a validated universal
+    # building shape. Old serialized specs retain the circle default.
+    princess_hitbox_mode: str = 'collision_circle_v1'
     impact_delay_ms: int = 0
     spawn_deploy_time_ms: int = 0
     deploy_own_side_only: bool = False
@@ -642,6 +648,8 @@ def load_spells(level: int = 11, root: Path | None = None,
             radius_y_mt=radius_y,
             crown_tower_percent=max(0, crown_pct),
             pushback_mt=num("Pushback"),
+            princess_hitbox_mode=('rectangle_v1' if card == 'fireball'
+                                  else 'collision_circle_v1'),
             target_buff=target_buff,
             buff_time_ms=int(rule.get("buff_time_ms", num("BuffTime")) or 0),
             spawn_character=str(best.get("SpawnCharacter", "") or ""),
@@ -759,6 +767,26 @@ def load_spells(level: int = 11, root: Path | None = None,
         _REPORTED_MISSING = True
         print("spells not loaded: " + "; ".join(missing))
     return out
+
+
+def spell_overlaps(spec: SpellSpec, at: Point, entity) -> bool:
+    """Geometry shared by actual spell hits and pending-lethal prediction.
+
+    Eligibility (side, alive, air/ground and damage flags) stays with callers.
+    Fireball/Princess: native_fireball_crown_overlap_verified_20261028.json.
+    King, troops, deployable buildings and uncalibrated spells retain circles.
+    """
+    dx, dy = abs(entity.pos.x-at.x), abs(entity.pos.y-at.y)
+    radius = entity.collision_radius_mt
+    mode = getattr(spec, 'princess_hitbox_mode', 'collision_circle_v1')
+    if mode not in ('collision_circle_v1', 'rectangle_v1'):
+        raise ValueError(f'Unknown Princess spell hitbox mode: {mode}')
+    if mode == 'rectangle_v1' and entity.is_tower and entity.name == 'princess_tower':
+        dx, dy = max(0, dx-radius), max(0, dy-radius)
+        rx, ry = spec.radius_mt, spec.radius_y_mt
+    else:
+        rx, ry = spec.radius_mt+radius, spec.radius_y_mt+radius
+    return rx > 0 and ry > 0 and dx*dx*ry*ry+dy*dy*rx*rx <= rx*rx*ry*ry
 
 
 def apply_spell(battle, spec: SpellSpec, at: Point, side: int) -> int:
@@ -898,14 +926,7 @@ def apply_spell(battle, spec: SpellSpec, at: Point, side: int) -> int:
             continue
         if entity.is_building and spec.ignore_buildings:
             continue
-        dx = abs(entity.pos.x - at.x)
-        dy = abs(entity.pos.y - at.y)
-        rx = spec.radius_mt + entity.collision_radius_mt
-        ry = spec.radius_y_mt + entity.collision_radius_mt
-        if rx <= 0 or ry <= 0:
-            continue
-        # Ellipse test, so the Log's wide shallow band is not treated as a disc.
-        if (dx * dx) * (ry * ry) + (dy * dy) * (rx * rx) > (rx * rx) * (ry * ry):
+        if not spell_overlaps(spec, at, entity):
             continue
         candidates.append(entity)
 
