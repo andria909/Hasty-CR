@@ -93,3 +93,15 @@ def test_uncertainty_uses_seed_blocks_not_duplicate_games():
     assert single['interval95'] == repeated['interval95']
     assert repeated['independent_seed_blocks'] == 30
     assert repeated['games'] == 360
+
+
+def test_in_memory_duel_integer_side_counters_match_json(tmp_path):
+    protocol,blueprint,jobs=setup(tmp_path);job=next(j for j in jobs if j['kind']=='duel')
+    report=part(job,protocol,blueprint)
+    for row in report['rows']:row['rejected_commands']={1:0,-1:2}
+    assert module.validate_part(report,job,protocol,blueprint)==report['rows']
+    restored=json.loads(json.dumps(report))
+    assert module.validate_part(restored,job,protocol,blueprint)==restored['rows']
+    for invalid in ({True:0},{0:0},{1:0,'1':1},{1:-1},{1:True}):
+        report['rows'][0]['rejected_commands']=invalid
+        with pytest.raises(ValueError,match='rejected commands'):module.validate_part(report,job,protocol,blueprint)

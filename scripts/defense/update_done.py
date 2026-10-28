@@ -151,7 +151,7 @@ def render_global_full_training(reports):
     evaluation_note='После проверки весов очередь запускает независимые замеры: 6300 игр четырёх новых моделей, balanced, strong и v25.'
     launch_path=reports/'full_candidate_eval_launch_20261027.json'
     if launch_path.exists():
-        evaluation_note='**Тесты и турнир на 6300 игр отправлены на Kaggle.** Результаты ещё проверяются; нового победителя пока нет. [Запуск](reports/defense_plan/full_candidate_eval_launch_20261027.json).'
+        evaluation_note='**Тесты и турнир на 6300 игр отправлены на Kaggle.** Тестовые части проверены; турнир требует восстановления после ошибки проверяющего кода. Нового победителя пока нет. [Запуск](reports/defense_plan/full_candidate_eval_launch_20261027.json).'
         proof=reports/'full_candidate_eval_verified_20261027.json'
         if proof.exists():
             evaluation_note='**Результаты независимых тестов и турнира собраны.** [Проверенный отчёт](reports/defense_plan/full_candidate_eval_verified_20261027.json).'
@@ -262,6 +262,8 @@ def render_live_feedback_studies(reports):
         lines += ['**Следующий опыт:** повторение последовательностей защиты с входом24/313 подключено к PPO. Восстановление16→32 шага точно совпало с непрерывным запуском,16 тестов прошли. Четыре профиля прошли48 технических игр; отправка и прогресс указаны ниже.', '']
     elif (reports/'pending_sequence_warmstart_smoke_20261028.json').exists():
         lines += ['**Следующий опыт:** предварительное обучение последовательной защите с входом24/313 работает;5 CPU-обновлений и12 тестов пройдены. Удержание этого навыка в PPO ещё не подключено. Это техническая проверка, не новый винрейт.', '']
+    if (reports/'full_candidate_partial_verified_20261028.json').exists():
+        lines += ['**Большой тест:** проверены5040/6300 матчей. Сценарные пуши: пушка+спеллы/повторение1 —322/360, BC800 —314/360. Турнир остановила ошибка проверки типов ключей;1260 матчей ещё нужно восстановить. [Таблица всех7 моделей](reports/full_candidate_partial_tests_20261028.md). Это старая физика, не live.', '']
     motionfix_path=reports/'motionfix_pilot_submission_20261028.json'
     if motionfix_path.exists():
         launch=json.loads(motionfix_path.read_text())

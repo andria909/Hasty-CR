@@ -74,7 +74,11 @@ def validate_part(report, job, protocol, blueprint):
                 check_cards(row['public_metrics'][side])
                 require(row['accepted_cards'][side] == row['public_metrics'][side]['accepted_card_counts'], 'Duel card totals differ')
                 require(nonnegative(row['elixir_overflow'][side]), 'Invalid overflow')
-            require(set(row['rejected_commands']) <= {'1', '-1'} and all(nonnegative(v, True) for v in row['rejected_commands'].values()), 'Invalid rejected commands')
+            # In-memory duel counters use integer sides; JSON encodes the same keys as strings.
+            rejected=row['rejected_commands']
+            require(all((type(k)is int and k in (1,-1)) or (type(k)is str and k in ('1','-1')) for k in rejected)
+                    and len({str(k)for k in rejected})==len(rejected)
+                    and all(nonnegative(v,True)for v in rejected.values()), 'Invalid rejected commands')
     return rows
 
 
