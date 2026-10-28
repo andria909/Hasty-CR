@@ -1,16 +1,74 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "andreiperelaiko/hastycr-tower-spell-combined-1028",
-  "status": "submitted_pending_cuda_proof",
+  "status": "training_steps_observed",
   "progress_snapshot": {
     "kernel": "andreiperelaiko/hastycr-tower-spell-combined-1028",
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
-    "reconnect_attempt": 1,
-    "checked_host_ns": 1793202264326978000,
-    "error_type": "HTTPError",
-    "http_status": 404
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793204851733488000,
+    "trials": {
+      "pilot_control_s282": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1248.447346925
+      },
+      "pilot_tower_s282": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1246.147782309
+      },
+      "pilot_tower_s283": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2231.758753802
+      },
+      "pilot_control_s283": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2242.84192
+      },
+      "pilot_combined_s282": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3231.472388923
+      },
+      "pilot_spell_s282": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3205.694972804
+      },
+      "pilot_spell_s283": {
+        "update": 74,
+        "steps": 75776,
+        "target_steps": 102400,
+        "percent": 74.0,
+        "remote_log_seconds": 3803.224860931
+      },
+      "pilot_combined_s283": {
+        "update": 67,
+        "steps": 68608,
+        "target_steps": 102400,
+        "percent": 67.0,
+        "remote_log_seconds": 3800.395777681
+      }
+    },
+    "error_type": "SSLError",
+    "http_status": null
   },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
@@ -25,5 +83,6 @@
     "kernelId": 141361096
   },
   "frozen_bootstrap_sha256": "f258fe979ad05bad230bd8144a13a0861bed46d47bea1e35b8fbd543a05b861e",
-  "last_local_sync_ns": 1793203463607893000
+  "last_local_sync_ns": 1793204664671427000,
+  "actual_training_steps_confirmed": true
 }

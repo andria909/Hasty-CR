@@ -14,6 +14,7 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
     while time.monotonic()<deadline:
         if time.monotonic()>=next_sync:
             state=json.loads(status_report.read_text())
+            state['root']=str(root)
             source=root/'live_stream/progress.json'
             if source.exists():
                 try:r=json.loads(source.read_text())
@@ -61,7 +62,8 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
                 summary=summarize(root,verified=report)
                 if summary_report:Path(summary_report).write_text(json.dumps(summary,indent=2)+'\n')
                 if markdown_report:Path(markdown_report).write_text(render(summary))
-            state=json.loads(status_report.read_text());state.update(status='pilot_complete_budgets_verified',verified_report=str(verified_report))
+            state=json.loads(status_report.read_text())
+            state['root']=str(root);state.update(status='pilot_complete_budgets_verified',verified_report=str(verified_report))
             status_report.write_text(json.dumps(state,indent=2)+'\n')
             subprocess.run([sys.executable,'-m','scripts.defense.update_done'],check=True)
             print('PILOT_BUDGETS_VERIFIED',flush=True);return
