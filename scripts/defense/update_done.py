@@ -209,6 +209,8 @@ def render_live_feedback_studies(reports):
             lines += ['**Серия остановлена с ошибкой запуска следующего боя.** Завершённые матчи сохранены; продолжение ещё не запущено.','']
     if (reports/'tower_support_diagnostic_20261028.json').exists():
         lines += ['**Помощь башен:** бонус подключён к PPO; короткое CPU-обучение и точное продолжение проверены, 19 тестов прошли. Четыре коэффициента прошли48 технических игр; опыт поставлен в очередь после проверки ожидающих карт. На GPU ещё не запущен. [Код](sim/continuous_tower_support.py), [диагностика48 эпизодов](reports/tower_support_diagnostic_20261028.md).','']
+    if (reports/'full_bc800_live_vs_validation_20261028.json').exists():
+        lines += ['**Проблема BC800, первые8 реальных игр:**97,7% выставлений слева (validation80,6%); мушкетёр0,63/матч (validation0,39). Перекос присутствует уже в симуляции. [Карты и задержки](reports/full_bc800_live_vs_validation_20261028.md).','']
     lines+=render_global_full_training(reports)
     studies=[('air_retention_pilot','Сохранение навыка',(142,143),
         [(f'replay{int(w*100):03d}',f'Повторение примеров: {w:g}')for w in(0.,.1,1.,5.)]),
