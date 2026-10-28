@@ -21,3 +21,21 @@ def test_no_teacher_actions_are_injected_for_wait_policy():
     assert all(d['action']==0 for d in row['decisions'])
     assert row['total_damage']>0 and not row['clear_without_damage']
     assert row['elapsed_ms']<=60000 and row['rejections']==0
+
+
+def test_empty_board_does_not_skip_inflight_enemy_fireball():
+    from sim.match import Match
+    cards,spells,*_=load_defense_assets();cards.update(resolve_deck(cards,list(DECK_26)))
+    match=Match(cards=cards,spells=spells,decks=(list(DECK_26),list(DECK_26)),seed=19,
+                geometry='native_anchors_candidate_v1')
+    player=match.players[-1];rest=[c for c in player.deck if c!='fireball']
+    player.hand=['fireball',*rest[:3]];player.queue=rest[3:];player.elixir=10000
+    hp={k:t.hitpoints for k,t in match.towers[1].items()}
+    assert match.play_card(-1,'fireball',match.towers[1]['king'].pos)
+    assert match.towers[1]['king'].hitpoints==hp['king']
+    class NoNewDecisions:
+        def __call__(self,*args):raise AssertionError('No new cards after the last enemy body')
+    row=episode(NoNewDecisions(),{},cards,spells,initial=(match,hp))
+    assert row['total_damage']>0 and row['damage']['king']>0
+    assert not row['clear_without_damage'] and row['remaining_enemies']==0
+    assert row['actions']==row['decisions']==[]

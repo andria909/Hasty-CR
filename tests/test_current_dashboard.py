@@ -28,3 +28,12 @@ def test_no_claim_of_verified_completion_from_progress_alone(tmp_path,monkeypatc
     content=render(tmp_path)
     assert '≥100.0%' in content and 'шаги видны в логах' in content
     assert 'порог продолжения пройден' not in content
+
+
+def test_remote_complete_does_not_invent_missing_training_steps(tmp_path):
+    (tmp_path/'collected.status.json').write_text(json.dumps(dict(kernel='owner/job',remote_status='COMPLETE')))
+    state=dict(root=str(tmp_path),kernel='owner/job',pilot_target_steps=819200,
+               progress_snapshot=dict(trials={'one':dict(steps=102400)}))
+    assert progress(state)==('≥12.5%','Kaggle завершён; проверяем файлы')
+    state['progress_snapshot']={}
+    assert progress(state)==('—','Kaggle завершён; проверяем файлы')

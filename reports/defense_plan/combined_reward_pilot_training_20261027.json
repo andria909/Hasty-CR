@@ -1,14 +1,14 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "andreiperelaiko/hastycr-tower-spell-combined-1028",
-  "status": "training_steps_observed",
+  "status": "pilot_complete_budgets_verified",
   "progress_snapshot": {
     "kernel": "andreiperelaiko/hastycr-tower-spell-combined-1028",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
+    "stream_state": "ended",
     "reconnect_attempt": 3,
-    "checked_host_ns": 1793204851733488000,
+    "checked_host_ns": 1793205865606605000,
     "trials": {
       "pilot_control_s282": {
         "update": 100,
@@ -53,22 +53,20 @@
         "remote_log_seconds": 3205.694972804
       },
       "pilot_spell_s283": {
-        "update": 74,
-        "steps": 75776,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 74.0,
-        "remote_log_seconds": 3803.224860931
+        "percent": 100.0,
+        "remote_log_seconds": 4177.816653567
       },
       "pilot_combined_s283": {
-        "update": 67,
-        "steps": 68608,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 67.0,
-        "remote_log_seconds": 3800.395777681
+        "percent": 100.0,
+        "remote_log_seconds": 4237.03271573
       }
-    },
-    "error_type": "SSLError",
-    "http_status": null
+    }
   },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
@@ -83,6 +81,7 @@
     "kernelId": 141361096
   },
   "frozen_bootstrap_sha256": "f258fe979ad05bad230bd8144a13a0861bed46d47bea1e35b8fbd543a05b861e",
-  "last_local_sync_ns": 1793204664671427000,
-  "actual_training_steps_confirmed": true
+  "last_local_sync_ns": 1793205865684742000,
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/combined_reward_pilot_verified_20261027.json"
 }

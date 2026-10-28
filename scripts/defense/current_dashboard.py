@@ -29,10 +29,12 @@ def progress(state):
         live=read(Path(state['root'])/'live_stream/progress.json')
         if live and live.get('kernel')==state.get('kernel') and live.get('checked_host_ns',0)>snapshot.get('checked_host_ns',0):
             snapshot=live
+    remote=read(Path(state['root'])/'collected.status.json')if state.get('root')else None
+    collecting=bool(remote and remote.get('kernel')==state.get('kernel')and remote.get('remote_status')=='COMPLETE')
     steps=sum(row.get('steps',0)for row in snapshot.get('trials',{}).values())
     target=state.get('pilot_target_steps',819200)
-    if steps and 0<steps<=target:return f'≥{100*steps/target:.1f}%', 'шаги видны в логах'
-    return '—', 'отправлено; шаги ещё не подтверждены'
+    if steps and 0<steps<=target:return f'≥{100*steps/target:.1f}%', 'Kaggle завершён; проверяем файлы'if collecting else 'шаги видны в логах'
+    return '—', 'Kaggle завершён; проверяем файлы'if collecting else 'отправлено; шаги ещё не подтверждены'
 
 
 def render(reports):
@@ -62,7 +64,9 @@ def render(reports):
         lines.append(f'| [{label}](reports/{stem}_results_20261027.md) | {score(control)if control else "—"} | {values} |')
     lines+=['','В каждой строке72 одинаковых контекста на двух seed: это не144 независимых ситуации. Между опытами seed различаются; сравниваем прежде всего с их собственным контролем.','']
     ablation=read(reports/'fireball_reward_ablation_summary_20261027.json')
-    if ablation:
+    if read(reports/'combined_reward_pilot_summary_20261027.json'):
+        lines+=['**Сочетание наград проверено:** control72/144, tower63/144, spell72/144, combined64/144. Ни один профиль не прошёл порог по слабым группам; большое продолжение не запущено. Сейчас проверяется отдельное обучение с центральной пушкой и исправленным слотом. [Результаты](reports/combined_reward_pilot_results_20261027.md).','']
+    elif ablation:
         lines+=['**Последние опыты завершены:** отключение вспомогательной награды Fireball не улучшило результат; расширенные примеры защиты тоже не прошли отбор. Большое продолжение этих вариантов не запущено. Следующий опыт сочетает помощь башен и штраф пустых спеллов; состояние запуска — в таблице выше. [Дизайн](reports/combined_reward_pilot_design_20261028.md), [Fireball](reports/fireball_reward_ablation_results_20261027.md), [защита](reports/pending_diversity_pilot_results_20261027.md).','']
     else:
         lines+=['**Следующая гипотеза:** отделяем пользу примеров Fireball от влияния награды за размен. [Дизайн и измерения](reports/fireball_reward_ablation_design_20261028.md).','']
@@ -120,6 +124,6 @@ def render(reports):
         else:
             lines+=['',f"**Новая серия strong:** {strong['status']}, лимит5; решения записываются. Старые серии не возобновлены."]
     lines+=['','Старая серия прервалась из-за связи и отказа входа. У второй старой серии исход6-го неизвестен, ещё4 игры не начаты.','',
-        '**Три приоритета:** лишняя блокировка слота убрана; пушка ограничена центром; бонус за урон своих башен добавлен. Новые веса ещё проверяются. [Перебор8288 сцен](reports/central_cannon_coverage_20261028.md): центральных клеток хватает для раннего хога, позднюю реакцию они не исправляют. [Протокол оценки](reports/central_evaluation_execution_20261028.md) обновлён. Найдены [планы защиты от шара](reports/central_cannon_air_combinations_20261028.md) пушкой с духом и Zap; модель этому ещё не обучена. Соответствие всей симуляции игре пока не доказано.','',
+        '**Три приоритета:** лишняя блокировка слота убрана; пушка ограничена центром; бонус за урон своих башен добавлен. Новые веса ещё проверяются. [Перебор8288 сцен](reports/central_cannon_coverage_20261028.md): центральных клеток хватает для раннего хога, позднюю реакцию они не исправляют. [Протокол оценки](reports/central_evaluation_execution_20261028.md) обновлён. [Проверка самостоятельной защиты](reports/central_defense_policy_probe_20261028.md): balanced26/64, strong27/64 без урона; это TRAIN-сцены, не винрейт. Соответствие всей симуляции игре пока не доказано.','',
         '[Все прежние таблицы train/val/test и этапы](reports/training_dashboard_history_20261028.md). Исторический снимок содержит прежние статусы; актуальные — выше.','']
     return '\n'.join(lines)

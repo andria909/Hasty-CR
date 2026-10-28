@@ -16,8 +16,8 @@ from sim.env import ClashEnv,DECK_26
 from sim.runner import resolve_deck
 
 
-def episode(net,record,cards,spells):
-    match,hp=opening(record,cards,spells)
+def episode(net,record,cards,spells,*,initial=None):
+    match,hp=opening(record,cards,spells) if initial is None else initial
     env=object.__new__(ContinuousPushEnv)
     env.match,env.cards,env.spells=match,cards,spells
     env.profile={'cannon_center_only':1}
@@ -26,8 +26,9 @@ def episode(net,record,cards,spells):
     while not match.finished and match.elapsed_ms<start+60000:
         now=match.elapsed_ms
         alive=sum(e.alive and e.side==-1 and not e.is_tower for e in match.battle.entities.values())
-        if alive==0:break
-        if (now-start)%250==0:
+        # No new commands after the final enemy body dies, but already fired
+        # spells/projectiles still resolve. Empty board is not zero incoming damage.
+        if alive>0 and (now-start)%250==0:
             mask=env._mask();obs=env._observe()
             with torch.inference_mode():
                 logits,_=net(torch.from_numpy(obs['planes'])[None],torch.from_numpy(obs['scalars'])[None])
