@@ -36,3 +36,13 @@ def test_optional_reward_preserves_observations_physics_and_resume():
 def test_invalid_weight_rejected(weight):
     with pytest.raises(ValueError):
         TowerSupportContinuousPushEnv(tower_support_weight=weight)
+
+
+def test_training_factory_and_incompatible_modes():
+    from sim.train_attack_ppo import make_training_env
+    env=make_training_env(curriculum='continuous_v1',tower_support_weight=0.)
+    assert isinstance(env,TowerSupportContinuousPushEnv)
+    for options in ({'curriculum':'classic'},
+                    {'curriculum':'continuous_v1','pending_inputs':True},
+                    {'curriculum':'continuous_v1','history_frames':2}):
+        with pytest.raises(ValueError):make_training_env(tower_support_weight=.1,**options)
