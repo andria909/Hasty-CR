@@ -302,7 +302,7 @@ class MemoryPolicy:
             if view.metadata.get(key) != expected:
                 raise MissingModelInput(f'Checkpoint/view contract mismatch: {key}')
 
-    def decide(self, view: ModelView) -> dict:
+    def decide(self, view: ModelView, *, capture=None) -> dict:
         self.validate_view_contract(view)
         if not view.metadata['ready_for_inference']:
             return {'action': 0, 'placement': None, 'blockers': view.metadata['blockers']}
@@ -322,5 +322,8 @@ class MemoryPolicy:
             logits, value = self.network(planes, scalars)
             logits[0, ~torch.from_numpy(view.action_mask)] = -torch.inf
             action = int(logits.argmax(dim=-1)[0])
-        return {'action': action, 'placement': view.placement_world(action),
-                'value': float(value[0]), 'blockers': []}
+        decision = {'action': action, 'placement': view.placement_world(action),
+                    'value': float(value[0]), 'blockers': []}
+        if capture is not None:
+            capture(planes[0].numpy(), scalars[0].numpy(), view.action_mask, decision)
+        return decision

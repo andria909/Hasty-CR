@@ -180,3 +180,23 @@ def test_guarded_alias_does_not_apply_to_an_unverified_card_or_hero():
     adapter=NativeModelAdapter(own_side=0)
     assert adapter.unit_profile(dict(name='Goblin_Stab',card_id=123))[0]is None
     assert adapter.unit_profile(dict(name='KnightHero',card_id=203000001))[0]is None
+
+
+def test_exact_capture_sees_augmented_input_and_final_mask_without_changing_decision():
+    import torch
+    _,row,own=fixture()
+    view=NativeModelAdapter(own_side=0,coordinate_mode='physical_live_cells_v2').encode(row,own)
+    view.action_mask[1:]=False  # pending/cooldown masks force WAIT
+    class Network:
+        def __call__(self,planes,scalars):
+            self.inputs=(planes.clone(),scalars.clone())
+            return torch.arange(len(view.action_mask)).float().unsqueeze(0),torch.tensor([.25])
+    policy=MemoryPolicy.__new__(MemoryPolicy)
+    policy.torch=torch;policy.joint=True;policy.input_contract={};policy.network=Network()
+    ordinary=policy.decide(view);captured=[]
+    observed=policy.decide(view,capture=lambda *args:captured.append(args))
+    assert observed==ordinary and observed['action']==0
+    planes,scalars,mask,result=captured[0]
+    np.testing.assert_array_equal(planes,policy.network.inputs[0][0].numpy())
+    np.testing.assert_array_equal(scalars,policy.network.inputs[1][0].numpy())
+    assert scalars.shape==(309,) and mask.sum()==1 and result==observed

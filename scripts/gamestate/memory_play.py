@@ -95,7 +95,11 @@ def main():
     parser.add_argument('--screenshot-every', type=int, default=0,
                         help='Async diagnostic image after input/ACK on every Nth play; 0 disables')
     parser.add_argument('--result-reference',type=Path,help='Require verified result button before treating a frozen tick as match end')
+    parser.add_argument('--capture-every',type=int,default=0,help='Record every Nth exact policy input; 0 disables')
+    parser.add_argument('--capture-limit',type=int,default=2000)
     args = parser.parse_args()
+    if args.capture_every<0 or not 1<=args.capture_limit<=10000:
+        parser.error('Invalid bounded decision capture')
     deck = tuple(args.deck_order.split(','))
     if (not 1 <= args.max_matches <= 50 or not 1 <= args.seconds <= 21600 or
             len(deck) != 8 or set(deck) != set(DECK_26) or
@@ -123,6 +127,10 @@ def main():
     frames = (args.output / 'frames.jsonl').open('x')
     pool = ThreadPoolExecutor(max_workers=1)
     capture_job = None
+    decision_capture=None
+    if args.capture_every:
+        from scripts.gamestate.decision_capture import DecisionCapture
+        decision_capture=DecisionCapture(args.output/'decisions',every=args.capture_every,limit=args.capture_limit)
 
     def emit(event, **values):
         row = dict(event=event, host_ns=time.time_ns(), **values)
@@ -298,7 +306,15 @@ def main():
             for slot in active['pending']:
                 view.action_mask[1+slot*576:1+(slot+1)*576] = False
             inference_start=time.perf_counter_ns()
-            decision = policy.decide(view)
+            capture=None
+            if decision_capture is not None:
+                context=dict(match=active['number'],tick=private['tick'],host_ns=time.time_ns(),
+                    checkpoint_sha256=checkpoint_sha256,hand=list(own.hand),
+                    reserved_elixir=own.elixir.reserved,pending_slots=list(active['pending']),
+                    coordinate_mode=policy.coordinate_mode,geometry=policy.geometry)
+                capture=lambda planes,scalars,mask,result: decision_capture.capture(
+                    planes,scalars,mask,result,context)
+            decision = policy.decide(view,capture=capture)
             inference_ms=(time.perf_counter_ns()-inference_start)/1e6
             placement = decision['placement']
             if placement is None:
@@ -347,6 +363,7 @@ def main():
         emit('STOP', reason=type(exc).__name__, detail=str(exc), finished=report['finished'])
         raise
     finally:
+        if decision_capture is not None:decision_capture.close()
         pool.shutdown(wait=True)
         log.close(); frames.close()
 

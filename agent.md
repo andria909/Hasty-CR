@@ -1,3 +1,6 @@
+## CURRENT live connection lost; exact input capture implemented optional
+Detected frame frozen match6 at2:22 Connectionlost; stoppedcoordinator89244(childrenexited) beforeRetryLogin. NowLoginfailed currentlocationunsupported; Androidproxy10.0.2.2:10809unchanged,hostTunnelport10809listens. NoMacVPNchanges. BC10complete1W9L;second5complete1W4L,sixthinterruptedunknown,4unstarted. MUSTrecover6thbattlelogresult/countbeforeanyresume, no new5blind. Reportfull_top2_connection_loss20261028/screenshots. OptionalMemoryPolicy.decide capturecallbackafteractualjointaugmentation/finalmask; DecisionCapture asyncboundedqueue4/max10000(default2000), --capture-every0default disabled.37testsPASS actionparity/exactinputs/ownership/bounds/diskfailure. Noactualnewlivecaptures; notenabledcurrentseries. Reportexact_policy_capture20261028.
+
 ## CURRENT all3 new pilots accepted; emptyspell quota reroute succeeded
 Spellaccount3 validreceipt141260886 rootspell_waste_pilot_20261028_parallel_account3, monitoringstarted. All3validlaunchreceipts+20minobservers in reports/defense_plan/parallel_pilot_submission_20261028.json. Quota-rejectedfirstaccount receiptpreserved separately, no duplicatejob. Check collected.status/live_stream perroot foractualsteps. Currentlive second5finished1W4L lastcheck, remaining5.
 

@@ -163,6 +163,11 @@ def render_global_full_training(reports):
 def render_live_feedback_studies(reports):
     lines=['# Текущий этап','',
         '**PPO: сохранить выученные навыки и исправить ошибки реальных боёв.** Новая модель ещё не принята.','']
+    incident=reports/'full_top2_connection_loss_20261028.json'
+    if incident.exists():
+        lines += ['**Реальная серия остановлена:** разрыв связи в шестом матче, затем отказ входа по региону. Подтверждены5 матчей:1 победа/4 поражения; исход6-го неизвестен, ещё4 не начаты. До продолжения нужен результат6-го из журнала боя.','']
+    if (reports.parent/'exact_policy_capture_20261028.md').exists():
+        lines += ['**Диагностика решений готова:** опциональная запись точных входов и доступных действий;37 тестов прошли. В текущей серии не включалась. [Описание](reports/exact_policy_capture_20261028.md).','']
     live_path=reports/'live_reserve_bc800_20261027.json'
     if live_path.exists():
         live=json.loads(live_path.read_text());series_path=Path(live['series_file'])
