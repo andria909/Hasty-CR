@@ -12,6 +12,9 @@ from scripts.attack.summarize_clock_pilots import summarize
     ('native_fireball_slot_v1','scripts.attack.verify_native_fireball_slot','verify_native_fireball'),
     ('tower_support_reward_v1','scripts.attack.verify_tower_support_pilot','verify_tower_support'),
     ('spell_waste_reward_v1','scripts.attack.verify_spell_waste_pilot','verify_spell_waste'),
+    ('central_tower_damage_v1','scripts.attack.verify_central_tower_pilot','verify_central'),
+    ('combined_tower_spell_reward_v1','scripts.attack.verify_combined_reward_pilot','verify_combined'),
+    ('paid_tactical_fullgame_starts_v1','scripts.attack.verify_tactical_starts_pilot','verify_tactical'),
     ('legacy','scripts.attack.summarize_clock_pilots','verify'),
 ])
 def test_manual_summary_cannot_bypass_study_verifier(tmp_path,monkeypatch,variant,module,function):

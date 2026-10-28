@@ -70,7 +70,8 @@ def summarize(root,verified=None):
                     after=score_checkpoint(root/'collected'/r['checkpoint'],root/'dataset')))
 
         row=dict(id=trial['id'],**stats(records))
-        if protocol.get('study_variant') in ('spell_waste_reward_v1','combined_tower_spell_reward_v1'):
+        if protocol.get('study_variant') in ('spell_waste_reward_v1','combined_tower_spell_reward_v1',
+                                            'central_tower_damage_v1','paid_tactical_fullgame_starts_v1'):
             known=all('empty_spell_counts' in r for r in records)
             minutes=sum(r['elapsed_ms'] for r in records)/60000
             row.update(spell_waste_weight=trial['spell_waste_weight'],
@@ -78,6 +79,12 @@ def summarize(root,verified=None):
                     for card in ('fireball','zap')} if known else None),
                 mean_empty_spell_elixir=sum(r['empty_spell_elixir'] for r in records)/len(records) if known else None,
                 empty_spell_elixir_per_minute=sum(r['empty_spell_elixir'] for r in records)/minutes if known and minutes else None)
+        if all('own_tower_damage' in r for r in records):
+            row.update(tower_support_weight=trial['tower_support_weight'],
+                mean_own_tower_damage=sum(r['own_tower_damage'] for r in records)/len(records),
+                mean_tower_credited_value=sum(r['tower_support_paid_value'] for r in records)/len(records),
+                mean_tower_support_reward=sum(r['tower_support_reward'] for r in records)/len(records))
+        if 'tactical_start_fraction' in trial:row['tactical_start_fraction']=trial['tactical_start_fraction']
         if 'action_delay_ms' in trial:
             row.update(action_delay_ms=trial['action_delay_ms'],validation_action_delay_ms=trial['validation_action_delay_ms'])
         if history:row.update(history_frames=trial['history_frames'],focus=trial['focus'])
@@ -151,7 +158,15 @@ def render(summary):
                 lines.append(f"| {row['id']} | {row['mean_missed_fireballs']:.2f} | не измерялось | не измерялось | не измерялось |")
             else:
                 lines.append(f"| {row['id']} | {row['mean_empty_spells']['fireball']:.2f} | {row['mean_empty_spells']['zap']:.2f} | {row['mean_empty_spell_elixir']:.2f} | {row['empty_spell_elixir_per_minute']:.2f} |")
-        lines+=['','Старый контроль не записывает Zap: отсутствие измерения не означает нулевые промахи. Для полного сравнения расходов нужен повторный прогон его выбранных весов с диагностическим счётчиком на тех же validation-сценах.']
+        if any(row['mean_empty_spells'] is None for row in summary['rows']):
+            lines+=['','Старый контроль не записывает Zap: отсутствие измерения не означает нулевые промахи. Для полного сравнения расходов нужен повторный прогон его выбранных весов с диагностическим счётчиком на тех же validation-сценах.']
+    if summary['rows'] and 'mean_own_tower_damage' in summary['rows'][0]:
+        lines+=['','## Фактический урон своих башен','',
+            '| Профиль | Коэффициент | Урон / матч | Зачтённая стоимость / матч | Бонус reward / матч |',
+            '|---|---:|---:|---:|---:|']
+        for row in summary['rows']:
+            lines.append(f"| {row['id']} | {row['tower_support_weight']:g} | {row['mean_own_tower_damage']:.1f} | {row['mean_tower_credited_value']:.2f} | {row['mean_tower_support_reward']:.2f} |")
+        lines+=['','Зачтённая стоимость нормирована по оплаченному эликсиру повреждённых тел. Это вспомогательная награда, не самостоятельная оценка качества.']
     if summary['rows']and 'local_after_ppo'in summary['rows'][0]:
         lines+=['','## Локальный навык: перед PPO и выбранный PPO-чекпойнт','',
             '| Профиль | До PPO | Выбранный чекпойнт PPO |','|---|---:|---:|']
