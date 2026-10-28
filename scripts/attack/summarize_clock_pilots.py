@@ -20,6 +20,8 @@ def summarize(root,verified=None):
             from scripts.attack.verify_native_fireball_slot import verify_native_fireball as verify_study
         elif variant=='tower_support_reward_v1':
             from scripts.attack.verify_tower_support_pilot import verify_tower_support as verify_study
+        elif variant=='combined_tower_spell_reward_v1':
+            from scripts.attack.verify_combined_reward_pilot import verify_combined as verify_study
         elif variant=='spell_waste_reward_v1':
             from scripts.attack.verify_spell_waste_pilot import verify_spell_waste as verify_study
         else:
@@ -31,7 +33,7 @@ def summarize(root,verified=None):
     retention=protocol.get('schema')=='continuous-air-retention-pilot-v1'
     jointskills=protocol.get('schema')=='continuous-joint-skills-pilot-v1'
     warm=protocol.get('schema')=='continuous-air-warmstart-pilot-v1'or retention or jointskills
-    if protocol.get('study_variant') in ('own_pending_inputs_v1','tower_support_reward_v1','spell_waste_reward_v1'):warm=False
+    if protocol.get('study_variant') in ('own_pending_inputs_v1','tower_support_reward_v1','spell_waste_reward_v1','combined_tower_spell_reward_v1'):warm=False
     temperature=protocol.get('schema')=='continuous-temperature-pilot-v1'
     tactical=protocol.get('schema')=='continuous-live-tactical-reward-pilot-v1'
     exploration=protocol.get('schema')=='continuous-card-exploration-pilot-v1'
@@ -63,7 +65,7 @@ def summarize(root,verified=None):
                     after=score_checkpoint(root/'collected'/r['checkpoint'],root/'dataset')))
 
         row=dict(id=trial['id'],**stats(records))
-        if protocol.get('study_variant')=='spell_waste_reward_v1':
+        if protocol.get('study_variant') in ('spell_waste_reward_v1','combined_tower_spell_reward_v1'):
             known=all('empty_spell_counts' in r for r in records)
             minutes=sum(r['elapsed_ms'] for r in records)/60000
             row.update(spell_waste_weight=trial['spell_waste_weight'],

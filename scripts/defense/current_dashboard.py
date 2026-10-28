@@ -10,6 +10,7 @@ STUDIES = (
     ('pending_sequence_pilot','Последовательная защита'),
     ('pending_diversity_pilot','Разнообразие рук и слотов'),
     ('fireball_reward_ablation','Награда Fireball × обучение на примерах'),
+    ('combined_reward_pilot','Помощь башен × штраф пустых спеллов'),
 )
 
 
@@ -20,6 +21,8 @@ def read(path):
 
 def progress(state):
     """Lower bound from matching local observer; never perform a network request."""
+    if state.get('status')=='upload_failed_before_submission':
+        return '0%', 'проверено локально; загрузка Kaggle не принята'
     snapshot=state.get('progress_snapshot',{})
     if state.get('root'):
         live=read(Path(state['root'])/'live_stream/progress.json')
@@ -59,7 +62,7 @@ def render(reports):
     lines+=['','В каждой строке72 одинаковых контекста на двух seed: это не144 независимых ситуации. Между опытами seed различаются; сравниваем прежде всего с их собственным контролем.','']
     ablation=read(reports/'fireball_reward_ablation_summary_20261027.json')
     if ablation:
-        lines+=['**Последние опыты завершены:** отключение вспомогательной награды Fireball не улучшило результат; расширенные примеры защиты тоже не прошли отбор. Большое продолжение этих вариантов не запущено. Следующий этап — разбор переноса локального навыка в полный матч. [Fireball](reports/fireball_reward_ablation_results_20261027.md), [защита](reports/pending_diversity_pilot_results_20261027.md).','']
+        lines+=['**Последние опыты завершены:** отключение вспомогательной награды Fireball не улучшило результат; расширенные примеры защиты тоже не прошли отбор. Большое продолжение этих вариантов не запущено. Следующий опыт сочетает помощь башен и штраф пустых спеллов; состояние запуска — в таблице выше. [Дизайн](reports/combined_reward_pilot_design_20261028.md), [Fireball](reports/fireball_reward_ablation_results_20261027.md), [защита](reports/pending_diversity_pilot_results_20261027.md).','']
     else:
         lines+=['**Следующая гипотеза:** отделяем пользу примеров Fireball от влияния награды за размен. [Дизайн и измерения](reports/fireball_reward_ablation_design_20261028.md).','']
     recovery=read(reports/'full_candidate_recovered_evaluation_20261028.json')

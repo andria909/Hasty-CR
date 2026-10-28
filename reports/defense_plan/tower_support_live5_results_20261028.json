@@ -1,0 +1,248 @@
+{
+  "schema": "tower-support-live-five-v1",
+  "series": {
+    "requested": 5,
+    "finished": 5,
+    "wins": 1,
+    "losses": 4,
+    "unknown": 0,
+    "status": "complete",
+    "runs": [
+      "tmp/live/tower_support_20261028_live5/run",
+      "tmp/live/tower_support_20261028_live5/recovery_run"
+    ],
+    "matches": [
+      {
+        "number": 1,
+        "run": "tmp/live/tower_support_20261028_live5/run",
+        "local_match": 1,
+        "result": "win",
+        "evidence": "visually_verified_Winner_lilpenny_1_to_0_plus30",
+        "result_screenshot": "../stall_check1.png",
+        "observer_interrupted_after_match": true
+      },
+      {
+        "number": 2,
+        "run": "tmp/live/tower_support_20261028_live5/recovery_run",
+        "local_match": 1,
+        "result_screenshot": "match_02_result.png",
+        "result": "loss",
+        "evidence": "king_hp_zero"
+      },
+      {
+        "number": 3,
+        "run": "tmp/live/tower_support_20261028_live5/recovery_run",
+        "local_match": 2,
+        "result_screenshot": "match_03_result.png",
+        "result": "loss",
+        "evidence": "king_hp_zero"
+      },
+      {
+        "number": 4,
+        "run": "tmp/live/tower_support_20261028_live5/recovery_run",
+        "local_match": 3,
+        "result_screenshot": "match_04_result.png",
+        "result": "loss",
+        "evidence": "king_hp_zero"
+      },
+      {
+        "number": 5,
+        "run": "tmp/live/tower_support_20261028_live5/recovery_run",
+        "local_match": 4,
+        "result_screenshot": "match_05_result.png",
+        "result": "loss",
+        "evidence": "frozen_terminal_crown_body_comparison",
+        "lost_towers": {
+          "0": 1,
+          "1": 2
+        }
+      }
+    ],
+    "checkpoint": "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/tower_support_motionfix_20261028/collected/pilot_large_s232/update_000100.pt",
+    "scope": "Only matches belonging to this explicitly authorized finite series",
+    "updated_host_ns": 1793201133180773000,
+    "winrate_all_matches": 0.2
+  },
+  "matches": [
+    {
+      "number": 1,
+      "result": "win",
+      "evidence": "visually_verified_Winner_lilpenny_1_to_0_plus30",
+      "confirmed_card_counts": {
+        "knight": 9,
+        "hog_rider": 3,
+        "skeletons": 9,
+        "electro_spirit": 9,
+        "zap": 9,
+        "cannon": 9
+      },
+      "attempted_card_counts": {
+        "hog_rider": 4,
+        "skeletons": 13,
+        "zap": 11,
+        "knight": 10,
+        "electro_spirit": 11,
+        "cannon": 9
+      }
+    },
+    {
+      "number": 2,
+      "result": "loss",
+      "evidence": "king_hp_zero",
+      "confirmed_card_counts": {
+        "fireball": 1,
+        "knight": 2,
+        "zap": 2,
+        "electro_spirit": 2,
+        "skeletons": 2,
+        "cannon": 2
+      },
+      "attempted_card_counts": {
+        "fireball": 2,
+        "zap": 3,
+        "electro_spirit": 3,
+        "knight": 2,
+        "skeletons": 2,
+        "cannon": 2
+      }
+    },
+    {
+      "number": 3,
+      "result": "loss",
+      "evidence": "king_hp_zero",
+      "confirmed_card_counts": {
+        "musketeer": 1,
+        "hog_rider": 1,
+        "electro_spirit": 4,
+        "skeletons": 4,
+        "zap": 3,
+        "knight": 3,
+        "cannon": 3
+      },
+      "attempted_card_counts": {
+        "fireball": 1,
+        "skeletons": 5,
+        "musketeer": 1,
+        "hog_rider": 1,
+        "electro_spirit": 4,
+        "zap": 4,
+        "knight": 3,
+        "cannon": 3
+      }
+    },
+    {
+      "number": 4,
+      "result": "loss",
+      "evidence": "king_hp_zero",
+      "confirmed_card_counts": {
+        "hog_rider": 1,
+        "skeletons": 3,
+        "zap": 3,
+        "electro_spirit": 3,
+        "cannon": 3,
+        "knight": 2
+      },
+      "attempted_card_counts": {
+        "hog_rider": 2,
+        "skeletons": 4,
+        "zap": 4,
+        "knight": 3,
+        "electro_spirit": 3,
+        "cannon": 3
+      }
+    },
+    {
+      "number": 5,
+      "result": "loss",
+      "evidence": "frozen_terminal_crown_body_comparison",
+      "confirmed_card_counts": {
+        "knight": 9,
+        "fireball": 3,
+        "zap": 9,
+        "electro_spirit": 8,
+        "skeletons": 8,
+        "cannon": 6,
+        "hog_rider": 1
+      },
+      "attempted_card_counts": {
+        "zap": 10,
+        "hog_rider": 2,
+        "knight": 9,
+        "fireball": 3,
+        "electro_spirit": 10,
+        "skeletons": 9,
+        "cannon": 7
+      }
+    }
+  ],
+  "usage": {
+    "hog_rider": {
+      "confirmed": 6,
+      "mean_per_game": 1.2
+    },
+    "musketeer": {
+      "confirmed": 1,
+      "mean_per_game": 0.2
+    },
+    "cannon": {
+      "confirmed": 23,
+      "mean_per_game": 4.6
+    },
+    "fireball": {
+      "confirmed": 4,
+      "mean_per_game": 0.8
+    },
+    "knight": {
+      "confirmed": 25,
+      "mean_per_game": 5.0
+    },
+    "electro_spirit": {
+      "confirmed": 26,
+      "mean_per_game": 5.2
+    },
+    "skeletons": {
+      "confirmed": 26,
+      "mean_per_game": 5.2
+    },
+    "zap": {
+      "confirmed": 26,
+      "mean_per_game": 5.2
+    }
+  },
+  "timing_ms": {
+    "parser_ms": {
+      "n": 163,
+      "mean": 35.62390309815951,
+      "median": 34.896333,
+      "p95": 49.3627288
+    },
+    "inference_ms": {
+      "n": 163,
+      "mean": 2.0659519447852763,
+      "median": 1.786375,
+      "p95": 3.885062200000003
+    },
+    "parser_request_to_input_return_ms": {
+      "n": 163,
+      "mean": 127.57082822085891,
+      "median": 128.243,
+      "p95": 149.0632
+    },
+    "source_to_ack_game_ms": {
+      "n": 137,
+      "mean": 1503.2846715328467,
+      "median": 1400.0,
+      "p95": 2119.999999999999
+    }
+  },
+  "event_sha256": {
+    "tmp/live/tower_support_20261028_live5/run/events.jsonl": "e8ea54b7466e14918a358a307b7843623022f237f681f255d5e9a575bbabc931",
+    "tmp/live/tower_support_20261028_live5/recovery_run/events.jsonl": "69f595e195e48a215dd19211940cf61f400f9abf2f755625294b54eb8302f0e8"
+  },
+  "all_live_processes_exited": true,
+  "checkpoint_sha256": "b4b250efec389c7270019a2971097f1323df7f36586ac2edef02f0abc2c5078f",
+  "scope": "Five additional authorized matches only; previous 0/1 tower trial and 0/4 strong excluded",
+  "card_count_definition": "PLAY_ACK native hand rotation, not independent visual confirmation of every unit spawn",
+  "interruption": "First result matcher stalled on brightness; win confirmed visually, then only remaining4 resumed. No midmatch restart.",
+  "exact_decision_audit": "reports/defense_plan/tower_support_live5_exact_decisions_20261028.json"
+}

@@ -42,6 +42,18 @@ def test_clock_pilot_collects_selected_and_latest_boundaries(monkeypatch,tmp_pat
     assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'chosen_eligible'
 
 
+@pytest.mark.parametrize('variant',['control','tower','spell','combined'])
+@pytest.mark.parametrize('seed',[282,283])
+def test_combined_rewards_keep_selected_and_resume_weights(monkeypatch,tmp_path,variant,seed):
+    run=f'pilot_{variant}_s{seed}'
+    setup(monkeypatch,run+'/update_000050.pt',run)
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','combined-reward-pilot')
+    assert result['complete']
+    assert (tmp_path/'out'/run/'update_000050.pt').read_bytes()==b'chosen_eligible'
+    assert (tmp_path/'out'/run/'update_000100.pt').read_bytes()==b'latest_resume'
+    assert not (tmp_path/'out'/run/'update_999999.pt').exists()
+
+
 @pytest.mark.parametrize('variant',['control','small','medium','large'])
 @pytest.mark.parametrize('seed,profile',[(232,'tower-support-pilot'),(233,'tower-support-pilot'),
                                       (242,'spell-waste-pilot'),(243,'spell-waste-pilot')])

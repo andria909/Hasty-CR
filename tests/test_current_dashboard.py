@@ -2,6 +2,11 @@ import json
 from scripts.defense.current_dashboard import progress, render
 
 
+def test_failed_upload_is_not_claimed_as_submitted_training():
+    assert progress(dict(status='upload_failed_before_submission',submitted=False)) == (
+        '0%', 'проверено локально; загрузка Kaggle не принята')
+
+
 def test_newer_matching_log_is_a_lower_bound(tmp_path):
     (tmp_path/'live_stream').mkdir()
     path=tmp_path/'live_stream/progress.json'
