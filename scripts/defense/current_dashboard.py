@@ -106,7 +106,13 @@ def render(reports):
         if replaced and tower:
             count=tower['finished'];rate=f"{tower['wins']/count:.1%}"if count and not tower['unknown']else'—'
             lines.append(f"| Помощь башен0,4 · замена strong | {count}/1 | {tower['wins']} / {tower['losses']} | {rate} |")
-            lines+=['',f"**По просьбе пользователя модель заменена после4-го боя:** последний из5 играет вариант с бонусом помощи башен, статус {tower['status']}. Счёт моделей раздельный; решения записываются."]
+            additional=read('tmp/live/tower_support_20261028_live5/series/series.json')
+            if additional:
+                count=additional['finished'];rate=f"{additional['wins']/count:.1%}"if count and not additional['unknown']else'—'
+                lines.append(f"| Помощь башен0,4 · ещё5 по запросу | {count}/5 | {additional['wins']} / {additional['losses']} | {rate} |")
+                lines+=['',f"**Продолжение модели с бонусом башен:** отдельно разрешены ещё5 боёв, статус {additional['status']}. Первый пробный бой и4 боя strong считаются отдельно; решения записываются."]
+            else:
+                lines+=['',f"**По просьбе пользователя модель заменена после4-го боя:** последний из5 — вариант с бонусом помощи башен, статус {tower['status']}. Счёт моделей раздельный; решения записываются."]
         else:
             lines+=['',f"**Новая серия strong:** {strong['status']}, лимит5; решения записываются. Старые серии не возобновлены."]
     lines+=['','Старая серия прервалась из-за связи и отказа входа. У второй старой серии исход6-го неизвестен, ещё4 игры не начаты.','',
