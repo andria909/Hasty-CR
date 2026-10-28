@@ -115,6 +115,8 @@ class ContinuousPushEnv:
         self.actions=[];self.enemy_actions=[];self.done=False;self.terminal_reason='running'
         self._board_shaping_return=0.
         self._reserve_shaping_return=0.;self._reserve_shaping_discounted_return=0.
+        from sim.decision_economy import empty
+        self.decision_economy=empty()
         self._board_shaping_discounted_return=0.;self._board_shaping_steps=0;self._initial_board_potential=0.
         self._previous=self._metrics()
         self._initial_board_potential=self._previous['board_potential']
@@ -187,6 +189,12 @@ class ContinuousPushEnv:
         if self.match is None or self.done:raise RuntimeError('Reset required')
         before=self._previous
         mask=self._mask()
+        from sim.decision_economy import record
+        native=self.match.players[1].elixir/1000
+        available=max(0.,native-sum(self.cards[e[1]].cost for e in self.pending))
+        record(self.decision_economy,hand=self.match.players[1].hand,mask=mask,
+               action=int(action) if isinstance(action,(int,np.integer)) else None,
+               native_elixir=native,available_elixir=available)
         if not isinstance(action,(int,np.integer)) or not 0<=action<ACTIONS or not mask[int(action)]:self.illegal+=1
         elif action:
             slot,x,y=ClashEnv.decode(int(action))
@@ -239,6 +247,7 @@ class ContinuousPushEnv:
 
     def _metrics(self):
         from sim.tactical_rewards import fireball_outcomes,reserve_potential
+        from sim.decision_economy import snapshot as decision_snapshot
         own={k:t.hp_fraction for k,t in self.match.towers[1].items()}
         enemy={k:t.hp_fraction for k,t in self.match.towers[-1].items()}
         # Charge only instrumented, resolved Fireballs with NO recorded hits.
@@ -257,6 +266,7 @@ class ContinuousPushEnv:
             action_cooldown_ms=self.profile['action_cooldown_ms'],
             cannon_outside_center=sum(a['card']=='cannon'and not(6<=a['x']<=11 and 18<=a['y']<=23)for a in self.actions),
             episode_seed=self.seed,match_seed=self.match.seed,
+            decision_economy=decision_snapshot(getattr(self,'decision_economy',{})),
             split=self.split,task=self.scenario.task,observation_contract=CONTRACT,
             terminal_reason=self.terminal_reason,elapsed_ms=self.match.elapsed_ms,
             outcome=outcome(self.match.result,1,self.match.finished),

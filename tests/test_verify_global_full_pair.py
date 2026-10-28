@@ -40,6 +40,7 @@ def fixture(monkeypatch,tmp_path):
         path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value))
     for i in(0,1):
         origin=tmp_path/f'pilot{i}'
+        write(origin/'dataset/protocol.json', {})
         write(origin/'collected/parent_reference.json',dict(validation=dict(records=[])))
         proof=dict(initial_selection=dict(selected='parent'));proofs[origin]=proof
         trial=dict(id='joint_control');choice=dict(prepared=str(origin),study=f'owner/pilot{i}',trial=trial)

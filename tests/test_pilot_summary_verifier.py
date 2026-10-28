@@ -5,6 +5,7 @@ from scripts.attack.summarize_clock_pilots import summarize
 
 
 @pytest.mark.parametrize('variant,module,function',[
+    ('mana_decision_v1','scripts.attack.verify_mana_campaign','verify_mana'),
     ('own_pending_inputs_v1','scripts.attack.verify_frozen_pending','verify'),
     ('pending_diversity_slots_v1','scripts.attack.verify_frozen_pending','verify'),
     ('pending_sequence_retention_v1','scripts.attack.verify_frozen_pending','verify'),

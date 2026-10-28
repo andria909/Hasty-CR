@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 import shutil
 
-from scripts.attack.select_pilot_pool import select
+from scripts.attack.select_pilot_pool import select, verify_study
 from scripts.attack.verify_continuous_focus import verify
 from scripts.kaggle.prepare_selected_continuous_full import full_only_bootstrap
 from scripts.kaggle.run_five_round_robin import sha
@@ -137,7 +137,7 @@ def prepare(prepared_roots, output, owner, pair_index=0):
     verified = []
     for row in chosen:
         root = Path(row['prepared'])
-        proof = verify(root/'collected', root)
+        proof = verify_study(root, verify)
         original = json.loads((root/'preparation.json').read_text())
         if sha(root/'job/train.py') != original['bootstrap_sha256']:
             raise ValueError('Selected controller changed')

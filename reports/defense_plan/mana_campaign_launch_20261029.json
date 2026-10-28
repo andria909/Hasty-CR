@@ -1,0 +1,101 @@
+{
+  "schema": "mana-campaign-launch-v1",
+  "checked_host_ns": 1793230767504883000,
+  "pilot_runs": 24,
+  "target_steps": 2457600,
+  "series": [
+    {
+      "experiment": "reserve",
+      "root": "tmp/kaggle/mana_campaign_20261029/reserve_vertel0",
+      "kernel": "vertel0/hastycr-mana-reserve-1029",
+      "receipt": {
+        "ref": "/code/vertel0/hastycr-mana-reserve-1029",
+        "url": "https://www.kaggle.com/code/vertel0/hastycr-mana-reserve-1029",
+        "versionNumber": 1,
+        "kernelId": 141415071
+      },
+      "bootstrap_sha256": "68da5e8b9dd177fb5a474b600dd7804b0bc93ff9acdd8f52ff3230f1d5be49cc",
+      "protocol_sha256": "5ace02cd0697109a754af662e92914432e7650a3be204cfcc94615e688c9d1ef",
+      "parent_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+      "preflight_sha256": "e8cede6479385168c5de222a7f5f96a09978094148e8160ffe06c02072ef3143",
+      "cuda_gpus_observed": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "remote_status": {
+        "kernel": "vertel0/hastycr-mana-reserve-1029",
+        "remote_status": "RUNNING",
+        "checked_host_ns": 1793230268850232000,
+        "remote_job_changed": false
+      }
+    },
+    {
+      "experiment": "balance",
+      "root": "tmp/kaggle/mana_campaign_20261029/balance",
+      "kernel": "vertel0/hastycr-mana-balance-1029",
+      "receipt": {
+        "ref": "/code/vertel0/hastycr-mana-balance-1029",
+        "url": "https://www.kaggle.com/code/vertel0/hastycr-mana-balance-1029",
+        "versionNumber": 1,
+        "kernelId": 141414810
+      },
+      "bootstrap_sha256": "9949885a06749f59857cf8531a3982bc1ee674e113ad6bef62846bd9a49f046d",
+      "protocol_sha256": "cb39611e87a45d166642bfd5b26c9178b0c55e296ecc4f282a2d70e03a033564",
+      "parent_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+      "preflight_sha256": "be6db4496758ce8779094781215d311f8621cb454271c8da0f24bcbd1351c719",
+      "cuda_gpus_observed": [
+        "Tesla T4",
+        "Tesla T4"
+      ],
+      "remote_status": {
+        "kernel": "vertel0/hastycr-mana-balance-1029",
+        "remote_status": "RUNNING",
+        "checked_host_ns": 1793230057957985000,
+        "remote_job_changed": false
+      }
+    },
+    {
+      "experiment": "wait",
+      "root": "tmp/kaggle/mana_campaign_20261029/wait_vertel0",
+      "kernel": "vertel0/hastycr-mana-wait-1029",
+      "receipt": {
+        "error": "Maximum batch GPU session count of 2 reached."
+      },
+      "bootstrap_sha256": "b6f68ebf1b7cce38877422e5089e2e8494c13670850e26658dc50a1c475e2bbd",
+      "protocol_sha256": "6d46902c4eabd4d1a2e749f232d76ebe82cf1be190dff01d0ce268d70e1a5dfe",
+      "parent_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+      "preflight_sha256": "c4b87bcd1cdfd551630b99229b317d1281901d20f6b69e1c287c610953de9b8e",
+      "cuda_gpus_observed": []
+    }
+  ],
+  "full_steps_conditional": 8192000,
+  "live_games": false,
+  "quality_accepted": false,
+  "unavailable_accounts": [
+    {
+      "account": "andriashadrin",
+      "receipt": {
+        "error": "Maximum weekly GPU quota of 30.00 hours reached."
+      }
+    },
+    {
+      "account": "andreiperelaiko",
+      "receipt": {
+        "error": "Maximum weekly GPU quota of 30.00 hours reached."
+      }
+    }
+  ],
+  "monitoring": {
+    "pids": {
+      "queue": 87978,
+      "selector": 88099
+    },
+    "poll_seconds": 1200,
+    "config": "data/ppo_tuning/mana_campaign_runner_20261029.json",
+    "selector_restart": {
+      "previous_pid": 87979,
+      "reason": "Load finalized tie breakers and full-run verifier before any selection",
+      "previous_state": "campaign_state_before_selector_update.json"
+    }
+  }
+}

@@ -3,7 +3,7 @@ import argparse
 import json
 from pathlib import Path
 
-from scripts.attack.select_pilot_pool import select
+from scripts.attack.select_pilot_pool import select, verify_study
 from scripts.attack.verify_continuous_focus import verify as verify_pilot, audit_run, sha
 
 
@@ -78,7 +78,7 @@ def verify(collected, prepared):
             if sha(dataset/name) != digest:
                 raise ValueError('Child dataset changed')
         origin = Path(child['selected']['prepared'])
-        pilot = verify_pilot(origin/'collected', origin)
+        pilot = verify_study(origin, verify_pilot)
         if pilot != json.loads((dataset/'pilot_verified.json').read_text()):
             raise ValueError('Selected pilot proof changed')
         trial = child['selected']['trial']
@@ -114,6 +114,19 @@ def verify(collected, prepared):
                 or not all(torch.isfinite(t).all() for t in blob['state_dict'].values())):
             raise ValueError('Invalid selected full weights')
         execution,checked=audit_training_execution(config,blob,child_root/run_id/'metrics.jsonl')
+        if json.loads((dataset/'protocol.json').read_text()).get('study_variant')=='mana_decision_v1':
+            from scripts.attack.verify_tactical_starts_pilot import audit_exposure
+            from scripts.attack.verify_mana_campaign import audit_economy
+            from scripts.attack.evaluation_execution import HOG_CLIPPED
+            training=[];validation=[]
+            for line in (child_root/run_id/'metrics.jsonl').read_text().splitlines():
+                metric=json.loads(line);training.extend(metric['episodes'])
+                if 'validation' in metric:validation.extend(metric['validation']['records'])
+            audit_exposure(config,training,validation,0.,.15)
+            audit_economy(training+validation)
+            if execution!=HOG_CLIPPED or any(blob['config'][k]!=config[k]
+                    for k in ('tower_support_weight','spell_waste_weight','tactical_start_fraction')):
+                raise ValueError('Full economy checkpoint reward/physics differs')
         models.append(dict(id=f'global{index}_'+run_id,origin=child['selected']['study'],trial=trial,
             checkpoint=str(child_root/row['checkpoint']),checkpoint_sha256=row['checkpoint_sha256'],
             family_guard=row['selected_with_family_guard'],selection_score=row['validation']['selection_score']))

@@ -14,6 +14,31 @@ import tarfile
 
 from scripts.attack.verify_continuous_focus import verify
 
+
+def verify_study(root, default_verifier=None):
+    root = Path(root)
+    protocol = json.loads((root/'dataset/protocol.json').read_text())
+    if protocol.get('study_variant') == 'mana_decision_v1':
+        from scripts.attack.verify_mana_campaign import verify_mana
+        return verify_mana(root/'collected', root)
+    return (default_verifier or verify)(root/'collected', root)
+
+
+def unique_mana_profiles(ranking):
+    """Use a deterministic canonical control, never pick its luckiest replica."""
+    result = []
+    by_profile = {}
+    for row in sorted(ranking, key=lambda r: (r['study'], r['trial']['id'])):
+        key = json.dumps({k:v for k,v in row['trial'].items() if k != 'id'}, sort_keys=True)
+        if key in by_profile:
+            by_profile[key]['replicated_controls'].append(dict(
+                study=row['study'], score=row['score'], minimum_family_points=row['minimum_family_points']))
+        else:
+            row = dict(row, replicated_controls=[])
+            by_profile[key] = row
+            result.append(row)
+    return result
+
 CORE_FILES=('sim/match.py','sim/engine.py','sim/entities.py','sim/gamedata.py','sim/public_gamedata.py',
     'sim/spells.py','sim/arena.py','sim/adapter.py','sim/env.py','sim/eval_defense_duel.py',
     'sim/opponents.py','sim/kite_geometry.py','sim/projectile_calibration.py','sim/pathfind.py',
@@ -93,8 +118,9 @@ def contract(prepared):
 def select(prepared_roots,limit=2):
     if not 2<=limit<=4:raise ValueError('Choose2–4 profiles')
     ranking=[];studies=[];common=None;contexts=None;common_runtime=None;kernels=set()
+    mana_flags=[];mana_physics=None
     for root in map(Path,prepared_roots):
-        proof=verify(root/'collected',root)
+        proof=verify_study(root)
         if proof['kernel']in kernels:raise ValueError('Duplicate cohort cannot supply a second profile')
         kernels.add(proof['kernel'])
         if proof['pilot_steps_verified']!=819200:raise ValueError('Complete verified pilot cohort required')
@@ -107,6 +133,10 @@ def select(prepared_roots,limit=2):
         if contexts is None:contexts=current
         elif current!=contexts:raise ValueError('Different validation contexts')
         protocol=json.loads((root/'dataset/protocol.json').read_text())
+        mana_flags.append(protocol.get('study_variant') == 'mana_decision_v1')
+        if mana_flags[-1]:
+            if mana_physics is None:mana_physics=protocol['physics_pins']
+            elif mana_physics!=protocol['physics_pins']:raise ValueError('Mana cohorts use different frozen simulator modules')
         if len(protocol['pilot_seeds'])!=2 or len(set(protocol['pilot_seeds']))!=2:
             raise ValueError('Two independently trained seeds required')
         for model in proof['pilot_models']:
@@ -123,12 +153,25 @@ def select(prepared_roots,limit=2):
             floor=proof['pilot_selection']['floor']
             if floor<.1 or row['eligible']!=(row['minimum_family_points']>=floor):
                 raise ValueError('Global selection cannot weaken the per-profile floor')
-            ranking.append(dict(study=proof['kernel'],prepared=str(root),trial=row['trial'],
+            item=dict(study=proof['kernel'],prepared=str(root),trial=row['trial'],
                 seed_pair=protocol['pilot_seeds'],score=row['score'],minimum_family_points=row['minimum_family_points'],
-                eligible=row['eligible'],floor=proof['pilot_selection']['floor']))
+                eligible=row['eligible'],floor=proof['pilot_selection']['floor'])
+            if mana_flags[-1]:
+                records=[]
+                for seed in protocol['pilot_seeds']:
+                    saved=json.loads((root/'collected'/f"pilot_{row['trial']['id']}_s{seed}_summary.json").read_text())
+                    records.extend(saved['validation']['records'])
+                item['quality_diagnostics']=dict(
+                    mean_own_fraction_loss=sum(r['own_fraction_loss']for r in records)/len(records),
+                    mean_empty_spell_elixir=sum(r['empty_spell_elixir']for r in records)/len(records))
+            ranking.append(item)
         studies.append(dict(kernel=proof['kernel'],prepared=str(root),pilot_steps_verified=819200))
     if not studies:raise ValueError('No verified cohorts')
-    ranking.sort(key=lambda r:(-r['score'],r['study'],r['trial']['id']))
+    if any(mana_flags):
+        if not all(mana_flags):raise ValueError('Do not mix economy cohorts with old training physics')
+        ranking=unique_mana_profiles(ranking)
+    ranking.sort(key=lambda r:(-r['score'],r.get('quality_diagnostics',{}).get('mean_own_fraction_loss',0),
+        r.get('quality_diagnostics',{}).get('mean_empty_spell_elixir',0),r['study'],r['trial']['id']))
     eligible=[r for r in ranking if r['eligible']]
     return dict(schema='verified-global-pilot-profile-selection-v1',studies=studies,ranking=ranking,
         selected=eligible[:limit]if len(eligible)>=2 else[],eligible_profiles=len(eligible),gate_met=len(eligible)>=2,

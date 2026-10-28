@@ -283,7 +283,7 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
     if curriculum=='tactical_v1':names+=('sim/tactical_strategy.py',)
     if curriculum=='continuous_v1':names+=('sim/continuous_push.py','sim/gamedata.py','sim/entities.py',
         'sim/projectile_calibration.py','sim/kite_geometry.py','sim/opponents.py','sim/eval_defense_duel.py','sim/continuous_validation.py','sim/continuous_sampling.py')
-    if curriculum=='continuous_v1':names+=('sim/board_potential.py','sim/tactical_rewards.py','sim/lane_reflection.py','sim/card_exploration.py','sim/cannon_placement.py')
+    if curriculum=='continuous_v1':names+=('sim/board_potential.py','sim/tactical_rewards.py','sim/lane_reflection.py','sim/card_exploration.py','sim/cannon_placement.py','sim/decision_economy.py')
     if card_balance_weight:names+=('sim/card_balance.py',)
     if spell_waste_weight is not None:names+=('sim/spell_waste.py','sim/continuous_spell_waste.py')
     if tower_support_weight is not None or spell_waste_weight is not None:names+=('sim/tower_support.py','sim/continuous_tower_support.py')

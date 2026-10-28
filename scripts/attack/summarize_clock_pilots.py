@@ -12,7 +12,9 @@ def summarize(root,verified=None):
     protocol=json.loads((root/'dataset/protocol.json').read_text());rows=[]
     if verified is None:
         variant=protocol.get('study_variant')
-        if variant in ('own_pending_inputs_v1','pending_sequence_retention_v1','pending_diversity_slots_v1'):
+        if variant=='mana_decision_v1':
+            from scripts.attack.verify_mana_campaign import verify_mana as verify_study
+        elif variant in ('own_pending_inputs_v1','pending_sequence_retention_v1','pending_diversity_slots_v1'):
             from scripts.attack.verify_frozen_pending import verify as verify_study
         elif variant=='late_air_sequential_teacher_v1':
             from scripts.attack.verify_sequence_pilot import verify_sequence as verify_study
@@ -72,6 +74,21 @@ def summarize(root,verified=None):
                     after=score_checkpoint(root/'collected'/r['checkpoint'],root/'dataset')))
 
         row=dict(id=trial['id'],**stats(records))
+        if protocol.get('study_variant')=='mana_decision_v1':
+            totals=Counter()
+            opportunities={}
+            for record in records:
+                d=record['decision_economy']
+                totals.update({key:value for key,value in d.items()if key!='cards'})
+                for card,count in d['cards'].items():
+                    opportunities.setdefault(card,Counter()).update(count)
+            n=totals['decisions']
+            row.update(experiment=protocol['experiment'],economy_decisions=dict(totals),
+                card_opportunities={card:dict(count)for card,count in opportunities.items()},
+                available_below4_fraction=totals['available_below4']/n,
+                voluntary_wait_fraction=totals['voluntary_wait']/n,
+                mean_empty_spell_elixir=sum(r['empty_spell_elixir']for r in records)/len(records),
+                mean_own_fraction_loss=sum(r['own_fraction_loss']for r in records)/len(records))
         if protocol.get('study_variant') in ('spell_waste_reward_v1','combined_tower_spell_reward_v1',
                                             'central_tower_damage_v1','paid_tactical_fullgame_starts_v1','edge_to_edge_paid_tactical_v1'):
             known=all('empty_spell_counts' in r for r in records)
@@ -123,7 +140,8 @@ def summarize(root,verified=None):
     if initial!='parent':
         source=json.loads((root/'collected'/f'{initial}_reference.json').read_text())
         initial_reference=dict(id=initial,**stats(source['validation']['records']))
-    return dict(schema='verified-pending-inputs-pilot-summary-v1'if protocol.get('study_variant')=='own_pending_inputs_v1'else
+    return dict(schema='verified-mana-decision-pilot-summary-v1'if protocol.get('study_variant')=='mana_decision_v1'else
+        'verified-pending-inputs-pilot-summary-v1'if protocol.get('study_variant')=='own_pending_inputs_v1'else
         'verified-history-pilot-validation-summary-v1'if history else
         'verified-board-pilot-validation-summary-v1'if board else
         'verified-bank-pilot-validation-summary-v1'if bank else
@@ -151,6 +169,17 @@ def render(summary):
     for row in references+summary['rows']:
         air=row['by_family']['air'];golem=row['by_family']['golem'];cards=row['mean_card_plays']
         lines.append(f"| {row['id']} | {row['wins']}/{row['games']} | {air['wins']}/{air['games']} | {golem['wins']}/{golem['games']} | {cards.get('musketeer',0):.2f} | {cards.get('hog_rider',0):.2f} |")
+    if summary['rows'] and 'economy_decisions' in summary['rows'][0]:
+        lines += ['', '## Расход эликсира и ожидание', '',
+            '| Профиль | Доступно <4 | Добровольный WAIT | Пустые спеллы, эликсир / матч | Потери HP (0–3) |',
+            '|---|---:|---:|---:|---:|']
+        for row in summary['rows']:
+            lines.append(f"| {row['id']} | {row['available_below4_fraction']:.1%} | {row['voluntary_wait_fraction']:.1%} | {row['mean_empty_spell_elixir']:.2f} | {row['mean_own_fraction_loss']:.3f} |")
+        lines += ['', 'Первые два процента считаются от всех решений, включая вынужденное ожидание. '
+            'Доступный эликсир учитывает уже отправленные команды. '
+            'Потери HP — сумма потерянных долей здоровья трёх своих башен, от0 до3. '
+            'В JSON сохранены частоты каждой карты, наличие в руке и доступность для выставления. '
+            'Счётчики помогают объяснить поведение; больше ожидания само по себе не означает лучшую игру.']
     if summary['rows']and 'mean_empty_spells'in summary['rows'][0]:
         lines+=['','## Пустые заклинания','',
             '| Профиль | Пустые Fireball / матч | Пустые Zap / матч | Эликсир впустую / матч | Эликсир впустую / минуту |',
