@@ -1,8 +1,75 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-edge-tactical-1028",
-  "status": "submitted_pending_cuda_proof",
-  "progress_snapshot": {},
+  "status": "pilot_complete_budgets_verified",
+  "progress_snapshot": {
+    "kernel": "vertel0/hastycr-edge-tactical-1028",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "reconnect_attempt": 2,
+    "checked_host_ns": 1793218364638834000,
+    "trials": {
+      "pilot_control_s322": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1604.168268508
+      },
+      "pilot_low_s322": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1586.200081725
+      },
+      "pilot_low_s323": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2799.941872532
+      },
+      "pilot_control_s323": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2867.342788573
+      },
+      "pilot_high_s322": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 4047.42425541
+      },
+      "pilot_medium_s322": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 4072.45611568
+      },
+      "pilot_high_s323": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 4274.103381959
+      },
+      "pilot_medium_s323": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 4299.582706671
+      }
+    },
+    "error_type": "ConnectionError",
+    "http_status": null
+  },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
   "quality_accepted": false,
@@ -16,5 +83,7 @@
     "kernelId": 141390206
   },
   "frozen_bootstrap_sha256": "7d25abcbf966e5cb2601fd0c569c3f14abe04afa79b4488d4d21454017b7a5c8",
-  "last_local_sync_ns": 1793213823621543000
+  "last_local_sync_ns": 1793219439041711000,
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/normal_range_pilot_verified_20261027.json"
 }

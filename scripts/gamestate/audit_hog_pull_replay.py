@@ -64,7 +64,8 @@ def audit(paths):
                     continue
                 hypotheses = {}
                 for sight in (5500, 6500, 7500, 9500):
-                    result = replay(clip, sight_override=sight)
+                    result = replay(clip, sight_override=sight,
+                                    battle_options={'hog_sight_mode':'legacy_radial_v1'})
                     hypotheses[str(sight)] = {k: result[k] for k in
                         ('mean_position_error_tiles', 'max_position_error_tiles',
                          'simulated_target_changes')}

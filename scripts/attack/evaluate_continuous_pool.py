@@ -123,6 +123,7 @@ def duel(a,b,device,seed,seat,cards,spells,*,on_complete=None,execution=None,on_
     counts={str(s):dict(Counter(e['card']for e in m.play_log if e['side']==s))for s in(1,-1)}
     result=dict(seed=seed,candidate_side=seat,outcome=outcome(m.result,seat,m.finished),elapsed_ms=m.elapsed_ms,
         normal_range_mode=m.battle.normal_range_mode,target_lock_mode=m.battle.target_lock_mode,
+        hog_sight_mode=m.battle.hog_sight_mode,
         accepted_cards=counts,rejected_commands=dict(rejected),execution=execution,cannon_outside_center=cannon_outside,
         executed_commands=len(command_delays),actual_command_delay_min_ms=min(command_delays)if command_delays else None,
         actual_command_delay_max_ms=max(command_delays)if command_delays else None,

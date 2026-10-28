@@ -306,6 +306,10 @@ class Battle:
     # Retention is a separate experimental switch: the recorded trajectories
     # validate reach more strongly than the game's reset/stun rules.
     target_lock_mode: str = 'legacy_periodic_v1'
+    # Native post-river Hog traces support clipped SIDE acquisition rather
+    # than reducing the entire sight circle. Other troops, crown destinations
+    # and existing-target retention have not been calibrated by that audit.
+    hog_sight_mode: str = 'side_clip_v1'
 
     def __post_init__(self):
         self.geometry=arena.resolve_geometry(self.geometry)
@@ -316,6 +320,7 @@ class Battle:
         self.geometry=arena.resolve_geometry(state.get('geometry'))
         self.normal_range_mode=state.get('normal_range_mode','legacy_target_edge_v1')
         self.target_lock_mode=state.get('target_lock_mode','legacy_periodic_v1')
+        self.hog_sight_mode=state.get('hog_sight_mode','legacy_radial_v1')
         self._validate_combat_geometry()
 
     def _validate_combat_geometry(self):
@@ -323,6 +328,8 @@ class Battle:
             raise ValueError('Unknown normal attack range contract')
         if self.target_lock_mode not in ('in_range_v1','legacy_periodic_v1'):
             raise ValueError('Unknown target retention contract')
+        if self.hog_sight_mode not in ('side_clip_v1','legacy_radial_v1'):
+            raise ValueError('Unknown Hog sight contract')
 
     def _normal_attack_reach(self, source: Entity, target: Entity) -> int:
         radius = source.collision_radius_mt if self.normal_range_mode == 'edge_to_edge_v1' else 0
@@ -339,6 +346,27 @@ class Battle:
             return source.ability_siege_range_mt
         radius = source.collision_radius_mt if self.normal_range_mode == 'edge_to_edge_v1' else 0
         return source.sight_range_mt + radius
+
+    def _new_target_in_sight(self, source: Entity, target: Entity,
+                             gap: int | None = None, sight: int | None = None) -> bool:
+        """Acquire a non-crown building through the Hog's clipped sight area.
+
+        The 4000mt side clip subtracts from the side extent of the 9500mt
+        circle, not its forward radius. Side clipping is an empirical model,
+        not a recovered native implementation. The real post-river trajectories
+        constrain the side gate; the other clip field and retention need direct
+        experiments, so this patch applies only the measured lateral gate.
+        """
+        sight = self._sight_range(source) if sight is None else sight
+        gap = distance(source.pos, target.pos)-target.collision_radius_mt if gap is None else gap
+        if gap > sight:
+            return False
+        if (self.hog_sight_mode == 'side_clip_v1' and source.name == 'hog_rider'
+                and target.is_building and not target.is_tower
+                and target.uid != source.target_uid):
+            side_extent = max(0, sight-source.sight_clip_side_mt)+target.collision_radius_mt
+            return abs(target.pos.x-source.pos.x) <= side_extent
+        return True
 
     # ------------------------------------------------------------- lifecycle
 
@@ -2523,7 +2551,7 @@ class Battle:
             walking = self.get(entity.walk_target_uid)
             if (walking is not None and entity.is_valid_target(walking, self.now_ms)
                     and not walking.invisible(self.now_ms)
-                    and distance(entity.pos, walking.pos) <= self._sight_range(entity)+walking.collision_radius_mt):
+                    and self._new_target_in_sight(entity, walking)):
                 due = True
         # A nearer arrival must not interrupt an ordinary attack already in
         # range. Invalid/hidden/dead targets, taunts and explicit retarget flags
@@ -2566,7 +2594,8 @@ class Battle:
             if other.invisible(now_ms):
                 continue          # nothing can lock onto a vanished unit
             gap = distance(own_pos, other.pos) - other.collision_radius_mt
-            if gap <= sight and (best_d is None or gap < best_d):
+            in_sight = self._new_target_in_sight(entity, other, gap, sight)
+            if in_sight and (best_d is None or gap < best_d):
                 best, best_d = other, gap
             # Out of sight, something has to give a unit a destination, or it
             # stands still. Which something depends on what it hunts.
@@ -2610,7 +2639,7 @@ class Battle:
                             fallback, fallback_d = other, gap
                     elif offlane_d is None or gap < offlane_d:
                         offlane, offlane_d = other, gap
-                elif gap <= sight and (fallback_d is None or gap < fallback_d):
+                elif in_sight and (fallback_d is None or gap < fallback_d):
                     fallback, fallback_d = other, gap
             if (best is None and self._is_sniper_target(entity, other)
                     and self._pending_damage(other.uid) < other.hitpoints
@@ -4209,7 +4238,8 @@ class Battle:
         Ground units follow a flow field over the tile grid, so the river and
         its two bridges are simply terrain: a unit that has to cross finds a
         bridge because it is the only way through, not because the movement
-        code was told to detour to one. Fliers and river-jumpers ignore it.
+        code was told to detour to one. Fliers ignore it. River-jump routing
+        and speed are still missing; see the recorded Hog crossing audit.
 
         Solid building footprints are expanded by this unit's actual body
         radius and included in the cached field. Otherwise a cell centre inside
@@ -4218,11 +4248,10 @@ class Battle:
         """
         if entity.flying:
             return target.pos
-        # `JumpEnabled` describes the unit's attack/jump animation and river
-        # interaction, not unrestricted terrain traversal. Ground units still
-        # have to enter the river through a bridge; otherwise a Hog Rider or
-        # Prince could cross anywhere and central buildings would lose their
-        # defining pull. Only flying units ignore the bridge terrain here.
+        # Known limitation: this ground flow field still routes JumpEnabled
+        # troops through bridges. Native traces show off-bridge jumps; changing
+        # only speed or treating these troops as flying does not reconstruct
+        # their takeoff, landing and target transitions.
         circles = tuple((block.pos.x, block.pos.y,
                          block.collision_radius_mt + entity.collision_radius_mt)
                         for block in self._buildings()

@@ -444,6 +444,8 @@ class UnitSpec:
     # so directly, and agrees with the public snapshot's card type.
     from_building_card: bool = False
     retarget_each_tick: bool = False
+    sight_clip_mt: int = 0
+    sight_clip_side_mt: int = 0
     # `ActionWarpCharacter`: a warp onto a resolved target rather than the
     # fixed retreat Boss Bandit uses.
     ability_warp_to_target_speed: int = 0
@@ -1470,6 +1472,8 @@ def build_unit_spec(name: str, raw: dict, level: int, card_rarity: str, rarities
         jump_speed_mt_per_sec=int(raw.get('JumpSpeed', 0)),
         retarget_after_attack=bool(raw.get('RetargetAfterAttack', False)),
         retarget_each_tick=bool(raw.get('RetargetEachTick', False)),
+        sight_clip_mt=int(raw.get('SightClip', 0) or 0),
+        sight_clip_side_mt=int(raw.get('SightClipSide', 0) or 0),
         attack_self_pushback_mt=int(raw.get('AttackPushBack', 0) or 0),
         spawn_number=max(1, int(raw.get('SpawnNumber', 0))),
         projectile_speed_mt_per_sec=proj_speed,

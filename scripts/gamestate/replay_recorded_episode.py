@@ -82,13 +82,13 @@ def make_body(body, profiles):
     return result
 
 
-def replay(clip, *, initial_target_uid=None, sight_override=None):
+def replay(clip, *, initial_target_uid=None, sight_override=None, battle_options=None):
     profiles = unit_profiles()
     frames = clip['frames']
     uid = clip['focal_identity'][0]
     observed = {f['tick']: f for f in frames}
     focal_body = next(b for b in frames[0]['bodies'] if b['entity_id'] == uid)
-    battle = Battle()
+    battle = Battle(**(battle_options or {}))
     focal = make_body(focal_body, profiles)
     if focal is None:
         raise ValueError('Focal profile is unavailable')
@@ -144,6 +144,9 @@ def replay(clip, *, initial_target_uid=None, sight_override=None):
         assumptions=dict(context='measured zero-order hold; no context AI or damage',
             focal_deploy_remaining_ms=0, initial_target_uid=initial_target_uid,
             sight_override=sight_override, collision_separation=False,
+            normal_range_mode=battle.normal_range_mode,
+            target_lock_mode=battle.target_lock_mode,
+            hog_sight_mode=battle.hog_sight_mode,
             knockback_buffs_and_spells=False, native_target_pointer_available=False),
         limitations=['Conditioned focal trajectory replay, not a full independent battle replay.',
             'Focal deployment is over at the anchor; initial target/attack phase are not observed.',

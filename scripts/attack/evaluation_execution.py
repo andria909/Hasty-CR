@@ -14,12 +14,14 @@ CURRENT = dict(LEGACY, action_delay_ms=1350, action_cooldown_ms=0,
                cannon_placement_mode='central_defense_v1')
 CORRECTED = dict(CURRENT, schema='evaluation-execution-v2',
                  normal_range_mode='edge_to_edge_v1', target_lock_mode='legacy_periodic_v1')
+HOG_CLIPPED = dict(CORRECTED, schema='evaluation-execution-v3', hog_sight_mode='side_clip_v1')
 
 
 def validate_execution(value):
     if not isinstance(value,dict):
         raise ValueError('Complete explicit evaluation execution contract required')
-    template=CORRECTED if value.get('schema')=='evaluation-execution-v2' else LEGACY
+    template={'evaluation-execution-v2':CORRECTED,
+              'evaluation-execution-v3':HOG_CLIPPED}.get(value.get('schema'),LEGACY)
     if set(value)!=set(template):
         raise ValueError('Complete explicit evaluation execution contract required')
     for key in ('schema','geometry','coordinate_mode','physics_tick_ms','max_ms'):
@@ -32,23 +34,27 @@ def validate_execution(value):
         raise ValueError('Decision interval must be a positive whole physics tick')
     if value['cannon_placement_mode'] not in ('unrestricted','central_defense_v1'):
         raise ValueError('Unknown evaluation Cannon contract')
-    if template is CORRECTED:
+    if template in (CORRECTED,HOG_CLIPPED):
         if value['normal_range_mode'] not in ('edge_to_edge_v1','legacy_target_edge_v1'):
             raise ValueError('Unknown normal range mode')
         if value['target_lock_mode'] not in ('in_range_v1','legacy_periodic_v1'):
             raise ValueError('Unknown target retention mode')
+    if template is HOG_CLIPPED and value['hog_sight_mode'] not in ('side_clip_v1','legacy_radial_v1'):
+        raise ValueError('Unknown Hog sight mode')
     return deepcopy(value)
 
 
 def execution_for(protocol):
     value=protocol.get('execution')
     if value is None:
-        if protocol.get('schema','').endswith(('-v2','-v3')):
+        if protocol.get('schema','').endswith(('-v2','-v3','-v4')):
             raise ValueError('Version2/3 requires explicit execution')
         return deepcopy(LEGACY)
     result=validate_execution(value)
     if protocol.get('schema','').endswith('-v3') and result['schema']!='evaluation-execution-v2':
         raise ValueError('Version3 requires explicit combat geometry')
+    if protocol.get('schema','').endswith('-v4') and result['schema']!='evaluation-execution-v3':
+        raise ValueError('Version4 requires explicit Hog sight geometry')
     runtime=protocol.get('evaluation_runtime',{})
     for key in set(runtime)&set(result):
         if runtime[key]!=result[key]:raise ValueError('Evaluation runtime contradicts execution '+key)
@@ -57,11 +63,15 @@ def execution_for(protocol):
 
 def combat_modes(execution):
     e=validate_execution(execution)
-    return dict(normal_range_mode=e.get('normal_range_mode','legacy_target_edge_v1'),
-                target_lock_mode=e.get('target_lock_mode','legacy_periodic_v1'))
+    modes=dict(normal_range_mode=e.get('normal_range_mode','legacy_target_edge_v1'),
+               target_lock_mode=e.get('target_lock_mode','legacy_periodic_v1'))
+    if 'hog_sight_mode' in e:modes['hog_sight_mode']=e['hog_sight_mode']
+    return modes
 
 
 def configure_battle(battle,execution):
+    # v1/v2 were measured before sight clipping; never silently upgrade them.
+    battle.hog_sight_mode=execution.get('hog_sight_mode','legacy_radial_v1')
     for key,value in combat_modes(execution).items():setattr(battle,key,value)
     battle._validate_combat_geometry()
 
@@ -74,7 +84,10 @@ def training_execution(config):
     for key in ('source_radius_reach','target_lock_in_range','cannon_center_only'):
         if isinstance(profile.get(key),bool) or profile.get(key) not in (0,1):
             raise ValueError('Invalid training combat flag '+key)
-    result=dict(CORRECTED,
+    clipped=profile.get('hog_sight_clipping',0)
+    if isinstance(clipped,bool) or clipped not in (0,1):
+        raise ValueError('Invalid training combat flag hog_sight_clipping')
+    result=dict(HOG_CLIPPED if clipped else CORRECTED,
         normal_range_mode='edge_to_edge_v1' if profile['source_radius_reach'] else 'legacy_target_edge_v1',
         target_lock_mode='in_range_v1' if profile['target_lock_in_range'] else 'legacy_periodic_v1',
         cannon_placement_mode='central_defense_v1' if profile['cannon_center_only'] else 'unrestricted',
@@ -99,7 +112,8 @@ def environment_kwargs(execution):
             action_cooldown_ms=e['action_cooldown_ms'],decision_interval_ms=e['decision_interval_ms'],
             cannon_center_only=int(e['cannon_placement_mode']=='central_defense_v1'),tower_damage_all=0,
             source_radius_reach=int(combat_modes(e)['normal_range_mode']=='edge_to_edge_v1'),
-            target_lock_in_range=int(combat_modes(e)['target_lock_mode']=='in_range_v1')))
+            target_lock_in_range=int(combat_modes(e)['target_lock_mode']=='in_range_v1'),
+            hog_sight_clipping=int(e.get('hog_sight_mode')=='side_clip_v1')))
 
 
 def restrict_placements(mask,hand,execution):
@@ -112,7 +126,7 @@ def restrict_placements(mask,hand,execution):
 def check_row_execution(row,execution):
     if row.get('execution')!=execution:
         raise ValueError('Per-game execution differs from bound protocol')
-    if execution['schema']=='evaluation-execution-v2':
+    if execution['schema'] in ('evaluation-execution-v2','evaluation-execution-v3'):
         for key,value in combat_modes(execution).items():
             if row.get(key)!=value:raise ValueError('Actual battle geometry differs: '+key)
     if 'cannon_outside_center' not in row or type(row['cannon_outside_center']) is not int:

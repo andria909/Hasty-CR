@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from scripts.attack.evaluation_execution import (CURRENT, LEGACY, CORRECTED, execution_for,
+from scripts.attack.evaluation_execution import (CURRENT, LEGACY, CORRECTED, HOG_CLIPPED, execution_for,
     environment_kwargs, validate_execution, check_duel_execution,combat_modes,check_row_execution)
 from scripts.attack import evaluate_continuous_pool as pool
 from scripts.attack import evaluate_full_candidates as full
@@ -80,12 +80,13 @@ def test_new_verifier_rejects_old_rows_and_outside_cannon(tmp_path):
     with pytest.raises(ValueError,match='outside'):validate_part(report,job,protocol,spec)
 
 
-@pytest.mark.parametrize('execution',[CURRENT,LEGACY,CORRECTED,dict(CURRENT,action_delay_ms=2025)])
+@pytest.mark.parametrize('execution',[CURRENT,LEGACY,CORRECTED,HOG_CLIPPED,dict(CURRENT,action_delay_ms=2025)])
 def test_actual_duel_queue_parallel_slots_reservation_and_central_cells(monkeypatch,execution):
     env=ContinuousPushEnv();decisions=[];commands=[]
     def greedy(network,match,side,mode,mask,device,reserved_milli=0):
         assert match.battle.normal_range_mode==combat_modes(execution)['normal_range_mode']
         assert match.battle.target_lock_mode==combat_modes(execution)['target_lock_mode']
+        assert match.battle.hog_sight_mode==execution.get('hog_sight_mode','legacy_radial_v1')
         legal=np.flatnonzero(mask[1:])+1
         # Try Cannon first, then cheap cards so reuse is exercised repeatedly.
         selected=0

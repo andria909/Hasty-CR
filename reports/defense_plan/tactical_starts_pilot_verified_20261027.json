@@ -1,0 +1,413 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "andreiperelaiko/hastycr-tactical-starts-1028",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "low",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.1
+        },
+        "score": 0.08506944444444445,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "control",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0
+        },
+        "score": 0.07465277777777778,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "medium",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.25
+        },
+        "score": 0.06770833333333333,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "high",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.5
+        },
+        "score": 0.05208333333333333,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_control_s322",
+      "checkpoint": "tmp/kaggle/tactical_starts_pilot_20261028/collected/pilot_control_s322/update_000050.pt",
+      "checkpoint_sha256": "f59fbd8a5f891d29122da3ca0cea3fe7f1220c41f23bb9e55e00cc2eeb74f933",
+      "selection_score": 0.06597222222222222,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_control_s323",
+      "checkpoint": "tmp/kaggle/tactical_starts_pilot_20261028/collected/pilot_control_s323/update_000050.pt",
+      "checkpoint_sha256": "2c1c0cb25247aa2abd0047f8cf840c931a762569edf246ca373eabf2b293dcd9",
+      "selection_score": 0.08333333333333333,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_low_s322",
+      "checkpoint": "tmp/kaggle/tactical_starts_pilot_20261028/collected/pilot_low_s322/update_000050.pt",
+      "checkpoint_sha256": "a91938a69853db201666c027399da319d264affb6892e552089d78412fc845a0",
+      "selection_score": 0.09027777777777778,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_low_s323",
+      "checkpoint": "tmp/kaggle/tactical_starts_pilot_20261028/collected/pilot_low_s323/update_000100.pt",
+      "checkpoint_sha256": "2339204f6c23c4ac11d57ee9bedc5b3d30b86f08c01522782da9720376f38757",
+      "selection_score": 0.07986111111111112,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_medium_s322",
+      "checkpoint": "tmp/kaggle/tactical_starts_pilot_20261028/collected/pilot_medium_s322/update_000050.pt",
+      "checkpoint_sha256": "c6b58cc3e6fc5057da67d067d5ec14a3695bb1f14c8e9dbf5f03ffcfdbe69873",
+      "selection_score": 0.09375,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_medium_s323",
+      "checkpoint": "tmp/kaggle/tactical_starts_pilot_20261028/collected/pilot_medium_s323/update_000100.pt",
+      "checkpoint_sha256": "05b08c5665d399e119eee8ca31807b5f48552e00700e8d927eb6a80cc8fe27e8",
+      "selection_score": 0.041666666666666664,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_high_s322",
+      "checkpoint": "tmp/kaggle/tactical_starts_pilot_20261028/collected/pilot_high_s322/update_000100.pt",
+      "checkpoint_sha256": "587202717a4095445309809af9d72f2b6951893fccfa2efd69c8495bfb1e7fd0",
+      "selection_score": 0.05555555555555555,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_high_s323",
+      "checkpoint": "tmp/kaggle/tactical_starts_pilot_20261028/collected/pilot_high_s323/update_000050.pt",
+      "checkpoint_sha256": "648e2264200f44719d44b19ab06d250933b2b93a0339b4a4fb54c765b7d5e388",
+      "selection_score": 0.048611111111111105,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "parent",
+    "ranking": [
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.08333333333333333,
+        "macro_archetype_points": 0.16666666666666666,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.0
+          },
+          "giant": {
+            "games": 12,
+            "points": 0.4166666666666667
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.25
+          },
+          "swarm": {
+            "games": 12,
+            "points": 0.3333333333333333
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false,
+  "tactical_starts_audit": {
+    "verified": true,
+    "runs": [
+      {
+        "id": "pilot_control_s322",
+        "completed_episodes": 116,
+        "counts": {
+          "ordinary": 116
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_control_s323",
+        "completed_episodes": 112,
+        "counts": {
+          "ordinary": 112
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_low_s322",
+        "completed_episodes": 124,
+        "counts": {
+          "tactical": 17,
+          "ordinary": 107
+        },
+        "own_princess_masks": {
+          "3": 5,
+          "1": 3,
+          "0": 7,
+          "2": 2
+        },
+        "families": {
+          "swarm": 4,
+          "hog": 4,
+          "giant": 4,
+          "bridge": 3,
+          "golem": 1,
+          "air": 1
+        }
+      },
+      {
+        "id": "pilot_low_s323",
+        "completed_episodes": 123,
+        "counts": {
+          "tactical": 16,
+          "ordinary": 107
+        },
+        "own_princess_masks": {
+          "3": 4,
+          "1": 3,
+          "0": 7,
+          "2": 2
+        },
+        "families": {
+          "air": 3,
+          "hog": 3,
+          "giant": 1,
+          "swarm": 4,
+          "bridge": 2,
+          "golem": 3
+        }
+      },
+      {
+        "id": "pilot_medium_s322",
+        "completed_episodes": 136,
+        "counts": {
+          "tactical": 35,
+          "ordinary": 101
+        },
+        "own_princess_masks": {
+          "2": 7,
+          "3": 10,
+          "1": 5,
+          "0": 13
+        },
+        "families": {
+          "air": 4,
+          "bridge": 5,
+          "swarm": 9,
+          "hog": 7,
+          "giant": 7,
+          "golem": 3
+        }
+      },
+      {
+        "id": "pilot_medium_s323",
+        "completed_episodes": 136,
+        "counts": {
+          "tactical": 35,
+          "ordinary": 101
+        },
+        "own_princess_masks": {
+          "2": 7,
+          "3": 9,
+          "0": 14,
+          "1": 5
+        },
+        "families": {
+          "swarm": 8,
+          "air": 7,
+          "bridge": 4,
+          "hog": 7,
+          "giant": 5,
+          "golem": 4
+        }
+      },
+      {
+        "id": "pilot_high_s322",
+        "completed_episodes": 153,
+        "counts": {
+          "tactical": 84,
+          "ordinary": 69
+        },
+        "own_princess_masks": {
+          "2": 21,
+          "0": 23,
+          "1": 20,
+          "3": 20
+        },
+        "families": {
+          "air": 11,
+          "bridge": 17,
+          "swarm": 15,
+          "giant": 13,
+          "hog": 13,
+          "golem": 15
+        }
+      },
+      {
+        "id": "pilot_high_s323",
+        "completed_episodes": 150,
+        "counts": {
+          "tactical": 82,
+          "ordinary": 68
+        },
+        "own_princess_masks": {
+          "2": 20,
+          "0": 23,
+          "3": 19,
+          "1": 20
+        },
+        "families": {
+          "swarm": 15,
+          "hog": 15,
+          "air": 14,
+          "golem": 12,
+          "bridge": 15,
+          "giant": 11
+        }
+      }
+    ]
+  }
+}

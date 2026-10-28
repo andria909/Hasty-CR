@@ -88,6 +88,8 @@ def _unit(row: dict, projectiles: dict, level: int, *, building: bool,
         "load_time_ms": int(row.get("load_time") or 0),
         "range_mt": int(row.get("range") or 0),
         "sight_range_mt": int(row.get("sight_range") or 5500),
+        "sight_clip_mt": int(row.get("sight_clip") or 0),
+        "sight_clip_side_mt": int(row.get("sight_clip_side") or 0),
         # Historical UnitSpec field name: this stores raw client Speed, just
         # like the TOML loader. make_unit converts it to millitiles/second.
         # Converting here as well accelerated fallback units by another x20.
