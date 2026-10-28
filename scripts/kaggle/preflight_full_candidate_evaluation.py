@@ -39,10 +39,24 @@ def child(spec_path):
     row = duel((networks['balanced'], entries['balanced']['mode']), (networks['v25'], entries['v25']['mode']),
                'cpu', 801003, -1, cards, spells, on_complete=public_duel_metrics)
     for metrics in row['public_metrics'].values(): check_cards(metrics)
+    # Exercise the previously failing pre-serialization side-counter validation.
+    from scripts.attack.verify_full_candidate_evaluation import validate_part
+    from collections import Counter
+    technical_blueprint=dict(blueprint,tournament=dict(blueprint['tournament'],seeds=[801003],seats=[-1]))
+    technical_job=dict(kind='duel',pair=['balanced','v25'],games=1)
+    validate_part(dict(kind='duel',pair=technical_job['pair'],games=1,rows=[row],counts=dict(Counter([row['outcome']]))),technical_job,protocol,technical_blueprint)
+    restored_games=None
+    if (inputs/'resume').exists():
+        from scripts.attack.full_evaluation_recovery import identity,restore_parts
+        from scripts.attack.evaluate_full_candidates import schedule
+        check=Path(spec['report']).parent/'recovery_check';check.mkdir()
+        parts=restore_parts(inputs/'resume',check,identity(inputs/'protocol.json',source_digest,schedule(protocol,blueprint)),protocol,blueprint)
+        restored_games=sum(len(p['rows'])for p in parts.values())
+
     report = dict(schema='full-evaluation-exact-package-preflight-v1', models=checked,
                   technical_games=2 * len(checked) + 1, source_manifest_sha256=source_digest,
                   protocol_sha256=sha(inputs / 'protocol.json'), actual_cuda=False,
-                  independent_test_run=False, quality_accepted=False)
+                  independent_test_run=False, quality_accepted=False, restored_games=restored_games)
     with Path(spec['report']).open('x') as stream: json.dump(report, stream, indent=2); stream.write('\n')
 
 

@@ -1,0 +1,125 @@
+{
+  "kernel": "vertel0/hastycr-full-eval-recovery-1028",
+  "root": "tmp/kaggle/full_candidate_eval_recovery_20261028",
+  "submitted": false,
+  "gpu_enabled": false,
+  "migration": {
+    "schema": "report-validator-only-recovery-v1",
+    "changed_source_files": [
+      "scripts/attack/verify_full_candidate_evaluation.py"
+    ],
+    "old_source_manifest_sha256": "be269deb9033e55c3dd4b35befa7cc6b7a822ccb59debb1da6cdcb0076e7b530",
+    "new_source_manifest_sha256": "6bc5367852301fa276d101691b4e9106346b5cfe64bfea17efacbafff18e7de3",
+    "protocol_sha256": "d15bfff8a98d76580962c4aff47348f8fbaf27e69f5698561f44dbde0325203a",
+    "reused_games": 5040,
+    "parts": {
+      "test__legal_random_compatibility__balanced.json": {
+        "old_sha256": "77cf9890032fb0cdbb9e877151340f5b62ef63348ec5421176a8d87b1c5b60df",
+        "new_sha256": "77cf9890032fb0cdbb9e877151340f5b62ef63348ec5421176a8d87b1c5b60df"
+      },
+      "test__legal_random_compatibility__pair0_candidate0.json": {
+        "old_sha256": "d598cd4413ba45667f9f4e67c585db24a6cedcd4768fedc88170f6d8a1ea9430",
+        "new_sha256": "d598cd4413ba45667f9f4e67c585db24a6cedcd4768fedc88170f6d8a1ea9430"
+      },
+      "test__legal_random_compatibility__pair0_candidate1.json": {
+        "old_sha256": "9c6a2dbb9b758b5dc63d803f540241e3006d84721fb6748d00b04df4c00fa421",
+        "new_sha256": "9c6a2dbb9b758b5dc63d803f540241e3006d84721fb6748d00b04df4c00fa421"
+      },
+      "test__legal_random_compatibility__pair1_candidate0.json": {
+        "old_sha256": "e13e8c5d6f21885ceffbde89fc27b7997376658ddebb2dd076609ea814f3239d",
+        "new_sha256": "e13e8c5d6f21885ceffbde89fc27b7997376658ddebb2dd076609ea814f3239d"
+      },
+      "test__legal_random_compatibility__pair1_candidate1.json": {
+        "old_sha256": "f35b8ded53e32a930a9e8fb8e650f57850cb299c5d475f150c50422975e354a9",
+        "new_sha256": "f35b8ded53e32a930a9e8fb8e650f57850cb299c5d475f150c50422975e354a9"
+      },
+      "test__legal_random_compatibility__strong.json": {
+        "old_sha256": "3627a2ef66e0f51ea097020b578fae7cfb74a133e5063af5941c3a350327bc19",
+        "new_sha256": "3627a2ef66e0f51ea097020b578fae7cfb74a133e5063af5941c3a350327bc19"
+      },
+      "test__legal_random_compatibility__v25.json": {
+        "old_sha256": "8cb472ca5de392bb1d7203c83fb91663cded62ebaf552d713765bd8e4aa411a7",
+        "new_sha256": "8cb472ca5de392bb1d7203c83fb91663cded62ebaf552d713765bd8e4aa411a7"
+      },
+      "test__scripted_stress__balanced.json": {
+        "old_sha256": "e6f3da0895fcd25c6ece737e57ee4f2151a7f8405882d200bdab818b52dbfdf1",
+        "new_sha256": "e6f3da0895fcd25c6ece737e57ee4f2151a7f8405882d200bdab818b52dbfdf1"
+      },
+      "test__scripted_stress__pair0_candidate0.json": {
+        "old_sha256": "5395ede892fe68c30dc9c4543c55da45fd040dab5a2b0a4d38782050dd286110",
+        "new_sha256": "5395ede892fe68c30dc9c4543c55da45fd040dab5a2b0a4d38782050dd286110"
+      },
+      "test__scripted_stress__pair0_candidate1.json": {
+        "old_sha256": "6154bbf1b2ffc2a586ab05ee133b3afa46ad44509a57e388357b8fc4dc76ce72",
+        "new_sha256": "6154bbf1b2ffc2a586ab05ee133b3afa46ad44509a57e388357b8fc4dc76ce72"
+      },
+      "test__scripted_stress__pair1_candidate0.json": {
+        "old_sha256": "3a712d2f876b1ae9a8158afe4182216abbbe1481c7328bf4cff11672fd9df86d",
+        "new_sha256": "3a712d2f876b1ae9a8158afe4182216abbbe1481c7328bf4cff11672fd9df86d"
+      },
+      "test__scripted_stress__pair1_candidate1.json": {
+        "old_sha256": "377dc68a024cb39dac6ca41d6ca32f8bf8a921c3a7c7a6840c32da208e479085",
+        "new_sha256": "377dc68a024cb39dac6ca41d6ca32f8bf8a921c3a7c7a6840c32da208e479085"
+      },
+      "test__scripted_stress__strong.json": {
+        "old_sha256": "73fe2e5d7237518c0182e9e78d1a81c6eea77372498c47e9c46722169c269482",
+        "new_sha256": "73fe2e5d7237518c0182e9e78d1a81c6eea77372498c47e9c46722169c269482"
+      },
+      "test__scripted_stress__v25.json": {
+        "old_sha256": "852572b9756b5bf21d176b5c8fcf4dae9ad1a32dc096aaa0f0e786d8bd04a163",
+        "new_sha256": "852572b9756b5bf21d176b5c8fcf4dae9ad1a32dc096aaa0f0e786d8bd04a163"
+      }
+    },
+    "simulation_and_weights_unchanged": true,
+    "reason": "Accept int side keys before JSON serialization; no game logic changes"
+  },
+  "technical": {
+    "schema": "full-evaluation-exact-package-preflight-v1",
+    "models": [
+      {
+        "id": "pair0_candidate0",
+        "sha256": "b22e1c9731ee8d49aa748a16ab082ac706832e2eb3df688fce4901dc215131d1",
+        "technical_games": 2
+      },
+      {
+        "id": "pair0_candidate1",
+        "sha256": "2701f3b613f9fb65f210f2025a2e05cd703a6d8a1f05773d1ecdd51fc77cabc6",
+        "technical_games": 2
+      },
+      {
+        "id": "pair1_candidate0",
+        "sha256": "eb720be4592cf12b309006ebc2e0d251f087c5064a12ed5b0428f12e1d549853",
+        "technical_games": 2
+      },
+      {
+        "id": "pair1_candidate1",
+        "sha256": "4fd054b0d1cc1e2ff4fe034cf7b303166dcf9f3ef3ee20de2cecd60d59d05d86",
+        "technical_games": 2
+      },
+      {
+        "id": "balanced",
+        "sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+        "technical_games": 2
+      },
+      {
+        "id": "strong",
+        "sha256": "82e988f074937fe86d7c9ec1eb1dfce384142eabe98ebc75adf4e1986c71a7fd",
+        "technical_games": 2
+      },
+      {
+        "id": "v25",
+        "sha256": "d65ab55893592c0e4655a1882db459c4a7fb1ebd9e10afaf2daa4d2b369fc972",
+        "technical_games": 2
+      }
+    ],
+    "technical_games": 15,
+    "source_manifest_sha256": "6bc5367852301fa276d101691b4e9106346b5cfe64bfea17efacbafff18e7de3",
+    "protocol_sha256": "d15bfff8a98d76580962c4aff47348f8fbaf27e69f5698561f44dbde0325203a",
+    "actual_cuda": false,
+    "independent_test_run": false,
+    "quality_accepted": false,
+    "restored_games": 5040
+  },
+  "tests": "24 passed",
+  "remaining": "Reverify candidate training in frozen context or explicitly preserve the validated original audit; current-source audit rejects changed replay fingerprint"
+}
