@@ -1,0 +1,4976 @@
+{
+  "protocol": {
+    "schema": "central-cannon-air-combination-probe-v1",
+    "physics_pins": {
+      "sim/match.py": "65932ba8fb6aacd022b2adffa7ca411b7728ad172cad8196f55981c46fdd7f5c",
+      "sim/continuous_push.py": "1812819662d6055f7951e6a0516696d382da6ed24bcb656544ab8756aa467901",
+      "sim/eval_defense_duel.py": "659def3089d3afcdce539b5145371caf7ea407003b11a5c36016b3498a6feb5c",
+      "sim/engine.py": "2947c37fe5f2eb5fc146347fd09459c776f7f15cbd4275a9c989a95c41940796",
+      "sim/entities.py": "1e5d85dd85b17ff51fa231316fce3334a43445a045551d4fc63514f3a48381b8",
+      "sim/spells.py": "1e81607c315e95da8f832247c88f3f02420e232d3fa711762aeb8a77c5596dad",
+      "sim/adapter.py": "3d12212efeb1583179382281729c7e2bd52daeaec94079e29265fde9bbf7f428",
+      "sim/cannon_placement.py": "441ceaaee92a72e2a63d889b2584501d042cbfbf65d5d5a3a45f1ceec275c39c",
+      "scripts/attack/sequence_execution.py": "863caf63f7b4c37f5537a7077265db44c6e6edc79874f2e78331b1e325fb1552"
+    },
+    "execution": {
+      "command_delay_ms": 1350,
+      "action_cooldown_ms": 0,
+      "decision_interval_ms": 250,
+      "cannon_placement_mode": "central_defense_v1",
+      "physics_tick_ms": 50
+    },
+    "delays": [
+      1350,
+      2025
+    ],
+    "own_princess_mask": 0,
+    "enemy_masks": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "beam_cells": 2,
+    "helper_offsets_ms": [
+      1500,
+      3000,
+      5000
+    ],
+    "helper_variants": 3,
+    "initial_hand": [
+      "cannon",
+      "electro_spirit",
+      "zap",
+      "fireball"
+    ],
+    "initial_elixir": 10,
+    "horizon_ms": 60000,
+    "split": "TRAIN diagnostic",
+    "live_games_started": false
+  },
+  "attempts": 2320,
+  "contexts": [
+    {
+      "enemy_mask": 0,
+      "lane": "left",
+      "delay_ms": 1350,
+      "best": {
+        "cannon": {
+          "context": 0,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 0,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 0,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 4,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 0,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 4600,
+              "cost": 2,
+              "placed_ms": 4600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 0,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 2,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 0,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 0,
+      "lane": "left",
+      "delay_ms": 2025,
+      "best": {
+        "cannon": {
+          "context": 1,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 1,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 1,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 4,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 1,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 5275,
+              "cost": 2,
+              "placed_ms": 5300
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 1,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 2,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 1,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 0,
+      "lane": "right",
+      "delay_ms": 1350,
+      "best": {
+        "cannon": {
+          "context": 2,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 2,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 2,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                16,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 4,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 2,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 4600,
+              "cost": 2,
+              "placed_ms": 4600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 2,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 2,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 2,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 0,
+      "lane": "right",
+      "delay_ms": 2025,
+      "best": {
+        "cannon": {
+          "context": 3,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 3,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 3,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                16,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 4,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 3,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 5275,
+              "cost": 2,
+              "placed_ms": 5300
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 3,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 2,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 3,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 1,
+      "lane": "left",
+      "delay_ms": 1350,
+      "best": {
+        "cannon": {
+          "context": 4,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 4,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 4,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 4,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 4,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 4600,
+              "cost": 2,
+              "placed_ms": 4600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 4,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 2,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 4,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 1,
+      "lane": "left",
+      "delay_ms": 2025,
+      "best": {
+        "cannon": {
+          "context": 5,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 5,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 5,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 4,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 5,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 5275,
+              "cost": 2,
+              "placed_ms": 5300
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 5,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 2,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 5,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 1,
+      "lane": "right",
+      "delay_ms": 1350,
+      "best": {
+        "cannon": {
+          "context": 6,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 6,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 6,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                16,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 4,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 6,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 4600,
+              "cost": 2,
+              "placed_ms": 4600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 6,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 2,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 6,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 1,
+      "lane": "right",
+      "delay_ms": 2025,
+      "best": {
+        "cannon": {
+          "context": 7,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 7,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 7,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                16,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 4,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 7,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 5275,
+              "cost": 2,
+              "placed_ms": 5300
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 7,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 2,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 7,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 2,
+      "lane": "left",
+      "delay_ms": 1350,
+      "best": {
+        "cannon": {
+          "context": 8,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 8,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 8,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 4,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 8,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 4600,
+              "cost": 2,
+              "placed_ms": 4600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 8,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 2,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 8,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 2,
+      "lane": "left",
+      "delay_ms": 2025,
+      "best": {
+        "cannon": {
+          "context": 9,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 9,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 9,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 4,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 9,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 5275,
+              "cost": 2,
+              "placed_ms": 5300
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 9,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 2,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 9,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 2,
+      "lane": "right",
+      "delay_ms": 1350,
+      "best": {
+        "cannon": {
+          "context": 10,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 10,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 10,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                16,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 4,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 10,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 4600,
+              "cost": 2,
+              "placed_ms": 4600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 10,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 2,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 10,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 2,
+      "lane": "right",
+      "delay_ms": 2025,
+      "best": {
+        "cannon": {
+          "context": 11,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 11,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 11,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                16,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 4,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 11,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 5275,
+              "cost": 2,
+              "placed_ms": 5300
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 11,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 2,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 11,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 3,
+      "lane": "left",
+      "delay_ms": 1350,
+      "best": {
+        "cannon": {
+          "context": 12,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 12,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 12,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 4,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 12,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 4600,
+              "cost": 2,
+              "placed_ms": 4600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 12,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 2,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 12,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 3,
+      "lane": "left",
+      "delay_ms": 2025,
+      "best": {
+        "cannon": {
+          "context": 13,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 13,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 13,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 4,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 13,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              11,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                11,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                3,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 5275,
+              "cost": 2,
+              "placed_ms": 5300
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 13,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              10,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                10,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                1,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 2,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 13,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 3,
+      "lane": "right",
+      "delay_ms": 1350,
+      "best": {
+        "cannon": {
+          "context": 14,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 14,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 14,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                16,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 4,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 14,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 1,
+              "placed_ms": 4350
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 4600,
+              "cost": 2,
+              "placed_ms": 4600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 14,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 2850,
+              "cost": 3,
+              "placed_ms": 2850
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 4350,
+              "cost": 2,
+              "placed_ms": 4350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 14,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    },
+    {
+      "enemy_mask": 3,
+      "lane": "right",
+      "delay_ms": 2025,
+      "best": {
+        "cannon": {
+          "context": 15,
+          "kind": "cannon",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 1280
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 3,
+          "clear_without_damage": false
+        },
+        "cannon_electro_spirit": {
+          "context": 15,
+          "kind": "cannon_electro_spirit",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "cannon_fireball": {
+          "context": 15,
+          "kind": "cannon_fireball",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "fireball",
+            "offset_ms": 1500,
+            "variant": 1
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                16,
+                19
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 4,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        "cannon_spirit_zap": {
+          "context": 15,
+          "kind": "cannon_spirit_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              6,
+              22
+            ]
+          },
+          "second": {
+            "card": "electro_spirit",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": {
+            "card": "zap",
+            "offset_ms": 1750,
+            "variant": 0
+          },
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                6,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "electro_spirit",
+              "slot": 1,
+              "cell": [
+                14,
+                21
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 1,
+              "placed_ms": 5050
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3250,
+              "due_ms": 5275,
+              "cost": 2,
+              "placed_ms": 5300
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 6,
+          "clear_without_damage": true
+        },
+        "cannon_zap": {
+          "context": 15,
+          "kind": "cannon_zap",
+          "first": {
+            "card": "cannon",
+            "cell": [
+              7,
+              22
+            ]
+          },
+          "second": {
+            "card": "zap",
+            "offset_ms": 1500,
+            "variant": 0
+          },
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "cannon",
+              "slot": 0,
+              "cell": [
+                7,
+                22
+              ],
+              "requested_ms": 1500,
+              "due_ms": 3525,
+              "cost": 3,
+              "placed_ms": 3550
+            },
+            {
+              "card": "zap",
+              "slot": 2,
+              "cell": [
+                16,
+                17
+              ],
+              "requested_ms": 3000,
+              "due_ms": 5025,
+              "cost": 2,
+              "placed_ms": 5050
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 640
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 5,
+          "clear_without_damage": false
+        },
+        "none": {
+          "context": 15,
+          "kind": "none",
+          "first": null,
+          "second": null,
+          "third": null,
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3200,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 3200
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      },
+      "attempts": 145,
+      "valid": 145
+    }
+  ],
+  "summary": {
+    "cannon": {
+      "contexts_with_valid_plan": 16,
+      "zero_damage": 0,
+      "king_survives": 16,
+      "mean_damage": 1280.0,
+      "mean_paid_elixir": 3.0
+    },
+    "cannon_electro_spirit": {
+      "contexts_with_valid_plan": 16,
+      "zero_damage": 0,
+      "king_survives": 16,
+      "mean_damage": 640.0,
+      "mean_paid_elixir": 4.0
+    },
+    "cannon_fireball": {
+      "contexts_with_valid_plan": 16,
+      "zero_damage": 16,
+      "king_survives": 16,
+      "mean_damage": 0.0,
+      "mean_paid_elixir": 7.0
+    },
+    "cannon_spirit_zap": {
+      "contexts_with_valid_plan": 16,
+      "zero_damage": 16,
+      "king_survives": 16,
+      "mean_damage": 0.0,
+      "mean_paid_elixir": 6.0
+    },
+    "cannon_zap": {
+      "contexts_with_valid_plan": 16,
+      "zero_damage": 0,
+      "king_survives": 16,
+      "mean_damage": 640.0,
+      "mean_paid_elixir": 5.0
+    },
+    "none": {
+      "contexts_with_valid_plan": 16,
+      "zero_damage": 0,
+      "king_survives": 16,
+      "mean_damage": 3200.0,
+      "mean_paid_elixir": 0.0
+    }
+  },
+  "training_started": false,
+  "quality_accepted": false,
+  "limitations": [
+    "Hindsight bounded search over two best single-Cannon cells; not a learned policy or global optimum.",
+    "Full ten-elixir bank and fixed legal hand; no enemy support, reinforcements or spells.",
+    "Helpers use observed current target position plus bounded offsets, not future coordinates.",
+    "Clear includes60s resolution; no-damage metric includes bomb impacts, not just first hits.",
+    "Simulator mechanics remain unverified against real activation and target locks."
+  ],
+  "local_run": "tmp/central_cannon_air_combinations_20261028",
+  "raw_trials_sha256": "657d65c2b3f336428a897c24f8f4c5a46b566dec760b46785710d4a742563d27",
+  "mirrored_best_plan_comparisons": 48,
+  "mirrored_best_plan_mismatches": 0,
+  "automated_tests_passed": 15
+}

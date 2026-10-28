@@ -34,3 +34,35 @@ def test_pending_card_reserves_elixir_against_unaffordable_second_card():
     assert result['elixir_spent']==4
     assert 'not_legal_or_unreserved_elixir'in result['invalid_reasons']
     assert [r['card']for r in result['commands']]==['musketeer']
+
+
+def test_replacement_card_in_same_slot_is_available_after_delivery_without_extra_lock():
+    match,hp,cards,spells,lane=fixture(10)
+    player=match.players[1]
+    player.hand=['cannon','musketeer','fireball','hog_rider']
+    player.queue=['zap','electro_spirit','skeletons','knight']
+    result=rollout(match,hp,cards,spells,lane,dict(card='cannon',cell=[7,22]),
+                   dict(card='zap',offset_ms=1500,variant=1))
+    assert result['valid'] and result['elixir_spent']==5
+    a,b=result['commands']
+    assert a['slot']==b['slot']==0
+    assert b['requested_ms']-a['placed_ms']==150
+
+
+def test_cannon_outside_center_is_rejected_by_teacher_search():
+    match,hp,cards,spells,lane=fixture(10)
+    result=rollout(match,hp,cards,spells,lane,dict(card='cannon',cell=[4,22]))
+    assert not result['valid'] and result['commands']==[]
+    assert 'not_legal_or_unreserved_elixir' in result['invalid_reasons']
+
+
+def test_three_cards_reserve_and_pay_each_cost_while_commands_overlap():
+    match,hp,cards,spells,lane=fixture(10)
+    player=match.players[1];player.hand=['cannon','electro_spirit','zap','fireball']
+    player.queue=[c for c in player.deck if c not in player.hand]
+    result=rollout(match,hp,cards,spells,lane,dict(card='cannon',cell=[7,22]),
+        dict(card='electro_spirit',offset_ms=250,variant=1),
+        third=dict(card='zap',offset_ms=500,variant=1))
+    assert result['valid'] and result['elixir_spent']==6
+    assert len({c['slot']for c in result['commands']})==3
+    assert max(c['requested_ms']for c in result['commands'])<result['commands'][0]['placed_ms']

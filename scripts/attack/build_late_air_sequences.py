@@ -11,6 +11,7 @@ import numpy as np
 from scripts.attack.audit_air_label_latency import opening
 from scripts.attack.sequence_physics import require_current_physics
 from scripts.kaggle.local_artifact_transfer import file_sha
+from scripts.attack.sequence_execution import EXECUTION,require_execution
 from sim.adapter import grid_to_point
 from sim.continuous_push import ContinuousPushEnv
 from sim.defense_assets import load_defense_assets
@@ -67,7 +68,7 @@ def replay(context, cards, spells, *, pending_inputs=False):
                 continue
             if not match.play_card(1, card, grid_to_point(x, y, 1)):
                 raise ValueError('Paid replay deployment failed')
-            env.pending.remove(event); env.slot_ready[slot] = now+2100
+            env.pending.remove(event); env.slot_ready[slot] = now+EXECUTION['action_cooldown_ms']
             delivered.append(dict(card=card, placed_ms=now))
         match.step(50)
     damage = {k:v-match.towers[1][k].hitpoints for k,v in hp.items()}
@@ -84,6 +85,7 @@ def build(search_path, output, *, pending_inputs=False):
     result = json.loads(search_path.read_text())
     protocol = result['protocol']
     require_current_physics(protocol)
+    require_execution(protocol)
     source = Path(protocol['source_data'])
     if (protocol['schema'] != 'late-air-native-delay-search-v1' or protocol['command_delay_ms'] != 1350
             or file_sha(source/'examples.npz') != protocol['data_sha256']
@@ -106,7 +108,7 @@ def build(search_path, output, *, pending_inputs=False):
     output.mkdir(parents=True, exist_ok=False)
     np.savez_compressed(output/'examples.npz', **{k:np.stack(v) for k,v in arrays.items()})
     manifest = dict(schema='late-air-public-sequence-labels-v1', split='train', examples=len(records),
-        physics_pins=protocol['physics_pins'], seeds=seeds, records=records, sequences=len(result['contexts']), command_delay_ms=1350,
+        physics_pins=protocol['physics_pins'],execution=EXECUTION, seeds=seeds, records=records, sequences=len(result['contexts']), command_delay_ms=1350,
         data_sha256=file_sha(output/'examples.npz'), search_sha256=file_sha(search_path),
         builder_sha256=file_sha(__file__), environment_sha256=file_sha('sim/continuous_push.py'),
         grouping='Maximum seed held out across complete sequences', quality_accepted=False,

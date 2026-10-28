@@ -7,6 +7,8 @@ import numpy as np
 import torch
 from scripts.attack.audit_air_label_latency import opening
 from scripts.attack.evaluate_continuous_pool import load,sha
+from scripts.attack.sequence_execution import EXECUTION
+from scripts.attack.sequence_physics import physics_pins
 from sim.adapter import grid_to_point
 from sim.continuous_push import ContinuousPushEnv
 from sim.defense_assets import load_defense_assets
@@ -45,7 +47,7 @@ def episode(net,record,cards,spells):
             else:
                 rejections+=1
                 rejected_commands.append(dict(card=card,cell=[x,y],at_ms=now,hand=list(match.players[1].hand),elixir=match.players[1].elixir,can_play=match.can_play(1,card),has_spell_spec=card in spells))
-            env.slot_ready[slot]=now+2100;env.pending.remove(event)
+            env.slot_ready[slot]=now+EXECUTION['action_cooldown_ms'];env.pending.remove(event)
         match.step(50)
     damage={k:v-match.towers[1][k].hitpoints for k,v in hp.items()}
     remaining=sum(e.alive and e.side==-1 and not e.is_tower for e in match.battle.entities.values())
@@ -62,7 +64,7 @@ def run(config,output):
     if sha(source)!=protocol['search_sha256']:raise ValueError('Fixture source changed')
     output.mkdir(parents=True,exist_ok=False)
     protocol.update(source_sha256=sha(__file__),match_source_sha256=sha('sim/match.py'),environment_source_sha256=sha('sim/continuous_push.py'),split='train',quality_accepted=False,live_games_started=False,
-        command_delay_ms=1350,decision_interval_ms=250,no_enemy_reinforcement=True)
+        command_delay_ms=1350,decision_interval_ms=250,execution=EXECUTION,physics_pins=physics_pins(),no_enemy_reinforcement=True)
     (output/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n')
     torch.set_num_threads(1);cards,spells,*_=load_defense_assets();cards.update(resolve_deck(cards,list(DECK_26)))
     summaries={};rows=[]
