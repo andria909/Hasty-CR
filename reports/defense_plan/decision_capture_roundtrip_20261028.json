@@ -1,0 +1,27 @@
+{
+  "scope": "Technical serialization and deterministic replay smoke on two actual checkpoints; historical frames reencoded without historical pending state; not a live decision audit",
+  "source": "tmp/live/full_top2_20261028/full_bc800/run/frames.jsonl",
+  "captures": "tmp/decision_capture_roundtrip_20261028_v2",
+  "results": [
+    {
+      "model": "full_bc800",
+      "schema": "exact-policy-decision-replay-v1",
+      "checkpoint_sha256": "eb720be4592cf12b309006ebc2e0d251f087c5064a12ed5b0428f12e1d549853",
+      "mode": "same_weights_reproduction",
+      "samples": 10,
+      "same_actions": 10,
+      "maximum_value_difference": 0.0,
+      "limitation": "Decision agreement is not tactical quality or evidence of successful placement."
+    },
+    {
+      "model": "full_cannon_spells_replay1",
+      "schema": "exact-policy-decision-replay-v1",
+      "checkpoint_sha256": "b22e1c9731ee8d49aa748a16ab082ac706832e2eb3df688fce4901dc215131d1",
+      "mode": "same_weights_reproduction",
+      "samples": 10,
+      "same_actions": 10,
+      "maximum_value_difference": 0.0,
+      "limitation": "Decision agreement is not tactical quality or evidence of successful placement."
+    }
+  ]
+}
