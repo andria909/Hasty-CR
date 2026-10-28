@@ -213,7 +213,9 @@ def main():
                 if reader.query()['status']=='no_battle':
                     time.sleep(5)  # world unload precedes completion of lobby animations
                     if reader.query()['status']=='no_battle':
-                        break
+                        png=subprocess.check_output(adb+['exec-out','screencap','-p'],timeout=10)
+                        if lobby_reference is None or lobby_button_matches(lobby_reference,png):
+                            break
                 if result_reference is not None and time.monotonic()>=next_ok_retry:
                     png=subprocess.check_output(adb+['exec-out','screencap','-p'],timeout=10)
                     if lobby_button_matches(result_reference,png,box=(800,2240,1100,2400)):
