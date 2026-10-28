@@ -1,11 +1,87 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-pending-inputs-pilot-20261027",
-  "status": "queued_waiting_verified_free_account",
-  "submitted": false,
-  "root": "tmp/kaggle/pending_inputs_pilot_20261027_on_available",
+  "status": "pilot_complete_budgets_verified",
+  "progress_snapshot": {
+    "kernel": "vertel0/hastycr-pending-inputs-pilot-20261027",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "ended",
+    "reconnect_attempt": 1,
+    "checked_host_ns": 1793153370097053000,
+    "trials": {
+      "pilot_control1350_s212": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1235.519540014
+      },
+      "pilot_pending1350_s212": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1255.844821347
+      },
+      "pilot_control1350_s213": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2210.409353045
+      },
+      "pilot_pending1350_s213": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 2249.502910316
+      },
+      "pilot_control2025_s212": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3179.673676741
+      },
+      "pilot_pending2025_s212": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3247.465973179
+      },
+      "pilot_control2025_s213": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 4170.794584112
+      },
+      "pilot_pending2025_s213": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 4247.926341661
+      }
+    }
+  },
   "pilot_target_steps": 819200,
-  "progress_snapshot": {},
-  "queue_config": "tmp/kaggle/pending_inputs_queue_20261027/config.json",
-  "quality_accepted": false
+  "conditional_full_steps": 0,
+  "quality_accepted": false,
+  "live_stopped": true,
+  "submitted": true,
+  "root": "tmp/kaggle/pending_inputs_pilot_20261027_on_available",
+  "launch_receipt": {
+    "ref": "/code/vertel0/hastycr-pending-inputs-pilot-20261027",
+    "url": "https://www.kaggle.com/code/vertel0/hastycr-pending-inputs-pilot-20261027",
+    "versionNumber": 1,
+    "kernelId": 141254651
+  },
+  "frozen_bootstrap_sha256": "5d3cebd75b024d90ff9aba12154f5d45e543dda5f3943735c4105f58beff69b8",
+  "last_local_sync_ns": 1793165746405347000,
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/pending_inputs_pilot_verified_20261027.json"
 }

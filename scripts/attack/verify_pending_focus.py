@@ -54,6 +54,10 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps,*
     row=json.loads((root/(run_id+'_summary.json')).read_text())
     boundary=json.loads((root/run_id/'training_result.json').read_text())
     config=json.loads((root/run_id/'config.json').read_text())
+    from sim.train_attack_ppo import code_fingerprint
+    expected_code=code_fingerprint('joint','continuous_v1',trial['card_balance_weight'],1,trial['pending_inputs'])
+    if config.get('source_code_sha256')!=expected_code:
+        raise ValueError('Actual training fingerprint differs from frozen sources')
     expected_initial=selected_initial
     if trial.get('warmstart_updates',0):
         warm=root/(run_id+'_warmstart');w=json.loads((warm/'result.json').read_text())

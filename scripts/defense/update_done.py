@@ -262,7 +262,7 @@ def render_live_feedback_studies(reports):
         labels={'tower_support_pilot':'Помощь башен','spell_waste_pilot':'Пустые спеллы',
                 'native_fireball_slot_pilot':'Прицел Fireball и порядок руки'}
         lines += ['**Параллельная отправка новых опытов:**','',
-                  '| Опыт | Аккаунт | Состояние |','|---|---|---|']
+                  '| Опыт | Аккаунт | PPO-шаги | Состояние |','|---|---|---:|---|']
         for row in launch['studies']:
             root=Path(row['root']);receipt=root/'launch_receipt.json'
             status='Подготовлена отправка; GPU не подтверждён'
@@ -273,7 +273,18 @@ def render_live_feedback_studies(reports):
                 status='Отправка завершилась ошибкой; проверяется'
             elif (root/'dataset_submission.json').exists():
                 status='Датасет отправляется/проверяется; GPU ещё не запрошен'
-            lines.append(f"| {labels[row['stem']]} | {row['kernel'].split('/')[0]} | {status} |")
+            progress='—'
+            progress_path=root/'live_stream/progress.json'
+            if progress_path.exists():
+                snapshot=json.loads(progress_path.read_text())
+                protocol=json.loads((root/'dataset/protocol.json').read_text())
+                expected={f"pilot_{case['id']}_s{seed}" for case in protocol['cases'] for seed in protocol['pilot_seeds']}
+                trials=snapshot.get('trials',{})
+                if snapshot.get('kernel')==row['kernel'] and trials and set(trials)<=expected and all(
+                        v.get('target_steps')==102400 and type(v.get('steps'))is int and 0<=v['steps']<=102400 for v in trials.values()):
+                    progress=f"{100*sum(v['steps']for v in trials.values())/(102400*len(expected)):.1f}%"
+                    status='Шаги получены из логов; итог проверяется'
+            lines.append(f"| {labels[row['stem']]} | {row['kernel'].split('/')[0]} | {progress} | {status} |")
         lines += ['','Каждый опыт:4 профиля ×2 seed, суммарно819200 PPO-шагов. Приём запуска не означает начало CUDA-обучения.','']
     lines += ['**Исправлены слоты руки:** отклонения выставлений33 →0 в144 одинаковых TRAIN-эпизодах; старые GPU-пакеты сохраняют прежнюю механику. [Разбор](reports/late_air_slot_fix_20261027.md).','']
     lines += ['**Данные симуляции:** все32 карты текущего обучения доступны; оплаченный Lightning проверен. Старые9 падений тестов связаны с другим набором данных; соответствие актуальной игре ещё не доказано. [Аудит](reports/portable_curriculum_assets_20261027.md).','']
@@ -282,7 +293,11 @@ def render_live_feedback_studies(reports):
     pending_note=('отправлено на Kaggle; подтверждённые шаги — в таблице ниже' if
                   pending.get('submitted') and pending.get('launch_receipt') else
                   'поставлено в очередь после последовательной защиты')
+    if (reports/'pending_inputs_pilot_verified_20261027.json').exists():
+        pending_note='завершено,819200 CUDA-шагов проверены; результаты ниже'
     lines += ['**Вход модели:** координата ещё не появившейся своей карты не видна; воспроизведены одинаковые входы с разными последствиями. Сравнение входов20/309 и24/313:4 профиля, resume и48 технических игр прошли; '+pending_note+'. [Проверка](reports/pending_observation_audit_20261027.md).','']
+    if (reports/'pending_inputs_pilot_summary_20261027.json').exists():
+        lines += short_study_lines(reports,'pending_inputs_pilot','20261027','Видимость ожидающих карт')
     lines += ['| Серия | Вариант | PPO: запуск1 / запуск2 |','|---|---|---:|']
     links=[];sent=queued=verified=0
     for stem,label,seeds,cases in studies:
