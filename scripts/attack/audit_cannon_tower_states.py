@@ -25,7 +25,8 @@ def ready_hand(player,card):
     player.hand=[card,*rest[:3]];player.queue=rest[3:];player.elixir=10000
 
 
-def run_case(cards,spells,own_mask,enemy_mask,lane,threat,delay,choice,activate=False):
+def run_case(cards,spells,own_mask,enemy_mask,lane,threat,delay,choice,activate=False,*,
+             route="bridge",decision_ms=1500,candidate_cells=None,trace=None):
     m=Match(cards=cards,spells=spells,decks=(list(DECK_26),list(ENEMY)),seed=17,
             geometry='native_anchors_candidate_v1')
     for side,bits in ((1,own_mask),(-1,enemy_mask)):
@@ -35,16 +36,25 @@ def run_case(cards,spells,own_mask,enemy_mask,lane,threat,delay,choice,activate=
     m._wake_kings()
     start_hp={key:t.hitpoints for key,t in m.towers[1].items()}
     ready_hand(m.players[-1],threat);ready_hand(m.players[1],'cannon')
-    x=3 if lane=='left' else 14
-    assert m.play_card(-1,threat,grid_to_point(17-x,16,-1))
+    if route not in ('bridge','edge','pocket'):raise ValueError('Unknown attack route')
+    if route=='edge' and threat!='balloon':raise ValueError('Edge probe is flying Balloon only')
+    if route=='pocket' and own_mask & (1 if lane=='left' else 2):
+        raise ValueError('Pocket attack requires destroyed own princess on that side')
+    if not 0<=decision_ms<=10000 or delay not in (1350,2025):raise ValueError('Bounded measured timing required')
+    x=(0 if route=='edge' else 3) if lane=='left' else (17 if route=='edge' else 14)
+    world_y=23 if route=='pocket' else 15
+    assert m.play_card(-1,threat,grid_to_point(x,world_y,1))
     tracker=TowerSupport(m.battle).attach();placed=False;pull=False;first_lock=None
-    cell=CANDIDATES.get(choice)
+    candidates=CANDIDATES if candidate_cells is None else candidate_cells
+    if choice!='none' and choice not in candidates:raise ValueError('Unknown candidate')
+    cell=candidates.get(choice)
     if cell and lane=='right':cell=(17-cell[0],cell[1])
     while not m.finished and m.elapsed_ms<30000:
-        if cell and not placed and m.elapsed_ms>=1500+delay:
+        if cell and not placed and m.elapsed_ms>=decision_ms+delay:
             placed=m.play_card(1,'cannon',grid_to_point(*cell,1))
             if not placed:raise ValueError('Candidate is not mechanically legal')
         m.step(50)
+        if trace is not None:trace(m)
         for unit in m.battle.entities.values():
             target=m.battle.entities.get(unit.target_uid)
             if unit.alive and unit.side==-1 and not unit.is_tower and target and target.name=='cannon' and target.side==1:
@@ -53,6 +63,7 @@ def run_case(cards,spells,own_mask,enemy_mask,lane,threat,delay,choice,activate=
     damage={key:value-m.towers[1][key].hitpoints for key,value in start_hp.items()}
     return dict(own_mask=own_mask,enemy_mask=enemy_mask,king_activated_initially=activate or own_mask!=3,
         lane=lane,threat=threat,delay_ms=delay,choice=choice,cell=cell,paid_cannon=placed,
+        route=route,decision_ms=decision_ms,enemy_cell=[x,world_y],
         paid_enemy=True,pulled=pull,first_cannon_lock_ms=first_lock,damage=damage,
         total_damage=sum(damage.values()),king_dead=not m.towers[1]['king'].alive,
         remaining_enemies=sum(e.alive and e.side==-1 and not e.is_tower for e in m.battle.entities.values()),

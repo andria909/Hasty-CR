@@ -1,0 +1,88 @@
+{
+  "schema": "symmetric-movement-arithmetic-probe-v1",
+  "episodes": 616,
+  "mirror_pairs": 308,
+  "old_mismatches": 9,
+  "new_mismatches": 4,
+  "new_mismatch_examples": [
+    {
+      "left": {
+        "own_mask": 0,
+        "enemy_mask": 3,
+        "lane": "left",
+        "threat": "hog_rider",
+        "delay_ms": 1350,
+        "king_activated_initially": true,
+        "choice": "king_front",
+        "route": "bridge",
+        "decision_ms": 5500
+      },
+      "left_damage": 318,
+      "right_damage": 954,
+      "left_pull": true,
+      "right_pull": false
+    },
+    {
+      "left": {
+        "own_mask": 0,
+        "enemy_mask": 3,
+        "lane": "left",
+        "threat": "hog_rider",
+        "delay_ms": 2025,
+        "king_activated_initially": true,
+        "choice": "king_front",
+        "route": "bridge",
+        "decision_ms": 5500
+      },
+      "left_damage": 636,
+      "right_damage": 1272,
+      "left_pull": true,
+      "right_pull": false
+    },
+    {
+      "left": {
+        "own_mask": 2,
+        "enemy_mask": 3,
+        "lane": "left",
+        "threat": "hog_rider",
+        "delay_ms": 1350,
+        "king_activated_initially": true,
+        "choice": "king_front",
+        "route": "bridge",
+        "decision_ms": 5500
+      },
+      "left_damage": 318,
+      "right_damage": 636,
+      "left_pull": true,
+      "right_pull": false
+    },
+    {
+      "left": {
+        "own_mask": 2,
+        "enemy_mask": 3,
+        "lane": "left",
+        "threat": "hog_rider",
+        "delay_ms": 2025,
+        "king_activated_initially": true,
+        "choice": "king_front",
+        "route": "bridge",
+        "decision_ms": 5500
+      },
+      "left_damage": 636,
+      "right_damage": 954,
+      "left_pull": true,
+      "right_pull": false
+    }
+  ],
+  "changed_outcomes": 5,
+  "source_modified": false,
+  "override": "_move/_avoid_buildings dx/dy normalized step truncates towards zero instead of floor",
+  "before_report": "reports/defense_plan/cannon_stress_candidates_20261028.json",
+  "after_report": "tmp/cannon_placement_research_20261028/stress_symmetric_motion.json",
+  "movement_and_separation": {
+    "episodes": 616,
+    "mirror_mismatches": 0,
+    "examples": [],
+    "report": "tmp/cannon_placement_research_20261028/stress_symmetric_motion_and_separation.json"
+  }
+}

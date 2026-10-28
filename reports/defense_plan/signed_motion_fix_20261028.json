@@ -1,0 +1,26 @@
+{
+  "schema": "signed-motion-fix-validation-v1",
+  "changed_source": "sim/engine.py",
+  "engine_sha256": "2947c37fe5f2eb5fc146347fd09459c776f7f15cbd4275a9c989a95c41940796",
+  "baseline_stress_mirror_mismatches": 9,
+  "motion_only_mismatches": 4,
+  "motion_and_separation_mismatches": 0,
+  "core_fixed_episodes": 1816,
+  "core_fixed_mirror_pairs": 908,
+  "core_fixed_mirror_mismatches": 0,
+  "tests": {
+    "core_passed": 31,
+    "additional_passed": 29,
+    "additional_xfailed": 1,
+    "additional_failed": 3,
+    "failures": "KeyError ice_golem: missing fixture card in tests/test_body_block.py before affected simulation executes"
+  },
+  "running_gpu_packages_changed": false,
+  "live_game_validated": false,
+  "old_teacher_data_requires_regeneration": true,
+  "artifacts": [
+    "reports/defense_plan/cannon_stress_candidates_20261028.json",
+    "reports/defense_plan/cannon_stress_fixed_20261028.json",
+    "reports/defense_plan/cannon_tower_state_fixed_20261028.json"
+  ]
+}

@@ -38,6 +38,18 @@ from .arena import MT, Point, TICK_MS, distance
 from .entities import (ATTACKING, DEAD, IDLE, MOVING, WINDUP, Entity,
                        make_unit, speed_to_mt_per_sec)
 
+def _signed_trunc_div(numerator: int, denominator: int) -> int:
+    """Normalize signed vector components without a negative-direction bias.
+
+    Floor division rounds -84.8 to -85 but +84.8 to +84. Repeated movement
+    and separation then alter mirrored target-lock boundaries. Positive
+    magnitudes keep their old truncation; negative ones mirror them.
+    """
+    if denominator <= 0:
+        raise ValueError('Vector normalization requires a positive denominator')
+    return numerator // denominator if numerator >= 0 else -((-numerator) // denominator)
+
+
 # --- documented approximations -------------------------------------------
 # Real retarget rules depend on per-unit flags whose exact semantics are not
 # documented in the data files. This is the placeholder: re-evaluate a target
@@ -3973,8 +3985,8 @@ class Battle:
         if gap <= step:
             entity.pos = Point(entity.pos.x + dx, entity.pos.y + dy)
         else:
-            entity.pos = Point(entity.pos.x + dx * step // gap,
-                               entity.pos.y + dy * step // gap)
+            entity.pos = Point(entity.pos.x + _signed_trunc_div(dx * step, gap),
+                               entity.pos.y + _signed_trunc_div(dy * step, gap))
         moved_mt = distance(before_pos, entity.pos)
         entity.pos = arena.clamp_to_arena(entity.pos)
         entity.state = MOVING
@@ -4092,8 +4104,8 @@ class Battle:
         # walking at `walk_target_uid` instead, and steering around *that* left
         # it orbiting its own destination for ever.
         going_to = {entity.target_uid, entity.walk_target_uid} - {None, 0}
-        ahead_x = entity.pos.x + dx * step // gap
-        ahead_y = entity.pos.y + dy * step // gap
+        ahead_x = entity.pos.x + _signed_trunc_div(dx * step, gap)
+        ahead_y = entity.pos.y + _signed_trunc_div(dy * step, gap)
         for other in self._obstacles(entity):
             if not other.alive:
                 continue
@@ -4220,8 +4232,8 @@ class Battle:
                         dx, dy, gap = 1, 0, 1
                     push = min_gap - gap
                     before = mover.pos
-                    mover.pos = Point(mover.pos.x + dx * push // gap,
-                                      mover.pos.y + dy * push // gap)
+                    mover.pos = Point(mover.pos.x + _signed_trunc_div(dx * push, gap),
+                                      mover.pos.y + _signed_trunc_div(dy * push, gap))
                     if self.diagnostics is not None:
                         self.diagnostics.emit(
                             "collision", source=mover, target=block,
@@ -4280,9 +4292,9 @@ class Battle:
                     b_share = overlap - a_share
                     a_before, b_before = a.pos, b.pos
                     a.pos = arena.clamp_to_arena(
-                        Point(a.pos.x - dx * a_share // norm, a.pos.y - dy * a_share // norm))
+                        Point(a.pos.x - _signed_trunc_div(dx * a_share, norm), a.pos.y - _signed_trunc_div(dy * a_share, norm)))
                     b.pos = arena.clamp_to_arena(
-                        Point(b.pos.x + dx * b_share // norm, b.pos.y + dy * b_share // norm))
+                        Point(b.pos.x + _signed_trunc_div(dx * b_share, norm), b.pos.y + _signed_trunc_div(dy * b_share, norm)))
                     if self.diagnostics is not None:
                         self.diagnostics.emit(
                             "collision", source=a, target=b, value=overlap,
