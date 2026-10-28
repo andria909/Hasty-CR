@@ -1,0 +1,242 @@
+{
+  "schema": "current-live-targeting-followup-v1",
+  "sources": [
+    {
+      "name": "strong",
+      "source": "tmp/live/strong_20261028_live5/run/frames.jsonl",
+      "source_sha256": "cea45f129aaa290b7cf2e1787525a6663ea97d4a71e756a6d2148510065b0f2b",
+      "frames": 8378,
+      "eligible_projectile_appearances": {
+        "TowerPrincessProjectile": 490,
+        "MusketeerProjectile": 13,
+        "ArcherArrow": 37,
+        "TowerCannonball": 50
+      },
+      "inferred_isolated_impacts": 127,
+      "fresh_acquisition_comparable": 9,
+      "fresh_acquisition_agreements": 7,
+      "fresh_disagreements_explained_by_retaining_previous_inferred_target": 0,
+      "source_radius_hypothesis_agreements": 7,
+      "evidence_path": "tmp/current_native_targets_strong_20261028.json",
+      "evidence_sha256": "7dab99da550f63ddc4e2fe15abbd4d92ccf430295953d66e93fa5a3c7bc3b98e",
+      "triage_path": "tmp/current_native_triage_strong_20261028.json",
+      "triage_sha256": "6cfa1be6d2f461b4a44aeaa6d66a59ae72c21343eabcdd517971ce0ce42735f5"
+    },
+    {
+      "name": "tower_first",
+      "source": "tmp/live/tower_support_20261028_live5/run/frames.jsonl",
+      "source_sha256": "9a524c38fdde1cc3ffe4233d42ca73e84f21fe0b3f19c362875fc673d545cd22",
+      "frames": 3762,
+      "eligible_projectile_appearances": {
+        "TowerPrincessProjectile": 204,
+        "MusketeerProjectile": 54,
+        "TowerCannonball": 47,
+        "ArcherArrow": 39
+      },
+      "inferred_isolated_impacts": 53,
+      "fresh_acquisition_comparable": 4,
+      "fresh_acquisition_agreements": 4,
+      "fresh_disagreements_explained_by_retaining_previous_inferred_target": 0,
+      "source_radius_hypothesis_agreements": 4,
+      "evidence_path": "tmp/current_native_targets_tower_first_20261028.json",
+      "evidence_sha256": "0d062e69c90f666575ff6fe4be996f5b04130746b10eb3330c379fd2ee0e45c1",
+      "triage_path": "tmp/current_native_triage_tower_first_20261028.json",
+      "triage_sha256": "fc1f49446c5f10772de11b6d47099d40e92d8b034ca32d890052cc4b70502ca7"
+    },
+    {
+      "name": "tower_recovery",
+      "source": "tmp/live/tower_support_20261028_live5/recovery_run/frames.jsonl",
+      "source_sha256": "a43cb9789bbbefcc744045b401f0d78d5267c8ac0130dabf43ab3aef20b28729",
+      "frames": 6321,
+      "eligible_projectile_appearances": {
+        "TowerPrincessProjectile": 429,
+        "TowerCannonball": 48,
+        "MusketeerProjectile": 35
+      },
+      "inferred_isolated_impacts": 140,
+      "fresh_acquisition_comparable": 16,
+      "fresh_acquisition_agreements": 13,
+      "fresh_disagreements_explained_by_retaining_previous_inferred_target": 0,
+      "source_radius_hypothesis_agreements": 13,
+      "evidence_path": "tmp/current_native_targets_tower_recovery_20261028.json",
+      "evidence_sha256": "e9ab2a956a8a63fe8415b40956abc570e789749d04cfca8dd18912c0f9354c0e",
+      "triage_path": "tmp/current_native_triage_tower_recovery_20261028.json",
+      "triage_sha256": "7faf1e4b89d74a4fc2240d0001a463db678ecda99c5d090fcbdf1ce3e59b9798"
+    }
+  ],
+  "cases": [
+    {
+      "run": "strong",
+      "trace_segment": 139,
+      "launch_frame": 1072,
+      "impact_frame": 1077,
+      "source": "Cannon",
+      "inferred_target": "Barbarian",
+      "range_band": "within_current_reach",
+      "launch_distance_millitiles": 5933.401216840135,
+      "source_range_millitiles": 5500,
+      "source_radius_millitiles": 600,
+      "target_radius_millitiles": 500,
+      "source_radius_hypothesis_agrees": false,
+      "previous_inferred_lock_agrees": null,
+      "assumed_current_target_lock_can_be_kept": true,
+      "assumed_current_target_kept_on_full_rescan": false,
+      "candidate_ages": {
+        "source": {
+          "name": "Cannon",
+          "candidate_age_ms": 3900
+        },
+        "inferred_target": {
+          "name": "Barbarian",
+          "candidate_age_ms": 3350
+        },
+        "fresh_prediction": {
+          "name": "Barbarian",
+          "candidate_age_ms": 3350
+        }
+      }
+    },
+    {
+      "run": "strong",
+      "trace_segment": 210,
+      "launch_frame": 2317,
+      "impact_frame": 2325,
+      "source": "Archer",
+      "inferred_target": "KingTower",
+      "range_band": "target_radius_unknown",
+      "launch_distance_millitiles": 6861.888952759291,
+      "source_range_millitiles": 5000,
+      "source_radius_millitiles": 500,
+      "target_radius_millitiles": null,
+      "source_radius_hypothesis_agrees": false,
+      "previous_inferred_lock_agrees": null,
+      "assumed_current_target_lock_can_be_kept": true,
+      "assumed_current_target_kept_on_full_rescan": false,
+      "candidate_ages": {
+        "source": {
+          "name": "Archer",
+          "candidate_age_ms": 8400
+        },
+        "inferred_target": {
+          "name": "KingTower",
+          "candidate_age_ms": null
+        },
+        "fresh_prediction": {
+          "name": "Cannon",
+          "candidate_age_ms": 2600
+        }
+      }
+    },
+    {
+      "run": "tower_recovery",
+      "trace_segment": 251,
+      "launch_frame": 1206,
+      "impact_frame": 1214,
+      "source": "Musketeer",
+      "inferred_target": "PrincessTower",
+      "range_band": "target_radius_unknown",
+      "launch_distance_millitiles": 7450.763316600522,
+      "source_range_millitiles": 6000,
+      "source_radius_millitiles": 500,
+      "target_radius_millitiles": null,
+      "source_radius_hypothesis_agrees": false,
+      "previous_inferred_lock_agrees": null,
+      "assumed_current_target_lock_can_be_kept": false,
+      "assumed_current_target_kept_on_full_rescan": false,
+      "candidate_ages": {
+        "source": {
+          "name": "Musketeer",
+          "candidate_age_ms": 5800
+        },
+        "inferred_target": {
+          "name": "PrincessTower",
+          "candidate_age_ms": null
+        },
+        "fresh_prediction": {
+          "name": "Barbarian",
+          "candidate_age_ms": 950
+        }
+      }
+    },
+    {
+      "run": "tower_recovery",
+      "trace_segment": 558,
+      "launch_frame": 5352,
+      "impact_frame": 5359,
+      "source": "Musketeer",
+      "inferred_target": "PrincessTower",
+      "range_band": "target_radius_unknown",
+      "launch_distance_millitiles": 7487.274871406819,
+      "source_range_millitiles": 6000,
+      "source_radius_millitiles": 500,
+      "target_radius_millitiles": null,
+      "source_radius_hypothesis_agrees": false,
+      "previous_inferred_lock_agrees": null,
+      "assumed_current_target_lock_can_be_kept": false,
+      "assumed_current_target_kept_on_full_rescan": false,
+      "candidate_ages": {
+        "source": {
+          "name": "Musketeer",
+          "candidate_age_ms": 18850
+        },
+        "inferred_target": {
+          "name": "PrincessTower",
+          "candidate_age_ms": null
+        },
+        "fresh_prediction": {
+          "name": "Knight",
+          "candidate_age_ms": 1750
+        }
+      }
+    },
+    {
+      "run": "tower_recovery",
+      "trace_segment": 580,
+      "launch_frame": 6067,
+      "impact_frame": 6070,
+      "source": "Musketeer",
+      "inferred_target": "Cannon",
+      "range_band": "within_current_reach",
+      "launch_distance_millitiles": 5313.428742347073,
+      "source_range_millitiles": 6000,
+      "source_radius_millitiles": 500,
+      "target_radius_millitiles": 600,
+      "source_radius_hypothesis_agrees": false,
+      "previous_inferred_lock_agrees": null,
+      "assumed_current_target_lock_can_be_kept": true,
+      "assumed_current_target_kept_on_full_rescan": false,
+      "candidate_ages": {
+        "source": {
+          "name": "Musketeer",
+          "candidate_age_ms": 17150
+        },
+        "inferred_target": {
+          "name": "Cannon",
+          "candidate_age_ms": 1850
+        },
+        "fresh_prediction": {
+          "name": "ElectroSpirit",
+          "candidate_age_ms": 400
+        }
+      }
+    }
+  ],
+  "comparable": 29,
+  "fresh_agreements": 24,
+  "inferred_impacts": 320,
+  "source_fingerprints": {
+    "scripts/gamestate/audit_projectile_targets.py": "70b12bd8d5786e82a276bc46c6a6b20a48e8efe6b8fa19924508cb5c6248a3a2",
+    "scripts/gamestate/triage_projectile_targets.py": "c1ab58369a8143fbdc65596797865004835d0f405b11bb93e137873f7b5e7746",
+    "sim/engine.py": "2947c37fe5f2eb5fc146347fd09459c776f7f15cbd4275a9c989a95c41940796",
+    "sim/entities.py": "1e5d85dd85b17ff51fa231316fce3334a43445a045551d4fc63514f3a48381b8"
+  },
+  "labels_verified": false,
+  "physics_changed": false,
+  "live_games_started": false,
+  "limitations": [
+    "Inferred homing-shot victims are not recorded target pointers.",
+    "Fresh acquisition does not reconstruct preceding lock, scan phase, deployment or buffs.",
+    "Candidate deployment ages are unvalidated memory interpretations.",
+    "Do not interpret agreements as targeting accuracy or use these labels alone to tune physics."
+  ]
+}
