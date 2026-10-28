@@ -1,16 +1,44 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "andreiperelaiko/hastycr-tactical-starts-1028",
-  "status": "submitted_pending_cuda_proof",
+  "status": "training_steps_observed",
   "progress_snapshot": {
     "kernel": "andreiperelaiko/hastycr-tactical-starts-1028",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
-    "error_type": "ConnectionError",
-    "http_status": null,
-    "reconnect_attempt": 0,
-    "checked_host_ns": 1793210527143106000
+    "stream_state": "connected",
+    "reconnect_attempt": 1,
+    "checked_host_ns": 1793212771021528000,
+    "trials": {
+      "pilot_low_s322": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1587.39920577
+      },
+      "pilot_control_s322": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 1547.89807
+      },
+      "pilot_control_s323": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 2394.275505526
+      },
+      "pilot_low_s323": {
+        "update": 95,
+        "steps": 97280,
+        "target_steps": 102400,
+        "percent": 95.0,
+        "remote_log_seconds": 2396.3207723
+      }
+    }
   },
   "pilot_target_steps": 819200,
   "conditional_full_steps": 0,
@@ -25,5 +53,6 @@
     "kernelId": 141383354
   },
   "frozen_bootstrap_sha256": "1919d05cb3c68cb7726caf680742b772ccee7336f9ca22f3868822d5e0f1cfe3",
-  "last_local_sync_ns": 1793211569380858000
+  "last_local_sync_ns": 1793212771282179000,
+  "actual_training_steps_confirmed": true
 }

@@ -5,8 +5,8 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from scripts.attack.evaluation_execution import (CURRENT, LEGACY, execution_for,
-    environment_kwargs, validate_execution, check_duel_execution)
+from scripts.attack.evaluation_execution import (CURRENT, LEGACY, CORRECTED, execution_for,
+    environment_kwargs, validate_execution, check_duel_execution,combat_modes,check_row_execution)
 from scripts.attack import evaluate_continuous_pool as pool
 from scripts.attack import evaluate_full_candidates as full
 from scripts.attack.verify_full_candidate_evaluation import validate_part
@@ -40,6 +40,20 @@ def test_legacy_environment_defaults_do_not_drift_to_current_training_defaults()
     assert new.match.battle.normal_range_mode=='legacy_target_edge_v1'
 
 
+def test_corrected_contract_drives_environment_and_verifies_actual_geometry():
+    env=ContinuousPushEnv(**environment_kwargs(CORRECTED))
+    _,info=env.reset(seed=1)
+    assert env.match.battle.normal_range_mode=='edge_to_edge_v1'
+    row=dict(info['metrics'],execution=CORRECTED)
+    check_row_execution(row,CORRECTED)
+    row['normal_range_mode']='legacy_target_edge_v1'
+    with pytest.raises(ValueError,match='Actual battle geometry'):check_row_execution(row,CORRECTED)
+    with pytest.raises(ValueError):execution_for(dict(schema='bound-full-candidate-evaluation-v3',execution=CURRENT))
+    with pytest.raises(ValueError):validate_execution(dict(CORRECTED,normal_range_mode='guess'))
+    incomplete=dict(CORRECTED);incomplete.pop('target_lock_mode')
+    with pytest.raises(ValueError):validate_execution(incomplete)
+
+
 @pytest.mark.parametrize('key,value', [('action_delay_ms',True),('action_delay_ms',-1),
     ('decision_interval_ms',225),('decision_interval_ms',0),('physics_tick_ms',100),
     ('cannon_placement_mode','maybe'),('action_cooldown_ms',float('nan'))])
@@ -66,12 +80,12 @@ def test_new_verifier_rejects_old_rows_and_outside_cannon(tmp_path):
     with pytest.raises(ValueError,match='outside'):validate_part(report,job,protocol,spec)
 
 
-@pytest.mark.parametrize('execution',[CURRENT,LEGACY,dict(CURRENT,action_delay_ms=2025)])
+@pytest.mark.parametrize('execution',[CURRENT,LEGACY,CORRECTED,dict(CURRENT,action_delay_ms=2025)])
 def test_actual_duel_queue_parallel_slots_reservation_and_central_cells(monkeypatch,execution):
     env=ContinuousPushEnv();decisions=[];commands=[]
     def greedy(network,match,side,mode,mask,device,reserved_milli=0):
-        assert match.battle.normal_range_mode=='legacy_target_edge_v1'
-        assert match.battle.target_lock_mode=='legacy_periodic_v1'
+        assert match.battle.normal_range_mode==combat_modes(execution)['normal_range_mode']
+        assert match.battle.target_lock_mode==combat_modes(execution)['target_lock_mode']
         legal=np.flatnonzero(mask[1:])+1
         # Try Cannon first, then cheap cards so reuse is exercised repeatedly.
         selected=0

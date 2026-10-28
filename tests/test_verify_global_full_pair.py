@@ -6,6 +6,32 @@ import torch
 from scripts.attack import verify_global_full_pair as module
 
 
+@pytest.mark.parametrize('corruption',[None,'battle','profile','checkpoint','validation','missing_validation'])
+def test_new_training_contract_requires_actual_checkpoint_and_validation_modes(tmp_path,corruption):
+    from copy import deepcopy
+    from types import SimpleNamespace
+    from sim.engine import Battle
+    from scripts.attack.evaluation_execution import CORRECTED,combat_modes
+    profile=dict(source_radius_reach=1,target_lock_in_range=0,cannon_center_only=1,
+                 action_cooldown_ms=0,decision_interval_ms=250)
+    config=dict(continuous_profile=profile,geometry=CORRECTED['geometry'],
+        coordinate_mode=CORRECTED['coordinate_mode'],action_delay_ms=1350,max_ms=310000)
+    state=dict(profile=deepcopy(profile),match=SimpleNamespace(battle=Battle()))
+    blob=dict(config=deepcopy(config),environment_states=[state])
+    metrics=tmp_path/'metrics.jsonl';records=[combat_modes(CORRECTED)]
+    if corruption=='battle':state['match'].battle.normal_range_mode='legacy_target_edge_v1'
+    if corruption=='profile':state['profile']['source_radius_reach']=0
+    if corruption=='checkpoint':blob['config']['continuous_profile']['source_radius_reach']=0
+    if corruption=='validation':records[0]['normal_range_mode']='legacy_target_edge_v1'
+    if corruption=='missing_validation':records=[]
+    metrics.write_text(json.dumps(dict(validation=dict(records=records)))+'\n')
+    if corruption:
+        with pytest.raises(ValueError):module.audit_training_execution(config,blob,metrics)
+    else:
+        execution,count=module.audit_training_execution(config,blob,metrics)
+        assert execution==CORRECTED and count==1
+
+
 def fixture(monkeypatch,tmp_path):
     prepared=tmp_path/'prepared';dataset=prepared/'dataset';dataset.mkdir(parents=True)
     (prepared/'job').mkdir();(prepared/'job/train.py').write_text('driver')

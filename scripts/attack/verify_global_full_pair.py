@@ -7,6 +7,33 @@ from scripts.attack.select_pilot_pool import select
 from scripts.attack.verify_continuous_focus import verify as verify_pilot, audit_run, sha
 
 
+def audit_training_execution(config,blob,metrics_path):
+    from scripts.attack.evaluation_execution import training_execution,combat_modes
+    execution=training_execution(config)
+    checked=0
+    if execution is not None:
+        if training_execution(blob['config'])!=execution:
+            raise ValueError('Checkpoint training geometry differs from run config')
+        states=blob.get('environment_states',[])
+        if not states:raise ValueError('Missing actual training environment states')
+        for state in states:
+            battle=state['match'].battle
+            if training_execution(dict(config,continuous_profile=state.get('profile')))!=execution:
+                raise ValueError('Actual environment profile differs')
+            if any(getattr(battle,k,None)!=v for k,v in combat_modes(execution).items()):
+                raise ValueError('Actual checkpoint battle geometry differs')
+        checked=0
+        for line in Path(metrics_path).read_text().splitlines():
+            validation=json.loads(line).get('validation')
+            if not validation:continue
+            for record in validation['records']:
+                if any(record.get(k)!=v for k,v in combat_modes(execution).items()):
+                    raise ValueError('Actual validation geometry differs')
+                checked+=1
+        if not checked:raise ValueError('No geometry-tagged validation records')
+    return execution,checked
+
+
 def verify(collected, prepared):
     root, prepared = Path(collected), Path(prepared)
     prep = json.loads((prepared/'preparation.json').read_text())
@@ -86,9 +113,12 @@ def verify(collected, prepared):
                 or blob['state_dict']['conv.0.weight'].shape[1] != 20
                 or not all(torch.isfinite(t).all() for t in blob['state_dict'].values())):
             raise ValueError('Invalid selected full weights')
+        execution,checked=audit_training_execution(config,blob,child_root/run_id/'metrics.jsonl')
         models.append(dict(id=f'global{index}_'+run_id,origin=child['selected']['study'],trial=trial,
             checkpoint=str(child_root/row['checkpoint']),checkpoint_sha256=row['checkpoint_sha256'],
             family_guard=row['selected_with_family_guard'],selection_score=row['validation']['selection_score']))
+        if execution is not None:
+            models[-1].update(training_execution=execution,training_geometry_records_verified=checked)
     return dict(schema='verified-global-selected-full-pair-v1',kernel=prep['kernel'],
         full_steps_verified=8192000,pilot_steps_repeated=0,models=models,
         ready_for_independent_evaluation=all(m['family_guard'] for m in models),

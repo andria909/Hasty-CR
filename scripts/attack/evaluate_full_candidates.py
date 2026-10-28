@@ -27,11 +27,11 @@ from sim.tactical_rewards import fireball_outcomes
 def validate_protocol(protocol,weights):
     weights=Path(weights)
     blueprint_path=weights/'evaluation_blueprint.json'
-    if protocol.get('schema') not in ('bound-full-candidate-evaluation-v1','bound-full-candidate-evaluation-v2') or sha(blueprint_path)!=protocol.get('blueprint_sha256'):
+    if protocol.get('schema') not in ('bound-full-candidate-evaluation-v1','bound-full-candidate-evaluation-v2','bound-full-candidate-evaluation-v3') or sha(blueprint_path)!=protocol.get('blueprint_sha256'):
         raise ValueError('Bound precommitted blueprint required')
     blueprint=json.loads(blueprint_path.read_text())
-    if protocol['schema'].endswith('-v2'):
-        if blueprint.get('schema')!='precommitted-full-candidate-evaluation-v2' or execution_for(protocol)!=execution_for(blueprint):
+    if protocol['schema'].endswith(('-v2','-v3')):
+        if blueprint.get('schema')!='precommitted-full-candidate-evaluation-'+protocol['schema'].rsplit('-',1)[1] or execution_for(protocol)!=execution_for(blueprint):
             raise ValueError('Bound execution differs from precommitted blueprint')
     elif 'execution' in protocol or 'execution' in blueprint:
         raise ValueError('Explicit execution requires version2 protocol and blueprint')
@@ -63,6 +63,10 @@ def validate_protocol(protocol,weights):
         original=next((m for m in proof.get('models',[])if m['id']==entry['origin_model_id']),None)
         if proof.get('full_steps_verified')!=8192000 or original is None or original['checkpoint_sha256']!=entry['sha256']:
             raise ValueError('Candidate does not match a verified full checkpoint')
+        if protocol['schema'].endswith('-v3'):
+            from scripts.attack.evaluation_execution import require_training_execution
+            require_training_execution(original,execution_for(protocol))
+            require_training_execution(entry,execution_for(protocol))
     return blueprint
 
 

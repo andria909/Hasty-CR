@@ -7,6 +7,24 @@ from scripts.attack import bind_full_candidate_evaluation as module
 from tests.test_full_candidate_evaluator import blueprint
 
 
+def test_corrected_blueprint_rejects_old_training_before_creating_output(tmp_path,monkeypatch):
+    from scripts.attack.evaluation_execution import CORRECTED
+    bp,roots,proofs,calls=inputs(tmp_path,monkeypatch,1)
+    spec=json.loads(bp.read_text());spec.update(schema='precommitted-full-candidate-evaluation-v3',execution=CORRECTED)
+    spec['evaluation_runtime'].update({k:v for k,v in CORRECTED.items()if k!='schema'})
+    bp.write_text(json.dumps(spec));out=tmp_path/'corrected'
+    with pytest.raises(ValueError,match='training physics'):module.bind(roots,out,blueprint_path=bp)
+    assert not out.exists()
+    for proof in proofs.values():
+        for model in proof['models']:model['training_execution']=deepcopy(CORRECTED)
+    module.bind(roots,out,blueprint_path=bp)
+    p=json.loads((out/'protocol.json').read_text())
+    assert p['schema']=='bound-full-candidate-evaluation-v3'
+    module.validate_protocol(p,out/'weights')
+    p['models'][0]['training_execution']=dict(CORRECTED,normal_range_mode='legacy_target_edge_v1')
+    with pytest.raises(ValueError,match='training physics'):module.validate_protocol(p,out/'weights')
+
+
 def inputs(tmp_path, monkeypatch, pair_count=2):
     spec = blueprint()
     for entry in spec['baselines']:

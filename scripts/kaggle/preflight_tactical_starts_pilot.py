@@ -19,6 +19,9 @@ def child(path):
             assert row['tactical_start'] is None and row['tactical_start_fraction']==fraction
             assert row['cannon_center_only']==1 and row['cannon_outside_center']==0
             assert row['action_cooldown_ms']==0 and row['tower_damage_reward_mode']=='all_damage'
+            if 'source_radius_reach' in trial:
+                assert row['normal_range_mode']=='edge_to_edge_v1'
+                assert row['target_lock_mode']=='legacy_periodic_v1'
         checks.append(len(result['records']));return result
     trainer.evaluate=configured
     file=Path(__file__).with_name('preflight_global_full_pair.py')
@@ -28,6 +31,12 @@ def child(path):
     blob=torch.load(root/'whole/update_000002.pt',map_location='cpu',weights_only=False)
     assert blob['config']['tactical_start_fraction']==fraction and checks==[12]
     assert blob['environment_states'][0]['tactical_start_fraction']==fraction
+    if 'source_radius_reach' in trial:
+        for key in ('source_radius_reach','target_lock_in_range'):
+            assert blob['config']['continuous_profile'][key]==trial[key]
+        battle=blob['environment_states'][0]['match'].battle
+        assert battle.normal_range_mode=='edge_to_edge_v1'
+        assert battle.target_lock_mode=='legacy_periodic_v1'
     report_path=root/'child_preflight.json';report=json.loads(report_path.read_text())
     command=report['original_full_command']
     assert float(command[command.index('--tactical-start-fraction')+1])==fraction
@@ -46,6 +55,8 @@ def child(path):
     assert bool(seen)==bool(fraction)
     report.update(tactical_fraction_verified=fraction,validation_unchanged_checks=checks,
                   actual_tactical_start_observed=bool(seen),example_start=seen)
+    if 'source_radius_reach' in trial:
+        report['combat_geometry_verified']=dict(normal_range_mode=battle.normal_range_mode,target_lock_mode=battle.target_lock_mode)
     report_path.write_text(json.dumps(report,indent=2)+'\n')
 
 

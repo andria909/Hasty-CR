@@ -11,7 +11,7 @@ import shutil
 from scripts.attack.evaluate_full_candidates import schedule, sha, validate_protocol
 from scripts.attack.verify_global_full_pair import verify as verify_full
 
-BLUEPRINT = Path('data/ppo_tuning/central_tower_evaluation_20261028/protocol.json')
+BLUEPRINT = Path('data/ppo_tuning/normal_range_evaluation_20261028/protocol.json')
 
 
 def write_json(path, value):
@@ -30,7 +30,7 @@ def bind(prepared_roots, output, *, blueprint_path=BLUEPRINT):
     blueprint_path = Path(blueprint_path)
     blueprint_digest = sha(blueprint_path)
     blueprint = json.loads(blueprint_path.read_text())
-    if blueprint.get('schema') not in ('precommitted-full-candidate-evaluation-v1','precommitted-full-candidate-evaluation-v2'):
+    if blueprint.get('schema') not in ('precommitted-full-candidate-evaluation-v1','precommitted-full-candidate-evaluation-v2','precommitted-full-candidate-evaluation-v3'):
         raise ValueError('Precommitted evaluation blueprint required')
     # Complete every expensive audit before creating the package. An unfinished
     # run or bad digest must not leave a seemingly usable bound protocol.
@@ -49,6 +49,9 @@ def bind(prepared_roots, output, *, blueprint_path=BLUEPRINT):
     seen = set()
     for _, proof in pairs:
         for model in proof['models']:
+            if blueprint['schema'].endswith('-v3'):
+                from scripts.attack.evaluation_execution import execution_for,require_training_execution
+                require_training_execution(model,execution_for(blueprint))
             identity = (proof['kernel'], model['id'])
             if identity in seen or sha(Path(model['checkpoint'])) != model['checkpoint_sha256']:
                 raise ValueError('Duplicate or changed candidate checkpoint')
@@ -76,6 +79,7 @@ def bind(prepared_roots, output, *, blueprint_path=BLUEPRINT):
                 full_proof_file=proof_path.name, full_proof_sha256=sha(proof_path),
                 origin_model_id=source['id'], origin_kernel=proof['kernel'], origin_prepared=str(root),
                 family_guard=source['family_guard'], validation_selection_score=source['selection_score']))
+            if 'training_execution' in source:models[-1]['training_execution']=source['training_execution']
     for source in blueprint['baselines']:
         filename = source['id'] + '.pt'
         shutil.copyfile(source['checkpoint'], weights / filename)
@@ -84,9 +88,9 @@ def bind(prepared_roots, output, *, blueprint_path=BLUEPRINT):
     protocol = dict(schema='bound-full-candidate-evaluation-v1', blueprint_sha256=blueprint_digest,
                     models=models, test_used_for_selection=False, quality_accepted=False,
                     live_checkpoint_changed=False)
-    if blueprint['schema'].endswith('-v2'):
+    if blueprint['schema'].endswith(('-v2','-v3')):
         from scripts.attack.evaluation_execution import execution_for
-        protocol.update(schema='bound-full-candidate-evaluation-v2',execution=execution_for(blueprint))
+        protocol.update(schema='bound-full-candidate-evaluation-'+blueprint['schema'].rsplit('-',1)[1],execution=execution_for(blueprint))
     validated = validate_protocol(protocol, weights)
     jobs = schedule(protocol, validated)
     # The protocol is the final commit marker. Failed copies cannot be submitted

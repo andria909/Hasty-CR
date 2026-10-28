@@ -46,7 +46,7 @@ def check_cards(metrics):
 def validate_part(report, job, protocol, blueprint):
     require(report['kind'] == job['kind'], 'Wrong part kind')
     rows = report['rows']
-    if protocol['schema'].endswith('-v2'):
+    if protocol['schema'].endswith(('-v2','-v3')):
         for row in rows:
             check_row_execution(row,execution_for(protocol))
             if job['kind']=='duel':check_duel_execution(row,execution_for(protocol))
@@ -112,7 +112,7 @@ def verify(protocol_path, weights, output, *, expected_source_sha256=None):
         require(source_digest == expected_source_sha256, 'Submitted evaluation source differs')
     require(json.loads((output / 'run_identity.json').read_text()) == identity(protocol_path, source_digest, jobs), 'Run identity differs')
     result = json.loads((output / 'result.json').read_text())
-    if protocol['schema'].endswith('-v2'):
+    if protocol['schema'].endswith(('-v2','-v3')):
         require(result.get('execution')==execution_for(protocol), 'Result execution differs')
     require(result['source_manifest_sha256'] == source_digest, 'Result source differs')
     require(result['schema'] == 'full-candidate-independent-evaluation-v1' and result['status'] == 'complete', 'Complete evaluation required')

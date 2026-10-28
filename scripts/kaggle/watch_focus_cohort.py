@@ -44,6 +44,9 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             elif prep.get('study_variant')=='tower_support_reward_v1':
                 from scripts.attack.verify_tower_support_pilot import verify_tower_support
                 report=verify_tower_support(receipt.parent,root)
+            elif prep.get('study_variant')=='edge_to_edge_paid_tactical_v1':
+                from scripts.attack.verify_normal_range_pilot import verify_normal_range
+                report=verify_normal_range(receipt.parent,root)
             elif prep.get('study_variant')=='paid_tactical_fullgame_starts_v1':
                 from scripts.attack.verify_tactical_starts_pilot import verify_tactical
                 report=verify_tactical(receipt.parent,root)

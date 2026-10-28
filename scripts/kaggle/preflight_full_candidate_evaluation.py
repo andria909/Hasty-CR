@@ -35,7 +35,7 @@ def child(spec_path):
         for test, seed in zip(blueprint['test_sets'], seeds):
             row = test_game(network, entry, test, 'defense', 'air', seed, 'cpu',execution=execution)
             check_cards(row)
-            if protocol['schema'].endswith('-v2'):check_row_execution(row,execution)
+            if protocol['schema'].endswith(('-v2','-v3')):check_row_execution(row,execution)
         checked.append(dict(id=entry['id'], sha256=entry['sha256'], technical_games=2))
     entries = {m['id']: m for m in protocol['models']}
     cards, spells, *_ = load_defense_assets(); cards.update(resolve_deck(cards, list(DECK_26)))
@@ -60,7 +60,7 @@ def child(spec_path):
                   technical_games=2 * len(checked) + 1, source_manifest_sha256=source_digest,
                   protocol_sha256=sha(inputs / 'protocol.json'), actual_cuda=False,
                   independent_test_run=False, quality_accepted=False, restored_games=restored_games)
-    if protocol['schema'].endswith('-v2'):report['execution']=execution
+    if protocol['schema'].endswith(('-v2','-v3')):report['execution']=execution
     with Path(spec['report']).open('x') as stream: json.dump(report, stream, indent=2); stream.write('\n')
 
 
@@ -132,7 +132,7 @@ def enable_submission(prepared):
             or report.get('protocol_sha256') != prep['config']['files']['protocol.json']):
         raise ValueError('Exact actual-candidate package preflight required')
     protocol = audit_candidates(report['decoded_inputs'])
-    if protocol['schema'].endswith('-v2'):
+    if protocol['schema'].endswith(('-v2','-v3')):
         from scripts.attack.evaluation_execution import execution_for
         if report.get('execution')!=execution_for(protocol):raise ValueError('Preflight execution differs')
     expected = [dict(id=m['id'], sha256=m['sha256'], technical_games=2) for m in protocol['models']]

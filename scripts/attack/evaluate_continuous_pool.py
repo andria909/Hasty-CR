@@ -12,7 +12,7 @@ import numpy as np
 import torch
 
 from scripts.attack.evaluation_execution import (LEGACY, execution_for, validate_execution,
-    environment_kwargs, restrict_placements, check_row_execution, check_duel_execution)
+    environment_kwargs, restrict_placements, check_row_execution, check_duel_execution,configure_battle)
 from sim.adapter import grid_to_point
 from sim.continuous_push import ContinuousPushEnv
 from sim.defense_assets import load_defense_assets
@@ -88,10 +88,7 @@ def duel(a,b,device,seed,seat,cards,spells,*,on_complete=None,execution=None,on_
     execution=validate_execution(LEGACY if execution is None else execution)
     m=Match(cards=cards,spells=spells,decks=(list(DECK_26),list(DECK_26)),seed=seed,
             geometry=execution['geometry'])
-    # execution-v1 predates corrected ordinary range. Match the historical
-    # scenario environment instead of silently using Battle's new defaults.
-    m.battle.normal_range_mode='legacy_target_edge_v1'
-    m.battle.target_lock_mode='legacy_periodic_v1'
+    configure_battle(m.battle,execution)
     networks={seat:a[0],-seat:b[0]};modes={seat:a[1],-seat:b[1]}
     pending={1:[],-1:[]};ready={1:{},-1:{}};rejected=Counter();decision=0
     order=(1,-1)if seed%2 else(-1,1)
@@ -125,6 +122,7 @@ def duel(a,b,device,seed,seat,cards,spells,*,on_complete=None,execution=None,on_
         m.step(execution['physics_tick_ms'])
     counts={str(s):dict(Counter(e['card']for e in m.play_log if e['side']==s))for s in(1,-1)}
     result=dict(seed=seed,candidate_side=seat,outcome=outcome(m.result,seat,m.finished),elapsed_ms=m.elapsed_ms,
+        normal_range_mode=m.battle.normal_range_mode,target_lock_mode=m.battle.target_lock_mode,
         accepted_cards=counts,rejected_commands=dict(rejected),execution=execution,cannon_outside_center=cannon_outside,
         executed_commands=len(command_delays),actual_command_delay_min_ms=min(command_delays)if command_delays else None,
         actual_command_delay_max_ms=max(command_delays)if command_delays else None,
