@@ -1,0 +1,817 @@
+{
+  "frozen_sources_verified": true,
+  "exact_resume_16_to_32": true,
+  "children": [
+    {
+      "frozen_run_ast_sha256": "a4bbacb1fa6ce7cea6ffe2e7fa12c1bda4037155bc5b58e180e1276d6a9be36b",
+      "original_full_command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-c",
+        "import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
+        "--init",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/dataset/parent.pt",
+        "--output",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_0/controller_output/full_control_s64",
+        "--device",
+        "cpu",
+        "--task-mode",
+        "joint",
+        "--curriculum",
+        "continuous_v1",
+        "--geometry",
+        "native_anchors_candidate_v1",
+        "--coordinate-mode",
+        "physical_live_cells_v2",
+        "--continuous-profile",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_0/controller_output/full_control_s64_profile.json",
+        "--continuous-focus",
+        "uniform",
+        "--validation-selection",
+        "worst_family",
+        "--validation-seed",
+        "900100",
+        "--eval-episodes",
+        "36",
+        "--entropy-coef",
+        "0.01",
+        "--history-frames",
+        "1",
+        "--card-balance-weight",
+        "0.03",
+        "--card-balance-target",
+        "units",
+        "--policy-temperature",
+        "1.0",
+        "--card-exploration-epsilon",
+        "0.0",
+        "--action-delay-ms",
+        "1350",
+        "--max-ms",
+        "310000",
+        "--seed",
+        "64",
+        "--envs",
+        "8",
+        "--rollout",
+        "128",
+        "--updates",
+        "4000",
+        "--target-environment-steps",
+        "4096000",
+        "--epochs",
+        "3",
+        "--minibatch-size",
+        "256",
+        "--lr",
+        "0.00005",
+        "--gamma",
+        "0.999",
+        "--gae-lambda",
+        "0.95",
+        "--value-warmup-steps",
+        "20480",
+        "--target-kl",
+        ".02",
+        "--checkpoint-every",
+        "250",
+        "--eval-every",
+        "250",
+        "--wallclock-seconds",
+        "34000",
+        "--tactical-start-fraction",
+        "0.0",
+        "--validation-action-delay-ms",
+        "1350",
+        "--spell-waste-weight",
+        "0.1",
+        "--tower-support-weight",
+        "0.15"
+      ],
+      "original_warm_commands": [],
+      "actual_supervised_updates": 0,
+      "actual_smoke_target_steps": 32,
+      "exact_resume_16_to_32": true,
+      "optimizer_and_rng_equal": true,
+      "validation_games": 12,
+      "actual_cuda": false,
+      "quality_accepted": false,
+      "technical_fixture": false,
+      "mana_contract_verified": true,
+      "actual_validation_checks": [
+        12
+      ],
+      "hog_sight_mode": "side_clip_v1",
+      "economy_metrics_verified": true,
+      "actual_warmstart_reports": [],
+      "sequence_wait_fraction": 0.5
+    },
+    {
+      "frozen_run_ast_sha256": "a4bbacb1fa6ce7cea6ffe2e7fa12c1bda4037155bc5b58e180e1276d6a9be36b",
+      "original_full_command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-c",
+        "import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
+        "--init",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_1/controller_output/full_low_s64_warmstart/policy.pt",
+        "--output",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_1/controller_output/full_low_s64",
+        "--device",
+        "cpu",
+        "--task-mode",
+        "joint",
+        "--curriculum",
+        "continuous_v1",
+        "--geometry",
+        "native_anchors_candidate_v1",
+        "--coordinate-mode",
+        "physical_live_cells_v2",
+        "--continuous-profile",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_1/controller_output/full_low_s64_profile.json",
+        "--continuous-focus",
+        "uniform",
+        "--validation-selection",
+        "worst_family",
+        "--validation-seed",
+        "900100",
+        "--eval-episodes",
+        "36",
+        "--entropy-coef",
+        "0.01",
+        "--history-frames",
+        "1",
+        "--card-balance-weight",
+        "0.03",
+        "--card-balance-target",
+        "units",
+        "--policy-temperature",
+        "1.0",
+        "--card-exploration-epsilon",
+        "0.0",
+        "--action-delay-ms",
+        "1350",
+        "--max-ms",
+        "310000",
+        "--seed",
+        "64",
+        "--envs",
+        "8",
+        "--rollout",
+        "128",
+        "--updates",
+        "4000",
+        "--target-environment-steps",
+        "4096000",
+        "--epochs",
+        "3",
+        "--minibatch-size",
+        "256",
+        "--lr",
+        "0.00005",
+        "--gamma",
+        "0.999",
+        "--gae-lambda",
+        "0.95",
+        "--value-warmup-steps",
+        "20480",
+        "--target-kl",
+        ".02",
+        "--checkpoint-every",
+        "250",
+        "--eval-every",
+        "250",
+        "--wallclock-seconds",
+        "34000",
+        "--tactical-start-fraction",
+        "0.0",
+        "--validation-action-delay-ms",
+        "1350",
+        "--spell-waste-weight",
+        "0.1",
+        "--tower-support-weight",
+        "0.15"
+      ],
+      "original_warm_commands": [
+        [
+          "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+          "-m",
+          "scripts.attack.train_air_position_warmstart",
+          "--data",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_1/project/preflight_demonstrations",
+          "--init",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/dataset/parent.pt",
+          "--output",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_1/controller_output/full_low_s64_warmstart",
+          "--device",
+          "cpu",
+          "--updates",
+          "200",
+          "--kl-weight",
+          "0.0",
+          "--seed",
+          "64",
+          "--sequence-wait-fraction",
+          "0.5"
+        ]
+      ],
+      "actual_supervised_updates": 5,
+      "actual_smoke_target_steps": 32,
+      "exact_resume_16_to_32": true,
+      "optimizer_and_rng_equal": true,
+      "validation_games": 12,
+      "actual_cuda": false,
+      "quality_accepted": false,
+      "technical_fixture": false,
+      "mana_contract_verified": true,
+      "actual_validation_checks": [
+        12
+      ],
+      "hog_sight_mode": "side_clip_v1",
+      "economy_metrics_verified": true,
+      "actual_warmstart_reports": [
+        {
+          "schema": "air-local-position-warmstart-v1",
+          "supervised_updates": 5,
+          "environment_steps": 0,
+          "seed": 64,
+          "actual_cuda": null,
+          "heldout_seed": 354,
+          "train_seeds": [
+            352,
+            353
+          ],
+          "baseline": {
+            "train": {
+              "examples": 40,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 7.843327693990432e-06,
+              "mean_log_successful_probability": -25.027206420898438,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 36,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 8.714808245713357e-06,
+                  "mean_log_successful_probability": -23.248863220214844
+                },
+                "deploy": {
+                  "examples": 4,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 1.3908341345013103e-15,
+                  "mean_log_successful_probability": -41.032264709472656
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 20,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 8.267421435448341e-06,
+              "mean_log_successful_probability": -24.757617950439453,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 18,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 9.186023817164823e-06,
+                  "mean_log_successful_probability": -23.345937728881836
+                },
+                "deploy": {
+                  "examples": 2,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 7.03376754970012e-17,
+                  "mean_log_successful_probability": -37.46272659301758
+                }
+              }
+            }
+          },
+          "final": {
+            "train": {
+              "examples": 40,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 3.005441431014333e-05,
+              "mean_log_successful_probability": -22.327484130859375,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 36,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.3393793273717165e-05,
+                  "mean_log_successful_probability": -20.784469604492188
+                },
+                "deploy": {
+                  "examples": 4,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 2.1034728321135676e-13,
+                  "mean_log_successful_probability": -36.21461486816406
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 20,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 3.1464827770832926e-05,
+              "mean_log_successful_probability": -21.956218719482422,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 18,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.496091812849045e-05,
+                  "mean_log_successful_probability": -20.870718002319336
+                },
+                "deploy": {
+                  "examples": 2,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 1.9304355206375967e-14,
+                  "mean_log_successful_probability": -31.725765228271484
+                }
+              }
+            }
+          },
+          "data_sha256": "68529ee8d06789322b39b56c9076ec7ec1e7a7fca54b184e3c656180b13d0814",
+          "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+          "kl_weight": 0.0,
+          "source_sha256": "3b64260768fc340a130b0c37778b6b91cbd03d1031bc9d5017deb60f8b362049",
+          "sequence_wait_fraction": 0.5,
+          "slot_augmentation": false,
+          "pending_inputs": false,
+          "heldout_overlap_permutations_excluded": 0,
+          "sampling": "equal_sequence_mass_bounded_wait_with_replacement",
+          "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+          "quality_accepted": false
+        }
+      ],
+      "sequence_wait_fraction": 0.5
+    },
+    {
+      "frozen_run_ast_sha256": "a4bbacb1fa6ce7cea6ffe2e7fa12c1bda4037155bc5b58e180e1276d6a9be36b",
+      "original_full_command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-c",
+        "import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
+        "--init",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_2/controller_output/full_medium_s64_warmstart/policy.pt",
+        "--output",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_2/controller_output/full_medium_s64",
+        "--device",
+        "cpu",
+        "--task-mode",
+        "joint",
+        "--curriculum",
+        "continuous_v1",
+        "--geometry",
+        "native_anchors_candidate_v1",
+        "--coordinate-mode",
+        "physical_live_cells_v2",
+        "--continuous-profile",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_2/controller_output/full_medium_s64_profile.json",
+        "--continuous-focus",
+        "uniform",
+        "--validation-selection",
+        "worst_family",
+        "--validation-seed",
+        "900100",
+        "--eval-episodes",
+        "36",
+        "--entropy-coef",
+        "0.01",
+        "--history-frames",
+        "1",
+        "--card-balance-weight",
+        "0.03",
+        "--card-balance-target",
+        "units",
+        "--policy-temperature",
+        "1.0",
+        "--card-exploration-epsilon",
+        "0.0",
+        "--action-delay-ms",
+        "1350",
+        "--max-ms",
+        "310000",
+        "--seed",
+        "64",
+        "--envs",
+        "8",
+        "--rollout",
+        "128",
+        "--updates",
+        "4000",
+        "--target-environment-steps",
+        "4096000",
+        "--epochs",
+        "3",
+        "--minibatch-size",
+        "256",
+        "--lr",
+        "0.00005",
+        "--gamma",
+        "0.999",
+        "--gae-lambda",
+        "0.95",
+        "--value-warmup-steps",
+        "20480",
+        "--target-kl",
+        ".02",
+        "--checkpoint-every",
+        "250",
+        "--eval-every",
+        "250",
+        "--wallclock-seconds",
+        "34000",
+        "--tactical-start-fraction",
+        "0.0",
+        "--validation-action-delay-ms",
+        "1350",
+        "--spell-waste-weight",
+        "0.1",
+        "--tower-support-weight",
+        "0.15"
+      ],
+      "original_warm_commands": [
+        [
+          "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+          "-m",
+          "scripts.attack.train_air_position_warmstart",
+          "--data",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_2/project/preflight_demonstrations",
+          "--init",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/dataset/parent.pt",
+          "--output",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_2/controller_output/full_medium_s64_warmstart",
+          "--device",
+          "cpu",
+          "--updates",
+          "800",
+          "--kl-weight",
+          "0.0",
+          "--seed",
+          "64",
+          "--sequence-wait-fraction",
+          "0.5"
+        ]
+      ],
+      "actual_supervised_updates": 5,
+      "actual_smoke_target_steps": 32,
+      "exact_resume_16_to_32": true,
+      "optimizer_and_rng_equal": true,
+      "validation_games": 12,
+      "actual_cuda": false,
+      "quality_accepted": false,
+      "technical_fixture": false,
+      "mana_contract_verified": true,
+      "actual_validation_checks": [
+        12
+      ],
+      "hog_sight_mode": "side_clip_v1",
+      "economy_metrics_verified": true,
+      "actual_warmstart_reports": [
+        {
+          "schema": "air-local-position-warmstart-v1",
+          "supervised_updates": 5,
+          "environment_steps": 0,
+          "seed": 64,
+          "actual_cuda": null,
+          "heldout_seed": 354,
+          "train_seeds": [
+            352,
+            353
+          ],
+          "baseline": {
+            "train": {
+              "examples": 40,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 7.843327693990432e-06,
+              "mean_log_successful_probability": -25.027206420898438,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 36,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 8.714808245713357e-06,
+                  "mean_log_successful_probability": -23.248863220214844
+                },
+                "deploy": {
+                  "examples": 4,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 1.3908341345013103e-15,
+                  "mean_log_successful_probability": -41.032264709472656
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 20,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 8.267421435448341e-06,
+              "mean_log_successful_probability": -24.757617950439453,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 18,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 9.186023817164823e-06,
+                  "mean_log_successful_probability": -23.345937728881836
+                },
+                "deploy": {
+                  "examples": 2,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 7.03376754970012e-17,
+                  "mean_log_successful_probability": -37.46272659301758
+                }
+              }
+            }
+          },
+          "final": {
+            "train": {
+              "examples": 40,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 3.005441431014333e-05,
+              "mean_log_successful_probability": -22.327484130859375,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 36,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.3393793273717165e-05,
+                  "mean_log_successful_probability": -20.784469604492188
+                },
+                "deploy": {
+                  "examples": 4,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 2.1034728321135676e-13,
+                  "mean_log_successful_probability": -36.21461486816406
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 20,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 3.1464827770832926e-05,
+              "mean_log_successful_probability": -21.956218719482422,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 18,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.496091812849045e-05,
+                  "mean_log_successful_probability": -20.870718002319336
+                },
+                "deploy": {
+                  "examples": 2,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 1.9304355206375967e-14,
+                  "mean_log_successful_probability": -31.725765228271484
+                }
+              }
+            }
+          },
+          "data_sha256": "68529ee8d06789322b39b56c9076ec7ec1e7a7fca54b184e3c656180b13d0814",
+          "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+          "kl_weight": 0.0,
+          "source_sha256": "3b64260768fc340a130b0c37778b6b91cbd03d1031bc9d5017deb60f8b362049",
+          "sequence_wait_fraction": 0.5,
+          "slot_augmentation": false,
+          "pending_inputs": false,
+          "heldout_overlap_permutations_excluded": 0,
+          "sampling": "equal_sequence_mass_bounded_wait_with_replacement",
+          "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+          "quality_accepted": false
+        }
+      ],
+      "sequence_wait_fraction": 0.5
+    },
+    {
+      "frozen_run_ast_sha256": "a4bbacb1fa6ce7cea6ffe2e7fa12c1bda4037155bc5b58e180e1276d6a9be36b",
+      "original_full_command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-c",
+        "import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
+        "--init",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_3/controller_output/full_high_s64_warmstart/policy.pt",
+        "--output",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_3/controller_output/full_high_s64",
+        "--device",
+        "cpu",
+        "--task-mode",
+        "joint",
+        "--curriculum",
+        "continuous_v1",
+        "--geometry",
+        "native_anchors_candidate_v1",
+        "--coordinate-mode",
+        "physical_live_cells_v2",
+        "--continuous-profile",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_3/controller_output/full_high_s64_profile.json",
+        "--continuous-focus",
+        "uniform",
+        "--validation-selection",
+        "worst_family",
+        "--validation-seed",
+        "900100",
+        "--eval-episodes",
+        "36",
+        "--entropy-coef",
+        "0.01",
+        "--history-frames",
+        "1",
+        "--card-balance-weight",
+        "0.03",
+        "--card-balance-target",
+        "units",
+        "--policy-temperature",
+        "1.0",
+        "--card-exploration-epsilon",
+        "0.0",
+        "--action-delay-ms",
+        "1350",
+        "--max-ms",
+        "310000",
+        "--seed",
+        "64",
+        "--envs",
+        "8",
+        "--rollout",
+        "128",
+        "--updates",
+        "4000",
+        "--target-environment-steps",
+        "4096000",
+        "--epochs",
+        "3",
+        "--minibatch-size",
+        "256",
+        "--lr",
+        "0.00005",
+        "--gamma",
+        "0.999",
+        "--gae-lambda",
+        "0.95",
+        "--value-warmup-steps",
+        "20480",
+        "--target-kl",
+        ".02",
+        "--checkpoint-every",
+        "250",
+        "--eval-every",
+        "250",
+        "--wallclock-seconds",
+        "34000",
+        "--tactical-start-fraction",
+        "0.0",
+        "--validation-action-delay-ms",
+        "1350",
+        "--supervised-replay-data",
+        "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_3/project/preflight_demonstrations",
+        "--supervised-replay-weight",
+        "0.1",
+        "--spell-waste-weight",
+        "0.1",
+        "--tower-support-weight",
+        "0.15"
+      ],
+      "original_warm_commands": [
+        [
+          "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+          "-m",
+          "scripts.attack.train_air_position_warmstart",
+          "--data",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_3/project/preflight_demonstrations",
+          "--init",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/dataset/parent.pt",
+          "--output",
+          "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/actual_preflight/child_3/controller_output/full_high_s64_warmstart",
+          "--device",
+          "cpu",
+          "--updates",
+          "800",
+          "--kl-weight",
+          "0.0",
+          "--seed",
+          "64",
+          "--sequence-wait-fraction",
+          "0.5"
+        ]
+      ],
+      "actual_supervised_updates": 5,
+      "actual_smoke_target_steps": 32,
+      "exact_resume_16_to_32": true,
+      "optimizer_and_rng_equal": true,
+      "validation_games": 12,
+      "actual_cuda": false,
+      "quality_accepted": false,
+      "technical_fixture": false,
+      "mana_contract_verified": true,
+      "actual_validation_checks": [
+        12
+      ],
+      "hog_sight_mode": "side_clip_v1",
+      "economy_metrics_verified": true,
+      "actual_warmstart_reports": [
+        {
+          "schema": "air-local-position-warmstart-v1",
+          "supervised_updates": 5,
+          "environment_steps": 0,
+          "seed": 64,
+          "actual_cuda": null,
+          "heldout_seed": 354,
+          "train_seeds": [
+            352,
+            353
+          ],
+          "baseline": {
+            "train": {
+              "examples": 40,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 7.843327693990432e-06,
+              "mean_log_successful_probability": -25.027206420898438,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 36,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 8.714808245713357e-06,
+                  "mean_log_successful_probability": -23.248863220214844
+                },
+                "deploy": {
+                  "examples": 4,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 1.3908341345013103e-15,
+                  "mean_log_successful_probability": -41.032264709472656
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 20,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 8.267421435448341e-06,
+              "mean_log_successful_probability": -24.757617950439453,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 18,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 9.186023817164823e-06,
+                  "mean_log_successful_probability": -23.345937728881836
+                },
+                "deploy": {
+                  "examples": 2,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 7.03376754970012e-17,
+                  "mean_log_successful_probability": -37.46272659301758
+                }
+              }
+            }
+          },
+          "final": {
+            "train": {
+              "examples": 40,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 3.005441431014333e-05,
+              "mean_log_successful_probability": -22.327484130859375,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 36,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.3393793273717165e-05,
+                  "mean_log_successful_probability": -20.784469604492188
+                },
+                "deploy": {
+                  "examples": 4,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 2.1034728321135676e-13,
+                  "mean_log_successful_probability": -36.21461486816406
+                }
+              }
+            },
+            "local_heldout": {
+              "examples": 20,
+              "successful_greedy_fraction": 0.0,
+              "mean_successful_probability": 3.1464827770832926e-05,
+              "mean_log_successful_probability": -21.956218719482422,
+              "by_decision_type": {
+                "wait": {
+                  "examples": 18,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 3.496091812849045e-05,
+                  "mean_log_successful_probability": -20.870718002319336
+                },
+                "deploy": {
+                  "examples": 2,
+                  "successful_greedy_fraction": 0.0,
+                  "mean_successful_probability": 1.9304355206375967e-14,
+                  "mean_log_successful_probability": -31.725765228271484
+                }
+              }
+            }
+          },
+          "data_sha256": "68529ee8d06789322b39b56c9076ec7ec1e7a7fca54b184e3c656180b13d0814",
+          "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+          "kl_weight": 0.0,
+          "source_sha256": "3b64260768fc340a130b0c37778b6b91cbd03d1031bc9d5017deb60f8b362049",
+          "sequence_wait_fraction": 0.5,
+          "slot_augmentation": false,
+          "pending_inputs": false,
+          "heldout_overlap_permutations_excluded": 0,
+          "sampling": "equal_sequence_mass_bounded_wait_with_replacement",
+          "scope": "Local action labels, not full-game validation/test; checkpoint for PPO initialization only",
+          "quality_accepted": false
+        }
+      ],
+      "sequence_wait_fraction": 0.5
+    }
+  ],
+  "validation_games": 48,
+  "actual_cuda": false,
+  "quality_accepted": false,
+  "bootstrap_sha256": "2c234ce004ed205be9bc874b64fd11757b0106d78edd1e3150077b257859e143",
+  "preparation_sha256": "859d243018a6a8532efd7f535fb5081af54f1d53ac17dbd11133bace38254591"
+}

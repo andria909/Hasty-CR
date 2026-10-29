@@ -72,8 +72,9 @@ def test_real_environment_pending_queue_and_snapshot_keep_counts():
     assert env._metrics()['decision_economy'] == counts
 
 
-def test_collector_gets_both_checkpoint_boundaries_but_no_other_campaign(monkeypatch, tmp_path):
-    run = 'pilot_medium_s342'; prefix = 'continuous_focus/'
+@pytest.mark.parametrize('profile,run',[('mana-decision-pilot','pilot_medium_s342'),('bank-teacher-pilot','pilot_medium_s362')])
+def test_collector_gets_both_checkpoint_boundaries_but_no_other_campaign(monkeypatch, tmp_path,profile,run):
+    prefix = 'continuous_focus/'
     data = {prefix+'result.json': b'{}', prefix+run+'_summary.json': json.dumps(
         dict(id=run, checkpoint=run+'/update_000050.pt')).encode(),
         prefix+run+'/update_000050.pt': b'selected', prefix+run+'/update_000100.pt': b'last',
@@ -82,7 +83,7 @@ def test_collector_gets_both_checkpoint_boundaries_but_no_other_campaign(monkeyp
     monkeypatch.setattr(requests, 'get', lambda url, **kw: NS(content=data[url], raise_for_status=lambda: None))
     out = tmp_path/'out'
     result = collector.collect(NS(kernels_status=lambda k: 'COMPLETE'), 'owner/job', out,
-                               profile='mana-decision-pilot')
+                               profile=profile)
     assert result['complete']
     assert (out/run/'update_000050.pt').read_bytes() == b'selected'
     assert (out/run/'update_000100.pt').read_bytes() == b'last'

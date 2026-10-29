@@ -73,7 +73,7 @@ def continue_full(config, ranking):
         return dict(status='full_submission_rejected' if response.get('error') else 'full_submission_requires_inspection',
                     full_submitted=False, response=response, root=str(root))
     from scripts.kaggle.start_global_full_observers import start
-    pids = start(root, 'mana_full_pair0_20261029', config['full_token_index'])
+    pids = start(root, config.get('full_stem','mana_full_pair0_20261029'), config['full_token_index'])
     return dict(status='full_pair_submitted_pending_cuda_proof', full_submitted=True,
                 root=str(root), observers=pids, target_steps=8192000, models=2)
 

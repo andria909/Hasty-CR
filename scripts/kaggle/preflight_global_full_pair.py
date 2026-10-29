@@ -160,7 +160,10 @@ def preflight(prepared,output):
             initial_selection=json.loads((inputs/'initial_selection.json').read_text()),bootstrap=str(inputs/'train.py'))
         path=root/'spec.json';path.write_text(json.dumps(spec,indent=2)+'\n')
         child_script=Path(__file__).absolute()
-        if json.loads((inputs/'protocol.json').read_text()).get('study_variant')=='mana_decision_v1':
+        variant=json.loads((inputs/'protocol.json').read_text()).get('study_variant')
+        if variant=='bank_counterfactual_v1':
+            child_script=child_script.with_name('preflight_bank_teacher.py')
+        elif variant=='mana_decision_v1':
             child_script=child_script.with_name('preflight_mana_campaign.py')
         with(root/'run.log').open('x')as log:
             subprocess.run([sys.executable,str(child_script),'--child',str(path)],cwd=project,

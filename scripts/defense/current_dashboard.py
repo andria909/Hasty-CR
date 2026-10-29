@@ -29,6 +29,8 @@ def progress(state):
     """Lower bound from matching local observer; never perform a network request."""
     if state.get('status')=='upload_failed_before_submission':
         return '0%', 'проверено локально; загрузка Kaggle не принята'
+    if state.get('status')=='preflight':
+        return '0%', 'техническая проверка; GPU ещё не отправлен'
     if state.get('status')=='queued_capacity':
         queue=read(Path(state['root'])/'capacity_queue.json')
         if queue and queue.get('status')=='inspection_required':return '0%', 'ошибка очереди; требуется разбор'
@@ -51,6 +53,13 @@ def render_mana(reports,campaign):
         '**24 коротких PPO-обучения: накопление эликсира и осмысленный выбор карты.**',
         'Реальные бои остановлены. На аккаунтах 1 и 3 исчерпана GPU-квота; используем аккаунт 2 с лимитом двух заданий одновременно.','',
         '| Серия | Прогресс | Состояние |','|---|---:|---|']
+    bank=read(reports/'bank_teacher_pilot_training_20261027.json')
+    if bank:
+        pct,note=progress(bank)
+        lines[2:2]=['**Новый этап: учим сохранять банк и вовремя защищаться.** '
+            f'8 PPO-прогонов; {pct}, {note}. '
+            '60 парных учебных примеров, отложена целая группа позиций. '
+            '[Дизайн](reports/bank_teacher_20261029.md).','']
     for kind,label in [('reserve','Накопление эликсира'),('balance','Меньше давления на частоту карт'),('wait','Исследование WAIT и доступных карт')]:
         stem=f'mana_{kind}_pilot'
         state=read(reports/f'{stem}_training_20261027.json')
@@ -73,7 +82,7 @@ def render_mana(reports,campaign):
         lines += ['**Дальше:** после проверки всех 24 прогонов сравнить 10 разных настроек. '
             'Общий контроль учитывается один раз. Два лучших профиля с результатом на обоих seed '
             'и без нулевой защиты одной из групп получают по 4 096 000 шагов при доступной GPU-квоте.','']
-    full=read(reports/'mana_full_pair0_20261029_training_20261027.json')
+    full=read(reports/'bank_teacher_full_pair0_20261029_training_20261027.json') or read(reports/'mana_full_pair0_20261029_training_20261027.json')
     if full:
         snapshot=read(Path(full['root'])/'live_stream/progress.json') or full.get('progress_snapshot',{})
         trials=snapshot.get('trials',{})

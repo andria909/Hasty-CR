@@ -32,7 +32,10 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             except (ValueError,OSError):continue
             if not r.get('complete'):continue
             prep=json.loads((root/'preparation.json').read_text())
-            if prep.get('study_variant')=='mana_decision_v1':
+            if prep.get('study_variant')=='bank_counterfactual_v1':
+                from scripts.attack.verify_bank_teacher_pilot import verify as verify_bank
+                report=verify_bank(receipt.parent,root)
+            elif prep.get('study_variant')=='mana_decision_v1':
                 from scripts.attack.verify_mana_campaign import verify_mana
                 report=verify_mana(receipt.parent,root)
             elif prep.get('study_variant')=='late_air_sequential_teacher_v1':

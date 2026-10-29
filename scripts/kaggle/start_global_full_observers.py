@@ -21,7 +21,7 @@ def commands(root,stem,owner,sdk,python):
 
 def start(root,stem,token_index):
     root=Path(root)
-    if not re.fullmatch(r'(global_full_pair[01]|mana_full_pair0_20261029)',stem):raise ValueError('Explicit full pair report stem required')
+    if not re.fullmatch(r'(global_full_pair[01]|mana_full_pair0_20261029|bank_teacher_full_pair0_20261029)',stem):raise ValueError('Explicit full pair report stem required')
     if token_index not in(0,1,2):raise ValueError('Only the three available accounts are allowed')
     if(root/'monitoring.json').exists():raise ValueError('Inspect existing full observers; no duplicates')
     prep=json.loads((root/'preparation.json').read_text());receipt=json.loads((root/'launch_receipt.json').read_text())

@@ -12,7 +12,9 @@ def summarize(root,verified=None):
     protocol=json.loads((root/'dataset/protocol.json').read_text());rows=[]
     if verified is None:
         variant=protocol.get('study_variant')
-        if variant=='mana_decision_v1':
+        if variant=='bank_counterfactual_v1':
+            from scripts.attack.verify_bank_teacher_pilot import verify as verify_study
+        elif variant=='mana_decision_v1':
             from scripts.attack.verify_mana_campaign import verify_mana as verify_study
         elif variant in ('own_pending_inputs_v1','pending_sequence_retention_v1','pending_diversity_slots_v1'):
             from scripts.attack.verify_frozen_pending import verify as verify_study
@@ -41,6 +43,7 @@ def summarize(root,verified=None):
     retention=protocol.get('schema')=='continuous-air-retention-pilot-v1'
     jointskills=protocol.get('schema')=='continuous-joint-skills-pilot-v1'
     warm=protocol.get('schema')=='continuous-air-warmstart-pilot-v1'or retention or jointskills
+    if protocol.get('study_variant')=='bank_counterfactual_v1':warm=True
     if protocol.get('study_variant') in ('central_tower_damage_v1','paid_tactical_fullgame_starts_v1','edge_to_edge_paid_tactical_v1'):warm=False
     if protocol.get('study_variant') in ('own_pending_inputs_v1','tower_support_reward_v1','spell_waste_reward_v1','combined_tower_spell_reward_v1'):warm=False
     temperature=protocol.get('schema')=='continuous-temperature-pilot-v1'
@@ -74,7 +77,7 @@ def summarize(root,verified=None):
                     after=score_checkpoint(root/'collected'/r['checkpoint'],root/'dataset')))
 
         row=dict(id=trial['id'],**stats(records))
-        if protocol.get('study_variant')=='mana_decision_v1':
+        if protocol.get('study_variant') in ('mana_decision_v1','bank_counterfactual_v1'):
             totals=Counter()
             opportunities={}
             for record in records:
@@ -140,7 +143,8 @@ def summarize(root,verified=None):
     if initial!='parent':
         source=json.loads((root/'collected'/f'{initial}_reference.json').read_text())
         initial_reference=dict(id=initial,**stats(source['validation']['records']))
-    return dict(schema='verified-mana-decision-pilot-summary-v1'if protocol.get('study_variant')=='mana_decision_v1'else
+    return dict(schema='verified-bank-teacher-pilot-summary-v1'if protocol.get('study_variant')=='bank_counterfactual_v1'else
+        'verified-mana-decision-pilot-summary-v1'if protocol.get('study_variant')=='mana_decision_v1'else
         'verified-pending-inputs-pilot-summary-v1'if protocol.get('study_variant')=='own_pending_inputs_v1'else
         'verified-history-pilot-validation-summary-v1'if history else
         'verified-board-pilot-validation-summary-v1'if board else

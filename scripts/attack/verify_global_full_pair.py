@@ -114,7 +114,8 @@ def verify(collected, prepared):
                 or not all(torch.isfinite(t).all() for t in blob['state_dict'].values())):
             raise ValueError('Invalid selected full weights')
         execution,checked=audit_training_execution(config,blob,child_root/run_id/'metrics.jsonl')
-        if json.loads((dataset/'protocol.json').read_text()).get('study_variant')=='mana_decision_v1':
+        study_variant=json.loads((dataset/'protocol.json').read_text()).get('study_variant')
+        if study_variant in ('mana_decision_v1','bank_counterfactual_v1'):
             from scripts.attack.verify_tactical_starts_pilot import audit_exposure
             from scripts.attack.verify_mana_campaign import audit_economy
             from scripts.attack.evaluation_execution import HOG_CLIPPED
@@ -127,6 +128,9 @@ def verify(collected, prepared):
             if execution!=HOG_CLIPPED or any(blob['config'][k]!=config[k]
                     for k in ('tower_support_weight','spell_waste_weight','tactical_start_fraction')):
                 raise ValueError('Full economy checkpoint reward/physics differs')
+            if study_variant=='bank_counterfactual_v1' and trial.get('warmstart_updates'):
+                warm=json.loads((child_root/(run_id+'_warmstart/result.json')).read_text())
+                if warm.get('sequence_wait_fraction')!=.5:raise ValueError('Full BC sampler differs')
         models.append(dict(id=f'global{index}_'+run_id,origin=child['selected']['study'],trial=trial,
             checkpoint=str(child_root/row['checkpoint']),checkpoint_sha256=row['checkpoint_sha256'],
             family_guard=row['selected_with_family_guard'],selection_score=row['validation']['selection_score']))

@@ -27,12 +27,12 @@ def audit_economy(rows):
             raise ValueError('Invalid card availability counts')
 
 
-def verify_mana(collected, prepared):
+def verify_mana(collected, prepared, *, protocol_validator=validate_protocol, expected_variant=VARIANT):
     collected, prepared = Path(collected), Path(prepared)
     prep = json.loads((prepared/'preparation.json').read_text())
-    if prep.get('study_variant') != VARIANT:
+    if prep.get('study_variant') != expected_variant:
         raise ValueError('Wrong mana campaign')
-    p = json.loads((prepared/'dataset/protocol.json').read_text()); validate_protocol(p)
+    p = json.loads((prepared/'dataset/protocol.json').read_text()); protocol_validator(p)
     result = verify(collected, prepared)
     audited = []
     import torch
