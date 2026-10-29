@@ -1,0 +1,374 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "vertel0/hastycr-mana-balance-1029",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "low",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.03,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1
+        },
+        "score": 0.1284722222222222,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "medium",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.01,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1
+        },
+        "score": 0.12152777777777778,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "control",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.1,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1
+        },
+        "score": 0.09722222222222224,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "high",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.0,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1
+        },
+        "score": 0.09722222222222222,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_control_s342",
+      "checkpoint": "tmp/kaggle/mana_campaign_20261029/balance/collected/pilot_control_s342/update_000100.pt",
+      "checkpoint_sha256": "61cbea8af7d0e574282b960c95bef4a2decdb526c1717a9555ffa0c81bf04c69",
+      "selection_score": 0.11805555555555557,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_control_s343",
+      "checkpoint": "tmp/kaggle/mana_campaign_20261029/balance/collected/pilot_control_s343/update_000050.pt",
+      "checkpoint_sha256": "3ab047b915069b75386bc60b044381e692867b42a2fd3b1250c7e58c77bf21e5",
+      "selection_score": 0.0763888888888889,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_low_s342",
+      "checkpoint": "tmp/kaggle/mana_campaign_20261029/balance/collected/pilot_low_s342/update_000100.pt",
+      "checkpoint_sha256": "55a489969c68505581c6a6568e23d1462327967626e7a312bc02456ee825917d",
+      "selection_score": 0.13194444444444445,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_low_s343",
+      "checkpoint": "tmp/kaggle/mana_campaign_20261029/balance/collected/pilot_low_s343/update_000100.pt",
+      "checkpoint_sha256": "f565bf934c9178ac3edb6b0dac6f2434aaf07dd76abc6749bdd778d34d279005",
+      "selection_score": 0.125,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_medium_s342",
+      "checkpoint": "tmp/kaggle/mana_campaign_20261029/balance/collected/pilot_medium_s342/update_000050.pt",
+      "checkpoint_sha256": "9562dfa9dd397d1f32bce4f97e2aa7926c460616b409faf8f4e5c457bebe5ec6",
+      "selection_score": 0.1111111111111111,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_medium_s343",
+      "checkpoint": "tmp/kaggle/mana_campaign_20261029/balance/collected/pilot_medium_s343/update_000050.pt",
+      "checkpoint_sha256": "44b2fc7e34181a0ce35decef63d88a8b69f463f8585b92ab268b17dd038090e5",
+      "selection_score": 0.13194444444444445,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_high_s342",
+      "checkpoint": "tmp/kaggle/mana_campaign_20261029/balance/collected/pilot_high_s342/update_000050.pt",
+      "checkpoint_sha256": "fc15f79602d22771f6e7261d1fa12b5bb2d67e5a0ad9c097628f89c0cf6e5666",
+      "selection_score": 0.10416666666666667,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_high_s343",
+      "checkpoint": "tmp/kaggle/mana_campaign_20261029/balance/collected/pilot_high_s343/update_000100.pt",
+      "checkpoint_sha256": "692a3796d3cf3d65f8a628771b75ec07da02265be6ea45a47f5e8740095be0eb",
+      "selection_score": 0.09027777777777778,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "parent",
+    "ranking": [
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.10763888888888888,
+        "macro_archetype_points": 0.21527777777777776,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.25
+          },
+          "giant": {
+            "games": 12,
+            "points": 0.5416666666666666
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.25
+          },
+          "swarm": {
+            "games": 12,
+            "points": 0.25
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false,
+  "mana_decision_audit": {
+    "verified": true,
+    "experiment": "balance",
+    "execution": {
+      "schema": "evaluation-execution-v3",
+      "action_delay_ms": 1350,
+      "decision_interval_ms": 250,
+      "action_cooldown_ms": 0,
+      "cannon_placement_mode": "central_defense_v1",
+      "geometry": "native_anchors_candidate_v1",
+      "coordinate_mode": "physical_live_cells_v2",
+      "physics_tick_ms": 50,
+      "max_ms": 310000,
+      "normal_range_mode": "edge_to_edge_v1",
+      "target_lock_mode": "legacy_periodic_v1",
+      "hog_sight_mode": "side_clip_v1"
+    },
+    "runs": [
+      {
+        "id": "pilot_control_s342",
+        "validation_geometry_records": 144,
+        "completed_episodes": 111,
+        "counts": {
+          "ordinary": 111
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_control_s343",
+        "validation_geometry_records": 144,
+        "completed_episodes": 107,
+        "counts": {
+          "ordinary": 107
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_low_s342",
+        "validation_geometry_records": 144,
+        "completed_episodes": 112,
+        "counts": {
+          "ordinary": 112
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_low_s343",
+        "validation_geometry_records": 144,
+        "completed_episodes": 109,
+        "counts": {
+          "ordinary": 109
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_medium_s342",
+        "validation_geometry_records": 144,
+        "completed_episodes": 111,
+        "counts": {
+          "ordinary": 111
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_medium_s343",
+        "validation_geometry_records": 144,
+        "completed_episodes": 105,
+        "counts": {
+          "ordinary": 105
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_high_s342",
+        "validation_geometry_records": 144,
+        "completed_episodes": 109,
+        "counts": {
+          "ordinary": 109
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_high_s343",
+        "validation_geometry_records": 144,
+        "completed_episodes": 110,
+        "counts": {
+          "ordinary": 110
+        },
+        "own_princess_masks": {},
+        "families": {}
+      }
+    ]
+  }
+}

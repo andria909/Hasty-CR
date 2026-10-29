@@ -1,3 +1,7 @@
+## LATEST: all24 economy pilots COMPLETE and verified; zero eligible profiles
+
+All3 cohorts819200 each, total2457600 CUDAsteps verified. Terminalranking reports/defense_plan/mana_campaign_selection_20261029.json + reports/mana_campaign_results_20261029.md. All10distinctprofiles fail original allfamily/twoseedfloor. Best wins balance.03=37/144 vscontrol28/144. No full training submitted. WAITremote had COMPLETE while laptopobservercachedQUEUED; collected exactsamekernel without rerun, receipt verified. Selector88099 stopped after manual finalranking, statecompleted_no_eligible_pair. New savedlive diagnostic149legalstates parentgreedyWAIT42, countcorrection47, meanWAITprob.097895: fivechanges only, NOTprovenfix. plan_2 appendednextskillcurriculumhypothesis. NOlivegames; preserveweights/secrets.
+
 ## CURRENT 29 October:24 economy PPO pilots launched/queued; NO live games
 
 User now explicitly requests many trainings and selecting the best, overriding the previous physics-before-any-training ordering. NO real games remains active. Goal tool was paused by user UI; do not claim it resumed. v25 and old frozen packages must remain intact; tokens remain outside Git. No subagents authorized for this turn.

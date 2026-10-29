@@ -1,31 +1,73 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "vertel0/hastycr-mana-balance-1029",
-  "status": "training_steps_observed",
+  "status": "pilot_complete_budgets_verified",
   "progress_snapshot": {
     "kernel": "vertel0/hastycr-mana-balance-1029",
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
-    "reconnect_attempt": 1,
-    "checked_host_ns": 1793231445317645000,
+    "reconnect_attempt": 4,
+    "checked_host_ns": 1793234981270722000,
     "trials": {
       "pilot_control_s342": {
-        "update": 99,
-        "steps": 101376,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 99.0,
-        "remote_log_seconds": 1366.852029309
+        "percent": 100.0,
+        "remote_log_seconds": 1793.188036745
       },
       "pilot_low_s342": {
-        "update": 99,
-        "steps": 101376,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 99.0,
-        "remote_log_seconds": 1368.243044423
+        "percent": 100.0,
+        "remote_log_seconds": 1801.905919412
+      },
+      "pilot_control_s343": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3140.105920003
+      },
+      "pilot_low_s343": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 3205.001219242
+      },
+      "pilot_medium_s342": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 4466.318843039
+      },
+      "pilot_high_s342": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 4551.02492759
+      },
+      "pilot_medium_s343": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 4722.666024477
+      },
+      "pilot_high_s343": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 4808.789138541
       }
     },
-    "error_type": "SSLError",
+    "error_type": "ConnectionError",
     "http_status": null
   },
   "pilot_target_steps": 819200,
@@ -41,6 +83,7 @@
     "kernelId": 141414810
   },
   "frozen_bootstrap_sha256": "9949885a06749f59857cf8531a3982bc1ee674e113ad6bef62846bd9a49f046d",
-  "last_local_sync_ns": 1793231565773948000,
-  "actual_training_steps_confirmed": true
+  "last_local_sync_ns": 1793236059076608000,
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/mana_balance_pilot_verified_20261027.json"
 }
