@@ -1,0 +1,402 @@
+{
+  "schema": "train-skill-gradient-alignment-v1",
+  "data_sha256": "86d50037e4d36ca405281e3f9c79222a218fb8e6e35a0942ff192bf96b9d834a",
+  "source_sha256": "ce312eecfec5ede3d2eea2d1f731a9efef16ab023513d42a1a01d47f3eb2584d",
+  "heldout_seed_excluded": 354,
+  "batches": {
+    "air_support_defense": [
+      930,
+      930,
+      928,
+      925,
+      925,
+      928,
+      926,
+      926,
+      924,
+      928,
+      929,
+      927,
+      925,
+      925,
+      931,
+      930,
+      928,
+      925,
+      925,
+      929,
+      930,
+      926,
+      931,
+      925,
+      925,
+      928,
+      930,
+      925,
+      925,
+      927,
+      931,
+      927
+    ],
+    "fireball_group": [
+      942,
+      938,
+      974,
+      944,
+      970,
+      959,
+      938,
+      950,
+      943,
+      957,
+      972,
+      970,
+      969,
+      941,
+      956,
+      956,
+      945,
+      968,
+      941,
+      953,
+      972,
+      939,
+      950,
+      945,
+      957,
+      943,
+      938,
+      975,
+      953,
+      963,
+      969,
+      950
+    ],
+    "safe_bank_sequence": [
+      149,
+      484,
+      128,
+      335,
+      49,
+      599,
+      335,
+      392,
+      534,
+      301,
+      120,
+      96,
+      399,
+      384,
+      413,
+      49,
+      399,
+      549,
+      84,
+      284,
+      39,
+      186,
+      299,
+      434,
+      49,
+      399,
+      184,
+      44,
+      534,
+      249,
+      534,
+      290
+    ],
+    "spell_restraint": [
+      1031,
+      1001,
+      1034,
+      981,
+      985,
+      1033,
+      982,
+      1027,
+      1026,
+      1008,
+      994,
+      983,
+      1003,
+      994,
+      1028,
+      1020,
+      1005,
+      1027,
+      1007,
+      995,
+      984,
+      981,
+      1017,
+      1006,
+      997,
+      1022,
+      1020,
+      1021,
+      1005,
+      1006,
+      1014,
+      1035
+    ]
+  },
+  "models": [
+    {
+      "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/dataset/parent.pt",
+      "checkpoint_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+      "by_skill": {
+        "air_support_defense": {
+          "imitation_loss": 102.0727310180664,
+          "gradient_norms": {
+            "all_actor_parameters": 320.7365417480469,
+            "shared_encoder": 276.3299865722656
+          }
+        },
+        "fireball_group": {
+          "imitation_loss": 63.3692626953125,
+          "gradient_norms": {
+            "all_actor_parameters": 237.51193237304688,
+            "shared_encoder": 210.4180145263672
+          }
+        },
+        "safe_bank_sequence": {
+          "imitation_loss": 35.29103469848633,
+          "gradient_norms": {
+            "all_actor_parameters": 193.24024963378906,
+            "shared_encoder": 132.42388916015625
+          }
+        },
+        "spell_restraint": {
+          "imitation_loss": 12.4397554397583,
+          "gradient_norms": {
+            "all_actor_parameters": 43.552650451660156,
+            "shared_encoder": 29.600852966308594
+          }
+        }
+      },
+      "alignments": [
+        {
+          "left": "air_support_defense",
+          "right": "fireball_group",
+          "cosines": {
+            "all_actor_parameters": 0.8131658434867859,
+            "shared_encoder": 0.802142322063446
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": -0.0562998466193676,
+            "shared_encoder": 0.03202679380774498
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.1964692771434784,
+            "shared_encoder": -0.24038814008235931
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": -0.10908614844083786,
+            "shared_encoder": -0.10414900630712509
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.21797120571136475,
+            "shared_encoder": -0.28025248646736145
+          }
+        },
+        {
+          "left": "safe_bank_sequence",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.27818283438682556,
+            "shared_encoder": 0.40273821353912354
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain001_s392/policy.pt",
+      "checkpoint_sha256": "3a7eb5863c7e80203b1bbfef86ddac3428d2d6041a7e646adf8c47422e17e215",
+      "by_skill": {
+        "air_support_defense": {
+          "imitation_loss": 3.800222873687744,
+          "gradient_norms": {
+            "all_actor_parameters": 25.20581817626953,
+            "shared_encoder": 11.612099647521973
+          }
+        },
+        "fireball_group": {
+          "imitation_loss": 0.8444496393203735,
+          "gradient_norms": {
+            "all_actor_parameters": 52.832611083984375,
+            "shared_encoder": 17.701148986816406
+          }
+        },
+        "safe_bank_sequence": {
+          "imitation_loss": 3.097252607345581,
+          "gradient_norms": {
+            "all_actor_parameters": 35.199039459228516,
+            "shared_encoder": 27.833984375
+          }
+        },
+        "spell_restraint": {
+          "imitation_loss": 0.02454143762588501,
+          "gradient_norms": {
+            "all_actor_parameters": 2.709469795227051,
+            "shared_encoder": 2.5557711124420166
+          }
+        }
+      },
+      "alignments": [
+        {
+          "left": "air_support_defense",
+          "right": "fireball_group",
+          "cosines": {
+            "all_actor_parameters": -0.04536274075508118,
+            "shared_encoder": 0.29995638132095337
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.29286760091781616,
+            "shared_encoder": -0.1527033895254135
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.12426396459341049,
+            "shared_encoder": 0.5103094577789307
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.12201100587844849,
+            "shared_encoder": 0.09603390842676163
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.04783952236175537,
+            "shared_encoder": 0.20939460396766663
+          }
+        },
+        {
+          "left": "safe_bank_sequence",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.6687818169593811,
+            "shared_encoder": -0.7872642278671265
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/zero01_s392/policy.pt",
+      "checkpoint_sha256": "a9baa2183a34a2d555ac0444f4d059808fd1b65de5e98c33bc79fb6a48bc069e",
+      "by_skill": {
+        "air_support_defense": {
+          "imitation_loss": 4.440103530883789,
+          "gradient_norms": {
+            "all_actor_parameters": 81.71659851074219,
+            "shared_encoder": 11.963926315307617
+          }
+        },
+        "fireball_group": {
+          "imitation_loss": 0.6426305174827576,
+          "gradient_norms": {
+            "all_actor_parameters": 298.1305847167969,
+            "shared_encoder": 12.206253051757812
+          }
+        },
+        "safe_bank_sequence": {
+          "imitation_loss": 2.9377148151397705,
+          "gradient_norms": {
+            "all_actor_parameters": 91.10743713378906,
+            "shared_encoder": 11.005341529846191
+          }
+        },
+        "spell_restraint": {
+          "imitation_loss": 0.1905638873577118,
+          "gradient_norms": {
+            "all_actor_parameters": 21.405258178710938,
+            "shared_encoder": 11.609460830688477
+          }
+        }
+      },
+      "alignments": [
+        {
+          "left": "air_support_defense",
+          "right": "fireball_group",
+          "cosines": {
+            "all_actor_parameters": -0.06332359462976456,
+            "shared_encoder": 0.39130479097366333
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.6370063424110413,
+            "shared_encoder": 0.29560112953186035
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.09157481789588928,
+            "shared_encoder": -0.7617373466491699
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.13135592639446259,
+            "shared_encoder": 0.3706050515174866
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.013051887042820454,
+            "shared_encoder": -0.2552027404308319
+          }
+        },
+        {
+          "left": "safe_bank_sequence",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.018050622195005417,
+            "shared_encoder": -0.0444636344909668
+          }
+        }
+      ]
+    }
+  ],
+  "optimizer_updates": 0,
+  "environment_steps": 0,
+  "quality_accepted": false,
+  "scope": "One deterministic TRAIN batch per skill; instantaneous imitation gradients, without KL/value anchor. Negative cosine is local disagreement, not a causal game-performance result."
+}
