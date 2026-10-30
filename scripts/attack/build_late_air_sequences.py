@@ -21,7 +21,11 @@ from sim.runner import resolve_deck
 
 def replay(context, cards, spells, *, pending_inputs=False):
     match, hp = opening(context['opening'], cards, spells)
-    plan = context['best']
+    return replay_match(match, hp, context['best'], cards, spells, pending_inputs=pending_inputs)
+
+
+def replay_match(match, hp, plan, cards, spells, *, pending_inputs=False):
+    """Replay a separately reconstructed paid opening through the same masks."""
     if not plan['valid'] or not plan['clear_without_damage'] or not plan['commands']:
         raise ValueError('Successful paid plan required')
     # Use the actual PPO environment observation/mask implementation unchanged.

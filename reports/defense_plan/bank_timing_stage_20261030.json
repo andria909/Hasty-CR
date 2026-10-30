@@ -1,8 +1,8 @@
 {
   "schema": "bank-timing-stage-v1",
-  "root": "tmp/kaggle/bank_timing_cpu_20261030",
+  "root": "tmp/kaggle/bank_timing_cpu_20261030_v2",
   "kernel": "vertel0/hastycr-bank-timing1030",
-  "expected_version": 1,
+  "expected_version": 2,
   "status": "RUNNING",
   "cpu_only": true,
   "contexts": 36,
@@ -11,20 +11,33 @@
   "launch_receipt": {
     "ref": "/code/vertel0/hastycr-bank-timing1030",
     "url": "https://www.kaggle.com/code/vertel0/hastycr-bank-timing1030",
-    "versionNumber": 1,
+    "versionNumber": 2,
     "kernelId": 141601033
   },
-  "bootstrap_sha256": "1571392d7c700e3593e8067554d2362ef72f1c4d0d168dcde4d9f3b1afbad866",
+  "bootstrap_sha256": "9f233e8ff4166ece3b4e5acdc96f0a473f911a04687e3a73e9997425237f34d6",
   "live_games": false,
   "training_started": false,
+  "bootstrap_backup": "reports/defense_plan/bank_timing_v2_bootstrap_20261030.py",
+  "packaging_fault_found": true,
+  "repair_root": "tmp/kaggle/bank_timing_cpu_20261030_v2",
+  "repair_status": "submitted",
+  "sequence_smoke": "tmp/bank_timing_sequence_smoke_20261030.json",
+  "spell_reward_hole": "reports/defense_plan/crown_only_spell_reward_hole_20261030.json",
+  "previous_attempt": {
+    "root": "tmp/kaggle/bank_timing_cpu_20261030",
+    "remote_terminal_status": "ERROR",
+    "missing_module_confirmed": true
+  },
+  "isolated_smoke_passed": true,
+  "smoke_result_sha256": "9b921dc7e50042f69c3bed0ae7486307662f2864047da0cc4601008e036b1ef3",
   "observed_status": {
     "kernel": "vertel0/hastycr-bank-timing1030",
     "status": "RUNNING",
-    "checked_host_ns": 1793328432638863000
+    "checked_host_ns": 1793330710324985000
   },
   "observer": {
-    "pid": 97463,
+    "pid": 97725,
     "poll_seconds": 1200
   },
-  "bootstrap_backup": "reports/defense_plan/bank_timing_bootstrap_20261030.py"
+  "previous_observer_stopped": true
 }

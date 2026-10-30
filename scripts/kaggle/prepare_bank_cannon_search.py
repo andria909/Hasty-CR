@@ -16,7 +16,18 @@ def prepare(base_controller,output,slug,support=False,timing=False):
     module='search_bank_timing' if timing else 'search_bank_cannon'
     probe=Path('scripts/attack/'+module+'.py').read_text()
     imports='from copy import deepcopy\nfrom scripts.attack.sequence_execution import EXECUTION\nfrom sim.adapter import grid_to_point\nfrom sim.cannon_placement import restrict_cannon\nfrom sim.eval_defense_duel import mechanical_mask\n'
-    probe=probe.replace('from scripts.attack.search_late_air_defense import rollout,rank',imports+'\n'.join(inspect.getsource(getattr(helpers,n))for n in ('helper_cell','rollout','rank')))
+    probe_tree=ast.parse(probe)
+    replaced=0
+    for index,node in enumerate(probe_tree.body):
+        if isinstance(node,ast.ImportFrom)and node.module=='scripts.attack.search_late_air_defense':
+            if {n.name for n in node.names}!={'rollout','rank'}:
+                raise ValueError('Unexpected search helper imports')
+            inline=ast.parse(imports+'\n'.join(inspect.getsource(getattr(helpers,n))for n in ('helper_cell','rollout','rank')))
+            probe_tree.body[index:index+1]=inline.body
+            replaced+=1
+            break
+    if replaced!=1:raise ValueError('One helper import must be replaced')
+    ast.fix_missing_locations(probe_tree);probe=ast.unparse(probe_tree)+'\n'
     writes=runs=0
     for node in ast.walk(tree):
         if timing and isinstance(node,ast.Constant)and isinstance(node.value,str):

@@ -73,8 +73,11 @@ def render_mana(reports,campaign):
             +cannon_status+'[Контрпример и следующий этап](reports/bank_cannon_teacher_repair_20261029.md).','']
     timing=read(reports/'bank_timing_stage_20261030.json')
     if timing:
+        timing_note=('Найдена ошибка упаковки первого CPU-поиска; исправленный пакет прошёл изолированную проверку. '
+                     if timing.get('packaging_fault_found') and timing.get('repair_status')!='submitted' else
+                     'CPU-поиск36 контекстов и шести задержек принят Kaggle; ')
         lines[2:2]=['**Сейчас: учим сохранять эликсир через проверку безопасного ожидания.** '
-            'CPU-поиск36 контекстов и шести задержек принят Kaggle; нового обучения весов пока нет. '
+            +timing_note+'Нового обучения весов пока нет. '
             'Локально подтверждена защита без урона после3с накопления. '
             '[Дизайн и следующий шаг](reports/bank_timing_and_live_failure_20261030.md).','',
             '**BC200 в реальной игре:** 1 поражение; ещё4 боя отменены по команде пользователя. '

@@ -1,0 +1,63 @@
+{
+  "schema": "crown-only-spell-reward-hole-v1",
+  "seed": 352,
+  "cell": [
+    9,
+    1
+  ],
+  "king_hp_before": 6144,
+  "king_hp_after": 5938,
+  "king_asleep_before": true,
+  "king_asleep_after": false,
+  "spell_metrics": {
+    "empty_spell_counts": {},
+    "resolved_spell_counts": {
+      "fireball": 1
+    },
+    "empty_spell_elixir_by_card": {},
+    "empty_spell_elixir": 0,
+    "unresolved_spell_counts": {}
+  },
+  "events": [
+    {
+      "spell": "fireball",
+      "caster_side": 1,
+      "side": 1,
+      "cast_ms": 0,
+      "due_ms": 2292,
+      "aim": [
+        9500,
+        1500
+      ],
+      "hits": [
+        {
+          "target_uid": 6,
+          "target_side": -1,
+          "damage": 206,
+          "max_hp": 6144,
+          "killed": false,
+          "elixir_milli": 0,
+          "spawned_ms": 0,
+          "hit_ms": 2300,
+          "is_tower": true
+        }
+      ],
+      "resolved": true,
+      "impact_ms": 2300
+    }
+  ],
+  "physics_pins": {
+    "sim/match.py": "65932ba8fb6aacd022b2adffa7ca411b7728ad172cad8196f55981c46fdd7f5c",
+    "sim/continuous_push.py": "ef70efe6abba7d11338ce58cc7ae8e997e696b20b674114cd654e7d4cf258fb3",
+    "sim/eval_defense_duel.py": "659def3089d3afcdce539b5145371caf7ea407003b11a5c36016b3498a6feb5c",
+    "sim/engine.py": "8a15162403bc53816569b5ba95cfe1c200adae39769f23f269ee49a1c72b466f",
+    "sim/entities.py": "0b40d065cd95fc93d3b4b9df7359c2bdae4178e67bf524ecae3c7fa4f6b0f522",
+    "sim/spells.py": "dd492c5958cbd54360d6a8b327168e70c0a065901983a66771e58616c14cf13d",
+    "sim/adapter.py": "3d12212efeb1583179382281729c7e2bd52daeaec94079e29265fde9bbf7f428",
+    "sim/cannon_placement.py": "441ceaaee92a72e2a63d889b2584501d042cbfbf65d5d5a3a45f1ceec275c39c",
+    "scripts/attack/sequence_execution.py": "863caf63f7b4c37f5537a7077265db44c6e6edc79874f2e78331b1e325fb1552"
+  },
+  "tracker_sha256": "5fb8fde2744e497eb9fa7cd40bc2d93f1835b7d4d1bd100f9dec6a0bd707ff95",
+  "scope": "Synthetic full-health enemy king, no enemy troops, same grid as first recorded BC200 Fireball; no live games",
+  "reward_changed": false
+}
