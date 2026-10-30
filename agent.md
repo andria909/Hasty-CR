@@ -1,3 +1,7 @@
+## CURRENT local observer recovery after37a2da3push (GPUjobunchanged)
+
+NamedPIDs98017/98018 vanishedauthoritatively; rootstatusstillRUNNING,nocomplete receipt. DoNOTinferGPUstopped orresubmit. Added scripts/kaggle/run_observer.py readexternalregistry+execv namedmodule, tokenenvironmentonly (neverargv), durableSTDOUT/tracebacklogs. RestartedONLYlocalSSE--resume (98645exec76683)andcollector(98646exec61106), post98019unchanged, frontier98560unchanged. BothnewnamedmodulePIDsverifiedlive; awaitingfirstnetworkresponse, oldstatusageNOTproofterminal. Raw198TRIAL_PROGRESSallactual_cudaTeslaT4 confirm202752lowerbound; nofinalmetricsyet. Newlogs root stream_observer_recovery.log/collector_observer_recovery.log. Needcommitpushlauncher+updatedstatus+agent ownonly. Restofstagecommitted37a2da3andpushedorigin/main:900verifiedstates+slotcontract,frontierCPUv3RUNNING,127focusedtestsPASS,v25SHAunchanged. No livegames.
+
 ## CURRENT 30 October: safe bank900states built; frontier CPUv3RUNNING; PPO≥24.75percent
 
 Previousgoalturnwasprogress: integratednewrewardandactuallysubmitted8PPOshorts, committed/pushed379f2b5. Newcurrentstate: coarseCPUtimingv2 COMPLETEauthoritative, all36contexts collectedSHAproof. No newjobdueobservationtimeout. Originalobserver97725alreadyended; onemanualcollector56381 completedsameimmutablev2results. verify_search validatescollector/probe/frozenphysics(opening+all simexceptindependentoptimizerCLI)beforeactualreplay.

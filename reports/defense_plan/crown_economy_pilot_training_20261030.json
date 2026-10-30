@@ -42,8 +42,8 @@
     "Tesla T4"
   ],
   "monitoring": {
-    "stream_pid": 98017,
-    "collector_pid": 98018,
+    "stream_pid": 98645,
+    "collector_pid": 98646,
     "postprocess_pid": 98019,
     "poll_seconds": 1200
   },
@@ -72,5 +72,15 @@
         "remote_log_seconds": 1416.604989483
       }
     }
+  },
+  "observer_recovery": {
+    "previous_stream_pid": 98017,
+    "previous_collector_pid": 98018,
+    "previous_pids_confirmed_absent": true,
+    "training_resubmitted": false,
+    "resumed_same_events": true,
+    "launcher": "scripts.kaggle.run_observer",
+    "stream_log": "tmp/kaggle/crown_economy_pilot_20261030/stream_observer_recovery.log",
+    "collector_log": "tmp/kaggle/crown_economy_pilot_20261030/collector_observer_recovery.log"
   }
 }
