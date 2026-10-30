@@ -3,7 +3,7 @@
   "root": "tmp/kaggle/bank_timing_cpu_20261030_v2",
   "kernel": "vertel0/hastycr-bank-timing1030",
   "expected_version": 2,
-  "status": "RUNNING",
+  "status": "COMPLETE",
   "cpu_only": true,
   "contexts": 36,
   "requests_per_context": 234,
@@ -39,5 +39,37 @@
     "pid": 97725,
     "poll_seconds": 1200
   },
-  "previous_observer_stopped": true
+  "previous_observer_stopped": true,
+  "collection_complete": true,
+  "teacher_dataset": "data/safe_bank_sequences_20261030_v2",
+  "teacher_examples": 900,
+  "teacher_sequences": 36,
+  "teacher_full_game_ready": false,
+  "teacher_proof": "reports/defense_plan/safe_bank_sequences_verified_20261030.json",
+  "frontier": {
+    "root": "tmp/kaggle/bank_frontier_timing_v3_20261030",
+    "kernel": "vertel0/hastycr-bank-timing1030",
+    "expected_version": 3,
+    "status": "RUNNING",
+    "command_granularity_ms": 250,
+    "contexts": 36,
+    "variants_per_context": 508,
+    "cpu_only": true,
+    "launch_receipt": {
+      "ref": "/code/vertel0/hastycr-bank-timing1030",
+      "url": "https://www.kaggle.com/code/vertel0/hastycr-bank-timing1030",
+      "versionNumber": 3,
+      "kernelId": 141601033
+    },
+    "bootstrap_sha256": "f80f0ba83f69d3545b4ec8c157ca13be157c9fa9b792449c054a0419238561c1",
+    "bootstrap_backup": "reports/defense_plan/bank_frontier_v3_bootstrap_20261030.py",
+    "prior_creation_http404_preserved": true,
+    "observer_pid": 98560,
+    "poll_seconds": 1200,
+    "observed_status": {
+      "kernel": "vertel0/hastycr-bank-timing1030",
+      "status": "RUNNING",
+      "checked_host_ns": 1793333247651635000
+    }
+  }
 }

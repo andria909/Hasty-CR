@@ -42,3 +42,17 @@ def test_remote_complete_does_not_invent_missing_training_steps(tmp_path):
     assert progress(state)==('≥12.5%','Kaggle завершён; проверяем файлы')
     state['progress_snapshot']={}
     assert progress(state)==('—','Kaggle завершён; проверяем файлы')
+
+
+def test_current_crown_dashboard_keeps_lower_bound_and_hides_unverified_scores(tmp_path):
+    state=dict(kernel='owner/crown',root=str(tmp_path/'job'),progress_snapshot=dict(trials={
+        'pilot_control_s382':dict(steps=101376)}))
+    (tmp_path/'crown_economy_pilot_training_20261030.json').write_text(json.dumps(state))
+    (tmp_path/'crown_economy_pilot_summary_20261030.json').write_text(json.dumps(dict(
+        kernel='owner/crown',rows=[dict(id='control',wins=144,games=144)])))
+    (tmp_path/'job/live_stream').mkdir(parents=True)
+    (tmp_path/'job/live_stream/progress.json').write_text(json.dumps(dict(kernel='owner/crown',trials={})))
+    content=render(tmp_path)
+    assert '≥99.0%' in content and '≥12.4%' in content
+    assert '144/144' not in content and '100% бюджета проверено' not in content
+    assert len(content.splitlines())<30

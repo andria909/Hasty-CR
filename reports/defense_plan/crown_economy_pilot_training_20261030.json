@@ -2,7 +2,7 @@
   "schema": "crown-economy-pilot-training-v1",
   "kernel": "vertel0/hastycr-crown-econ1030",
   "root": "tmp/kaggle/crown_economy_pilot_20261030",
-  "status": "submitted",
+  "status": "training_steps_observed",
   "pilot_target_steps": 819200,
   "study_variant": "crown_economy_v1",
   "preflight_report": "tmp/kaggle/crown_economy_pilot_20261030/preflight.json",
@@ -34,8 +34,8 @@
     "versionNumber": 1,
     "kernelId": 141606852
   },
-  "actual_training_steps_confirmed": false,
-  "last_local_sync_ns": 1793331589352445000,
+  "actual_training_steps_confirmed": true,
+  "last_local_sync_ns": 1793332964086593000,
   "cuda_ready": true,
   "gpus": [
     "Tesla T4",
@@ -48,5 +48,29 @@
     "poll_seconds": 1200
   },
   "collector_profile": "crown-economy-pilot",
-  "terminal_verifier": "scripts.attack.verify_crown_economy_pilot.verify_crown"
+  "terminal_verifier": "scripts.attack.verify_crown_economy_pilot.verify_crown",
+  "progress_snapshot": {
+    "kernel": "vertel0/hastycr-crown-econ1030",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "connected",
+    "reconnect_attempt": 0,
+    "checked_host_ns": 1793332981148666000,
+    "trials": {
+      "pilot_control_s382": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1374.580070071
+      },
+      "pilot_low_s382": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1416.604989483
+      }
+    }
+  }
 }

@@ -48,14 +48,17 @@ def context(spec):
                 hog_sight_mode=env.match.battle.hog_sight_mode)
 
 
-def search(output, smoke=False, workers=2):
+def search(output, smoke=False, workers=2, frontier=False):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     delays = (0, 1500, 3000, 6000, 9000, 12000)
     cases = [(*case, delays) for case in product(
         (352, 353, 354), ('left', 'right'), (2000, 3000, 6000), (9, 15))]
+    if frontier:
+        cases = [(seed,lane,bank,y,tuple(range(9000 if y==9 else 3000,
+                    (12000 if y==9 else 6000)+250,250))) for seed,lane,bank,y,_ in cases]
     if smoke:
-        cases = [(352, 'left', 3000, 15, (0, 3000))]
+        cases = [(352, 'left', 3000, 15, (3000,3250) if frontier else (0, 3000))]
     rows = []
     with (output/'contexts.jsonl').open('x') as stream:
         with ProcessPoolExecutor(max_workers=workers) as pool:
@@ -66,12 +69,13 @@ def search(output, smoke=False, workers=2):
                 rows.append(row)
                 stream.write(json.dumps(row)+'\n'); stream.flush()
                 print(json.dumps(dict(completed=len(rows), total=len(cases))), flush=True)
-    result = dict(schema='bank-timing-search-v1', contexts=len(rows), smoke=smoke,
+    result = dict(schema='bank-timing-search-v1', contexts=len(rows), smoke=smoke, frontier=frontier,
                   command_delay_ms=1350, cannon_first_audited=True,
                   delayed_safe_contexts=sum(any(d['safe'] and d['delay_ms'] > 0
                                                for d in r['by_delay']) for r in rows),
-                  immediate_safe_contexts=sum(any(d['safe'] and d['delay_ms'] == 0
-                                                 for d in r['by_delay']) for r in rows),
+                  immediate_tested=not frontier,
+                  immediate_safe_contexts=(None if frontier else sum(any(d['safe'] and d['delay_ms'] == 0
+                                                 for d in r['by_delay']) for r in rows)),
                   raw_sha256=hashlib.sha256((output/'contexts.jsonl').read_bytes()).hexdigest(),
                   source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   quality_accepted=False, live_games=False,
@@ -89,5 +93,6 @@ if __name__ == '__main__':
     p.add_argument('--output', required=True)
     p.add_argument('--smoke', action='store_true')
     p.add_argument('--workers', type=int, default=2)
+    p.add_argument('--frontier', action='store_true')
     a = p.parse_args()
-    print(json.dumps(search(a.output, a.smoke, a.workers)))
+    print(json.dumps(search(a.output, a.smoke, a.workers, a.frontier)))

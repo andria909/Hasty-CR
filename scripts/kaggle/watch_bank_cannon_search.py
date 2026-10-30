@@ -32,6 +32,8 @@ def watch(root):
                 result=json.loads((out/'result.json').read_text())
                 expected_schema='bank-timing-search-v1' if prep.get('timing') else 'bank-central-cannon-search-v1'
                 if result['schema']!=expected_schema:raise ValueError('Unexpected search protocol')
+                if bool(result.get('frontier',False))!=bool(prep.get('frontier',False)):
+                    raise ValueError('Timing granularity differs')
                 if bool(result.get('support',False))!=bool(prep.get('support',False)):
                     raise ValueError('Support condition differs from prepared study')
                 if result['contexts']!=36 or hashlib.sha256((out/'contexts.jsonl').read_bytes()).hexdigest()!=result['raw_sha256']:

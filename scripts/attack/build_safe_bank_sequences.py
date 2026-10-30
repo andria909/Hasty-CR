@@ -111,6 +111,7 @@ def build(root, output):
                     contexts=contexts, examples=len(records), seeds=[352, 353, 354],
                     command_delay_ms=1350, execution=EXECUTION, physics_pins=physics_pins(),
                     cannon_first_audited=True, source_kernel=prep['kernel'],
+                    slot_augmentation_contract='public309_no_pending_busy_slots_v1',
                     search_sha256=file_sha(Path(root)/'collected/contexts.jsonl'),
                     builder_sha256=file_sha(__file__), data_sha256=file_sha(output/'examples.npz'),
                     teacher_order=['zero additional tower damage and all threats cleared',

@@ -8,8 +8,9 @@ from pathlib import Path
 from scripts.attack import search_late_air_defense as helpers
 
 
-def prepare(base_controller,output,slug,support=False,timing=False):
+def prepare(base_controller,output,slug,support=False,timing=False,frontier=False):
     if support and timing:raise ValueError('Timing study uses a separate single-threat protocol')
+    if frontier and not timing:raise ValueError('Frontier requires timing study')
     output=Path(output);(output/'job').mkdir(parents=True,exist_ok=False)
     tree=ast.parse(Path(base_controller).read_text())
     config=ast.literal_eval(tree.body[-1].value.args[0])
@@ -40,6 +41,7 @@ def prepare(base_controller,output,slug,support=False,timing=False):
                 if any(isinstance(v,ast.Constant)and v.value in ('scripts.attack.search_bank_cannon','scripts.attack.search_bank_timing')for v in args):
                     args[:]=[v for v in args if not(isinstance(v,ast.Constant)and v.value=='--support')]
                     if support:args.append(ast.Constant('--support'))
+                    if frontier:args.append(ast.Constant('--frontier'))
                     runs+=1
     if writes!=1 or runs!=1:raise ValueError('Unexpected source-controller layout')
     ast.fix_missing_locations(tree);code=ast.unparse(tree)+'\n';compile(code,'train.py','exec')
@@ -49,7 +51,7 @@ def prepare(base_controller,output,slug,support=False,timing=False):
         is_private=True,enable_gpu=False,enable_tpu=False,enable_internet=False,
         dataset_sources=[config['owner']+'/'+config['slug']],competition_sources=[],kernel_sources=[])
     (output/'job/kernel-metadata.json').write_text(json.dumps(metadata,indent=2)+'\n')
-    prep=dict(kernel=kernel,expected_version=1,cpu_only=True,support=support,timing=timing,contexts=36,
+    prep=dict(kernel=kernel,expected_version=1,cpu_only=True,support=support,timing=timing,frontier=frontier,contexts=36,
         bootstrap_sha256=hashlib.sha256(code.encode()).hexdigest(),probe_sha256=hashlib.sha256(probe.encode()).hexdigest(),
         source_manifest_sha256=config['source_manifest_sha256'],dataset=metadata['dataset_sources'][0],teacher_labels_used=False)
     (output/'preparation.json').write_text(json.dumps(prep,indent=2)+'\n');return prep

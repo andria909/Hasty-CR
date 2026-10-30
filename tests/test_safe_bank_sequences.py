@@ -39,6 +39,22 @@ def test_teacher_does_not_prefer_costly_late_or_unsafe_defense():
         choose(row)
 
 
+def test_bank_sequence_permutations_match_actual_later_hand_state():
+    from itertools import permutations
+    from sim.hand_slot_augmentation import permute
+    env=opening(352,'left',3000,15)
+    for _ in range(60):env.match.step(50)
+    obs=env._observe();mask=env._mask();hand=list(env.match.players[1].hand)
+    assert not env.pending and not env.slot_ready
+    for order in permutations(range(4)):
+        scalar,mapped=permute(obs['scalars'],mask,order)
+        env.match.players[1].hand=[hand[i]for i in order]
+        actual=env._observe()
+        np.testing.assert_array_equal(actual['planes'],obs['planes'])
+        np.testing.assert_array_equal(actual['scalars'],scalar)
+        np.testing.assert_array_equal(env._mask(),mapped)
+
+
 @pytest.mark.parametrize('timing', [False, True])
 def test_remote_probe_bundles_helper_regardless_of_import_spacing(tmp_path, timing):
     prepare('reports/defense_plan/bank_cannon_single_bootstrap_20261029.py',

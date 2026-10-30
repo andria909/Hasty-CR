@@ -54,6 +54,40 @@ def progress(state):
     return '—', 'Kaggle завершён; проверяем файлы'if collecting else 'отправлено; шаги ещё не подтверждены'
 
 
+def render_crown(reports,state):
+    snapshot=state.get('progress_snapshot',{})
+    trials=dict(snapshot.get('trials',{}))
+    fresh=read(Path(state['root'])/'live_stream/progress.json') or {}
+    if fresh.get('kernel')==state['kernel']:
+        for key,row in fresh.get('trials',{}).items():
+            if row.get('steps',0)>=trials.get(key,{}).get('steps',0):trials[key]=row
+    proof=read(reports/'crown_economy_pilot_verified_20261030.json') or {}
+    expected={f'pilot_{name}_s{seed}'for name in ('control','low','medium','high')for seed in (382,383)}
+    verified=(proof.get('kernel')==state['kernel'] and proof.get('pilot_steps_verified')==819200 and
+              {m['id']for m in proof.get('pilot_models',[])}==expected)
+    steps=sum(min(102400,trials.get(key,{}).get('steps',0))for key in expected)
+    total='100% бюджета проверено' if verified else f'≥{100*steps/819200:.1f}%' if steps else 'шаги пока не подтверждены'
+    summary=read(reports/'crown_economy_pilot_summary_20261030.json') or {}
+    scores={r['id']:f"{r['wins']}/{r['games']}"for r in summary.get('rows',[])} if verified and summary.get('kernel')==state['kernel'] else {}
+    lines=['# Текущий этап','',f'**PPO: расход спелов по башням — {total}.** 8 прогонов, общий бюджет 819 200 шагов.','',
+           '| Настройка штрафа | Seed 382 | Seed 383 | Победы validation |','|---|---:|---:|---:|']
+    for name,label in [('control','Контроль'),('low','Спящий король: 0,1'),('medium','Спящий король: 0,4'),('high','Король: 0,4 + прочие башни: 0,1')]:
+        values=[]
+        for seed in (382,383):
+            row=trials.get(f'pilot_{name}_s{seed}')
+            values.append('100% проверено' if verified else f"≥{100*row['steps']/102400:.1f}%"if row else'—')
+        lines.append(f"| {label} | {values[0]} | {values[1]} | {scores.get(name,'—')} |")
+    timing=read(reports/'bank_timing_stage_20261030.json') or {}
+    lines+=['','Проценты показывают объём, не качество; «—» означает отсутствие подтверждённых данных. Проверка Kaggle раз в 20 минут.','',
+        '**Учитель накопления:** '+(f"{timing['teacher_examples']} состояний из 36 воспроизведённых защит; " if timing.get('teacher_examples') else 'собираем безопасные траектории; ')+
+        'уточняем границу постановки с шагом 250 мс. Общий учитель для PPO ещё не готов.','',
+        '**Реальные бои выключены.** Последняя проба BC200: 1 поражение, 4 боя отменены.','',
+        '**Дальше:** сравнить 8 прогонов по победам, всем 6 семействам, запасу и полезности спелов; 2–4 прошедших порог кандидата — на полный бюджет.','',
+        '[Параметры опыта](reports/crown_economy_pilot_20261030.md) · [Учитель и разбор](reports/bank_timing_and_live_failure_20261030.md) · '
+        '[Прежние 24 прогона](reports/mana_campaign_results_20261029.md) · [План](plan_2.md)','']
+    return '\n'.join(lines)
+
+
 def render_mana(reports,campaign):
     lines=['# Текущий этап','',
         '**24 коротких PPO-обучения: накопление эликсира и осмысленный выбор карты.**',
@@ -132,6 +166,9 @@ def render_mana(reports,campaign):
 
 
 def render(reports):
+    reports=Path(reports)
+    crown=read(reports/'crown_economy_pilot_training_20261030.json')
+    if crown:return render_crown(reports,crown)
     reports=Path(reports)
     campaign=read('tmp/kaggle/mana_campaign_20261029/campaign_state.json')
     if campaign:return render_mana(reports,campaign)

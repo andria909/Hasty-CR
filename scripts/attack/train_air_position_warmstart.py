@@ -25,7 +25,14 @@ def successful_set_loss(logits,legal,success):
 
 
 def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,sequence_wait_fraction=None,slot_augmentation=False,pending_inputs=False):
-    if slot_augmentation and sequence_wait_fraction is not None and not pending_inputs:raise ValueError('Pending sequence slots require a separate permutation contract')
+    if slot_augmentation and sequence_wait_fraction is not None and not pending_inputs:
+        path=Path(data)/'manifest.json'
+        contract=json.loads(path.read_text()) if path.is_file() else {}
+        if (contract.get('schema')!='bank-safe-sequence-labels-v1' or
+                contract.get('slot_augmentation_contract')!='public309_no_pending_busy_slots_v1' or
+                not contract.get('records') or
+                any(r.get('pending_count')!=0 or r.get('reserved_elixir')!=0 for r in contract['records']if r['accepted'])):
+            raise ValueError('Pending sequence slots require a separate permutation contract')
     if updates<1 or not 0<=kl_weight<=10:raise ValueError('Invalid supervised training controls')
     if device.startswith('cuda')and not torch.cuda.is_available():raise RuntimeError('CUDA unavailable; no CPU fallback')
     if device=='cpu'and updates>5:raise ValueError('CPU limited to five preflight updates')
@@ -87,7 +94,7 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
                 result['by_decision_type'][kind]=original_measure(subset) if len(subset) else dict(examples=0)
         return result
     def input_identity(p,s,m):return hashlib.sha256(p.tobytes()+s.tobytes()+m.tobytes()).digest()
-    heldout_inputs={input_identity(arrays['planes'][i],arrays['scalars'][i],arrays['masks'][i]) for i in heldout_ids.cpu().tolist()} if slot_augmentation and pending_inputs else set()
+    heldout_inputs={input_identity(arrays['planes'][i],arrays['scalars'][i],arrays['masks'][i]) for i in heldout_ids.cpu().tolist()} if slot_augmentation else set()
     if heldout_inputs and any(input_identity(arrays['planes'][i],arrays['scalars'][i],arrays['masks'][i])in heldout_inputs for i in train_ids.cpu().tolist()):
         raise ValueError('TRAIN inputs overlap heldout before augmentation')
     excluded_permutations=0
@@ -116,6 +123,9 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
                     scalar,mask=permute(arrays['scalars'][i],arrays['masks'][i],order)
                     _,label=permute(arrays['scalars'][i],arrays['success_masks'][i],order)
                     plane=arrays['planes'][i]
+                    if input_identity(plane,scalar,mask) in heldout_inputs:
+                        scalar,mask,label=arrays['scalars'][i],arrays['masks'][i],arrays['success_masks'][i]
+                        excluded_permutations+=1
                 packed.append((plane,scalar,mask,label))
             batch_planes=torch.as_tensor(np.stack([x[0]for x in packed]),device=device,dtype=torch.float32)
             batch_scalars=torch.as_tensor(np.stack([x[1]for x in packed]),device=device,dtype=torch.float32)
