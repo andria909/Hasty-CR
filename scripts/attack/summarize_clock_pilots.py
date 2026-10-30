@@ -12,7 +12,9 @@ def summarize(root,verified=None):
     protocol=json.loads((root/'dataset/protocol.json').read_text());rows=[]
     if verified is None:
         variant=protocol.get('study_variant')
-        if variant=='bank_counterfactual_v1':
+        if variant=='crown_economy_v1':
+            from scripts.attack.verify_crown_economy_pilot import verify_crown as verify_study
+        elif variant=='bank_counterfactual_v1':
             from scripts.attack.verify_bank_teacher_pilot import verify as verify_study
         elif variant=='mana_decision_v1':
             from scripts.attack.verify_mana_campaign import verify_mana as verify_study
@@ -77,7 +79,7 @@ def summarize(root,verified=None):
                     after=score_checkpoint(root/'collected'/r['checkpoint'],root/'dataset')))
 
         row=dict(id=trial['id'],**stats(records))
-        if protocol.get('study_variant') in ('mana_decision_v1','bank_counterfactual_v1'):
+        if protocol.get('study_variant') in ('mana_decision_v1','bank_counterfactual_v1','crown_economy_v1'):
             totals=Counter()
             opportunities={}
             for record in records:
@@ -92,6 +94,11 @@ def summarize(root,verified=None):
                 voluntary_wait_fraction=totals['voluntary_wait']/n,
                 mean_empty_spell_elixir=sum(r['empty_spell_elixir']for r in records)/len(records),
                 mean_own_fraction_loss=sum(r['own_fraction_loss']for r in records)/len(records))
+        if protocol.get('study_variant')=='crown_economy_v1':
+            row.update(crown_only_weight=trial['crown_only_weight'],dormant_king_weight=trial['dormant_king_weight'],
+                mean_crown_only_elixir=sum(r['nonlethal_crown_only_elixir']for r in records)/len(records),
+                mean_dormant_king_only_elixir=sum(r['dormant_at_request_king_only_elixir']for r in records)/len(records),
+                mean_crown_finishes=sum(sum(r['crown_finishing_spell_counts'].values())for r in records)/len(records))
         if protocol.get('study_variant') in ('spell_waste_reward_v1','combined_tower_spell_reward_v1',
                                             'central_tower_damage_v1','paid_tactical_fullgame_starts_v1','edge_to_edge_paid_tactical_v1'):
             known=all('empty_spell_counts' in r for r in records)
@@ -185,6 +192,13 @@ def render(summary):
             'Потери HP — сумма потерянных долей здоровья трёх своих башен, от0 до3. '
             'В JSON сохранены частоты каждой карты, наличие в руке и доступность для выставления. '
             'Счётчики помогают объяснить поведение; больше ожидания само по себе не означает лучшую игру.']
+    if summary['rows']and 'mean_crown_only_elixir'in summary['rows'][0]:
+        lines+=['','## Нелетальный расход спелов по башням','',
+            '| Профиль | Только башни, эликсир / матч | Из них спящий король | Добитые башни спелами / матч |',
+            '|---|---:|---:|---:|']
+        for row in summary['rows']:
+            lines.append(f"| {row['id']} | {row['mean_crown_only_elixir']:.2f} | {row['mean_dormant_king_only_elixir']:.2f} | {row['mean_crown_finishes']:.2f} |")
+        lines+=['','Спящий король определён на момент запроса. Попадания по юнитам и добивание исключены из нового штрафа; чип по башне иногда полезен.']
     if summary['rows']and 'mean_empty_spells'in summary['rows'][0]:
         lines+=['','## Пустые заклинания','',
             '| Профиль | Пустые Fireball / матч | Пустые Zap / матч | Эликсир впустую / матч | Эликсир впустую / минуту |',

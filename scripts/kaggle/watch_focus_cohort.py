@@ -21,7 +21,7 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
                 except (ValueError,OSError):r=None
                 if r and r.get('kernel')==state['kernel']:
                     state['progress_snapshot']=r
-                    if r.get('trials'):
+                    if any(row.get('steps',0)>0 for row in r.get('trials',{}).values()):
                         state['status']='training_steps_observed';state['actual_training_steps_confirmed']=True
             state['last_local_sync_ns']=time.time_ns()
             status_report.write_text(json.dumps(state,indent=2)+'\n')
@@ -32,7 +32,10 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             except (ValueError,OSError):continue
             if not r.get('complete'):continue
             prep=json.loads((root/'preparation.json').read_text())
-            if prep.get('study_variant')=='bank_counterfactual_v1':
+            if prep.get('study_variant')=='crown_economy_v1':
+                from scripts.attack.verify_crown_economy_pilot import verify_crown
+                report=verify_crown(receipt.parent,root)
+            elif prep.get('study_variant')=='bank_counterfactual_v1':
                 from scripts.attack.verify_bank_teacher_pilot import verify as verify_bank
                 report=verify_bank(receipt.parent,root)
             elif prep.get('study_variant')=='mana_decision_v1':

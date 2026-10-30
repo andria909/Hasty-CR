@@ -83,3 +83,46 @@ def test_optional_environment_penalizes_once_and_resumes_exactly():
     again = penalized.step(action)
     assert again[1:4] == b[1:4]
     assert again[4]['metrics'] == b[4]['metrics']
+
+
+def test_training_factory_requires_explicit_supported_economy_configuration():
+    from sim.train_attack_ppo import make_training_env
+    kwargs = dict(curriculum='continuous_v1', tower_support_weight=.15,
+                  spell_waste_weight=.1, crown_only_weight=0., dormant_king_weight=.4)
+    env = make_training_env(**kwargs)
+    _, info = env.reset(seed=2)
+    assert info['metrics']['dormant_king_weight'] == .4
+    for patch in (dict(crown_only_weight=None), dict(pending_inputs=True),
+                  dict(tactical_start_fraction=.25), dict(curriculum='classic'),
+                  dict(dormant_king_weight=float('nan'))):
+        with pytest.raises(ValueError):
+            make_training_env(**dict(kwargs, **patch))
+
+
+def test_actual_economy_ppo_optimizer_and_exact_resume(tmp_path):
+    import torch
+    from sim.train_attack_ppo import parser, train, validate_resume
+    from scripts.kaggle.preflight_global_full_pair import equal_state
+    torch.set_num_threads(1)
+    def args(name, updates):
+        return parser().parse_args(['--output', str(tmp_path/name), '--device', 'cpu',
+            '--curriculum', 'continuous_v1', '--task-mode', 'joint',
+            '--tower-support-weight', '.15', '--spell-waste-weight', '.1',
+            '--crown-only-weight', '.1', '--dormant-king-weight', '.4',
+            '--action-delay-ms', '1350', '--updates', str(updates), '--envs', '1',
+            '--rollout', '2', '--epochs', '1', '--minibatch-size', '2',
+            '--eval-every', '0', '--max-ms', '180000', '--target-environment-steps', '4'])
+    first = train(args('one', 1))/'update_000001.pt'
+    whole = train(args('whole', 2))/'update_000002.pt'
+    resumed_args = args('resumed', 2); resumed_args.resume = str(first)
+    resumed = train(resumed_args)/'update_000002.pt'
+    a = torch.load(whole, map_location='cpu', weights_only=False)
+    b = torch.load(resumed, map_location='cpu', weights_only=False)
+    for key in ('state_dict', 'optimiser', 'rng', 'infos', 'environment_states'):
+        if key == 'environment_states':
+            assert a[key][0]['dormant_king_weight'] == b[key][0]['dormant_king_weight'] == .4
+        else:
+            assert equal_state(a[key], b[key])
+    bad = dict(a['config'], dormant_king_weight=.8)
+    with pytest.raises(ValueError, match='dormant_king_weight'):
+        validate_resume(a, bad)

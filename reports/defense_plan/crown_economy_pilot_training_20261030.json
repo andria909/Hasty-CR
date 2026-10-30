@@ -1,0 +1,52 @@
+{
+  "schema": "crown-economy-pilot-training-v1",
+  "kernel": "vertel0/hastycr-crown-econ1030",
+  "root": "tmp/kaggle/crown_economy_pilot_20261030",
+  "status": "submitted",
+  "pilot_target_steps": 819200,
+  "study_variant": "crown_economy_v1",
+  "preflight_report": "tmp/kaggle/crown_economy_pilot_20261030/preflight.json",
+  "preflight_verified": true,
+  "bootstrap_sha256": "f52be17647e2eb3879e5c532b22d7882de321a05bbce8a1d5d35a7d692fc3315",
+  "live_games": false,
+  "new_teacher_used": false,
+  "coefficient_profiles": {
+    "control": [
+      0.0,
+      0.0
+    ],
+    "low": [
+      0.0,
+      0.1
+    ],
+    "medium": [
+      0.0,
+      0.4
+    ],
+    "high": [
+      0.1,
+      0.4
+    ]
+  },
+  "launch_receipt": {
+    "ref": "/code/vertel0/hastycr-crown-econ1030",
+    "url": "https://www.kaggle.com/code/vertel0/hastycr-crown-econ1030",
+    "versionNumber": 1,
+    "kernelId": 141606852
+  },
+  "actual_training_steps_confirmed": false,
+  "last_local_sync_ns": 1793331589352445000,
+  "cuda_ready": true,
+  "gpus": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "monitoring": {
+    "stream_pid": 98017,
+    "collector_pid": 98018,
+    "postprocess_pid": 98019,
+    "poll_seconds": 1200
+  },
+  "collector_profile": "crown-economy-pilot",
+  "terminal_verifier": "scripts.attack.verify_crown_economy_pilot.verify_crown"
+}

@@ -14,6 +14,22 @@ def validate_launch_receipt(receipt,kernel):
         raise RuntimeError('Kaggle did not accept the first kernel submission; inspect saved receipt')
 
 
+def wait_for_dataset(api,slug):
+    for _ in range(40):
+        try:status=str(api.dataset_status(slug))
+        except Exception as exc:
+            code=getattr(getattr(exc,'response',None),'status_code',None)
+            transient=(type(exc).__name__ in ('SSLError','ConnectionError','ReadTimeout','Timeout') or
+                       code in (403,404,429,500,502,503,504))
+            if not transient:raise
+            print('DATASET readiness temporarily unconfirmed; same handle retained',flush=True)
+            time.sleep(30);continue
+        print('DATASET',status,flush=True)
+        if status.lower()=='ready':return
+        time.sleep(30)
+    raise RuntimeError('Dataset not ready; no kernel submitted')
+
+
 def submit(root,token_index,*,evaluation=False):
     from scripts.kaggle.collect_final_evaluation import make_api_client,configure_http_timeout
     root=Path(root);index=int(token_index);prepared=json.loads((root/'preparation.json').read_text());owner=prepared['config']['owner'];kernel=prepared['kernel']
@@ -51,15 +67,7 @@ def submit(root,token_index,*,evaluation=False):
      result=r.to_dict()if hasattr(r,'to_dict')else str(r)
      (root/'dataset_create.json').write_text(json.dumps(result,indent=2)+'\n')
     slug=owner+'/'+prepared['config']['slug']
-    for _ in range(40):
-     try:status=str(api.dataset_status(slug))
-     except Exception as exc:
-      if getattr(getattr(exc,'response',None),'status_code',None)!=403:raise
-      print('DATASET readiness unconfirmed (HTTP403); same handle retained',flush=True);time.sleep(30);continue
-     print('DATASET',status,flush=True)
-     if status.lower()=='ready':break
-     time.sleep(30)
-    else:raise RuntimeError('Dataset not ready; no kernel submitted')
+    wait_for_dataset(api,slug)
     if(root/'kernel_push_requested.json').exists():raise RuntimeError('Existing push request; inspect exact handle, do not duplicate')
     (root/'kernel_push_requested.json').write_text(json.dumps(dict(kernel=kernel,requested=True)))
     r=api.kernels_push(str(root/'job'),acc='NvidiaTeslaT4');receipt=r.to_dict()if hasattr(r,'to_dict')else str(r)

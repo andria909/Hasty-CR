@@ -75,12 +75,13 @@ def collect(api,kernel,destination,profile='defense',cache=None):
         if not path.is_file():return None
         if file_sha(path)!=cache_files[name]['sha256']:raise ValueError('Cached artifact changed')
         return path.read_bytes()
-    if profile in ('continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','tower-support-pilot','spell-waste-pilot'):
+    if profile in ('continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'):
         import re
         import requests
         prefix='continuous_focus/';result_file='result.json'
         allowed={result_file,'selection.json','initial_selection.json','parent_reference.json'}
-        run_pattern=(r'pilot_(?:control|low|medium|high)_s36[23]'
+        run_pattern=(r'pilot_(?:control|low|medium|high)_s38[23]'
+            if profile=='crown-economy-pilot'else r'pilot_(?:control|low|medium|high)_s36[23]'
             if profile=='bank-teacher-pilot'else r'pilot_(?:control|low|medium|high)_s34[23]'
             if profile=='mana-decision-pilot'else r'pilot_(?:control|low|medium|high)_s32[23]'
             if profile=='tactical-starts-pilot'else r'pilot_(?:control|small|medium|large)_s30[23]'
@@ -124,7 +125,7 @@ def collect(api,kernel,destination,profile='defense',cache=None):
                 if int(selected[-9:-3])>(100 if run.startswith('pilot_')else 4000):raise ValueError('Focus checkpoint exceeds declared budget')
                 if prefix+selected not in files:raise ValueError('Focus selected checkpoint absent')
                 prefetched[relative]=raw;allowed.add(selected)
-        if profile in('air-warmstart-pilot','air-retention-pilot','joint-skills-pilot','selected-continuous-full','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','tower-support-pilot','spell-waste-pilot'):
+        if profile in('air-warmstart-pilot','air-retention-pilot','joint-skills-pilot','selected-continuous-full','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'):
             for name in files:
                 if name.startswith(prefix)and re.fullmatch(run_pattern+r'_warmstart/(?:policy\.pt|result\.json|updates\.json)',name[len(prefix):]):allowed.add(name[len(prefix):])
         latest={}
@@ -282,7 +283,7 @@ def main():
     parser.add_argument('--once',action='store_true')
     parser.add_argument('--cache',type=Path,help='Reuse only SHA-verified files from a preserved partial collection')
     parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
-    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','tower-support-pilot','spell-waste-pilot'),default='defense')
+    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only

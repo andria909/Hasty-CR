@@ -63,7 +63,9 @@ def verify_search(root):
     if file_sha('scripts/attack/build_bank_counterfactuals.py') != config['pins']['bank_builder.py']:
         raise ValueError('Opening builder differs from searched fixture')
     for name, digest in config['extensions'].items():
-        if name.startswith('sim/') and file_sha(name) != digest:
+        # The search imports the match/observation implementation, never the
+        # PPO optimizer/CLI. Reward-factory integration can change separately.
+        if name.startswith('sim/') and name != 'sim/train_attack_ppo.py' and file_sha(name) != digest:
             raise ValueError('Timing simulator differs: '+name)
     rows = [json.loads(line) for line in raw.read_text().splitlines() if line.strip()]
     identities = {(r['seed'], r['lane'], r['bank'], r['enemy_y']) for r in rows}

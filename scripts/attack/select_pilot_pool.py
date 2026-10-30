@@ -18,6 +18,9 @@ from scripts.attack.verify_continuous_focus import verify
 def verify_study(root, default_verifier=None):
     root = Path(root)
     protocol = json.loads((root/'dataset/protocol.json').read_text())
+    if protocol.get('study_variant') == 'crown_economy_v1':
+        from scripts.attack.verify_crown_economy_pilot import verify_crown
+        return verify_crown(root/'collected', root)
     if protocol.get('study_variant') == 'bank_counterfactual_v1':
         from scripts.attack.verify_bank_teacher_pilot import verify as verify_bank
         return verify_bank(root/'collected', root)

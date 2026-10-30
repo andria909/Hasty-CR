@@ -35,6 +35,8 @@ def progress(state):
         return '0%', 'проверено локально; загрузка Kaggle не принята'
     if state.get('status')=='preflight':
         return '0%', 'техническая проверка; GPU ещё не отправлен'
+    if state.get('status')=='uploading':
+        return '0%', 'загружаем закреплённый пакет; GPU ещё не принят'
     if state.get('status')=='queued_capacity':
         queue=read(Path(state['root'])/'capacity_queue.json')
         if queue and queue.get('status')=='inspection_required':return '0%', 'ошибка очереди; требуется разбор'
@@ -77,12 +79,19 @@ def render_mana(reports,campaign):
                      if timing.get('packaging_fault_found') and timing.get('repair_status')!='submitted' else
                      'CPU-поиск36 контекстов и шести задержек принят Kaggle; ')
         lines[2:2]=['**Сейчас: учим сохранять эликсир через проверку безопасного ожидания.** '
-            +timing_note+'Нового обучения весов пока нет. '
+            +timing_note+'Учитель траекторий ещё не использован в обучении. '
             'Локально подтверждена защита без урона после3с накопления. '
             '[Дизайн и следующий шаг](reports/bank_timing_and_live_failure_20261030.md).','',
             '**BC200 в реальной игре:** 1 поражение; ещё4 боя отменены по команде пользователя. '
             '6 подтверждённых Fireball,0 Musketeer; в97,7% решений после5-й секунды доступно менее4 эликсира. '
             'Бот выключен. [Разбор](reports/bank_timing_and_live_failure_20261030.md).','']
+    crown=read(reports/'crown_economy_pilot_training_20261030.json')
+    if crown:
+        pct,note=progress(crown)
+        lines[2:2]=['**Новый опыт: расход спелов по башням — 8 коротких PPO-прогонов.** '
+            f'{pct}; {note}. 4 настройки ×2 seed ×102400 шагов. '
+            'Добивание и попадание по юнитам исключены из нового штрафа. '
+            '[Параметры и проверки](reports/crown_economy_pilot_20261030.md).','']
     for kind,label in [('reserve','Накопление эликсира'),('balance','Меньше давления на частоту карт'),('wait','Исследование WAIT и доступных карт')]:
         stem=f'mana_{kind}_pilot'
         state=read(reports/f'{stem}_training_20261027.json')

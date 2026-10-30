@@ -93,7 +93,12 @@ def make_attack_env(*,split='train',seed=0,deadline_scale=1.,**options):
     return env
 
 
-def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',validation_selection='overall',continuous_focus='uniform',history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None,tactical_start_fraction=None,**options):
+def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',validation_selection='overall',continuous_focus='uniform',history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None,tactical_start_fraction=None,crown_only_weight=None,dormant_king_weight=None,**options):
+    economy=crown_only_weight is not None or dormant_king_weight is not None
+    if economy and (crown_only_weight is None or dormant_king_weight is None or spell_waste_weight is None or
+                    tower_support_weight is None or tactical_start_fraction not in (None,0.) or
+                    history_frames!=1 or pending_inputs or curriculum!='continuous_v1' or task_mode!='joint'):
+        raise ValueError('Spell economy requires explicit paired coefficients and continuous joint single-frame environment without tactical starts')
     if tactical_start_fraction is not None and (tower_support_weight is None or spell_waste_weight is None):
         raise ValueError('Tactical starts require explicit tower and spell coefficients')
     if (tower_support_weight is not None or spell_waste_weight is not None) and (history_frames!=1 or pending_inputs or curriculum!='continuous_v1' or task_mode!='joint'):
@@ -107,7 +112,12 @@ def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='class
     if curriculum=='continuous_v1':
         if task_mode!='joint':raise ValueError('Continuous curriculum requires joint policy')
         from sim.continuous_push import ContinuousPushEnv
-        if tactical_start_fraction is not None:
+        if economy:
+            from sim.continuous_spell_economy import SpellEconomyContinuousPushEnv
+            env=SpellEconomyContinuousPushEnv(split=split,seed=seed,crown_only_weight=crown_only_weight,
+                dormant_king_weight=dormant_king_weight,spell_waste_weight=spell_waste_weight,
+                tower_support_weight=tower_support_weight,**options)
+        elif tactical_start_fraction is not None:
             from sim.continuous_tactical_starts import TacticalStartContinuousPushEnv
             env=TacticalStartContinuousPushEnv(split=split,seed=seed,tactical_start_fraction=tactical_start_fraction,
                 tower_support_weight=tower_support_weight,spell_waste_weight=spell_waste_weight,**options)
@@ -273,7 +283,7 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
     return result
 
 
-def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.,history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None,tactical_start_fraction=None):
+def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.,history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None,tactical_start_fraction=None,crown_only_weight=None,dormant_king_weight=None):
     root=Path(__file__).resolve().parents[1]
     names=('sim/attack_env.py','sim/attack_scenarios.py','sim/attack_sampler.py',
            'sim/train_attack_ppo.py','sim/engine.py','sim/pathfind.py','sim/match.py','sim/env.py',
@@ -286,6 +296,7 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
     if curriculum=='continuous_v1':names+=('sim/board_potential.py','sim/tactical_rewards.py','sim/lane_reflection.py','sim/card_exploration.py','sim/cannon_placement.py','sim/decision_economy.py')
     if card_balance_weight:names+=('sim/card_balance.py',)
     if spell_waste_weight is not None:names+=('sim/spell_waste.py','sim/continuous_spell_waste.py')
+    if crown_only_weight is not None or dormant_king_weight is not None:names+=('sim/spell_economy.py','sim/continuous_spell_economy.py')
     if tower_support_weight is not None or spell_waste_weight is not None:names+=('sim/tower_support.py','sim/continuous_tower_support.py')
     if pending_inputs:names+=('sim/pending_inputs.py','sim/continuous_pending.py')
     if history_frames==2:names+=('sim/public_frame_history.py','sim/continuous_history.py')
@@ -303,7 +314,7 @@ def validate_resume(blob,config):
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
           'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes','policy_temperature',
-          'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon','validation_action_delay_ms','tower_support_weight','spell_waste_weight','tactical_start_fraction')
+          'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon','validation_action_delay_ms','tower_support_weight','spell_waste_weight','tactical_start_fraction','crown_only_weight','dormant_king_weight')
     for key in keys:
         default=0. if key in('supervised_replay_weight','card_exploration_epsilon')else None
         if blob['config'].get(key,default)!=config.get(key,default):
@@ -360,6 +371,12 @@ def train(args):
     history_frames=getattr(args,'history_frames',1)
     pending_inputs=getattr(args,'pending_inputs',False)
     spell_waste_weight=getattr(args,'spell_waste_weight',None)
+    crown_only_weight=getattr(args,'crown_only_weight',None)
+    dormant_king_weight=getattr(args,'dormant_king_weight',None)
+    for name,value in (('crown_only_weight',crown_only_weight),('dormant_king_weight',dormant_king_weight)):
+        if value is not None:
+            if not np.isfinite(value) or value<0:raise ValueError('Invalid spell economy weight')
+            options[name]=value
     if spell_waste_weight is not None:
         if not np.isfinite(spell_waste_weight) or spell_waste_weight<0:
             raise ValueError('Invalid empty-spell weight')
@@ -412,7 +429,7 @@ def train(args):
         replay=SuccessfulActionReplay(replay_data,device,**(dict(pending_inputs=True) if pending_inputs else {}))
     config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,num_planes=num_planes,history_frames=history_frames,policy_temperature=temperature,
         reward_profile=reward_profile,reward_profile_sha256=reward_sha,
-        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames,pending_inputs,tower_support_weight,spell_waste_weight,tactical_start_fraction),
+        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames,pending_inputs,tower_support_weight,spell_waste_weight,tactical_start_fraction,crown_only_weight,dormant_king_weight),
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
         initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
             hashlib.sha256(Path(args.init).read_bytes()).hexdigest()if args.init else None))
@@ -571,6 +588,8 @@ def parser():
     p.add_argument('--curriculum',choices=('classic','tactical_v1','continuous_v1'),default='classic')
     p.add_argument('--continuous-profile',help='Explicit full-game auxiliary reward and timing JSON')
     p.add_argument('--spell-waste-weight',type=float,default=None,help='Replace Fireball-only miss penalty with paid empty Fireball/Zap cost')
+    p.add_argument('--crown-only-weight',type=float,default=None,help='Opt-in paid nonlethal crown-only spell penalty excluding dormant king bin')
+    p.add_argument('--dormant-king-weight',type=float,default=None,help='Opt-in paid king-only spell penalty when king was dormant at request')
     p.add_argument('--tower-support-weight',type=float,default=None,help='Opt-in reward per assisted enemy elixir value; zero is instrumented control')
     p.add_argument('--tactical-start-fraction',type=float,default=None,help='TRAIN-only paid defensive starts followed by full games; validation stays unchanged')
     p.add_argument('--pending-inputs',action='store_true',help='Opt-in own queued-command position/time inputs')
