@@ -28,3 +28,32 @@ def sequence_probabilities(records, train_ids, wait_fraction=0.25):
     if not np.isclose(p.sum(), 1):
         raise ValueError('Invalid probability mass')
     return p
+
+
+def mixed_skill_probabilities(records, train_ids, wait_fraction=.5):
+    """Equal skill/context mass; flexible restraint labels are not WAIT labels."""
+    if not 0<wait_fraction<1:raise ValueError('WAIT fraction must be between zero and one')
+    ids=list(map(int,train_ids))
+    if not ids or len(ids)!=len(set(ids)):raise ValueError('Unique nonempty training indices required')
+    by_index={r['array_index']:r for r in records if r['accepted']}
+    skills={}
+    for position,index in enumerate(ids):
+        r=by_index[index]
+        skills.setdefault(r['skill'],{}).setdefault((r['seed'],r['context']),[]).append((position,r['action']))
+    p=np.zeros(len(ids),dtype=np.float64)
+    for groups in skills.values():
+        mass=1/len(skills)/len(groups)
+        for group in groups.values():
+            wait=[i for i,a in group if a==0]
+            deploy=[i for i,a in group if a is not None and a!=0]
+            choice=[i for i,a in group if a is None]
+            if choice:
+                if wait or deploy:raise ValueError('Flexible-choice and trajectory labels must have separate contexts')
+                p[choice]=mass/len(choice)
+            elif wait and deploy:
+                p[wait]=mass*wait_fraction/len(wait)
+                p[deploy]=mass*(1-wait_fraction)/len(deploy)
+            elif deploy:p[deploy]=mass/len(deploy)
+            else:raise ValueError('An always-WAIT sequence is not a complete teacher plan')
+    if not np.isclose(p.sum(),1):raise ValueError('Invalid mixed skill probability mass')
+    return p

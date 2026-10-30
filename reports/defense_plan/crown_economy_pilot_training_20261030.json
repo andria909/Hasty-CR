@@ -2,7 +2,7 @@
   "schema": "crown-economy-pilot-training-v1",
   "kernel": "vertel0/hastycr-crown-econ1030",
   "root": "tmp/kaggle/crown_economy_pilot_20261030",
-  "status": "training_steps_observed",
+  "status": "pilot_complete_budgets_verified",
   "pilot_target_steps": 819200,
   "study_variant": "crown_economy_v1",
   "preflight_report": "tmp/kaggle/crown_economy_pilot_20261030/preflight.json",
@@ -35,7 +35,7 @@
     "kernelId": 141606852
   },
   "actual_training_steps_confirmed": true,
-  "last_local_sync_ns": 1793335385610146000,
+  "last_local_sync_ns": 1793338136947929000,
   "cuda_ready": true,
   "gpus": [
     "Tesla T4",
@@ -53,9 +53,9 @@
     "kernel": "vertel0/hastycr-crown-econ1030",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "connected",
+    "stream_state": "ended",
     "reconnect_attempt": 1,
-    "checked_host_ns": 1793335440924597000,
+    "checked_host_ns": 1793338025583224000,
     "trials": {
       "pilot_control_s382": {
         "update": 100,
@@ -86,18 +86,32 @@
         "remote_log_seconds": 3204.095286654
       },
       "pilot_medium_s382": {
-        "update": 71,
-        "steps": 72704,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 71.0,
-        "remote_log_seconds": 3908.616693475
+        "percent": 100.0,
+        "remote_log_seconds": 4484.875325119
       },
       "pilot_high_s382": {
-        "update": 56,
-        "steps": 57344,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 56.0,
-        "remote_log_seconds": 3909.570440648
+        "percent": 100.0,
+        "remote_log_seconds": 4551.228160685
+      },
+      "pilot_medium_s383": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 5847.686764455
+      },
+      "pilot_high_s383": {
+        "update": 100,
+        "steps": 102400,
+        "target_steps": 102400,
+        "percent": 100.0,
+        "remote_log_seconds": 5874.572805489
       }
     }
   },
@@ -110,5 +124,6 @@
     "launcher": "scripts.kaggle.run_observer",
     "stream_log": "tmp/kaggle/crown_economy_pilot_20261030/stream_observer_recovery.log",
     "collector_log": "tmp/kaggle/crown_economy_pilot_20261030/collector_observer_recovery.log"
-  }
+  },
+  "verified_report": "reports/defense_plan/crown_economy_pilot_verified_20261030.json"
 }

@@ -1,0 +1,2759 @@
+{
+  "schema": "initialization-support-open-loop-audit-v1",
+  "physics_pins": {
+    "sim/match.py": "65932ba8fb6aacd022b2adffa7ca411b7728ad172cad8196f55981c46fdd7f5c",
+    "sim/continuous_push.py": "ef70efe6abba7d11338ce58cc7ae8e997e696b20b674114cd654e7d4cf258fb3",
+    "sim/eval_defense_duel.py": "659def3089d3afcdce539b5145371caf7ea407003b11a5c36016b3498a6feb5c",
+    "sim/engine.py": "8a15162403bc53816569b5ba95cfe1c200adae39769f23f269ee49a1c72b466f",
+    "sim/entities.py": "0b40d065cd95fc93d3b4b9df7359c2bdae4178e67bf524ecae3c7fa4f6b0f522",
+    "sim/spells.py": "dd492c5958cbd54360d6a8b327168e70c0a065901983a66771e58616c14cf13d",
+    "sim/adapter.py": "3d12212efeb1583179382281729c7e2bd52daeaec94079e29265fde9bbf7f428",
+    "sim/cannon_placement.py": "441ceaaee92a72e2a63d889b2584501d042cbfbf65d5d5a3a45f1ceec275c39c",
+    "scripts/attack/sequence_execution.py": "863caf63f7b4c37f5537a7077265db44c6e6edc79874f2e78331b1e325fb1552"
+  },
+  "source_sha256": "652e4d8360d64ee75667cd325ceb8b1889f2157f8bd2dc20a2106001859fabaa",
+  "verified_sha256": "94c4facf92f7be0f5a72f7b298cdf61319420ddf6c93763f2ee671b1a5bc26bc",
+  "rows": [
+    {
+      "run": "retain001_s392",
+      "lane": "left",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          2,
+          23
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true
+        }
+      }
+    },
+    {
+      "run": "retain001_s392",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          5,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                5,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 800,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                5,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 1920,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain001_s392",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "fireball",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "fireball",
+        "cell": [
+          2,
+          23
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 2,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain001_s392",
+      "lane": "right",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain001_s392",
+      "lane": "right",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain001_s393",
+      "lane": "left",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          2,
+          23
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true
+        }
+      }
+    },
+    {
+      "run": "retain001_s393",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          5,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                5,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 800,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                5,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 1920,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain001_s393",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "fireball",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "fireball",
+        "cell": [
+          2,
+          23
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 2,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain001_s393",
+      "lane": "right",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain001_s393",
+      "lane": "right",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain01_s392",
+      "lane": "left",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          1,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 800,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 1280,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain01_s392",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          1,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 800,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 1280,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain01_s392",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "fireball",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "fireball",
+        "cell": [
+          1,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 2,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 1440,
+          "own_tower_damage": {
+            "left": 1440,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1600,
+          "own_tower_damage": {
+            "left": 1600,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain01_s392",
+      "lane": "right",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain01_s392",
+      "lane": "right",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain01_s393",
+      "lane": "left",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          1,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 800,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 1280,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain01_s393",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          1,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 800,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 1280,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain01_s393",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "fireball",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "fireball",
+        "cell": [
+          1,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 2,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 1440,
+          "own_tower_damage": {
+            "left": 1440,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                1,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1600,
+          "own_tower_damage": {
+            "left": 1600,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain01_s393",
+      "lane": "right",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain01_s393",
+      "lane": "right",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain0_s392",
+      "lane": "left",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          2,
+          23
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true
+        }
+      }
+    },
+    {
+      "run": "retain0_s392",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          5,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                5,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 800,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                5,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 1920,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain0_s392",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "fireball",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "fireball",
+        "cell": [
+          2,
+          23
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 2,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain0_s392",
+      "lane": "right",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain0_s392",
+      "lane": "right",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain0_s393",
+      "lane": "left",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          2,
+          23
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": true
+        }
+      }
+    },
+    {
+      "run": "retain0_s393",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          5,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                5,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 800,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                5,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 1920,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain0_s393",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "fireball",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "fireball",
+        "cell": [
+          2,
+          23
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 2,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "fireball",
+              "slot": 3,
+              "cell": [
+                2,
+                23
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain0_s393",
+      "lane": "right",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "retain0_s393",
+      "lane": "right",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          12,
+          16
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 800,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                12,
+                16
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 1920,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1920,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "zero01_s392",
+      "lane": "left",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": {
+        "card": "musketeer",
+        "cell": [
+          2,
+          25
+        ]
+      },
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                2,
+                25
+              ],
+              "requested_ms": 0,
+              "due_ms": 1350,
+              "cost": 4,
+              "placed_ms": 1350
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 640,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 3,
+              "cell": [
+                2,
+                25
+              ],
+              "requested_ms": 0,
+              "due_ms": 2025,
+              "cost": 4,
+              "placed_ms": 2050
+            }
+          ],
+          "total_damage": 800,
+          "own_tower_damage": {
+            "left": 800,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 4,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "zero01_s392",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": null,
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "zero01_s392",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "fireball",
+      "simulation_seed": 354,
+      "chosen": null,
+      "matches_first_demonstration": false,
+      "teacher_commands": 2,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "zero01_s392",
+      "lane": "right",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": null,
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 3584,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 3584,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "zero01_s392",
+      "lane": "right",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": null,
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 3584,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 3584,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "zero01_s393",
+      "lane": "left",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": null,
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "zero01_s393",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": null,
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "zero01_s393",
+      "lane": "left",
+      "bank": 10000,
+      "hand": "fireball",
+      "simulation_seed": 354,
+      "chosen": null,
+      "matches_first_demonstration": false,
+      "teacher_commands": 2,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 3584,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "zero01_s393",
+      "lane": "right",
+      "bank": 6000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": null,
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 3584,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 3584,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      }
+    },
+    {
+      "run": "zero01_s393",
+      "lane": "right",
+      "bank": 10000,
+      "hand": "musketeer",
+      "simulation_seed": 354,
+      "chosen": null,
+      "matches_first_demonstration": false,
+      "teacher_commands": 1,
+      "outcomes": {
+        "1350": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 3584,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        },
+        "2025": {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [],
+          "total_damage": 3584,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 3584,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 0,
+          "clear_without_damage": false
+        }
+      }
+    }
+  ],
+  "summary": [
+    {
+      "run": "retain001_s392",
+      "contexts": 5,
+      "exact_first": 0,
+      "safe_1350": 1,
+      "safe_2025": 1,
+      "safe_but_not_exact": 1
+    },
+    {
+      "run": "retain001_s393",
+      "contexts": 5,
+      "exact_first": 0,
+      "safe_1350": 1,
+      "safe_2025": 1,
+      "safe_but_not_exact": 1
+    },
+    {
+      "run": "retain01_s392",
+      "contexts": 5,
+      "exact_first": 0,
+      "safe_1350": 0,
+      "safe_2025": 0,
+      "safe_but_not_exact": 0
+    },
+    {
+      "run": "retain01_s393",
+      "contexts": 5,
+      "exact_first": 0,
+      "safe_1350": 0,
+      "safe_2025": 0,
+      "safe_but_not_exact": 0
+    },
+    {
+      "run": "retain0_s392",
+      "contexts": 5,
+      "exact_first": 0,
+      "safe_1350": 1,
+      "safe_2025": 1,
+      "safe_but_not_exact": 1
+    },
+    {
+      "run": "retain0_s393",
+      "contexts": 5,
+      "exact_first": 0,
+      "safe_1350": 1,
+      "safe_2025": 1,
+      "safe_but_not_exact": 1
+    },
+    {
+      "run": "zero01_s392",
+      "contexts": 5,
+      "exact_first": 0,
+      "safe_1350": 0,
+      "safe_2025": 0,
+      "safe_but_not_exact": 0
+    },
+    {
+      "run": "zero01_s393",
+      "contexts": 5,
+      "exact_first": 0,
+      "safe_1350": 0,
+      "safe_2025": 0,
+      "safe_but_not_exact": 0
+    }
+  ],
+  "quality_accepted": false,
+  "live_games_started": false,
+  "scope": "Heldout support contexts, one action then no commands for 60 seconds. Pair teachers need further decisions; a failure here does not prove closed-loop failure."
+}

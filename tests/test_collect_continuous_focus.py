@@ -54,6 +54,19 @@ def test_crown_economy_collects_only_selected_and_resume_boundaries(monkeypatch,
     assert not (tmp_path/'out'/run/'update_000025.pt').exists()
 
 
+def test_bc_initialization_collects_exact_models_without_foreign_runs(monkeypatch,tmp_path):
+    prefix='bank_initialization/'
+    data={prefix+'result.json':b'{}',prefix+'retain01_s392/policy.pt':b'model',
+          prefix+'retain01_s392/result.json':b'{}',prefix+'retain01_s392/updates.json':b'[]',
+          prefix+'retain01_s391/policy.pt':b'foreign',prefix+'other_s392/policy.pt':b'foreign'}
+    monkeypatch.setattr(collector,'list_outputs',lambda api,kernel:({n:NS(url=n)for n in data},[]))
+    monkeypatch.setattr(requests,'get',lambda url,**kwargs:NS(content=data[url],raise_for_status=lambda:None))
+    receipt=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',tmp_path/'out','bank-initialization')
+    assert receipt['complete']
+    assert (tmp_path/'out/retain01_s392/policy.pt').exists()
+    assert not (tmp_path/'out/retain01_s391').exists() and not (tmp_path/'out/other_s392').exists()
+
+
 @pytest.mark.parametrize('variant',['control','tower','spell','combined'])
 @pytest.mark.parametrize('seed',[282,283])
 def test_combined_rewards_keep_selected_and_resume_weights(monkeypatch,tmp_path,variant,seed):

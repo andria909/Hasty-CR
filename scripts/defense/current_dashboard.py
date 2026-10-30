@@ -78,11 +78,36 @@ def render_crown(reports,state):
             values.append('100% проверено' if verified else f"≥{100*row['steps']/102400:.1f}%"if row else'—')
         lines.append(f"| {label} | {values[0]} | {values[1]} | {scores.get(name,'—')} |")
     timing=read(reports/'bank_timing_stage_20261030.json') or {}
+    init=read(reports/'bank_initialization_training_20261030.json')
+    if init:
+        stream=read(Path(init['root'])/'live_stream/progress.json') or init.get('progress_snapshot',{})
+        count=sum(r.get('updates',0)for r in stream.get('initializations',{}).values())
+        init_proof=read(reports/'bank_initialization_verified_20261030.json') or {}
+        init_status=('6400 обновлений проверены'if init_proof.get('kernel')==init['kernel'] and
+                     init_proof.get('supervised_updates_verified')==6400 else
+                     f'≥{100*count/6400:.1f}% обновлений'if count else'обновления пока не подтверждены')
+        lines+=['',f'**BC-подбор инициализации:** {init_status}; 4 варианта × 2 seed, локальные навыки. '
+                '[План и данные](reports/bank_initialization_study_20261030.md).']
+    margin=read(reports/'bank_initialization_margin_training_20261030.json')
+    if margin:
+        progress=read(Path(margin['root'])/'live_stream/progress.json') or {}
+        count=sum(r.get('updates',0)for r in progress.get('initializations',{}).values()) if progress.get('kernel')==margin['kernel'] else 0
+        label=f'≥{100*count/6400:.1f}% обновлений'if count else margin.get('status','подготовлен')
+        lines+=['',f'**Новый BC на исправленных данных:** {label}; 1060 состояний, запас по задержке и несколько безопасных клеток.']
+    teacher=(f"{timing['mixed_examples']} состояний, 4 навыка; проверяем запас по задержке перед PPO."
+             if timing.get('mixed_examples')else
+             (f"{timing['teacher_examples']} состояний из 36 воспроизведённых защит; "if timing.get('teacher_examples')else'Собираем безопасные траектории; ')+
+             'уточняем границу постановки с шагом 250 мс.')
+    next_action=('Все профили провалили семейные пороги; большого продолжения нет. Проверяем смешанное BC и сброс старого приора.'
+                 if verified and not proof['pilot_selection']['gate_met']else
+                 'Сравнить 8 прогонов по победам, всем 6 семействам, запасу и полезности спелов; 2–4 прошедших порог кандидата — на полный бюджет.')
+    if margin:
+        teacher='1060 состояний, 4 навыка. Для накопления: запас 750 мс; пустые Fireball/Zap покрыты во всех слотах каждой группы.'
+        next_action='Проверить новый короткий BC; затем замкнутую защиту и вторую оплаченную волну. Большое продолжение пока не допущено.'
     lines+=['','Проценты показывают объём, не качество; «—» означает отсутствие подтверждённых данных. Проверка Kaggle раз в 20 минут.','',
-        '**Учитель накопления:** '+(f"{timing['teacher_examples']} состояний из 36 воспроизведённых защит; " if timing.get('teacher_examples') else 'собираем безопасные траектории; ')+
-        'уточняем границу постановки с шагом 250 мс. Общий учитель для PPO ещё не готов.','',
+        '**Учитель:** '+teacher+' Общий учитель для PPO ещё не готов.','',
         '**Реальные бои выключены.** Последняя проба BC200: 1 поражение, 4 боя отменены.','',
-        '**Дальше:** сравнить 8 прогонов по победам, всем 6 семействам, запасу и полезности спелов; 2–4 прошедших порог кандидата — на полный бюджет.','',
+        '**Дальше:** '+next_action,'',
         '[Параметры опыта](reports/crown_economy_pilot_20261030.md) · [Учитель и разбор](reports/bank_timing_and_live_failure_20261030.md) · '
         '[Прежние 24 прогона](reports/mana_campaign_results_20261029.md) · [План](plan_2.md)','']
     return '\n'.join(lines)

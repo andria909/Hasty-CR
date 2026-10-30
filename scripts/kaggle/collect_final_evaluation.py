@@ -75,7 +75,13 @@ def collect(api,kernel,destination,profile='defense',cache=None):
         if not path.is_file():return None
         if file_sha(path)!=cache_files[name]['sha256']:raise ValueError('Cached artifact changed')
         return path.read_bytes()
-    if profile in ('continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'):
+    if profile=='bank-initialization':
+        import re
+        prefix='bank_initialization/';result_file='result.json';allowed={result_file}
+        for name in files:
+            if name.startswith(prefix)and re.fullmatch(r'(?:retain01|retain001|retain0|zero01)_s39[23]/(?:result\.json|updates\.json|policy\.pt)',name[len(prefix):]):
+                allowed.add(name[len(prefix):])
+    elif profile in ('continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'):
         import re
         import requests
         prefix='continuous_focus/';result_file='result.json'
@@ -283,7 +289,7 @@ def main():
     parser.add_argument('--once',action='store_true')
     parser.add_argument('--cache',type=Path,help='Reuse only SHA-verified files from a preserved partial collection')
     parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
-    parser.add_argument('--profile',choices=('defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'),default='defense')
+    parser.add_argument('--profile',choices=('bank-initialization','defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only

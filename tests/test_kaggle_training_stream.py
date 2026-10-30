@@ -108,3 +108,14 @@ def test_twenty_minute_reconnect_counts_from_connection_start_not_end(monkeypatc
     assert reconnect_delay(1200,100)==900  # Five-minute stream, then fifteen-minute wait.
     monkeypatch.setattr('time.monotonic',lambda:1500)
     assert reconnect_delay(1200,100)==0
+def test_bc_updates_are_not_counted_as_ppo_environment_steps():
+    import json
+    from scripts.kaggle.stream_training import record_initialization_event
+    progress={}
+    event=dict(event='INITIALIZATION_RUN_COMPLETE',id='zero01_s392',updates=800,target_updates=800,actual_cuda='Tesla T4')
+    assert record_initialization_event(progress,json.dumps(event),1)
+    assert 'trials'not in progress
+    assert progress['initializations']['zero01_s392']['percent']==100
+    assert not record_initialization_event(progress,json.dumps(event),2)
+    event.update(id='zero01_s393',updates=2,target_updates=2,actual_cuda=None)
+    assert not record_initialization_event(progress,json.dumps(event),3)

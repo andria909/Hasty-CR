@@ -39,9 +39,16 @@ def submit(root,token_index,*,evaluation=False):
         upload=validate_submission(root,prepared)
     else:
         preflight=json.loads((root/'preflight.json').read_text())
-        if not preflight.get('exact_resume_16_to_32')or not preflight.get('frozen_sources_verified'):
-            raise ValueError('Verified frozen preflight required')
         def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+        if prepared.get('study_variant')=='mixed_bank_initialization_v1':
+            if (preflight.get('schema')!='bank-initialization-preflight-v1' or
+                    not preflight.get('frozen_sources_verified') or preflight.get('smoke_runs')!=4 or
+                    preflight.get('supervised_updates')!=8 or preflight.get('environment_steps')!=0 or
+                    preflight.get('preparation_sha256')!=sha(root/'preparation.json') or
+                    preflight.get('result_sha256')!=sha(root/'actual_preflight/result/result.json')):
+                raise ValueError('Verified BC-only frozen preflight required')
+        elif not preflight.get('exact_resume_16_to_32')or not preflight.get('frozen_sources_verified'):
+            raise ValueError('Verified frozen preflight required')
         if sha(root/'job/train.py')!=prepared['bootstrap_sha256']:raise ValueError('Prepared bootstrap changed')
         for name,digest in prepared['config']['pins'].items():
             if sha(root/'dataset'/name)!=digest:raise ValueError('Prepared input changed: '+name)

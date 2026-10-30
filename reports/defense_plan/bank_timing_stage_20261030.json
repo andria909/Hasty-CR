@@ -41,8 +41,8 @@
   },
   "previous_observer_stopped": true,
   "collection_complete": true,
-  "teacher_dataset": "data/safe_bank_sequences_20261030_v2",
-  "teacher_examples": 900,
+  "teacher_dataset": "data/safe_bank_frontier_20261030",
+  "teacher_examples": 1032,
   "teacher_sequences": 36,
   "teacher_full_game_ready": false,
   "teacher_proof": "reports/defense_plan/safe_bank_sequences_verified_20261030.json",
@@ -50,7 +50,7 @@
     "root": "tmp/kaggle/bank_frontier_timing_v3_20261030",
     "kernel": "vertel0/hastycr-bank-timing1030",
     "expected_version": 3,
-    "status": "RUNNING",
+    "status": "COMPLETE",
     "command_granularity_ms": 250,
     "contexts": 36,
     "variants_per_context": 508,
@@ -70,6 +70,12 @@
       "kernel": "vertel0/hastycr-bank-timing1030",
       "status": "RUNNING",
       "checked_host_ns": 1793333247651635000
-    }
-  }
+    },
+    "collection_complete": true
+  },
+  "mixed_dataset": "data/mixed_bank_skills_frontier_20261030",
+  "mixed_examples": 1100,
+  "conservative_dataset": "data/mixed_bank_skills_margin_20261030",
+  "conservative_examples": 992,
+  "latency_margin_audit": "reports/defense_plan/bank_latency_margin_20261030.json"
 }

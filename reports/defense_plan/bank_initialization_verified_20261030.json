@@ -1,0 +1,1000 @@
+{
+  "schema": "verified-bank-initialization-study-v1",
+  "kernel": "vertel0/hastycr-bank-init1030",
+  "supervised_updates_verified": 6400,
+  "environment_steps": 0,
+  "runs": [
+    {
+      "id": "retain001_s392",
+      "case": {
+        "id": "retain001",
+        "kl_weight": 0.01,
+        "reset_actor_heads": false
+      },
+      "seed": 392,
+      "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain001_s392/policy.pt",
+      "score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain001_s392/policy.pt",
+        "checkpoint_sha256": "3a7eb5863c7e80203b1bbfef86ddac3428d2d6041a7e646adf8c47422e17e215",
+        "data_sha256": "31b39e8835dbe8928cd87114e5ddfbb28322f03dfe3606be2115d7d1be2cdaf3",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 716,
+          "successful_choices": 673,
+          "fraction": 0.9399441480636597,
+          "mean_log_successful_probability": -0.9428555524784175
+        },
+        "local_heldout": {
+          "examples": 384,
+          "successful_choices": 359,
+          "fraction": 0.9348958134651184,
+          "mean_log_successful_probability": -1.0672418722976058
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -4.1710465539300525
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.733614989272229
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 19,
+              "fraction": 0.6785714030265808,
+              "mean_log_successful_probability": -0.7520785689105087
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 7,
+              "fraction": 0.5,
+              "mean_log_successful_probability": -1.090794027824613
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 672,
+              "successful_choices": 646,
+              "fraction": 0.961309552192688,
+              "mean_log_successful_probability": -0.9233667902062014
+            },
+            "local_heldout": {
+              "examples": 360,
+              "successful_choices": 348,
+              "fraction": 0.9666666388511658,
+              "mean_log_successful_probability": -1.000388214091569
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 8,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.019440024380606102
+            },
+            "local_heldout": {
+              "examples": 4,
+              "successful_choices": 4,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.002078891034477337
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 648,
+              "successful_choices": 646,
+              "fraction": 0.9969135522842407,
+              "mean_log_successful_probability": -0.8667415347308034
+            },
+            "local_heldout": {
+              "examples": 348,
+              "successful_choices": 348,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.843477737548602
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 19,
+              "fraction": 0.3166666626930237,
+              "mean_log_successful_probability": -1.8880090145656896
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 7,
+              "fraction": 0.21875,
+              "mean_log_successful_probability": -3.633822210350915
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "retain001_s393",
+      "case": {
+        "id": "retain001",
+        "kl_weight": 0.01,
+        "reset_actor_heads": false
+      },
+      "seed": 393,
+      "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain001_s393/policy.pt",
+      "score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain001_s393/policy.pt",
+        "checkpoint_sha256": "f0afa44024c9a6e40cde59177ccd3d836c3f512f40b59c45edfce07b9cad9e40",
+        "data_sha256": "31b39e8835dbe8928cd87114e5ddfbb28322f03dfe3606be2115d7d1be2cdaf3",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 716,
+          "successful_choices": 660,
+          "fraction": 0.9217877388000488,
+          "mean_log_successful_probability": -1.0351219504414295
+        },
+        "local_heldout": {
+          "examples": 384,
+          "successful_choices": 363,
+          "fraction": 0.9453125,
+          "mean_log_successful_probability": -1.1115846264358853
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 1,
+              "fraction": 0.125,
+              "mean_log_successful_probability": -4.154913458283516
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.809553829357597
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 18,
+              "fraction": 0.6428571343421936,
+              "mean_log_successful_probability": -1.1219634294749772
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 12,
+              "fraction": 0.8571428656578064,
+              "mean_log_successful_probability": -0.5266470882930893
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 672,
+              "successful_choices": 633,
+              "fraction": 0.9419642686843872,
+              "mean_log_successful_probability": -1.0064502131954765
+            },
+            "local_heldout": {
+              "examples": 360,
+              "successful_choices": 347,
+              "fraction": 0.9638888835906982,
+              "mean_log_successful_probability": -1.06834634776889
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 8,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.019811194641975893
+            },
+            "local_heldout": {
+              "examples": 4,
+              "successful_choices": 4,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0033572855826966563
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 648,
+              "successful_choices": 633,
+              "fraction": 0.9768518805503845,
+              "mean_log_successful_probability": -0.9570850671177357
+            },
+            "local_heldout": {
+              "examples": 348,
+              "successful_choices": 347,
+              "fraction": 0.9971264600753784,
+              "mean_log_successful_probability": -0.9106373037500063
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 19,
+              "fraction": 0.3166666626930237,
+              "mean_log_successful_probability": -2.0132950577772473
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 12,
+              "fraction": 0.375,
+              "mean_log_successful_probability": -3.4354151782514686
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "retain01_s392",
+      "case": {
+        "id": "retain01",
+        "kl_weight": 0.1,
+        "reset_actor_heads": false
+      },
+      "seed": 392,
+      "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain01_s392/policy.pt",
+      "score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain01_s392/policy.pt",
+        "checkpoint_sha256": "df1dc3aab4d2d0169a22bfe44818bec658021e0c563e6c8f53a0158dc7368e3c",
+        "data_sha256": "31b39e8835dbe8928cd87114e5ddfbb28322f03dfe3606be2115d7d1be2cdaf3",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 716,
+          "successful_choices": 639,
+          "fraction": 0.8924580812454224,
+          "mean_log_successful_probability": -1.21754986160629
+        },
+        "local_heldout": {
+          "examples": 384,
+          "successful_choices": 333,
+          "fraction": 0.8671875,
+          "mean_log_successful_probability": -1.433167111894169
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -4.492691550544709
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.8259881997831
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 23,
+              "fraction": 0.8214285969734192,
+              "mean_log_successful_probability": -0.5876260517375086
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 2,
+              "fraction": 0.1428571492433548,
+              "mean_log_successful_probability": -1.6265940537023675
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 672,
+              "successful_choices": 608,
+              "fraction": 0.9047619104385376,
+              "mean_log_successful_probability": -1.2188751937070526
+            },
+            "local_heldout": {
+              "examples": 360,
+              "successful_choices": 327,
+              "fraction": 0.9083333611488342,
+              "mean_log_successful_probability": -1.3677972302268282
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 8,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.035813610744567126
+            },
+            "local_heldout": {
+              "examples": 4,
+              "successful_choices": 4,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.050230533792716914
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 648,
+              "successful_choices": 608,
+              "fraction": 0.9382715821266174,
+              "mean_log_successful_probability": -1.1556526702149679
+            },
+            "local_heldout": {
+              "examples": 348,
+              "successful_choices": 327,
+              "fraction": 0.9396551847457886,
+              "mean_log_successful_probability": -1.209982677565807
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 23,
+              "fraction": 0.38333332538604736,
+              "mean_log_successful_probability": -2.0436043620808015
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 2,
+              "fraction": 0.0625,
+              "mean_log_successful_probability": -4.033164907477782
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "retain01_s393",
+      "case": {
+        "id": "retain01",
+        "kl_weight": 0.1,
+        "reset_actor_heads": false
+      },
+      "seed": 393,
+      "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain01_s393/policy.pt",
+      "score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain01_s393/policy.pt",
+        "checkpoint_sha256": "6ab158385dd73dd20b52e8cbc82a721460da64a9e9a05b0fbf6cf95819828832",
+        "data_sha256": "31b39e8835dbe8928cd87114e5ddfbb28322f03dfe3606be2115d7d1be2cdaf3",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 716,
+          "successful_choices": 590,
+          "fraction": 0.8240223526954651,
+          "mean_log_successful_probability": -1.400588008452187
+        },
+        "local_heldout": {
+          "examples": 384,
+          "successful_choices": 314,
+          "fraction": 0.8177083134651184,
+          "mean_log_successful_probability": -1.5726668552678806
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -4.546410477604986
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.838748028336435
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 18,
+              "fraction": 0.6428571343421936,
+              "mean_log_successful_probability": -0.7989470219503174
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 7,
+              "fraction": 0.5,
+              "mean_log_successful_probability": -0.8058060296936159
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 672,
+              "successful_choices": 564,
+              "fraction": 0.8392857313156128,
+              "mean_log_successful_probability": -1.4044664445806767
+            },
+            "local_heldout": {
+              "examples": 360,
+              "successful_choices": 303,
+              "fraction": 0.8416666388511658,
+              "mean_log_successful_probability": -1.5478703418948085
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 8,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.03472035726279088
+            },
+            "local_heldout": {
+              "examples": 4,
+              "successful_choices": 4,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.08924418875146345
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 648,
+              "successful_choices": 564,
+              "fraction": 0.8703703880310059,
+              "mean_log_successful_probability": -1.34167046221265
+            },
+            "local_heldout": {
+              "examples": 348,
+              "successful_choices": 303,
+              "fraction": 0.8706896305084229,
+              "mean_log_successful_probability": -1.3865573441366679
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 18,
+              "fraction": 0.30000001192092896,
+              "mean_log_successful_probability": -2.2190131946644387
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 7,
+              "fraction": 0.21875,
+              "mean_log_successful_probability": -3.7820356221343703
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "retain0_s392",
+      "case": {
+        "id": "retain0",
+        "kl_weight": 0.0,
+        "reset_actor_heads": false
+      },
+      "seed": 392,
+      "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain0_s392/policy.pt",
+      "score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain0_s392/policy.pt",
+        "checkpoint_sha256": "845e7168ed3884f58c75d943493e7dc604d4fe8934271d0de110b60b053923db",
+        "data_sha256": "31b39e8835dbe8928cd87114e5ddfbb28322f03dfe3606be2115d7d1be2cdaf3",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 716,
+          "successful_choices": 664,
+          "fraction": 0.9273743033409119,
+          "mean_log_successful_probability": -0.8629165706692412
+        },
+        "local_heldout": {
+          "examples": 384,
+          "successful_choices": 355,
+          "fraction": 0.9244791865348816,
+          "mean_log_successful_probability": -0.9537450581331227
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 1,
+              "fraction": 0.125,
+              "mean_log_successful_probability": -4.035458787338332
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.722358607019728
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 13,
+              "fraction": 0.4642857015132904,
+              "mean_log_successful_probability": -1.0415975707878846
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 3,
+              "fraction": 0.2142857164144516,
+              "mean_log_successful_probability": -1.0087518469979313
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 672,
+              "successful_choices": 642,
+              "fraction": 0.9553571343421936,
+              "mean_log_successful_probability": -0.8278366130914763
+            },
+            "local_heldout": {
+              "examples": 360,
+              "successful_choices": 348,
+              "fraction": 0.9666666388511658,
+              "mean_log_successful_probability": -0.882715546512814
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 8,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.011707290117151992
+            },
+            "local_heldout": {
+              "examples": 4,
+              "successful_choices": 4,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0009570196041648327
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 648,
+              "successful_choices": 642,
+              "fraction": 0.9907407164573669,
+              "mean_log_successful_probability": -0.7756228534367089
+            },
+            "local_heldout": {
+              "examples": 348,
+              "successful_choices": 348,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.7244818190101346
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 14,
+              "fraction": 0.23333333432674408,
+              "mean_log_successful_probability": -1.9191832875208685
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 3,
+              "fraction": 0.09375,
+              "mean_log_successful_probability": -3.566081288411736
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "retain0_s393",
+      "case": {
+        "id": "retain0",
+        "kl_weight": 0.0,
+        "reset_actor_heads": false
+      },
+      "seed": 393,
+      "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain0_s393/policy.pt",
+      "score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/retain0_s393/policy.pt",
+        "checkpoint_sha256": "7f4175a5b26e2d984efc96dbd7f264aea42b844f96e347197931f403db2b6720",
+        "data_sha256": "31b39e8835dbe8928cd87114e5ddfbb28322f03dfe3606be2115d7d1be2cdaf3",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 716,
+          "successful_choices": 659,
+          "fraction": 0.9203910827636719,
+          "mean_log_successful_probability": -0.9265567628028574
+        },
+        "local_heldout": {
+          "examples": 384,
+          "successful_choices": 356,
+          "fraction": 0.9270833134651184,
+          "mean_log_successful_probability": -1.01469483799536
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 1,
+              "fraction": 0.125,
+              "mean_log_successful_probability": -4.096396390403619
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.857985551291367
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 12,
+              "fraction": 0.4285714328289032,
+              "mean_log_successful_probability": -1.0827246843312381
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 4,
+              "fraction": 0.2857142984867096,
+              "mean_log_successful_probability": -0.95219087927971
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 672,
+              "successful_choices": 638,
+              "fraction": 0.949404776096344,
+              "mean_log_successful_probability": -0.8932126127342288
+            },
+            "local_heldout": {
+              "examples": 360,
+              "successful_choices": 348,
+              "fraction": 0.9666666388511658,
+              "mean_log_successful_probability": -0.9476640235991888
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 8,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.01103801561757034
+            },
+            "local_heldout": {
+              "examples": 4,
+              "successful_choices": 4,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0012959192115333806
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 648,
+              "successful_choices": 638,
+              "fraction": 0.9845678806304932,
+              "mean_log_successful_probability": -0.8430480803029509
+            },
+            "local_heldout": {
+              "examples": 348,
+              "successful_choices": 348,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.7833345431105608
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 13,
+              "fraction": 0.21666666865348816,
+              "mean_log_successful_probability": -1.9505197000932206
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 4,
+              "fraction": 0.125,
+              "mean_log_successful_probability": -3.6574129097155295
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "zero01_s392",
+      "case": {
+        "id": "zero01",
+        "kl_weight": 0.1,
+        "reset_actor_heads": true
+      },
+      "seed": 392,
+      "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/zero01_s392/policy.pt",
+      "score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/zero01_s392/policy.pt",
+        "checkpoint_sha256": "a9baa2183a34a2d555ac0444f4d059808fd1b65de5e98c33bc79fb6a48bc069e",
+        "data_sha256": "31b39e8835dbe8928cd87114e5ddfbb28322f03dfe3606be2115d7d1be2cdaf3",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 716,
+          "successful_choices": 672,
+          "fraction": 0.9385474920272827,
+          "mean_log_successful_probability": -1.154252478484629
+        },
+        "local_heldout": {
+          "examples": 384,
+          "successful_choices": 365,
+          "fraction": 0.9505208134651184,
+          "mean_log_successful_probability": -1.2903513061318055
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.019271276511335
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -6.316605682146989
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 20,
+              "fraction": 0.7142857313156128,
+              "mean_log_successful_probability": -0.5759189718114192
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 14,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.813337627720882
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 672,
+              "successful_choices": 644,
+              "fraction": 0.9583333134651184,
+              "mean_log_successful_probability": -1.1450188258961806
+            },
+            "local_heldout": {
+              "examples": 360,
+              "successful_choices": 347,
+              "fraction": 0.9638888835906982,
+              "mean_log_successful_probability": -1.2376846967722932
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 8,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.08902777124382522
+            },
+            "local_heldout": {
+              "examples": 4,
+              "successful_choices": 4,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.16051245890335464
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 648,
+              "successful_choices": 634,
+              "fraction": 0.9783950448036194,
+              "mean_log_successful_probability": -1.1252718040040732
+            },
+            "local_heldout": {
+              "examples": 348,
+              "successful_choices": 347,
+              "fraction": 0.9971264600753784,
+              "mean_log_successful_probability": -1.1161669096740479
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 30,
+              "fraction": 0.5,
+              "mean_log_successful_probability": -1.609273723840072
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 14,
+              "fraction": 0.4375,
+              "mean_log_successful_probability": -3.3258364735134753
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "zero01_s393",
+      "case": {
+        "id": "zero01",
+        "kl_weight": 0.1,
+        "reset_actor_heads": true
+      },
+      "seed": 393,
+      "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/zero01_s393/policy.pt",
+      "score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_initialization_20261030_v3/collected/zero01_s393/policy.pt",
+        "checkpoint_sha256": "56aed091b6ea359a8197f726ef3a93b2daffefb52e170640f8c3c5484bd40dc5",
+        "data_sha256": "31b39e8835dbe8928cd87114e5ddfbb28322f03dfe3606be2115d7d1be2cdaf3",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 716,
+          "successful_choices": 674,
+          "fraction": 0.9413408041000366,
+          "mean_log_successful_probability": -1.260542793058138
+        },
+        "local_heldout": {
+          "examples": 384,
+          "successful_choices": 356,
+          "fraction": 0.9270833134651184,
+          "mean_log_successful_probability": -1.4640768016024792
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.451651621114656
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -6.668220124674505
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.24545609019377077
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 6,
+              "fraction": 0.4285714328289032,
+              "mean_log_successful_probability": -1.4443119072435469
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 672,
+              "successful_choices": 638,
+              "fraction": 0.949404776096344,
+              "mean_log_successful_probability": -1.2670258537768173
+            },
+            "local_heldout": {
+              "examples": 360,
+              "successful_choices": 346,
+              "fraction": 0.9611111283302307,
+              "mean_log_successful_probability": -1.392260931354502
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 8,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.07766032465784523
+            },
+            "local_heldout": {
+              "examples": 4,
+              "successful_choices": 4,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.19046726956864546
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 648,
+              "successful_choices": 638,
+              "fraction": 0.9845678806304932,
+              "mean_log_successful_probability": -1.242020951096247
+            },
+            "local_heldout": {
+              "examples": 348,
+              "successful_choices": 346,
+              "fraction": 0.9942528605461121,
+              "mean_log_successful_probability": -1.258821223639892
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 28,
+              "fraction": 0.46666666865348816,
+              "mean_log_successful_probability": -1.618296348699934
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 6,
+              "fraction": 0.1875,
+              "mean_log_successful_probability": -3.8554324034498446
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    }
+  ],
+  "ranking": [
+    {
+      "case": {
+        "id": "retain001",
+        "kl_weight": 0.01,
+        "reset_actor_heads": false
+      },
+      "worst_skill": 0.0,
+      "mean_skill": 0.6609622985124588,
+      "worst_wait_or_deploy": 0.21875,
+      "local_fit_gate": false
+    },
+    {
+      "case": {
+        "id": "zero01",
+        "kl_weight": 0.1,
+        "reset_actor_heads": true
+      },
+      "worst_skill": 0.0,
+      "mean_skill": 0.669196430593729,
+      "worst_wait_or_deploy": 0.1875,
+      "local_fit_gate": false
+    },
+    {
+      "case": {
+        "id": "retain0",
+        "kl_weight": 0.0,
+        "reset_actor_heads": false
+      },
+      "worst_skill": 0.0,
+      "mean_skill": 0.5541666615754366,
+      "worst_wait_or_deploy": 0.09375,
+      "local_fit_gate": false
+    },
+    {
+      "case": {
+        "id": "retain01",
+        "kl_weight": 0.1,
+        "reset_actor_heads": false
+      },
+      "worst_skill": 0.0,
+      "mean_skill": 0.5491071436554193,
+      "worst_wait_or_deploy": 0.0625,
+      "local_fit_gate": false
+    }
+  ],
+  "quality_accepted": false,
+  "scope": "Local teacher fitting only; full-match PPO validation/test required before full continuation"
+}

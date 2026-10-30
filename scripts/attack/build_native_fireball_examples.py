@@ -41,13 +41,20 @@ def common_seeds(count=12):
     raise ValueError('Insufficient legal development seeds')
 
 
-def build(output):
+def build(output,seeds=None,central_cannon=False,restrain_zap=False):
     root=Path(output);root.mkdir(parents=True,exist_ok=False)
-    pins=physics_pins();seeds=common_seeds();heldout=max(seeds)
+    pins=physics_pins();seeds=common_seeds() if seeds is None else list(seeds);heldout=max(seeds)
+    if len(seeds)<3 or len(set(seeds))!=len(seeds):raise ValueError('Three or more distinct development seeds required')
     packed={k:[] for k in ('planes','scalars','masks','success_masks')};records=[]
     def append(label,m,cards,spells,success):
+        if central_cannon and (m.battle.normal_range_mode!='edge_to_edge_v1' or m.battle.hog_sight_mode!='side_clip_v1'):
+            raise ValueError('Current mixed curriculum requires corrected combat modes')
         mask=mechanical_mask(m,cards,spells,1)
         if np.any(success&~mask):raise ValueError('Illegal label')
+        if central_cannon:
+            from sim.cannon_placement import restrict_cannon,CENTRAL_MODE
+            mask=restrict_cannon(mask,m.players[1].hand,CENTRAL_MODE)
+            success=success&mask
         row=dict(label,accepted=bool(success.any()))
         if row['accepted']:
             row['array_index']=len(packed['planes']);obs=policy_observation(m,1,JOINT_MODE)
@@ -74,8 +81,10 @@ def build(output):
                 m=Match(cards=cards,spells=spells,decks=(list(DECK_26),list(DECKS['hog'])),seed=seed,geometry='native_anchors_candidate_v1')
                 m.players[1].elixir=bank
                 while m.elapsed_ms<age:m.step(50)
-                slot=m.players[1].hand.index('fireball');success=mechanical_mask(m,cards,spells,1)
-                success[1+slot*576:1+(slot+1)*576]=False
+                success=mechanical_mask(m,cards,spells,1)
+                for slot,card in enumerate(m.players[1].hand):
+                    if card=='fireball' or (restrain_zap and card=='zap'):
+                        success[1+slot*576:1+(slot+1)*576]=False
                 append(dict(seed=seed,skill='fireball_restraint',age_ms=age,initial_own_elixir=bank/1000),m,cards,spells,success)
     assert pins==physics_pins()
     for skill in ('fireball_group','fireball_restraint'):
@@ -83,6 +92,8 @@ def build(output):
     np.savez_compressed(root/'examples.npz',**{k:np.stack(v) for k,v in packed.items()})
     result=dict(schema='native-fireball-development-examples-v1',split='train',seeds=seeds,heldout_seed=heldout,
         records=records,examples=len(packed['planes']),command_delay_ms=1350,physics_pins=pins,
+        cannon_placement_mode='central_defense_v1' if central_cannon else 'mechanical_all_legal',
+        empty_board_forbidden_spells=['fireball','zap'] if restrain_zap else ['fireball'],
         data_sha256=file_sha(root/'examples.npz'),builder_sha256=file_sha(__file__),
         helper_sha256={p:file_sha(p) for p in ('scripts/attack/evaluate_fireball_clusters.py','scripts/attack/audit_fireball_label_latency.py')},
         quality_accepted=False,used_in_training=False,scope='Paid narrow Fireball development fixtures; maximum seed held out for both skills; projected candidates only affect labels, never inputs.')

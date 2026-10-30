@@ -76,12 +76,26 @@ def verify_search(root):
     return rows, prep
 
 
-def build(root, output):
+def build(root, output, margin_audit=None):
     rows, prep = verify_search(root)
+    conservative={}
+    if margin_audit:
+        audit=json.loads(Path(margin_audit).read_text())
+        from scripts.attack.sequence_physics import require_current_physics
+        require_current_physics(audit)
+        if (audit['schema']!='bank-latency-margin-audit-v1' or audit['contexts']!=36 or
+                audit['source_contexts_sha256']!=file_sha(Path(root)/'collected/contexts.jsonl') or
+                audit['source_sha256']!=file_sha('scripts/attack/audit_bank_latency_margin.py')):
+            raise ValueError('Pinned two-delay margin audit required')
+        for row in audit['rows']:
+            if not all(row['results'][k]['valid'] and row['results'][k]['clear_without_damage']for k in ('margin_nominal','margin_slow')):
+                raise ValueError('Conservative plan must clear at both tested delays')
+            conservative[(row['seed'],row['lane'],row['bank'],row['enemy_y'])]=row['results']['margin_nominal']
+        if len(conservative)!=36:raise ValueError('Complete conservative coverage required')
     arrays = {k: [] for k in ('planes', 'scalars', 'masks', 'success_masks')}
     records, contexts = [], []
     for index, row in enumerate(rows):
-        plan = choose(row)
+        plan = conservative[(row['seed'],row['lane'],row['bank'],row['enemy_y'])] if conservative else choose(row)
         contexts.append(dict(context=index, seed=row['seed'], lane=row['lane'], bank=row['bank'],
                              enemy_y=row['enemy_y'], accepted=plan is not None, plan=plan))
         if plan is None:
@@ -117,6 +131,9 @@ def build(root, output):
                     teacher_order=['zero additional tower damage and all threats cleared',
                                    'minimum paid elixir', 'latest tested safe request'],
                     quality_accepted=False, full_game_training_ready=False,
+                    safety_margin_ms=750 if conservative else 0,
+                    validated_command_delays_ms=[1350,2025] if conservative else [1350],
+                    margin_audit_sha256=file_sha(margin_audit) if margin_audit else None,
                     limitations=['Only single paid Balloon; fixed hand; no second push',
                                  'WAIT is a successful continuation, not a counterfactual superiority label',
                                  'Slot diversity, urgent controls and mixed skills required before PPO study',
@@ -128,5 +145,6 @@ def build(root, output):
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--search-root', required=True); p.add_argument('--output', required=True)
-    a = p.parse_args(); m = build(a.search_root, a.output)
+    p.add_argument('--margin-audit')
+    a = p.parse_args(); m = build(a.search_root, a.output, a.margin_audit)
     print(json.dumps(dict(examples=m['examples'], sequences=sum(r['accepted'] for r in m['contexts']))))

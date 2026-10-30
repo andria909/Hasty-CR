@@ -56,9 +56,9 @@ def score_checkpoint(checkpoint,data):
         by_skill={skill:dict(train=summarize([i for i in groups if groups[i]!=heldout and skills[i]==skill]),
             local_heldout=summarize([i for i in groups if groups[i]==heldout and skills[i]==skill]))
             for skill in sorted(set(skills.values()))},
-        by_decision_type=({kind:dict(train=summarize([r['array_index']for r in manifest['records'] if r['accepted'] and r['seed']!=heldout and (r['action']==0)==wait]),
-            local_heldout=summarize([r['array_index']for r in manifest['records'] if r['accepted'] and r['seed']==heldout and (r['action']==0)==wait]))
-            for kind,wait in [('wait',True),('deploy',False)]} if all('action'in r for r in manifest['records']if r['accepted']) else None),
+        by_decision_type=({kind:dict(train=summarize([r['array_index']for r in manifest['records'] if r['accepted'] and r['seed']!=heldout and r.get('action')is not None and (r['action']==0)==wait]),
+            local_heldout=summarize([r['array_index']for r in manifest['records'] if r['accepted'] and r['seed']==heldout and r.get('action')is not None and (r['action']==0)==wait]))
+            for kind,wait in [('wait',True),('deploy',False)]} if any(r.get('action')is not None for r in manifest['records']if r['accepted']) else None),
         scope='Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance')
 
 

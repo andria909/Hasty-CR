@@ -45,6 +45,21 @@ def reconnect_delay(interval,started):
     return max(0,interval-int(time.monotonic()-started))
 
 
+def record_initialization_event(progress,line,remote_time):
+    """Count BC optimizer updates separately from PPO environment steps."""
+    try:row=json.loads(line)
+    except (ValueError,TypeError):return False
+    if not isinstance(row,dict)or row.get('event')!='INITIALIZATION_RUN_COMPLETE':return False
+    name=row.get('id')
+    if (not isinstance(name,str)or not re.fullmatch(r'(?:retain01|retain001|retain0|zero01)_s39[23]',name)or
+            row.get('updates')!=800 or row.get('target_updates')!=800 or not row.get('actual_cuda')):
+        return False
+    runs=progress.setdefault('initializations',{})
+    if name in runs:return False
+    runs[name]=dict(updates=800,target_updates=800,percent=100.,actual_cuda=row['actual_cuda'],remote_log_seconds=remote_time)
+    return True
+
+
 def record_evaluation_event(progress,line,remote_time):
     """Track completed games only; this percentage is not quality acceptance."""
     try:row=json.loads(line)
@@ -126,6 +141,7 @@ def main():
                     stream.write(json.dumps(event)+'\n');stream.flush()
                     line=event.get('data','')
                     if (record_trial_event(progress,line,event.get('time'))or
+                            record_initialization_event(progress,line,event.get('time'))or
                             record_evaluation_event(progress,line,event.get('time'))):
                         progress['checked_host_ns']=time.time_ns()
                         (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
