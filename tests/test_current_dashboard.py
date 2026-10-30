@@ -2,6 +2,11 @@ import json
 from scripts.defense.current_dashboard import progress, render
 
 
+def test_invalidated_teacher_is_never_shown_as_an_accepted_candidate():
+    pct,note=progress(dict(status='invalidated_teacher',promotion_blocked=True))
+    assert pct=='исключён' and 'остановка GPU пока не подтверждена' in note
+
+
 def test_failed_upload_is_not_claimed_as_submitted_training():
     assert progress(dict(status='upload_failed_before_submission',submitted=False)) == (
         '0%', 'проверено локально; загрузка Kaggle не принята')

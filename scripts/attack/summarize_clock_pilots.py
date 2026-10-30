@@ -158,7 +158,8 @@ def summarize(root,verified=None):
         pilot_steps_verified=verified['pilot_steps_verified'],rows=rows,parent=stats(reference['validation']['records']),
         initial_reference=initial_reference,
         comparison_scope=protocol.get('comparison_scope'),
-        eligible_for_full=verified['pilot_selection']['gate_met'],quality_accepted=False,
+        eligible_for_full=verified['pilot_selection']['gate_met'] and not verified.get('promotion_blocked',False),quality_accepted=False,
+        **({'promotion_blocked':True} if verified.get('promotion_blocked')else{}),
         scope='72 distinct validation contexts replayed by two independently trained seeds; not144 independent contexts',
         test_used_for_selection=False)
 
@@ -234,7 +235,8 @@ def render(summary):
                 show=lambda x: f"{x['successful_choices']}/{x['predictions']}" if x['predictions'] else 'нет примеров'
                 lines.append(f"| {row['id']} | {skill} | {show(before)} | {show(after)} |")
         lines+=['','Удержание Fireball на пустом поле не компенсирует потерю защиты воздуха или группового прицела. Разделение выполнено по целым seed. Навыки без отложенных примеров здесь не проверены.']
-    lines+=['',('Порог для продолжения прошли минимум два профиля.'if summary['eligible_for_full']else
+    lines+=['',('Продолжение заблокировано: метки учителя опровергнуты легальной защитой через пушку.'if summary.get('promotion_blocked')else
+        'Порог для продолжения прошли минимум два профиля.'if summary['eligible_for_full']else
         'Минимум два профиля порог не прошли: большое продолжение этого исследования не запускается.'),
         'Это validation для отбора; test и реальные бои не проводились. Частота карты сама по себе не доказывает качество.']
     return '\n'.join(lines)+'\n'

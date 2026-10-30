@@ -37,6 +37,8 @@ def validate_data(data):
 
 def prepare(output,data):
     m,stats=validate_data(data)
+    if not m.get('cannon_first_audited'):
+        raise ValueError('Cannon-first alternatives must be audited before further teacher training')
     root=Path(output);data=Path(data)
     clone('tmp/kaggle/mana_campaign_20261029/balance',root,'hastycr-bank-teacher-1029')
     prep=json.loads((root/'preparation.json').read_text());config=prep['config']

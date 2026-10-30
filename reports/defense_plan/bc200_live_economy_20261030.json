@@ -1,0 +1,1966 @@
+{
+  "schema": "saved-live-decision-audit-v1",
+  "root": "tmp/live/bc200_bank_20261029_live5/run",
+  "checkpoint_sha256": "72bbf72b2eff0292fb5e826a98ded89abd13abec7e731c5e797df790d5960b39",
+  "sources": {
+    "events.jsonl": "10f86695445c7822897bd641ed571f87318639e4d5321a6c2877dce3e43689ab",
+    "frames.jsonl": "465ddfc06b3e09c6ce24bd46a1bcf34e475e0a7f73659996baac3791c8ec92e9",
+    "summary.json": "bc9d59e126d31b75bc883a8c3f12cb7886f3d8fa112be1dce4af0eaaeaf90027",
+    "decisions/summary.json": "d43082bf463ebfd6901cd2bb8e18adac0e7b7a6d53dc138a4be50c0d58788e41",
+    "tmp/live/bc200_bank_20261029_live5/series/series.json": "d2d7f2e3445f7d3528e5d3f6c368653e61f5f054db1ca66e6198eaba6d377ad4"
+  },
+  "code_sha256": {
+    "scripts/gamestate/analyze_live_decisions.py": "5b0682a2030a98e7c4a2ecc2c64a4b27c1d1d68188ad41f1e578e8f3ded703b4",
+    "scripts/gamestate/hand_readiness.py": "1b403aad9d39015fa14b9cc9aa65029645993b775e8338b2aa72de561e54fc5b",
+    "scripts/gamestate/replay_decisions.py": "6a6830032aa6534f79ef6d4ba032b30a182ffe49359a691a5567373cfb02b9b2",
+    "scripts/gamestate/audit_targeting_history.py": "8d0076f6be1aae5f20aa1cb5942a13e835bba8b5ee10d1f28cc669caf67b3372",
+    "scripts/gamestate/summarize_memory_run.py": "258346225f70ef6d97be5182440f0b5e4da6b978e2a60944c5f23d60124d2929",
+    "sim/env.py": "cda7ad6b1431132e39480ccb99214ba8eaedea80383a59d4836bebf2e32063f9"
+  },
+  "decision_window": {
+    "minimum_tick_inclusive": 100,
+    "maximum_tick_exclusive": null
+  },
+  "capture_status": {
+    "seen": 1651,
+    "accepted": 1651,
+    "written": 1651,
+    "dropped": 0,
+    "error": null,
+    "every": 1,
+    "limit": 10000
+  },
+  "commands": {
+    "counts": {
+      "not_confirmed": 5,
+      "confirmed": 26,
+      "unresolved": 1
+    },
+    "by_card": {
+      "cannon": {
+        "attempts": 6,
+        "confirmed": 5,
+        "not_confirmed": 1,
+        "unresolved": 0,
+        "confirmed_left": 3,
+        "confirmed_right": 2,
+        "confirmed_cells": [
+          {
+            "grid": [
+              6,
+              18
+            ],
+            "count": 3
+          },
+          {
+            "grid": [
+              9,
+              18
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              11,
+              19
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "fireball": {
+        "attempts": 6,
+        "confirmed": 6,
+        "not_confirmed": 0,
+        "unresolved": 0,
+        "confirmed_left": 5,
+        "confirmed_right": 1,
+        "confirmed_cells": [
+          {
+            "grid": [
+              0,
+              7
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              1,
+              19
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              5,
+              19
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              7,
+              11
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              8,
+              19
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              9,
+              1
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "hog_rider": {
+        "attempts": 1,
+        "confirmed": 0,
+        "not_confirmed": 1,
+        "unresolved": 0,
+        "confirmed_left": 0,
+        "confirmed_right": 0,
+        "confirmed_cells": []
+      },
+      "knight": {
+        "attempts": 3,
+        "confirmed": 3,
+        "not_confirmed": 0,
+        "unresolved": 0,
+        "confirmed_left": 3,
+        "confirmed_right": 0,
+        "confirmed_cells": [
+          {
+            "grid": [
+              1,
+              16
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              2,
+              16
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              5,
+              19
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "electro_spirit": {
+        "attempts": 8,
+        "confirmed": 5,
+        "not_confirmed": 2,
+        "unresolved": 1,
+        "confirmed_left": 4,
+        "confirmed_right": 1,
+        "confirmed_cells": [
+          {
+            "grid": [
+              0,
+              17
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              2,
+              16
+            ],
+            "count": 2
+          },
+          {
+            "grid": [
+              5,
+              19
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              15,
+              30
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "musketeer": {
+        "attempts": 0,
+        "confirmed": 0,
+        "not_confirmed": 0,
+        "unresolved": 0,
+        "confirmed_left": 0,
+        "confirmed_right": 0,
+        "confirmed_cells": []
+      },
+      "skeletons": {
+        "attempts": 3,
+        "confirmed": 2,
+        "not_confirmed": 1,
+        "unresolved": 0,
+        "confirmed_left": 1,
+        "confirmed_right": 1,
+        "confirmed_cells": [
+          {
+            "grid": [
+              5,
+              19
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              9,
+              16
+            ],
+            "count": 1
+          }
+        ]
+      },
+      "zap": {
+        "attempts": 5,
+        "confirmed": 5,
+        "not_confirmed": 0,
+        "unresolved": 0,
+        "confirmed_left": 4,
+        "confirmed_right": 1,
+        "confirmed_cells": [
+          {
+            "grid": [
+              2,
+              8
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              5,
+              19
+            ],
+            "count": 2
+          },
+          {
+            "grid": [
+              7,
+              11
+            ],
+            "count": 1
+          },
+          {
+            "grid": [
+              9,
+              2
+            ],
+            "count": 1
+          }
+        ]
+      }
+    },
+    "same_tick_as_previous_slot_ack": {},
+    "commands": [
+      {
+        "event": "PLAY",
+        "host_ns": 1793302909470029000,
+        "match": 1,
+        "tick": 0,
+        "card": "electro_spirit",
+        "slot": 2,
+        "grid": [
+          2,
+          16
+        ],
+        "target": [
+          206,
+          834
+        ],
+        "elixir": 6.0,
+        "timing": {
+          "parser_ms": 31.4345,
+          "native_read_ms": 0.037958,
+          "prepare_ms": 1.092416,
+          "inference_ms": 11.911125,
+          "adb_select_ms": 23.558292,
+          "adb_target_ms": 23.645334,
+          "parser_request_to_input_return_ms": 159.005,
+          "parser_response_to_input_start_ms": 103.921
+        },
+        "outcome": "not_confirmed",
+        "previous_slot_ack_tick": null,
+        "ticks_since_slot_ack": null,
+        "resolution_tick": 86
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302910060414000,
+        "match": 1,
+        "tick": 1,
+        "card": "hog_rider",
+        "slot": 3,
+        "grid": [
+          8,
+          16
+        ],
+        "target": [
+          512,
+          834
+        ],
+        "elixir": 6.0178,
+        "timing": {
+          "parser_ms": 33.377333,
+          "native_read_ms": 0.018584,
+          "prepare_ms": 0.792459,
+          "inference_ms": 1.80125,
+          "adb_select_ms": 24.254333,
+          "adb_target_ms": 22.140083,
+          "parser_request_to_input_return_ms": 82.701,
+          "parser_response_to_input_start_ms": 27.186
+        },
+        "outcome": "not_confirmed",
+        "previous_slot_ack_tick": null,
+        "ticks_since_slot_ack": null,
+        "resolution_tick": 99
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302914186804000,
+        "match": 1,
+        "tick": 99,
+        "card": "fireball",
+        "slot": 0,
+        "grid": [
+          9,
+          1
+        ],
+        "target": [
+          562,
+          213
+        ],
+        "elixir": 7.7622,
+        "timing": {
+          "parser_ms": 39.632083,
+          "native_read_ms": 0.032125,
+          "prepare_ms": 0.779625,
+          "inference_ms": 1.835625,
+          "adb_select_ms": 48.221667,
+          "adb_target_ms": 47.8625,
+          "parser_request_to_input_return_ms": 139.95,
+          "parser_response_to_input_start_ms": 52.457
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": null,
+        "ticks_since_slot_ack": null,
+        "resolution_tick": 128
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302915653422000,
+        "match": 1,
+        "tick": 128,
+        "card": "electro_spirit",
+        "slot": 2,
+        "grid": [
+          2,
+          16
+        ],
+        "target": [
+          206,
+          834
+        ],
+        "elixir": 4.2784,
+        "timing": {
+          "parser_ms": 41.909209,
+          "native_read_ms": 0.059040999999999996,
+          "prepare_ms": 0.714292,
+          "inference_ms": 1.6665,
+          "adb_select_ms": 42.441667,
+          "adb_target_ms": 45.331583,
+          "parser_request_to_input_return_ms": 132.895,
+          "parser_response_to_input_start_ms": 45.704
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": null,
+        "ticks_since_slot_ack": null,
+        "resolution_tick": 155
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302917021760000,
+        "match": 1,
+        "tick": 156,
+        "card": "knight",
+        "slot": 2,
+        "grid": [
+          1,
+          16
+        ],
+        "target": [
+          154,
+          834
+        ],
+        "elixir": 3.7768,
+        "timing": {
+          "parser_ms": 27.1085,
+          "native_read_ms": 0.063541,
+          "prepare_ms": 0.809209,
+          "inference_ms": 1.133417,
+          "adb_select_ms": 44.507417,
+          "adb_target_ms": 44.4615,
+          "parser_request_to_input_return_ms": 118.303,
+          "parser_response_to_input_start_ms": 46.734
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 155,
+        "ticks_since_slot_ack": 1,
+        "resolution_tick": 182
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302923415995000,
+        "match": 1,
+        "tick": 282,
+        "card": "cannon",
+        "slot": 2,
+        "grid": [
+          6,
+          18
+        ],
+        "target": [
+          410,
+          917
+        ],
+        "elixir": 3.0196,
+        "timing": {
+          "parser_ms": 37.431334,
+          "native_read_ms": 0.037208,
+          "prepare_ms": 1.048625,
+          "inference_ms": 1.764625,
+          "adb_select_ms": 42.140333,
+          "adb_target_ms": 43.3135,
+          "parser_request_to_input_return_ms": 126.016,
+          "parser_response_to_input_start_ms": 45.268
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 182,
+        "ticks_since_slot_ack": 100,
+        "resolution_tick": 312
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302929054327000,
+        "match": 1,
+        "tick": 394,
+        "card": "zap",
+        "slot": 2,
+        "grid": [
+          5,
+          19
+        ],
+        "target": [
+          358,
+          958
+        ],
+        "elixir": 2.0132,
+        "timing": {
+          "parser_ms": 50.211625,
+          "native_read_ms": 0.045875,
+          "prepare_ms": 1.653542,
+          "inference_ms": 2.584583,
+          "adb_select_ms": 47.085833,
+          "adb_target_ms": 45.414041,
+          "parser_request_to_input_return_ms": 147.238,
+          "parser_response_to_input_start_ms": 51.671
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 312,
+        "ticks_since_slot_ack": 82,
+        "resolution_tick": 423
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302940279339000,
+        "match": 1,
+        "tick": 618,
+        "card": "fireball",
+        "slot": 2,
+        "grid": [
+          1,
+          19
+        ],
+        "target": [
+          154,
+          958
+        ],
+        "elixir": 4.0004,
+        "timing": {
+          "parser_ms": 30.586917,
+          "native_read_ms": 0.077833,
+          "prepare_ms": 0.871167,
+          "inference_ms": 1.656708,
+          "adb_select_ms": 42.689125,
+          "adb_target_ms": 44.35925,
+          "parser_request_to_input_return_ms": 120.405,
+          "parser_response_to_input_start_ms": 45.461
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 423,
+        "ticks_since_slot_ack": 195,
+        "resolution_tick": 647
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302943162245000,
+        "match": 1,
+        "tick": 675,
+        "card": "electro_spirit",
+        "slot": 2,
+        "grid": [
+          0,
+          17
+        ],
+        "target": [
+          104,
+          876
+        ],
+        "elixir": 1.015,
+        "timing": {
+          "parser_ms": 39.138292,
+          "native_read_ms": 0.076417,
+          "prepare_ms": 1.273542,
+          "inference_ms": 2.329958,
+          "adb_select_ms": 47.839459,
+          "adb_target_ms": 48.342459,
+          "parser_request_to_input_return_ms": 139.266,
+          "parser_response_to_input_start_ms": 51.785
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 647,
+        "ticks_since_slot_ack": 28,
+        "resolution_tick": 706
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302951475973000,
+        "match": 1,
+        "tick": 843,
+        "card": "knight",
+        "slot": 2,
+        "grid": [
+          2,
+          16
+        ],
+        "target": [
+          206,
+          834
+        ],
+        "elixir": 3.0054,
+        "timing": {
+          "parser_ms": 39.330375,
+          "native_read_ms": 0.052959000000000006,
+          "prepare_ms": 1.251958,
+          "inference_ms": 1.804708,
+          "adb_select_ms": 42.680792,
+          "adb_target_ms": 44.628375,
+          "parser_request_to_input_return_ms": 130.297,
+          "parser_response_to_input_start_ms": 46.338
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 706,
+        "ticks_since_slot_ack": 137,
+        "resolution_tick": 872
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302959905734000,
+        "match": 1,
+        "tick": 1012,
+        "card": "cannon",
+        "slot": 2,
+        "grid": [
+          6,
+          18
+        ],
+        "target": [
+          410,
+          917
+        ],
+        "elixir": 3.0136,
+        "timing": {
+          "parser_ms": 33.502541,
+          "native_read_ms": 0.060208,
+          "prepare_ms": 0.900042,
+          "inference_ms": 1.766667,
+          "adb_select_ms": 41.3455,
+          "adb_target_ms": 42.328958,
+          "parser_request_to_input_return_ms": 120.082,
+          "parser_response_to_input_start_ms": 44.253
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 872,
+        "ticks_since_slot_ack": 140,
+        "resolution_tick": 1042
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302965524632000,
+        "match": 1,
+        "tick": 1124,
+        "card": "zap",
+        "slot": 2,
+        "grid": [
+          7,
+          11
+        ],
+        "target": [
+          460,
+          627
+        ],
+        "elixir": 2.0072,
+        "timing": {
+          "parser_ms": 38.312916,
+          "native_read_ms": 0.070125,
+          "prepare_ms": 1.083334,
+          "inference_ms": 1.79525,
+          "adb_select_ms": 46.68875,
+          "adb_target_ms": 45.788875,
+          "parser_request_to_input_return_ms": 133.893,
+          "parser_response_to_input_start_ms": 49.796
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 1042,
+        "ticks_since_slot_ack": 82,
+        "resolution_tick": 1154
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302977064260000,
+        "match": 1,
+        "tick": 1349,
+        "card": "fireball",
+        "slot": 2,
+        "grid": [
+          7,
+          11
+        ],
+        "target": [
+          460,
+          627
+        ],
+        "elixir": 4.0122,
+        "timing": {
+          "parser_ms": 47.608375,
+          "native_read_ms": 0.062958,
+          "prepare_ms": 2.244125,
+          "inference_ms": 2.625625,
+          "adb_select_ms": 48.236625,
+          "adb_target_ms": 46.5205,
+          "parser_request_to_input_return_ms": 147.697,
+          "parser_response_to_input_start_ms": 53.566
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 1154,
+        "ticks_since_slot_ack": 195,
+        "resolution_tick": 1383
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302979597619000,
+        "match": 1,
+        "tick": 1406,
+        "card": "electro_spirit",
+        "slot": 2,
+        "grid": [
+          5,
+          19
+        ],
+        "target": [
+          358,
+          958
+        ],
+        "elixir": 1.0268,
+        "timing": {
+          "parser_ms": 37.086625,
+          "native_read_ms": 0.090709,
+          "prepare_ms": 0.9005,
+          "inference_ms": 1.504709,
+          "adb_select_ms": 44.946625,
+          "adb_target_ms": 47.284792,
+          "parser_request_to_input_return_ms": 132.017,
+          "parser_response_to_input_start_ms": 47.649
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 1383,
+        "ticks_since_slot_ack": 23,
+        "resolution_tick": 1433
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302988087451000,
+        "match": 1,
+        "tick": 1575,
+        "card": "knight",
+        "slot": 2,
+        "grid": [
+          5,
+          19
+        ],
+        "target": [
+          358,
+          958
+        ],
+        "elixir": 3.035,
+        "timing": {
+          "parser_ms": 46.485833,
+          "native_read_ms": 0.066709,
+          "prepare_ms": 1.137417,
+          "inference_ms": 1.932,
+          "adb_select_ms": 47.528541,
+          "adb_target_ms": 44.614417,
+          "parser_request_to_input_return_ms": 141.967,
+          "parser_response_to_input_start_ms": 50.868
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 1433,
+        "ticks_since_slot_ack": 142,
+        "resolution_tick": 1603
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793302996411617000,
+        "match": 1,
+        "tick": 1742,
+        "card": "cannon",
+        "slot": 2,
+        "grid": [
+          11,
+          19
+        ],
+        "target": [
+          664,
+          958
+        ],
+        "elixir": 3.0076,
+        "timing": {
+          "parser_ms": 32.310916,
+          "native_read_ms": 0.100875,
+          "prepare_ms": 1.78775,
+          "inference_ms": 1.203042,
+          "adb_select_ms": 44.763625,
+          "adb_target_ms": 44.249583,
+          "parser_request_to_input_return_ms": 124.552,
+          "parser_response_to_input_start_ms": 47.993
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 1603,
+        "ticks_since_slot_ack": 139,
+        "resolution_tick": 1772
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303002088697000,
+        "match": 1,
+        "tick": 1855,
+        "card": "zap",
+        "slot": 2,
+        "grid": [
+          2,
+          8
+        ],
+        "target": [
+          206,
+          503
+        ],
+        "elixir": 2.019,
+        "timing": {
+          "parser_ms": 39.2105,
+          "native_read_ms": 0.072125,
+          "prepare_ms": 1.409208,
+          "inference_ms": 1.912459,
+          "adb_select_ms": 44.961292,
+          "adb_target_ms": 46.478458,
+          "parser_request_to_input_return_ms": 134.282,
+          "parser_response_to_input_start_ms": 48.593
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 1772,
+        "ticks_since_slot_ack": 83,
+        "resolution_tick": 1885
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303013350756000,
+        "match": 1,
+        "tick": 2080,
+        "card": "fireball",
+        "slot": 2,
+        "grid": [
+          0,
+          7
+        ],
+        "target": [
+          104,
+          462
+        ],
+        "elixir": 4.024,
+        "timing": {
+          "parser_ms": 51.626167,
+          "native_read_ms": 0.077,
+          "prepare_ms": 1.292709,
+          "inference_ms": 2.006042,
+          "adb_select_ms": 48.159459,
+          "adb_target_ms": 46.564834,
+          "parser_request_to_input_return_ms": 149.876,
+          "parser_response_to_input_start_ms": 51.69
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 1885,
+        "ticks_since_slot_ack": 195,
+        "resolution_tick": 2109
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303016142536000,
+        "match": 1,
+        "tick": 2136,
+        "card": "electro_spirit",
+        "slot": 2,
+        "grid": [
+          2,
+          16
+        ],
+        "target": [
+          206,
+          834
+        ],
+        "elixir": 1.0208,
+        "timing": {
+          "parser_ms": 37.835708,
+          "native_read_ms": 0.046708,
+          "prepare_ms": 1.588666,
+          "inference_ms": 2.885917,
+          "adb_select_ms": 45.223084,
+          "adb_target_ms": 45.205416,
+          "parser_request_to_input_return_ms": 133.121,
+          "parser_response_to_input_start_ms": 50.079
+        },
+        "outcome": "unresolved",
+        "previous_slot_ack_tick": 2109,
+        "ticks_since_slot_ack": 27
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303031038895000,
+        "match": 2,
+        "tick": 0,
+        "card": "electro_spirit",
+        "slot": 2,
+        "grid": [
+          2,
+          16
+        ],
+        "target": [
+          206,
+          834
+        ],
+        "elixir": 6.0,
+        "timing": {
+          "parser_ms": 33.710916,
+          "native_read_ms": 0.0425,
+          "prepare_ms": 0.305083,
+          "inference_ms": 0.965583,
+          "adb_select_ms": 22.464833,
+          "adb_target_ms": 22.558459,
+          "parser_request_to_input_return_ms": 124.548,
+          "parser_response_to_input_start_ms": 68.278
+        },
+        "outcome": "not_confirmed",
+        "previous_slot_ack_tick": null,
+        "ticks_since_slot_ack": null,
+        "resolution_tick": 89
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303031619389000,
+        "match": 2,
+        "tick": 3,
+        "card": "cannon",
+        "slot": 3,
+        "grid": [
+          8,
+          18
+        ],
+        "target": [
+          512,
+          917
+        ],
+        "elixir": 6.0534,
+        "timing": {
+          "parser_ms": 27.923416,
+          "native_read_ms": 0.020167,
+          "prepare_ms": 0.634333,
+          "inference_ms": 1.546417,
+          "adb_select_ms": 22.931916,
+          "adb_target_ms": 25.746042,
+          "parser_request_to_input_return_ms": 79.078,
+          "parser_response_to_input_start_ms": 25.408
+        },
+        "outcome": "not_confirmed",
+        "previous_slot_ack_tick": null,
+        "ticks_since_slot_ack": null,
+        "resolution_tick": 101
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303031701766000,
+        "match": 2,
+        "tick": 5,
+        "card": "skeletons",
+        "slot": 0,
+        "grid": [
+          9,
+          16
+        ],
+        "target": [
+          562,
+          834
+        ],
+        "elixir": 6.089,
+        "timing": {
+          "parser_ms": 16.071125,
+          "native_read_ms": 0.019375,
+          "prepare_ms": 0.402292,
+          "inference_ms": 0.93675,
+          "adb_select_ms": 22.368125,
+          "adb_target_ms": 21.2335,
+          "parser_request_to_input_return_ms": 61.184,
+          "parser_response_to_input_start_ms": 23.88
+        },
+        "outcome": "not_confirmed",
+        "previous_slot_ack_tick": null,
+        "ticks_since_slot_ack": null,
+        "resolution_tick": 104
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303037227729000,
+        "match": 2,
+        "tick": 132,
+        "card": "electro_spirit",
+        "slot": 2,
+        "grid": [
+          15,
+          30
+        ],
+        "target": [
+          868,
+          1414
+        ],
+        "elixir": 8.3496,
+        "timing": {
+          "parser_ms": 24.624917,
+          "native_read_ms": 0.038667,
+          "prepare_ms": 0.725958,
+          "inference_ms": 1.163084,
+          "adb_select_ms": 43.992708,
+          "adb_target_ms": 25.039208,
+          "parser_request_to_input_return_ms": 95.746,
+          "parser_response_to_input_start_ms": 46.078
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": null,
+        "ticks_since_slot_ack": null,
+        "resolution_tick": 218
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303037771308000,
+        "match": 2,
+        "tick": 143,
+        "card": "cannon",
+        "slot": 3,
+        "grid": [
+          9,
+          18
+        ],
+        "target": [
+          562,
+          917
+        ],
+        "elixir": 8.5454,
+        "timing": {
+          "parser_ms": 32.43425,
+          "native_read_ms": 0.018333,
+          "prepare_ms": 0.901959,
+          "inference_ms": 2.092291,
+          "adb_select_ms": 25.583125,
+          "adb_target_ms": 23.363458,
+          "parser_request_to_input_return_ms": 84.701,
+          "parser_response_to_input_start_ms": 28.901
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": null,
+        "ticks_since_slot_ack": null,
+        "resolution_tick": 218
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303038038676000,
+        "match": 2,
+        "tick": 147,
+        "card": "skeletons",
+        "slot": 0,
+        "grid": [
+          9,
+          16
+        ],
+        "target": [
+          562,
+          834
+        ],
+        "elixir": 8.6166,
+        "timing": {
+          "parser_ms": 24.982584,
+          "native_read_ms": 0.037709000000000006,
+          "prepare_ms": 0.642834,
+          "inference_ms": 1.473542,
+          "adb_select_ms": 45.442709,
+          "adb_target_ms": 41.611417,
+          "parser_request_to_input_return_ms": 114.585,
+          "parser_response_to_input_start_ms": 47.987
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": null,
+        "ticks_since_slot_ack": null,
+        "resolution_tick": 218
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303044728309000,
+        "match": 2,
+        "tick": 281,
+        "card": "zap",
+        "slot": 0,
+        "grid": [
+          9,
+          2
+        ],
+        "target": [
+          562,
+          255
+        ],
+        "elixir": 2.0018,
+        "timing": {
+          "parser_ms": 37.339417,
+          "native_read_ms": 0.120375,
+          "prepare_ms": 1.745458,
+          "inference_ms": 2.039792,
+          "adb_select_ms": 44.264125,
+          "adb_target_ms": 45.198125,
+          "parser_request_to_input_return_ms": 131.041,
+          "parser_response_to_input_start_ms": 48.509
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 218,
+        "ticks_since_slot_ack": 63,
+        "resolution_tick": 309
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303056047155000,
+        "match": 2,
+        "tick": 506,
+        "card": "fireball",
+        "slot": 2,
+        "grid": [
+          8,
+          19
+        ],
+        "target": [
+          512,
+          958
+        ],
+        "elixir": 4.0068,
+        "timing": {
+          "parser_ms": 35.45625,
+          "native_read_ms": 0.058707999999999996,
+          "prepare_ms": 1.337291,
+          "inference_ms": 1.950417,
+          "adb_select_ms": 44.148833,
+          "adb_target_ms": 42.55925,
+          "parser_request_to_input_return_ms": 125.865,
+          "parser_response_to_input_start_ms": 47.83
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 218,
+        "ticks_since_slot_ack": 288,
+        "resolution_tick": 535
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303058837153000,
+        "match": 2,
+        "tick": 562,
+        "card": "electro_spirit",
+        "slot": 2,
+        "grid": [
+          2,
+          16
+        ],
+        "target": [
+          206,
+          834
+        ],
+        "elixir": 1.0036,
+        "timing": {
+          "parser_ms": 35.840084,
+          "native_read_ms": 0.060666,
+          "prepare_ms": 0.698958,
+          "inference_ms": 1.374875,
+          "adb_select_ms": 45.248542,
+          "adb_target_ms": 45.716458,
+          "parser_request_to_input_return_ms": 129.202,
+          "parser_response_to_input_start_ms": 47.647
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 535,
+        "ticks_since_slot_ack": 27,
+        "resolution_tick": 592
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303067365023000,
+        "match": 2,
+        "tick": 732,
+        "card": "cannon",
+        "slot": 2,
+        "grid": [
+          6,
+          18
+        ],
+        "target": [
+          410,
+          917
+        ],
+        "elixir": 3.0296,
+        "timing": {
+          "parser_ms": 42.546417,
+          "native_read_ms": 0.07133400000000001,
+          "prepare_ms": 1.562625,
+          "inference_ms": 1.926583,
+          "adb_select_ms": 45.0525,
+          "adb_target_ms": 45.90575,
+          "parser_request_to_input_return_ms": 137.444,
+          "parser_response_to_input_start_ms": 48.994
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 592,
+        "ticks_since_slot_ack": 140,
+        "resolution_tick": 764
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303070212691000,
+        "match": 2,
+        "tick": 789,
+        "card": "skeletons",
+        "slot": 2,
+        "grid": [
+          5,
+          19
+        ],
+        "target": [
+          358,
+          958
+        ],
+        "elixir": 1.0442,
+        "timing": {
+          "parser_ms": 42.328625,
+          "native_read_ms": 0.093583,
+          "prepare_ms": 1.504083,
+          "inference_ms": 2.418875,
+          "adb_select_ms": 45.138625,
+          "adb_target_ms": 45.905125,
+          "parser_request_to_input_return_ms": 137.902,
+          "parser_response_to_input_start_ms": 49.663
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 764,
+        "ticks_since_slot_ack": 25,
+        "resolution_tick": 819
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303075675457000,
+        "match": 2,
+        "tick": 899,
+        "card": "zap",
+        "slot": 2,
+        "grid": [
+          5,
+          19
+        ],
+        "target": [
+          358,
+          958
+        ],
+        "elixir": 2.0022,
+        "timing": {
+          "parser_ms": 26.956334,
+          "native_read_ms": 0.122667,
+          "prepare_ms": 1.270166,
+          "inference_ms": 1.28225,
+          "adb_select_ms": 41.312083,
+          "adb_target_ms": 43.429708,
+          "parser_request_to_input_return_ms": 114.495,
+          "parser_response_to_input_start_ms": 44.113
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 819,
+        "ticks_since_slot_ack": 80,
+        "resolution_tick": 926
+      },
+      {
+        "event": "PLAY",
+        "host_ns": 1793303095502558000,
+        "match": 2,
+        "tick": 1295,
+        "card": "fireball",
+        "slot": 2,
+        "grid": [
+          5,
+          19
+        ],
+        "target": [
+          358,
+          958
+        ],
+        "elixir": 4.051,
+        "timing": {
+          "parser_ms": 29.353125,
+          "native_read_ms": 0.056584,
+          "prepare_ms": 0.906958,
+          "inference_ms": 1.2695,
+          "adb_select_ms": 43.643166,
+          "adb_target_ms": 42.059,
+          "parser_request_to_input_return_ms": 117.453,
+          "parser_response_to_input_start_ms": 46.043
+        },
+        "outcome": "confirmed",
+        "previous_slot_ack_tick": 926,
+        "ticks_since_slot_ack": 369,
+        "resolution_tick": 1323
+      }
+    ]
+  },
+  "decisions": {
+    "total_captures": 1651,
+    "capture_manifest_sha256": "133ae9541e931e1d75dcccd1314291207eb0aa483eacbab2dd58ba9d16ab501c",
+    "coordinate_contract": [
+      "physical_live_cells_v2",
+      "native_anchors_candidate_v1"
+    ],
+    "counts": {
+      "excluded_by_tick_window": 96,
+      "decisions": 1555,
+      "available_below4": 1520,
+      "native_below4": 1424,
+      "reservation_makes_below4": 96,
+      "voluntary_wait": 774,
+      "play": 26,
+      "forced_wait": 755
+    },
+    "by_card": {
+      "cannon": {
+        "in_hand": 382,
+        "legal": 5,
+        "selected": 5
+      },
+      "fireball": {
+        "in_hand": 655,
+        "legal": 5,
+        "selected": 5
+      },
+      "hog_rider": {
+        "in_hand": 1516,
+        "legal": 27,
+        "selected": 0
+      },
+      "knight": {
+        "in_hand": 582,
+        "legal": 45,
+        "selected": 3
+      },
+      "electro_spirit": {
+        "in_hand": 301,
+        "legal": 108,
+        "selected": 6
+      },
+      "musketeer": {
+        "in_hand": 1514,
+        "legal": 5,
+        "selected": 0
+      },
+      "skeletons": {
+        "in_hand": 1031,
+        "legal": 632,
+        "selected": 2
+      },
+      "zap": {
+        "in_hand": 239,
+        "legal": 5,
+        "selected": 5
+      }
+    },
+    "selected": [
+      {
+        "match": 1,
+        "tick": 0,
+        "card": "electro_spirit",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000001.npz"
+      },
+      {
+        "match": 1,
+        "tick": 1,
+        "card": "hog_rider",
+        "slot": 3,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000002.npz"
+      },
+      {
+        "match": 1,
+        "tick": 99,
+        "card": "fireball",
+        "slot": 0,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000055.npz"
+      },
+      {
+        "match": 1,
+        "tick": 128,
+        "card": "electro_spirit",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000069.npz"
+      },
+      {
+        "match": 1,
+        "tick": 156,
+        "card": "knight",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000083.npz"
+      },
+      {
+        "match": 1,
+        "tick": 282,
+        "card": "cannon",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000149.npz"
+      },
+      {
+        "match": 1,
+        "tick": 394,
+        "card": "zap",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000201.npz"
+      },
+      {
+        "match": 1,
+        "tick": 618,
+        "card": "fireball",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000310.npz"
+      },
+      {
+        "match": 1,
+        "tick": 675,
+        "card": "electro_spirit",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000338.npz"
+      },
+      {
+        "match": 1,
+        "tick": 843,
+        "card": "knight",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000418.npz"
+      },
+      {
+        "match": 1,
+        "tick": 1012,
+        "card": "cannon",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000507.npz"
+      },
+      {
+        "match": 1,
+        "tick": 1124,
+        "card": "zap",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000556.npz"
+      },
+      {
+        "match": 1,
+        "tick": 1349,
+        "card": "fireball",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000640.npz"
+      },
+      {
+        "match": 1,
+        "tick": 1406,
+        "card": "electro_spirit",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000668.npz"
+      },
+      {
+        "match": 1,
+        "tick": 1575,
+        "card": "knight",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000750.npz"
+      },
+      {
+        "match": 1,
+        "tick": 1742,
+        "card": "cannon",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000833.npz"
+      },
+      {
+        "match": 1,
+        "tick": 1855,
+        "card": "zap",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000879.npz"
+      },
+      {
+        "match": 1,
+        "tick": 2080,
+        "card": "fireball",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/000998.npz"
+      },
+      {
+        "match": 1,
+        "tick": 2136,
+        "card": "electro_spirit",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001025.npz"
+      },
+      {
+        "match": 2,
+        "tick": 0,
+        "card": "electro_spirit",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001033.npz"
+      },
+      {
+        "match": 2,
+        "tick": 3,
+        "card": "cannon",
+        "slot": 3,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001034.npz"
+      },
+      {
+        "match": 2,
+        "tick": 5,
+        "card": "skeletons",
+        "slot": 0,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001035.npz"
+      },
+      {
+        "match": 2,
+        "tick": 132,
+        "card": "electro_spirit",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001089.npz"
+      },
+      {
+        "match": 2,
+        "tick": 143,
+        "card": "cannon",
+        "slot": 3,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001095.npz"
+      },
+      {
+        "match": 2,
+        "tick": 147,
+        "card": "skeletons",
+        "slot": 0,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001097.npz"
+      },
+      {
+        "match": 2,
+        "tick": 281,
+        "card": "zap",
+        "slot": 0,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001128.npz"
+      },
+      {
+        "match": 2,
+        "tick": 506,
+        "card": "fireball",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001231.npz"
+      },
+      {
+        "match": 2,
+        "tick": 562,
+        "card": "electro_spirit",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001259.npz"
+      },
+      {
+        "match": 2,
+        "tick": 732,
+        "card": "cannon",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001344.npz"
+      },
+      {
+        "match": 2,
+        "tick": 789,
+        "card": "skeletons",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001369.npz"
+      },
+      {
+        "match": 2,
+        "tick": 899,
+        "card": "zap",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001415.npz"
+      },
+      {
+        "match": 2,
+        "tick": 1295,
+        "card": "fireball",
+        "slot": 2,
+        "file": "tmp/live/bc200_bank_20261029_live5/run/decisions/001600.npz"
+      }
+    ],
+    "mana_note": "scalars[0]*10 is spendable mana, not raw native mana; older captures reconstruct raw as spendable+reserved."
+  },
+  "native": {
+    "invalid_or_other_world_frames": 1601,
+    "valid_frames": 2543,
+    "covered_game_seconds": 165.20000000000266,
+    "left_sample_below4_seconds": 151.65000000000197,
+    "gaps_over_5_ticks": 2,
+    "stale_frames": 6,
+    "commands_with_native_source": 32,
+    "fresh_tick_guard_would_defer": {},
+    "deferred_commands": [],
+    "timing_note": "Native 20Hz; mana is held from the left sample for intervals <=5 ticks. Invalid frames/world changes/large gaps split coverage. This is sampled time, not exact continuous mana."
+  },
+  "timings": {
+    "directory": "tmp/live/bc200_bank_20261029_live5/run",
+    "units": "milliseconds",
+    "counts": {
+      "READY": 1,
+      "BLOCKED": 1,
+      "MATCH_START": 2,
+      "INPUT_WARNING": 10,
+      "PLAY": 32,
+      "PLAY_NOT_CONFIRMED": 5,
+      "IDLE": 33,
+      "PLAY_ACK": 26,
+      "INPUT_BLOCKED": 1,
+      "STALE_FRAME_SKIPPED": 6,
+      "MATCH_END": 1,
+      "STOP": 1
+    },
+    "input_boundary": "ADB target tap process returned, not measured touch processing time",
+    "ack_boundary": "First sampled native own-hand rotation, not exact troop appearance",
+    "image_boundary": "PNG received on Mac; capture exposure and display lag unknown",
+    "model_input": "Native memory snapshot; screenshots are diagnostic only",
+    "stages": {
+      "adb_select_ms": {
+        "n": 32,
+        "mean": 40.90199090625,
+        "std_population": 8.563056779832017,
+        "min": 22.368125,
+        "p25": 41.94162475,
+        "p50": 44.385771,
+        "p75": 45.29708375,
+        "p90": 47.8083672,
+        "p95": 48.1874526,
+        "p99": 48.231988019999996,
+        "max": 48.236625
+      },
+      "adb_target_ms": {
+        "n": 32,
+        "mean": 40.2768736875,
+        "std_population": 9.09198896762748,
+        "min": 21.2335,
+        "p25": 41.947104249999995,
+        "p50": 44.5379585,
+        "p75": 45.8179375,
+        "p90": 46.5604006,
+        "p95": 47.5447606,
+        "p99": 48.19367171,
+        "max": 48.342459
+      },
+      "inference_ms": {
+        "n": 32,
+        "mean": 2.08000528125,
+        "std_population": 1.8268698223405628,
+        "min": 0.93675,
+        "p25": 1.44887525,
+        "p50": 1.79825,
+        "p75": 2.0144794999999998,
+        "p90": 2.5680122,
+        "p95": 2.7427563999999998,
+        "p99": 9.113310520000013,
+        "max": 11.911125
+      },
+      "native_read_ms": {
+        "n": 32,
+        "mean": 0.0596758125,
+        "std_population": 0.02669325310991232,
+        "min": 0.018333,
+        "p25": 0.03848975,
+        "p50": 0.0596245,
+        "p75": 0.073198,
+        "p90": 0.0932956,
+        "p95": 0.10964999999999998,
+        "p99": 0.12195648,
+        "max": 0.122667
+      },
+      "parser_ms": {
+        "n": 32,
+        "mean": 35.740850281250005,
+        "std_population": 7.660888011262799,
+        "min": 16.071125,
+        "p25": 31.22260425,
+        "p50": 36.463354499999994,
+        "p75": 39.405801999999994,
+        "p90": 46.09189140000001,
+        "p95": 48.7798375,
+        "p99": 51.18765898,
+        "max": 51.626167
+      },
+      "parser_request_to_input_return_ms": {
+        "n": 32,
+        "mean": 123.96271875000001,
+        "std_population": 21.672300760755615,
+        "min": 61.184,
+        "p25": 118.09049999999999,
+        "p50": 129.7495,
+        "p75": 137.55849999999998,
+        "p90": 146.7109,
+        "p95": 148.67755,
+        "p99": 156.17501000000001,
+        "max": 159.005
+      },
+      "parser_response_to_input_start_ms": {
+        "n": 32,
+        "mean": 47.94821875,
+        "std_population": 13.230333248198946,
+        "min": 23.88,
+        "p25": 45.64325,
+        "p50": 47.908500000000004,
+        "p75": 50.276250000000005,
+        "p90": 52.3898,
+        "p95": 60.18639999999999,
+        "p99": 92.87167000000005,
+        "max": 103.921
+      },
+      "prepare_ms": {
+        "n": 32,
+        "mean": 1.1021432500000001,
+        "std_population": 0.42869916201428476,
+        "min": 0.305083,
+        "p25": 0.7892505000000001,
+        "p50": 1.0659795,
+        "p75": 1.35527025,
+        "p90": 1.6470544000000003,
+        "p95": 1.7644894,
+        "p99": 2.1026487500000006,
+        "max": 2.244125
+      }
+    },
+    "confirmation": {
+      "delay_ms": {
+        "n": 26,
+        "mean": 1628.2081714587268,
+        "std_population": 784.0800170451238,
+        "min": 1224.2606660001911,
+        "p25": 1325.092375249369,
+        "p50": 1354.4634584977757,
+        "p75": 1416.9351872551488,
+        "p90": 2447.107957996195,
+        "p95": 3611.0585415008245,
+        "p99": 4085.5621247392264,
+        "max": 4221.4613329852
+      },
+      "input_return_to_ack_ms": {
+        "n": 26,
+        "mean": 1628.081846153846,
+        "std_population": 784.0451750759643,
+        "min": 1224.03,
+        "p25": 1324.9445,
+        "p50": 1354.3215,
+        "p75": 1416.7675,
+        "p90": 2446.9495,
+        "p95": 3610.8317500000003,
+        "p99": 4085.3297500000003,
+        "max": 4221.229
+      },
+      "source_to_ack_game_ms": {
+        "n": 26,
+        "mean": 1738.4615384615386,
+        "std_population": 780.3238593326408,
+        "min": 1300.0,
+        "p25": 1412.5,
+        "p50": 1475.0,
+        "p75": 1500.0,
+        "p90": 2625.0,
+        "p95": 3700.0,
+        "p99": 4162.5,
+        "max": 4300.0
+      }
+    },
+    "images": {
+      "after_ack": {
+        "capture_ms": {
+          "n": 5,
+          "mean": 550.5387999999999,
+          "std_population": 22.50275582589827,
+          "min": 525.167,
+          "p25": 536.464,
+          "p50": 548.716,
+          "p75": 550.739,
+          "p90": 575.2604,
+          "p95": 583.4341999999999,
+          "p99": 589.9732399999999,
+          "max": 591.608
+        },
+        "input_to_png_ms": {
+          "n": 5,
+          "mean": 2382.8307999999997,
+          "std_population": 796.2475652570374,
+          "min": 1953.399,
+          "p25": 1986.821,
+          "p50": 1991.685,
+          "p75": 2007.311,
+          "p90": 3187.8872,
+          "p95": 3581.4125999999997,
+          "p99": 3896.23292,
+          "max": 3974.938
+        },
+        "ack_to_png_ms": {
+          "n": 5,
+          "mean": 577.8888,
+          "std_population": 18.892415074838887,
+          "min": 558.279,
+          "p25": 564.507,
+          "p50": 576.868,
+          "p75": 576.985,
+          "p90": 598.477,
+          "p95": 605.641,
+          "p99": 611.3721999999999,
+          "max": 612.805
+        },
+        "source_to_capture_before_game_ms": {
+          "n": 5,
+          "mean": 1920.0,
+          "std_population": 815.2300288875527,
+          "min": 1500.0,
+          "p25": 1500.0,
+          "p50": 1500.0,
+          "p75": 1550.0,
+          "p90": 2750.0,
+          "p95": 3149.9999999999995,
+          "p99": 3470.0,
+          "max": 3550.0
+        },
+        "source_to_capture_after_game_ms": {
+          "n": 5,
+          "mean": 2490.0,
+          "std_population": 805.2328855678958,
+          "min": 2050.0,
+          "p25": 2100.0,
+          "p50": 2100.0,
+          "p75": 2100.0,
+          "p90": 3300.0,
+          "p95": 3699.9999999999995,
+          "p99": 4020.0,
+          "max": 4100.0
+        }
+      },
+      "after_input": {
+        "capture_ms": {
+          "n": 7,
+          "mean": 555.9218571428572,
+          "std_population": 10.709455947613646,
+          "min": 534.076,
+          "p25": 552.8855000000001,
+          "p50": 561.18,
+          "p75": 562.8835,
+          "p90": 563.7026000000001,
+          "p95": 564.1808,
+          "p99": 564.56336,
+          "max": 564.659
+        },
+        "input_to_png_ms": {
+          "n": 7,
+          "mean": 579.8352857142858,
+          "std_population": 12.6375715311163,
+          "min": 557.591,
+          "p25": 573.572,
+          "p50": 578.437,
+          "p75": 588.7139999999999,
+          "p90": 594.131,
+          "p95": 596.189,
+          "p99": 597.8353999999999,
+          "max": 598.247
+        },
+        "ack_to_png_ms": {
+          "n": 0
+        },
+        "source_to_capture_before_game_ms": {
+          "n": 7,
+          "mean": 85.71428571428571,
+          "std_population": 58.028845747399714,
+          "min": 0.0,
+          "p25": 50.0,
+          "p50": 100.0,
+          "p75": 125.0,
+          "p90": 150.0,
+          "p95": 150.0,
+          "p99": 150.0,
+          "max": 150.0
+        },
+        "source_to_capture_after_game_ms": {
+          "n": 7,
+          "mean": 542.8571428571429,
+          "std_population": 249.89793835051287,
+          "min": 100.0,
+          "p25": 450.0,
+          "p50": 700.0,
+          "p75": 700.0,
+          "p90": 700.0,
+          "p95": 700.0,
+          "p99": 700.0,
+          "max": 700.0
+        }
+      }
+    },
+    "by_match": {
+      "1": {
+        "attempts": 19,
+        "confirmations": 16,
+        "ack_ms": {
+          "n": 16,
+          "mean": 1340.8969921838434,
+          "std_population": 58.993561916400054,
+          "min": 1224.2606660001911,
+          "p25": 1316.581229264557,
+          "p50": 1338.1919374951394,
+          "p75": 1384.9854897343903,
+          "p90": 1414.6782915049698,
+          "p95": 1421.9750100019155,
+          "p99": 1428.6540347937262,
+          "max": 1430.3237909916788
+        },
+        "request_to_input_ms": {
+          "n": 19,
+          "mean": 132.29278947368425,
+          "std_population": 15.795794688790291,
+          "min": 82.701,
+          "p25": 125.284,
+          "p50": 133.121,
+          "p75": 140.95850000000002,
+          "p90": 148.1328,
+          "p95": 150.78889999999998,
+          "p99": 157.36178,
+          "max": 159.005
+        }
+      },
+      "2": {
+        "attempts": 13,
+        "confirmations": 10,
+        "ack_ms": {
+          "n": 10,
+          "mean": 2087.9060582985403,
+          "std_population": 1117.7946843841264,
+          "min": 1295.307958003832,
+          "p25": 1333.9187814926845,
+          "p50": 1399.2223755049054,
+          "p75": 2928.874311997788,
+          "p90": 3732.224183299695,
+          "p95": 3976.842758142447,
+          "p99": 4172.5376180166495,
+          "max": 4221.4613329852
+        },
+        "request_to_input_ms": {
+          "n": 13,
+          "mean": 111.78800000000001,
+          "std_population": 23.277720939856767,
+          "min": 61.184,
+          "p25": 95.746,
+          "p50": 117.453,
+          "p75": 129.202,
+          "p90": 136.1634,
+          "p95": 137.6272,
+          "p99": 137.84704,
+          "max": 137.902
+        }
+      }
+    },
+    "warnings": [
+      "geometry:deployment_pocket_shape_unverified",
+      "geometry:native_entity_anchor_hitbox_offset_unverified",
+      "geometry:terrain_inherited_from_legacy_not_native_validated",
+      "incomplete_opponent_play_history",
+      "unknown_tactical_profile:GoblinHut_Rework",
+      "unknown_tactical_profile:SpearGoblin_Dummy"
+    ]
+  },
+  "limitations": [
+    "No new games or Android connections.",
+    "Native hand ACK does not prove body location, spell impact or successful defence.",
+    "Unconfirmed and unresolved commands are separate from ACKs; no result/win rate is inferred.",
+    "Per-card legal/selection counts use recorded masks, not changed-policy rollouts.",
+    "The readiness guard replay only identifies deferred original commands, not their counterfactual outcomes.",
+    "Frames and decisions from a single match are correlated, not independent quality trials."
+  ],
+  "series": {
+    "requested": 5,
+    "finished": 1,
+    "wins": 0,
+    "losses": 1,
+    "unknown": 0,
+    "status": "stopped_error",
+    "runs": [
+      "tmp/live/bc200_bank_20261029_live5/run"
+    ],
+    "matches": [
+      {
+        "number": 1,
+        "run": "tmp/live/bc200_bank_20261029_live5/run",
+        "local_match": 1,
+        "result_screenshot": "match_01_result.png",
+        "result": "loss",
+        "evidence": "king_hp_zero"
+      }
+    ],
+    "checkpoint": "/Users/andriashadrin/projects/Hasty-CR/tmp/kaggle/bank_teacher_20261029_v3/collected/pilot_low_s363/update_000100.pt",
+    "scope": "Only matches belonging to this explicitly authorized finite series",
+    "updated_host_ns": 1793303056064742000,
+    "winrate_all_matches": 0.0
+  },
+  "historical_command_comparisons": []
+}

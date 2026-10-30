@@ -48,7 +48,9 @@ def list_outputs(api, kernel, max_pages=100):
             request.user_name, request.kernel_slug = owner, slug
             request.page_size, request.page_token = 500, token
             if version:
-                request.version_label = version
+                # Current Kaggle API expects v2, not the bare CLI suffix2.
+                label=str(version)
+                request.version_label = 'v'+label if label.isdigit() else label
             response = client.kernels.kernels_api_client.list_kernel_session_output(request)
             if getattr(response, 'log', '') and response.log not in logs:
                 logs.append(response.log)

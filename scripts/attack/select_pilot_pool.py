@@ -124,6 +124,8 @@ def select(prepared_roots,limit=2):
     mana_flags=[];mana_physics=None
     for root in map(Path,prepared_roots):
         proof=verify_study(root)
+        if proof.get('promotion_blocked'):
+            raise ValueError('Pilot promotion blocked: '+proof['promotion_block_reason'])
         if proof['kernel']in kernels:raise ValueError('Duplicate cohort cannot supply a second profile')
         kernels.add(proof['kernel'])
         if proof['pilot_steps_verified']!=819200:raise ValueError('Complete verified pilot cohort required')

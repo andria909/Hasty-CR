@@ -40,3 +40,22 @@ def test_frozen_teacher_has_both_decisions_in_each_group_and_balanced_training_s
         if row['accepted']:
             assert row['input_sha256'] not in states or states[row['input_sha256']]==row['seed']
             states[row['input_sha256']]=row['seed']
+
+
+def test_omitted_legal_cannon_refutes_restricted_wait_label():
+    from scripts.attack.build_bank_counterfactuals import label
+    env=opening(352,'left',3000,15)
+    _,success,rows=label(env,'left')
+    action=1+env.match.players[1].hand.index('cannon')*576+18*18+7
+    assert success[0] and env._mask()[action]
+    cannon=rollout(env,action,(3,20))
+    assert cannon['own_damage']==0
+    assert score(cannon)<min(map(score,rows))
+
+
+def test_unrepaired_teacher_cannot_be_prepared_for_more_training(tmp_path):
+    import pytest
+    from scripts.kaggle.prepare_bank_teacher_pilot import prepare
+    with pytest.raises(ValueError,match='Cannon-first'):
+        prepare(tmp_path/'new','data/bank_counterfactual_20261029_v4')
+    assert not(tmp_path/'new').exists()

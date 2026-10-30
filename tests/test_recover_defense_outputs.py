@@ -62,6 +62,15 @@ def test_running_never_lists_or_downloads(tmp_path):
     assert not (tmp_path/'new').exists()
 
 
+@pytest.mark.parametrize('version,expected', [('2', 'v2'), ('v2', 'v2')])
+def test_exact_version_output_label(monkeypatch, version, expected):
+    install_fake_sdk(monkeypatch)
+    api, calls = fake_api({'': NS(files=[], log='', next_page_token='')})
+    api.parse_kernel_string = lambda kernel: ('owner', 'slug', version)
+    recovery.list_outputs(api, 'owner/slug/'+version)
+    assert calls[0].version_label == expected
+
+
 def test_terminal_failed_result_not_required_and_hash_receipt(monkeypatch, tmp_path):
     install_fake_sdk(monkeypatch)
     payload = b'not deserialized checkpoint'

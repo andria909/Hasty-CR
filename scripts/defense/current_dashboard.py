@@ -27,6 +27,10 @@ def read(path):
 
 def progress(state):
     """Lower bound from matching local observer; never perform a network request."""
+    if state.get('status')=='invalidated_teacher' or state.get('promotion_blocked'):
+        if state.get('remote_run_ended'):
+            return 'исключён', 'GPU-задача завершилась; модели не допускаются к продолжению'
+        return 'исключён', 'учитель пропустил пушку; остановка GPU пока не подтверждена'
     if state.get('status')=='upload_failed_before_submission':
         return '0%', 'проверено локально; загрузка Kaggle не принята'
     if state.get('status')=='preflight':
@@ -54,12 +58,28 @@ def render_mana(reports,campaign):
         'Реальные бои остановлены. На аккаунтах 1 и 3 исчерпана GPU-квота; используем аккаунт 2 с лимитом двух заданий одновременно.','',
         '| Серия | Прогресс | Состояние |','|---|---:|---|']
     bank=read(reports/'bank_teacher_pilot_training_20261027.json')
+    cannon=read(reports/'bank_cannon_search_launch_20261029.json')
     if bank:
         pct,note=progress(bank)
-        lines[2:2]=['**Новый этап: учим сохранять банк и вовремя защищаться.** '
+        title='**Учитель банка исключён: найден неверный WAIT.** ' if bank.get('promotion_blocked') else '**Новый этап: учим сохранять банк и вовремя защищаться.** '
+        lines[2:2]=[title+
             f'8 PPO-прогонов; {pct}, {note}. '
             '60 парных учебных примеров, отложена целая группа позиций. '
             '[Дизайн](reports/bank_teacher_20261029.md).','']
+    if cannon:
+        cannon_status=('Оба поиска завершены и собраны:7956 вариантов. ' if cannon.get('all_collected') else 'Два поиска работают на CPU Kaggle. ')
+        lines[2:2]=['**Сейчас: исправляем учителя через поиск защиты пушкой.** '
+            '72 ситуации: одиночный Balloon и Balloon+Baby Dragon, разные банк/рука, все36 клеток центра и поддержки. '
+            +cannon_status+'[Контрпример и следующий этап](reports/bank_cannon_teacher_repair_20261029.md).','']
+    timing=read(reports/'bank_timing_stage_20261030.json')
+    if timing:
+        lines[2:2]=['**Сейчас: учим сохранять эликсир через проверку безопасного ожидания.** '
+            'CPU-поиск36 контекстов и шести задержек принят Kaggle; нового обучения весов пока нет. '
+            'Локально подтверждена защита без урона после3с накопления. '
+            '[Дизайн и следующий шаг](reports/bank_timing_and_live_failure_20261030.md).','',
+            '**BC200 в реальной игре:** 1 поражение; ещё4 боя отменены по команде пользователя. '
+            '6 подтверждённых Fireball,0 Musketeer; в97,7% решений после5-й секунды доступно менее4 эликсира. '
+            'Бот выключен. [Разбор](reports/bank_timing_and_live_failure_20261030.md).','']
     for kind,label in [('reserve','Накопление эликсира'),('balance','Меньше давления на частоту карт'),('wait','Исследование WAIT и доступных карт')]:
         stem=f'mana_{kind}_pilot'
         state=read(reports/f'{stem}_training_20261027.json')

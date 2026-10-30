@@ -4,6 +4,12 @@ import pytest
 from scripts.attack import select_pilot_pool as module
 
 
+def test_teacher_invalidation_blocks_full_promotion_before_any_ranking(monkeypatch):
+    monkeypatch.setattr(module,'verify_study',lambda root:dict(promotion_blocked=True,promotion_block_reason='missing legal Cannon alternative'))
+    with pytest.raises(ValueError,match='promotion blocked'):
+        module.select(['unused'])
+
+
 def test_validation_reflection_and_nonzero_defaults_cannot_be_ignored():
     source=Path('sim/continuous_push.py').read_text()
     with pytest.raises(ValueError,match='reflection'):

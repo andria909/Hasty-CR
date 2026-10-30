@@ -34,4 +34,7 @@ def verify(collected,prepared):
             r=json.loads((collected/f"pilot_{row['id']}_s{seed}_warmstart/result.json").read_text())
             if r.get('sequence_wait_fraction')!=.5:raise ValueError('BC sampler differs')
     result['bank_teacher_audit']=dict(verified=True,data_sha256=m['data_sha256'],groups=p['teacher_groups'])
+    result['promotion_blocked']=not m.get('cannon_first_audited',False)
+    if result['promotion_blocked']:
+        result['promotion_block_reason']='Teacher omitted legal Cannon-first alternatives; reproduced lower-damage counterexample'
     return result

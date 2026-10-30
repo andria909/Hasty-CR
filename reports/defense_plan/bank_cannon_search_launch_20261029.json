@@ -1,0 +1,155 @@
+{
+  "jobs": [
+    {
+      "kind": "single",
+      "root": "tmp/kaggle/bank_cannon_cpu_20261029_v2",
+      "preparation": {
+        "kernel": "vertel0/hastycr-bank-cannon-cpu1029",
+        "parent": "tmp/kaggle/bank_teacher_20261029_v3",
+        "bootstrap_sha256": "1874274b1f362ea12626198ed2df9c37c1a62733f1df898ccf0687ba15bd7e5f",
+        "probe_sha256": "8b2c1772eea88e69d2a6faff4acfca66dd370b2004e26b40adde470b46c0b9d8",
+        "cpu_only": true,
+        "contexts": 36,
+        "local_smoke": "tmp/bank_cannon_smoke_20261029/result.json",
+        "requested_kernel": "vertel0/hastycr-bank-cannon-cpu-1029",
+        "canonical_ref_from_receipt": true,
+        "expanded_probe_sha256": "e0739d09d209db238fec31165e5374f2e5f26c36e6e8f8e1d4913ba74aa77983",
+        "previous_attempt": "tmp/kaggle/bank_cannon_cpu_20261029",
+        "expected_version": 2
+      },
+      "launch_receipt": {
+        "ref": "/code/vertel0/hastycr-bank-cannon-cpu1029",
+        "url": "https://www.kaggle.com/code/vertel0/hastycr-bank-cannon-cpu1029",
+        "versionNumber": 2,
+        "kernelId": 141541995
+      },
+      "monitoring": {
+        "pid": 92085,
+        "poll_seconds": 1200
+      },
+      "bootstrap_backup": "reports/defense_plan/bank_cannon_single_bootstrap_20261029.py",
+      "remote_terminal_status": "COMPLETE",
+      "collection_complete": true,
+      "result_sha256": "9f9a16eff2199ce87497ea20fca104cea3db8a1d3543900c6109a7234b5a4698",
+      "summary": {
+        "cannon": {
+          "valid_contexts": 36,
+          "no_damage": 36,
+          "mean_damage": 0.0
+        },
+        "cannon_electro_spirit": {
+          "valid_contexts": 36,
+          "no_damage": 36,
+          "mean_damage": 0.0
+        },
+        "cannon_fireball": {
+          "valid_contexts": 12,
+          "no_damage": 12,
+          "mean_damage": 0.0
+        },
+        "cannon_musketeer": {
+          "valid_contexts": 12,
+          "no_damage": 12,
+          "mean_damage": 0.0
+        },
+        "cannon_spirit_zap": {
+          "valid_contexts": 24,
+          "no_damage": 24,
+          "mean_damage": 0.0
+        },
+        "cannon_zap": {
+          "valid_contexts": 24,
+          "no_damage": 24,
+          "mean_damage": 0.0
+        },
+        "musketeer": {
+          "valid_contexts": 12,
+          "no_damage": 12,
+          "mean_damage": 0.0
+        },
+        "wait": {
+          "valid_contexts": 36,
+          "no_damage": 0,
+          "mean_damage": 1920.0
+        }
+      }
+    },
+    {
+      "kind": "support",
+      "root": "tmp/kaggle/bank_cannon_support_cpu_20261029",
+      "preparation": {
+        "kernel": "vertel0/hastycr-bank-cannon-support1029",
+        "expected_version": 1,
+        "cpu_only": true,
+        "support": true,
+        "contexts": 36,
+        "bootstrap_sha256": "4e38c64c4a493d39e31cf8f4958d783b50bbcdad6605e9bff1de02a1ef8f3b55",
+        "probe_sha256": "623907b1b670107cd2360bdb3b470d72085d1a09385569b69634a0c410d26bef",
+        "source_manifest_sha256": "3325d51f7978c8805e851624cd8d2bb7e70d133811545a01ceb6b20f9d7c9f44",
+        "dataset": "vertel0/hastycr-bank-teacher-1029-inputs",
+        "teacher_labels_used": false
+      },
+      "launch_receipt": {
+        "ref": "/code/vertel0/hastycr-bank-cannon-support1029",
+        "url": "https://www.kaggle.com/code/vertel0/hastycr-bank-cannon-support1029",
+        "versionNumber": 1,
+        "kernelId": 141553891
+      },
+      "monitoring": {
+        "pid": 92268,
+        "poll_seconds": 1200
+      },
+      "bootstrap_backup": "reports/defense_plan/bank_cannon_support_bootstrap_20261029.py",
+      "remote_terminal_status": "COMPLETE",
+      "collection_complete": true,
+      "result_sha256": "ad3fa856ae186454f33585a40f5b6c6f65bd8665fc409d744a1c246498e8eddb",
+      "summary": {
+        "cannon": {
+          "valid_contexts": 36,
+          "no_damage": 0,
+          "mean_damage": 960.0
+        },
+        "cannon_electro_spirit": {
+          "valid_contexts": 36,
+          "no_damage": 0,
+          "mean_damage": 604.4444444444445
+        },
+        "cannon_fireball": {
+          "valid_contexts": 12,
+          "no_damage": 1,
+          "mean_damage": 280.0
+        },
+        "cannon_musketeer": {
+          "valid_contexts": 12,
+          "no_damage": 12,
+          "mean_damage": 0.0
+        },
+        "cannon_spirit_zap": {
+          "valid_contexts": 24,
+          "no_damage": 0,
+          "mean_damage": 213.33333333333334
+        },
+        "cannon_zap": {
+          "valid_contexts": 24,
+          "no_damage": 0,
+          "mean_damage": 613.3333333333334
+        },
+        "musketeer": {
+          "valid_contexts": 12,
+          "no_damage": 12,
+          "mean_damage": 0.0
+        },
+        "wait": {
+          "valid_contexts": 36,
+          "no_damage": 0,
+          "mean_damage": 3584.0
+        }
+      }
+    }
+  ],
+  "contexts": 72,
+  "cpu_only": true,
+  "teacher_labels_used": false,
+  "live_games": false,
+  "all_collected": true
+}

@@ -1,0 +1,401 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "vertel0/hastycr-bank-teacher-1029",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "low",
+          "warmstart_updates": 200,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.03,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1,
+          "sequence_wait_fraction": 0.5
+        },
+        "score": 0.1423611111111111,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "medium",
+          "warmstart_updates": 800,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.03,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1,
+          "sequence_wait_fraction": 0.5
+        },
+        "score": 0.125,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "high",
+          "warmstart_updates": 800,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.1,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.03,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1,
+          "sequence_wait_fraction": 0.5
+        },
+        "score": 0.11805555555555555,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "control",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.03,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1,
+          "sequence_wait_fraction": 0.5
+        },
+        "score": 0.0798611111111111,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_control_s362",
+      "checkpoint": "tmp/kaggle/bank_teacher_20261029_v3/collected/pilot_control_s362/update_000050.pt",
+      "checkpoint_sha256": "6f61fb4da1525ccbe5432f63339ca6fd40ceae72d95da3259997ad01d6aebe15",
+      "selection_score": 0.09027777777777778,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_control_s363",
+      "checkpoint": "tmp/kaggle/bank_teacher_20261029_v3/collected/pilot_control_s363/update_000050.pt",
+      "checkpoint_sha256": "018e2a1706db646647d7a226bb601e2a61bafe07d55e33b71c9c0f4c6501ec99",
+      "selection_score": 0.06944444444444443,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_low_s362",
+      "checkpoint": "tmp/kaggle/bank_teacher_20261029_v3/collected/pilot_low_s362/update_000050.pt",
+      "checkpoint_sha256": "95e9e940b373f08e698ed15f70cc2e46ae76c3a5e9b60b866940f73b77b7b288",
+      "selection_score": 0.11805555555555557,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_low_s363",
+      "checkpoint": "tmp/kaggle/bank_teacher_20261029_v3/collected/pilot_low_s363/update_000100.pt",
+      "checkpoint_sha256": "72bbf72b2eff0292fb5e826a98ded89abd13abec7e731c5e797df790d5960b39",
+      "selection_score": 0.16666666666666666,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_medium_s362",
+      "checkpoint": "tmp/kaggle/bank_teacher_20261029_v3/collected/pilot_medium_s362/update_000100.pt",
+      "checkpoint_sha256": "133e7d456a968b13b176b57ba525e97140a90b870dab63f5f401a05d137a2714",
+      "selection_score": 0.14583333333333334,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_medium_s363",
+      "checkpoint": "tmp/kaggle/bank_teacher_20261029_v3/collected/pilot_medium_s363/update_000050.pt",
+      "checkpoint_sha256": "26306d46e4ef4091616cf7ef998aeea829be38aae92639b4d3fe5a8addf013c3",
+      "selection_score": 0.10416666666666667,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_high_s362",
+      "checkpoint": "tmp/kaggle/bank_teacher_20261029_v3/collected/pilot_high_s362/update_000050.pt",
+      "checkpoint_sha256": "68da1944670bb1f2e95cd0d0a6974495745c0cc2971d4dc56098af06cb45e8ab",
+      "selection_score": 0.125,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_high_s363",
+      "checkpoint": "tmp/kaggle/bank_teacher_20261029_v3/collected/pilot_high_s363/update_000100.pt",
+      "checkpoint_sha256": "8c78927150f59069f319cb8df687387bf6fb5bc61312555dc57f8177cfeb16b9",
+      "selection_score": 0.1111111111111111,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "parent",
+    "ranking": [
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.10763888888888888,
+        "macro_archetype_points": 0.21527777777777776,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.25
+          },
+          "giant": {
+            "games": 12,
+            "points": 0.5416666666666666
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.25
+          },
+          "swarm": {
+            "games": 12,
+            "points": 0.25
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false,
+  "mana_decision_audit": {
+    "verified": true,
+    "experiment": "paired_counterfactual_teacher",
+    "execution": {
+      "schema": "evaluation-execution-v3",
+      "action_delay_ms": 1350,
+      "decision_interval_ms": 250,
+      "action_cooldown_ms": 0,
+      "cannon_placement_mode": "central_defense_v1",
+      "geometry": "native_anchors_candidate_v1",
+      "coordinate_mode": "physical_live_cells_v2",
+      "physics_tick_ms": 50,
+      "max_ms": 310000,
+      "normal_range_mode": "edge_to_edge_v1",
+      "target_lock_mode": "legacy_periodic_v1",
+      "hog_sight_mode": "side_clip_v1"
+    },
+    "runs": [
+      {
+        "id": "pilot_control_s362",
+        "validation_geometry_records": 144,
+        "completed_episodes": 106,
+        "counts": {
+          "ordinary": 106
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_control_s363",
+        "validation_geometry_records": 144,
+        "completed_episodes": 111,
+        "counts": {
+          "ordinary": 111
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_low_s362",
+        "validation_geometry_records": 144,
+        "completed_episodes": 126,
+        "counts": {
+          "ordinary": 126
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_low_s363",
+        "validation_geometry_records": 144,
+        "completed_episodes": 120,
+        "counts": {
+          "ordinary": 120
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_medium_s362",
+        "validation_geometry_records": 144,
+        "completed_episodes": 123,
+        "counts": {
+          "ordinary": 123
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_medium_s363",
+        "validation_geometry_records": 144,
+        "completed_episodes": 125,
+        "counts": {
+          "ordinary": 125
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_high_s362",
+        "validation_geometry_records": 144,
+        "completed_episodes": 125,
+        "counts": {
+          "ordinary": 125
+        },
+        "own_princess_masks": {},
+        "families": {}
+      },
+      {
+        "id": "pilot_high_s363",
+        "validation_geometry_records": 144,
+        "completed_episodes": 124,
+        "counts": {
+          "ordinary": 124
+        },
+        "own_princess_masks": {},
+        "families": {}
+      }
+    ]
+  },
+  "bank_teacher_audit": {
+    "verified": true,
+    "data_sha256": "68529ee8d06789322b39b56c9076ec7ec1e7a7fca54b184e3c656180b13d0814",
+    "groups": {
+      "352": {
+        "wait_only": 12,
+        "deploy_only": 2,
+        "examples": 20
+      },
+      "353": {
+        "wait_only": 12,
+        "deploy_only": 2,
+        "examples": 20
+      },
+      "354": {
+        "wait_only": 12,
+        "deploy_only": 2,
+        "examples": 20
+      }
+    }
+  },
+  "promotion_blocked": true,
+  "promotion_block_reason": "Teacher omitted legal Cannon-first alternatives; reproduced lower-damage counterexample"
+}
