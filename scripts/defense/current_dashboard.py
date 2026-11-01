@@ -222,8 +222,20 @@ def render_bank_campaign(reports,campaign):
             '[Карты и экономика](reports/bank_full_validation_previous_20261101.md).']
     captured=read(reports/'bank_match_states_20261101.json')
     if captured and captured.get('snapshots_and_train_only_verified'):
-        lines+=['',f"**Следующий шаг:** собраны {captured['states']} воспроизводимых моментов ожидания из "
-            f"{captured['games']} тренировочных матчей. Сравниваем WAIT с постановкой защиты; верных меток пока нет."]
+        search=read(reports/'bank_match_search_state_20261101.json')or{}
+        found={}
+        for root in search.get('shards',[]):
+            for path in Path(root).glob('context_*.json'):
+                row=read(path)
+                if row and row.get('baseline_reproduced_exactly'):found[row['index']]=row
+        if found:
+            lines+=['',f"**Поиск исправлений:** {len(found)}/{captured['states']} ситуаций разобраны; "
+                f"в {sum(bool(r['successful_actions'])for r in found.values())} найдены предварительные улучшения при обеих задержках. "
+                'Это примеры для следующего обучения, не новые модели. '
+                '[Первое воспроизведённое исправление](reports/bank_match_action_search_20261101.md).']
+        else:
+            lines+=['',f"**Следующий шаг:** собраны {captured['states']} воспроизводимых моментов ожидания из "
+                f"{captured['games']} тренировочных матчей. Сравниваем WAIT с постановкой защиты; верных меток пока нет."]
     lines+=['','Каждая серия: 4 способа инициализации × 2 seed × 800 обновлений. '
         'Это BC на локальных демонстрациях, не PPO и не игровой винрейт. Проценты — только подтверждённые обновления.','',
         '**Проверка поведения:** замкнутая защита шара с поддержкой при 1350/2025 мс; '
