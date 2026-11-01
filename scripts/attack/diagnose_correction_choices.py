@@ -28,7 +28,9 @@ def classify(choice,successful):
 
 def diagnose(verified,data,output):
     verified,data=Path(verified),Path(data);proof=json.loads(verified.read_text())
-    if proof.get('schema')!='verified-bank-correction-pair-v1'or not proof['actual_cuda_verified']:
+    budgets={'verified-bank-correction-pair-v1':6400,'verified-bank-fit-depth-v1':35200}
+    if (proof.get('schema')not in budgets or not proof['actual_cuda_verified']or
+            proof.get('supervised_updates_verified')!=budgets[proof['schema']]or len(proof.get('runs',[]))!=8):
         raise ValueError('Independently verified CUDA cohort required')
     manifest=json.loads((data/'manifest.json').read_text())
     if file_sha(data/'examples.npz')!=proof['common_data_sha256'] or manifest['data_sha256']!=proof['common_data_sha256']:

@@ -259,6 +259,16 @@ def render_bank_campaign(reports,campaign):
                         if part and len(part.get('records',[]))==12:games+=12
                 lines+=['',f'**Проверка кандидатов:** {games}/648 матчей завершено; итоговые винрейты ещё не подведены.']
     previous=read(reports/'bank_previous_behavior_summary_20261101.json')
+    behavior_rows=[]
+    for name,label in (('margin','balanced'),('continued','Предыдущий BC'),('v25','v25')):
+        behavior=read(reports/f'bank_{name}_behavior_summary_20261101.json')or{}
+        if behavior.get('schema')=='bank-behavior-local-summary-v1'and behavior.get('episodes_verified')==384:
+            best=behavior['ranking'][0]
+            behavior_rows.append(f"| {label} · {best['case']} | {best['safe']}/{best['episodes']} | {best['mean_damage']:.0f} |")
+    if behavior_rows:
+        lines+=['','**Новые серии: локальная защита шара с поддержкой** (это не винрейт):','',
+            '| Лучший вариант серии | Без урона | Средний урон башням |','|---|---:|---:|',*behavior_rows,
+            '','Два seed, две задержки и повторяющиеся сцены; ни один вариант пока не надёжен во всех условиях.']
     if depth:
         lines+=['','**Проверка обучаемости:** 800/8000 обновлений × смесь/отдельная защита × два seed. '
             'Изолированная защита — диагностический вариант, не кандидат для реальной игры. '
