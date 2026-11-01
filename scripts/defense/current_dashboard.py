@@ -424,6 +424,16 @@ def render_economy_experiments(reports,calibrated,adaptation):
         lines+=['','**Разбор прежних BC:** одинаковые 16 побед скрывали 8 новых и 8 потерянных; '
                 'у второго seed +4 победы в атаке, −2 в защите. '
                 '[Парное сравнение и Fireball](reports/bank_fit_depth_paired_behavior_20261102.md).']
+    decoder=read(reports/'card_mass_decoder_summary_20261102.json')
+    if decoder and decoder.get('schema')=='verified-card-mass-decoder-comparison-v1'and decoder.get('games_verified')==72:
+        c=decoder['comparison']['all']
+        lines+=['',f"**Способ выбора карты, те же BC800-веса:** {c['before_wins']}/72 → {c['after_wins']}/72 побед. "
+                '[Полное сравнение](reports/card_mass_decoder_results_20261102.md). Это эксперимент в симуляторе.']
+    elif read(reports/'card_mass_decoder_state_20261102.json'):
+        state=read(reports/'card_mass_decoder_state_20261102.json')
+        p=read(Path(state['root'])/'progress.json')or{}
+        lines+=['',f"**Способ выбора карты:** проверка {p.get('games',0)}/72 матчей симулятора. "
+                '[Почему проверяем](reports/sampling_greedy_gap_20261102.md). Веса и реальный бот не меняются.']
     lines+=['','Большой бюджет — после сравнения побед по семействам, защиты и полезных спеллов. '
             'Реальные бои выключены; Kaggle проверяется раз в 20 минут.','',
             '[План](plan_2.md) · [Предыдущие 360 матчей](reports/bank_fit_depth_decisions_20261101.md)','']

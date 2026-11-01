@@ -1,0 +1,39 @@
+{
+  "root": "tmp/card_mass_decoder_full_20261102",
+  "pid": 21456,
+  "commands": [
+    [
+      "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+      "-u",
+      "-m",
+      "scripts.attack.evaluate_card_mass_decoder",
+      "--validation",
+      "tmp/kaggle/bank_fit_depth_20261101/mixed_full_validation/result.json",
+      "--proof",
+      "reports/defense_plan/bank_fit_depth_full_validation_20261101.json",
+      "--output",
+      "tmp/card_mass_decoder_full_20261102"
+    ],
+    [
+      "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+      "-m",
+      "scripts.attack.summarize_card_mass_decoder",
+      "--evaluation",
+      "tmp/card_mass_decoder_full_20261102/result.json",
+      "--validation",
+      "tmp/kaggle/bank_fit_depth_20261101/mixed_full_validation/result.json",
+      "--output",
+      "reports/defense_plan/card_mass_decoder_summary_20261102.json",
+      "--markdown",
+      "reports/card_mass_decoder_results_20261102.md"
+    ]
+  ],
+  "status": "complete_verified_not_promoted",
+  "target_games": 72,
+  "control_replays": 12,
+  "live_games": false,
+  "remote_queries": false,
+  "created_ns": 1793568042111250000,
+  "summary": "reports/defense_plan/card_mass_decoder_summary_20261102.json",
+  "summary_sha256": "6bf7792ec16b985daf37b0c0400e568b69a9d205f0a08f07fc5787fc03140c27"
+}
