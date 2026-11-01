@@ -11,13 +11,25 @@ from scripts.kaggle.prepare_motionfix_pilot import prepare as clone,sha
 from scripts.attack.sequence_physics import require_current_physics
 
 
-def prepare(source,data,output,slug='hastycr-bank-init1030'):
+def prepare(source,data,output,slug='hastycr-bank-init1030',owner=None,initial=None):
     if not re.fullmatch(r'[a-z0-9][a-z0-9-]{5,65}',slug):raise ValueError('Valid distinct study slug required')
     root=Path(output);data=Path(data);m=json.loads((data/'manifest.json').read_text());require_current_physics(m)
     if m['schema']!='mixed-bank-public-sequences-v1' or sha(data/'examples.npz')!=m['data_sha256']:
         raise ValueError('Verified mixed development skills required')
     clone(source,root,slug)
     prep=json.loads((root/'preparation.json').read_text());c=prep['config']
+    if owner is not None:
+        if owner not in ('andriashadrin','vertel0','andreiperelaiko'):raise ValueError('Authorized account required')
+        c['owner']=owner;prep['kernel']=owner+'/'+slug
+        for name,identity in [('dataset/dataset-metadata.json',owner+'/'+c['slug']),('job/kernel-metadata.json',prep['kernel'])]:
+            path=root/name;meta=json.loads(path.read_text());meta['id']=identity
+            if name.startswith('job/'):meta['dataset_sources']=[owner+'/'+c['slug']]
+            path.write_text(json.dumps(meta,indent=2)+'\n')
+    if initial is not None:
+        shutil.copyfile(initial,root/'dataset/parent.pt')
+        digest=sha(root/'dataset/parent.pt');c['pins']['parent.pt']=digest
+        next(x for x in c['models']if x['id']=='parent')['sha256']=digest
+        prep['initial_source']=str(initial)
     archive=root/'dataset/extensions.tar.gz'
     with tarfile.open(archive)as stream:payload={x.name:stream.extractfile(x).read()for x in stream.getmembers()if x.isfile()}
     original=json.loads((root/'dataset/manifest.json').read_text())['files']
@@ -65,4 +77,6 @@ if __name__=='__main__':
     p=argparse.ArgumentParser()
     for key in ('source','data','output'):p.add_argument('--'+key,required=True)
     p.add_argument('--slug',default='hastycr-bank-init1030')
-    a=p.parse_args();r=prepare(a.source,a.data,a.output,a.slug);print(json.dumps(dict(kernel=r['kernel'],submitted=False)))
+    p.add_argument('--owner',choices=('andriashadrin','vertel0','andreiperelaiko'))
+    p.add_argument('--initial')
+    a=p.parse_args();r=prepare(a.source,a.data,a.output,a.slug,a.owner,a.initial);print(json.dumps(dict(kernel=r['kernel'],submitted=False)))

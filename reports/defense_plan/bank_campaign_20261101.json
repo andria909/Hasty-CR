@@ -1,0 +1,35 @@
+{
+  "schema": "bank-initialization-campaign-v1",
+  "studies": [
+    {
+      "id": "balanced",
+      "label": "balanced",
+      "root": "tmp/kaggle/bank_initialization_margin_20261101",
+      "kernel": "vertel0/hastycr-bank-margin1101",
+      "status_file": "bank_margin_training_20261101.json",
+      "verified_file": "bank_margin_verified_20261101.json",
+      "result_md": "reports/bank_margin_results_20261101.md"
+    },
+    {
+      "id": "v25",
+      "label": "v25",
+      "root": "tmp/kaggle/v25_bank_initialization_20261101",
+      "kernel": "andriashadrin/hastycr-v25-bank1101",
+      "status_file": "bank_v25_training_20261101.json",
+      "verified_file": "bank_v25_verified_20261101.json",
+      "result_md": "reports/bank_v25_results_20261101.md"
+    },
+    {
+      "id": "continued",
+      "label": "\u041f\u0440\u0435\u0434\u044b\u0434\u0443\u0449\u0438\u0439 BC",
+      "root": "tmp/kaggle/continued_bank_initialization_20261101",
+      "kernel": "andreiperelaiko/hastycr-bc-bank1101",
+      "status_file": "bank_continued_training_20261101.json",
+      "verified_file": "bank_continued_verified_20261101.json",
+      "result_md": "reports/bank_continued_results_20261101.md"
+    }
+  ],
+  "total_supervised_target_updates": 19200,
+  "live_games": false,
+  "automatic_full_training": false
+}

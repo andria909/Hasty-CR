@@ -190,8 +190,37 @@ def render_mana(reports,campaign):
     return '\n'.join(lines)
 
 
+def render_bank_campaign(reports,campaign):
+    lines=['# Текущий этап','',
+        '**Сравниваем исходные веса на исправленных демонстрациях защиты и накопления.**','',
+        '| Исходная модель | BC-обновления | Состояние |','|---|---:|---|']
+    for item in campaign['studies']:
+        state=read(reports/item['status_file']) or {}
+        verified=read(reports/item['verified_file']) or {}
+        stream=read(Path(item['root'])/'live_stream/progress.json') or {}
+        names={f'{name}_s{seed}'for name in ('retain01','retain001','retain0','zero01')for seed in (392,393)}
+        complete=(verified.get('kernel')==item['kernel'] and verified.get('supervised_updates_verified')==6400
+                  and {r['id']for r in verified.get('runs',[])}==names)
+        count=(sum(min(800,r.get('updates',0))for key,r in stream.get('initializations',{}).items()if key in names)
+               if stream.get('kernel')==item['kernel']else 0)
+        pct='100% проверено'if complete else f'≥{100*count/6400:.1f}%'if count else'—'
+        status='результаты проверены'if complete else state.get('status','подготовлен')
+        lines.append(f"| {item['label']} | {pct} | {status} |")
+    lines+=['','Каждая серия: 4 способа инициализации × 2 seed × 800 обновлений. '
+        'Это BC на локальных демонстрациях, не PPO и не игровой винрейт. Проценты — только подтверждённые обновления.','',
+        '**Проверка поведения:** замкнутая защита шара с поддержкой при 1350/2025 мс; '
+        'затем полные симуляционные матчи. Большие обучения — после проверки кандидатов.','',
+        '**Данные:** 1060 состояний, центральная пушка, запас 750 мс для банковских сцен, '
+        'Fireball/Zap во всех слотах каждой группы.','',
+        '**Реальные бои выключены.** Наблюдение за Kaggle раз в 20 минут.','',
+        '[План опыта](reports/bank_campaign_20261101.md) · [Предыдущие результаты](reports/bank_initialization_results_20261030.md) · [План](plan_2.md)','']
+    return '\n'.join(lines)
+
+
 def render(reports):
     reports=Path(reports)
+    bank=read(reports/'bank_campaign_20261101.json')
+    if bank:return render_bank_campaign(reports,bank)
     crown=read(reports/'crown_economy_pilot_training_20261030.json')
     if crown:return render_crown(reports,crown)
     reports=Path(reports)

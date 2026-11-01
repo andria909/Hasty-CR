@@ -6,6 +6,7 @@ from pathlib import Path
 from queue import Queue
 import subprocess
 import sys
+from threading import Timer
 
 from scripts.kaggle.local_artifact_transfer import file_sha
 
@@ -29,10 +30,26 @@ def run(data,initial,protocol,output,smoke=False):
             command=[sys.executable,'-u','-m','scripts.attack.train_air_position_warmstart',
                 '--data',str(data),'--init',str(initial),'--output',str(output/name),
                 '--device',device,'--updates',str(updates),'--kl-weight',str(case['kl_weight']),
-                '--seed',str(seed),'--sequence-wait-fraction','.5','--slot-augmentation']
+                '--seed',str(seed),'--sequence-wait-fraction','.5','--slot-augmentation','--progress-interval','25']
             if case['reset_actor_heads']:command.append('--reset-actor-heads')
             with(output/(name+'.log')).open('x')as log:
-                subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=7200)
+                process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+                watchdog=Timer(7200,process.kill);watchdog.daemon=True;watchdog.start()
+                try:
+                    for line in process.stdout:
+                        log.write(line);log.flush()
+                        try:progress=json.loads(line)
+                        except ValueError:continue
+                        if isinstance(progress,dict)and progress.get('event')=='WARMSTART_PROGRESS':
+                            print(json.dumps(dict(event='INITIALIZATION_PROGRESS',id=name,
+                                updates=progress['update'],target_updates=progress['target_updates'],
+                                actual_cuda=progress['actual_cuda'])),flush=True)
+                    code=process.wait()
+                    if code:raise subprocess.CalledProcessError(code,command)
+                finally:
+                    watchdog.cancel()
+                    if process.poll()is None:process.kill();process.wait()
+                    process.stdout.close()
             result=json.loads((output/name/'result.json').read_text())
             if (result['supervised_updates']!=updates or result['environment_steps']!=0 or
                     bool(result['actual_cuda'])!=(not smoke) or result['reset_actor_heads']!=case['reset_actor_heads'] or

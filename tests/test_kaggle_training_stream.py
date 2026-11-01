@@ -119,3 +119,14 @@ def test_bc_updates_are_not_counted_as_ppo_environment_steps():
     assert not record_initialization_event(progress,json.dumps(event),2)
     event.update(id='zero01_s393',updates=2,target_updates=2,actual_cuda=None)
     assert not record_initialization_event(progress,json.dumps(event),3)
+def test_bc_incremental_updates_never_count_as_ppo_steps():
+    import json
+    from scripts.kaggle.stream_training import record_initialization_event
+    progress={}
+    event=dict(event='INITIALIZATION_PROGRESS',id='retain001_s392',updates=25,target_updates=800,actual_cuda='Tesla T4')
+    assert record_initialization_event(progress,json.dumps(event),10)
+    assert progress['initializations']['retain001_s392']['percent']==3.125
+    assert 'trials'not in progress
+    assert not record_initialization_event(progress,json.dumps(dict(event,updates=24)),11)
+    assert not record_initialization_event(progress,json.dumps(dict(event,updates=50,actual_cuda=None)),12)
+    assert record_initialization_event(progress,json.dumps(dict(event,event='INITIALIZATION_RUN_COMPLETE',updates=800)),20)

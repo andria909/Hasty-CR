@@ -56,3 +56,18 @@ def test_current_crown_dashboard_keeps_lower_bound_and_hides_unverified_scores(t
     assert '≥99.0%' in content and '≥12.4%' in content
     assert '144/144' not in content and '100% бюджета проверено' not in content
     assert len(content.splitlines())<30
+def test_bank_campaign_ignores_foreign_progress_and_unverified_completion(tmp_path):
+    from scripts.defense.current_dashboard import render_bank_campaign
+    job=tmp_path/'job';(job/'live_stream').mkdir(parents=True)
+    campaign=dict(studies=[dict(label='v25',kernel='owner/new',root=str(job),
+        status_file='state.json',verified_file='proof.json')])
+    (tmp_path/'state.json').write_text(json.dumps(dict(status='принят Kaggle')))
+    (job/'live_stream/progress.json').write_text(json.dumps(dict(kernel='owner/old',
+        initializations={'retain01_s392':dict(updates=800)})))
+    (tmp_path/'proof.json').write_text(json.dumps(dict(kernel='owner/new',supervised_updates_verified=6400,runs=[])))
+    text=render_bank_campaign(tmp_path,campaign)
+    assert '| v25 | — | принят Kaggle |'in text
+    assert '100% проверено'not in text
+    (job/'live_stream/progress.json').write_text(json.dumps(dict(kernel='owner/new',
+        initializations={'retain01_s392':dict(updates=25)})))
+    assert '| v25 | ≥0.4%'in render_bank_campaign(tmp_path,campaign)

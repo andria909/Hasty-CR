@@ -35,7 +35,7 @@ def zero_actor_heads(network):
                 for parameter in module.parameters():parameter.zero_()
 
 
-def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,sequence_wait_fraction=None,slot_augmentation=False,pending_inputs=False,reset_actor_heads=False):
+def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,sequence_wait_fraction=None,slot_augmentation=False,pending_inputs=False,reset_actor_heads=False,progress_interval=0):
     if slot_augmentation and sequence_wait_fraction is not None and not pending_inputs:
         path=Path(data)/'manifest.json'
         contract=json.loads(path.read_text()) if path.is_file() else {}
@@ -45,6 +45,7 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
                 any(r.get('pending_count')!=0 or r.get('reserved_elixir')!=0 for r in contract['records']if r['accepted'])):
             raise ValueError('Pending sequence slots require a separate permutation contract')
     if updates<1 or not 0<=kl_weight<=10:raise ValueError('Invalid supervised training controls')
+    if type(progress_interval)is not int or progress_interval<0:raise ValueError('Nonnegative progress interval required')
     if device.startswith('cuda')and not torch.cuda.is_available():raise RuntimeError('CUDA unavailable; no CPU fallback')
     if device=='cpu'and updates>5:raise ValueError('CPU limited to five preflight updates')
     torch.set_num_threads(1);torch.manual_seed(seed)
@@ -166,6 +167,10 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
         if not torch.isfinite(loss):raise ValueError('Nonfinite warmstart objective')
         optimizer.zero_grad();loss.backward();torch.nn.utils.clip_grad_norm_(net.parameters(),.5);optimizer.step()
         history.append(dict(update=update,loss=float(loss.detach()),imitation=float(imitate.detach()),kl=float(kl.detach())))
+        if progress_interval and (update%progress_interval==0 or update==updates):
+            print(json.dumps(dict(event='WARMSTART_PROGRESS',update=update,target_updates=updates,
+                actual_cuda=torch.cuda.get_device_name(device)if device.startswith('cuda')else None,
+                loss=history[-1]['loss'])),flush=True)
     if not all(torch.isfinite(t).all()for t in net.state_dict().values()):raise ValueError('Nonfinite warmstart weights')
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     result=dict(schema='air-local-position-warmstart-v1',supervised_updates=updates,environment_steps=0,seed=seed,
@@ -191,8 +196,9 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--data',required=True);p.add_argument('--init',required=True);p.add_argument('--output',required=True)
     p.add_argument('--device',default='cuda:0');p.add_argument('--updates',type=int,default=200);p.add_argument('--kl-weight',type=float,default=.1);p.add_argument('--seed',type=int,default=112)
+    p.add_argument('--progress-interval',type=int,default=0)
     p.add_argument('--sequence-wait-fraction',type=float)
     p.add_argument('--slot-augmentation',action='store_true')
     p.add_argument('--pending-inputs',action='store_true')
     p.add_argument('--reset-actor-heads',action='store_true')
-    a=p.parse_args();print(json.dumps(train(a.data,a.init,a.output,a.device,a.updates,a.kl_weight,a.seed,a.sequence_wait_fraction,a.slot_augmentation,a.pending_inputs,a.reset_actor_heads)))
+    a=p.parse_args();print(json.dumps(train(a.data,a.init,a.output,a.device,a.updates,a.kl_weight,a.seed,a.sequence_wait_fraction,a.slot_augmentation,a.pending_inputs,a.reset_actor_heads,a.progress_interval)))

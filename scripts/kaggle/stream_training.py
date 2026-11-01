@@ -49,14 +49,16 @@ def record_initialization_event(progress,line,remote_time):
     """Count BC optimizer updates separately from PPO environment steps."""
     try:row=json.loads(line)
     except (ValueError,TypeError):return False
-    if not isinstance(row,dict)or row.get('event')!='INITIALIZATION_RUN_COMPLETE':return False
+    if not isinstance(row,dict)or row.get('event')not in ('INITIALIZATION_RUN_COMPLETE','INITIALIZATION_PROGRESS'):return False
     name=row.get('id')
+    update=row.get('updates')
     if (not isinstance(name,str)or not re.fullmatch(r'(?:retain01|retain001|retain0|zero01)_s39[23]',name)or
-            row.get('updates')!=800 or row.get('target_updates')!=800 or not row.get('actual_cuda')):
+            type(update)is not int or not 0<update<=800 or row.get('target_updates')!=800 or not row.get('actual_cuda')or
+            (row['event']=='INITIALIZATION_RUN_COMPLETE'and update!=800)):
         return False
     runs=progress.setdefault('initializations',{})
-    if name in runs:return False
-    runs[name]=dict(updates=800,target_updates=800,percent=100.,actual_cuda=row['actual_cuda'],remote_log_seconds=remote_time)
+    if update<=runs.get(name,{}).get('updates',0):return False
+    runs[name]=dict(updates=update,target_updates=800,percent=100*update/800,actual_cuda=row['actual_cuda'],remote_log_seconds=remote_time)
     return True
 
 
