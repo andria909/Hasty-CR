@@ -15,14 +15,14 @@
     "versionNumber": 1,
     "kernelId": 142176468
   },
-  "last_local_sync_ns": 1793571488362854000,
+  "last_local_sync_ns": 1793572465766320000,
   "progress_snapshot": {
     "kernel": "andriashadrin/hastycr-spell-cost1102",
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
-    "reconnect_attempt": 3,
-    "checked_host_ns": 1793571214489163000,
+    "reconnect_attempt": 4,
+    "checked_host_ns": 1793572411568384000,
     "trials": {
       "pilot_neutral_s422": {
         "update": 100,
@@ -53,18 +53,32 @@
         "remote_log_seconds": 3025.03826993
       },
       "pilot_strong_s422": {
-        "update": 84,
-        "steps": 86016,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 84.0,
-        "remote_log_seconds": 3808.839419294
+        "percent": 100.0,
+        "remote_log_seconds": 4286.874688391
       },
       "pilot_medium_s422": {
-        "update": 69,
-        "steps": 70656,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 69.0,
-        "remote_log_seconds": 3807.667779502
+        "percent": 100.0,
+        "remote_log_seconds": 4343.279484953
+      },
+      "pilot_strong_s423": {
+        "update": 66,
+        "steps": 67584,
+        "target_steps": 102400,
+        "percent": 66.0,
+        "remote_log_seconds": 5004.5904423
+      },
+      "pilot_medium_s423": {
+        "update": 59,
+        "steps": 60416,
+        "target_steps": 102400,
+        "percent": 59.0,
+        "remote_log_seconds": 5006.389531185
       }
     },
     "error_type": "SSLError",
@@ -102,6 +116,18 @@
       "trial_id": "pilot_control_s423",
       "score": 0.14583333333333334,
       "family_guard": false
+    },
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_strong_s422",
+      "score": 0.17013888888888887,
+      "family_guard": false
+    },
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_medium_s422",
+      "score": 0.3055555555555556,
+      "family_guard": true
     }
   ]
 }

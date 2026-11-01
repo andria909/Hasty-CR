@@ -15,7 +15,7 @@
   "automatic_full_training": false,
   "observer_poll_seconds": 1200,
   "created_ns": 1793564854733120000,
-  "last_local_sync_ns": 1793571488358690000,
+  "last_local_sync_ns": 1793572465760881000,
   "cuda_ready": true,
   "gpus": [
     "Tesla T4",
@@ -25,9 +25,9 @@
     "kernel": "vertel0/hastycr-adapt-ppo1101",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
+    "stream_state": "ended",
     "reconnect_attempt": 4,
-    "checked_host_ns": 1793571122605667000,
+    "checked_host_ns": 1793572318602878000,
     "trials": {
       "pilot_bank_s412": {
         "update": 100,
@@ -72,22 +72,20 @@
         "remote_log_seconds": 6050.463116572
       },
       "pilot_bc8000_s413": {
-        "update": 49,
-        "steps": 50176,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 49.0,
-        "remote_log_seconds": 6259.373515878
+        "percent": 100.0,
+        "remote_log_seconds": 7412.396208749
       },
       "pilot_bc800_s413": {
-        "update": 48,
-        "steps": 49152,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 48.0,
-        "remote_log_seconds": 6313.91103423
+        "percent": 100.0,
+        "remote_log_seconds": 7508.336286694
       }
-    },
-    "error_type": "SSLError",
-    "http_status": null
+    }
   },
   "actual_training_steps_confirmed": true,
   "cuda_observed": {
@@ -133,6 +131,18 @@
       "trial_id": "pilot_bc800_s412",
       "score": 0.15625,
       "family_guard": false
+    },
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_bc8000_s413",
+      "score": 0.1736111111111111,
+      "family_guard": false
+    },
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_bc800_s413",
+      "score": 0.2777777777777778,
+      "family_guard": true
     }
   ]
 }

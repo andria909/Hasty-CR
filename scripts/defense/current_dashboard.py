@@ -385,7 +385,7 @@ def render_policy_adaptation(reports,state):
 def render_economy_experiments(reports,calibrated,adaptation):
     lines=['# Текущий этап','',
         '**PPO: исправляем расход эликсира и сравниваем исходные веса.**','',
-        '| Опыт | Вариант | Первый seed | Второй seed |','|---|---|---:|---:|']
+        '| Опыт | Вариант | Первый seed | Второй seed | Порог: первый / второй |','|---|---|---:|---:|---|']
     studies=[('Штраф пустого спелла',calibrated,(422,423),
               (('control','0,1 — контроль'),('neutral','0,3'),('medium','0,5'),('strong','1,0')),
               'calibrated_spell_verified_20261102.json','calibrated_spell_summary_20261102.json')]
@@ -398,7 +398,7 @@ def render_economy_experiments(reports,calibrated,adaptation):
         studies.append(('Энтропия клетки',entropy,(432,433),
                         (('control','1,0 — контроль'),('spatial03','0,3'),('spatial01','0,1'),('group_only','0 — только карта')),
                         'group_entropy_verified_20261102.json','group_entropy_summary_20261102.json'))
-    summaries=[];statuses=[];provisional_passes=[]
+    summaries=[];statuses=[]
     for label,state,seeds,cases,proof_file,summary_file in studies:
         stream=read(Path(state['root'])/'live_stream/progress.json')or{}
         runs=stream.get('trials',{})if stream.get('kernel')==state['kernel']else{}
@@ -407,12 +407,16 @@ def render_economy_experiments(reports,calibrated,adaptation):
                   and {r['id']for r in proof.get('pilot_models',[])}=={f'pilot_{name}_s{seed}'for name,_ in cases for seed in seeds}
                   and (proof.get('calibrated_spell_cost_verified')or proof.get('policy_adaptation_audit',{}).get('verified')
                        or proof.get('group_entropy_audit',{}).get('verified')))
+        guard_rows=proof.get('pilot_models',[])if complete else state.get('completed_log_events',[])
+        guards={row.get('id',row.get('trial_id')):row.get('family_guard')for row in guard_rows}
         for name,title in cases:
-            values=[]
+            values=[];outcomes=[]
             for seed in seeds:
                 steps=runs.get(f'pilot_{name}_s{seed}',{}).get('steps',0)
                 values.append('100% проверено'if complete else f'≥{min(100,100*steps/102400):.1f}%'if steps else'нет счётчика')
-            lines.append(f"| {label} | {title} | {' | '.join(values)} |")
+                guard=guards.get(f'pilot_{name}_s{seed}')
+                outcomes.append('да'if guard is True else'нет'if guard is False else'ждём')
+            lines.append(f"| {label} | {title} | {' | '.join(values)} | {' / '.join(outcomes)} |")
         if complete:
             status='все веса и бюджеты проверены; результаты ниже'
         elif any(row.get('steps',0)>0 for row in runs.values()):
@@ -420,17 +424,13 @@ def render_economy_experiments(reports,calibrated,adaptation):
         else:
             status=state.get('status','подготовлено')
         statuses.append(f"{label}: {status}.")
-        provisional_passes.extend(label+' / '+row['trial_id'] for row in state.get('completed_log_events',[])
-                                  if row.get('family_guard')is True)
         summary=read(reports/summary_file)
         if complete and summary and summary.get('kernel')==state['kernel']:summaries.append((label,summary))
-    lines+=['',*statuses,'','На каждый опыт — 8 прогонов по 102 400 шагов. Отсутствие счётчика не означает остановку GPU.','',
+    lines+=['',*statuses,'','На каждый опыт — 8 прогонов по 102 400 шагов. Отсутствие счётчика не означает остановку GPU.',
+        'Порог — минимальный результат во всех семействах сценариев. Нужны оба seed; до проверки весов это предварительные данные журнала, не допуск к большому обучению.','',
         '**Найдено:** при полном запасе пустой Fireball получает +0,8 награды относительно ожидания; Zap +0,4. '
         'Проверено в пустой арене. Штраф 0,5 меняет знак; улучшение игры ещё нужно измерить. '
         '[Проверка и план опыта](reports/empty_spell_incentive_20261102.md).']
-    if provisional_passes:
-        lines+=['','**Предварительно по журналу:** порог всех семейств прошли '+', '.join(provisional_passes)+
-                '. Это отдельные seed; веса и устойчивость улучшения ещё не проверены.']
     crown_probe=read(reports/'crown_spell_incentive_20261102.json')
     if crown_probe and crown_probe.get('schema')=='crown-spell-incentive-probe-v1':
         lines+=['','**Отдельный стимул:** Fireball только в короля при полном банке даёт +1,30 относительно WAIT; '
