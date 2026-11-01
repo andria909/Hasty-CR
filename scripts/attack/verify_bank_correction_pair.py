@@ -92,6 +92,7 @@ def verify(root,technical_smoke=False):
                     for skill in p['datasets']['corrections']['skills']}))
     return dict(schema='verified-bank-correction-pair-smoke-v1'if technical_smoke else'verified-bank-correction-pair-v1',
         kernel=prep['kernel'],supervised_updates_verified=updates*len(names),environment_steps=0,
+        initial_sha256=p['initial_sha256'],
         actual_cuda_verified=not technical_smoke,runs=rows,paired_differences=differences,
         common_data_sha256=p['datasets']['corrections']['data_sha256'],full_training_accepted=False,
         scope='All policies scored on identical corrected curriculum; local labels are not full-match validation')

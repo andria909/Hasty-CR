@@ -206,6 +206,20 @@ def render_bank_campaign(reports,campaign):
         pct='100% проверено'if complete else f'≥{100*count/6400:.1f}%'if count else'—'
         status='результаты проверены'if complete else state.get('status','подготовлен')
         lines.append(f"| {item['label']} | {pct} | {status} |")
+    pair=read(reports/'bank_correction_pair_training_20261101.json')
+    if pair:
+        snapshot=read(Path(pair['root'])/'live_stream/progress.json')or{}
+        proof=read(reports/'bank_correction_pair_verified_20261101.json')or{}
+        names={f'{kind}_kl{kl}_s{seed}'for kind in ('control','corrections')for kl in ('001','01')for seed in (402,403)}
+        complete=(proof.get('schema')=='verified-bank-correction-pair-v1'and proof.get('kernel')==pair['kernel']
+            and proof.get('actual_cuda_verified')is True and proof.get('supervised_updates_verified')==6400
+            and {r['id']for r in proof.get('runs',[])}==names)
+        count=sum(min(800,max(0,r.get('updates',0)))for name,r in snapshot.get('corrections',{}).items()
+            if name in names and r.get('actual_cuda'))if snapshot.get('kernel')==pair['kernel']else 0
+        pct='100% проверено'if complete else f'≥{count/64:.1f}%'if count else '—'
+        lines.append(f"| Исправления защиты: с примерами / без | {pct} | {pair.get('status','подготовлен')} |")
+        lines+=['','**Новый опыт:** 51 воспроизведённое исправление защиты, 8 прогонов; '
+            'после проверки весов — 648 полных симуляционных матчей на одинаковых сценариях.']
     previous=read(reports/'bank_previous_behavior_summary_20261101.json')
     if previous and previous.get('episodes_verified')==384:
         row=previous['ranking'][0]
@@ -228,7 +242,10 @@ def render_bank_campaign(reports,campaign):
             for path in Path(root).glob('context_*.json'):
                 row=read(path)
                 if row and row.get('baseline_reproduced_exactly'):found[row['index']]=row
-        if found:
+        if search.get('postprocess_phase')=='complete':
+            lines+=['','**Поиск исправлений завершён:** 106 ситуаций, 51 независимо воспроизведённое улучшение; '
+                '1111 учебных состояний. [Как отбирали действия](reports/bank_correction_frontier_20261101.md).']
+        elif found:
             lines+=['',f"**Поиск исправлений:** {len(found)}/{captured['states']} ситуаций разобраны; "
                 f"в {sum(bool(r['successful_actions'])for r in found.values())} найдены предварительные улучшения при обеих задержках. "
                 'Это примеры для следующего обучения, не новые модели. '

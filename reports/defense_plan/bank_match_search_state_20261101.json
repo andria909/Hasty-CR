@@ -1,6 +1,6 @@
 {
   "schema": "bank-match-search-state-v1",
-  "status": "RUNNING",
+  "status": "COMPLETE; search, replay and mixed dataset verified",
   "pid": 16758,
   "root": "tmp/bank_match_action_search_20261101",
   "shards": [
@@ -15,9 +15,14 @@
   "live_games": false,
   "full_training_accepted": false,
   "postprocess_pid": 17010,
-  "postprocess_phase": "waiting_for_search",
-  "postprocess_updated_ns": 1793556072999204000,
+  "postprocess_phase": "complete",
+  "postprocess_updated_ns": 1793558649592081000,
   "verified_file": "reports/defense_plan/bank_match_search_verified_20261101.json",
   "replays": "tmp/bank_match_replays_20261101",
-  "dataset": "data/mixed_bank_match_corrections_20261101"
+  "dataset": "data/mixed_bank_match_corrections_20261101",
+  "accepted_contexts": 51,
+  "replayed_contexts": 51,
+  "dataset_examples": 1111,
+  "correction_examples": 51,
+  "dataset_sha256": "32278045d05884ee5dcd8a0764a201632a268f4d9f6b3d1412044315d06278c1"
 }

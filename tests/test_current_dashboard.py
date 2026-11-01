@@ -71,3 +71,20 @@ def test_bank_campaign_ignores_foreign_progress_and_unverified_completion(tmp_pa
     (job/'live_stream/progress.json').write_text(json.dumps(dict(kernel='owner/new',
         initializations={'retain01_s392':dict(updates=25)})))
     assert '| v25 | ≥0.4%'in render_bank_campaign(tmp_path,campaign)
+
+
+def test_correction_dashboard_does_not_count_old_or_cpu_updates(tmp_path):
+    from scripts.defense.current_dashboard import render_bank_campaign
+    job=tmp_path/'job';(job/'live_stream').mkdir(parents=True)
+    state=dict(root=str(job),kernel='owner/corrections',status='RUNNING')
+    (tmp_path/'bank_correction_pair_training_20261101.json').write_text(json.dumps(state))
+    snapshot=dict(kernel=state['kernel'],initializations={'retain01_s392':dict(updates=800)},
+        corrections={'control_kl001_s402':dict(updates=400,actual_cuda=True),
+            'corrections_kl001_s402':dict(updates=800,actual_cuda=False)})
+    (job/'live_stream/progress.json').write_text(json.dumps(snapshot))
+    text=render_bank_campaign(tmp_path,dict(studies=[]))
+    assert '| Исправления защиты: с примерами / без | ≥6.2% | RUNNING |'in text
+    assert '100% проверено'not in text
+    snapshot['kernel']='owner/other'
+    (job/'live_stream/progress.json').write_text(json.dumps(snapshot))
+    assert '| Исправления защиты: с примерами / без | — | RUNNING |'in render_bank_campaign(tmp_path,dict(studies=[]))
