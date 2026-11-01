@@ -62,8 +62,11 @@ def submit(root,token_index,*,evaluation=False):
             from scripts.attack.verify_bank_correction_pair import verify
             checked=verify(root,technical_smoke=True)
             (root/'preflight_independent_verification.json').write_text(json.dumps(checked,indent=2)+'\n')
-        elif prepared.get('study_variant')=='policy_adaptation_v1':
-            from scripts.kaggle.prepare_policy_adaptation_pilot import validate_protocol
+        elif prepared.get('study_variant')in ('policy_adaptation_v1','calibrated_spell_cost_v1'):
+            if prepared['study_variant']=='calibrated_spell_cost_v1':
+                from scripts.kaggle.prepare_calibrated_spell_pilot import validate_protocol
+            else:
+                from scripts.kaggle.prepare_policy_adaptation_pilot import validate_protocol
             p=json.loads((root/'dataset/protocol.json').read_text());validate_protocol(p)
             if (not preflight.get('exact_resume_16_to_32')or not preflight.get('frozen_sources_verified')
                     or preflight.get('preparation_sha256')!=sha(root/'preparation.json')

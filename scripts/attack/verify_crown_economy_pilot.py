@@ -27,11 +27,14 @@ def audit_rewards(config, rows, trial):
     audit_economy(rows)
 
 
-def verify_crown(collected,prepared):
+def verify_crown(collected,prepared,*,calibrated=False):
     collected,prepared=Path(collected),Path(prepared)
     prep=json.loads((prepared/'preparation.json').read_text())
-    if prep.get('study_variant')!=VARIANT:raise ValueError('Wrong crown economy study')
-    p=json.loads((prepared/'dataset/protocol.json').read_text());validate_protocol(p)
+    validator=validate_protocol;variant=VARIANT
+    if calibrated:
+        from scripts.kaggle.prepare_calibrated_spell_pilot import validate_protocol as validator,VARIANT as variant
+    if prep.get('study_variant')!=variant:raise ValueError('Wrong crown economy study')
+    p=json.loads((prepared/'dataset/protocol.json').read_text());validator(p)
     result=verify(collected,prepared);audited=[]
     import torch
     for trial in p['cases']:

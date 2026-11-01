@@ -32,7 +32,10 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             except (ValueError,OSError):continue
             if not r.get('complete'):continue
             prep=json.loads((root/'preparation.json').read_text())
-            if prep.get('study_variant')=='policy_adaptation_v1':
+            if prep.get('study_variant')=='calibrated_spell_cost_v1':
+                from scripts.attack.verify_calibrated_spell_pilot import verify_calibrated
+                report=verify_calibrated(receipt.parent,root)
+            elif prep.get('study_variant')=='policy_adaptation_v1':
                 from scripts.attack.verify_policy_adaptation_pilot import verify_adaptation
                 report=verify_adaptation(receipt.parent,root)
             elif prep.get('study_variant')=='crown_economy_v1':

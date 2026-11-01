@@ -382,9 +382,54 @@ def render_policy_adaptation(reports,state):
     return '\n'.join(lines)
 
 
+def render_economy_experiments(reports,calibrated,adaptation):
+    lines=['# Текущий этап','',
+        '**PPO: исправляем расход эликсира и сравниваем исходные веса.**','',
+        '| Опыт | Вариант | Первый seed | Второй seed |','|---|---|---:|---:|']
+    studies=[('Штраф пустого спелла',calibrated,(422,423),
+              (('control','0,1 — контроль'),('neutral','0,3'),('medium','0,5'),('strong','1,0')),
+              'calibrated_spell_verified_20261102.json','calibrated_spell_summary_20261102.json')]
+    if adaptation:
+        studies.append(('Исходные веса',adaptation,(412,413),
+                        (('balanced','balanced'),('bank','Прежний BC'),('bc800','BC800'),('bc8000','BC8000')),
+                        'policy_adaptation_verified_20261101.json','policy_adaptation_summary_20261101.json'))
+    summaries=[];statuses=[]
+    for label,state,seeds,cases,proof_file,summary_file in studies:
+        stream=read(Path(state['root'])/'live_stream/progress.json')or{}
+        runs=stream.get('trials',{})if stream.get('kernel')==state['kernel']else{}
+        proof=read(reports/proof_file)or{}
+        complete=(proof.get('kernel')==state['kernel']and proof.get('pilot_steps_verified')==819200
+                  and {r['id']for r in proof.get('pilot_models',[])}=={f'pilot_{name}_s{seed}'for name,_ in cases for seed in seeds}
+                  and (proof.get('calibrated_spell_cost_verified')or proof.get('policy_adaptation_audit',{}).get('verified')))
+        for name,title in cases:
+            values=[]
+            for seed in seeds:
+                steps=runs.get(f'pilot_{name}_s{seed}',{}).get('steps',0)
+                values.append('100% проверено'if complete else f'≥{min(100,100*steps/102400):.1f}%'if steps else'нет счётчика')
+            lines.append(f"| {label} | {title} | {' | '.join(values)} |")
+        statuses.append(f"{label}: {state.get('status','подготовлено')}.")
+        summary=read(reports/summary_file)
+        if complete and summary and summary.get('kernel')==state['kernel']:summaries.append((label,summary))
+    lines+=['',*statuses,'','На каждый опыт — 8 прогонов по 102 400 шагов. Отсутствие счётчика не означает остановку GPU.','',
+        '**Найдено:** при полном запасе пустой Fireball получает +0,8 награды относительно ожидания; Zap +0,4. '
+        'Проверено в пустой арене. Штраф 0,5 меняет знак; улучшение игры ещё нужно измерить. '
+        '[Проверка и план опыта](reports/empty_spell_incentive_20261102.md).']
+    for label,summary in summaries:
+        lines+=['',f'**{label}: проверенный validation**','',
+                '| Вариант | Победы | Пустые спеллы, эликсир / матч |','|---|---:|---:|']
+        for row in summary['rows']:
+            lines.append(f"| {row['id']} | {row['wins']}/{row['games']} | {row['mean_empty_spell_elixir']:.2f} |")
+    lines+=['','Большой бюджет — после сравнения побед по семействам, защиты и полезных спеллов. '
+            'Реальные бои выключены; Kaggle проверяется раз в 20 минут.','',
+            '[План](plan_2.md) · [Предыдущие 360 матчей](reports/bank_fit_depth_decisions_20261101.md)','']
+    return '\n'.join(lines)
+
+
 def render(reports):
     reports=Path(reports)
     adaptation=read(reports/'policy_adaptation_training_20261101.json')
+    calibrated=read(reports/'calibrated_spell_training_20261102.json')
+    if calibrated:return render_economy_experiments(reports,calibrated,adaptation)
     if adaptation:return render_policy_adaptation(reports,adaptation)
     bank=read(reports/'bank_campaign_20261101.json')
     if bank:return render_bank_campaign(reports,bank)

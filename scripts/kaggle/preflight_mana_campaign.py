@@ -22,7 +22,8 @@ def child(path):
             assert row['hog_sight_mode'] == 'side_clip_v1'
             assert row['cannon_outside_center'] == 0 and row['cannon_center_only'] == 1
             assert row['tower_damage_reward_mode'] == 'all_damage'
-            assert row['tower_support_weight'] == .15 and row['spell_waste_weight'] == .1
+            assert row['tower_support_weight'] == trial['tower_support_weight']
+            assert row['spell_waste_weight'] == trial['spell_waste_weight']
             d = row['decision_economy']
             assert d['decisions'] > 0
             assert d['decisions'] == sum(d[k] for k in ('forced_wait', 'voluntary_wait', 'plays', 'invalid'))
