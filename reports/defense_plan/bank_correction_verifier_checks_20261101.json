@@ -1,0 +1,22 @@
+{
+  "schema": "bank-correction-verifier-checks-v1",
+  "actual_cpu_policies": 4,
+  "actual_cpu_updates": 8,
+  "common_scoring_paired_deltas_zero": true,
+  "production_cuda_verified": false,
+  "negative_history_fault_injections": [
+    {
+      "case": "wrong_update_number",
+      "rejected": true,
+      "reason": "Incomplete or nonfinite update history"
+    },
+    {
+      "case": "nonfinite_history",
+      "rejected": true,
+      "reason": "Incomplete or nonfinite update history"
+    }
+  ],
+  "technical_as_gpu_rejected": true,
+  "null_submission_rejected_before_credentials": true,
+  "verified_source_sha256": "226f710828e95a89bd0dc48275a83a105e5340fe2415282c6096c6ac361a8012"
+}

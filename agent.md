@@ -1,3 +1,11 @@
+## CURRENT paired verifier/submit gates implemented; GPU balanced/v25>=50percent
+
+Prior turn progress2c9fea1 pushed(pairedtraining+frozenNULL). New scripts/attack/verify_bank_correction_pair.py checksproduction8x8006400CUDA,receipt25files,bothinputpins/protocol/case/seeds/folds/source/weights/finitehistory,ownCPUmetricsagainsttraining,thenALLpoliciesonCOMMONcorrectionscurriculum. Preventincomparable4-skillcontrolvs5-skilltreatment averages. Technicalsmoke flagexplicit producesdifferent-schema8CPUupdateproof,notGPUcompletion. ActualfrozenNULL4policiesindependentlyscored;pairedcommondeltasallzero. Proof bank_correction_pair_null_verified_20261101.json + bank_correction_verifier_checks_20261101.json (historywrongnumber/inf injectionsrejected,technicalasGPUrejected).
+
+submit_prepared_pilot recognizes bank_correction_pair_v1 onlyif real5skilltreatment/nottechnical, pinned4case8CPUpreflight+independentverify. NULLroot rejectedbeforecredentials/API,pushmarkernotcreated. ProductionpositiveGPUsubmission/verificationNOTyettestedbecauseactualmixeddataisstillassembling; no newGPUjob.42targetlaunch/queue/collector/streamtestsPASS. Newrootmustactualfive-skillfrozenpreflightbeforeuse.
+
+Current3GPUunchanged: passiveSSEbalanced/v25>=50percent,continued>=25 atlastcheck; noartifactcompletionclaims. CPUsearchPID16758 +post17010confirmedalive;~65/10633preliminaryimprovements. DoNOTeditsearch/replay/verify_match/builder/physicswhileactive. Datasetpending postprocessorverification/replay. GoalACTIVE,no livegames/v25mutations/secrets. Finishowncommit/push.
+
 ## CURRENT paired BC training/package implemented; frozen null check PASS, not submitted
 
 Prior turn progress33871c2 pushed(auto correctionassembly). New train_bank_correction_pair.py pinscontrol4skills vsfull5skillcorrections,wholefolds352353/354,unchangedbasearrayprefix,sameparent/seed/update/KL. Casescontrol/corrections xKL.01/.1 x402403800=8runs6400BC0PPO;headsretained. ChosenparentoldBCretain001_s392 matchescounterfactualcontinuation. Technicalidentical protocolrequiresCPU--smoke; samebasecannotpassasrealcorrectiontreatment.

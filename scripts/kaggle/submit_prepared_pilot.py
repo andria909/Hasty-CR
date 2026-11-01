@@ -47,6 +47,20 @@ def submit(root,token_index,*,evaluation=False):
                     preflight.get('preparation_sha256')!=sha(root/'preparation.json') or
                     preflight.get('result_sha256')!=sha(root/'actual_preflight/result/result.json')):
                 raise ValueError('Verified BC-only frozen preflight required')
+        elif prepared.get('study_variant')=='bank_correction_pair_v1':
+            p=json.loads((root/'dataset/initialization_protocol.json').read_text())
+            if (prepared.get('technical_preflight_only')or p.get('technical_identical')or
+                    preflight.get('schema')!='bank-correction-pair-preflight-v1'or
+                    preflight.get('technical_identical')is not False or preflight.get('submission_allowed')is not True or
+                    not preflight.get('frozen_sources_verified')or preflight.get('smoke_runs')!=4 or
+                    preflight.get('supervised_updates')!=8 or preflight.get('environment_steps')!=0 or
+                    preflight.get('bootstrap_sha256')!=prepared['bootstrap_sha256']or
+                    preflight.get('preparation_sha256')!=sha(root/'preparation.json')or
+                    preflight.get('result_sha256')!=sha(root/'actual_preflight/result/result.json')):
+                raise ValueError('Real correction treatment and verified paired frozen preflight required')
+            from scripts.attack.verify_bank_correction_pair import verify
+            checked=verify(root,technical_smoke=True)
+            (root/'preflight_independent_verification.json').write_text(json.dumps(checked,indent=2)+'\n')
         elif not preflight.get('exact_resume_16_to_32')or not preflight.get('frozen_sources_verified'):
             raise ValueError('Verified frozen preflight required')
         if sha(root/'job/train.py')!=prepared['bootstrap_sha256']:raise ValueError('Prepared bootstrap changed')
