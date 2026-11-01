@@ -62,6 +62,18 @@ def submit(root,token_index,*,evaluation=False):
             from scripts.attack.verify_bank_correction_pair import verify
             checked=verify(root,technical_smoke=True)
             (root/'preflight_independent_verification.json').write_text(json.dumps(checked,indent=2)+'\n')
+        elif prepared.get('study_variant')=='policy_adaptation_v1':
+            from scripts.kaggle.prepare_policy_adaptation_pilot import validate_protocol
+            p=json.loads((root/'dataset/protocol.json').read_text());validate_protocol(p)
+            if (not preflight.get('exact_resume_16_to_32')or not preflight.get('frozen_sources_verified')
+                    or preflight.get('preparation_sha256')!=sha(root/'preparation.json')
+                    or preflight.get('bootstrap_sha256')!=prepared['bootstrap_sha256']
+                    or len(preflight.get('children',[]))!=4 or preflight.get('validation_games')!=48):
+                raise ValueError('Actual four-initializer PPO preflight required')
+            for trial,child in zip(p['cases'],preflight['children']):
+                expected=next(m for m in prepared['config']['models']if m['id']==trial['initial_id'])
+                if child.get('explicit_initial_model')!=expected or not child.get('exact_resume_16_to_32'):
+                    raise ValueError('Preflight assigned initialization differs')
         elif not preflight.get('exact_resume_16_to_32')or not preflight.get('frozen_sources_verified'):
             raise ValueError('Verified frozen preflight required')
         if sha(root/'job/train.py')!=prepared['bootstrap_sha256']:raise ValueError('Prepared bootstrap changed')

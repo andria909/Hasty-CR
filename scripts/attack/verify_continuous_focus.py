@@ -171,8 +171,14 @@ def verify(collected,prepared):
     audited_run=partial(audit_run,root,c,selected_initial,initial_contexts)
     pilots=[]
     seeds=protocol.get('pilot_seeds',(62,63));allow_full=c.get('allow_full_training',True)
+    assigned_initials=cfg.get('study_variant')=='policy_adaptation_v1'
+    if assigned_initials:
+        from scripts.kaggle.prepare_policy_adaptation_pilot import validate_protocol
+        validate_protocol(protocol)
+        if allow_full:raise ValueError('Initialization comparison does not automatically launch full training')
     for trial in protocol['cases']:
-        for seed in seeds:pilots.append(audited_run(f"pilot_{trial['id']}_s{seed}",trial,seed,102400))
+        initial_for_trial=(next(m for m in c['models']if m['id']==trial['initial_id'])if assigned_initials else selected_initial)
+        for seed in seeds:pilots.append(audit_run(root,c,initial_for_trial,initial_contexts,f"pilot_{trial['id']}_s{seed}",trial,seed,102400))
     selection=select_profiles(pilots,seeds=seeds)
     if selection!=json.loads((root/'selection.json').read_text())or result['full_gate_met']!=selection['gate_met']:
         raise ValueError('Pilot profile selection differs')

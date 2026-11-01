@@ -347,8 +347,45 @@ def render_bank_campaign(reports,campaign):
     return '\n'.join(lines)
 
 
+def render_policy_adaptation(reports,state):
+    stream=read(Path(state['root'])/'live_stream/progress.json')or{}
+    if stream.get('kernel')!=state['kernel']:stream=state.get('progress_snapshot',{})
+    runs=stream.get('trials',{})if stream.get('kernel')==state['kernel']else{}
+    proof=read(reports/'policy_adaptation_verified_20261101.json')or{}
+    names={f'pilot_{name}_s{seed}'for name in ('balanced','bank','bc800','bc8000')for seed in (412,413)}
+    complete=(proof.get('kernel')==state['kernel']and proof.get('pilot_steps_verified')==819200
+        and proof.get('policy_adaptation_audit',{}).get('verified')is True
+        and {r['id']for r in proof.get('pilot_models',[])}==names)
+    lines=['# Текущий этап','',
+        '**PPO после BC: четыре исходника, одинаковые атаки и награды, два новых seed.**','',
+        '| Исходник | Seed412 | Seed413 |','|---|---:|---:|']
+    for name,label in (('balanced','balanced'),('bank','Прежний BC'),('bc800','BC800'),('bc8000','BC8000')):
+        values=[]
+        for seed in (412,413):
+            row=runs.get(f'pilot_{name}_s{seed}',{})
+            values.append('100% проверено'if complete else f"≥{100*min(102400,row['steps'])/102400:.1f}%"if row.get('steps',0)>0 else'—')
+        lines.append(f"| {label} | {' | '.join(values)} |")
+    lines+=['',f"**Состояние:** {'все PPO-бюджеты и веса проверены'if complete else state.get('status','подготовлено')}.",
+        'План: 819 200 шагов среды, по 102 400 на каждый прогон. Это PPO на полных тренировочных играх; новых BC-обновлений нет.','',
+        '**Зачем:** проверить, улучшает ли обучение по исходам игр защиту после BC и сохраняет ли экономику. '
+        'Большое продолжение выбирается после результатов пилота.']
+    prior=read(reports/'bank_fit_depth_full_validation_20261101.json')or{}
+    if prior.get('schema')=='verified-fit-depth-full-games-v1'and prior.get('games_verified')==360:
+        lines+=['','**Предыдущая проверка в симуляторе:**','',
+            '| Обучение по примерам | Победы |','|---|---:|']
+        for r in prior['groups']:lines.append(f"| {r['case']} | {r['wins']}/144 |")
+        lines+=['','Те же 72 сценария повторяются для двух seed. BC8000 тратит около 23–24 эликсира на пустые спеллы за матч '
+            'против 10–11 у BC800. [Полные матчи и расход](reports/bank_fit_depth_decisions_20261101.md).']
+    lines+=['','**Реальные бои выключены.** Kaggle проверяется раз в 20 минут.','',
+        '[Протокол PPO](reports/policy_adaptation_design_20261101.md) · '
+        '[Разбор BC](reports/bank_fit_depth_diagnosis_20261101.md) · [План](plan_2.md)','']
+    return '\n'.join(lines)
+
+
 def render(reports):
     reports=Path(reports)
+    adaptation=read(reports/'policy_adaptation_training_20261101.json')
+    if adaptation:return render_policy_adaptation(reports,adaptation)
     bank=read(reports/'bank_campaign_20261101.json')
     if bank:return render_bank_campaign(reports,bank)
     crown=read(reports/'crown_economy_pilot_training_20261030.json')

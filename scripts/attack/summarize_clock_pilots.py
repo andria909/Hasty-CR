@@ -12,7 +12,9 @@ def summarize(root,verified=None):
     protocol=json.loads((root/'dataset/protocol.json').read_text());rows=[]
     if verified is None:
         variant=protocol.get('study_variant')
-        if variant=='crown_economy_v1':
+        if variant=='policy_adaptation_v1':
+            from scripts.attack.verify_policy_adaptation_pilot import verify_adaptation as verify_study
+        elif variant=='crown_economy_v1':
             from scripts.attack.verify_crown_economy_pilot import verify_crown as verify_study
         elif variant=='bank_counterfactual_v1':
             from scripts.attack.verify_bank_teacher_pilot import verify as verify_study
@@ -79,7 +81,10 @@ def summarize(root,verified=None):
                     after=score_checkpoint(root/'collected'/r['checkpoint'],root/'dataset')))
 
         row=dict(id=trial['id'],**stats(records))
-        if protocol.get('study_variant') in ('mana_decision_v1','bank_counterfactual_v1','crown_economy_v1'):
+        if protocol.get('study_variant')=='policy_adaptation_v1':
+            before=json.loads((root/'collected'/f"{trial['initial_id']}_reference.json").read_text())
+            row.update(initial_id=trial['initial_id'],initial_reference=stats(before['validation']['records']))
+        if protocol.get('study_variant') in ('mana_decision_v1','bank_counterfactual_v1','crown_economy_v1','policy_adaptation_v1'):
             totals=Counter()
             opportunities={}
             for record in records:
@@ -88,7 +93,7 @@ def summarize(root,verified=None):
                 for card,count in d['cards'].items():
                     opportunities.setdefault(card,Counter()).update(count)
             n=totals['decisions']
-            row.update(experiment=protocol['experiment'],economy_decisions=dict(totals),
+            row.update(experiment='ppo_initialization'if protocol.get('study_variant')=='policy_adaptation_v1'else protocol['experiment'],economy_decisions=dict(totals),
                 card_opportunities={card:dict(count)for card,count in opportunities.items()},
                 available_below4_fraction=totals['available_below4']/n,
                 voluntary_wait_fraction=totals['voluntary_wait']/n,
@@ -150,7 +155,8 @@ def summarize(root,verified=None):
     if initial!='parent':
         source=json.loads((root/'collected'/f'{initial}_reference.json').read_text())
         initial_reference=dict(id=initial,**stats(source['validation']['records']))
-    return dict(schema='verified-bank-teacher-pilot-summary-v1'if protocol.get('study_variant')=='bank_counterfactual_v1'else
+    return dict(schema='verified-policy-adaptation-pilot-summary-v1'if protocol.get('study_variant')=='policy_adaptation_v1'else
+        'verified-bank-teacher-pilot-summary-v1'if protocol.get('study_variant')=='bank_counterfactual_v1'else
         'verified-mana-decision-pilot-summary-v1'if protocol.get('study_variant')=='mana_decision_v1'else
         'verified-pending-inputs-pilot-summary-v1'if protocol.get('study_variant')=='own_pending_inputs_v1'else
         'verified-history-pilot-validation-summary-v1'if history else
@@ -181,6 +187,13 @@ def render(summary):
     for row in references+summary['rows']:
         air=row['by_family']['air'];golem=row['by_family']['golem'];cards=row['mean_card_plays']
         lines.append(f"| {row['id']} | {row['wins']}/{row['games']} | {air['wins']}/{air['games']} | {golem['wins']}/{golem['games']} | {cards.get('musketeer',0):.2f} | {cards.get('hog_rider',0):.2f} |")
+    if summary['rows']and 'initial_reference'in summary['rows'][0]:
+        lines+=['','## PPO относительно собственного исходника','',
+            '| Исходник | До PPO | После PPO, два seed | Изменение доли побед |','|---|---:|---:|---:|']
+        for row in summary['rows']:
+            before=row['initial_reference'];delta=row['wins']/row['games']-before['wins']/before['games']
+            lines.append(f"| {row['id']} | {before['wins']}/{before['games']} | {row['wins']}/{row['games']} | {delta*100:+.1f} п.п. |")
+        lines+=['','У каждой строки свой закреплённый исходник. Рейтинг начальных весов не заменяет его при запуске PPO.']
     if summary['rows'] and 'economy_decisions' in summary['rows'][0]:
         lines += ['', '## Расход эликсира и ожидание', '',
             '| Профиль | Доступно <4 | Добровольный WAIT | Пустые спеллы, эликсир / матч | Потери HP (0–3) |',
