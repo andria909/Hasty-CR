@@ -2,7 +2,7 @@
   "schema": "group-entropy-training-v1",
   "root": "tmp/kaggle/group_entropy_20261102",
   "kernel": "andreiperelaiko/hastycr-group-entropy1102",
-  "status": "RUNNING; 2 \u00d7 Tesla T4 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u044b, \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442\u0441\u044f \u043d\u0430\u0447\u0430\u043b\u044c\u043d\u0430\u044f \u043e\u0446\u0435\u043d\u043a\u0430",
+  "status": "training_steps_observed",
   "submitted": true,
   "pilot_target_steps": 819200,
   "live_games": false,
@@ -15,7 +15,7 @@
     "versionNumber": 1,
     "kernelId": 142179386
   },
-  "last_local_sync_ns": 1793569855020045000,
+  "last_local_sync_ns": 1793570273234850000,
   "cuda_observed": {
     "event": "CUDA_READY",
     "gpus": [
@@ -27,11 +27,26 @@
     "kernel": "andreiperelaiko/hastycr-group-entropy1102",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
-    "error_type": "ConnectionError",
-    "http_status": null,
+    "stream_state": "connected",
     "reconnect_attempt": 0,
-    "checked_host_ns": 1793569150124228000
+    "checked_host_ns": 1793570273087945000,
+    "trials": {
+      "pilot_control_s432": {
+        "update": 77,
+        "steps": 78848,
+        "target_steps": 102400,
+        "percent": 77.0,
+        "remote_log_seconds": 1263.273596626
+      },
+      "pilot_spatial03_s432": {
+        "update": 76,
+        "steps": 77824,
+        "target_steps": 102400,
+        "percent": 76.0,
+        "remote_log_seconds": 1259.478321885
+      }
+    }
   },
-  "completed_log_events": []
+  "completed_log_events": [],
+  "actual_training_steps_confirmed": true
 }

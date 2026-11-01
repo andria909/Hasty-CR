@@ -1,3 +1,7 @@
+## CURRENT 00:57 Nov2: third series actual PPO counters confirmed
+
+Scheduled collector andreiperelaiko/hastycr-group-entropy1102 RUNNING00:57:09; existingSSE reconnected, control432>=70%,spatial03432>=71%. Thusall3series actualPPOupdates confirmed, no resubmit. Spellcontrol/neutral423>=93%;adaptationlast62.25%total. Refreshed3states/donefromlocalstreams. Previous37ce73d wasactualrewarddiagnosticprogress; thisturnverifiedwait/newcounterevidence. Same12observerslive. Nextremotechecks01:09adaptation,01:10spell,01:17entropy. No newweightsverified/no winners. GoalACTIVE; waitresultsbeforefurthertrainingchanges, preservev25/secrets/nolive.
+
 ## CURRENT 2 November: measured empty-spell / crown-only incentive interaction
 
 New actualdiagnostic `probe_crown_spell_incentive.py`:24pairedidleTRAINbranches (Fireball/Zap xempty/king/left x4rewardprofiles), naturalfullbank,1paidcast,30srefill,realhitUID/nonlethal/resolution/kingactivationchecked. Emptyweight.1→.5 reversesemptycast, butkingFireball remains+1.300586vsWAIT (=1.2overflowavoidance+.100586damage);Zap+.627832. Extra dormantking.4 gives−.299414/−.172168; princesstower unaffecteduntilseparatecrownpenalty. Exactrewarddecomposition<1e−7. Reports crown_spell_incentive_20261102.json/MD. NOTlearnedpolicy/winrateevidence/nochangesactivejobs.

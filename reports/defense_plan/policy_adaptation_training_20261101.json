@@ -15,7 +15,7 @@
   "automatic_full_training": false,
   "observer_poll_seconds": 1200,
   "created_ns": 1793564854733120000,
-  "last_local_sync_ns": 1793569855017073000,
+  "last_local_sync_ns": 1793570273233880000,
   "cuda_ready": true,
   "gpus": [
     "Tesla T4",
@@ -25,9 +25,9 @@
     "kernel": "vertel0/hastycr-adapt-ppo1101",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "connected",
-    "reconnect_attempt": 2,
-    "checked_host_ns": 1793569735966503000,
+    "stream_state": "interrupted",
+    "reconnect_attempt": 3,
+    "checked_host_ns": 1793569855969257000,
     "trials": {
       "pilot_bank_s412": {
         "update": 100,
@@ -71,7 +71,9 @@
         "percent": 49.0,
         "remote_log_seconds": 4867.186520781
       }
-    }
+    },
+    "error_type": "ConnectionError",
+    "http_status": null
   },
   "actual_training_steps_confirmed": true,
   "cuda_observed": {
