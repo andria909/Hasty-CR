@@ -15,6 +15,27 @@ import tarfile
 from types import SimpleNamespace
 
 
+def variant_child_script(variant):
+    filename={
+        'bank_counterfactual_v1':'preflight_bank_teacher.py',
+        'mana_decision_v1':'preflight_mana_campaign.py',
+        'policy_adaptation_v1':'preflight_policy_adaptation_pilot.py',
+        'calibrated_spell_cost_v1':'preflight_policy_adaptation_pilot.py',
+        'group_entropy_v1':'preflight_group_entropy_pilot.py',
+    }.get(variant,Path(__file__).name)
+    return Path(__file__).absolute().with_name(filename)
+
+
+def validate_specialized_preflight(entry,report,variant):
+    if variant not in ('policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1'):return
+    trial=entry['selected']['trial']
+    expected=next(m for m in entry['config']['models']if m['id']==trial['initial_id'])
+    if report.get('explicit_initial_model')!=expected or not report.get('economy_metrics_verified'):
+        raise ValueError('Assigned policy and economy preflight required for full run')
+    if variant=='group_entropy_v1'and report.get('spatial_entropy_verified')!=trial['spatial_entropy_weight']:
+        raise ValueError('Actual spatial entropy preflight required for full run')
+
+
 def set_flag(args, flag, value):
     result=list(args)
     index=result.index(flag)
@@ -159,16 +180,14 @@ def preflight(prepared,output):
         spec=dict(root=str(root),inputs=str(inputs),trial=entry['selected']['trial'],config=entry['config'],
             initial_selection=json.loads((inputs/'initial_selection.json').read_text()),bootstrap=str(inputs/'train.py'))
         path=root/'spec.json';path.write_text(json.dumps(spec,indent=2)+'\n')
-        child_script=Path(__file__).absolute()
         variant=json.loads((inputs/'protocol.json').read_text()).get('study_variant')
-        if variant=='bank_counterfactual_v1':
-            child_script=child_script.with_name('preflight_bank_teacher.py')
-        elif variant=='mana_decision_v1':
-            child_script=child_script.with_name('preflight_mana_campaign.py')
+        child_script=variant_child_script(variant)
         with(root/'run.log').open('x')as log:
             subprocess.run([sys.executable,str(child_script),'--child',str(path)],cwd=project,
                 env=dict(os.environ,PYTHONPATH=str(project)),stdout=log,stderr=subprocess.STDOUT,check=True)
-        results.append(json.loads((root/'child_preflight.json').read_text()))
+        child_result=json.loads((root/'child_preflight.json').read_text())
+        validate_specialized_preflight(entry,child_result,variant)
+        results.append(child_result)
     result=dict(frozen_sources_verified=True,exact_resume_16_to_32=True,children=results,
         validation_games=24,actual_cuda=False,quality_accepted=False,
         preparation_sha256=sha(prepared/'preparation.json'),bootstrap_sha256=prep['bootstrap_sha256'],
@@ -194,6 +213,9 @@ def enable_submission(prepared):
         raise ValueError('Global selection changed before submission')
     for name,digest in prep['config']['pins'].items():
         if sha(prepared/'dataset'/name)!=digest:raise ValueError('Full input changed after preflight')
+    for index,entry in enumerate(prep['children']):
+        variant=json.loads((prepared/'dataset'/f'bundle_{index}'/'protocol.json').read_text()).get('study_variant')
+        validate_specialized_preflight(entry,report['children'][index],variant)
     metadata=dict(id=prep['kernel'],title=prep['kernel'].split('/')[-1],code_file='train.py',
         language='python',kernel_type='script',is_private=True,enable_gpu=True,enable_internet=False,
         dataset_sources=[prep['config']['owner']+'/'+prep['config']['slug']],competition_sources=[],kernel_sources=[])

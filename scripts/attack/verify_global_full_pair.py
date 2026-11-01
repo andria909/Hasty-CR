@@ -3,8 +3,35 @@ import argparse
 import json
 from pathlib import Path
 
-from scripts.attack.select_pilot_pool import select, verify_study
+from scripts.attack.select_pilot_pool import select, verify_study, ECONOMY_VARIANTS
 from scripts.attack.verify_continuous_focus import verify as verify_pilot, audit_run, sha
+
+
+def assigned_initial(config,pilot,trial,variant):
+    identity=trial['initial_id']if variant in ECONOMY_VARIANTS else pilot['initial_selection']['selected']
+    return next(m for m in config['models']if m['id']==identity)
+
+
+def audit_full_economy(config,blob,metrics_path,trial,variant):
+    from scripts.attack.verify_crown_economy_pilot import audit_rewards
+    from scripts.attack.verify_spell_waste_pilot import audit_reward
+    from scripts.attack.verify_group_entropy_pilot import audit_entropy
+    keys=('crown_only_weight','dormant_king_weight','spell_waste_weight','tower_support_weight')
+    if any(blob['config'].get(k)!=trial[k] or config.get(k)!=trial[k]for k in keys):
+        raise ValueError('Full checkpoint reward coefficients differ')
+    weight=trial.get('spatial_entropy_weight',1.)
+    if config.get('spatial_entropy_weight',1.)!=weight or blob['config'].get('spatial_entropy_weight',1.)!=weight:
+        raise ValueError('Full checkpoint spatial entropy differs')
+    episodes=updates=0
+    for line in Path(metrics_path).read_text().splitlines():
+        metric=json.loads(line);updates+=1
+        if variant=='group_entropy_v1':audit_entropy(metric['entropy_components'],weight)
+        rows=metric['episodes']+metric.get('validation',{}).get('records',[])
+        if rows:
+            audit_rewards(config,rows,trial)
+            audit_reward(config,rows,trial['spell_waste_weight']);episodes+=len(rows)
+    if not episodes or not updates:raise ValueError('Missing full economy measurements')
+    return dict(updates=updates,episode_records=episodes,spatial_entropy_weight=weight)
 
 
 def audit_training_execution(config,blob,metrics_path):
@@ -82,7 +109,8 @@ def verify(collected, prepared):
         if pilot != json.loads((dataset/'pilot_verified.json').read_text()):
             raise ValueError('Selected pilot proof changed')
         trial = child['selected']['trial']
-        initial = next(m for m in c['models'] if m['id'] == pilot['initial_selection']['selected'])
+        study_variant=json.loads((dataset/'protocol.json').read_text()).get('study_variant')
+        initial = assigned_initial(c,pilot,trial,study_variant)
         reference = json.loads((origin/'collected/parent_reference.json').read_text())
         contexts = [(r['scenario_id'],r['episode_seed'],r['match_seed']) for r in reference['validation']['records']]
         child_root = root/child['remote_output']
@@ -114,7 +142,11 @@ def verify(collected, prepared):
                 or not all(torch.isfinite(t).all() for t in blob['state_dict'].values())):
             raise ValueError('Invalid selected full weights')
         execution,checked=audit_training_execution(config,blob,child_root/run_id/'metrics.jsonl')
-        study_variant=json.loads((dataset/'protocol.json').read_text()).get('study_variant')
+        economy_audit=None
+        if study_variant in ECONOMY_VARIANTS:
+            from scripts.attack.evaluation_execution import HOG_CLIPPED
+            if execution!=HOG_CLIPPED:raise ValueError('Full economy execution differs')
+            economy_audit=audit_full_economy(config,blob,child_root/run_id/'metrics.jsonl',trial,study_variant)
         if study_variant in ('mana_decision_v1','bank_counterfactual_v1'):
             from scripts.attack.verify_tactical_starts_pilot import audit_exposure
             from scripts.attack.verify_mana_campaign import audit_economy
@@ -136,6 +168,7 @@ def verify(collected, prepared):
             family_guard=row['selected_with_family_guard'],selection_score=row['validation']['selection_score']))
         if execution is not None:
             models[-1].update(training_execution=execution,training_geometry_records_verified=checked)
+        if economy_audit is not None:models[-1]['economy_audit']=economy_audit
     return dict(schema='verified-global-selected-full-pair-v1',kernel=prep['kernel'],
         full_steps_verified=8192000,pilot_steps_repeated=0,models=models,
         ready_for_independent_evaluation=all(m['family_guard'] for m in models),

@@ -1,3 +1,11 @@
+## CURRENT 2 November: full-budget path fixed for assigned initializers and entropy/reward audits
+
+Previousa868876 added pooled selection. Found concrete futurefull bug: verify_global_full_pair expected globallychoseninitial even when frozen adaptationrun correctlyusestrial.initial_id. Fixed assigned_initial for3economyvariants; legacy unchanged. Fullverification nowauditsactualcrown+emptyspellaccounting, checkpointcoefficients andperupdateentropy; currentpilotpackages untouched.
+
+FullCPUpreflight nowroutes to assigned-policy/mana helpers or groupentropyhelper; metadataenable requires specializedactualinitial/economy/entropy evidence, notgeneric32stepresumealone. Actual3frozencontrollers isolated withoutASTchanges; capturedFULL4096000commands confirmed assignedBC800SHA,spell.1/.5/.1,entropy1/1/.3,assignedCUDAdevices. Existingactual4caseCPUpreflightproofs checkedforcorrespondingcases. Report full_economy_command_audit_20261102.json. Thisiscommand/provenanceaudit, NOTnewfulltraining or fabricatedeligiblepilotselection. Tests full_economy_contract includesrealenvstep andrejectwrongreward/checkpointentropy/objective/accounting.
+
+Existingalljobs/observers unchanged; firstadaptationbank412score.145833/balanced412.0625bothfamily_guardfalse inactualSSE. Scoresarenotwinrates; othercasesawaitresults. Nextscheduledremotechecks00:49adaptation/~00:50spell/~00:57entropy; obey20min. GoalACTIVE; no goodnewmodelpromoted, fulltest/tournamentremain. Finishowncommitpush; then collectactualpilotresults. Preservev25,secrets,no live.
+
 ## CURRENT 2 November: global full-budget selector supports all three PPO series
 
 Previous turn4b80535 pushed third accepted dual-T4 entropy pilot. This turn `select_pilot_pool.py` now dispatches actual specialized verifiers for adaptation/calibrated/entropy; old generic verifier alone was insufficient. New economy screening preserves per-family floor AND requires each seed total+defense wins nondecreasing versus own initial (adaptation) or pairedcontrol (coefficient studies). HP/waste/Fireball remain detailed diagnostics; these descriptive repeated validation results are NOT independent significance/live acceptance.
