@@ -1,0 +1,70 @@
+{
+  "schema": "bank-cache-equivalence-v1",
+  "old_root": "tmp/kaggle/bank_progress_preflight_20261101",
+  "new_root": "tmp/kaggle/bank_cached_preflight_20261101",
+  "runs": [
+    {
+      "id": "retain01_s392",
+      "all_tensors_bit_exact": true,
+      "tensors": 24,
+      "update_history_exact": true,
+      "all_metrics_exact": true,
+      "old_policy_sha256": "946d2bec6f26d088c927ec6dde77feee5e52882ec85bcffbebec2b8faa2cbe4e",
+      "new_policy_sha256": "d7c436ae208bfcb1f22d8786966a50a2c5061d165925243e9c9dc6867b337551"
+    },
+    {
+      "id": "retain001_s392",
+      "all_tensors_bit_exact": true,
+      "tensors": 24,
+      "update_history_exact": true,
+      "all_metrics_exact": true,
+      "old_policy_sha256": "7c793d5fd1266a6a4454ff263133d71a9626dd9a70561e0bc8561458cd73a05d",
+      "new_policy_sha256": "d825b2793d30c1911afc4f51df2771a1da37ac546f48959d7ffef04a2429f0e4"
+    },
+    {
+      "id": "retain0_s392",
+      "all_tensors_bit_exact": true,
+      "tensors": 24,
+      "update_history_exact": true,
+      "all_metrics_exact": true,
+      "old_policy_sha256": "c71558ef1e051b632bf89a07db5a57e63f3b4fb4a2118833ab665430272a5880",
+      "new_policy_sha256": "879e44debdbd8cefb47d8f4d65a8cbba2ee02494731011016fa415d95006daed"
+    },
+    {
+      "id": "zero01_s392",
+      "all_tensors_bit_exact": true,
+      "tensors": 24,
+      "update_history_exact": true,
+      "all_metrics_exact": true,
+      "old_policy_sha256": "211d066becfce8079d51b8bfcd9e2fd7850a46ac73742591f36e31d84c50123a",
+      "new_policy_sha256": "9d6219ba6305969fd5400b54ad59fa24c9efc57b2adca8b2c8bc690bb9f98df6"
+    }
+  ],
+  "updates_per_run": 2,
+  "device": "cpu",
+  "gpu_speedup_measured": false,
+  "old_preflight_sha256": "51eef5a083e2559a150562842122ee3689a439f572277af0a58cbd3ed6e9482d",
+  "new_preflight_sha256": "aa82a57d5b21bedbec7edada66db658049a5d3eac3fbb369013b4ea3aece0e5b",
+  "cached_preflight_timing": {
+    "schema": "bank-initialization-preflight-v1",
+    "frozen_sources_verified": true,
+    "smoke_runs": 4,
+    "supervised_updates": 8,
+    "environment_steps": 0,
+    "bootstrap_sha256": "636981e35077270ae0f0b78409af57f2124c42bf9f9adab23d139577c4d2f375",
+    "preparation_sha256": "2c48ae0c7736746a75339d932be3d4b2fb12fceccc3dc162275630cb07ebfb0d",
+    "result_sha256": "30916d79de5e57e1276824688daf20d9443704f544ae13961f14d241e04e4790",
+    "actual_cuda": false,
+    "quality_accepted": false,
+    "wall_seconds": 54.731553166988306
+  },
+  "microbenchmark": {
+    "dataset": "data/mixed_bank_skills_margin_safe_spells_20261030/examples.npz",
+    "lookups": 32,
+    "repeated_npz_seconds": 0.7014775830029976,
+    "load_all_once_seconds": 0.030465500021819025,
+    "cached_index_seconds": 8.500006515532732e-06,
+    "nbytes": 55075480
+  },
+  "scope": "Exact 4-case CPU update equivalence; dataset lookup microbenchmark is not end-to-end GPU throughput"
+}

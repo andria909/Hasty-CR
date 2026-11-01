@@ -1,0 +1,30 @@
+{
+  "positive_verified_games": 216,
+  "negative_checks": [
+    {
+      "case": "missing_game",
+      "rejected": true,
+      "reason": "Exactly72 balanced validation games required"
+    },
+    {
+      "case": "duplicate_seed",
+      "rejected": true,
+      "reason": "Every validation game requires a distinct explicit seed"
+    },
+    {
+      "case": "unpaired_context",
+      "rejected": true,
+      "reason": "Unpaired match contexts"
+    },
+    {
+      "case": "false_win_total",
+      "rejected": true,
+      "reason": "Stored score differs from actual matches"
+    },
+    {
+      "case": "bad_physics",
+      "rejected": true,
+      "reason": "Physical execution contract differs"
+    }
+  ]
+}

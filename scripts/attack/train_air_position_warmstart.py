@@ -70,7 +70,10 @@ def train(data,initial,output,device='cuda:0',updates=200,kl_weight=.1,seed=112,
         contract=pending_contract;num_planes=24;num_scalars=313
     elif manifest.get('pending_inputs'):
         raise ValueError('Pending dataset requires explicit pending-inputs option')
-    arrays=np.load(raw,allow_pickle=False)
+    # NpzFile.__getitem__ decompresses an entire member on every access.
+    # Slot augmentation indexes these arrays for each example, so load once.
+    with np.load(raw,allow_pickle=False) as archive:
+        arrays={name:archive[name] for name in ('planes','scalars','masks','success_masks')}
     planes=torch.as_tensor(arrays['planes'],device=device,dtype=torch.float32)
     scalars=torch.as_tensor(arrays['scalars'],device=device,dtype=torch.float32)
     masks=torch.as_tensor(arrays['masks'],device=device,dtype=torch.bool)

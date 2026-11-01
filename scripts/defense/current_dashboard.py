@@ -210,7 +210,20 @@ def render_bank_campaign(reports,campaign):
     if previous and previous.get('episodes_verified')==384:
         row=previous['ranking'][0]
         lines+=['',f"**Прежний BC, локальная проверка:** лучший вариант {row['case']} — {row['safe']}/{row['episodes']} защит без урона. "
-            '[Все варианты](reports/bank_previous_behavior_20261101.md). Полный validation запущен отдельно.']
+            '[Все варианты](reports/bank_previous_behavior_20261101.md).']
+    full=read(reports/'bank_full_validation_previous_20261101.json')
+    if full and full.get('schema')=='verified-bank-full-validation-v1' and full.get('episodes_verified')==216:
+        lines+=['','**Прежние веса, полные матчи в симуляторе:**','',
+            '| Модель | Победы на одинаковых 72 сценариях |','|---|---:|']
+        for row in full['models']:
+            lines.append(f"| {row['label']} | {row['wins']}/{row['games']} — {100*row['wins']/row['games']:.1f}% |")
+        lines+=['','Это validation, не реальные бои. '
+            'Прежний BC уменьшил пустые спеллы, но потерял победы; на большой бюджет не отобран. '
+            '[Карты и экономика](reports/bank_full_validation_previous_20261101.md).']
+    captured=read(reports/'bank_match_states_20261101.json')
+    if captured and captured.get('snapshots_and_train_only_verified'):
+        lines+=['',f"**Следующий шаг:** собраны {captured['states']} воспроизводимых моментов ожидания из "
+            f"{captured['games']} тренировочных матчей. Сравниваем WAIT с постановкой защиты; верных меток пока нет."]
     lines+=['','Каждая серия: 4 способа инициализации × 2 seed × 800 обновлений. '
         'Это BC на локальных демонстрациях, не PPO и не игровой винрейт. Проценты — только подтверждённые обновления.','',
         '**Проверка поведения:** замкнутая защита шара с поддержкой при 1350/2025 мс; '
