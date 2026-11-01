@@ -31,6 +31,7 @@ def protocol(base,corrections,initial,technical_identical=False):
     else:
         m=json.loads((Path(corrections)/'manifest.json').read_text())
         if (set(m['skills'])!=BASE_SKILLS|{'onpolicy_defense_response'}or
+                m.get('correction_label_mode')!='outcome_first_pareto_v1'or
                 m.get('base_manifest_sha256')!=datasets['control']['manifest_sha256']or
                 m.get('correction_examples',0)<3 or
                 any(m.get('correction_counts_by_fold',{}).get(str(f),0)<1 for f in (352,353,354))):
