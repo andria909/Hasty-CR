@@ -15,32 +15,44 @@
     "versionNumber": 1,
     "kernelId": 142176468
   },
-  "last_local_sync_ns": 1793569044211364000,
+  "last_local_sync_ns": 1793569855019560000,
   "progress_snapshot": {
     "kernel": "andriashadrin/hastycr-spell-cost1102",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
+    "stream_state": "connected",
     "reconnect_attempt": 1,
-    "checked_host_ns": 1793568809104351000,
+    "checked_host_ns": 1793569852110559000,
     "trials": {
       "pilot_neutral_s422": {
-        "update": 99,
-        "steps": 101376,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 99.0,
-        "remote_log_seconds": 1358.977607477
+        "percent": 100.0,
+        "remote_log_seconds": 1768.648061301
       },
       "pilot_control_s422": {
-        "update": 99,
-        "steps": 101376,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 99.0,
-        "remote_log_seconds": 1338.070378682
+        "percent": 100.0,
+        "remote_log_seconds": 1755.024366334
+      },
+      "pilot_control_s423": {
+        "update": 64,
+        "steps": 65536,
+        "target_steps": 102400,
+        "percent": 64.0,
+        "remote_log_seconds": 2451.240945006
+      },
+      "pilot_neutral_s423": {
+        "update": 62,
+        "steps": 63488,
+        "target_steps": 102400,
+        "percent": 62.0,
+        "remote_log_seconds": 2449.703072213
       }
-    },
-    "error_type": "SSLError",
-    "http_status": null
+    }
   },
   "actual_training_steps_confirmed": true,
   "cuda_observed": {
@@ -49,5 +61,21 @@
       "Tesla T4",
       "Tesla T4"
     ]
-  }
+  },
+  "completed_log_events": [
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_control_s422",
+      "score": 0.24305555555555552,
+      "family_guard": false,
+      "remote_log_seconds": 1758.311291897
+    },
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_neutral_s422",
+      "score": 0.20833333333333331,
+      "family_guard": false,
+      "remote_log_seconds": 1769.599537104
+    }
+  ]
 }

@@ -15,7 +15,7 @@
   "automatic_full_training": false,
   "observer_poll_seconds": 1200,
   "created_ns": 1793564854733120000,
-  "last_local_sync_ns": 1793569044210010000,
+  "last_local_sync_ns": 1793569855017073000,
   "cuda_ready": true,
   "gpus": [
     "Tesla T4",
@@ -25,9 +25,9 @@
     "kernel": "vertel0/hastycr-adapt-ppo1101",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
+    "stream_state": "connected",
     "reconnect_attempt": 2,
-    "checked_host_ns": 1793568721972476000,
+    "checked_host_ns": 1793569735966503000,
     "trials": {
       "pilot_bank_s412": {
         "update": 100,
@@ -44,22 +44,34 @@
         "remote_log_seconds": 3109.045477306
       },
       "pilot_bank_s413": {
-        "update": 72,
-        "steps": 73728,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 72.0,
-        "remote_log_seconds": 3917.423904358
+        "percent": 100.0,
+        "remote_log_seconds": 4505.348665253
       },
       "pilot_balanced_s413": {
-        "update": 62,
-        "steps": 63488,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 62.0,
-        "remote_log_seconds": 3913.787148317
+        "percent": 100.0,
+        "remote_log_seconds": 4581.986301485
+      },
+      "pilot_bc8000_s412": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 4773.86981952
+      },
+      "pilot_bc800_s412": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 4867.186520781
       }
-    },
-    "error_type": "SSLError",
-    "http_status": null
+    }
   },
   "actual_training_steps_confirmed": true,
   "cuda_observed": {
@@ -68,5 +80,35 @@
       "Tesla T4",
       "Tesla T4"
     ]
-  }
+  },
+  "completed_log_events": [
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_bank_s412",
+      "score": 0.14583333333333334,
+      "family_guard": false,
+      "remote_log_seconds": 3096.188815749
+    },
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_balanced_s412",
+      "score": 0.0625,
+      "family_guard": false,
+      "remote_log_seconds": 3110.205910115
+    },
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_bank_s413",
+      "score": 0.19444444444444442,
+      "family_guard": false,
+      "remote_log_seconds": 4506.364806147
+    },
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_balanced_s413",
+      "score": 0.10416666666666667,
+      "family_guard": false,
+      "remote_log_seconds": 4583.00691792
+    }
+  ]
 }

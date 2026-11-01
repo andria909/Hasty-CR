@@ -1,3 +1,7 @@
+## CURRENT 00:51 November2: scheduled observers revalidated RUNNING and new real counters
+
+Previous turnf758b67 was progress (full-budget initializer/coefficients fixed). This turn verified wait plus new evidence: existing collectors independently polled adaptationRUNNING00:48:56 and spellRUNNING00:50:21. Reconnected SSE adaptation balanced/bank BOTHseeds100%,bc800/bc8000firstseed>=49%;spellcontrol/neutralfirst100%,second>=61/60%. All6completed logevents family_guardfalse; scoresnotwinrates, weightsnotdownloaded/verifiedyet. Preservealljobs, noresubmits. Raw snapshot reports/defense_plan/economy_interim_20261102_0051.json; state+doneupdated. ThirdlastRUNNING00:37,2T4confirmed,noPPOcounteryet; nextscheduledpoll~00:57/stream~00:59. Othersnext~01:09/01:10. No newremotequeriesbeyondexisting20minobservers. GoalACTIVE; no candidatesqualified, full/test/tournamentpending. Continue fromactualresults; don't add unrelated code whilewaiting. Existing12observersincludingselector22213remainlive.
+
 ## CURRENT 2 November: full-budget path fixed for assigned initializers and entropy/reward audits
 
 Previousa868876 added pooled selection. Found concrete futurefull bug: verify_global_full_pair expected globallychoseninitial even when frozen adaptationrun correctlyusestrial.initial_id. Fixed assigned_initial for3economyvariants; legacy unchanged. Fullverification nowauditsactualcrown+emptyspellaccounting, checkpointcoefficients andperupdateentropy; currentpilotpackages untouched.

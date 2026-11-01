@@ -1,0 +1,180 @@
+{
+  "schema": "economy-interim-log-observation-v1",
+  "observed_ns": 1793569855020174000,
+  "studies": [
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "remote_status": "RUNNING",
+      "remote_checked_host_ns": 1793569736445512000,
+      "progress": {
+        "kernel": "vertel0/hastycr-adapt-ppo1101",
+        "source": "kaggle_live_log_stream",
+        "trainers": {},
+        "stream_state": "connected",
+        "reconnect_attempt": 2,
+        "checked_host_ns": 1793569735966503000,
+        "trials": {
+          "pilot_bank_s412": {
+            "update": 100,
+            "steps": 102400,
+            "target_steps": 102400,
+            "percent": 100.0,
+            "remote_log_seconds": 3091.347182936
+          },
+          "pilot_balanced_s412": {
+            "update": 100,
+            "steps": 102400,
+            "target_steps": 102400,
+            "percent": 100.0,
+            "remote_log_seconds": 3109.045477306
+          },
+          "pilot_bank_s413": {
+            "update": 100,
+            "steps": 102400,
+            "target_steps": 102400,
+            "percent": 100.0,
+            "remote_log_seconds": 4505.348665253
+          },
+          "pilot_balanced_s413": {
+            "update": 100,
+            "steps": 102400,
+            "target_steps": 102400,
+            "percent": 100.0,
+            "remote_log_seconds": 4581.986301485
+          },
+          "pilot_bc8000_s412": {
+            "update": 49,
+            "steps": 50176,
+            "target_steps": 102400,
+            "percent": 49.0,
+            "remote_log_seconds": 4773.86981952
+          },
+          "pilot_bc800_s412": {
+            "update": 49,
+            "steps": 50176,
+            "target_steps": 102400,
+            "percent": 49.0,
+            "remote_log_seconds": 4867.186520781
+          }
+        }
+      },
+      "completed_log_events": [
+        {
+          "event": "FOCUS_TRIAL_COMPLETE",
+          "trial_id": "pilot_bank_s412",
+          "score": 0.14583333333333334,
+          "family_guard": false,
+          "remote_log_seconds": 3096.188815749
+        },
+        {
+          "event": "FOCUS_TRIAL_COMPLETE",
+          "trial_id": "pilot_balanced_s412",
+          "score": 0.0625,
+          "family_guard": false,
+          "remote_log_seconds": 3110.205910115
+        },
+        {
+          "event": "FOCUS_TRIAL_COMPLETE",
+          "trial_id": "pilot_bank_s413",
+          "score": 0.19444444444444442,
+          "family_guard": false,
+          "remote_log_seconds": 4506.364806147
+        },
+        {
+          "event": "FOCUS_TRIAL_COMPLETE",
+          "trial_id": "pilot_balanced_s413",
+          "score": 0.10416666666666667,
+          "family_guard": false,
+          "remote_log_seconds": 4583.00691792
+        }
+      ],
+      "event_log": "tmp/kaggle/policy_adaptation_20261101/live_stream/events.jsonl",
+      "event_log_sha256": "08cf99beab55d4a2fece0386b9ea9a2e94356feb2aa19d17d0e960169323f5c3",
+      "downloaded_weights_verified": false
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "remote_status": "RUNNING",
+      "remote_checked_host_ns": 1793569821491259000,
+      "progress": {
+        "kernel": "andriashadrin/hastycr-spell-cost1102",
+        "source": "kaggle_live_log_stream",
+        "trainers": {},
+        "stream_state": "connected",
+        "reconnect_attempt": 1,
+        "checked_host_ns": 1793569852110559000,
+        "trials": {
+          "pilot_neutral_s422": {
+            "update": 100,
+            "steps": 102400,
+            "target_steps": 102400,
+            "percent": 100.0,
+            "remote_log_seconds": 1768.648061301
+          },
+          "pilot_control_s422": {
+            "update": 100,
+            "steps": 102400,
+            "target_steps": 102400,
+            "percent": 100.0,
+            "remote_log_seconds": 1755.024366334
+          },
+          "pilot_control_s423": {
+            "update": 64,
+            "steps": 65536,
+            "target_steps": 102400,
+            "percent": 64.0,
+            "remote_log_seconds": 2451.240945006
+          },
+          "pilot_neutral_s423": {
+            "update": 62,
+            "steps": 63488,
+            "target_steps": 102400,
+            "percent": 62.0,
+            "remote_log_seconds": 2449.703072213
+          }
+        }
+      },
+      "completed_log_events": [
+        {
+          "event": "FOCUS_TRIAL_COMPLETE",
+          "trial_id": "pilot_control_s422",
+          "score": 0.24305555555555552,
+          "family_guard": false,
+          "remote_log_seconds": 1758.311291897
+        },
+        {
+          "event": "FOCUS_TRIAL_COMPLETE",
+          "trial_id": "pilot_neutral_s422",
+          "score": 0.20833333333333331,
+          "family_guard": false,
+          "remote_log_seconds": 1769.599537104
+        }
+      ],
+      "event_log": "tmp/kaggle/calibrated_spell_20261102/live_stream/events.jsonl",
+      "event_log_sha256": "d6aab5d55d60246d6854464bf9537ab7622497945779bdf6f6ba8b953c033ed8",
+      "downloaded_weights_verified": false
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "remote_status": "RUNNING",
+      "remote_checked_host_ns": 1793569028697353000,
+      "progress": {
+        "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+        "source": "kaggle_live_log_stream",
+        "trainers": {},
+        "stream_state": "interrupted",
+        "error_type": "ConnectionError",
+        "http_status": null,
+        "reconnect_attempt": 0,
+        "checked_host_ns": 1793569150124228000
+      },
+      "completed_log_events": [],
+      "event_log": "tmp/kaggle/group_entropy_20261102/live_stream/events.jsonl",
+      "event_log_sha256": "a02171f29069715f4c46c9efa9e0ab0c1dddf3b564181bcd84ef6e0dcc442c2b",
+      "downloaded_weights_verified": false
+    }
+  ],
+  "scope": "Saved remote log counters and trial scores only. Scores are not win rates; terminal weights and full records not yet independently verified.",
+  "training_mutated": false,
+  "live_games": false
+}
