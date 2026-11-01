@@ -426,6 +426,11 @@ def render_economy_experiments(reports,calibrated,adaptation):
         '**Найдено:** при полном запасе пустой Fireball получает +0,8 награды относительно ожидания; Zap +0,4. '
         'Проверено в пустой арене. Штраф 0,5 меняет знак; улучшение игры ещё нужно измерить. '
         '[Проверка и план опыта](reports/empty_spell_incentive_20261102.md).']
+    crown_probe=read(reports/'crown_spell_incentive_20261102.json')
+    if crown_probe and crown_probe.get('schema')=='crown-spell-incentive-probe-v1':
+        lines+=['','**Отдельный стимул:** Fireball только в короля при полном банке даёт +1,30 относительно WAIT; '
+                'штраф пустого спелла не действует на попадание. '
+                '[Проверка сочетания штрафов](reports/crown_spell_incentive_20261102.md). Это диагностика награды, не новая модель.']
     for label,summary in summaries:
         lines+=['',f'**{label}: проверенный validation**','',
                 '| Вариант | Победы | Пустые спеллы, эликсир / матч |','|---|---:|---:|']
