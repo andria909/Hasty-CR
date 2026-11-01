@@ -27,12 +27,14 @@ def audit_rewards(config, rows, trial):
     audit_economy(rows)
 
 
-def verify_crown(collected,prepared,*,calibrated=False):
+def verify_crown(collected,prepared,*,calibrated=False,group_entropy=False):
     collected,prepared=Path(collected),Path(prepared)
     prep=json.loads((prepared/'preparation.json').read_text())
     validator=validate_protocol;variant=VARIANT
     if calibrated:
         from scripts.kaggle.prepare_calibrated_spell_pilot import validate_protocol as validator,VARIANT as variant
+    if group_entropy:
+        from scripts.kaggle.prepare_group_entropy_pilot import validate_protocol as validator,VARIANT as variant
     if prep.get('study_variant')!=variant:raise ValueError('Wrong crown economy study')
     p=json.loads((prepared/'dataset/protocol.json').read_text());validator(p)
     result=verify(collected,prepared);audited=[]

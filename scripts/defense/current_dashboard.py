@@ -393,6 +393,11 @@ def render_economy_experiments(reports,calibrated,adaptation):
         studies.append(('Исходные веса',adaptation,(412,413),
                         (('balanced','balanced'),('bank','Прежний BC'),('bc800','BC800'),('bc8000','BC8000')),
                         'policy_adaptation_verified_20261101.json','policy_adaptation_summary_20261101.json'))
+    entropy=read(reports/'group_entropy_training_20261102.json')
+    if entropy:
+        studies.append(('Энтропия клетки',entropy,(432,433),
+                        (('control','1,0 — контроль'),('spatial03','0,3'),('spatial01','0,1'),('group_only','0 — только карта')),
+                        'group_entropy_verified_20261102.json','group_entropy_summary_20261102.json'))
     summaries=[];statuses=[]
     for label,state,seeds,cases,proof_file,summary_file in studies:
         stream=read(Path(state['root'])/'live_stream/progress.json')or{}
@@ -400,14 +405,21 @@ def render_economy_experiments(reports,calibrated,adaptation):
         proof=read(reports/proof_file)or{}
         complete=(proof.get('kernel')==state['kernel']and proof.get('pilot_steps_verified')==819200
                   and {r['id']for r in proof.get('pilot_models',[])}=={f'pilot_{name}_s{seed}'for name,_ in cases for seed in seeds}
-                  and (proof.get('calibrated_spell_cost_verified')or proof.get('policy_adaptation_audit',{}).get('verified')))
+                  and (proof.get('calibrated_spell_cost_verified')or proof.get('policy_adaptation_audit',{}).get('verified')
+                       or proof.get('group_entropy_audit',{}).get('verified')))
         for name,title in cases:
             values=[]
             for seed in seeds:
                 steps=runs.get(f'pilot_{name}_s{seed}',{}).get('steps',0)
                 values.append('100% проверено'if complete else f'≥{min(100,100*steps/102400):.1f}%'if steps else'нет счётчика')
             lines.append(f"| {label} | {title} | {' | '.join(values)} |")
-        statuses.append(f"{label}: {state.get('status','подготовлено')}.")
+        if complete:
+            status='все веса и бюджеты проверены; результаты ниже'
+        elif any(row.get('steps',0)>0 for row in runs.values()):
+            status='шаги PPO подтверждены журналом; итоговые веса ещё не проверены'
+        else:
+            status=state.get('status','подготовлено')
+        statuses.append(f"{label}: {status}.")
         summary=read(reports/summary_file)
         if complete and summary and summary.get('kernel')==state['kernel']:summaries.append((label,summary))
     lines+=['',*statuses,'','На каждый опыт — 8 прогонов по 102 400 шагов. Отсутствие счётчика не означает остановку GPU.','',

@@ -1,0 +1,21 @@
+{
+  "schema": "group-entropy-legacy-control-equivalence-v1",
+  "checkpoints": [
+    {
+      "path": "tmp/kaggle/calibrated_spell_20261102/actual_preflight/child_0/whole/update_000002.pt",
+      "sha256": "19e9e9472835bbcefd22fee3662bd0659806ee0adb2a0f50c690f7bf68e0d89c"
+    },
+    {
+      "path": "tmp/kaggle/group_entropy_20261102/actual_preflight/child_0/whole/update_000002.pt",
+      "sha256": "082ef1cf93aa03b1d890408d369ce765231b8c81abe65584db400ef499a6370e"
+    }
+  ],
+  "exact": {
+    "state_dict": true,
+    "optimiser": true,
+    "rng": true
+  },
+  "environment_steps": 32,
+  "actual_cuda": false,
+  "scope": "Actual 32-step CPU optimizer control matches previously frozen legacy trainer; not game-quality evidence"
+}

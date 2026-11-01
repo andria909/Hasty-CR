@@ -283,7 +283,7 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
     return result
 
 
-def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.,history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None,tactical_start_fraction=None,crown_only_weight=None,dormant_king_weight=None):
+def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight=0.,history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None,tactical_start_fraction=None,crown_only_weight=None,dormant_king_weight=None,spatial_entropy_weight=1.):
     root=Path(__file__).resolve().parents[1]
     names=('sim/attack_env.py','sim/attack_scenarios.py','sim/attack_sampler.py',
            'sim/train_attack_ppo.py','sim/engine.py','sim/pathfind.py','sim/match.py','sim/env.py',
@@ -301,6 +301,7 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
     if pending_inputs:names+=('sim/pending_inputs.py','sim/continuous_pending.py')
     if history_frames==2:names+=('sim/public_frame_history.py','sim/continuous_history.py')
     if tactical_start_fraction is not None:names+=('sim/continuous_tactical_starts.py',)
+    names+=('sim/group_entropy.py',)
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
                                      for name in names},sort_keys=True).encode()).hexdigest()
 
@@ -314,9 +315,9 @@ def validate_resume(blob,config):
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
           'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes','policy_temperature',
-          'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon','validation_action_delay_ms','tower_support_weight','spell_waste_weight','tactical_start_fraction','crown_only_weight','dormant_king_weight')
+          'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon','validation_action_delay_ms','tower_support_weight','spell_waste_weight','tactical_start_fraction','crown_only_weight','dormant_king_weight','spatial_entropy_weight')
     for key in keys:
-        default=0. if key in('supervised_replay_weight','card_exploration_epsilon')else None
+        default=1. if key=='spatial_entropy_weight'else 0. if key in('supervised_replay_weight','card_exploration_epsilon')else None
         if blob['config'].get(key,default)!=config.get(key,default):
             raise ValueError(f'Attack resume configuration mismatch: {key}')
     required=('optimiser','rng','sampler','environment_states','observations','infos',
@@ -344,6 +345,9 @@ def train(args):
         raise ValueError('Supervised replay requires continuous history1 public inputs')
     temperature=getattr(args,'policy_temperature',1.)
     tempered_logits(torch.empty(0),temperature)
+    spatial_entropy_weight=getattr(args,'spatial_entropy_weight',1.)
+    if not np.isfinite(spatial_entropy_weight)or not 0<=spatial_entropy_weight<=1:
+        raise ValueError('Spatial entropy weight must be finite in [0,1]')
     balance_weight=getattr(args,'card_balance_weight',0.)
     balance_target=getattr(args,'card_balance_target','all_cards')
     if (getattr(args,'value_warmup_steps',0)<0 or not np.isfinite(getattr(args,'target_kl',0))
@@ -428,8 +432,8 @@ def train(args):
         from sim.supervised_replay import SuccessfulActionReplay
         replay=SuccessfulActionReplay(replay_data,device,**(dict(pending_inputs=True) if pending_inputs else {}))
     config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,num_planes=num_planes,history_frames=history_frames,policy_temperature=temperature,
-        reward_profile=reward_profile,reward_profile_sha256=reward_sha,
-        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames,pending_inputs,tower_support_weight,spell_waste_weight,tactical_start_fraction,crown_only_weight,dormant_king_weight),
+        reward_profile=reward_profile,reward_profile_sha256=reward_sha,spatial_entropy_weight=spatial_entropy_weight,
+        observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames,pending_inputs,tower_support_weight,spell_waste_weight,tactical_start_fraction,crown_only_weight,dormant_king_weight,spatial_entropy_weight),
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
         initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
             hashlib.sha256(Path(args.init).read_bytes()).hexdigest()if args.init else None))
@@ -501,7 +505,7 @@ def train(args):
         require_finite(advantages=advantages,returns=returns)
         planes,scalars=planes.flatten(0,1),scalars.flatten(0,1)
         masks,actions,old_log,returns=masks.flatten(0,1),actions.flatten(),old_log.flatten(),returns.flatten()
-        losses=[];balance_losses=[];kl_values=[];kl_stopped=False;replay_losses=[]
+        losses=[];balance_losses=[];kl_values=[];kl_stopped=False;replay_losses=[];entropy_logs=[]
         warmup=step<=getattr(args,'value_warmup_steps',0)
         for name,parameter in network.named_parameters():
             parameter.requires_grad_(not warmup or name.startswith('value'))
@@ -518,7 +522,12 @@ def train(args):
                     kl_stopped=True
                     break
                 policy=-torch.minimum(ratio*advantages[indices],ratio.clamp(1-args.clip,1+args.clip)*advantages[indices]).mean()
-                loss=policy+args.value_coef*(predicted.reshape(-1)-returns[indices]).square().mean()-args.entropy_coef*dist.entropy().mean()
+                from sim.group_entropy import weighted_entropy,entropy_components
+                entropy=weighted_entropy(dist,spatial_entropy_weight)
+                with torch.no_grad():
+                    full_entropy,group_entropy=entropy_components(dist)
+                    entropy_logs.append((float(full_entropy.mean()),float(group_entropy.mean()),float(entropy.mean())))
+                loss=policy+args.value_coef*(predicted.reshape(-1)-returns[indices]).square().mean()-args.entropy_coef*entropy.mean()
                 if balance_weight and not warmup:
                     from sim.card_balance import card_balance_loss
                     balance=card_balance_loss(logits,scalars[indices],masks[indices],balance_target)
@@ -542,6 +551,11 @@ def train(args):
             target=balance_target,mean_balance_js=float(np.mean(balance_losses))if balance_losses else 0.)
         record['optimizer_controls']=dict(value_only_warmup=warmup,kl_stopped=kl_stopped,
             mean_approximate_kl=float(np.mean(kl_values)))
+        record['entropy_components']=dict(spatial_weight=spatial_entropy_weight,
+            full=float(np.mean([r[0]for r in entropy_logs]))if entropy_logs else None,
+            group=float(np.mean([r[1]for r in entropy_logs]))if entropy_logs else None,
+            objective=float(np.mean([r[2]for r in entropy_logs]))if entropy_logs else None,
+            optimizer_batches=len(entropy_logs))
         record['supervised_replay']=dict(weight=replay_weight,optimizer_batches=len(replay_losses),
             mean_loss=float(np.mean(replay_losses))if replay_losses else None,
             train_examples=replay.metadata['train_examples']if replay else 0)
@@ -604,6 +618,7 @@ def parser():
     p.add_argument('--card-balance-weight',type=float,default=0.)
     p.add_argument('--card-balance-target',choices=('all_cards','units'),default='all_cards')
     p.add_argument('--policy-temperature',type=float,default=1.)
+    p.add_argument('--spatial-entropy-weight',type=float,default=1.,help='Weight of conditional cell entropy; 1 preserves original full-action entropy')
     p.add_argument('--card-exploration-epsilon',type=float,default=0.)
     p.add_argument('--supervised-replay-data',help='Pinned TRAIN successful-action labels; grouped holdout excluded')
     p.add_argument('--supervised-replay-weight',type=float,default=0.)

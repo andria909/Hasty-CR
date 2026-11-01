@@ -74,7 +74,10 @@ def compare_study(root, proof_path):
     prep = json.loads((root/'preparation.json').read_text())
     protocol = json.loads((root/'dataset/protocol.json').read_text())
     variant = protocol['study_variant']
-    if variant == 'calibrated_spell_cost_v1':
+    if variant == 'group_entropy_v1':
+        from scripts.kaggle.prepare_group_entropy_pilot import validate_protocol
+        accepted = proof.get('group_entropy_audit',{}).get('verified') is True
+    elif variant == 'calibrated_spell_cost_v1':
         from scripts.kaggle.prepare_calibrated_spell_pilot import validate_protocol
         accepted = proof.get('calibrated_spell_cost_verified') is True
     elif variant == 'policy_adaptation_v1':
@@ -108,7 +111,7 @@ def compare_study(root, proof_path):
     for case in protocol['cases']:
         for seed in protocol['pilot_seeds']:
             name = f"pilot_{case['id']}_s{seed}"
-            if variant == 'calibrated_spell_cost_v1':
+            if variant in ('calibrated_spell_cost_v1','group_entropy_v1'):
                 reference = f'pilot_control_s{seed}'
                 baseline = summaries[reference]
             else:
@@ -136,8 +139,8 @@ def compare_study(root, proof_path):
 
 def render(result):
     lines = ['# Парное сравнение PPO', '',
-             'Одни и те же 72 сценария. Каждый seed показан отдельно. Для штрафов контроль — '
-             'PPO с коэффициентом 0,1 и тем же seed; для исходников — соответствующие веса до PPO. '
+             'Одни и те же 72 сценария. Каждый seed показан отдельно. Для коэффициентов контроль — '
+             'PPO-профиль control с тем же seed; для исходников — соответствующие веса до PPO. '
              'Это использованный при выборе чекпойнтов validation, не независимый test.', '',
              '| Вариант | Seed | Контроль → кандидат | Новые / потерянные победы | Δ HP потерь | Δ пустого эликсира |',
              '|---|---:|---:|---:|---:|---:|']

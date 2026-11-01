@@ -2,7 +2,7 @@
   "schema": "calibrated-spell-training-v1",
   "root": "tmp/kaggle/calibrated_spell_20261102",
   "kernel": "andriashadrin/hastycr-spell-cost1102",
-  "status": "Kaggle \u043f\u0440\u0438\u043d\u044f\u043b \u0432\u0435\u0440\u0441\u0438\u044e 1; \u043e\u0436\u0438\u0434\u0430\u0435\u0442\u0441\u044f \u0436\u0443\u0440\u043d\u0430\u043b CUDA",
+  "status": "training_steps_observed",
   "submitted": true,
   "pilot_target_steps": 819200,
   "live_games": false,
@@ -15,5 +15,39 @@
     "versionNumber": 1,
     "kernelId": 142176468
   },
-  "last_local_sync_ns": 1793567419535716000
+  "last_local_sync_ns": 1793569044211364000,
+  "progress_snapshot": {
+    "kernel": "andriashadrin/hastycr-spell-cost1102",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "reconnect_attempt": 1,
+    "checked_host_ns": 1793568809104351000,
+    "trials": {
+      "pilot_neutral_s422": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1358.977607477
+      },
+      "pilot_control_s422": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 102400,
+        "percent": 99.0,
+        "remote_log_seconds": 1338.070378682
+      }
+    },
+    "error_type": "SSLError",
+    "http_status": null
+  },
+  "actual_training_steps_confirmed": true,
+  "cuda_observed": {
+    "event": "CUDA_READY",
+    "gpus": [
+      "Tesla T4",
+      "Tesla T4"
+    ]
+  }
 }
