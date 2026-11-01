@@ -398,7 +398,7 @@ def render_economy_experiments(reports,calibrated,adaptation):
         studies.append(('Энтропия клетки',entropy,(432,433),
                         (('control','1,0 — контроль'),('spatial03','0,3'),('spatial01','0,1'),('group_only','0 — только карта')),
                         'group_entropy_verified_20261102.json','group_entropy_summary_20261102.json'))
-    summaries=[];statuses=[]
+    summaries=[];statuses=[];provisional_passes=[]
     for label,state,seeds,cases,proof_file,summary_file in studies:
         stream=read(Path(state['root'])/'live_stream/progress.json')or{}
         runs=stream.get('trials',{})if stream.get('kernel')==state['kernel']else{}
@@ -420,12 +420,17 @@ def render_economy_experiments(reports,calibrated,adaptation):
         else:
             status=state.get('status','подготовлено')
         statuses.append(f"{label}: {status}.")
+        provisional_passes.extend(label+' / '+row['trial_id'] for row in state.get('completed_log_events',[])
+                                  if row.get('family_guard')is True)
         summary=read(reports/summary_file)
         if complete and summary and summary.get('kernel')==state['kernel']:summaries.append((label,summary))
     lines+=['',*statuses,'','На каждый опыт — 8 прогонов по 102 400 шагов. Отсутствие счётчика не означает остановку GPU.','',
         '**Найдено:** при полном запасе пустой Fireball получает +0,8 награды относительно ожидания; Zap +0,4. '
         'Проверено в пустой арене. Штраф 0,5 меняет знак; улучшение игры ещё нужно измерить. '
         '[Проверка и план опыта](reports/empty_spell_incentive_20261102.md).']
+    if provisional_passes:
+        lines+=['','**Предварительно по журналу:** порог всех семейств прошли '+', '.join(provisional_passes)+
+                '. Это отдельные seed; веса и устойчивость улучшения ещё не проверены.']
     crown_probe=read(reports/'crown_spell_incentive_20261102.json')
     if crown_probe and crown_probe.get('schema')=='crown-spell-incentive-probe-v1':
         lines+=['','**Отдельный стимул:** Fireball только в короля при полном банке даёт +1,30 относительно WAIT; '

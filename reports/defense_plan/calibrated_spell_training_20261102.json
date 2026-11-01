@@ -15,14 +15,14 @@
     "versionNumber": 1,
     "kernelId": 142176468
   },
-  "last_local_sync_ns": 1793570273234575000,
+  "last_local_sync_ns": 1793571070336934000,
   "progress_snapshot": {
     "kernel": "andriashadrin/hastycr-spell-cost1102",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
+    "stream_state": "connected",
     "reconnect_attempt": 2,
-    "checked_host_ns": 1793570009888908000,
+    "checked_host_ns": 1793571069249199000,
     "trials": {
       "pilot_neutral_s422": {
         "update": 100,
@@ -39,22 +39,34 @@
         "remote_log_seconds": 1755.024366334
       },
       "pilot_control_s423": {
-        "update": 93,
-        "steps": 95232,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 93.0,
-        "remote_log_seconds": 2602.024863736
+        "percent": 100.0,
+        "remote_log_seconds": 3048.166146148
       },
       "pilot_neutral_s423": {
-        "update": 93,
-        "steps": 95232,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 93.0,
-        "remote_log_seconds": 2603.903991585
+        "percent": 100.0,
+        "remote_log_seconds": 3025.03826993
+      },
+      "pilot_strong_s422": {
+        "update": 57,
+        "steps": 58368,
+        "target_steps": 102400,
+        "percent": 57.0,
+        "remote_log_seconds": 3668.397930959
+      },
+      "pilot_medium_s422": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 3290.397900292
       }
-    },
-    "error_type": "SSLError",
-    "http_status": null
+    }
   },
   "actual_training_steps_confirmed": true,
   "cuda_observed": {
@@ -69,15 +81,25 @@
       "event": "FOCUS_TRIAL_COMPLETE",
       "trial_id": "pilot_control_s422",
       "score": 0.24305555555555552,
-      "family_guard": false,
-      "remote_log_seconds": 1758.311291897
+      "family_guard": false
     },
     {
       "event": "FOCUS_TRIAL_COMPLETE",
       "trial_id": "pilot_neutral_s422",
       "score": 0.20833333333333331,
-      "family_guard": false,
-      "remote_log_seconds": 1769.599537104
+      "family_guard": false
+    },
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_neutral_s423",
+      "score": 0.2847222222222222,
+      "family_guard": true
+    },
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_control_s423",
+      "score": 0.14583333333333334,
+      "family_guard": false
     }
   ]
 }
