@@ -14,10 +14,21 @@ import tarfile
 
 from scripts.attack.verify_continuous_focus import verify
 
+ECONOMY_VARIANTS = {'policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1'}
+
 
 def verify_study(root, default_verifier=None):
     root = Path(root)
     protocol = json.loads((root/'dataset/protocol.json').read_text())
+    if protocol.get('study_variant') == 'policy_adaptation_v1':
+        from scripts.attack.verify_policy_adaptation_pilot import verify_adaptation
+        return verify_adaptation(root/'collected', root)
+    if protocol.get('study_variant') == 'calibrated_spell_cost_v1':
+        from scripts.attack.verify_calibrated_spell_pilot import verify_calibrated
+        return verify_calibrated(root/'collected', root)
+    if protocol.get('study_variant') == 'group_entropy_v1':
+        from scripts.attack.verify_group_entropy_pilot import verify_entropy
+        return verify_entropy(root/'collected', root)
     if protocol.get('study_variant') == 'crown_economy_v1':
         from scripts.attack.verify_crown_economy_pilot import verify_crown
         return verify_crown(root/'collected', root)
@@ -43,6 +54,61 @@ def unique_mana_profiles(ranking):
             row = dict(row, replicated_controls=[])
             by_profile[key] = row
             result.append(row)
+    return result
+
+
+def economy_identity(preparation, trial):
+    model = next(m for m in preparation['config']['models'] if m['id']==trial['initial_id'])
+    profile = {k:v for k,v in trial.items() if k not in ('id','initial_id')}
+    profile.setdefault('spatial_entropy_weight',1.)
+    return dict(initial_sha256=model['sha256'],profile=profile)
+
+
+def economy_diagnostics(root, protocol, trial):
+    from scripts.attack.compare_ppo_pilot_behavior import compare_records
+    rows=[]
+    for seed in protocol['pilot_seeds']:
+        name=f"pilot_{trial['id']}_s{seed}"
+        after=json.loads((root/'collected'/f'{name}_summary.json').read_text())
+        reference=(trial['initial_id']+'_reference' if protocol['study_variant']=='policy_adaptation_v1'
+                   else f'pilot_control_s{seed}_summary')
+        before=json.loads((root/'collected'/f'{reference}.json').read_text())
+        comparison=compare_records(before['validation']['records'],after['validation']['records'])
+        rows.append(dict(seed=seed,reference=reference,comparison=comparison))
+    return behavior_summary(rows)
+
+
+def behavior_summary(rows):
+    if not rows:raise ValueError('Measured seed comparisons required')
+    # This is a conservative screening rule, not a statistical claim or a live gate.
+    stable=all(r['comparison']['all']['wins_delta']>=0 and
+               r['comparison']['tasks']['defense']['wins_delta']>=0 for r in rows)
+    return dict(seed_comparisons=rows,nonregression_gate=stable,
+                mean_own_fraction_loss=sum(r['comparison']['all']['metrics']['own_fraction_loss']['after']for r in rows)/len(rows),
+                mean_empty_spell_elixir=sum(r['comparison']['all']['metrics']['empty_spell_elixir']['after']for r in rows)/len(rows))
+
+
+def pool_economy_replicates(ranking):
+    grouped={}
+    for row in sorted(ranking,key=lambda r:(r['study'],r['trial']['id'])):
+        key=json.dumps(row['training_identity'],sort_keys=True)
+        grouped.setdefault(key,[]).append(row)
+    result=[]
+    for copies in grouped.values():
+        item=dict(copies[0]);rows=[];seen=set()
+        for copy in copies:
+            for row in copy['quality_diagnostics']['seed_comparisons']:
+                if row['seed']in seen:raise ValueError('Repeated training seed is not an independent replica')
+                seen.add(row['seed']);rows.append(dict(row,study=copy['study']))
+        item['replicated_controls']=[dict(study=r['study'],trial_id=r['trial']['id'],seed_pair=r['seed_pair'],
+            score=r['score'],minimum_family_points=r['minimum_family_points'])for r in copies[1:]]
+        item['quality_diagnostics']=behavior_summary(rows)
+        item['score']=sum(r['score']*len(r['seed_pair'])for r in copies)/len(rows)
+        item['minimum_family_points']=min(r['minimum_family_points']for r in copies)
+        item['family_eligible']=all(r['family_eligible']for r in copies)
+        item['eligible']=item['family_eligible']and item['quality_diagnostics']['nonregression_gate']
+        item['independent_training_seeds']=len(rows)
+        result.append(item)
     return result
 
 CORE_FILES=('sim/match.py','sim/engine.py','sim/entities.py','sim/gamedata.py','sim/public_gamedata.py',
@@ -124,7 +190,7 @@ def contract(prepared):
 def select(prepared_roots,limit=2):
     if not 2<=limit<=4:raise ValueError('Choose2–4 profiles')
     ranking=[];studies=[];common=None;contexts=None;common_runtime=None;kernels=set()
-    mana_flags=[];mana_physics=None
+    mana_flags=[];mana_physics=None;economy_flags=[]
     for root in map(Path,prepared_roots):
         proof=verify_study(root)
         if proof.get('promotion_blocked'):
@@ -141,6 +207,9 @@ def select(prepared_roots,limit=2):
         if contexts is None:contexts=current
         elif current!=contexts:raise ValueError('Different validation contexts')
         protocol=json.loads((root/'dataset/protocol.json').read_text())
+        economy=protocol.get('study_variant')in ECONOMY_VARIANTS
+        economy_flags.append(economy)
+        preparation=json.loads((root/'preparation.json').read_text())if economy else None
         mana_flags.append(protocol.get('study_variant') == 'mana_decision_v1')
         if mana_flags[-1]:
             if mana_physics is None:mana_physics=protocol['physics_pins']
@@ -164,6 +233,11 @@ def select(prepared_roots,limit=2):
             item=dict(study=proof['kernel'],prepared=str(root),trial=row['trial'],
                 seed_pair=protocol['pilot_seeds'],score=row['score'],minimum_family_points=row['minimum_family_points'],
                 eligible=row['eligible'],floor=proof['pilot_selection']['floor'])
+            if economy:
+                item['training_identity']=economy_identity(preparation,row['trial'])
+                item['quality_diagnostics']=economy_diagnostics(root,protocol,row['trial'])
+                item['family_eligible']=item['eligible']
+                item['eligible']=item['eligible']and item['quality_diagnostics']['nonregression_gate']
             if mana_flags[-1]:
                 records=[]
                 for seed in protocol['pilot_seeds']:
@@ -175,6 +249,9 @@ def select(prepared_roots,limit=2):
             ranking.append(item)
         studies.append(dict(kernel=proof['kernel'],prepared=str(root),pilot_steps_verified=819200))
     if not studies:raise ValueError('No verified cohorts')
+    if any(economy_flags):
+        if not all(economy_flags):raise ValueError('Do not mix paired economy studies with unpaired cohorts')
+        ranking=pool_economy_replicates(ranking)
     if any(mana_flags):
         if not all(mana_flags):raise ValueError('Do not mix economy cohorts with old training physics')
         ranking=unique_mana_profiles(ranking)
@@ -186,6 +263,8 @@ def select(prepared_roots,limit=2):
         selection='Same72 validation contexts; original per-profile two-seed/all-family floor retained',
         comparison_contract_sha256=hashlib.sha256(json.dumps(common,sort_keys=True).encode()).hexdigest(),
         common_runtime=common_runtime,
+        **(dict(behavior_selection='No loss of total or defense wins in either seed versus own initialization (adaptation) or same-seed PPO control (coefficients); repeated identical profiles pooled before ranking',
+                validation_contexts=72,independent_test=False)if all(economy_flags)else{}),
         test_used_for_selection=False,training_submitted=False,quality_accepted=False,live_checkpoint_changed=False)
 
 

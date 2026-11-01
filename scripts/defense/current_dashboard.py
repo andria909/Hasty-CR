@@ -449,6 +449,10 @@ def render_economy_experiments(reports,calibrated,adaptation):
     lines+=['','Большой бюджет — после сравнения побед по семействам, защиты и полезных спеллов. '
             'Реальные бои выключены; Kaggle проверяется раз в 20 минут.','',
             '[План](plan_2.md) · [Предыдущие 360 матчей](reports/bank_fit_depth_decisions_20261101.md)','']
+    if read(reports/'economy_selection_observer_20261102.json'):
+        selection=read(reports/'economy_pilot_selection_20261102.json')
+        lines+=['Отбор: одинаковые контроли объединяются; потеря побед в защите у любого seed исключает профиль из большого обучения.'
+                +(' [Результаты отбора](reports/economy_pilot_selection_20261102.md).'if selection else' Ожидаются все три серии.'),'']
     return '\n'.join(lines)
 
 
