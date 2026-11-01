@@ -47,10 +47,11 @@ def submit(root,token_index,*,evaluation=False):
                     preflight.get('preparation_sha256')!=sha(root/'preparation.json') or
                     preflight.get('result_sha256')!=sha(root/'actual_preflight/result/result.json')):
                 raise ValueError('Verified BC-only frozen preflight required')
-        elif prepared.get('study_variant')=='bank_correction_pair_v1':
+        elif prepared.get('study_variant')in ('bank_correction_pair_v1','bank_fit_depth_v1'):
             p=json.loads((root/'dataset/initialization_protocol.json').read_text())
+            schema='bank-fit-depth-preflight-v1'if prepared['study_variant']=='bank_fit_depth_v1'else'bank-correction-pair-preflight-v1'
             if (prepared.get('technical_preflight_only')or p.get('technical_identical')or
-                    preflight.get('schema')!='bank-correction-pair-preflight-v1'or
+                    preflight.get('schema')!=schema or
                     preflight.get('technical_identical')is not False or preflight.get('submission_allowed')is not True or
                     not preflight.get('frozen_sources_verified')or preflight.get('smoke_runs')!=4 or
                     preflight.get('supervised_updates')!=8 or preflight.get('environment_steps')!=0 or

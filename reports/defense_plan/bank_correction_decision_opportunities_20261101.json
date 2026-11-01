@@ -1,0 +1,3052 @@
+{
+  "schema": "full-match-decision-analysis-v1",
+  "source": "tmp/kaggle/bank_correction_pair_20261101/full_validation/result.json",
+  "source_sha256": "a0ecb79e6a7ef679b4073ac7e24087c364e58cf96bb2ace10cdd595c2d44eb51",
+  "models": [
+    {
+      "model": {
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/dataset/parent.pt",
+        "sha256": "3a7eb5863c7e80203b1bbfef86ddac3428d2d6041a7e646adf8c47422e17e215"
+      },
+      "all": {
+        "games": 72,
+        "wins": 6,
+        "duration_minutes": 246.55666666666667,
+        "mean_duration_s": 205.46388888888887,
+        "cards": {
+          "cannon": {
+            "accepted": 65,
+            "per_game": 0.9027777777777778,
+            "per_minute": 0.263631078724296,
+            "legal_decisions": 26194,
+            "selected_decisions": 68,
+            "selected_given_legal": 0.0025960143544323127,
+            "accepted_left": 36,
+            "accepted_right": 29
+          },
+          "electro_spirit": {
+            "accepted": 463,
+            "per_game": 6.430555555555555,
+            "per_minute": 1.8778644530669082,
+            "legal_decisions": 17550,
+            "selected_decisions": 468,
+            "selected_given_legal": 0.02666666666666667,
+            "accepted_left": 255,
+            "accepted_right": 208
+          },
+          "fireball": {
+            "accepted": 402,
+            "per_game": 5.583333333333333,
+            "per_minute": 1.6304568253410303,
+            "legal_decisions": 6924,
+            "selected_decisions": 405,
+            "selected_given_legal": 0.05849220103986135,
+            "accepted_left": 210,
+            "accepted_right": 192
+          },
+          "hog_rider": {
+            "accepted": 382,
+            "per_game": 5.305555555555555,
+            "per_minute": 1.5493395703489394,
+            "legal_decisions": 10206,
+            "selected_decisions": 386,
+            "selected_given_legal": 0.037820889672741526,
+            "accepted_left": 195,
+            "accepted_right": 187
+          },
+          "knight": {
+            "accepted": 461,
+            "per_game": 6.402777777777778,
+            "per_minute": 1.869752727567699,
+            "legal_decisions": 11954,
+            "selected_decisions": 468,
+            "selected_given_legal": 0.039150075288606326,
+            "accepted_left": 246,
+            "accepted_right": 215
+          },
+          "musketeer": {
+            "accepted": 204,
+            "per_game": 2.8333333333333335,
+            "per_minute": 0.8273960009193289,
+            "legal_decisions": 12814,
+            "selected_decisions": 204,
+            "selected_given_legal": 0.015920087404401435,
+            "accepted_left": 103,
+            "accepted_right": 101
+          },
+          "skeletons": {
+            "accepted": 478,
+            "per_game": 6.638888888888889,
+            "per_minute": 1.9387023943109765,
+            "legal_decisions": 16348,
+            "selected_decisions": 485,
+            "selected_given_legal": 0.029667237582578908,
+            "accepted_left": 248,
+            "accepted_right": 230
+          },
+          "zap": {
+            "accepted": 429,
+            "per_game": 5.958333333333333,
+            "per_minute": 1.7399651195803534,
+            "legal_decisions": 19618,
+            "selected_decisions": 432,
+            "selected_given_legal": 0.022020593332653684,
+            "accepted_left": 224,
+            "accepted_right": 205
+          }
+        },
+        "available_below4_fraction": 0.6262841308461746,
+        "mean_available_elixir": 3.882373597593952,
+        "forced_wait_fraction": 0.27243849689105165,
+        "voluntary_wait_fraction": 0.6782914301162476,
+        "plays_given_choice": 0.06771946121690664,
+        "empty_spell_elixir_per_game": 4.0,
+        "empty_spell_elixir_per_minute": 1.1680884718861113,
+        "overflow_per_game": 6.819833333333333,
+        "own_tower_damage_per_game": 10537.291666666666,
+        "nonlethal_crown_only_elixir_per_game": 0.05555555555555555,
+        "spells": {
+          "fireball": {
+            "resolved": 397,
+            "empty": 59,
+            "empty_fraction": 0.1486146095717884
+          },
+          "zap": {
+            "resolved": 429,
+            "empty": 26,
+            "empty_fraction": 0.06060606060606061
+          }
+        }
+      },
+      "tasks": {
+        "attack": {
+          "games": 36,
+          "wins": 1,
+          "duration_minutes": 122.58166666666666,
+          "mean_duration_s": 204.30277777777778,
+          "cards": {
+            "cannon": {
+              "accepted": 34,
+              "per_game": 0.9444444444444444,
+              "per_minute": 0.2773661096683844,
+              "legal_decisions": 12315,
+              "selected_decisions": 36,
+              "selected_given_legal": 0.00292326431181486,
+              "accepted_left": 20,
+              "accepted_right": 14
+            },
+            "electro_spirit": {
+              "accepted": 232,
+              "per_game": 6.444444444444445,
+              "per_minute": 1.8926158071489756,
+              "legal_decisions": 8449,
+              "selected_decisions": 232,
+              "selected_given_legal": 0.027458870872292578,
+              "accepted_left": 131,
+              "accepted_right": 101
+            },
+            "fireball": {
+              "accepted": 196,
+              "per_game": 5.444444444444445,
+              "per_minute": 1.5989340439706863,
+              "legal_decisions": 3459,
+              "selected_decisions": 197,
+              "selected_given_legal": 0.056952876553917314,
+              "accepted_left": 99,
+              "accepted_right": 97
+            },
+            "hog_rider": {
+              "accepted": 181,
+              "per_game": 5.027777777777778,
+              "per_minute": 1.476566642646399,
+              "legal_decisions": 5326,
+              "selected_decisions": 182,
+              "selected_given_legal": 0.03417198648141194,
+              "accepted_left": 91,
+              "accepted_right": 90
+            },
+            "knight": {
+              "accepted": 230,
+              "per_game": 6.388888888888889,
+              "per_minute": 1.8763001536390707,
+              "legal_decisions": 5577,
+              "selected_decisions": 234,
+              "selected_given_legal": 0.04195804195804196,
+              "accepted_left": 127,
+              "accepted_right": 103
+            },
+            "musketeer": {
+              "accepted": 105,
+              "per_game": 2.9166666666666665,
+              "per_minute": 0.8565718092700105,
+              "legal_decisions": 5465,
+              "selected_decisions": 105,
+              "selected_given_legal": 0.0192131747483989,
+              "accepted_left": 55,
+              "accepted_right": 50
+            },
+            "skeletons": {
+              "accepted": 241,
+              "per_game": 6.694444444444445,
+              "per_minute": 1.9660362479435478,
+              "legal_decisions": 8778,
+              "selected_decisions": 244,
+              "selected_given_legal": 0.027796764638869903,
+              "accepted_left": 121,
+              "accepted_right": 120
+            },
+            "zap": {
+              "accepted": 213,
+              "per_game": 5.916666666666667,
+              "per_minute": 1.7376170988048785,
+              "legal_decisions": 9059,
+              "selected_decisions": 214,
+              "selected_given_legal": 0.02362291643669279,
+              "accepted_left": 107,
+              "accepted_right": 106
+            }
+          },
+          "available_below4_fraction": 0.646852909189777,
+          "mean_available_elixir": 3.77888013186515,
+          "forced_wait_fraction": 0.28435970636215335,
+          "voluntary_wait_fraction": 0.6665647090810223,
+          "plays_given_choice": 0.06857577052761551,
+          "empty_spell_elixir_per_game": 4.0,
+          "empty_spell_elixir_per_minute": 1.1747270527131572,
+          "overflow_per_game": 6.806027777777778,
+          "own_tower_damage_per_game": 10502.305555555555,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 194,
+              "empty": 30,
+              "empty_fraction": 0.15463917525773196
+            },
+            "zap": {
+              "resolved": 213,
+              "empty": 12,
+              "empty_fraction": 0.056338028169014086
+            }
+          }
+        },
+        "defense": {
+          "games": 36,
+          "wins": 5,
+          "duration_minutes": 123.975,
+          "mean_duration_s": 206.625,
+          "cards": {
+            "cannon": {
+              "accepted": 31,
+              "per_game": 0.8611111111111112,
+              "per_minute": 0.25005041338979633,
+              "legal_decisions": 13879,
+              "selected_decisions": 32,
+              "selected_given_legal": 0.002305641616831184,
+              "accepted_left": 16,
+              "accepted_right": 15
+            },
+            "electro_spirit": {
+              "accepted": 231,
+              "per_game": 6.416666666666667,
+              "per_minute": 1.8632788868723533,
+              "legal_decisions": 9101,
+              "selected_decisions": 236,
+              "selected_given_legal": 0.025931216349851665,
+              "accepted_left": 124,
+              "accepted_right": 107
+            },
+            "fireball": {
+              "accepted": 206,
+              "per_game": 5.722222222222222,
+              "per_minute": 1.6616253276870339,
+              "legal_decisions": 3465,
+              "selected_decisions": 208,
+              "selected_given_legal": 0.06002886002886003,
+              "accepted_left": 111,
+              "accepted_right": 95
+            },
+            "hog_rider": {
+              "accepted": 201,
+              "per_game": 5.583333333333333,
+              "per_minute": 1.62129461584997,
+              "legal_decisions": 4880,
+              "selected_decisions": 204,
+              "selected_given_legal": 0.04180327868852459,
+              "accepted_left": 104,
+              "accepted_right": 97
+            },
+            "knight": {
+              "accepted": 231,
+              "per_game": 6.416666666666667,
+              "per_minute": 1.8632788868723533,
+              "legal_decisions": 6377,
+              "selected_decisions": 234,
+              "selected_given_legal": 0.03669437039360201,
+              "accepted_left": 119,
+              "accepted_right": 112
+            },
+            "musketeer": {
+              "accepted": 99,
+              "per_game": 2.75,
+              "per_minute": 0.7985480943738658,
+              "legal_decisions": 7349,
+              "selected_decisions": 99,
+              "selected_given_legal": 0.013471220574227786,
+              "accepted_left": 48,
+              "accepted_right": 51
+            },
+            "skeletons": {
+              "accepted": 237,
+              "per_game": 6.583333333333333,
+              "per_minute": 1.9116757410768301,
+              "legal_decisions": 7570,
+              "selected_decisions": 241,
+              "selected_given_legal": 0.031836195508586525,
+              "accepted_left": 127,
+              "accepted_right": 110
+            },
+            "zap": {
+              "accepted": 216,
+              "per_game": 6.0,
+              "per_minute": 1.7422867513611615,
+              "legal_decisions": 10559,
+              "selected_decisions": 218,
+              "selected_given_legal": 0.020645894497585,
+              "accepted_left": 117,
+              "accepted_right": 99
+            }
+          },
+          "available_below4_fraction": 0.6059475806451613,
+          "mean_available_elixir": 3.98469858870969,
+          "forced_wait_fraction": 0.26065188172043013,
+          "voluntary_wait_fraction": 0.6898857526881721,
+          "plays_given_choice": 0.06689996818615643,
+          "empty_spell_elixir_per_game": 4.0,
+          "empty_spell_elixir_per_minute": 1.161524500907441,
+          "overflow_per_game": 6.833638888888888,
+          "own_tower_damage_per_game": 10572.277777777777,
+          "nonlethal_crown_only_elixir_per_game": 0.1111111111111111,
+          "spells": {
+            "fireball": {
+              "resolved": 203,
+              "empty": 29,
+              "empty_fraction": 0.14285714285714285
+            },
+            "zap": {
+              "resolved": 216,
+              "empty": 14,
+              "empty_fraction": 0.06481481481481481
+            }
+          }
+        }
+      }
+    },
+    {
+      "model": {
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl001_s402/policy.pt",
+        "sha256": "75f201e7cd04233cb1d16cd150b57bd984dc26770c7128aed121277123bf625c"
+      },
+      "all": {
+        "games": 72,
+        "wins": 10,
+        "duration_minutes": 266.0525,
+        "mean_duration_s": 221.71041666666667,
+        "cards": {
+          "cannon": {
+            "accepted": 119,
+            "per_game": 1.6527777777777777,
+            "per_minute": 0.4472801420772216,
+            "legal_decisions": 25833,
+            "selected_decisions": 120,
+            "selected_given_legal": 0.004645221228661015,
+            "accepted_left": 85,
+            "accepted_right": 34
+          },
+          "electro_spirit": {
+            "accepted": 489,
+            "per_game": 6.791666666666667,
+            "per_minute": 1.8379831048383308,
+            "legal_decisions": 21384,
+            "selected_decisions": 494,
+            "selected_given_legal": 0.023101384212495323,
+            "accepted_left": 265,
+            "accepted_right": 224
+          },
+          "fireball": {
+            "accepted": 482,
+            "per_game": 6.694444444444445,
+            "per_minute": 1.811672508245553,
+            "legal_decisions": 8138,
+            "selected_decisions": 486,
+            "selected_given_legal": 0.05971983288277218,
+            "accepted_left": 254,
+            "accepted_right": 228
+          },
+          "hog_rider": {
+            "accepted": 335,
+            "per_game": 4.652777777777778,
+            "per_minute": 1.2591499797972203,
+            "legal_decisions": 13287,
+            "selected_decisions": 339,
+            "selected_given_legal": 0.025513659968390157,
+            "accepted_left": 165,
+            "accepted_right": 170
+          },
+          "knight": {
+            "accepted": 504,
+            "per_game": 7.0,
+            "per_minute": 1.8943629546799974,
+            "legal_decisions": 11959,
+            "selected_decisions": 508,
+            "selected_given_legal": 0.04247846809933941,
+            "accepted_left": 263,
+            "accepted_right": 241
+          },
+          "musketeer": {
+            "accepted": 277,
+            "per_game": 3.8472222222222223,
+            "per_minute": 1.0411478937427763,
+            "legal_decisions": 12390,
+            "selected_decisions": 279,
+            "selected_given_legal": 0.022518159806295398,
+            "accepted_left": 142,
+            "accepted_right": 135
+          },
+          "skeletons": {
+            "accepted": 510,
+            "per_game": 7.083333333333333,
+            "per_minute": 1.9169148946166639,
+            "legal_decisions": 18239,
+            "selected_decisions": 518,
+            "selected_given_legal": 0.02840067986183453,
+            "accepted_left": 256,
+            "accepted_right": 254
+          },
+          "zap": {
+            "accepted": 536,
+            "per_game": 7.444444444444445,
+            "per_minute": 2.014639967675553,
+            "legal_decisions": 15482,
+            "selected_decisions": 543,
+            "selected_given_legal": 0.03507298798604831,
+            "accepted_left": 287,
+            "accepted_right": 249
+          }
+        },
+        "available_below4_fraction": 0.6504807240612571,
+        "mean_available_elixir": 3.6913375872976166,
+        "forced_wait_fraction": 0.2718361466913031,
+        "voluntary_wait_fraction": 0.6766934953493471,
+        "plays_given_choice": 0.07068513182228721,
+        "empty_spell_elixir_per_game": 6.277777777777778,
+        "empty_spell_elixir_per_minute": 1.6989128085622198,
+        "overflow_per_game": 6.735833333333334,
+        "own_tower_damage_per_game": 11268.055555555555,
+        "nonlethal_crown_only_elixir_per_game": 0.0,
+        "spells": {
+          "fireball": {
+            "resolved": 478,
+            "empty": 86,
+            "empty_fraction": 0.1799163179916318
+          },
+          "zap": {
+            "resolved": 536,
+            "empty": 54,
+            "empty_fraction": 0.10074626865671642
+          }
+        }
+      },
+      "tasks": {
+        "attack": {
+          "games": 36,
+          "wins": 5,
+          "duration_minutes": 133.26916666666668,
+          "mean_duration_s": 222.1152777777778,
+          "cards": {
+            "cannon": {
+              "accepted": 60,
+              "per_game": 1.6666666666666667,
+              "per_minute": 0.45021666677088346,
+              "legal_decisions": 12688,
+              "selected_decisions": 60,
+              "selected_given_legal": 0.004728877679697352,
+              "accepted_left": 39,
+              "accepted_right": 21
+            },
+            "electro_spirit": {
+              "accepted": 230,
+              "per_game": 6.388888888888889,
+              "per_minute": 1.7258305559550533,
+              "legal_decisions": 11096,
+              "selected_decisions": 234,
+              "selected_given_legal": 0.021088680605623647,
+              "accepted_left": 124,
+              "accepted_right": 106
+            },
+            "fireball": {
+              "accepted": 237,
+              "per_game": 6.583333333333333,
+              "per_minute": 1.7783558337449896,
+              "legal_decisions": 4030,
+              "selected_decisions": 240,
+              "selected_given_legal": 0.05955334987593052,
+              "accepted_left": 131,
+              "accepted_right": 106
+            },
+            "hog_rider": {
+              "accepted": 166,
+              "per_game": 4.611111111111111,
+              "per_minute": 1.2455994447327776,
+              "legal_decisions": 6968,
+              "selected_decisions": 168,
+              "selected_given_legal": 0.024110218140068886,
+              "accepted_left": 86,
+              "accepted_right": 80
+            },
+            "knight": {
+              "accepted": 240,
+              "per_game": 6.666666666666667,
+              "per_minute": 1.8008666670835338,
+              "legal_decisions": 6249,
+              "selected_decisions": 243,
+              "selected_given_legal": 0.03888622179548728,
+              "accepted_left": 131,
+              "accepted_right": 109
+            },
+            "musketeer": {
+              "accepted": 158,
+              "per_game": 4.388888888888889,
+              "per_minute": 1.1855705558299932,
+              "legal_decisions": 5729,
+              "selected_decisions": 159,
+              "selected_given_legal": 0.02775353464828068,
+              "accepted_left": 91,
+              "accepted_right": 67
+            },
+            "skeletons": {
+              "accepted": 241,
+              "per_game": 6.694444444444445,
+              "per_minute": 1.808370278196382,
+              "legal_decisions": 9739,
+              "selected_decisions": 242,
+              "selected_given_legal": 0.024848547078755518,
+              "accepted_left": 123,
+              "accepted_right": 118
+            },
+            "zap": {
+              "accepted": 252,
+              "per_game": 7.0,
+              "per_minute": 1.8909100004377104,
+              "legal_decisions": 8039,
+              "selected_decisions": 257,
+              "selected_given_legal": 0.03196915039183978,
+              "accepted_left": 133,
+              "accepted_right": 119
+            }
+          },
+          "available_below4_fraction": 0.6511082627317347,
+          "mean_available_elixir": 3.7002358145496657,
+          "forced_wait_fraction": 0.25732328758558165,
+          "voluntary_wait_fraction": 0.6925626035576953,
+          "plays_given_choice": 0.06747768984677555,
+          "empty_spell_elixir_per_game": 5.5,
+          "empty_spell_elixir_per_minute": 1.4857150003439155,
+          "overflow_per_game": 7.091722222222222,
+          "own_tower_damage_per_game": 11575.305555555555,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 234,
+              "empty": 38,
+              "empty_fraction": 0.1623931623931624
+            },
+            "zap": {
+              "resolved": 252,
+              "empty": 23,
+              "empty_fraction": 0.09126984126984126
+            }
+          }
+        },
+        "defense": {
+          "games": 36,
+          "wins": 5,
+          "duration_minutes": 132.78333333333333,
+          "mean_duration_s": 221.30555555555554,
+          "cards": {
+            "cannon": {
+              "accepted": 59,
+              "per_game": 1.6388888888888888,
+              "per_minute": 0.4443328731015439,
+              "legal_decisions": 13145,
+              "selected_decisions": 60,
+              "selected_given_legal": 0.004564473183720046,
+              "accepted_left": 46,
+              "accepted_right": 13
+            },
+            "electro_spirit": {
+              "accepted": 259,
+              "per_game": 7.194444444444445,
+              "per_minute": 1.9505460022593197,
+              "legal_decisions": 10288,
+              "selected_decisions": 260,
+              "selected_given_legal": 0.025272161741835147,
+              "accepted_left": 141,
+              "accepted_right": 118
+            },
+            "fireball": {
+              "accepted": 245,
+              "per_game": 6.805555555555555,
+              "per_minute": 1.8451110832182753,
+              "legal_decisions": 4108,
+              "selected_decisions": 246,
+              "selected_given_legal": 0.05988315481986368,
+              "accepted_left": 123,
+              "accepted_right": 122
+            },
+            "hog_rider": {
+              "accepted": 169,
+              "per_game": 4.694444444444445,
+              "per_minute": 1.2727500941383205,
+              "legal_decisions": 6319,
+              "selected_decisions": 171,
+              "selected_given_legal": 0.027061243867700587,
+              "accepted_left": 79,
+              "accepted_right": 90
+            },
+            "knight": {
+              "accepted": 264,
+              "per_game": 7.333333333333333,
+              "per_minute": 1.9882013304882642,
+              "legal_decisions": 5710,
+              "selected_decisions": 265,
+              "selected_given_legal": 0.046409807355516634,
+              "accepted_left": 132,
+              "accepted_right": 132
+            },
+            "musketeer": {
+              "accepted": 119,
+              "per_game": 3.3055555555555554,
+              "per_minute": 0.8961968118488767,
+              "legal_decisions": 6661,
+              "selected_decisions": 120,
+              "selected_given_legal": 0.018015313016063655,
+              "accepted_left": 51,
+              "accepted_right": 68
+            },
+            "skeletons": {
+              "accepted": 269,
+              "per_game": 7.472222222222222,
+              "per_minute": 2.0258566587172084,
+              "legal_decisions": 8500,
+              "selected_decisions": 276,
+              "selected_given_legal": 0.03247058823529412,
+              "accepted_left": 133,
+              "accepted_right": 136
+            },
+            "zap": {
+              "accepted": 284,
+              "per_game": 7.888888888888889,
+              "per_minute": 2.138822643404042,
+              "legal_decisions": 7443,
+              "selected_decisions": 286,
+              "selected_given_legal": 0.038425366115813514,
+              "accepted_left": 154,
+              "accepted_right": 130
+            }
+          },
+          "available_below4_fraction": 0.6498509803921568,
+          "mean_available_elixir": 3.6824080941176534,
+          "forced_wait_fraction": 0.2864,
+          "voluntary_wait_fraction": 0.6607686274509804,
+          "plays_given_choice": 0.07403499516398487,
+          "empty_spell_elixir_per_game": 7.055555555555555,
+          "empty_spell_elixir_per_minute": 1.9128906740303753,
+          "overflow_per_game": 6.379944444444444,
+          "own_tower_damage_per_game": 10960.805555555555,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 244,
+              "empty": 48,
+              "empty_fraction": 0.19672131147540983
+            },
+            "zap": {
+              "resolved": 284,
+              "empty": 31,
+              "empty_fraction": 0.10915492957746478
+            }
+          }
+        }
+      }
+    },
+    {
+      "model": {
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl001_s403/policy.pt",
+        "sha256": "cb499d67ad3ace2d71237f1638bf16abed440b9399ca01875af9491b38c39669"
+      },
+      "all": {
+        "games": 72,
+        "wins": 14,
+        "duration_minutes": 266.1483333333333,
+        "mean_duration_s": 221.79027777777776,
+        "cards": {
+          "cannon": {
+            "accepted": 117,
+            "per_game": 1.625,
+            "per_minute": 0.43960448121035267,
+            "legal_decisions": 27000,
+            "selected_decisions": 119,
+            "selected_given_legal": 0.004407407407407408,
+            "accepted_left": 75,
+            "accepted_right": 42
+          },
+          "electro_spirit": {
+            "accepted": 509,
+            "per_game": 7.069444444444445,
+            "per_minute": 1.9124673584279446,
+            "legal_decisions": 19488,
+            "selected_decisions": 516,
+            "selected_given_legal": 0.02647783251231527,
+            "accepted_left": 272,
+            "accepted_right": 237
+          },
+          "fireball": {
+            "accepted": 454,
+            "per_game": 6.305555555555555,
+            "per_minute": 1.7058156792264967,
+            "legal_decisions": 8959,
+            "selected_decisions": 456,
+            "selected_given_legal": 0.050898537783234735,
+            "accepted_left": 269,
+            "accepted_right": 185
+          },
+          "hog_rider": {
+            "accepted": 367,
+            "per_game": 5.097222222222222,
+            "per_minute": 1.3789302957623883,
+            "legal_decisions": 12896,
+            "selected_decisions": 367,
+            "selected_given_legal": 0.028458436724565758,
+            "accepted_left": 197,
+            "accepted_right": 170
+          },
+          "knight": {
+            "accepted": 483,
+            "per_game": 6.708333333333333,
+            "per_minute": 1.8147774737145328,
+            "legal_decisions": 12178,
+            "selected_decisions": 489,
+            "selected_given_legal": 0.04015437674494991,
+            "accepted_left": 249,
+            "accepted_right": 234
+          },
+          "musketeer": {
+            "accepted": 295,
+            "per_game": 4.097222222222222,
+            "per_minute": 1.108404461171402,
+            "legal_decisions": 11973,
+            "selected_decisions": 297,
+            "selected_given_legal": 0.024805813079428713,
+            "accepted_left": 154,
+            "accepted_right": 141
+          },
+          "skeletons": {
+            "accepted": 500,
+            "per_game": 6.944444444444445,
+            "per_minute": 1.8786516291040711,
+            "legal_decisions": 18818,
+            "selected_decisions": 504,
+            "selected_given_legal": 0.026782867467318526,
+            "accepted_left": 272,
+            "accepted_right": 228
+          },
+          "zap": {
+            "accepted": 494,
+            "per_game": 6.861111111111111,
+            "per_minute": 1.8561078095548222,
+            "legal_decisions": 18279,
+            "selected_decisions": 498,
+            "selected_given_legal": 0.027244378795338912,
+            "accepted_left": 270,
+            "accepted_right": 224
+          }
+        },
+        "available_below4_fraction": 0.6338237595867898,
+        "mean_available_elixir": 3.790824135232435,
+        "forced_wait_fraction": 0.2755986852402567,
+        "voluntary_wait_fraction": 0.6735952418218814,
+        "plays_given_choice": 0.07013525776759863,
+        "empty_spell_elixir_per_game": 5.194444444444445,
+        "empty_spell_elixir_per_minute": 1.4052314185698453,
+        "overflow_per_game": 7.807736111111112,
+        "own_tower_damage_per_game": 11593.916666666666,
+        "nonlethal_crown_only_elixir_per_game": 0.0,
+        "spells": {
+          "fireball": {
+            "resolved": 452,
+            "empty": 74,
+            "empty_fraction": 0.16371681415929204
+          },
+          "zap": {
+            "resolved": 494,
+            "empty": 39,
+            "empty_fraction": 0.07894736842105263
+          }
+        }
+      },
+      "tasks": {
+        "attack": {
+          "games": 36,
+          "wins": 8,
+          "duration_minutes": 133.22416666666666,
+          "mean_duration_s": 222.04027777777776,
+          "cards": {
+            "cannon": {
+              "accepted": 71,
+              "per_game": 1.9722222222222223,
+              "per_minute": 0.5329363416297094,
+              "legal_decisions": 13353,
+              "selected_decisions": 72,
+              "selected_given_legal": 0.0053920467310716695,
+              "accepted_left": 45,
+              "accepted_right": 26
+            },
+            "electro_spirit": {
+              "accepted": 261,
+              "per_game": 7.25,
+              "per_minute": 1.9591040164134386,
+              "legal_decisions": 9827,
+              "selected_decisions": 262,
+              "selected_given_legal": 0.026661239442352703,
+              "accepted_left": 146,
+              "accepted_right": 115
+            },
+            "fireball": {
+              "accepted": 220,
+              "per_game": 6.111111111111111,
+              "per_minute": 1.6513520444864234,
+              "legal_decisions": 4761,
+              "selected_decisions": 221,
+              "selected_given_legal": 0.04641881957571939,
+              "accepted_left": 146,
+              "accepted_right": 74
+            },
+            "hog_rider": {
+              "accepted": 177,
+              "per_game": 4.916666666666667,
+              "per_minute": 1.328587781245895,
+              "legal_decisions": 6811,
+              "selected_decisions": 177,
+              "selected_given_legal": 0.02598737336661283,
+              "accepted_left": 101,
+              "accepted_right": 76
+            },
+            "knight": {
+              "accepted": 240,
+              "per_game": 6.666666666666667,
+              "per_minute": 1.8014749576215527,
+              "legal_decisions": 6181,
+              "selected_decisions": 245,
+              "selected_given_legal": 0.039637599093997736,
+              "accepted_left": 131,
+              "accepted_right": 109
+            },
+            "musketeer": {
+              "accepted": 151,
+              "per_game": 4.194444444444445,
+              "per_minute": 1.133427994170227,
+              "legal_decisions": 6067,
+              "selected_decisions": 152,
+              "selected_given_legal": 0.025053568485248062,
+              "accepted_left": 86,
+              "accepted_right": 65
+            },
+            "skeletons": {
+              "accepted": 247,
+              "per_game": 6.861111111111111,
+              "per_minute": 1.854017977218848,
+              "legal_decisions": 9761,
+              "selected_decisions": 248,
+              "selected_given_legal": 0.025407232865485095,
+              "accepted_left": 141,
+              "accepted_right": 106
+            },
+            "zap": {
+              "accepted": 253,
+              "per_game": 7.027777777777778,
+              "per_minute": 1.8990548511593868,
+              "legal_decisions": 8292,
+              "selected_decisions": 255,
+              "selected_given_legal": 0.030752532561505064,
+              "accepted_left": 142,
+              "accepted_right": 111
+            }
+          },
+          "available_below4_fraction": 0.624953095684803,
+          "mean_available_elixir": 3.8072654471544776,
+          "forced_wait_fraction": 0.28339587242026265,
+          "voluntary_wait_fraction": 0.6655722326454033,
+          "plays_given_choice": 0.07121350962167823,
+          "empty_spell_elixir_per_game": 4.555555555555555,
+          "empty_spell_elixir_per_minute": 1.231007887708061,
+          "overflow_per_game": 7.275111111111111,
+          "own_tower_damage_per_game": 11698.944444444445,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 218,
+              "empty": 31,
+              "empty_fraction": 0.14220183486238533
+            },
+            "zap": {
+              "resolved": 253,
+              "empty": 20,
+              "empty_fraction": 0.07905138339920949
+            }
+          }
+        },
+        "defense": {
+          "games": 36,
+          "wins": 6,
+          "duration_minutes": 132.92416666666668,
+          "mean_duration_s": 221.5402777777778,
+          "cards": {
+            "cannon": {
+              "accepted": 46,
+              "per_game": 1.2777777777777777,
+              "per_minute": 0.34606197769404856,
+              "legal_decisions": 13647,
+              "selected_decisions": 47,
+              "selected_given_legal": 0.003443980361984319,
+              "accepted_left": 30,
+              "accepted_right": 16
+            },
+            "electro_spirit": {
+              "accepted": 248,
+              "per_game": 6.888888888888889,
+              "per_minute": 1.8657254449592184,
+              "legal_decisions": 9661,
+              "selected_decisions": 254,
+              "selected_given_legal": 0.026291274195217887,
+              "accepted_left": 126,
+              "accepted_right": 122
+            },
+            "fireball": {
+              "accepted": 234,
+              "per_game": 6.5,
+              "per_minute": 1.7604022343566819,
+              "legal_decisions": 4198,
+              "selected_decisions": 235,
+              "selected_given_legal": 0.055979037636969986,
+              "accepted_left": 123,
+              "accepted_right": 111
+            },
+            "hog_rider": {
+              "accepted": 190,
+              "per_game": 5.277777777777778,
+              "per_minute": 1.429386429605853,
+              "legal_decisions": 6085,
+              "selected_decisions": 190,
+              "selected_given_legal": 0.031224322103533278,
+              "accepted_left": 96,
+              "accepted_right": 94
+            },
+            "knight": {
+              "accepted": 243,
+              "per_game": 6.75,
+              "per_minute": 1.8281100126011696,
+              "legal_decisions": 5997,
+              "selected_decisions": 244,
+              "selected_given_legal": 0.040687010171752545,
+              "accepted_left": 118,
+              "accepted_right": 125
+            },
+            "musketeer": {
+              "accepted": 144,
+              "per_game": 4.0,
+              "per_minute": 1.0833244519118042,
+              "legal_decisions": 5906,
+              "selected_decisions": 145,
+              "selected_given_legal": 0.024551303758889264,
+              "accepted_left": 68,
+              "accepted_right": 76
+            },
+            "skeletons": {
+              "accepted": 253,
+              "per_game": 7.027777777777778,
+              "per_minute": 1.903340877317267,
+              "legal_decisions": 9057,
+              "selected_decisions": 256,
+              "selected_given_legal": 0.0282654300541018,
+              "accepted_left": 131,
+              "accepted_right": 122
+            },
+            "zap": {
+              "accepted": 241,
+              "per_game": 6.694444444444445,
+              "per_minute": 1.8130638396579501,
+              "legal_decisions": 9987,
+              "selected_decisions": 243,
+              "selected_given_legal": 0.024331631120456592,
+              "accepted_left": 128,
+              "accepted_right": 113
+            }
+          },
+          "available_below4_fraction": 0.6427138827953619,
+          "mean_available_elixir": 3.774346756502669,
+          "forced_wait_fraction": 0.2677843936070197,
+          "voluntary_wait_fraction": 0.6816358508304606,
+          "plays_given_choice": 0.0690776802910336,
+          "empty_spell_elixir_per_game": 5.833333333333333,
+          "empty_spell_elixir_per_minute": 1.5798481590380478,
+          "overflow_per_game": 8.340361111111111,
+          "own_tower_damage_per_game": 11488.888888888889,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 234,
+              "empty": 43,
+              "empty_fraction": 0.18376068376068377
+            },
+            "zap": {
+              "resolved": 241,
+              "empty": 19,
+              "empty_fraction": 0.07883817427385892
+            }
+          }
+        }
+      }
+    },
+    {
+      "model": {
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl01_s402/policy.pt",
+        "sha256": "3b6d2c746e93d7f6a8b5b4ce409d7ad20f390de40fb106f5b15b58fae90787d8"
+      },
+      "all": {
+        "games": 72,
+        "wins": 9,
+        "duration_minutes": 256.515,
+        "mean_duration_s": 213.7625,
+        "cards": {
+          "cannon": {
+            "accepted": 133,
+            "per_game": 1.8472222222222223,
+            "per_minute": 0.5184881975712922,
+            "legal_decisions": 25620,
+            "selected_decisions": 135,
+            "selected_given_legal": 0.005269320843091335,
+            "accepted_left": 81,
+            "accepted_right": 52
+          },
+          "electro_spirit": {
+            "accepted": 454,
+            "per_game": 6.305555555555555,
+            "per_minute": 1.7698770052433581,
+            "legal_decisions": 20054,
+            "selected_decisions": 462,
+            "selected_given_legal": 0.02303779794554702,
+            "accepted_left": 236,
+            "accepted_right": 218
+          },
+          "fireball": {
+            "accepted": 434,
+            "per_game": 6.027777777777778,
+            "per_minute": 1.6919088552326376,
+            "legal_decisions": 8719,
+            "selected_decisions": 437,
+            "selected_given_legal": 0.05012042665443285,
+            "accepted_left": 238,
+            "accepted_right": 196
+          },
+          "hog_rider": {
+            "accepted": 332,
+            "per_game": 4.611111111111111,
+            "per_minute": 1.2942712901779623,
+            "legal_decisions": 12346,
+            "selected_decisions": 334,
+            "selected_given_legal": 0.027053296614288028,
+            "accepted_left": 170,
+            "accepted_right": 162
+          },
+          "knight": {
+            "accepted": 457,
+            "per_game": 6.347222222222222,
+            "per_minute": 1.7815722277449664,
+            "legal_decisions": 12156,
+            "selected_decisions": 459,
+            "selected_given_legal": 0.03775913129318855,
+            "accepted_left": 233,
+            "accepted_right": 224
+          },
+          "musketeer": {
+            "accepted": 263,
+            "per_game": 3.6527777777777777,
+            "per_minute": 1.0252811726409763,
+            "legal_decisions": 12419,
+            "selected_decisions": 266,
+            "selected_given_legal": 0.021418793783718495,
+            "accepted_left": 134,
+            "accepted_right": 129
+          },
+          "skeletons": {
+            "accepted": 482,
+            "per_game": 6.694444444444445,
+            "per_minute": 1.879032415258367,
+            "legal_decisions": 17729,
+            "selected_decisions": 487,
+            "selected_given_legal": 0.02746911839359242,
+            "accepted_left": 244,
+            "accepted_right": 238
+          },
+          "zap": {
+            "accepted": 484,
+            "per_game": 6.722222222222222,
+            "per_minute": 1.8868292302594392,
+            "legal_decisions": 17046,
+            "selected_decisions": 491,
+            "selected_given_legal": 0.028804411592162384,
+            "accepted_left": 260,
+            "accepted_right": 224
+          }
+        },
+        "available_below4_fraction": 0.6275538376587521,
+        "mean_available_elixir": 3.8281919966219538,
+        "forced_wait_fraction": 0.269448143697015,
+        "voluntary_wait_fraction": 0.6806769090850034,
+        "plays_given_choice": 0.06827023542227063,
+        "empty_spell_elixir_per_game": 5.888888888888889,
+        "empty_spell_elixir_per_minute": 1.6529247802272773,
+        "overflow_per_game": 7.372569444444445,
+        "own_tower_damage_per_game": 11013.638888888889,
+        "nonlethal_crown_only_elixir_per_game": 0.05555555555555555,
+        "spells": {
+          "fireball": {
+            "resolved": 429,
+            "empty": 85,
+            "empty_fraction": 0.19813519813519814
+          },
+          "zap": {
+            "resolved": 484,
+            "empty": 42,
+            "empty_fraction": 0.08677685950413223
+          }
+        }
+      },
+      "tasks": {
+        "attack": {
+          "games": 36,
+          "wins": 6,
+          "duration_minutes": 127.99666666666667,
+          "mean_duration_s": 213.32777777777778,
+          "cards": {
+            "cannon": {
+              "accepted": 70,
+              "per_game": 1.9444444444444444,
+              "per_minute": 0.5468892419073413,
+              "legal_decisions": 12447,
+              "selected_decisions": 71,
+              "selected_given_legal": 0.005704185747569696,
+              "accepted_left": 43,
+              "accepted_right": 27
+            },
+            "electro_spirit": {
+              "accepted": 226,
+              "per_game": 6.277777777777778,
+              "per_minute": 1.7656709810151305,
+              "legal_decisions": 9887,
+              "selected_decisions": 230,
+              "selected_given_legal": 0.023262870435925963,
+              "accepted_left": 123,
+              "accepted_right": 103
+            },
+            "fireball": {
+              "accepted": 210,
+              "per_game": 5.833333333333333,
+              "per_minute": 1.640667725722024,
+              "legal_decisions": 4364,
+              "selected_decisions": 211,
+              "selected_given_legal": 0.048350137488542624,
+              "accepted_left": 118,
+              "accepted_right": 92
+            },
+            "hog_rider": {
+              "accepted": 165,
+              "per_game": 4.583333333333333,
+              "per_minute": 1.2890960702101617,
+              "legal_decisions": 6331,
+              "selected_decisions": 166,
+              "selected_given_legal": 0.02622018638445743,
+              "accepted_left": 88,
+              "accepted_right": 77
+            },
+            "knight": {
+              "accepted": 230,
+              "per_game": 6.388888888888889,
+              "per_minute": 1.7969217948384073,
+              "legal_decisions": 5784,
+              "selected_decisions": 231,
+              "selected_given_legal": 0.03993775933609958,
+              "accepted_left": 126,
+              "accepted_right": 104
+            },
+            "musketeer": {
+              "accepted": 148,
+              "per_game": 4.111111111111111,
+              "per_minute": 1.156280111461236,
+              "legal_decisions": 5575,
+              "selected_decisions": 149,
+              "selected_given_legal": 0.026726457399103138,
+              "accepted_left": 73,
+              "accepted_right": 75
+            },
+            "skeletons": {
+              "accepted": 240,
+              "per_game": 6.666666666666667,
+              "per_minute": 1.8750488293965988,
+              "legal_decisions": 8836,
+              "selected_decisions": 243,
+              "selected_given_legal": 0.027501131733816207,
+              "accepted_left": 126,
+              "accepted_right": 114
+            },
+            "zap": {
+              "accepted": 235,
+              "per_game": 6.527777777777778,
+              "per_minute": 1.835985312117503,
+              "legal_decisions": 8523,
+              "selected_decisions": 238,
+              "selected_given_legal": 0.02792443975126129,
+              "accepted_left": 131,
+              "accepted_right": 104
+            }
+          },
+          "available_below4_fraction": 0.6420062491863039,
+          "mean_available_elixir": 3.7191303541205607,
+          "forced_wait_fraction": 0.2724580132795209,
+          "voluntary_wait_fraction": 0.6774508527535477,
+          "plays_given_choice": 0.06884981881626627,
+          "empty_spell_elixir_per_game": 6.555555555555555,
+          "empty_spell_elixir_per_minute": 1.8437980155733222,
+          "overflow_per_game": 6.307055555555555,
+          "own_tower_damage_per_game": 11188.75,
+          "nonlethal_crown_only_elixir_per_game": 0.1111111111111111,
+          "spells": {
+            "fireball": {
+              "resolved": 206,
+              "empty": 47,
+              "empty_fraction": 0.22815533980582525
+            },
+            "zap": {
+              "resolved": 235,
+              "empty": 24,
+              "empty_fraction": 0.10212765957446808
+            }
+          }
+        },
+        "defense": {
+          "games": 36,
+          "wins": 3,
+          "duration_minutes": 128.51833333333335,
+          "mean_duration_s": 214.19722222222222,
+          "cards": {
+            "cannon": {
+              "accepted": 63,
+              "per_game": 1.75,
+              "per_minute": 0.49020243545019515,
+              "legal_decisions": 13173,
+              "selected_decisions": 64,
+              "selected_given_legal": 0.004858422530934488,
+              "accepted_left": 38,
+              "accepted_right": 25
+            },
+            "electro_spirit": {
+              "accepted": 228,
+              "per_game": 6.333333333333333,
+              "per_minute": 1.774065956867373,
+              "legal_decisions": 10167,
+              "selected_decisions": 232,
+              "selected_given_legal": 0.02281892396970591,
+              "accepted_left": 113,
+              "accepted_right": 115
+            },
+            "fireball": {
+              "accepted": 224,
+              "per_game": 6.222222222222222,
+              "per_minute": 1.7429419927118048,
+              "legal_decisions": 4355,
+              "selected_decisions": 226,
+              "selected_given_legal": 0.051894374282433986,
+              "accepted_left": 120,
+              "accepted_right": 104
+            },
+            "hog_rider": {
+              "accepted": 167,
+              "per_game": 4.638888888888889,
+              "per_minute": 1.2994255034949618,
+              "legal_decisions": 6015,
+              "selected_decisions": 168,
+              "selected_given_legal": 0.027930174563591023,
+              "accepted_left": 82,
+              "accepted_right": 85
+            },
+            "knight": {
+              "accepted": 227,
+              "per_game": 6.305555555555555,
+              "per_minute": 1.766284965828481,
+              "legal_decisions": 6372,
+              "selected_decisions": 228,
+              "selected_given_legal": 0.035781544256120526,
+              "accepted_left": 107,
+              "accepted_right": 120
+            },
+            "musketeer": {
+              "accepted": 115,
+              "per_game": 3.1944444444444446,
+              "per_minute": 0.8948139694725784,
+              "legal_decisions": 6844,
+              "selected_decisions": 117,
+              "selected_given_legal": 0.017095265926358856,
+              "accepted_left": 61,
+              "accepted_right": 54
+            },
+            "skeletons": {
+              "accepted": 242,
+              "per_game": 6.722222222222222,
+              "per_minute": 1.8829998314118606,
+              "legal_decisions": 8893,
+              "selected_decisions": 244,
+              "selected_given_legal": 0.027437310244012143,
+              "accepted_left": 118,
+              "accepted_right": 124
+            },
+            "zap": {
+              "accepted": 249,
+              "per_game": 6.916666666666667,
+              "per_minute": 1.9374667686841045,
+              "legal_decisions": 8523,
+              "selected_decisions": 253,
+              "selected_given_legal": 0.029684383433063476,
+              "accepted_left": 129,
+              "accepted_right": 120
+            }
+          },
+          "available_below4_fraction": 0.6131604538087521,
+          "mean_available_elixir": 3.9368082009724508,
+          "forced_wait_fraction": 0.26645056726094,
+          "voluntary_wait_fraction": 0.6838897893030794,
+          "plays_given_choice": 0.06769774635439682,
+          "empty_spell_elixir_per_game": 5.222222222222222,
+          "empty_spell_elixir_per_minute": 1.4628263153116934,
+          "overflow_per_game": 8.438083333333333,
+          "own_tower_damage_per_game": 10838.527777777777,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 223,
+              "empty": 38,
+              "empty_fraction": 0.17040358744394618
+            },
+            "zap": {
+              "resolved": 249,
+              "empty": 18,
+              "empty_fraction": 0.07228915662650602
+            }
+          }
+        }
+      }
+    },
+    {
+      "model": {
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl01_s403/policy.pt",
+        "sha256": "77632e1405af12c2f7c740be861503c93129ea91e66840b6d743eddd07e5899c"
+      },
+      "all": {
+        "games": 72,
+        "wins": 15,
+        "duration_minutes": 268.0366666666667,
+        "mean_duration_s": 223.3638888888889,
+        "cards": {
+          "cannon": {
+            "accepted": 118,
+            "per_game": 1.6388888888888888,
+            "per_minute": 0.44023827585778064,
+            "legal_decisions": 27275,
+            "selected_decisions": 120,
+            "selected_given_legal": 0.004399633363886343,
+            "accepted_left": 79,
+            "accepted_right": 39
+          },
+          "electro_spirit": {
+            "accepted": 490,
+            "per_game": 6.805555555555555,
+            "per_minute": 1.8281080946636652,
+            "legal_decisions": 20686,
+            "selected_decisions": 502,
+            "selected_given_legal": 0.02426762061297496,
+            "accepted_left": 264,
+            "accepted_right": 226
+          },
+          "fireball": {
+            "accepted": 448,
+            "per_game": 6.222222222222222,
+            "per_minute": 1.6714131151210654,
+            "legal_decisions": 9409,
+            "selected_decisions": 450,
+            "selected_given_legal": 0.04782654904878308,
+            "accepted_left": 232,
+            "accepted_right": 216
+          },
+          "hog_rider": {
+            "accepted": 359,
+            "per_game": 4.986111111111111,
+            "per_minute": 1.3393689918046037,
+            "legal_decisions": 13317,
+            "selected_decisions": 361,
+            "selected_given_legal": 0.02710820755425396,
+            "accepted_left": 171,
+            "accepted_right": 188
+          },
+          "knight": {
+            "accepted": 480,
+            "per_game": 6.666666666666667,
+            "per_minute": 1.7907997662011415,
+            "legal_decisions": 12573,
+            "selected_decisions": 490,
+            "selected_given_legal": 0.03897240117712559,
+            "accepted_left": 246,
+            "accepted_right": 234
+          },
+          "musketeer": {
+            "accepted": 310,
+            "per_game": 4.305555555555555,
+            "per_minute": 1.1565581823382372,
+            "legal_decisions": 12915,
+            "selected_decisions": 313,
+            "selected_given_legal": 0.024235385210994966,
+            "accepted_left": 153,
+            "accepted_right": 157
+          },
+          "skeletons": {
+            "accepted": 500,
+            "per_game": 6.944444444444445,
+            "per_minute": 1.865416423126189,
+            "legal_decisions": 18993,
+            "selected_decisions": 506,
+            "selected_given_legal": 0.02664139419786237,
+            "accepted_left": 245,
+            "accepted_right": 255
+          },
+          "zap": {
+            "accepted": 505,
+            "per_game": 7.013888888888889,
+            "per_minute": 1.884070587357451,
+            "legal_decisions": 18008,
+            "selected_decisions": 509,
+            "selected_given_legal": 0.028265215459795646,
+            "accepted_left": 275,
+            "accepted_right": 230
+          }
+        },
+        "available_below4_fraction": 0.6261714196907296,
+        "mean_available_elixir": 3.866180371435235,
+        "forced_wait_fraction": 0.255824073354573,
+        "voluntary_wait_fraction": 0.6936514103659958,
+        "plays_given_choice": 0.06789324200150364,
+        "empty_spell_elixir_per_game": 5.194444444444445,
+        "empty_spell_elixir_per_minute": 1.3953314844983895,
+        "overflow_per_game": 8.362777777777778,
+        "own_tower_damage_per_game": 11680.027777777777,
+        "nonlethal_crown_only_elixir_per_game": 0.05555555555555555,
+        "spells": {
+          "fireball": {
+            "resolved": 443,
+            "empty": 73,
+            "empty_fraction": 0.16478555304740405
+          },
+          "zap": {
+            "resolved": 505,
+            "empty": 41,
+            "empty_fraction": 0.08118811881188119
+          }
+        }
+      },
+      "tasks": {
+        "attack": {
+          "games": 36,
+          "wins": 7,
+          "duration_minutes": 137.40916666666666,
+          "mean_duration_s": 229.01527777777775,
+          "cards": {
+            "cannon": {
+              "accepted": 60,
+              "per_game": 1.6666666666666667,
+              "per_minute": 0.43665209138157934,
+              "legal_decisions": 14237,
+              "selected_decisions": 61,
+              "selected_given_legal": 0.004284610521879609,
+              "accepted_left": 40,
+              "accepted_right": 20
+            },
+            "electro_spirit": {
+              "accepted": 254,
+              "per_game": 7.055555555555555,
+              "per_minute": 1.8484938535153526,
+              "legal_decisions": 10335,
+              "selected_decisions": 259,
+              "selected_given_legal": 0.025060474117077892,
+              "accepted_left": 130,
+              "accepted_right": 124
+            },
+            "fireball": {
+              "accepted": 223,
+              "per_game": 6.194444444444445,
+              "per_minute": 1.6228902729682033,
+              "legal_decisions": 5326,
+              "selected_decisions": 224,
+              "selected_given_legal": 0.04205782951558393,
+              "accepted_left": 114,
+              "accepted_right": 109
+            },
+            "hog_rider": {
+              "accepted": 190,
+              "per_game": 5.277777777777778,
+              "per_minute": 1.3827316227083346,
+              "legal_decisions": 6495,
+              "selected_decisions": 190,
+              "selected_given_legal": 0.029253271747498075,
+              "accepted_left": 88,
+              "accepted_right": 102
+            },
+            "knight": {
+              "accepted": 246,
+              "per_game": 6.833333333333333,
+              "per_minute": 1.7902735746644753,
+              "legal_decisions": 6271,
+              "selected_decisions": 254,
+              "selected_given_legal": 0.04050390687290703,
+              "accepted_left": 125,
+              "accepted_right": 121
+            },
+            "musketeer": {
+              "accepted": 173,
+              "per_game": 4.805555555555555,
+              "per_minute": 1.2590135301502206,
+              "legal_decisions": 6554,
+              "selected_decisions": 174,
+              "selected_given_legal": 0.02654867256637168,
+              "accepted_left": 80,
+              "accepted_right": 93
+            },
+            "skeletons": {
+              "accepted": 256,
+              "per_game": 7.111111111111111,
+              "per_minute": 1.8630489232280718,
+              "legal_decisions": 10144,
+              "selected_decisions": 260,
+              "selected_given_legal": 0.025630914826498423,
+              "accepted_left": 125,
+              "accepted_right": 131
+            },
+            "zap": {
+              "accepted": 265,
+              "per_game": 7.361111111111111,
+              "per_minute": 1.9285467369353089,
+              "legal_decisions": 8907,
+              "selected_decisions": 268,
+              "selected_given_legal": 0.03008869428539351,
+              "accepted_left": 142,
+              "accepted_right": 123
+            }
+          },
+          "available_below4_fraction": 0.6279330625113685,
+          "mean_available_elixir": 3.858369975140969,
+          "forced_wait_fraction": 0.2518037955496271,
+          "voluntary_wait_fraction": 0.6969623476626448,
+          "plays_given_choice": 0.06847649918962723,
+          "empty_spell_elixir_per_game": 4.777777777777778,
+          "empty_spell_elixir_per_minute": 1.251735995293861,
+          "overflow_per_game": 8.774750000000001,
+          "own_tower_damage_per_game": 12079.277777777777,
+          "nonlethal_crown_only_elixir_per_game": 0.1111111111111111,
+          "spells": {
+            "fireball": {
+              "resolved": 221,
+              "empty": 34,
+              "empty_fraction": 0.15384615384615385
+            },
+            "zap": {
+              "resolved": 265,
+              "empty": 18,
+              "empty_fraction": 0.06792452830188679
+            }
+          }
+        },
+        "defense": {
+          "games": 36,
+          "wins": 8,
+          "duration_minutes": 130.6275,
+          "mean_duration_s": 217.71249999999998,
+          "cards": {
+            "cannon": {
+              "accepted": 58,
+              "per_game": 1.6111111111111112,
+              "per_minute": 0.4440106409446709,
+              "legal_decisions": 13038,
+              "selected_decisions": 59,
+              "selected_given_legal": 0.0045252339315845986,
+              "accepted_left": 39,
+              "accepted_right": 19
+            },
+            "electro_spirit": {
+              "accepted": 236,
+              "per_game": 6.555555555555555,
+              "per_minute": 1.8066639872921093,
+              "legal_decisions": 10351,
+              "selected_decisions": 243,
+              "selected_given_legal": 0.02347599265771423,
+              "accepted_left": 134,
+              "accepted_right": 102
+            },
+            "fireball": {
+              "accepted": 225,
+              "per_game": 6.25,
+              "per_minute": 1.7224550726301888,
+              "legal_decisions": 4083,
+              "selected_decisions": 226,
+              "selected_given_legal": 0.05535145726181729,
+              "accepted_left": 118,
+              "accepted_right": 107
+            },
+            "hog_rider": {
+              "accepted": 169,
+              "per_game": 4.694444444444445,
+              "per_minute": 1.2937551434422307,
+              "legal_decisions": 6822,
+              "selected_decisions": 171,
+              "selected_given_legal": 0.025065963060686015,
+              "accepted_left": 83,
+              "accepted_right": 86
+            },
+            "knight": {
+              "accepted": 234,
+              "per_game": 6.5,
+              "per_minute": 1.7913532755353965,
+              "legal_decisions": 6302,
+              "selected_decisions": 236,
+              "selected_given_legal": 0.037448429070136464,
+              "accepted_left": 121,
+              "accepted_right": 113
+            },
+            "musketeer": {
+              "accepted": 137,
+              "per_game": 3.8055555555555554,
+              "per_minute": 1.048783755334826,
+              "legal_decisions": 6361,
+              "selected_decisions": 139,
+              "selected_given_legal": 0.021851910077031914,
+              "accepted_left": 73,
+              "accepted_right": 64
+            },
+            "skeletons": {
+              "accepted": 244,
+              "per_game": 6.777777777777778,
+              "per_minute": 1.8679068343189604,
+              "legal_decisions": 8849,
+              "selected_decisions": 246,
+              "selected_given_legal": 0.027799751384337212,
+              "accepted_left": 120,
+              "accepted_right": 124
+            },
+            "zap": {
+              "accepted": 240,
+              "per_game": 6.666666666666667,
+              "per_minute": 1.8372854108055348,
+              "legal_decisions": 9101,
+              "selected_decisions": 241,
+              "selected_given_legal": 0.026480606526755303,
+              "accepted_left": 133,
+              "accepted_right": 107
+            }
+          },
+          "available_below4_fraction": 0.6243183774992825,
+          "mean_available_elixir": 3.8743959947702455,
+          "forced_wait_fraction": 0.26005293536145924,
+          "voluntary_wait_fraction": 0.6901686916036863,
+          "plays_given_choice": 0.06727288398551974,
+          "empty_spell_elixir_per_game": 5.611111111111111,
+          "empty_spell_elixir_per_minute": 1.5463818874279918,
+          "overflow_per_game": 7.950805555555555,
+          "own_tower_damage_per_game": 11280.777777777777,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 222,
+              "empty": 39,
+              "empty_fraction": 0.17567567567567569
+            },
+            "zap": {
+              "resolved": 240,
+              "empty": 23,
+              "empty_fraction": 0.09583333333333334
+            }
+          }
+        }
+      }
+    },
+    {
+      "model": {
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl001_s402/policy.pt",
+        "sha256": "a2896b483c7d0ec48ab0364c821770e6be8fddccc1ae1d659f98683499c41943"
+      },
+      "all": {
+        "games": 72,
+        "wins": 16,
+        "duration_minutes": 269.5225,
+        "mean_duration_s": 224.60208333333333,
+        "cards": {
+          "cannon": {
+            "accepted": 362,
+            "per_game": 5.027777777777778,
+            "per_minute": 1.3431160663766477,
+            "legal_decisions": 19740,
+            "selected_decisions": 364,
+            "selected_given_legal": 0.018439716312056736,
+            "accepted_left": 168,
+            "accepted_right": 194
+          },
+          "electro_spirit": {
+            "accepted": 503,
+            "per_game": 6.986111111111111,
+            "per_minute": 1.8662634844957287,
+            "legal_decisions": 23978,
+            "selected_decisions": 508,
+            "selected_given_legal": 0.021186087246642758,
+            "accepted_left": 234,
+            "accepted_right": 269
+          },
+          "fireball": {
+            "accepted": 395,
+            "per_game": 5.486111111111111,
+            "per_minute": 1.465554823808773,
+            "legal_decisions": 9338,
+            "selected_decisions": 396,
+            "selected_given_legal": 0.04240736774469908,
+            "accepted_left": 189,
+            "accepted_right": 206
+          },
+          "hog_rider": {
+            "accepted": 305,
+            "per_game": 4.236111111111111,
+            "per_minute": 1.1316309399029767,
+            "legal_decisions": 10242,
+            "selected_decisions": 306,
+            "selected_given_legal": 0.029876977152899824,
+            "accepted_left": 146,
+            "accepted_right": 159
+          },
+          "knight": {
+            "accepted": 487,
+            "per_game": 6.763888888888889,
+            "per_minute": 1.8068992384680316,
+            "legal_decisions": 13581,
+            "selected_decisions": 491,
+            "selected_given_legal": 0.03615344967233635,
+            "accepted_left": 230,
+            "accepted_right": 257
+          },
+          "musketeer": {
+            "accepted": 261,
+            "per_game": 3.625,
+            "per_minute": 0.9683792633268096,
+            "legal_decisions": 11620,
+            "selected_decisions": 262,
+            "selected_given_legal": 0.022547332185886403,
+            "accepted_left": 126,
+            "accepted_right": 135
+          },
+          "skeletons": {
+            "accepted": 513,
+            "per_game": 7.125,
+            "per_minute": 1.9033661382630394,
+            "legal_decisions": 22465,
+            "selected_decisions": 518,
+            "selected_given_legal": 0.023058090362786558,
+            "accepted_left": 229,
+            "accepted_right": 284
+          },
+          "zap": {
+            "accepted": 544,
+            "per_game": 7.555555555555555,
+            "per_minute": 2.018384364941703,
+            "legal_decisions": 18639,
+            "selected_decisions": 550,
+            "selected_given_legal": 0.029508020816567414,
+            "accepted_left": 261,
+            "accepted_right": 283
+          }
+        },
+        "available_below4_fraction": 0.6266790323827189,
+        "mean_available_elixir": 3.857514413787772,
+        "forced_wait_fraction": 0.3013215859030837,
+        "voluntary_wait_fraction": 0.646201406600201,
+        "plays_given_choice": 0.0751089577664211,
+        "empty_spell_elixir_per_game": 10.444444444444445,
+        "empty_spell_elixir_per_minute": 2.7901195633017655,
+        "overflow_per_game": 8.79748611111111,
+        "own_tower_damage_per_game": 11517.916666666666,
+        "nonlethal_crown_only_elixir_per_game": 0.0,
+        "spells": {
+          "fireball": {
+            "resolved": 393,
+            "empty": 113,
+            "empty_fraction": 0.2875318066157761
+          },
+          "zap": {
+            "resolved": 544,
+            "empty": 150,
+            "empty_fraction": 0.2757352941176471
+          }
+        }
+      },
+      "tasks": {
+        "attack": {
+          "games": 36,
+          "wins": 10,
+          "duration_minutes": 137.53083333333333,
+          "mean_duration_s": 229.21805555555557,
+          "cards": {
+            "cannon": {
+              "accepted": 199,
+              "per_game": 5.527777777777778,
+              "per_minute": 1.446948260087132,
+              "legal_decisions": 9607,
+              "selected_decisions": 200,
+              "selected_given_legal": 0.02081815342979078,
+              "accepted_left": 93,
+              "accepted_right": 106
+            },
+            "electro_spirit": {
+              "accepted": 251,
+              "per_game": 6.972222222222222,
+              "per_minute": 1.8250452928737193,
+              "legal_decisions": 12228,
+              "selected_decisions": 255,
+              "selected_given_legal": 0.02085377821393523,
+              "accepted_left": 106,
+              "accepted_right": 145
+            },
+            "fireball": {
+              "accepted": 196,
+              "per_game": 5.444444444444445,
+              "per_minute": 1.4251349697340596,
+              "legal_decisions": 4486,
+              "selected_decisions": 197,
+              "selected_given_legal": 0.04391440035666518,
+              "accepted_left": 102,
+              "accepted_right": 94
+            },
+            "hog_rider": {
+              "accepted": 155,
+              "per_game": 4.305555555555555,
+              "per_minute": 1.1270200015754044,
+              "legal_decisions": 5469,
+              "selected_decisions": 155,
+              "selected_given_legal": 0.028341561528615836,
+              "accepted_left": 73,
+              "accepted_right": 82
+            },
+            "knight": {
+              "accepted": 263,
+              "per_game": 7.305555555555555,
+              "per_minute": 1.9122984542860086,
+              "legal_decisions": 6715,
+              "selected_decisions": 266,
+              "selected_given_legal": 0.03961280714817573,
+              "accepted_left": 126,
+              "accepted_right": 137
+            },
+            "musketeer": {
+              "accepted": 141,
+              "per_game": 3.9166666666666665,
+              "per_minute": 1.0252246465944,
+              "legal_decisions": 5964,
+              "selected_decisions": 142,
+              "selected_given_legal": 0.023809523809523808,
+              "accepted_left": 69,
+              "accepted_right": 72
+            },
+            "skeletons": {
+              "accepted": 256,
+              "per_game": 7.111111111111111,
+              "per_minute": 1.8614007767955065,
+              "legal_decisions": 12180,
+              "selected_decisions": 259,
+              "selected_given_legal": 0.021264367816091954,
+              "accepted_left": 104,
+              "accepted_right": 152
+            },
+            "zap": {
+              "accepted": 271,
+              "per_game": 7.527777777777778,
+              "per_minute": 1.9704672285608682,
+              "legal_decisions": 9418,
+              "selected_decisions": 274,
+              "selected_given_legal": 0.02909322573794861,
+              "accepted_left": 131,
+              "accepted_right": 140
+            }
+          },
+          "available_below4_fraction": 0.6316602550510405,
+          "mean_available_elixir": 3.8122268197376754,
+          "forced_wait_fraction": 0.2954593644927756,
+          "voluntary_wait_fraction": 0.6515917971708115,
+          "plays_given_choice": 0.07515370394255987,
+          "empty_spell_elixir_per_game": 10.277777777777779,
+          "empty_spell_elixir_per_minute": 2.6903058102122555,
+          "overflow_per_game": 7.911444444444445,
+          "own_tower_damage_per_game": 11939.444444444445,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 196,
+              "empty": 56,
+              "empty_fraction": 0.2857142857142857
+            },
+            "zap": {
+              "resolved": 271,
+              "empty": 73,
+              "empty_fraction": 0.2693726937269373
+            }
+          }
+        },
+        "defense": {
+          "games": 36,
+          "wins": 6,
+          "duration_minutes": 131.99166666666667,
+          "mean_duration_s": 219.98611111111111,
+          "cards": {
+            "cannon": {
+              "accepted": 163,
+              "per_game": 4.527777777777778,
+              "per_minute": 1.2349264473767283,
+              "legal_decisions": 10133,
+              "selected_decisions": 164,
+              "selected_given_legal": 0.016184742919174974,
+              "accepted_left": 75,
+              "accepted_right": 88
+            },
+            "electro_spirit": {
+              "accepted": 252,
+              "per_game": 7.0,
+              "per_minute": 1.9092114401161688,
+              "legal_decisions": 11750,
+              "selected_decisions": 253,
+              "selected_given_legal": 0.02153191489361702,
+              "accepted_left": 128,
+              "accepted_right": 124
+            },
+            "fireball": {
+              "accepted": 199,
+              "per_game": 5.527777777777778,
+              "per_minute": 1.5076709388218952,
+              "legal_decisions": 4852,
+              "selected_decisions": 199,
+              "selected_given_legal": 0.04101401483924155,
+              "accepted_left": 87,
+              "accepted_right": 112
+            },
+            "hog_rider": {
+              "accepted": 150,
+              "per_game": 4.166666666666667,
+              "per_minute": 1.136435381021529,
+              "legal_decisions": 4773,
+              "selected_decisions": 151,
+              "selected_given_legal": 0.03163628745024094,
+              "accepted_left": 73,
+              "accepted_right": 77
+            },
+            "knight": {
+              "accepted": 224,
+              "per_game": 6.222222222222222,
+              "per_minute": 1.6970768356588168,
+              "legal_decisions": 6866,
+              "selected_decisions": 225,
+              "selected_given_legal": 0.03277017186134576,
+              "accepted_left": 104,
+              "accepted_right": 120
+            },
+            "musketeer": {
+              "accepted": 120,
+              "per_game": 3.3333333333333335,
+              "per_minute": 0.9091483048172233,
+              "legal_decisions": 5656,
+              "selected_decisions": 120,
+              "selected_given_legal": 0.021216407355021217,
+              "accepted_left": 57,
+              "accepted_right": 63
+            },
+            "skeletons": {
+              "accepted": 257,
+              "per_game": 7.138888888888889,
+              "per_minute": 1.9470926194835532,
+              "legal_decisions": 10285,
+              "selected_decisions": 259,
+              "selected_given_legal": 0.025182304326689352,
+              "accepted_left": 125,
+              "accepted_right": 132
+            },
+            "zap": {
+              "accepted": 273,
+              "per_game": 7.583333333333333,
+              "per_minute": 2.0683123934591827,
+              "legal_decisions": 9221,
+              "selected_decisions": 276,
+              "selected_given_legal": 0.02993167769222427,
+              "accepted_left": 130,
+              "accepted_right": 143
+            }
+          },
+          "available_below4_fraction": 0.6214885423900006,
+          "mean_available_elixir": 3.904704595669467,
+          "forced_wait_fraction": 0.3074300864844391,
+          "voluntary_wait_fraction": 0.6405845590556152,
+          "plays_given_choice": 0.07506152584085315,
+          "empty_spell_elixir_per_game": 10.61111111111111,
+          "empty_spell_elixir_per_minute": 2.8941221036681606,
+          "overflow_per_game": 9.683527777777776,
+          "own_tower_damage_per_game": 11096.388888888889,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 197,
+              "empty": 57,
+              "empty_fraction": 0.2893401015228426
+            },
+            "zap": {
+              "resolved": 273,
+              "empty": 77,
+              "empty_fraction": 0.28205128205128205
+            }
+          }
+        }
+      }
+    },
+    {
+      "model": {
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl001_s403/policy.pt",
+        "sha256": "b5633ca1fbf29a6f5ebfa844f803ab4743c91aa73ced56bd3c95095b7c068577"
+      },
+      "all": {
+        "games": 72,
+        "wins": 11,
+        "duration_minutes": 260.3433333333333,
+        "mean_duration_s": 216.95277777777775,
+        "cards": {
+          "cannon": {
+            "accepted": 321,
+            "per_game": 4.458333333333333,
+            "per_minute": 1.2329872091981102,
+            "legal_decisions": 18251,
+            "selected_decisions": 325,
+            "selected_given_legal": 0.017807243438715686,
+            "accepted_left": 171,
+            "accepted_right": 150
+          },
+          "electro_spirit": {
+            "accepted": 476,
+            "per_game": 6.611111111111111,
+            "per_minute": 1.8283548647299082,
+            "legal_decisions": 21916,
+            "selected_decisions": 480,
+            "selected_given_legal": 0.021901806899069173,
+            "accepted_left": 232,
+            "accepted_right": 244
+          },
+          "fireball": {
+            "accepted": 372,
+            "per_game": 5.166666666666667,
+            "per_minute": 1.4288823732763147,
+            "legal_decisions": 8304,
+            "selected_decisions": 377,
+            "selected_given_legal": 0.04539980732177264,
+            "accepted_left": 172,
+            "accepted_right": 200
+          },
+          "hog_rider": {
+            "accepted": 304,
+            "per_game": 4.222222222222222,
+            "per_minute": 1.1676888211720422,
+            "legal_decisions": 9431,
+            "selected_decisions": 306,
+            "selected_given_legal": 0.03244618810306436,
+            "accepted_left": 149,
+            "accepted_right": 155
+          },
+          "knight": {
+            "accepted": 453,
+            "per_game": 6.291666666666667,
+            "per_minute": 1.7400099868122865,
+            "legal_decisions": 12580,
+            "selected_decisions": 459,
+            "selected_given_legal": 0.03648648648648649,
+            "accepted_left": 216,
+            "accepted_right": 237
+          },
+          "musketeer": {
+            "accepted": 249,
+            "per_game": 3.4583333333333335,
+            "per_minute": 0.9564293304994688,
+            "legal_decisions": 11706,
+            "selected_decisions": 250,
+            "selected_given_legal": 0.021356569280710745,
+            "accepted_left": 123,
+            "accepted_right": 126
+          },
+          "skeletons": {
+            "accepted": 473,
+            "per_game": 6.569444444444445,
+            "per_minute": 1.8168316197841314,
+            "legal_decisions": 21511,
+            "selected_decisions": 477,
+            "selected_given_legal": 0.02217470131560597,
+            "accepted_left": 216,
+            "accepted_right": 257
+          },
+          "zap": {
+            "accepted": 501,
+            "per_game": 6.958333333333333,
+            "per_minute": 1.9243819059447143,
+            "legal_decisions": 18122,
+            "selected_decisions": 507,
+            "selected_given_legal": 0.027977044476327116,
+            "accepted_left": 226,
+            "accepted_right": 275
+          }
+        },
+        "available_below4_fraction": 0.644642514241823,
+        "mean_available_elixir": 3.7663947705306304,
+        "forced_wait_fraction": 0.306775267234206,
+        "voluntary_wait_fraction": 0.6423222172438072,
+        "plays_given_choice": 0.07342859121442256,
+        "empty_spell_elixir_per_game": 10.583333333333334,
+        "empty_spell_elixir_per_minute": 2.92690421622729,
+        "overflow_per_game": 8.340638888888888,
+        "own_tower_damage_per_game": 11049.763888888889,
+        "nonlethal_crown_only_elixir_per_game": 0.05555555555555555,
+        "spells": {
+          "fireball": {
+            "resolved": 371,
+            "empty": 121,
+            "empty_fraction": 0.3261455525606469
+          },
+          "zap": {
+            "resolved": 501,
+            "empty": 139,
+            "empty_fraction": 0.2774451097804391
+          }
+        }
+      },
+      "tasks": {
+        "attack": {
+          "games": 36,
+          "wins": 3,
+          "duration_minutes": 126.13166666666666,
+          "mean_duration_s": 210.21944444444443,
+          "cards": {
+            "cannon": {
+              "accepted": 152,
+              "per_game": 4.222222222222222,
+              "per_minute": 1.205089919264261,
+              "legal_decisions": 8145,
+              "selected_decisions": 154,
+              "selected_given_legal": 0.0189073050951504,
+              "accepted_left": 82,
+              "accepted_right": 70
+            },
+            "electro_spirit": {
+              "accepted": 229,
+              "per_game": 6.361111111111111,
+              "per_minute": 1.8155631020494458,
+              "legal_decisions": 10551,
+              "selected_decisions": 231,
+              "selected_given_legal": 0.02189365936878021,
+              "accepted_left": 113,
+              "accepted_right": 116
+            },
+            "fireball": {
+              "accepted": 167,
+              "per_game": 4.638888888888889,
+              "per_minute": 1.3240132665600761,
+              "legal_decisions": 3615,
+              "selected_decisions": 170,
+              "selected_given_legal": 0.04702627939142462,
+              "accepted_left": 76,
+              "accepted_right": 91
+            },
+            "hog_rider": {
+              "accepted": 146,
+              "per_game": 4.055555555555555,
+              "per_minute": 1.157520580345935,
+              "legal_decisions": 4861,
+              "selected_decisions": 147,
+              "selected_given_legal": 0.03024069121579922,
+              "accepted_left": 68,
+              "accepted_right": 78
+            },
+            "knight": {
+              "accepted": 224,
+              "per_game": 6.222222222222222,
+              "per_minute": 1.775921986284174,
+              "legal_decisions": 5323,
+              "selected_decisions": 226,
+              "selected_given_legal": 0.04245726094307721,
+              "accepted_left": 104,
+              "accepted_right": 120
+            },
+            "musketeer": {
+              "accepted": 120,
+              "per_game": 3.3333333333333335,
+              "per_minute": 0.9513867783665219,
+              "legal_decisions": 5428,
+              "selected_decisions": 120,
+              "selected_given_legal": 0.02210759027266028,
+              "accepted_left": 57,
+              "accepted_right": 63
+            },
+            "skeletons": {
+              "accepted": 224,
+              "per_game": 6.222222222222222,
+              "per_minute": 1.775921986284174,
+              "legal_decisions": 10674,
+              "selected_decisions": 227,
+              "selected_given_legal": 0.021266629192430206,
+              "accepted_left": 104,
+              "accepted_right": 120
+            },
+            "zap": {
+              "accepted": 246,
+              "per_game": 6.833333333333333,
+              "per_minute": 1.9503428956513698,
+              "legal_decisions": 7949,
+              "selected_decisions": 249,
+              "selected_given_legal": 0.0313246949301799,
+              "accepted_left": 105,
+              "accepted_right": 141
+            }
+          },
+          "available_below4_fraction": 0.6724906694850877,
+          "mean_available_elixir": 3.5931833074611115,
+          "forced_wait_fraction": 0.32265415992337415,
+          "voluntary_wait_fraction": 0.62701060210721,
+          "plays_given_choice": 0.0743124634289058,
+          "empty_spell_elixir_per_game": 10.38888888888889,
+          "empty_spell_elixir_per_minute": 2.965155459242326,
+          "overflow_per_game": 7.547027777777777,
+          "own_tower_damage_per_game": 10915.305555555555,
+          "nonlethal_crown_only_elixir_per_game": 0.1111111111111111,
+          "spells": {
+            "fireball": {
+              "resolved": 166,
+              "empty": 58,
+              "empty_fraction": 0.3493975903614458
+            },
+            "zap": {
+              "resolved": 246,
+              "empty": 71,
+              "empty_fraction": 0.2886178861788618
+            }
+          }
+        },
+        "defense": {
+          "games": 36,
+          "wins": 8,
+          "duration_minutes": 134.21166666666667,
+          "mean_duration_s": 223.68611111111113,
+          "cards": {
+            "cannon": {
+              "accepted": 169,
+              "per_game": 4.694444444444445,
+              "per_minute": 1.259204987147168,
+              "legal_decisions": 10106,
+              "selected_decisions": 171,
+              "selected_given_legal": 0.016920641203245598,
+              "accepted_left": 89,
+              "accepted_right": 80
+            },
+            "electro_spirit": {
+              "accepted": 247,
+              "per_game": 6.861111111111111,
+              "per_minute": 1.8403765196766302,
+              "legal_decisions": 11365,
+              "selected_decisions": 249,
+              "selected_given_legal": 0.02190937087549494,
+              "accepted_left": 119,
+              "accepted_right": 128
+            },
+            "fireball": {
+              "accepted": 205,
+              "per_game": 5.694444444444445,
+              "per_minute": 1.5274380021607659,
+              "legal_decisions": 4689,
+              "selected_decisions": 207,
+              "selected_given_legal": 0.044145873320537425,
+              "accepted_left": 96,
+              "accepted_right": 109
+            },
+            "hog_rider": {
+              "accepted": 158,
+              "per_game": 4.388888888888889,
+              "per_minute": 1.1772448992263465,
+              "legal_decisions": 4570,
+              "selected_decisions": 159,
+              "selected_given_legal": 0.03479212253829322,
+              "accepted_left": 81,
+              "accepted_right": 77
+            },
+            "knight": {
+              "accepted": 229,
+              "per_game": 6.361111111111111,
+              "per_minute": 1.7062600121698313,
+              "legal_decisions": 7257,
+              "selected_decisions": 233,
+              "selected_given_legal": 0.03210693123880391,
+              "accepted_left": 112,
+              "accepted_right": 117
+            },
+            "musketeer": {
+              "accepted": 129,
+              "per_game": 3.5833333333333335,
+              "per_minute": 0.9611683037987259,
+              "legal_decisions": 6278,
+              "selected_decisions": 130,
+              "selected_given_legal": 0.020707231602421154,
+              "accepted_left": 66,
+              "accepted_right": 63
+            },
+            "skeletons": {
+              "accepted": 249,
+              "per_game": 6.916666666666667,
+              "per_minute": 1.8552783538440523,
+              "legal_decisions": 10837,
+              "selected_decisions": 250,
+              "selected_given_legal": 0.02306911506874596,
+              "accepted_left": 112,
+              "accepted_right": 137
+            },
+            "zap": {
+              "accepted": 255,
+              "per_game": 7.083333333333333,
+              "per_minute": 1.8999838563463185,
+              "legal_decisions": 10173,
+              "selected_decisions": 258,
+              "selected_given_legal": 0.025361250368622825,
+              "accepted_left": 121,
+              "accepted_right": 134
+            }
+          },
+          "available_below4_fraction": 0.6184696569920844,
+          "mean_available_elixir": 3.92918612447618,
+          "forced_wait_fraction": 0.2918516219152569,
+          "voluntary_wait_fraction": 0.6567127114698122,
+          "plays_given_choice": 0.07263402445973786,
+          "empty_spell_elixir_per_game": 10.777777777777779,
+          "empty_spell_elixir_per_minute": 2.8909558284798886,
+          "overflow_per_game": 9.134250000000002,
+          "own_tower_damage_per_game": 11184.222222222223,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 205,
+              "empty": 63,
+              "empty_fraction": 0.3073170731707317
+            },
+            "zap": {
+              "resolved": 255,
+              "empty": 68,
+              "empty_fraction": 0.26666666666666666
+            }
+          }
+        }
+      }
+    },
+    {
+      "model": {
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl01_s402/policy.pt",
+        "sha256": "4b5a1d241dee976f2648f79a085be7ee0f7ca58b8984741d5e167e17b5e1e6ab"
+      },
+      "all": {
+        "games": 72,
+        "wins": 11,
+        "duration_minutes": 268.86083333333335,
+        "mean_duration_s": 224.05069444444447,
+        "cards": {
+          "cannon": {
+            "accepted": 309,
+            "per_game": 4.291666666666667,
+            "per_minute": 1.1492934696698724,
+            "legal_decisions": 21334,
+            "selected_decisions": 312,
+            "selected_given_legal": 0.01462454298303178,
+            "accepted_left": 162,
+            "accepted_right": 147
+          },
+          "electro_spirit": {
+            "accepted": 507,
+            "per_game": 7.041666666666667,
+            "per_minute": 1.8857339453806645,
+            "legal_decisions": 22694,
+            "selected_decisions": 512,
+            "selected_given_legal": 0.022561029346963954,
+            "accepted_left": 245,
+            "accepted_right": 262
+          },
+          "fireball": {
+            "accepted": 420,
+            "per_game": 5.833333333333333,
+            "per_minute": 1.562146463628953,
+            "legal_decisions": 9892,
+            "selected_decisions": 421,
+            "selected_given_legal": 0.04255964415689446,
+            "accepted_left": 178,
+            "accepted_right": 242
+          },
+          "hog_rider": {
+            "accepted": 298,
+            "per_game": 4.138888888888889,
+            "per_minute": 1.1083801099081618,
+            "legal_decisions": 10740,
+            "selected_decisions": 300,
+            "selected_given_legal": 0.027932960893854747,
+            "accepted_left": 135,
+            "accepted_right": 163
+          },
+          "knight": {
+            "accepted": 489,
+            "per_game": 6.791666666666667,
+            "per_minute": 1.8187848112251381,
+            "legal_decisions": 12880,
+            "selected_decisions": 498,
+            "selected_given_legal": 0.038664596273291926,
+            "accepted_left": 235,
+            "accepted_right": 254
+          },
+          "musketeer": {
+            "accepted": 275,
+            "per_game": 3.8194444444444446,
+            "per_minute": 1.0228339940427669,
+            "legal_decisions": 12428,
+            "selected_decisions": 277,
+            "selected_given_legal": 0.022288381074991953,
+            "accepted_left": 130,
+            "accepted_right": 145
+          },
+          "skeletons": {
+            "accepted": 497,
+            "per_game": 6.902777777777778,
+            "per_minute": 1.8485399819609276,
+            "legal_decisions": 22125,
+            "selected_decisions": 502,
+            "selected_given_legal": 0.022689265536723163,
+            "accepted_left": 219,
+            "accepted_right": 278
+          },
+          "zap": {
+            "accepted": 548,
+            "per_game": 7.611111111111111,
+            "per_minute": 2.0382291954015863,
+            "legal_decisions": 16575,
+            "selected_decisions": 552,
+            "selected_given_legal": 0.03330316742081448,
+            "accepted_left": 273,
+            "accepted_right": 275
+          }
+        },
+        "available_below4_fraction": 0.632745076772904,
+        "mean_available_elixir": 3.806656884770922,
+        "forced_wait_fraction": 0.294510466215274,
+        "voluntary_wait_fraction": 0.6532126865093506,
+        "plays_given_choice": 0.0741001032218391,
+        "empty_spell_elixir_per_game": 8.833333333333334,
+        "empty_spell_elixir_per_minute": 2.3655360734952717,
+        "overflow_per_game": 7.972666666666667,
+        "own_tower_damage_per_game": 11665.611111111111,
+        "nonlethal_crown_only_elixir_per_game": 0.05555555555555555,
+        "spells": {
+          "fireball": {
+            "resolved": 419,
+            "empty": 108,
+            "empty_fraction": 0.2577565632458234
+          },
+          "zap": {
+            "resolved": 548,
+            "empty": 102,
+            "empty_fraction": 0.18613138686131386
+          }
+        }
+      },
+      "tasks": {
+        "attack": {
+          "games": 36,
+          "wins": 3,
+          "duration_minutes": 134.6175,
+          "mean_duration_s": 224.3625,
+          "cards": {
+            "cannon": {
+              "accepted": 162,
+              "per_game": 4.5,
+              "per_minute": 1.2034096607053317,
+              "legal_decisions": 9714,
+              "selected_decisions": 165,
+              "selected_given_legal": 0.016985793699814702,
+              "accepted_left": 79,
+              "accepted_right": 83
+            },
+            "electro_spirit": {
+              "accepted": 265,
+              "per_game": 7.361111111111111,
+              "per_minute": 1.96854049436366,
+              "legal_decisions": 10919,
+              "selected_decisions": 266,
+              "selected_given_legal": 0.024361205238574962,
+              "accepted_left": 129,
+              "accepted_right": 136
+            },
+            "fireball": {
+              "accepted": 217,
+              "per_game": 6.027777777777778,
+              "per_minute": 1.6119746689694876,
+              "legal_decisions": 4508,
+              "selected_decisions": 218,
+              "selected_given_legal": 0.04835847382431233,
+              "accepted_left": 96,
+              "accepted_right": 121
+            },
+            "hog_rider": {
+              "accepted": 144,
+              "per_game": 4.0,
+              "per_minute": 1.069697476182517,
+              "legal_decisions": 5583,
+              "selected_decisions": 146,
+              "selected_given_legal": 0.0261508149740283,
+              "accepted_left": 68,
+              "accepted_right": 76
+            },
+            "knight": {
+              "accepted": 242,
+              "per_game": 6.722222222222222,
+              "per_minute": 1.7976860363622857,
+              "legal_decisions": 6062,
+              "selected_decisions": 247,
+              "selected_given_legal": 0.04074562850544375,
+              "accepted_left": 118,
+              "accepted_right": 124
+            },
+            "musketeer": {
+              "accepted": 142,
+              "per_game": 3.9444444444444446,
+              "per_minute": 1.0548405667910932,
+              "legal_decisions": 5973,
+              "selected_decisions": 144,
+              "selected_given_legal": 0.024108488196885988,
+              "accepted_left": 68,
+              "accepted_right": 74
+            },
+            "skeletons": {
+              "accepted": 249,
+              "per_game": 6.916666666666667,
+              "per_minute": 1.849685219232269,
+              "legal_decisions": 11347,
+              "selected_decisions": 252,
+              "selected_given_legal": 0.022208513263417645,
+              "accepted_left": 112,
+              "accepted_right": 137
+            },
+            "zap": {
+              "accepted": 286,
+              "per_game": 7.944444444444445,
+              "per_minute": 2.1245380429736103,
+              "legal_decisions": 7855,
+              "selected_decisions": 288,
+              "selected_given_legal": 0.03666454487587524,
+              "accepted_left": 143,
+              "accepted_right": 143
+            }
+          },
+          "available_below4_fraction": 0.6542365538156836,
+          "mean_available_elixir": 3.6634284211177817,
+          "forced_wait_fraction": 0.30862783932660764,
+          "voluntary_wait_fraction": 0.6379587794763879,
+          "plays_given_choice": 0.07725706100890739,
+          "empty_spell_elixir_per_game": 9.222222222222221,
+          "empty_spell_elixir_per_minute": 2.4662469589763587,
+          "overflow_per_game": 6.629833333333334,
+          "own_tower_damage_per_game": 11861.722222222223,
+          "nonlethal_crown_only_elixir_per_game": 0.1111111111111111,
+          "spells": {
+            "fireball": {
+              "resolved": 216,
+              "empty": 57,
+              "empty_fraction": 0.2638888888888889
+            },
+            "zap": {
+              "resolved": 286,
+              "empty": 52,
+              "empty_fraction": 0.18181818181818182
+            }
+          }
+        },
+        "defense": {
+          "games": 36,
+          "wins": 8,
+          "duration_minutes": 134.24333333333334,
+          "mean_duration_s": 223.7388888888889,
+          "cards": {
+            "cannon": {
+              "accepted": 147,
+              "per_game": 4.083333333333333,
+              "per_minute": 1.095026444516177,
+              "legal_decisions": 11620,
+              "selected_decisions": 147,
+              "selected_given_legal": 0.012650602409638554,
+              "accepted_left": 83,
+              "accepted_right": 64
+            },
+            "electro_spirit": {
+              "accepted": 242,
+              "per_game": 6.722222222222222,
+              "per_minute": 1.8026965957341146,
+              "legal_decisions": 11775,
+              "selected_decisions": 246,
+              "selected_given_legal": 0.02089171974522293,
+              "accepted_left": 116,
+              "accepted_right": 126
+            },
+            "fireball": {
+              "accepted": 203,
+              "per_game": 5.638888888888889,
+              "per_minute": 1.512179375760435,
+              "legal_decisions": 5384,
+              "selected_decisions": 203,
+              "selected_given_legal": 0.037704309063893014,
+              "accepted_left": 82,
+              "accepted_right": 121
+            },
+            "hog_rider": {
+              "accepted": 154,
+              "per_game": 4.277777777777778,
+              "per_minute": 1.1471705609217093,
+              "legal_decisions": 5157,
+              "selected_decisions": 154,
+              "selected_given_legal": 0.029862323056040335,
+              "accepted_left": 67,
+              "accepted_right": 87
+            },
+            "knight": {
+              "accepted": 247,
+              "per_game": 6.861111111111111,
+              "per_minute": 1.8399423931666377,
+              "legal_decisions": 6818,
+              "selected_decisions": 251,
+              "selected_given_legal": 0.03681431504840129,
+              "accepted_left": 117,
+              "accepted_right": 130
+            },
+            "musketeer": {
+              "accepted": 133,
+              "per_game": 3.6944444444444446,
+              "per_minute": 0.9907382117051126,
+              "legal_decisions": 6455,
+              "selected_decisions": 133,
+              "selected_given_legal": 0.020604182804027885,
+              "accepted_left": 62,
+              "accepted_right": 71
+            },
+            "skeletons": {
+              "accepted": 248,
+              "per_game": 6.888888888888889,
+              "per_minute": 1.8473915526531421,
+              "legal_decisions": 10778,
+              "selected_decisions": 250,
+              "selected_given_legal": 0.023195398033030248,
+              "accepted_left": 107,
+              "accepted_right": 141
+            },
+            "zap": {
+              "accepted": 262,
+              "per_game": 7.277777777777778,
+              "per_minute": 1.9516797854642067,
+              "legal_decisions": 8720,
+              "selected_decisions": 264,
+              "selected_given_legal": 0.030275229357798167,
+              "accepted_left": 130,
+              "accepted_right": 132
+            }
+          },
+          "available_below4_fraction": 0.6111955813448351,
+          "mean_available_elixir": 3.950272007943652,
+          "forced_wait_fraction": 0.28035498184751917,
+          "voluntary_wait_fraction": 0.6685077729853849,
+          "plays_given_choice": 0.07105898585719214,
+          "empty_spell_elixir_per_game": 8.444444444444445,
+          "empty_spell_elixir_per_minute": 2.2645444838974003,
+          "overflow_per_game": 9.3155,
+          "own_tower_damage_per_game": 11469.5,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 203,
+              "empty": 51,
+              "empty_fraction": 0.2512315270935961
+            },
+            "zap": {
+              "resolved": 262,
+              "empty": 50,
+              "empty_fraction": 0.19083969465648856
+            }
+          }
+        }
+      }
+    },
+    {
+      "model": {
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl01_s403/policy.pt",
+        "sha256": "fad443b83b2a8741d014060ede1b791ac30635f4aca00a3fb52b70429ce711cb"
+      },
+      "all": {
+        "games": 72,
+        "wins": 9,
+        "duration_minutes": 269.56,
+        "mean_duration_s": 224.63333333333333,
+        "cards": {
+          "cannon": {
+            "accepted": 299,
+            "per_game": 4.152777777777778,
+            "per_minute": 1.1092150170648465,
+            "legal_decisions": 21113,
+            "selected_decisions": 306,
+            "selected_given_legal": 0.014493440060626155,
+            "accepted_left": 169,
+            "accepted_right": 130
+          },
+          "electro_spirit": {
+            "accepted": 509,
+            "per_game": 7.069444444444445,
+            "per_minute": 1.8882623534649057,
+            "legal_decisions": 22186,
+            "selected_decisions": 513,
+            "selected_given_legal": 0.02312268998467502,
+            "accepted_left": 261,
+            "accepted_right": 248
+          },
+          "fireball": {
+            "accepted": 408,
+            "per_game": 5.666666666666667,
+            "per_minute": 1.5135776821486868,
+            "legal_decisions": 9310,
+            "selected_decisions": 411,
+            "selected_given_legal": 0.04414607948442535,
+            "accepted_left": 191,
+            "accepted_right": 217
+          },
+          "hog_rider": {
+            "accepted": 322,
+            "per_game": 4.472222222222222,
+            "per_minute": 1.1945392491467577,
+            "legal_decisions": 10046,
+            "selected_decisions": 323,
+            "selected_given_legal": 0.03215210033844316,
+            "accepted_left": 168,
+            "accepted_right": 154
+          },
+          "knight": {
+            "accepted": 481,
+            "per_game": 6.680555555555555,
+            "per_minute": 1.7843893752782312,
+            "legal_decisions": 14151,
+            "selected_decisions": 487,
+            "selected_given_legal": 0.03441452900855063,
+            "accepted_left": 250,
+            "accepted_right": 231
+          },
+          "musketeer": {
+            "accepted": 276,
+            "per_game": 3.8333333333333335,
+            "per_minute": 1.023890784982935,
+            "legal_decisions": 12499,
+            "selected_decisions": 277,
+            "selected_given_legal": 0.022161772941835346,
+            "accepted_left": 147,
+            "accepted_right": 129
+          },
+          "skeletons": {
+            "accepted": 511,
+            "per_game": 7.097222222222222,
+            "per_minute": 1.895681851906811,
+            "legal_decisions": 20609,
+            "selected_decisions": 514,
+            "selected_given_legal": 0.02494055994953661,
+            "accepted_left": 272,
+            "accepted_right": 239
+          },
+          "zap": {
+            "accepted": 559,
+            "per_game": 7.763888888888889,
+            "per_minute": 2.073749814512539,
+            "legal_decisions": 17163,
+            "selected_decisions": 569,
+            "selected_given_legal": 0.033152712229796655,
+            "accepted_left": 274,
+            "accepted_right": 285
+          }
+        },
+        "available_below4_fraction": 0.6396680420974546,
+        "mean_available_elixir": 3.772407081150423,
+        "forced_wait_fraction": 0.29704668737539985,
+        "voluntary_wait_fraction": 0.6504087656667749,
+        "plays_given_choice": 0.07474827419425757,
+        "empty_spell_elixir_per_game": 8.25,
+        "empty_spell_elixir_per_minute": 2.2035910372458822,
+        "overflow_per_game": 7.9725277777777785,
+        "own_tower_damage_per_game": 10985.486111111111,
+        "nonlethal_crown_only_elixir_per_game": 0.0,
+        "spells": {
+          "fireball": {
+            "resolved": 406,
+            "empty": 91,
+            "empty_fraction": 0.22413793103448276
+          },
+          "zap": {
+            "resolved": 559,
+            "empty": 115,
+            "empty_fraction": 0.20572450805008943
+          }
+        }
+      },
+      "tasks": {
+        "attack": {
+          "games": 36,
+          "wins": 2,
+          "duration_minutes": 136.6175,
+          "mean_duration_s": 227.69583333333335,
+          "cards": {
+            "cannon": {
+              "accepted": 139,
+              "per_game": 3.861111111111111,
+              "per_minute": 1.0174392006880524,
+              "legal_decisions": 10850,
+              "selected_decisions": 143,
+              "selected_given_legal": 0.013179723502304147,
+              "accepted_left": 81,
+              "accepted_right": 58
+            },
+            "electro_spirit": {
+              "accepted": 257,
+              "per_game": 7.138888888888889,
+              "per_minute": 1.8811645653009312,
+              "legal_decisions": 11932,
+              "selected_decisions": 260,
+              "selected_given_legal": 0.02179014415018438,
+              "accepted_left": 126,
+              "accepted_right": 131
+            },
+            "fireball": {
+              "accepted": 210,
+              "per_game": 5.833333333333333,
+              "per_minute": 1.5371383607517337,
+              "legal_decisions": 4750,
+              "selected_decisions": 211,
+              "selected_given_legal": 0.044421052631578944,
+              "accepted_left": 94,
+              "accepted_right": 116
+            },
+            "hog_rider": {
+              "accepted": 166,
+              "per_game": 4.611111111111111,
+              "per_minute": 1.2150712756418467,
+              "legal_decisions": 5479,
+              "selected_decisions": 166,
+              "selected_given_legal": 0.030297499543712355,
+              "accepted_left": 78,
+              "accepted_right": 88
+            },
+            "knight": {
+              "accepted": 256,
+              "per_game": 7.111111111111111,
+              "per_minute": 1.8738448588211611,
+              "legal_decisions": 6625,
+              "selected_decisions": 258,
+              "selected_given_legal": 0.03894339622641509,
+              "accepted_left": 131,
+              "accepted_right": 125
+            },
+            "musketeer": {
+              "accepted": 142,
+              "per_game": 3.9444444444444446,
+              "per_minute": 1.0393983201273629,
+              "legal_decisions": 6447,
+              "selected_decisions": 142,
+              "selected_given_legal": 0.02202574841011323,
+              "accepted_left": 66,
+              "accepted_right": 76
+            },
+            "skeletons": {
+              "accepted": 276,
+              "per_game": 7.666666666666667,
+              "per_minute": 2.0202389884165646,
+              "legal_decisions": 9599,
+              "selected_decisions": 277,
+              "selected_given_legal": 0.02885717262214814,
+              "accepted_left": 138,
+              "accepted_right": 138
+            },
+            "zap": {
+              "accepted": 292,
+              "per_game": 8.11111111111111,
+              "per_minute": 2.137354292092887,
+              "legal_decisions": 7823,
+              "selected_decisions": 297,
+              "selected_given_legal": 0.03796497507350122,
+              "accepted_left": 134,
+              "accepted_right": 158
+            }
+          },
+          "available_below4_fraction": 0.6434713667134232,
+          "mean_available_elixir": 3.7453484783801962,
+          "forced_wait_fraction": 0.3006952491309386,
+          "voluntary_wait_fraction": 0.6458193571994877,
+          "plays_given_choice": 0.07648366982078228,
+          "empty_spell_elixir_per_game": 8.555555555555555,
+          "empty_spell_elixir_per_minute": 2.2544695957692094,
+          "overflow_per_game": 7.789138888888889,
+          "own_tower_damage_per_game": 11210.861111111111,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 209,
+              "empty": 47,
+              "empty_fraction": 0.22488038277511962
+            },
+            "zap": {
+              "resolved": 292,
+              "empty": 60,
+              "empty_fraction": 0.2054794520547945
+            }
+          }
+        },
+        "defense": {
+          "games": 36,
+          "wins": 7,
+          "duration_minutes": 132.9425,
+          "mean_duration_s": 221.57083333333333,
+          "cards": {
+            "cannon": {
+              "accepted": 160,
+              "per_game": 4.444444444444445,
+              "per_minute": 1.203527840983884,
+              "legal_decisions": 10263,
+              "selected_decisions": 163,
+              "selected_given_legal": 0.0158822956250609,
+              "accepted_left": 88,
+              "accepted_right": 72
+            },
+            "electro_spirit": {
+              "accepted": 252,
+              "per_game": 7.0,
+              "per_minute": 1.8955563495496173,
+              "legal_decisions": 10254,
+              "selected_decisions": 253,
+              "selected_given_legal": 0.024673298225082893,
+              "accepted_left": 135,
+              "accepted_right": 117
+            },
+            "fireball": {
+              "accepted": 198,
+              "per_game": 5.5,
+              "per_minute": 1.4893657032175565,
+              "legal_decisions": 4560,
+              "selected_decisions": 200,
+              "selected_given_legal": 0.043859649122807015,
+              "accepted_left": 97,
+              "accepted_right": 101
+            },
+            "hog_rider": {
+              "accepted": 156,
+              "per_game": 4.333333333333333,
+              "per_minute": 1.173439644959287,
+              "legal_decisions": 4567,
+              "selected_decisions": 157,
+              "selected_given_legal": 0.03437705276987081,
+              "accepted_left": 90,
+              "accepted_right": 66
+            },
+            "knight": {
+              "accepted": 225,
+              "per_game": 6.25,
+              "per_minute": 1.6924610263835869,
+              "legal_decisions": 7526,
+              "selected_decisions": 229,
+              "selected_given_legal": 0.030427850119585438,
+              "accepted_left": 119,
+              "accepted_right": 106
+            },
+            "musketeer": {
+              "accepted": 134,
+              "per_game": 3.7222222222222223,
+              "per_minute": 1.0079545668240029,
+              "legal_decisions": 6052,
+              "selected_decisions": 135,
+              "selected_given_legal": 0.022306675479180436,
+              "accepted_left": 81,
+              "accepted_right": 53
+            },
+            "skeletons": {
+              "accepted": 235,
+              "per_game": 6.527777777777778,
+              "per_minute": 1.7676815164450796,
+              "legal_decisions": 11010,
+              "selected_decisions": 237,
+              "selected_given_legal": 0.021525885558583105,
+              "accepted_left": 134,
+              "accepted_right": 101
+            },
+            "zap": {
+              "accepted": 267,
+              "per_game": 7.416666666666667,
+              "per_minute": 2.0083870846418566,
+              "legal_decisions": 9340,
+              "selected_decisions": 272,
+              "selected_given_legal": 0.029122055674518203,
+              "accepted_left": 140,
+              "accepted_right": 127
+            }
+          },
+          "available_below4_fraction": 0.6357597217434902,
+          "mean_available_elixir": 3.800212671951876,
+          "forced_wait_fraction": 0.2932974023125372,
+          "voluntary_wait_fraction": 0.6551248707423307,
+          "plays_given_choice": 0.07298363854032723,
+          "empty_spell_elixir_per_game": 7.944444444444445,
+          "empty_spell_elixir_per_minute": 2.151306015758693,
+          "overflow_per_game": 8.155916666666666,
+          "own_tower_damage_per_game": 10760.111111111111,
+          "nonlethal_crown_only_elixir_per_game": 0.0,
+          "spells": {
+            "fireball": {
+              "resolved": 197,
+              "empty": 44,
+              "empty_fraction": 0.2233502538071066
+            },
+            "zap": {
+              "resolved": 267,
+              "empty": 55,
+              "empty_fraction": 0.20599250936329588
+            }
+          }
+        }
+      }
+    }
+  ],
+  "full_training_accepted": false,
+  "live_games": false,
+  "scope": "Simulator validation; legal decisions are correlated opportunities, not independent trials"
+}

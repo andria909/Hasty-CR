@@ -206,6 +206,20 @@ def render_bank_campaign(reports,campaign):
         pct='100% проверено'if complete else f'≥{100*count/6400:.1f}%'if count else'—'
         status='результаты проверены'if complete else state.get('status','подготовлен')
         lines.append(f"| {item['label']} | {pct} | {status} |")
+    depth=read(reports/'bank_fit_depth_training_20261101.json')
+    if depth:
+        stream=read(Path(depth['root'])/'live_stream/progress.json')or{}
+        expected={f'{mode}{budget}_s{seed}':budget for mode in ('mixed','isolated')for budget in (800,8000)for seed in (402,403)}
+        count=sum(min(expected[name],max(0,r.get('updates',0)))for name,r in stream.get('fit_depth',{}).items()
+            if name in expected and r.get('actual_cuda'))if stream.get('kernel')==depth['kernel']else 0
+        proof=read(reports/'bank_fit_depth_verified_20261101.json')or{}
+        complete=(proof.get('schema')=='verified-bank-fit-depth-v1'and proof.get('kernel')==depth['kernel']
+            and proof.get('actual_cuda_verified')is True and proof.get('supervised_updates_verified')==35200
+            and {r['id']for r in proof.get('runs',[])}==set(expected))
+        pct='100% проверено'if complete else f'≥{count/352:.1f}%'if count else '—'
+        status=('локальные результаты проверены'if complete else 'обновления завершены; проверяем веса'if count==35200
+            else 'обучается на GPU'if count else depth.get('status','подготовлен'))
+        lines.append(f"| Длительность × смесь навыков | {pct} | {status} |")
     pair=read(reports/'bank_correction_pair_training_20261101.json')
     pair_summary=None
     if pair:
@@ -221,8 +235,8 @@ def render_bank_campaign(reports,campaign):
         status={'full_validation_running':'идёт сравнение полных матчей',
             'full_validation_verified':'полные матчи проверены','verifying_cuda_outputs':'проверяем веса'}.get(pair.get('status'),pair.get('status','подготовлен'))
         lines.append(f"| Исправления защиты: с примерами / без | {pct} | {status} |")
-        lines+=['','**Новый опыт:** 51 воспроизведённое исправление защиты, 8 прогонов; '
-            'после проверки весов — 648 полных симуляционных матчей на одинаковых сценариях. '
+        lines+=['','**Исправления защиты:** 51 воспроизведённый пример, 8 прогонов; '
+            'сравнение на 648 полных симуляционных матчах с одинаковыми сценариями. '
             '[Разбор решений](reports/bank_correction_diagnosis_20261101.md).']
         if complete:
             from scripts.kaggle.local_artifact_transfer import file_sha
@@ -245,6 +259,10 @@ def render_bank_campaign(reports,campaign):
                         if part and len(part.get('records',[]))==12:games+=12
                 lines+=['',f'**Проверка кандидатов:** {games}/648 матчей завершено; итоговые винрейты ещё не подведены.']
     previous=read(reports/'bank_previous_behavior_summary_20261101.json')
+    if depth:
+        lines+=['','**Проверка обучаемости:** 800/8000 обновлений × смесь/отдельная защита × два seed. '
+            'Изолированная защита — диагностический вариант, не кандидат для реальной игры. '
+            '[Протокол](reports/bank_fit_depth_design_20261101.md).']
     if previous and previous.get('episodes_verified')==384:
         row=previous['ranking'][0]
         lines+=['',f"**Прежний BC, локальная проверка:** лучший вариант {row['case']} — {row['safe']}/{row['episodes']} защит без урона. "
@@ -277,7 +295,7 @@ def render_bank_campaign(reports,campaign):
         else:
             lines+=['',f"**Следующий шаг:** собраны {captured['states']} воспроизводимых моментов ожидания из "
                 f"{captured['games']} тренировочных матчей. Сравниваем WAIT с постановкой защиты; верных меток пока нет."]
-    lines+=['','Каждая серия: 4 способа инициализации × 2 seed × 800 обновлений. '
+    lines+=['','Первые три серии: 4 способа инициализации × 2 seed × 800 обновлений. '
         'Это BC на локальных демонстрациях, не PPO и не игровой винрейт. Проценты — только подтверждённые обновления.','',
         '**Проверка поведения:** замкнутая защита шара с поддержкой при 1350/2025 мс; '
         'затем полные симуляционные матчи. Большие обучения — после проверки кандидатов.','',

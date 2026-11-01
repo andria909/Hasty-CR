@@ -33,6 +33,12 @@ def watch(root,status,verified,summary,markdown,config):
             if collected and collected.get('complete'):
                 save(status='verifying_cuda_outputs')
                 proof=verify(root);Path(verified).write_text(json.dumps(proof,indent=2)+'\n')
+                if proof.get('schema')=='verified-bank-fit-depth-v1':
+                    from scripts.attack.summarize_fit_depth import summarize as summarize_fit
+                    summarize_fit(verified,summary,markdown)
+                    save(status='fitting_diagnostic_verified',verified_report=str(verified),
+                        summary_report=str(summary),full_training_accepted=False)
+                    return
                 save(status='full_validation_running',verified_report=str(verified),validation_games_target=648)
                 weights=[str(root/'dataset/parent.pt')]+[r['checkpoint']for r in proof['runs']]
                 full_validation(weights,config,root/'full_validation')

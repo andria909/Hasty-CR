@@ -1,0 +1,113 @@
+{
+  "schema": "bank-fit-depth-launch-v1",
+  "root": "tmp/kaggle/bank_fit_depth_20261101",
+  "kernel": "vertel0/hastycr-bank-fit1101",
+  "receipt": {
+    "ref": "/code/vertel0/hastycr-bank-fit1101",
+    "url": "https://www.kaggle.com/code/vertel0/hastycr-bank-fit1101",
+    "versionNumber": 1,
+    "kernelId": 142165050
+  },
+  "observers": {
+    "stream": {
+      "pid": 18874,
+      "command": [
+        "/Users/andriashadrin/.local/share/hastycr-kaggle-cli/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.run_observer",
+        "--token-index",
+        "1",
+        "--mode",
+        "stream",
+        "--",
+        "--kernel",
+        "vertel0/hastycr-bank-fit1101",
+        "--output",
+        "tmp/kaggle/bank_fit_depth_20261101/live_stream",
+        "--api-user",
+        "vertel0",
+        "--reconnect-seconds",
+        "1200",
+        "--reconnects",
+        "100"
+      ],
+      "log": "tmp/kaggle/bank_fit_depth_20261101/stream_observer.log"
+    },
+    "collector": {
+      "pid": 18875,
+      "command": [
+        "/Users/andriashadrin/.local/share/hastycr-kaggle-cli/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.run_observer",
+        "--token-index",
+        "1",
+        "--mode",
+        "collect",
+        "--",
+        "--kernel",
+        "vertel0/hastycr-bank-fit1101",
+        "--output",
+        "tmp/kaggle/bank_fit_depth_20261101/collected",
+        "--profile",
+        "bank-fit-depth",
+        "--api-user",
+        "vertel0",
+        "--poll-seconds",
+        "1200"
+      ],
+      "log": "tmp/kaggle/bank_fit_depth_20261101/collector_observer.log"
+    },
+    "postprocess": {
+      "pid": 18876,
+      "command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.watch_bank_correction_pair",
+        "--root",
+        "tmp/kaggle/bank_fit_depth_20261101",
+        "--status",
+        "reports/defense_plan/bank_fit_depth_training_20261101.json",
+        "--verified",
+        "reports/defense_plan/bank_fit_depth_verified_20261101.json",
+        "--summary",
+        "reports/defense_plan/bank_fit_depth_summary_20261101.json",
+        "--markdown",
+        "reports/bank_fit_depth_results_20261101.md",
+        "--config",
+        "tmp/kaggle/crown_economy_pilot_20261030/collected/pilot_control_s382/config.json"
+      ],
+      "log": "tmp/kaggle/bank_fit_depth_20261101/postprocess_observer.log"
+    }
+  },
+  "preflight": {
+    "schema": "bank-fit-depth-preflight-v1",
+    "bootstrap_sha256": "6c586e5ae79cc44a7ae6de862979e995d5308bf92b2f8ee9cd82d6272bac7693",
+    "preparation_sha256": "7849a01f406bc24241b33baffe5113a0ee0cd9a5d943be8a8653e6a8ef6d631b",
+    "result_sha256": "b927a610a02e69fa9f0f6f71281f5e9390d6bc47ff6f8548b24aedde512108bb",
+    "frozen_sources_verified": true,
+    "smoke_runs": 4,
+    "supervised_updates": 8,
+    "environment_steps": 0,
+    "technical_identical": false,
+    "null_checks": [],
+    "full_training_accepted": false,
+    "submission_allowed": true
+  },
+  "budget_prefix_smoke": [
+    {
+      "mode": "mixed",
+      "two_update_weights_and_histories_exact": true
+    },
+    {
+      "mode": "isolated",
+      "two_update_weights_and_histories_exact": true
+    }
+  ],
+  "target_supervised_updates": 35200,
+  "environment_steps": 0,
+  "full_training_accepted": false,
+  "upload_recovery": "StartBlobUpload404 before dataset creation; same private dataset recovered by official blob route; one kernel version"
+}

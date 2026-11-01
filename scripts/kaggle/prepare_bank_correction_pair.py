@@ -7,13 +7,14 @@ from pathlib import Path
 import shutil
 import tarfile
 
-from scripts.attack.train_bank_correction_pair import protocol
+from scripts.attack.train_bank_correction_pair import protocol,depth_protocol
 from scripts.kaggle.local_artifact_transfer import file_sha
 from scripts.kaggle.prepare_bank_initialization import prepare as prepare_base
 
 
-def prepare(source,base,corrections,initial,output,slug,technical_identical=False,owner=None):
-    p=protocol(base,corrections,initial,technical_identical)
+def prepare(source,base,corrections,initial,output,slug,technical_identical=False,owner=None,fit_depth=False):
+    if fit_depth and technical_identical:raise ValueError('Fitting diagnosis requires distinct curricula')
+    p=depth_protocol(base,corrections,initial)if fit_depth else protocol(base,corrections,initial,technical_identical)
     prep=prepare_base(source,base,output,slug,owner,initial)
     root=Path(output);c=prep['config'];archive=root/'dataset/extensions.tar.gz'
     with tarfile.open(archive)as stream:
@@ -45,8 +46,11 @@ subprocess.run([sys.executable,'-u','-m','scripts.attack.train_bank_correction_p
     cwd=project,check=True)
 """).body
     tree.body[-1].value.args=[ast.parse(repr(c),mode='eval').body];ast.fix_missing_locations(tree)
+    if fit_depth:
+        for node in ast.walk(execute):
+            if isinstance(node,ast.Constant)and node.value=='/kaggle/working/bank_correction_pair':node.value='/kaggle/working/bank_fit_depth'
     (root/'job/train.py').write_text(ast.unparse(tree)+'\n')
-    prep.update(study_variant='bank_correction_pair_v1',config=c,
+    prep.update(study_variant='bank_fit_depth_v1'if fit_depth else'bank_correction_pair_v1',config=c,
         bootstrap_sha256=file_sha(root/'job/train.py'),technical_preflight_only=technical_identical)
     (root/'preparation.json').write_text(json.dumps(prep,indent=2)+'\n');return prep
 
@@ -54,6 +58,6 @@ subprocess.run([sys.executable,'-u','-m','scripts.attack.train_bank_correction_p
 if __name__=='__main__':
     p=argparse.ArgumentParser()
     for key in ('source','base','corrections','initial','output','slug'):p.add_argument('--'+key,required=True)
-    p.add_argument('--owner');p.add_argument('--technical-identical',action='store_true');a=p.parse_args()
-    r=prepare(a.source,a.base,a.corrections,a.initial,a.output,a.slug,a.technical_identical,a.owner)
+    p.add_argument('--owner');p.add_argument('--technical-identical',action='store_true');p.add_argument('--fit-depth',action='store_true');a=p.parse_args()
+    r=prepare(a.source,a.base,a.corrections,a.initial,a.output,a.slug,a.technical_identical,a.owner,a.fit_depth)
     print(json.dumps(dict(kernel=r['kernel'],submitted=False,technical_preflight_only=r['technical_preflight_only'])))

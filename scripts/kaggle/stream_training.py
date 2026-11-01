@@ -126,6 +126,22 @@ def record_evaluation_event(progress,line,remote_time):
     return False
 
 
+def record_fit_depth_event(progress,line,remote_time):
+    try:row=json.loads(line)
+    except (ValueError,TypeError):return False
+    if not isinstance(row,dict)or row.get('event')not in ('FIT_DEPTH_PROGRESS','FIT_DEPTH_RUN_COMPLETE'):return False
+    name=row.get('id');match=re.fullmatch(r'(mixed|isolated)(800|8000)_s40[23]',name)if isinstance(name,str)else None
+    if match is None:return False
+    target=int(match.group(2));update=row.get('updates')
+    if (type(update)is not int or not 0<update<=target or row.get('target_updates')!=target
+            or not row.get('actual_cuda')or(row['event']=='FIT_DEPTH_RUN_COMPLETE'and update!=target)):return False
+    runs=progress.setdefault('fit_depth',{})
+    if update<=runs.get(name,{}).get('updates',0):return False
+    runs[name]=dict(updates=update,target_updates=target,percent=100*update/target,
+        actual_cuda=row['actual_cuda'],remote_log_seconds=remote_time)
+    return True
+
+
 def replay_evaluation_progress(path):
     """Read saved SSE events without reconnecting or touching the remote job."""
     progress={'source':'saved_kaggle_live_log_stream'}
@@ -163,6 +179,7 @@ def main():
                     if (record_trial_event(progress,line,event.get('time'))or
                             record_initialization_event(progress,line,event.get('time'))or
                             record_correction_event(progress,line,event.get('time'))or
+                            record_fit_depth_event(progress,line,event.get('time'))or
                             record_evaluation_event(progress,line,event.get('time'))):
                         progress['checked_host_ns']=time.time_ns()
                         (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')

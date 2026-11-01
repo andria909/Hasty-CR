@@ -44,3 +44,15 @@ def test_partially_written_observer_json_is_not_a_failed_training_job(tmp_path):
     assert module.read_if_complete(path)is None
     path.write_text('{"complete":true}')
     assert module.read_if_complete(path)==dict(complete=True)
+
+
+def test_isolated_fitting_diagnostic_does_not_promote_or_start_full_games(tmp_path,monkeypatch):
+    from scripts.attack import summarize_fit_depth
+    root,status=setup(tmp_path,monkeypatch);calls=[]
+    monkeypatch.setattr(module,'verify',lambda *a:dict(schema='verified-bank-fit-depth-v1'))
+    monkeypatch.setattr(summarize_fit_depth,'summarize',lambda *a:calls.append('labels'))
+    monkeypatch.setattr(module,'full_validation',lambda *a:pytest.fail('Isolated diagnostic must not auto-promote'))
+    module.watch(root,status,tmp_path/'verified.json','summary.json','report.md','config.json')
+    assert calls==['labels']
+    state=json.loads(status.read_text());assert state['status']=='fitting_diagnostic_verified'
+    assert state['full_training_accepted']is False

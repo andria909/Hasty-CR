@@ -42,7 +42,7 @@ def preflight(root):
             if not equal_state(x,y)or json.loads((a/'updates.json').read_text())!=json.loads((b/'updates.json').read_text()):
                 raise ValueError('Identical-data paired training differs')
             null_checks.append(dict(kl=tag,all_tensors_exact=True,update_history_exact=True))
-    proof=dict(schema='bank-correction-pair-preflight-v1',bootstrap_sha256=prep['bootstrap_sha256'],
+    proof=dict(schema='bank-fit-depth-preflight-v1'if prep['study_variant']=='bank_fit_depth_v1'else'bank-correction-pair-preflight-v1',bootstrap_sha256=prep['bootstrap_sha256'],
         preparation_sha256=file_sha(root/'preparation.json'),result_sha256=file_sha(out/'result/result.json'),
         frozen_sources_verified=True,smoke_runs=4,supervised_updates=8,environment_steps=0,
         technical_identical=result['technical_identical'],null_checks=null_checks,
