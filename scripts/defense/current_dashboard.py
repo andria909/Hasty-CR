@@ -258,7 +258,14 @@ def render_bank_campaign(reports,campaign):
         '**Проверка поведения:** замкнутая защита шара с поддержкой при 1350/2025 мс; '
         'затем полные симуляционные матчи. Большие обучения — после проверки кандидатов.','',
         '**Данные:** 1060 состояний, центральная пушка, запас 750 мс для банковских сцен, '
-        'Fireball/Zap во всех слотах каждой группы.','',
+        'Fireball/Zap во всех слотах каждой группы.']
+    jump=read(reports/'hog_edge_jump_summary_20261101.json')or{}
+    if jump.get('schema')=='hog-edge-jump-comparison-summary-v1'and jump.get('xy_errors_recomputed'):
+        checked=jump['check'];errors=checked['mean_error_tiles']
+        lines+=['',f"**Прототип прыжка хога:** на {checked['replayed']} дополнительных переходах ошибка пути "
+            f"{errors['baseline']:.2f} → {errors['prototype']:.2f} клетки; физика обучений пока не менялась. "
+            '[Проверка и ограничения](reports/hog_edge_jump_20261101.md).']
+    lines+=['',
         '**Реальные бои выключены.** Наблюдение за Kaggle раз в 20 минут.','',
         '**Отбор по экономике:** запас во время угрозы, потери башен и пустые спеллы. '
         '[Разбор прежних моделей](reports/bank_economy_behavior_20261101.md).','',

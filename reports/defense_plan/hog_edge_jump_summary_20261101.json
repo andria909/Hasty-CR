@@ -1,0 +1,62 @@
+{
+  "schema": "hog-edge-jump-comparison-summary-v1",
+  "prototype_sha256": "02205632f7946b7d049553d259f8b5ecc4db46897690d8a5d1c469f5ef788cca",
+  "protocol_sha256": "e8ba418178d23e5a46427769f0dd4fcbfa09df0a13f9816b6e7693a747cd6345",
+  "discovery_report": "reports/defense_plan/hog_edge_jump_gated_replay_20261101.json",
+  "check_report": "reports/defense_plan/hog_edge_jump_check_20261101.json",
+  "discovery_sha256": "fa20adce608f96f63abfb864fb180959cff1887cb88f718b1aaac7689c2264a2",
+  "check_sha256": "a107b370ec9a54ee23bd9d89658330059c867ab770a0f49b623768045d6e79f5",
+  "discovery": {
+    "eligible": 75,
+    "replayed": 72,
+    "excluded": 3,
+    "source_world_groups": 23,
+    "better": 56,
+    "worse": 1,
+    "unchanged": 15,
+    "mean_error_tiles": {
+      "baseline": 1.0309656765677242,
+      "prototype": 0.3779734573400425
+    }
+  },
+  "check": {
+    "eligible": 5,
+    "replayed": 5,
+    "excluded": 0,
+    "source_world_groups": 2,
+    "better": 5,
+    "worse": 0,
+    "unchanged": 0,
+    "mean_error_tiles": {
+      "baseline": 0.9107738745452881,
+      "prototype": 0.24972619134937685
+    }
+  },
+  "check_world_overlap_with_discovery": 0,
+  "xy_errors_recomputed": true,
+  "options": {
+    "takeoff_offset_mt": 1500,
+    "crown_target_only": true
+  },
+  "raw_source_pins_verified": true,
+  "accepted_physics_change": false,
+  "live_games": false,
+  "full_controls": [
+    {
+      "name": "hog_cannon_one_tile_left_miss",
+      "before": 3.976300549506034,
+      "after": 0.32659772926768477
+    },
+    {
+      "name": "hog_cannon_right_pull",
+      "before": 1.0216036233197392,
+      "after": 0.4272577436290488
+    }
+  ],
+  "remaining": [
+    "Central jumps not modelled",
+    "Takeoff delay, stops and collision not reconstructed",
+    "Check set is five crossings from two source/world groups, not five independent matches",
+    "Current training physics unchanged"
+  ]
+}
