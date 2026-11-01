@@ -1,3 +1,7 @@
+## CURRENT full-runtime projection measured on12completedpilots, nojobchanges
+
+New report full_runtime_projection_20261102.json/MD usesactualsavedSSE from3jobs, dedupfirsttimestamp pertrial/update,6actor10updatewindows exclude20warmup and50/100validation. 4000updates+16validation extrapolate7.25–8.63h, slowestobservedwindowprojection8.94h vsconfigured34000s9.44h. Logsbuffered, longertrajectorycomplexitycanchange; notdeadlineguarantee/profiling. No fulltraininglaunched orbudgetchanged.12completepilots includesentropyfirstpair; derivedfromrawcapturedbyteswithSHA. Lastremote statesRUNNING; next01:29/01:30/01:37. Existingobserverslive. GoalACTIVE, actualpilotweights/test/tournamentpending. Finishowncommitpush andcontinuecollect; preservev25/secrets/nolive.
+
 ## CURRENT 01:17 Nov2: third scheduled poll and first entropy trial scores
 
 Verified wait on existing22029/22030/22031/22213, then scheduledremoteRUNNING01:17:11 andreiperelaiko/hastycr-group-entropy1102. SSE control432100%,spatial03432100%,both433>=49%. Actualcompletedscorecontrol.2291667/spatial03.2326389,bothfamily_guardFALSE. Nearscoresnotwinrates/noqualityclaim; othersentropy0.1/0notyetobserved. Updatedstates/done. NoGPUmutation/newextraqueries/codechanges. Nextscheduledadaptation01:29/spell01:30; third01:37. GoalACTIVE, allweightsnotyetcollected. Previousc5bda50had firstBC8000seedguardtrue; mustwaitsecondseed/fullartifacts beforeselecting. Currentturnverifiedwait+new evidence, notblocked. Preservev25/secrets/nolive. Finishowncommitpush thencollectterminalcohorts.
