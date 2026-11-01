@@ -263,6 +263,28 @@ def render_bank_campaign(reports,campaign):
         lines+=['','**Проверка обучаемости:** 800/8000 обновлений × смесь/отдельная защита × два seed. '
             'Изолированная защита — диагностический вариант, не кандидат для реальной игры. '
             '[Протокол](reports/bank_fit_depth_design_20261101.md).']
+        match=read(reports/'bank_fit_depth_match_state_20261101.json')or{}
+        finished=read(reports/'bank_fit_depth_full_validation_20261101.json')or{}
+        proof_path=reports/'bank_fit_depth_verified_20261101.json'
+        from scripts.kaggle.local_artifact_transfer import file_sha
+        if (finished.get('schema')=='verified-fit-depth-full-games-v1'and finished.get('games_verified')==360
+                and proof_path.is_file()and finished.get('verified_sha256')==file_sha(proof_path)):
+            lines+=['','| Длительность смешанного BC | Победы, два seed |','|---|---:|']
+            for row in finished['groups']:lines.append(f"| {row['case']} | {row['wins']}/144 |")
+            lines+=['','Это те же 72 validation-сценария на каждом seed. '
+                '[Матчи](reports/bank_fit_depth_full_validation_20261101.md) · '
+                '[Карты и расход](reports/bank_fit_depth_decisions_20261101.md).']
+        elif match.get('status')=='full_validation_running':
+            games=0
+            for model in range(5):
+                for block in range(6):
+                    part=read(Path(depth['root'])/'mixed_full_validation'/f'model_{model}_block_{block}.json')
+                    if part and len(part.get('records',[]))==12:games+=12
+            lines+=['',f'**Сравнение длительности в полных матчах:** {games}/360 завершено.']
+        elif match.get('status')=='waiting_for_verified_weights':
+            lines+=['','**Следом:** 360 полных матчей для исходника и четырёх смешанных моделей; ожидается проверка весов.']
+        elif match.get('status')=='inspection_required':
+            lines+=['','**Сравнение длительности:** требуется проверка локального оценщика; итоговых результатов пока нет.']
     if previous and previous.get('episodes_verified')==384:
         row=previous['ranking'][0]
         lines+=['',f"**Прежний BC, локальная проверка:** лучший вариант {row['case']} — {row['safe']}/{row['episodes']} защит без урона. "

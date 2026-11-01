@@ -27,3 +27,9 @@ Kaggle принял `vertel0/hastycr-bank-fit1101`, версия 1. Поток �
 4. Изолированные веса не считать готовым игровым кандидатом. TRAIN/отложенные метки не считать винрейтом. Test не использовать для подбора.
 
 [Принятие и preflight](defense_plan/bank_fit_depth_launch_20261101.json) · [Текущее состояние](defense_plan/bank_fit_depth_training_20261101.json) · [Предыдущие полные матчи](bank_correction_pair_full_validation_20261101.md)
+
+## Полные матчи закреплены до получения новых оценок
+
+Запущен локальный `scripts/kaggle/watch_fit_depth_matches.py`: после проверенного CUDA-отчёта берёт исходник и все четыре mixed-кандидата, проводит 360 полных validation-матчей и вычисляет использование карт/экономику. Список не выбирается по локальной точности. Одинаковые 72 контекста, по шесть attack и defense каждого семейства; задержка 1350 мс, текущая физика. Отдельный JSON состояния — `reports/defense_plan/bank_fit_depth_match_state_20261101.json`.
+
+Выходы: `reports/bank_fit_depth_full_validation_20261101.md` и `reports/bank_fit_depth_decisions_20261101.md`. Процесс не обращается к Kaggle и не запускает PPO/live. На момент подготовки отчётов о новых полных матчах ещё нет.
