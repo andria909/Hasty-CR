@@ -15,7 +15,7 @@
     "versionNumber": 1,
     "kernelId": 142179386
   },
-  "last_local_sync_ns": 1793571070338088000,
+  "last_local_sync_ns": 1793571488364979000,
   "cuda_observed": {
     "event": "CUDA_READY",
     "gpus": [
@@ -27,28 +27,53 @@
     "kernel": "andreiperelaiko/hastycr-group-entropy1102",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
+    "stream_state": "connected",
     "reconnect_attempt": 1,
-    "checked_host_ns": 1793570414880371000,
+    "checked_host_ns": 1793571433848571000,
     "trials": {
       "pilot_control_s432": {
-        "update": 99,
-        "steps": 101376,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 99.0,
-        "remote_log_seconds": 1384.79188572
+        "percent": 100.0,
+        "remote_log_seconds": 1833.708173621
       },
       "pilot_spatial03_s432": {
-        "update": 99,
-        "steps": 101376,
+        "update": 100,
+        "steps": 102400,
         "target_steps": 102400,
-        "percent": 99.0,
-        "remote_log_seconds": 1389.606464159
+        "percent": 100.0,
+        "remote_log_seconds": 1830.933575166
+      },
+      "pilot_spatial03_s433": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 2100.632429865
+      },
+      "pilot_control_s433": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 102400,
+        "percent": 49.0,
+        "remote_log_seconds": 2104.697775653
       }
-    },
-    "error_type": "SSLError",
-    "http_status": null
+    }
   },
-  "completed_log_events": [],
+  "completed_log_events": [
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_spatial03_s432",
+      "score": 0.2326388888888889,
+      "family_guard": false
+    },
+    {
+      "event": "FOCUS_TRIAL_COMPLETE",
+      "trial_id": "pilot_control_s432",
+      "score": 0.22916666666666666,
+      "family_guard": false
+    }
+  ],
   "actual_training_steps_confirmed": true
 }
