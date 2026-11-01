@@ -1,0 +1,5256 @@
+{
+  "schema": "verified-correction-choice-diagnostic-v1",
+  "verified_sha256": "a3273fd1d30f64e4f6867856a6b4f9fd56ee636ccf4d51f94a85ff2b31d5cf0c",
+  "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+  "models": [
+    {
+      "id": "control_kl001_s402",
+      "checkpoint_sha256": "75f201e7cd04233cb1d16cd150b57bd984dc26770c7128aed121277123bf625c",
+      "splits": {
+        "train": {
+          "examples": 36,
+          "categories": {
+            "wait": 29,
+            "same_card_other_cell": 4,
+            "different_card": 3
+          },
+          "same_card_within_one_tile": 1,
+          "mean_wait_probability": 0.7635699462714709
+        },
+        "local_heldout": {
+          "examples": 15,
+          "categories": {
+            "wait": 14,
+            "different_card": 1
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.8979857762654623
+        }
+      },
+      "rows": [
+        {
+          "array_index": 1060,
+          "context": "match:state_0005.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1558
+          ],
+          "wait_probability": 0.9997548460960388,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1061,
+          "context": "match:state_0006.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            908
+          ],
+          "wait_probability": 0.9979897737503052,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1062,
+          "context": "match:state_0008.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1002
+          ],
+          "wait_probability": 0.9987841248512268,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1063,
+          "context": "match:state_0009.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.9992861151695251,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1064,
+          "context": "match:state_0010.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1575
+          ],
+          "wait_probability": 0.9047050476074219,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1065,
+          "context": "match:state_0011.pickle",
+          "seed": 352,
+          "choice": 1452,
+          "successful_actions": [
+            964,
+            1578
+          ],
+          "wait_probability": 0.002864752896130085,
+          "category": "same_card_other_cell",
+          "distance_tiles": 7.0
+        },
+        {
+          "array_index": 1066,
+          "context": "match:state_0019.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            912
+          ],
+          "wait_probability": 0.9998676776885986,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1067,
+          "context": "match:state_0022.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            352
+          ],
+          "wait_probability": 0.994387686252594,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1068,
+          "context": "match:state_0023.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            333
+          ],
+          "wait_probability": 0.9998853206634521,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1069,
+          "context": "match:state_0025.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            424
+          ],
+          "wait_probability": 0.9996138215065002,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1070,
+          "context": "match:state_0026.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            926
+          ],
+          "wait_probability": 0.9996330738067627,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1071,
+          "context": "match:state_0028.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.9998020529747009,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1072,
+          "context": "match:state_0030.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.9986236095428467,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1073,
+          "context": "match:state_0034.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1486
+          ],
+          "wait_probability": 0.9603087306022644,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1074,
+          "context": "match:state_0036.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1519
+          ],
+          "wait_probability": 0.9973084926605225,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1075,
+          "context": "match:state_0037.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.5773594379425049,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1076,
+          "context": "match:state_0038.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.9288613200187683,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1077,
+          "context": "match:state_0039.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            335,
+            353,
+            354
+          ],
+          "wait_probability": 0.9629061222076416,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1078,
+          "context": "match:state_0040.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2098
+          ],
+          "wait_probability": 0.8228515386581421,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1079,
+          "context": "match:state_0042.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980,
+            998
+          ],
+          "wait_probability": 0.5455897450447083,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1080,
+          "context": "match:state_0043.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1506
+          ],
+          "wait_probability": 0.4762997329235077,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1081,
+          "context": "match:state_0044.pickle",
+          "seed": 353,
+          "choice": 1003,
+          "successful_actions": [
+            1524,
+            1542,
+            1578
+          ],
+          "wait_probability": 0.019194887951016426,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1082,
+          "context": "match:state_0045.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            370,
+            423
+          ],
+          "wait_probability": 0.8422598242759705,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1083,
+          "context": "match:state_0046.pickle",
+          "seed": 353,
+          "choice": 885,
+          "successful_actions": [
+            364
+          ],
+          "wait_probability": 0.23778720200061798,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1084,
+          "context": "match:state_0048.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            925
+          ],
+          "wait_probability": 0.9976431727409363,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1085,
+          "context": "match:state_0049.pickle",
+          "seed": 353,
+          "choice": 970,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.36081260442733765,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1086,
+          "context": "match:state_0050.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980
+          ],
+          "wait_probability": 0.9860267639160156,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1087,
+          "context": "match:state_0053.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2097
+          ],
+          "wait_probability": 0.9942810535430908,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1088,
+          "context": "match:state_0058.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.9956687688827515,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1089,
+          "context": "match:state_0059.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            927,
+            1581
+          ],
+          "wait_probability": 0.9976658821105957,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1090,
+          "context": "match:state_0060.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909,
+            927
+          ],
+          "wait_probability": 0.958836555480957,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1091,
+          "context": "match:state_0062.pickle",
+          "seed": 353,
+          "choice": 912,
+          "successful_actions": [
+            911,
+            980
+          ],
+          "wait_probability": 0.0863911360502243,
+          "category": "same_card_other_cell",
+          "distance_tiles": 1.0
+        },
+        {
+          "array_index": 1092,
+          "context": "match:state_0063.pickle",
+          "seed": 353,
+          "choice": 926,
+          "successful_actions": [
+            910
+          ],
+          "wait_probability": 0.2414790540933609,
+          "category": "same_card_other_cell",
+          "distance_tiles": 2.23606797749979
+        },
+        {
+          "array_index": 1093,
+          "context": "match:state_0067.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            351
+          ],
+          "wait_probability": 0.9995081424713135,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1094,
+          "context": "match:state_0068.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.47174376249313354,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1095,
+          "context": "match:state_0069.pickle",
+          "seed": 353,
+          "choice": 421,
+          "successful_actions": [
+            332,
+            352
+          ],
+          "wait_probability": 0.13253623247146606,
+          "category": "same_card_other_cell",
+          "distance_tiles": 5.0
+        },
+        {
+          "array_index": 1096,
+          "context": "match:state_0075.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.999972939491272,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1097,
+          "context": "match:state_0078.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            372
+          ],
+          "wait_probability": 0.9986995458602905,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1098,
+          "context": "match:state_0080.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.9934841990470886,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1099,
+          "context": "match:state_0081.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.9908336997032166,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1100,
+          "context": "match:state_0082.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            907,
+            908
+          ],
+          "wait_probability": 0.9997792840003967,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1101,
+          "context": "match:state_0083.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            369
+          ],
+          "wait_probability": 0.9997931122779846,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1102,
+          "context": "match:state_0086.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.9312321543693542,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1103,
+          "context": "match:state_0088.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.9411907196044922,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1104,
+          "context": "match:state_0089.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.9856843948364258,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1105,
+          "context": "match:state_0090.pickle",
+          "seed": 354,
+          "choice": 2166,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.09695130586624146,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1106,
+          "context": "match:state_0092.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            911
+          ],
+          "wait_probability": 0.999336302280426,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1107,
+          "context": "match:state_0095.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.8414941430091858,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1108,
+          "context": "match:state_0103.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.7007754445075989,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1109,
+          "context": "match:state_0104.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            334,
+            369,
+            387
+          ],
+          "wait_probability": 0.998611330986023,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1110,
+          "context": "match:state_0105.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            407
+          ],
+          "wait_probability": 0.9919480681419373,
+          "category": "wait",
+          "distance_tiles": null
+        }
+      ]
+    },
+    {
+      "id": "control_kl001_s403",
+      "checkpoint_sha256": "cb499d67ad3ace2d71237f1638bf16abed440b9399ca01875af9491b38c39669",
+      "splits": {
+        "train": {
+          "examples": 36,
+          "categories": {
+            "wait": 30,
+            "same_card_other_cell": 3,
+            "different_card": 3
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.7636560437321249
+        },
+        "local_heldout": {
+          "examples": 15,
+          "categories": {
+            "wait": 14,
+            "different_card": 1
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.8795315456887086
+        }
+      },
+      "rows": [
+        {
+          "array_index": 1060,
+          "context": "match:state_0005.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1558
+          ],
+          "wait_probability": 0.9996472597122192,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1061,
+          "context": "match:state_0006.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            908
+          ],
+          "wait_probability": 0.9980378746986389,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1062,
+          "context": "match:state_0008.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1002
+          ],
+          "wait_probability": 0.9986218214035034,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1063,
+          "context": "match:state_0009.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.9991875290870667,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1064,
+          "context": "match:state_0010.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1575
+          ],
+          "wait_probability": 0.9055309891700745,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1065,
+          "context": "match:state_0011.pickle",
+          "seed": 352,
+          "choice": 1452,
+          "successful_actions": [
+            964,
+            1578
+          ],
+          "wait_probability": 0.002183896489441395,
+          "category": "same_card_other_cell",
+          "distance_tiles": 7.0
+        },
+        {
+          "array_index": 1066,
+          "context": "match:state_0019.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            912
+          ],
+          "wait_probability": 0.9998631477355957,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1067,
+          "context": "match:state_0022.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            352
+          ],
+          "wait_probability": 0.994251012802124,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1068,
+          "context": "match:state_0023.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            333
+          ],
+          "wait_probability": 0.9999161958694458,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1069,
+          "context": "match:state_0025.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            424
+          ],
+          "wait_probability": 0.9996287822723389,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1070,
+          "context": "match:state_0026.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            926
+          ],
+          "wait_probability": 0.9996209144592285,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1071,
+          "context": "match:state_0028.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.9998588562011719,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1072,
+          "context": "match:state_0030.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.9989224672317505,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1073,
+          "context": "match:state_0034.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1486
+          ],
+          "wait_probability": 0.9462741017341614,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1074,
+          "context": "match:state_0036.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1519
+          ],
+          "wait_probability": 0.9972845315933228,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1075,
+          "context": "match:state_0037.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.39827537536621094,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1076,
+          "context": "match:state_0038.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.9276188015937805,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1077,
+          "context": "match:state_0039.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            335,
+            353,
+            354
+          ],
+          "wait_probability": 0.9631319642066956,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1078,
+          "context": "match:state_0040.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2098
+          ],
+          "wait_probability": 0.8318088054656982,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1079,
+          "context": "match:state_0042.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980,
+            998
+          ],
+          "wait_probability": 0.572127640247345,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1080,
+          "context": "match:state_0043.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1506
+          ],
+          "wait_probability": 0.4513569474220276,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1081,
+          "context": "match:state_0044.pickle",
+          "seed": 353,
+          "choice": 1002,
+          "successful_actions": [
+            1524,
+            1542,
+            1578
+          ],
+          "wait_probability": 0.028518864884972572,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1082,
+          "context": "match:state_0045.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            370,
+            423
+          ],
+          "wait_probability": 0.8074125647544861,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1083,
+          "context": "match:state_0046.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            364
+          ],
+          "wait_probability": 0.33140477538108826,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1084,
+          "context": "match:state_0048.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            925
+          ],
+          "wait_probability": 0.9977980852127075,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1085,
+          "context": "match:state_0049.pickle",
+          "seed": 353,
+          "choice": 970,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.32058095932006836,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1086,
+          "context": "match:state_0050.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980
+          ],
+          "wait_probability": 0.9854397177696228,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1087,
+          "context": "match:state_0053.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2097
+          ],
+          "wait_probability": 0.9951174259185791,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1088,
+          "context": "match:state_0058.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.9952640533447266,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1089,
+          "context": "match:state_0059.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            927,
+            1581
+          ],
+          "wait_probability": 0.9973465204238892,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1090,
+          "context": "match:state_0060.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909,
+            927
+          ],
+          "wait_probability": 0.9615572094917297,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1091,
+          "context": "match:state_0062.pickle",
+          "seed": 353,
+          "choice": 336,
+          "successful_actions": [
+            911,
+            980
+          ],
+          "wait_probability": 0.10891581326723099,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1092,
+          "context": "match:state_0063.pickle",
+          "seed": 353,
+          "choice": 926,
+          "successful_actions": [
+            910
+          ],
+          "wait_probability": 0.27027183771133423,
+          "category": "same_card_other_cell",
+          "distance_tiles": 2.23606797749979
+        },
+        {
+          "array_index": 1093,
+          "context": "match:state_0067.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            351
+          ],
+          "wait_probability": 0.9995077848434448,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1094,
+          "context": "match:state_0068.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.48183751106262207,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1095,
+          "context": "match:state_0069.pickle",
+          "seed": 353,
+          "choice": 421,
+          "successful_actions": [
+            332,
+            352
+          ],
+          "wait_probability": 0.22749553620815277,
+          "category": "same_card_other_cell",
+          "distance_tiles": 5.0
+        },
+        {
+          "array_index": 1096,
+          "context": "match:state_0075.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.999974250793457,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1097,
+          "context": "match:state_0078.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            372
+          ],
+          "wait_probability": 0.998737633228302,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1098,
+          "context": "match:state_0080.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.9920823574066162,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1099,
+          "context": "match:state_0081.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.9903894066810608,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1100,
+          "context": "match:state_0082.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            907,
+            908
+          ],
+          "wait_probability": 0.9997381567955017,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1101,
+          "context": "match:state_0083.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            369
+          ],
+          "wait_probability": 0.999723494052887,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1102,
+          "context": "match:state_0086.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.9231894612312317,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1103,
+          "context": "match:state_0088.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.9347821474075317,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1104,
+          "context": "match:state_0089.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.9834758043289185,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1105,
+          "context": "match:state_0090.pickle",
+          "seed": 354,
+          "choice": 2166,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.05310438945889473,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1106,
+          "context": "match:state_0092.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            911
+          ],
+          "wait_probability": 0.9994156360626221,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1107,
+          "context": "match:state_0095.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.8399755358695984,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1108,
+          "context": "match:state_0103.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.4864491820335388,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1109,
+          "context": "match:state_0104.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            334,
+            369,
+            387
+          ],
+          "wait_probability": 0.9987252354621887,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1110,
+          "context": "match:state_0105.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            407
+          ],
+          "wait_probability": 0.99321049451828,
+          "category": "wait",
+          "distance_tiles": null
+        }
+      ]
+    },
+    {
+      "id": "control_kl01_s402",
+      "checkpoint_sha256": "3b6d2c746e93d7f6a8b5b4ce409d7ad20f390de40fb106f5b15b58fae90787d8",
+      "splits": {
+        "train": {
+          "examples": 36,
+          "categories": {
+            "wait": 31,
+            "same_card_other_cell": 3,
+            "different_card": 2
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.7685091274066104
+        },
+        "local_heldout": {
+          "examples": 15,
+          "categories": {
+            "wait": 14,
+            "different_card": 1
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.9039633348584175
+        }
+      },
+      "rows": [
+        {
+          "array_index": 1060,
+          "context": "match:state_0005.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1558
+          ],
+          "wait_probability": 0.9996320009231567,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1061,
+          "context": "match:state_0006.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            908
+          ],
+          "wait_probability": 0.996390163898468,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1062,
+          "context": "match:state_0008.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1002
+          ],
+          "wait_probability": 0.9975627660751343,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1063,
+          "context": "match:state_0009.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.9987587928771973,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1064,
+          "context": "match:state_0010.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1575
+          ],
+          "wait_probability": 0.8295051455497742,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1065,
+          "context": "match:state_0011.pickle",
+          "seed": 352,
+          "choice": 1452,
+          "successful_actions": [
+            964,
+            1578
+          ],
+          "wait_probability": 0.011137068271636963,
+          "category": "same_card_other_cell",
+          "distance_tiles": 7.0
+        },
+        {
+          "array_index": 1066,
+          "context": "match:state_0019.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            912
+          ],
+          "wait_probability": 0.9997280240058899,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1067,
+          "context": "match:state_0022.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            352
+          ],
+          "wait_probability": 0.9906858801841736,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1068,
+          "context": "match:state_0023.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            333
+          ],
+          "wait_probability": 0.9998002648353577,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1069,
+          "context": "match:state_0025.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            424
+          ],
+          "wait_probability": 0.999221682548523,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1070,
+          "context": "match:state_0026.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            926
+          ],
+          "wait_probability": 0.9992030262947083,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1071,
+          "context": "match:state_0028.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.99952232837677,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1072,
+          "context": "match:state_0030.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.9973278045654297,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1073,
+          "context": "match:state_0034.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1486
+          ],
+          "wait_probability": 0.9589627385139465,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1074,
+          "context": "match:state_0036.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1519
+          ],
+          "wait_probability": 0.994071900844574,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1075,
+          "context": "match:state_0037.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.5199297666549683,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1076,
+          "context": "match:state_0038.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.9504824280738831,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1077,
+          "context": "match:state_0039.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            335,
+            353,
+            354
+          ],
+          "wait_probability": 0.9488286375999451,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1078,
+          "context": "match:state_0040.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2098
+          ],
+          "wait_probability": 0.7434448003768921,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1079,
+          "context": "match:state_0042.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980,
+            998
+          ],
+          "wait_probability": 0.45767152309417725,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1080,
+          "context": "match:state_0043.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1506
+          ],
+          "wait_probability": 0.5011401176452637,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1081,
+          "context": "match:state_0044.pickle",
+          "seed": 353,
+          "choice": 1003,
+          "successful_actions": [
+            1524,
+            1542,
+            1578
+          ],
+          "wait_probability": 0.03161447495222092,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1082,
+          "context": "match:state_0045.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            370,
+            423
+          ],
+          "wait_probability": 0.7391367554664612,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1083,
+          "context": "match:state_0046.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            364
+          ],
+          "wait_probability": 0.29111236333847046,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1084,
+          "context": "match:state_0048.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            925
+          ],
+          "wait_probability": 0.9965096116065979,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1085,
+          "context": "match:state_0049.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.6877784729003906,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1086,
+          "context": "match:state_0050.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980
+          ],
+          "wait_probability": 0.9661877155303955,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1087,
+          "context": "match:state_0053.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2097
+          ],
+          "wait_probability": 0.9875153303146362,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1088,
+          "context": "match:state_0058.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.9917607307434082,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1089,
+          "context": "match:state_0059.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            927,
+            1581
+          ],
+          "wait_probability": 0.9955064058303833,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1090,
+          "context": "match:state_0060.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909,
+            927
+          ],
+          "wait_probability": 0.9463302493095398,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1091,
+          "context": "match:state_0062.pickle",
+          "seed": 353,
+          "choice": 336,
+          "successful_actions": [
+            911,
+            980
+          ],
+          "wait_probability": 0.11937220394611359,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1092,
+          "context": "match:state_0063.pickle",
+          "seed": 353,
+          "choice": 926,
+          "successful_actions": [
+            910
+          ],
+          "wait_probability": 0.25316229462623596,
+          "category": "same_card_other_cell",
+          "distance_tiles": 2.23606797749979
+        },
+        {
+          "array_index": 1093,
+          "context": "match:state_0067.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            351
+          ],
+          "wait_probability": 0.9990077614784241,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1094,
+          "context": "match:state_0068.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.5925488471984863,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1095,
+          "context": "match:state_0069.pickle",
+          "seed": 353,
+          "choice": 421,
+          "successful_actions": [
+            332,
+            352
+          ],
+          "wait_probability": 0.17577850818634033,
+          "category": "same_card_other_cell",
+          "distance_tiles": 5.0
+        },
+        {
+          "array_index": 1096,
+          "context": "match:state_0075.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.9999340772628784,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1097,
+          "context": "match:state_0078.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            372
+          ],
+          "wait_probability": 0.9977723956108093,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1098,
+          "context": "match:state_0080.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.9876388311386108,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1099,
+          "context": "match:state_0081.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.9896196722984314,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1100,
+          "context": "match:state_0082.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            907,
+            908
+          ],
+          "wait_probability": 0.9997181296348572,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1101,
+          "context": "match:state_0083.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            369
+          ],
+          "wait_probability": 0.9997140765190125,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1102,
+          "context": "match:state_0086.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.9059107899665833,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1103,
+          "context": "match:state_0088.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.93221515417099,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1104,
+          "context": "match:state_0089.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.976571798324585,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1105,
+          "context": "match:state_0090.pickle",
+          "seed": 354,
+          "choice": 2166,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.10248654335737228,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1106,
+          "context": "match:state_0092.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            911
+          ],
+          "wait_probability": 0.9986801743507385,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1107,
+          "context": "match:state_0095.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.7365683913230896,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1108,
+          "context": "match:state_0103.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.9495279788970947,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1109,
+          "context": "match:state_0104.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            334,
+            369,
+            387
+          ],
+          "wait_probability": 0.9973036050796509,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1110,
+          "context": "match:state_0105.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            407
+          ],
+          "wait_probability": 0.9857884049415588,
+          "category": "wait",
+          "distance_tiles": null
+        }
+      ]
+    },
+    {
+      "id": "control_kl01_s403",
+      "checkpoint_sha256": "77632e1405af12c2f7c740be861503c93129ea91e66840b6d743eddd07e5899c",
+      "splits": {
+        "train": {
+          "examples": 36,
+          "categories": {
+            "wait": 31,
+            "same_card_other_cell": 3,
+            "different_card": 2
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.7750825874973089
+        },
+        "local_heldout": {
+          "examples": 15,
+          "categories": {
+            "wait": 14,
+            "different_card": 1
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.8994821742177009
+        }
+      },
+      "rows": [
+        {
+          "array_index": 1060,
+          "context": "match:state_0005.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1558
+          ],
+          "wait_probability": 0.9994857311248779,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1061,
+          "context": "match:state_0006.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            908
+          ],
+          "wait_probability": 0.9969165325164795,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1062,
+          "context": "match:state_0008.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1002
+          ],
+          "wait_probability": 0.9977357387542725,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1063,
+          "context": "match:state_0009.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.9988129138946533,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1064,
+          "context": "match:state_0010.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1575
+          ],
+          "wait_probability": 0.8384647965431213,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1065,
+          "context": "match:state_0011.pickle",
+          "seed": 352,
+          "choice": 1452,
+          "successful_actions": [
+            964,
+            1578
+          ],
+          "wait_probability": 0.00908402819186449,
+          "category": "same_card_other_cell",
+          "distance_tiles": 7.0
+        },
+        {
+          "array_index": 1066,
+          "context": "match:state_0019.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            912
+          ],
+          "wait_probability": 0.9997609257698059,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1067,
+          "context": "match:state_0022.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            352
+          ],
+          "wait_probability": 0.9916016459465027,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1068,
+          "context": "match:state_0023.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            333
+          ],
+          "wait_probability": 0.9998494386672974,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1069,
+          "context": "match:state_0025.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            424
+          ],
+          "wait_probability": 0.9994019269943237,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1070,
+          "context": "match:state_0026.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            926
+          ],
+          "wait_probability": 0.9993438124656677,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1071,
+          "context": "match:state_0028.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.999671220779419,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1072,
+          "context": "match:state_0030.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.9980417490005493,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1073,
+          "context": "match:state_0034.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1486
+          ],
+          "wait_probability": 0.9484682679176331,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1074,
+          "context": "match:state_0036.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1519
+          ],
+          "wait_probability": 0.9948245286941528,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1075,
+          "context": "match:state_0037.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.37633800506591797,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1076,
+          "context": "match:state_0038.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.9552744626998901,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1077,
+          "context": "match:state_0039.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            335,
+            353,
+            354
+          ],
+          "wait_probability": 0.9544148445129395,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1078,
+          "context": "match:state_0040.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2098
+          ],
+          "wait_probability": 0.7848802804946899,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1079,
+          "context": "match:state_0042.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980,
+            998
+          ],
+          "wait_probability": 0.5128058791160583,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1080,
+          "context": "match:state_0043.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1506
+          ],
+          "wait_probability": 0.5523686408996582,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1081,
+          "context": "match:state_0044.pickle",
+          "seed": 353,
+          "choice": 1002,
+          "successful_actions": [
+            1524,
+            1542,
+            1578
+          ],
+          "wait_probability": 0.03884691745042801,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1082,
+          "context": "match:state_0045.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            370,
+            423
+          ],
+          "wait_probability": 0.7088459730148315,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1083,
+          "context": "match:state_0046.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            364
+          ],
+          "wait_probability": 0.42620760202407837,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1084,
+          "context": "match:state_0048.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            925
+          ],
+          "wait_probability": 0.9965950846672058,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1085,
+          "context": "match:state_0049.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.6483950614929199,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1086,
+          "context": "match:state_0050.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980
+          ],
+          "wait_probability": 0.9576303362846375,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1087,
+          "context": "match:state_0053.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2097
+          ],
+          "wait_probability": 0.991001307964325,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1088,
+          "context": "match:state_0058.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.9923509955406189,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1089,
+          "context": "match:state_0059.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            927,
+            1581
+          ],
+          "wait_probability": 0.9956979751586914,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1090,
+          "context": "match:state_0060.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909,
+            927
+          ],
+          "wait_probability": 0.9519757032394409,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1091,
+          "context": "match:state_0062.pickle",
+          "seed": 353,
+          "choice": 336,
+          "successful_actions": [
+            911,
+            980
+          ],
+          "wait_probability": 0.15350653231143951,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1092,
+          "context": "match:state_0063.pickle",
+          "seed": 353,
+          "choice": 926,
+          "successful_actions": [
+            910
+          ],
+          "wait_probability": 0.2931252121925354,
+          "category": "same_card_other_cell",
+          "distance_tiles": 2.23606797749979
+        },
+        {
+          "array_index": 1093,
+          "context": "match:state_0067.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            351
+          ],
+          "wait_probability": 0.999150276184082,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1094,
+          "context": "match:state_0068.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.5818901658058167,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1095,
+          "context": "match:state_0069.pickle",
+          "seed": 353,
+          "choice": 421,
+          "successful_actions": [
+            332,
+            352
+          ],
+          "wait_probability": 0.2602086365222931,
+          "category": "same_card_other_cell",
+          "distance_tiles": 5.0
+        },
+        {
+          "array_index": 1096,
+          "context": "match:state_0075.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.9999473094940186,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1097,
+          "context": "match:state_0078.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            372
+          ],
+          "wait_probability": 0.998151957988739,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1098,
+          "context": "match:state_0080.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.9870449900627136,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1099,
+          "context": "match:state_0081.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.9918227791786194,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1100,
+          "context": "match:state_0082.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            907,
+            908
+          ],
+          "wait_probability": 0.9996843338012695,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1101,
+          "context": "match:state_0083.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            369
+          ],
+          "wait_probability": 0.9996071457862854,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1102,
+          "context": "match:state_0086.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.9038323163986206,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1103,
+          "context": "match:state_0088.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.9401406645774841,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1104,
+          "context": "match:state_0089.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.9776200652122498,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1105,
+          "context": "match:state_0090.pickle",
+          "seed": 354,
+          "choice": 2166,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.06728481501340866,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1106,
+          "context": "match:state_0092.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            911
+          ],
+          "wait_probability": 0.998986542224884,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1107,
+          "context": "match:state_0095.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.7375373840332031,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1108,
+          "context": "match:state_0103.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.9046262502670288,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1109,
+          "context": "match:state_0104.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            334,
+            369,
+            387
+          ],
+          "wait_probability": 0.9973924160003662,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1110,
+          "context": "match:state_0105.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            407
+          ],
+          "wait_probability": 0.9885536432266235,
+          "category": "wait",
+          "distance_tiles": null
+        }
+      ]
+    },
+    {
+      "id": "corrections_kl001_s402",
+      "checkpoint_sha256": "a2896b483c7d0ec48ab0364c821770e6be8fddccc1ae1d659f98683499c41943",
+      "splits": {
+        "train": {
+          "examples": 36,
+          "categories": {
+            "wait": 26,
+            "same_card_other_cell": 5,
+            "accepted_label": 1,
+            "different_card": 4
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.29092577580336687
+        },
+        "local_heldout": {
+          "examples": 15,
+          "categories": {
+            "wait": 11,
+            "different_card": 3,
+            "same_card_other_cell": 1
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.31681307790180047
+        }
+      },
+      "rows": [
+        {
+          "array_index": 1060,
+          "context": "match:state_0005.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1558
+          ],
+          "wait_probability": 0.8892642855644226,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1061,
+          "context": "match:state_0006.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            908
+          ],
+          "wait_probability": 0.21316276490688324,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1062,
+          "context": "match:state_0008.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1002
+          ],
+          "wait_probability": 0.13583064079284668,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1063,
+          "context": "match:state_0009.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.5188370943069458,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1064,
+          "context": "match:state_0010.pickle",
+          "seed": 352,
+          "choice": 1501,
+          "successful_actions": [
+            1575
+          ],
+          "wait_probability": 0.08261752873659134,
+          "category": "same_card_other_cell",
+          "distance_tiles": 4.47213595499958
+        },
+        {
+          "array_index": 1065,
+          "context": "match:state_0011.pickle",
+          "seed": 352,
+          "choice": 1470,
+          "successful_actions": [
+            964,
+            1578
+          ],
+          "wait_probability": 0.06330640614032745,
+          "category": "same_card_other_cell",
+          "distance_tiles": 6.0
+        },
+        {
+          "array_index": 1066,
+          "context": "match:state_0019.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            912
+          ],
+          "wait_probability": 0.7459058165550232,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1067,
+          "context": "match:state_0022.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            352
+          ],
+          "wait_probability": 0.40954169631004333,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1068,
+          "context": "match:state_0023.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            333
+          ],
+          "wait_probability": 0.8316437005996704,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1069,
+          "context": "match:state_0025.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            424
+          ],
+          "wait_probability": 0.2738609313964844,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1070,
+          "context": "match:state_0026.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            926
+          ],
+          "wait_probability": 0.17943629622459412,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1071,
+          "context": "match:state_0028.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.312286376953125,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1072,
+          "context": "match:state_0030.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.21884438395500183,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1073,
+          "context": "match:state_0034.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1486
+          ],
+          "wait_probability": 0.1963493824005127,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1074,
+          "context": "match:state_0036.pickle",
+          "seed": 353,
+          "choice": 1519,
+          "successful_actions": [
+            1488,
+            1519
+          ],
+          "wait_probability": 0.1782340109348297,
+          "category": "accepted_label",
+          "distance_tiles": 0
+        },
+        {
+          "array_index": 1075,
+          "context": "match:state_0037.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.7238593101501465,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1076,
+          "context": "match:state_0038.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.4660135805606842,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1077,
+          "context": "match:state_0039.pickle",
+          "seed": 353,
+          "choice": 390,
+          "successful_actions": [
+            335,
+            353,
+            354
+          ],
+          "wait_probability": 0.02680082805454731,
+          "category": "same_card_other_cell",
+          "distance_tiles": 2.0
+        },
+        {
+          "array_index": 1078,
+          "context": "match:state_0040.pickle",
+          "seed": 353,
+          "choice": 1453,
+          "successful_actions": [
+            2098
+          ],
+          "wait_probability": 0.0450432114303112,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1079,
+          "context": "match:state_0042.pickle",
+          "seed": 353,
+          "choice": 407,
+          "successful_actions": [
+            980,
+            998
+          ],
+          "wait_probability": 0.0027098858263343573,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1080,
+          "context": "match:state_0043.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1506
+          ],
+          "wait_probability": 0.1443604975938797,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1081,
+          "context": "match:state_0044.pickle",
+          "seed": 353,
+          "choice": 1002,
+          "successful_actions": [
+            1524,
+            1542,
+            1578
+          ],
+          "wait_probability": 0.03662918135523796,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1082,
+          "context": "match:state_0045.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            370,
+            423
+          ],
+          "wait_probability": 0.027875320985913277,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1083,
+          "context": "match:state_0046.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            364
+          ],
+          "wait_probability": 0.44660982489585876,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1084,
+          "context": "match:state_0048.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            925
+          ],
+          "wait_probability": 0.25471803545951843,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1085,
+          "context": "match:state_0049.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.5942833423614502,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1086,
+          "context": "match:state_0050.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980
+          ],
+          "wait_probability": 0.38034600019454956,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1087,
+          "context": "match:state_0053.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2097
+          ],
+          "wait_probability": 0.11200340837240219,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1088,
+          "context": "match:state_0058.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.08937915414571762,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1089,
+          "context": "match:state_0059.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            927,
+            1581
+          ],
+          "wait_probability": 0.35687634348869324,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1090,
+          "context": "match:state_0060.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909,
+            927
+          ],
+          "wait_probability": 0.4615841507911682,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1091,
+          "context": "match:state_0062.pickle",
+          "seed": 353,
+          "choice": 335,
+          "successful_actions": [
+            911,
+            980
+          ],
+          "wait_probability": 0.046546779572963715,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1092,
+          "context": "match:state_0063.pickle",
+          "seed": 353,
+          "choice": 944,
+          "successful_actions": [
+            910
+          ],
+          "wait_probability": 0.07898362725973129,
+          "category": "same_card_other_cell",
+          "distance_tiles": 2.8284271247461903
+        },
+        {
+          "array_index": 1093,
+          "context": "match:state_0067.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            351
+          ],
+          "wait_probability": 0.6117391586303711,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1094,
+          "context": "match:state_0068.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.2706618309020996,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1095,
+          "context": "match:state_0069.pickle",
+          "seed": 353,
+          "choice": 421,
+          "successful_actions": [
+            332,
+            352
+          ],
+          "wait_probability": 0.047183141112327576,
+          "category": "same_card_other_cell",
+          "distance_tiles": 5.0
+        },
+        {
+          "array_index": 1096,
+          "context": "match:state_0075.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.6335888504981995,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1097,
+          "context": "match:state_0078.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            372
+          ],
+          "wait_probability": 0.28994083404541016,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1098,
+          "context": "match:state_0080.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.24476821720600128,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1099,
+          "context": "match:state_0081.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.27305883169174194,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1100,
+          "context": "match:state_0082.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            907,
+            908
+          ],
+          "wait_probability": 0.5511161088943481,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1101,
+          "context": "match:state_0083.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            369
+          ],
+          "wait_probability": 0.8140182495117188,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1102,
+          "context": "match:state_0086.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.5003372430801392,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1103,
+          "context": "match:state_0088.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.14604830741882324,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1104,
+          "context": "match:state_0089.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.0928831398487091,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1105,
+          "context": "match:state_0090.pickle",
+          "seed": 354,
+          "choice": 2166,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.01947570964694023,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1106,
+          "context": "match:state_0092.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            911
+          ],
+          "wait_probability": 0.46135589480400085,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1107,
+          "context": "match:state_0095.pickle",
+          "seed": 354,
+          "choice": 1471,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.03570980578660965,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1108,
+          "context": "match:state_0103.pickle",
+          "seed": 354,
+          "choice": 1527,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.2398734837770462,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1109,
+          "context": "match:state_0104.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            334,
+            369,
+            387
+          ],
+          "wait_probability": 0.43240097165107727,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1110,
+          "context": "match:state_0105.pickle",
+          "seed": 354,
+          "choice": 336,
+          "successful_actions": [
+            407
+          ],
+          "wait_probability": 0.017620520666241646,
+          "category": "same_card_other_cell",
+          "distance_tiles": 4.123105625617661
+        }
+      ]
+    },
+    {
+      "id": "corrections_kl001_s403",
+      "checkpoint_sha256": "b5633ca1fbf29a6f5ebfa844f803ab4743c91aa73ced56bd3c95095b7c068577",
+      "splits": {
+        "train": {
+          "examples": 36,
+          "categories": {
+            "wait": 26,
+            "same_card_other_cell": 5,
+            "accepted_label": 2,
+            "different_card": 3
+          },
+          "same_card_within_one_tile": 1,
+          "mean_wait_probability": 0.30892029541104826
+        },
+        "local_heldout": {
+          "examples": 15,
+          "categories": {
+            "wait": 11,
+            "different_card": 3,
+            "same_card_other_cell": 1
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.3234375776102146
+        }
+      },
+      "rows": [
+        {
+          "array_index": 1060,
+          "context": "match:state_0005.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1558
+          ],
+          "wait_probability": 0.9241294860839844,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1061,
+          "context": "match:state_0006.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            908
+          ],
+          "wait_probability": 0.2599038779735565,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1062,
+          "context": "match:state_0008.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1002
+          ],
+          "wait_probability": 0.15835246443748474,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1063,
+          "context": "match:state_0009.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.5628958344459534,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1064,
+          "context": "match:state_0010.pickle",
+          "seed": 352,
+          "choice": 1501,
+          "successful_actions": [
+            1575
+          ],
+          "wait_probability": 0.11162690818309784,
+          "category": "same_card_other_cell",
+          "distance_tiles": 4.47213595499958
+        },
+        {
+          "array_index": 1065,
+          "context": "match:state_0011.pickle",
+          "seed": 352,
+          "choice": 1452,
+          "successful_actions": [
+            964,
+            1578
+          ],
+          "wait_probability": 0.06942509859800339,
+          "category": "same_card_other_cell",
+          "distance_tiles": 7.0
+        },
+        {
+          "array_index": 1066,
+          "context": "match:state_0019.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            912
+          ],
+          "wait_probability": 0.7466036081314087,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1067,
+          "context": "match:state_0022.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            352
+          ],
+          "wait_probability": 0.4398730993270874,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1068,
+          "context": "match:state_0023.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            333
+          ],
+          "wait_probability": 0.856253445148468,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1069,
+          "context": "match:state_0025.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            424
+          ],
+          "wait_probability": 0.2822839617729187,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1070,
+          "context": "match:state_0026.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            926
+          ],
+          "wait_probability": 0.18477822840213776,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1071,
+          "context": "match:state_0028.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.3904726505279541,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1072,
+          "context": "match:state_0030.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.25825512409210205,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1073,
+          "context": "match:state_0034.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1486
+          ],
+          "wait_probability": 0.21934717893600464,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1074,
+          "context": "match:state_0036.pickle",
+          "seed": 353,
+          "choice": 1519,
+          "successful_actions": [
+            1488,
+            1519
+          ],
+          "wait_probability": 0.19233223795890808,
+          "category": "accepted_label",
+          "distance_tiles": 0
+        },
+        {
+          "array_index": 1075,
+          "context": "match:state_0037.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.7306365966796875,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1076,
+          "context": "match:state_0038.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.4728434085845947,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1077,
+          "context": "match:state_0039.pickle",
+          "seed": 353,
+          "choice": 372,
+          "successful_actions": [
+            335,
+            353,
+            354
+          ],
+          "wait_probability": 0.040568746626377106,
+          "category": "same_card_other_cell",
+          "distance_tiles": 1.0
+        },
+        {
+          "array_index": 1078,
+          "context": "match:state_0040.pickle",
+          "seed": 353,
+          "choice": 1453,
+          "successful_actions": [
+            2098
+          ],
+          "wait_probability": 0.05174348130822182,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1079,
+          "context": "match:state_0042.pickle",
+          "seed": 353,
+          "choice": 407,
+          "successful_actions": [
+            980,
+            998
+          ],
+          "wait_probability": 0.002846416784450412,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1080,
+          "context": "match:state_0043.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1506
+          ],
+          "wait_probability": 0.1676262766122818,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1081,
+          "context": "match:state_0044.pickle",
+          "seed": 353,
+          "choice": 1578,
+          "successful_actions": [
+            1524,
+            1542,
+            1578
+          ],
+          "wait_probability": 0.05204470083117485,
+          "category": "accepted_label",
+          "distance_tiles": 0
+        },
+        {
+          "array_index": 1082,
+          "context": "match:state_0045.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            370,
+            423
+          ],
+          "wait_probability": 0.03220456466078758,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1083,
+          "context": "match:state_0046.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            364
+          ],
+          "wait_probability": 0.4303727447986603,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1084,
+          "context": "match:state_0048.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            925
+          ],
+          "wait_probability": 0.30024105310440063,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1085,
+          "context": "match:state_0049.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.5642968416213989,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1086,
+          "context": "match:state_0050.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980
+          ],
+          "wait_probability": 0.3907603621482849,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1087,
+          "context": "match:state_0053.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2097
+          ],
+          "wait_probability": 0.13238488137722015,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1088,
+          "context": "match:state_0058.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.09305989742279053,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1089,
+          "context": "match:state_0059.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            927,
+            1581
+          ],
+          "wait_probability": 0.39572107791900635,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1090,
+          "context": "match:state_0060.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909,
+            927
+          ],
+          "wait_probability": 0.5029353499412537,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1091,
+          "context": "match:state_0062.pickle",
+          "seed": 353,
+          "choice": 335,
+          "successful_actions": [
+            911,
+            980
+          ],
+          "wait_probability": 0.05016022175550461,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1092,
+          "context": "match:state_0063.pickle",
+          "seed": 353,
+          "choice": 944,
+          "successful_actions": [
+            910
+          ],
+          "wait_probability": 0.07822079956531525,
+          "category": "same_card_other_cell",
+          "distance_tiles": 2.8284271247461903
+        },
+        {
+          "array_index": 1093,
+          "context": "match:state_0067.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            351
+          ],
+          "wait_probability": 0.6447888612747192,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1094,
+          "context": "match:state_0068.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.2687467336654663,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1095,
+          "context": "match:state_0069.pickle",
+          "seed": 353,
+          "choice": 421,
+          "successful_actions": [
+            332,
+            352
+          ],
+          "wait_probability": 0.062394414097070694,
+          "category": "same_card_other_cell",
+          "distance_tiles": 5.0
+        },
+        {
+          "array_index": 1096,
+          "context": "match:state_0075.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.6302334070205688,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1097,
+          "context": "match:state_0078.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            372
+          ],
+          "wait_probability": 0.3133928179740906,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1098,
+          "context": "match:state_0080.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.26741573214530945,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1099,
+          "context": "match:state_0081.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.27722662687301636,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1100,
+          "context": "match:state_0082.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            907,
+            908
+          ],
+          "wait_probability": 0.5561829805374146,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1101,
+          "context": "match:state_0083.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            369
+          ],
+          "wait_probability": 0.8432573676109314,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1102,
+          "context": "match:state_0086.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.5121874213218689,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1103,
+          "context": "match:state_0088.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.15813088417053223,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1104,
+          "context": "match:state_0089.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.10697151720523834,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1105,
+          "context": "match:state_0090.pickle",
+          "seed": 354,
+          "choice": 2149,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.020726753398776054,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1106,
+          "context": "match:state_0092.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            911
+          ],
+          "wait_probability": 0.4650099277496338,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1107,
+          "context": "match:state_0095.pickle",
+          "seed": 354,
+          "choice": 1471,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.057030580937862396,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1108,
+          "context": "match:state_0103.pickle",
+          "seed": 354,
+          "choice": 1527,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.1660907119512558,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1109,
+          "context": "match:state_0104.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            334,
+            369,
+            387
+          ],
+          "wait_probability": 0.4546847343444824,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1110,
+          "context": "match:state_0105.pickle",
+          "seed": 354,
+          "choice": 336,
+          "successful_actions": [
+            407
+          ],
+          "wait_probability": 0.023022200912237167,
+          "category": "same_card_other_cell",
+          "distance_tiles": 4.123105625617661
+        }
+      ]
+    },
+    {
+      "id": "corrections_kl01_s402",
+      "checkpoint_sha256": "4b5a1d241dee976f2648f79a085be7ee0f7ca58b8984741d5e167e17b5e1e6ab",
+      "splits": {
+        "train": {
+          "examples": 36,
+          "categories": {
+            "wait": 26,
+            "same_card_other_cell": 5,
+            "accepted_label": 2,
+            "different_card": 3
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.3276027840846736
+        },
+        "local_heldout": {
+          "examples": 15,
+          "categories": {
+            "wait": 12,
+            "different_card": 2,
+            "same_card_other_cell": 1
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.38044735925892986
+        }
+      },
+      "rows": [
+        {
+          "array_index": 1060,
+          "context": "match:state_0005.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1558
+          ],
+          "wait_probability": 0.924934446811676,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1061,
+          "context": "match:state_0006.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            908
+          ],
+          "wait_probability": 0.2703372836112976,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1062,
+          "context": "match:state_0008.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1002
+          ],
+          "wait_probability": 0.17438624799251556,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1063,
+          "context": "match:state_0009.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.5955434441566467,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1064,
+          "context": "match:state_0010.pickle",
+          "seed": 352,
+          "choice": 1501,
+          "successful_actions": [
+            1575
+          ],
+          "wait_probability": 0.10559455305337906,
+          "category": "same_card_other_cell",
+          "distance_tiles": 4.47213595499958
+        },
+        {
+          "array_index": 1065,
+          "context": "match:state_0011.pickle",
+          "seed": 352,
+          "choice": 1470,
+          "successful_actions": [
+            964,
+            1578
+          ],
+          "wait_probability": 0.09482288360595703,
+          "category": "same_card_other_cell",
+          "distance_tiles": 6.0
+        },
+        {
+          "array_index": 1066,
+          "context": "match:state_0019.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            912
+          ],
+          "wait_probability": 0.7773990035057068,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1067,
+          "context": "match:state_0022.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            352
+          ],
+          "wait_probability": 0.46399083733558655,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1068,
+          "context": "match:state_0023.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            333
+          ],
+          "wait_probability": 0.854013204574585,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1069,
+          "context": "match:state_0025.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            424
+          ],
+          "wait_probability": 0.3861786425113678,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1070,
+          "context": "match:state_0026.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            926
+          ],
+          "wait_probability": 0.2279183566570282,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1071,
+          "context": "match:state_0028.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.3483738899230957,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1072,
+          "context": "match:state_0030.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.2685578763484955,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1073,
+          "context": "match:state_0034.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1486
+          ],
+          "wait_probability": 0.2756345868110657,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1074,
+          "context": "match:state_0036.pickle",
+          "seed": 353,
+          "choice": 1519,
+          "successful_actions": [
+            1488,
+            1519
+          ],
+          "wait_probability": 0.2428899109363556,
+          "category": "accepted_label",
+          "distance_tiles": 0
+        },
+        {
+          "array_index": 1075,
+          "context": "match:state_0037.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.7180976271629333,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1076,
+          "context": "match:state_0038.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.5153867602348328,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1077,
+          "context": "match:state_0039.pickle",
+          "seed": 353,
+          "choice": 390,
+          "successful_actions": [
+            335,
+            353,
+            354
+          ],
+          "wait_probability": 0.035213589668273926,
+          "category": "same_card_other_cell",
+          "distance_tiles": 2.0
+        },
+        {
+          "array_index": 1078,
+          "context": "match:state_0040.pickle",
+          "seed": 353,
+          "choice": 1453,
+          "successful_actions": [
+            2098
+          ],
+          "wait_probability": 0.06602470576763153,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1079,
+          "context": "match:state_0042.pickle",
+          "seed": 353,
+          "choice": 407,
+          "successful_actions": [
+            980,
+            998
+          ],
+          "wait_probability": 0.00397867476567626,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1080,
+          "context": "match:state_0043.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1506
+          ],
+          "wait_probability": 0.18493764102458954,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1081,
+          "context": "match:state_0044.pickle",
+          "seed": 353,
+          "choice": 1578,
+          "successful_actions": [
+            1524,
+            1542,
+            1578
+          ],
+          "wait_probability": 0.04793025925755501,
+          "category": "accepted_label",
+          "distance_tiles": 0
+        },
+        {
+          "array_index": 1082,
+          "context": "match:state_0045.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            370,
+            423
+          ],
+          "wait_probability": 0.03505241498351097,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1083,
+          "context": "match:state_0046.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            364
+          ],
+          "wait_probability": 0.4520438313484192,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1084,
+          "context": "match:state_0048.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            925
+          ],
+          "wait_probability": 0.3338584005832672,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1085,
+          "context": "match:state_0049.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.6776973009109497,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1086,
+          "context": "match:state_0050.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980
+          ],
+          "wait_probability": 0.41365936398506165,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1087,
+          "context": "match:state_0053.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2097
+          ],
+          "wait_probability": 0.13097715377807617,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1088,
+          "context": "match:state_0058.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.11798124015331268,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1089,
+          "context": "match:state_0059.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            927,
+            1581
+          ],
+          "wait_probability": 0.42809832096099854,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1090,
+          "context": "match:state_0060.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909,
+            927
+          ],
+          "wait_probability": 0.4820322096347809,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1091,
+          "context": "match:state_0062.pickle",
+          "seed": 353,
+          "choice": 335,
+          "successful_actions": [
+            911,
+            980
+          ],
+          "wait_probability": 0.06430646777153015,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1092,
+          "context": "match:state_0063.pickle",
+          "seed": 353,
+          "choice": 926,
+          "successful_actions": [
+            910
+          ],
+          "wait_probability": 0.09918292611837387,
+          "category": "same_card_other_cell",
+          "distance_tiles": 2.23606797749979
+        },
+        {
+          "array_index": 1093,
+          "context": "match:state_0067.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            351
+          ],
+          "wait_probability": 0.6573516130447388,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1094,
+          "context": "match:state_0068.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.26107877492904663,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1095,
+          "context": "match:state_0069.pickle",
+          "seed": 353,
+          "choice": 421,
+          "successful_actions": [
+            332,
+            352
+          ],
+          "wait_probability": 0.058235783129930496,
+          "category": "same_card_other_cell",
+          "distance_tiles": 5.0
+        },
+        {
+          "array_index": 1096,
+          "context": "match:state_0075.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.6982535123825073,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1097,
+          "context": "match:state_0078.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            372
+          ],
+          "wait_probability": 0.3785395622253418,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1098,
+          "context": "match:state_0080.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.28203248977661133,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1099,
+          "context": "match:state_0081.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.39753827452659607,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1100,
+          "context": "match:state_0082.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            907,
+            908
+          ],
+          "wait_probability": 0.6632866263389587,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1101,
+          "context": "match:state_0083.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            369
+          ],
+          "wait_probability": 0.8548397421836853,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1102,
+          "context": "match:state_0086.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.5238984823226929,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1103,
+          "context": "match:state_0088.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.1822211891412735,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1104,
+          "context": "match:state_0089.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.1229591816663742,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1105,
+          "context": "match:state_0090.pickle",
+          "seed": 354,
+          "choice": 2149,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.03230562433600426,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1106,
+          "context": "match:state_0092.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            911
+          ],
+          "wait_probability": 0.5293311476707458,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1107,
+          "context": "match:state_0095.pickle",
+          "seed": 354,
+          "choice": 1471,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.04996481165289879,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1108,
+          "context": "match:state_0103.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.4864356517791748,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1109,
+          "context": "match:state_0104.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            334,
+            369,
+            387
+          ],
+          "wait_probability": 0.4796813428401947,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1110,
+          "context": "match:state_0105.pickle",
+          "seed": 354,
+          "choice": 336,
+          "successful_actions": [
+            407
+          ],
+          "wait_probability": 0.025422750040888786,
+          "category": "same_card_other_cell",
+          "distance_tiles": 4.123105625617661
+        }
+      ]
+    },
+    {
+      "id": "corrections_kl01_s403",
+      "checkpoint_sha256": "fad443b83b2a8741d014060ede1b791ac30635f4aca00a3fb52b70429ce711cb",
+      "splits": {
+        "train": {
+          "examples": 36,
+          "categories": {
+            "wait": 26,
+            "same_card_other_cell": 5,
+            "accepted_label": 2,
+            "different_card": 3
+          },
+          "same_card_within_one_tile": 1,
+          "mean_wait_probability": 0.3359005178273138
+        },
+        "local_heldout": {
+          "examples": 15,
+          "categories": {
+            "wait": 12,
+            "different_card": 3
+          },
+          "same_card_within_one_tile": 0,
+          "mean_wait_probability": 0.36891899034380915
+        }
+      },
+      "rows": [
+        {
+          "array_index": 1060,
+          "context": "match:state_0005.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1558
+          ],
+          "wait_probability": 0.9424678087234497,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1061,
+          "context": "match:state_0006.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            908
+          ],
+          "wait_probability": 0.2933633625507355,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1062,
+          "context": "match:state_0008.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1002
+          ],
+          "wait_probability": 0.18965041637420654,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1063,
+          "context": "match:state_0009.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.6004049181938171,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1064,
+          "context": "match:state_0010.pickle",
+          "seed": 352,
+          "choice": 1501,
+          "successful_actions": [
+            1575
+          ],
+          "wait_probability": 0.1279691457748413,
+          "category": "same_card_other_cell",
+          "distance_tiles": 4.47213595499958
+        },
+        {
+          "array_index": 1065,
+          "context": "match:state_0011.pickle",
+          "seed": 352,
+          "choice": 1452,
+          "successful_actions": [
+            964,
+            1578
+          ],
+          "wait_probability": 0.08710476011037827,
+          "category": "same_card_other_cell",
+          "distance_tiles": 7.0
+        },
+        {
+          "array_index": 1066,
+          "context": "match:state_0019.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            912
+          ],
+          "wait_probability": 0.7612429261207581,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1067,
+          "context": "match:state_0022.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            352
+          ],
+          "wait_probability": 0.46179845929145813,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1068,
+          "context": "match:state_0023.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            333
+          ],
+          "wait_probability": 0.8777353763580322,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1069,
+          "context": "match:state_0025.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            424
+          ],
+          "wait_probability": 0.374283105134964,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1070,
+          "context": "match:state_0026.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            926
+          ],
+          "wait_probability": 0.23555372655391693,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1071,
+          "context": "match:state_0028.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.43777957558631897,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1072,
+          "context": "match:state_0030.pickle",
+          "seed": 352,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.30211129784584045,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1073,
+          "context": "match:state_0034.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1486
+          ],
+          "wait_probability": 0.2887953221797943,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1074,
+          "context": "match:state_0036.pickle",
+          "seed": 353,
+          "choice": 1519,
+          "successful_actions": [
+            1488,
+            1519
+          ],
+          "wait_probability": 0.2324168086051941,
+          "category": "accepted_label",
+          "distance_tiles": 0
+        },
+        {
+          "array_index": 1075,
+          "context": "match:state_0037.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.7211663722991943,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1076,
+          "context": "match:state_0038.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            353
+          ],
+          "wait_probability": 0.4901059865951538,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1077,
+          "context": "match:state_0039.pickle",
+          "seed": 353,
+          "choice": 372,
+          "successful_actions": [
+            335,
+            353,
+            354
+          ],
+          "wait_probability": 0.05538685992360115,
+          "category": "same_card_other_cell",
+          "distance_tiles": 1.0
+        },
+        {
+          "array_index": 1078,
+          "context": "match:state_0040.pickle",
+          "seed": 353,
+          "choice": 1454,
+          "successful_actions": [
+            2098
+          ],
+          "wait_probability": 0.0708405002951622,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1079,
+          "context": "match:state_0042.pickle",
+          "seed": 353,
+          "choice": 407,
+          "successful_actions": [
+            980,
+            998
+          ],
+          "wait_probability": 0.004493788816034794,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1080,
+          "context": "match:state_0043.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            1488,
+            1506
+          ],
+          "wait_probability": 0.19487805664539337,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1081,
+          "context": "match:state_0044.pickle",
+          "seed": 353,
+          "choice": 1578,
+          "successful_actions": [
+            1524,
+            1542,
+            1578
+          ],
+          "wait_probability": 0.06383829563856125,
+          "category": "accepted_label",
+          "distance_tiles": 0
+        },
+        {
+          "array_index": 1082,
+          "context": "match:state_0045.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            370,
+            423
+          ],
+          "wait_probability": 0.03815772756934166,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1083,
+          "context": "match:state_0046.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            364
+          ],
+          "wait_probability": 0.4392598271369934,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1084,
+          "context": "match:state_0048.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            925
+          ],
+          "wait_probability": 0.3493630886077881,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1085,
+          "context": "match:state_0049.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.6248369216918945,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1086,
+          "context": "match:state_0050.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            980
+          ],
+          "wait_probability": 0.42140865325927734,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1087,
+          "context": "match:state_0053.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            2097
+          ],
+          "wait_probability": 0.15237122774124146,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1088,
+          "context": "match:state_0058.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.11929911375045776,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1089,
+          "context": "match:state_0059.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            927,
+            1581
+          ],
+          "wait_probability": 0.43370747566223145,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1090,
+          "context": "match:state_0060.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            909,
+            927
+          ],
+          "wait_probability": 0.5195242762565613,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1091,
+          "context": "match:state_0062.pickle",
+          "seed": 353,
+          "choice": 335,
+          "successful_actions": [
+            911,
+            980
+          ],
+          "wait_probability": 0.06853919476270676,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1092,
+          "context": "match:state_0063.pickle",
+          "seed": 353,
+          "choice": 944,
+          "successful_actions": [
+            910
+          ],
+          "wait_probability": 0.10383359342813492,
+          "category": "same_card_other_cell",
+          "distance_tiles": 2.8284271247461903
+        },
+        {
+          "array_index": 1093,
+          "context": "match:state_0067.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            351
+          ],
+          "wait_probability": 0.6785316467285156,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1094,
+          "context": "match:state_0068.pickle",
+          "seed": 353,
+          "choice": 0,
+          "successful_actions": [
+            332
+          ],
+          "wait_probability": 0.2565990686416626,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1095,
+          "context": "match:state_0069.pickle",
+          "seed": 353,
+          "choice": 421,
+          "successful_actions": [
+            332,
+            352
+          ],
+          "wait_probability": 0.07359995692968369,
+          "category": "same_card_other_cell",
+          "distance_tiles": 5.0
+        },
+        {
+          "array_index": 1096,
+          "context": "match:state_0075.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.690007209777832,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1097,
+          "context": "match:state_0078.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            372
+          ],
+          "wait_probability": 0.39293721318244934,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1098,
+          "context": "match:state_0080.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2103
+          ],
+          "wait_probability": 0.30374106764793396,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1099,
+          "context": "match:state_0081.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.3857792317867279,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1100,
+          "context": "match:state_0082.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            907,
+            908
+          ],
+          "wait_probability": 0.6418558955192566,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1101,
+          "context": "match:state_0083.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            369
+          ],
+          "wait_probability": 0.8619611263275146,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1102,
+          "context": "match:state_0086.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.5118813514709473,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1103,
+          "context": "match:state_0088.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            2100
+          ],
+          "wait_probability": 0.18571321666240692,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1104,
+          "context": "match:state_0089.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            1488
+          ],
+          "wait_probability": 0.13050538301467896,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1105,
+          "context": "match:state_0090.pickle",
+          "seed": 354,
+          "choice": 2149,
+          "successful_actions": [
+            1485
+          ],
+          "wait_probability": 0.029005154967308044,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1106,
+          "context": "match:state_0092.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            911
+          ],
+          "wait_probability": 0.5218026041984558,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1107,
+          "context": "match:state_0095.pickle",
+          "seed": 354,
+          "choice": 1471,
+          "successful_actions": [
+            909
+          ],
+          "wait_probability": 0.07323890179395676,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1108,
+          "context": "match:state_0103.pickle",
+          "seed": 354,
+          "choice": 1527,
+          "successful_actions": [
+            336
+          ],
+          "wait_probability": 0.2852119505405426,
+          "category": "different_card",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1109,
+          "context": "match:state_0104.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            334,
+            369,
+            387
+          ],
+          "wait_probability": 0.48681968450546265,
+          "category": "wait",
+          "distance_tiles": null
+        },
+        {
+          "array_index": 1110,
+          "context": "match:state_0105.pickle",
+          "seed": 354,
+          "choice": 0,
+          "successful_actions": [
+            407
+          ],
+          "wait_probability": 0.03332486376166344,
+          "category": "wait",
+          "distance_tiles": null
+        }
+      ]
+    }
+  ],
+  "full_training_accepted": false,
+  "scope": "Distances to searched labels, not proof that every alternative loses; not full-game win rate"
+}

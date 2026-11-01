@@ -207,6 +207,7 @@ def render_bank_campaign(reports,campaign):
         status='результаты проверены'if complete else state.get('status','подготовлен')
         lines.append(f"| {item['label']} | {pct} | {status} |")
     pair=read(reports/'bank_correction_pair_training_20261101.json')
+    pair_summary=None
     if pair:
         snapshot=read(Path(pair['root'])/'live_stream/progress.json')or{}
         proof=read(reports/'bank_correction_pair_verified_20261101.json')or{}
@@ -217,16 +218,39 @@ def render_bank_campaign(reports,campaign):
         count=sum(min(800,max(0,r.get('updates',0)))for name,r in snapshot.get('corrections',{}).items()
             if name in names and r.get('actual_cuda'))if snapshot.get('kernel')==pair['kernel']else 0
         pct='100% проверено'if complete else f'≥{count/64:.1f}%'if count else '—'
-        lines.append(f"| Исправления защиты: с примерами / без | {pct} | {pair.get('status','подготовлен')} |")
+        status={'full_validation_running':'идёт сравнение полных матчей',
+            'full_validation_verified':'полные матчи проверены','verifying_cuda_outputs':'проверяем веса'}.get(pair.get('status'),pair.get('status','подготовлен'))
+        lines.append(f"| Исправления защиты: с примерами / без | {pct} | {status} |")
         lines+=['','**Новый опыт:** 51 воспроизведённое исправление защиты, 8 прогонов; '
-            'после проверки весов — 648 полных симуляционных матчей на одинаковых сценариях.']
+            'после проверки весов — 648 полных симуляционных матчей на одинаковых сценариях. '
+            '[Разбор решений](reports/bank_correction_diagnosis_20261101.md).']
+        if complete:
+            from scripts.kaggle.local_artifact_transfer import file_sha
+            summary=read(reports/'bank_correction_pair_full_validation_20261101.json')or{}
+            if (summary.get('schema')=='verified-correction-full-games-v1'and summary.get('games_verified')==648
+                    and summary.get('verified_sha256')==file_sha(reports/'bank_correction_pair_verified_20261101.json')):
+                pair_summary=summary
+                lines+=['','| Вариант | Победы в симуляторе, два seed | Порог всех семейств |','|---|---:|---:|']
+                for row in summary['groups']:
+                    kind,kl=row['case'].split('_kl')
+                    label=('Контроль'if kind=='control'else'Исправления')+' · KL '+('0,01'if kl=='001'else'0,1')
+                    lines.append(f"| {label} | {row['wins']}/144 | {'да'if row['all_family_floor_passed']else'нет'} |")
+                lines+=['','144 испытания используют 72 повторяющихся сценария. Это validation, не реальные игры. '
+                    '[Полное сравнение](reports/bank_correction_pair_full_validation_20261101.md).']
+            else:
+                games=0
+                for model in range(9):
+                    for block in range(6):
+                        part=read(Path(pair['root'])/'full_validation'/f'model_{model}_block_{block}.json')
+                        if part and len(part.get('records',[]))==12:games+=12
+                lines+=['',f'**Проверка кандидатов:** {games}/648 матчей завершено; итоговые винрейты ещё не подведены.']
     previous=read(reports/'bank_previous_behavior_summary_20261101.json')
     if previous and previous.get('episodes_verified')==384:
         row=previous['ranking'][0]
         lines+=['',f"**Прежний BC, локальная проверка:** лучший вариант {row['case']} — {row['safe']}/{row['episodes']} защит без урона. "
             '[Все варианты](reports/bank_previous_behavior_20261101.md).']
     full=read(reports/'bank_full_validation_previous_20261101.json')
-    if full and full.get('schema')=='verified-bank-full-validation-v1' and full.get('episodes_verified')==216:
+    if not pair_summary and full and full.get('schema')=='verified-bank-full-validation-v1' and full.get('episodes_verified')==216:
         lines+=['','**Прежние веса, полные матчи в симуляторе:**','',
             '| Модель | Победы на одинаковых 72 сценариях |','|---|---:|']
         for row in full['models']:

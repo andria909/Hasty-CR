@@ -1,0 +1,2043 @@
+{
+  "schema": "verified-bank-correction-pair-v1",
+  "kernel": "vertel0/hastycr-bank-correct1101",
+  "supervised_updates_verified": 6400,
+  "environment_steps": 0,
+  "initial_sha256": "3a7eb5863c7e80203b1bbfef86ddac3428d2d6041a7e646adf8c47422e17e215",
+  "actual_cuda_verified": true,
+  "runs": [
+    {
+      "id": "control_kl001_s402",
+      "case": {
+        "id": "control_kl001",
+        "dataset": "control",
+        "kl_weight": 0.01
+      },
+      "seed": 402,
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl001_s402/policy.pt",
+      "checkpoint_sha256": "75f201e7cd04233cb1d16cd150b57bd984dc26770c7128aed121277123bf625c",
+      "own_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl001_s402/policy.pt",
+        "checkpoint_sha256": "75f201e7cd04233cb1d16cd150b57bd984dc26770c7128aed121277123bf625c",
+        "data_sha256": "86d50037e4d36ca405281e3f9c79222a218fb8e6e35a0942ff192bf96b9d834a",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 688,
+          "successful_choices": 644,
+          "fraction": 0.9360465407371521,
+          "mean_log_successful_probability": -0.36230886042191396
+        },
+        "local_heldout": {
+          "examples": 372,
+          "successful_choices": 342,
+          "fraction": 0.9193548560142517,
+          "mean_log_successful_probability": -0.5128426878913716
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 4,
+              "fraction": 0.5,
+              "mean_log_successful_probability": -2.939737098107769
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 2,
+              "fraction": 0.3333333432674408,
+              "mean_log_successful_probability": -6.50038201368675
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.08298240772220897
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 6,
+              "fraction": 0.4285714328289032,
+              "mean_log_successful_probability": -1.9007151013406722
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 560,
+              "fraction": 0.9333333373069763,
+              "mean_log_successful_probability": -0.37233214585618934
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 306,
+              "fraction": 0.9444444179534912,
+              "mean_log_successful_probability": -0.3862863745592901
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0005346972207531664
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0002996799103678655
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 548,
+              "fraction": 0.9513888955116272,
+              "mean_log_successful_probability": -0.3189325554211784
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 306,
+              "fraction": 0.9807692170143127,
+              "mean_log_successful_probability": -0.17829166847144376
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 44,
+              "fraction": 0.7333333492279053,
+              "mean_log_successful_probability": -1.0922589965366474
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 8,
+              "fraction": 0.25,
+              "mean_log_successful_probability": -4.223190259219045
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      },
+      "common_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl001_s402/policy.pt",
+        "checkpoint_sha256": "75f201e7cd04233cb1d16cd150b57bd984dc26770c7128aed121277123bf625c",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 644,
+          "fraction": 0.889502763748169,
+          "mean_log_successful_probability": -0.9331199670523775
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 342,
+          "fraction": 0.8837209343910217,
+          "mean_log_successful_probability": -0.991200994466502
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 4,
+              "fraction": 0.5,
+              "mean_log_successful_probability": -2.939737098107769
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 2,
+              "fraction": 0.3333333432674408,
+              "mean_log_successful_probability": -6.50038201368675
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.08298240772220897
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 6,
+              "fraction": 0.4285714328289032,
+              "mean_log_successful_probability": -1.9007151013406722
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -11.84195444932346
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -12.854486997529742
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 560,
+              "fraction": 0.9333333373069763,
+              "mean_log_successful_probability": -0.37233214585618934
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 306,
+              "fraction": 0.9444444179534912,
+              "mean_log_successful_probability": -0.3862863745592901
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0005346972207531664
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0002996799103678655
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 548,
+              "fraction": 0.9513888955116272,
+              "mean_log_successful_probability": -0.3189325554211784
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 306,
+              "fraction": 0.9807692170143127,
+              "mean_log_successful_probability": -0.17829166847144376
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 44,
+              "fraction": 0.4583333432674408,
+              "mean_log_successful_probability": -5.123394791331703
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 8,
+              "fraction": 0.1702127605676651,
+              "mean_log_successful_probability": -6.97785943102033
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "control_kl001_s403",
+      "case": {
+        "id": "control_kl001",
+        "dataset": "control",
+        "kl_weight": 0.01
+      },
+      "seed": 403,
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl001_s403/policy.pt",
+      "checkpoint_sha256": "cb499d67ad3ace2d71237f1638bf16abed440b9399ca01875af9491b38c39669",
+      "own_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl001_s403/policy.pt",
+        "checkpoint_sha256": "cb499d67ad3ace2d71237f1638bf16abed440b9399ca01875af9491b38c39669",
+        "data_sha256": "86d50037e4d36ca405281e3f9c79222a218fb8e6e35a0942ff192bf96b9d834a",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 688,
+          "successful_choices": 599,
+          "fraction": 0.8706395626068115,
+          "mean_log_successful_probability": -0.41469315581107763
+        },
+        "local_heldout": {
+          "examples": 372,
+          "successful_choices": 334,
+          "fraction": 0.897849440574646,
+          "mean_log_successful_probability": -0.5471335643066552
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 4,
+              "fraction": 0.5,
+              "mean_log_successful_probability": -2.8998268480493494
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 2,
+              "fraction": 0.3333333432674408,
+              "mean_log_successful_probability": -6.406306661554844
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.06926350898061795
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 3,
+              "fraction": 0.2142857164144516,
+              "mean_log_successful_probability": -2.507114928741966
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 515,
+              "fraction": 0.8583333492279053,
+              "mean_log_successful_probability": -0.43356696454069227
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 301,
+              "fraction": 0.9290123581886292,
+              "mean_log_successful_probability": -0.4011973861595976
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0005907584183451908
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0002958512374832927
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 502,
+              "fraction": 0.8715277910232544,
+              "mean_log_successful_probability": -0.3847748128468096
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 301,
+              "fraction": 0.9647436141967773,
+              "mean_log_successful_probability": -0.19300289211483962
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 45,
+              "fraction": 0.75,
+              "mean_log_successful_probability": -1.060797992675085
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 5,
+              "fraction": 0.15625,
+              "mean_log_successful_probability": -4.478390617112383
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      },
+      "common_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl001_s403/policy.pt",
+        "checkpoint_sha256": "cb499d67ad3ace2d71237f1638bf16abed440b9399ca01875af9491b38c39669",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 599,
+          "fraction": 0.8273480534553528,
+          "mean_log_successful_probability": -0.9835422383242076
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 334,
+          "fraction": 0.8630490899085999,
+          "mean_log_successful_probability": -1.0279224061228518
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 4,
+              "fraction": 0.5,
+              "mean_log_successful_probability": -2.8998268480493494
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 2,
+              "fraction": 0.3333333432674408,
+              "mean_log_successful_probability": -6.406306661554844
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.06926350898061795
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 3,
+              "fraction": 0.2142857164144516,
+              "mean_log_successful_probability": -2.507114928741966
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -11.854880259686249
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -12.951485683164526
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 515,
+              "fraction": 0.8583333492279053,
+              "mean_log_successful_probability": -0.43356696454069227
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 301,
+              "fraction": 0.9290123581886292,
+              "mean_log_successful_probability": -0.4011973861595976
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0005907584183451908
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0002958512374832927
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 502,
+              "fraction": 0.8715277910232544,
+              "mean_log_successful_probability": -0.3847748128468096
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 301,
+              "fraction": 0.9647436141967773,
+              "mean_log_successful_probability": -0.19300289211483962
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 45,
+              "fraction": 0.46875,
+              "mean_log_successful_probability": -5.108578842804271
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 5,
+              "fraction": 0.10638298094272614,
+              "mean_log_successful_probability": -7.182569893512004
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "control_kl01_s402",
+      "case": {
+        "id": "control_kl01",
+        "dataset": "control",
+        "kl_weight": 0.1
+      },
+      "seed": 402,
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl01_s402/policy.pt",
+      "checkpoint_sha256": "3b6d2c746e93d7f6a8b5b4ce409d7ad20f390de40fb106f5b15b58fae90787d8",
+      "own_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl01_s402/policy.pt",
+        "checkpoint_sha256": "3b6d2c746e93d7f6a8b5b4ce409d7ad20f390de40fb106f5b15b58fae90787d8",
+        "data_sha256": "86d50037e4d36ca405281e3f9c79222a218fb8e6e35a0942ff192bf96b9d834a",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 688,
+          "successful_choices": 643,
+          "fraction": 0.9345930218696594,
+          "mean_log_successful_probability": -0.4102220033277309
+        },
+        "local_heldout": {
+          "examples": 372,
+          "successful_choices": 341,
+          "fraction": 0.9166666865348816,
+          "mean_log_successful_probability": -0.5500597082544029
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 3,
+              "fraction": 0.375,
+              "mean_log_successful_probability": -3.026420257280475
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 2,
+              "fraction": 0.3333333432674408,
+              "mean_log_successful_probability": -6.077941310694939
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.10188309900288314
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 5,
+              "fraction": 0.3571428656578064,
+              "mean_log_successful_probability": -1.9876164635558982
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 560,
+              "fraction": 0.9333333373069763,
+              "mean_log_successful_probability": -0.4251896470694081
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 306,
+              "fraction": 0.9444444179534912,
+              "mean_log_successful_probability": -0.4330585963988144
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.001055023413644402
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.000605281552493445
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 550,
+              "fraction": 0.9548611044883728,
+              "mean_log_successful_probability": -0.3695052957701471
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 306,
+              "fraction": 0.9807692170143127,
+              "mean_log_successful_probability": -0.22670964051845952
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 41,
+              "fraction": 0.6833333373069763,
+              "mean_log_successful_probability": -1.1557137784727431
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 7,
+              "fraction": 0.21875,
+              "mean_log_successful_probability": -4.183495492044021
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      },
+      "common_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl01_s402/policy.pt",
+        "checkpoint_sha256": "3b6d2c746e93d7f6a8b5b4ce409d7ad20f390de40fb106f5b15b58fae90787d8",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 643,
+          "fraction": 0.8881215453147888,
+          "mean_log_successful_probability": -0.9437048871408354
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 341,
+          "fraction": 0.881136953830719,
+          "mean_log_successful_probability": -0.9988510524129456
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 3,
+              "fraction": 0.375,
+              "mean_log_successful_probability": -3.026420257280475
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 2,
+              "fraction": 0.3333333432674408,
+              "mean_log_successful_probability": -6.077941310694939
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.10188309900288314
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 5,
+              "fraction": 0.3571428656578064,
+              "mean_log_successful_probability": -1.9876164635558982
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -11.139155555569054
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -12.128876387544802
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 560,
+              "fraction": 0.9333333373069763,
+              "mean_log_successful_probability": -0.4251896470694081
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 306,
+              "fraction": 0.9444444179534912,
+              "mean_log_successful_probability": -0.4330585963988144
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.001055023413644402
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.000605281552493445
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 550,
+              "fraction": 0.9548611044883728,
+              "mean_log_successful_probability": -0.3695052957701471
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 306,
+              "fraction": 0.9807692170143127,
+              "mean_log_successful_probability": -0.22670964051845952
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 41,
+              "fraction": 0.4270833432674408,
+              "mean_log_successful_probability": -4.89950444488386
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 7,
+              "fraction": 0.1489361673593521,
+              "mean_log_successful_probability": -6.719255352310229
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "control_kl01_s403",
+      "case": {
+        "id": "control_kl01",
+        "dataset": "control",
+        "kl_weight": 0.1
+      },
+      "seed": 403,
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl01_s403/policy.pt",
+      "checkpoint_sha256": "77632e1405af12c2f7c740be861503c93129ea91e66840b6d743eddd07e5899c",
+      "own_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl01_s403/policy.pt",
+        "checkpoint_sha256": "77632e1405af12c2f7c740be861503c93129ea91e66840b6d743eddd07e5899c",
+        "data_sha256": "86d50037e4d36ca405281e3f9c79222a218fb8e6e35a0942ff192bf96b9d834a",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 688,
+          "successful_choices": 607,
+          "fraction": 0.882267415523529,
+          "mean_log_successful_probability": -0.4242545699682022
+        },
+        "local_heldout": {
+          "examples": 372,
+          "successful_choices": 335,
+          "fraction": 0.9005376100540161,
+          "mean_log_successful_probability": -0.5477550868760243
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 3,
+              "fraction": 0.375,
+              "mean_log_successful_probability": -2.9846186763090983
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 2,
+              "fraction": 0.3333333432674408,
+              "mean_log_successful_probability": -6.000804454902486
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0980578109374838
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 4,
+              "fraction": 0.2857142984867096,
+              "mean_log_successful_probability": -2.2001104187882548
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 524,
+              "fraction": 0.8733333349227905,
+              "mean_log_successful_probability": -0.4420221587749991
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 301,
+              "fraction": 0.9290123581886292,
+              "mean_log_successful_probability": -0.4226644584234984
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0009861683923331542
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0005441141506086845
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 512,
+              "fraction": 0.8888888955116272,
+              "mean_log_successful_probability": -0.38651956166258944
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 301,
+              "fraction": 0.9647436141967773,
+              "mean_log_successful_probability": -0.21364789555729266
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 60,
+              "successful_choices": 43,
+              "fraction": 0.7166666388511658,
+              "mean_log_successful_probability": -1.1533432644011712
+            },
+            "local_heldout": {
+              "examples": 32,
+              "successful_choices": 6,
+              "fraction": 0.1875,
+              "mean_log_successful_probability": -4.284109803368396
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      },
+      "common_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl01_s403/policy.pt",
+        "checkpoint_sha256": "77632e1405af12c2f7c740be861503c93129ea91e66840b6d743eddd07e5899c",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 607,
+          "fraction": 0.8383978009223938,
+          "mean_log_successful_probability": -0.9638222431379181
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 335,
+          "fraction": 0.8656330704689026,
+          "mean_log_successful_probability": -1.0052940254225289
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 3,
+              "fraction": 0.375,
+              "mean_log_successful_probability": -2.9846186763090983
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 2,
+              "fraction": 0.3333333432674408,
+              "mean_log_successful_probability": -6.000804454902486
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0980578109374838
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 4,
+              "fraction": 0.2857142984867096,
+              "mean_log_successful_probability": -2.2001104187882548
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -11.275559997048042
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -12.352259701375841
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 524,
+              "fraction": 0.8733333349227905,
+              "mean_log_successful_probability": -0.4420221587749991
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 301,
+              "fraction": 0.9290123581886292,
+              "mean_log_successful_probability": -0.4226644584234984
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0009861683923331542
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0005441141506086845
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 512,
+              "fraction": 0.8888888955116272,
+              "mean_log_successful_probability": -0.38651956166258944
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 301,
+              "fraction": 0.9647436141967773,
+              "mean_log_successful_probability": -0.21364789555729266
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 43,
+              "fraction": 0.4479166567325592,
+              "mean_log_successful_probability": -4.9491745391437485
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 6,
+              "fraction": 0.12765957415103912,
+              "mean_log_successful_probability": -6.859051260179283
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "corrections_kl001_s402",
+      "case": {
+        "id": "corrections_kl001",
+        "dataset": "corrections",
+        "kl_weight": 0.01
+      },
+      "seed": 402,
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl001_s402/policy.pt",
+      "checkpoint_sha256": "a2896b483c7d0ec48ab0364c821770e6be8fddccc1ae1d659f98683499c41943",
+      "own_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl001_s402/policy.pt",
+        "checkpoint_sha256": "a2896b483c7d0ec48ab0364c821770e6be8fddccc1ae1d659f98683499c41943",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 519,
+          "fraction": 0.7168508172035217,
+          "mean_log_successful_probability": -1.399773434825852
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 326,
+          "fraction": 0.842377245426178,
+          "mean_log_successful_probability": -1.5016626495910652
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -3.3490879909640627
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.349408442339656
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 26,
+              "fraction": 0.9285714030265808,
+              "mean_log_successful_probability": -0.2515726584540707
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 4,
+              "fraction": 0.2857142984867096,
+              "mean_log_successful_probability": -2.3540156165684154
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 1,
+              "fraction": 0.02777777798473835,
+              "mean_log_successful_probability": -5.015020970944505
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.7841857714377225
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 440,
+              "fraction": 0.7333333492279053,
+              "mean_log_successful_probability": -1.3206956244031547
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 294,
+              "fraction": 0.9074074029922485,
+              "mean_log_successful_probability": -1.3168135197095518
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.1277134394922195
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0957288981530704
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 430,
+              "fraction": 0.7465277910232544,
+              "mean_log_successful_probability": -1.296660584248291
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 294,
+              "fraction": 0.942307710647583,
+              "mean_log_successful_probability": -1.209028723583139
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 37,
+              "fraction": 0.3854166567325592,
+              "mean_log_successful_probability": -2.7074830357636017
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 4,
+              "fraction": 0.08510638028383255,
+              "mean_log_successful_probability": -4.281831372032276
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      },
+      "common_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl001_s402/policy.pt",
+        "checkpoint_sha256": "a2896b483c7d0ec48ab0364c821770e6be8fddccc1ae1d659f98683499c41943",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 519,
+          "fraction": 0.7168508172035217,
+          "mean_log_successful_probability": -1.399773434825852
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 326,
+          "fraction": 0.842377245426178,
+          "mean_log_successful_probability": -1.5016626495910652
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -3.3490879909640627
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.349408442339656
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 26,
+              "fraction": 0.9285714030265808,
+              "mean_log_successful_probability": -0.2515726584540707
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 4,
+              "fraction": 0.2857142984867096,
+              "mean_log_successful_probability": -2.3540156165684154
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 1,
+              "fraction": 0.02777777798473835,
+              "mean_log_successful_probability": -5.015020970944505
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.7841857714377225
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 440,
+              "fraction": 0.7333333492279053,
+              "mean_log_successful_probability": -1.3206956244031547
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 294,
+              "fraction": 0.9074074029922485,
+              "mean_log_successful_probability": -1.3168135197095518
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.1277134394922195
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0957288981530704
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 430,
+              "fraction": 0.7465277910232544,
+              "mean_log_successful_probability": -1.296660584248291
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 294,
+              "fraction": 0.942307710647583,
+              "mean_log_successful_probability": -1.209028723583139
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 37,
+              "fraction": 0.3854166567325592,
+              "mean_log_successful_probability": -2.7074830357636017
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 4,
+              "fraction": 0.08510638028383255,
+              "mean_log_successful_probability": -4.281831372032276
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "corrections_kl001_s403",
+      "case": {
+        "id": "corrections_kl001",
+        "dataset": "corrections",
+        "kl_weight": 0.01
+      },
+      "seed": 403,
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl001_s403/policy.pt",
+      "checkpoint_sha256": "b5633ca1fbf29a6f5ebfa844f803ab4743c91aa73ced56bd3c95095b7c068577",
+      "own_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl001_s403/policy.pt",
+        "checkpoint_sha256": "b5633ca1fbf29a6f5ebfa844f803ab4743c91aa73ced56bd3c95095b7c068577",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 543,
+          "fraction": 0.75,
+          "mean_log_successful_probability": -1.27810677380569
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 325,
+          "fraction": 0.8397932648658752,
+          "mean_log_successful_probability": -1.367710369579241
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -3.36217320378252
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.412110085653786
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 27,
+              "fraction": 0.9642857313156128,
+              "mean_log_successful_probability": -0.2352966552726154
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 2,
+              "fraction": 0.1428571492433548,
+              "mean_log_successful_probability": -2.1100637924271064
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 2,
+              "fraction": 0.0555555559694767,
+              "mean_log_successful_probability": -5.068754915250783
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.813860188623992
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 462,
+              "fraction": 0.7699999809265137,
+              "mean_log_successful_probability": -1.1724364599358645
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 295,
+              "fraction": 0.9104938507080078,
+              "mean_log_successful_probability": -1.1662079035428112
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.1139722951322962
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.07968199435833115
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 453,
+              "fraction": 0.7864583134651184,
+              "mean_log_successful_probability": -1.1445073406644406
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 295,
+              "fraction": 0.9455128312110901,
+              "mean_log_successful_probability": -1.0522014741792174
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 38,
+              "fraction": 0.3958333432674408,
+              "mean_log_successful_probability": -2.710276215267942
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 2,
+              "fraction": 0.042553190141916275,
+              "mean_log_successful_probability": -4.22948845194079
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      },
+      "common_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl001_s403/policy.pt",
+        "checkpoint_sha256": "b5633ca1fbf29a6f5ebfa844f803ab4743c91aa73ced56bd3c95095b7c068577",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 543,
+          "fraction": 0.75,
+          "mean_log_successful_probability": -1.27810677380569
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 325,
+          "fraction": 0.8397932648658752,
+          "mean_log_successful_probability": -1.367710369579241
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -3.36217320378252
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.412110085653786
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 27,
+              "fraction": 0.9642857313156128,
+              "mean_log_successful_probability": -0.2352966552726154
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 2,
+              "fraction": 0.1428571492433548,
+              "mean_log_successful_probability": -2.1100637924271064
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 2,
+              "fraction": 0.0555555559694767,
+              "mean_log_successful_probability": -5.068754915250783
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.813860188623992
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 462,
+              "fraction": 0.7699999809265137,
+              "mean_log_successful_probability": -1.1724364599358645
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 295,
+              "fraction": 0.9104938507080078,
+              "mean_log_successful_probability": -1.1662079035428112
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.1139722951322962
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.07968199435833115
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 453,
+              "fraction": 0.7864583134651184,
+              "mean_log_successful_probability": -1.1445073406644406
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 295,
+              "fraction": 0.9455128312110901,
+              "mean_log_successful_probability": -1.0522014741792174
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 38,
+              "fraction": 0.3958333432674408,
+              "mean_log_successful_probability": -2.710276215267942
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 2,
+              "fraction": 0.042553190141916275,
+              "mean_log_successful_probability": -4.22948845194079
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "corrections_kl01_s402",
+      "case": {
+        "id": "corrections_kl01",
+        "dataset": "corrections",
+        "kl_weight": 0.1
+      },
+      "seed": 402,
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl01_s402/policy.pt",
+      "checkpoint_sha256": "4b5a1d241dee976f2648f79a085be7ee0f7ca58b8984741d5e167e17b5e1e6ab",
+      "own_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl01_s402/policy.pt",
+        "checkpoint_sha256": "4b5a1d241dee976f2648f79a085be7ee0f7ca58b8984741d5e167e17b5e1e6ab",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 537,
+          "fraction": 0.7417126893997192,
+          "mean_log_successful_probability": -1.3262145178259686
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 328,
+          "fraction": 0.8475452065467834,
+          "mean_log_successful_probability": -1.4100793727066119
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -3.433825727428653
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.263455160359901
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 26,
+              "fraction": 0.9285714030265808,
+              "mean_log_successful_probability": -0.29998669066744743
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 5,
+              "fraction": 0.3571428656578064,
+              "mean_log_successful_probability": -2.0618438752633503
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 2,
+              "fraction": 0.0555555559694767,
+              "mean_log_successful_probability": -5.118511506763316
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.834847534486771
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 457,
+              "fraction": 0.7616666555404663,
+              "mean_log_successful_probability": -1.2244763006201493
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 295,
+              "fraction": 0.9104938507080078,
+              "mean_log_successful_probability": -1.220960101915697
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.10301698331374111
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0764423565580361
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 448,
+              "fraction": 0.7777777910232544,
+              "mean_log_successful_probability": -1.1913748850148294
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 295,
+              "fraction": 0.9455128312110901,
+              "mean_log_successful_probability": -1.1006331103052736
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 37,
+              "fraction": 0.3854166567325592,
+              "mean_log_successful_probability": -2.7978176458869277
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 5,
+              "fraction": 0.10638298094272614,
+              "mean_log_successful_probability": -4.258782996565711
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      },
+      "common_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl01_s402/policy.pt",
+        "checkpoint_sha256": "4b5a1d241dee976f2648f79a085be7ee0f7ca58b8984741d5e167e17b5e1e6ab",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 537,
+          "fraction": 0.7417126893997192,
+          "mean_log_successful_probability": -1.3262145178259686
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 328,
+          "fraction": 0.8475452065467834,
+          "mean_log_successful_probability": -1.4100793727066119
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -3.433825727428653
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.263455160359901
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 26,
+              "fraction": 0.9285714030265808,
+              "mean_log_successful_probability": -0.29998669066744743
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 5,
+              "fraction": 0.3571428656578064,
+              "mean_log_successful_probability": -2.0618438752633503
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 2,
+              "fraction": 0.0555555559694767,
+              "mean_log_successful_probability": -5.118511506763316
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.834847534486771
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 457,
+              "fraction": 0.7616666555404663,
+              "mean_log_successful_probability": -1.2244763006201493
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 295,
+              "fraction": 0.9104938507080078,
+              "mean_log_successful_probability": -1.220960101915697
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.10301698331374111
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.0764423565580361
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 448,
+              "fraction": 0.7777777910232544,
+              "mean_log_successful_probability": -1.1913748850148294
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 295,
+              "fraction": 0.9455128312110901,
+              "mean_log_successful_probability": -1.1006331103052736
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 37,
+              "fraction": 0.3854166567325592,
+              "mean_log_successful_probability": -2.7978176458869277
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 5,
+              "fraction": 0.10638298094272614,
+              "mean_log_successful_probability": -4.258782996565711
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    },
+    {
+      "id": "corrections_kl01_s403",
+      "case": {
+        "id": "corrections_kl01",
+        "dataset": "corrections",
+        "kl_weight": 0.1
+      },
+      "seed": 403,
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl01_s403/policy.pt",
+      "checkpoint_sha256": "fad443b83b2a8741d014060ede1b791ac30635f4aca00a3fb52b70429ce711cb",
+      "own_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl01_s403/policy.pt",
+        "checkpoint_sha256": "fad443b83b2a8741d014060ede1b791ac30635f4aca00a3fb52b70429ce711cb",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 526,
+          "fraction": 0.7265193462371826,
+          "mean_log_successful_probability": -1.254584321867573
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 325,
+          "fraction": 0.8397932648658752,
+          "mean_log_successful_probability": -1.33218221305746
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -3.3961481277601604
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.313004413907795
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 27,
+              "fraction": 0.9642857313156128,
+              "mean_log_successful_probability": -0.24561035919830396
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 3,
+              "fraction": 0.2142857164144516,
+              "mean_log_successful_probability": -2.1695123433281203
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 2,
+              "fraction": 0.0555555559694767,
+              "mean_log_successful_probability": -5.16511166997849
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.881372278873149
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 445,
+              "fraction": 0.7416666746139526,
+              "mean_log_successful_probability": -1.1381478293961462
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 294,
+              "fraction": 0.9074074029922485,
+              "mean_log_successful_probability": -1.120715168349182
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.10461646529953403
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.07039351553444047
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 435,
+              "fraction": 0.7552083134651184,
+              "mean_log_successful_probability": -1.105824500697128
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 294,
+              "fraction": 0.942307710647583,
+              "mean_log_successful_probability": -0.9998951411096243
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 39,
+              "fraction": 0.40625,
+              "mean_log_successful_probability": -2.7700425045312635
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 3,
+              "fraction": 0.06382978707551956,
+              "mean_log_successful_probability": -4.289706680682339
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      },
+      "common_data_score": {
+        "scorer_source_sha256": "cb9e5f8de2a1111c4bb61adeee24e136cff73c71e3aabf13eae338274f0ec70a",
+        "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl01_s403/policy.pt",
+        "checkpoint_sha256": "fad443b83b2a8741d014060ede1b791ac30635f4aca00a3fb52b70429ce711cb",
+        "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+        "heldout_seed": 354,
+        "train": {
+          "examples": 724,
+          "successful_choices": 526,
+          "fraction": 0.7265193462371826,
+          "mean_log_successful_probability": -1.254584321867573
+        },
+        "local_heldout": {
+          "examples": 387,
+          "successful_choices": 325,
+          "fraction": 0.8397932648658752,
+          "mean_log_successful_probability": -1.33218221305746
+        },
+        "by_skill": {
+          "air_support_defense": {
+            "train": {
+              "examples": 8,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -3.3961481277601604
+            },
+            "local_heldout": {
+              "examples": 6,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.313004413907795
+            }
+          },
+          "fireball_group": {
+            "train": {
+              "examples": 28,
+              "successful_choices": 27,
+              "fraction": 0.9642857313156128,
+              "mean_log_successful_probability": -0.24561035919830396
+            },
+            "local_heldout": {
+              "examples": 14,
+              "successful_choices": 3,
+              "fraction": 0.2142857164144516,
+              "mean_log_successful_probability": -2.1695123433281203
+            }
+          },
+          "onpolicy_defense_response": {
+            "train": {
+              "examples": 36,
+              "successful_choices": 2,
+              "fraction": 0.0555555559694767,
+              "mean_log_successful_probability": -5.16511166997849
+            },
+            "local_heldout": {
+              "examples": 15,
+              "successful_choices": 0,
+              "fraction": 0.0,
+              "mean_log_successful_probability": -5.881372278873149
+            }
+          },
+          "safe_bank_sequence": {
+            "train": {
+              "examples": 600,
+              "successful_choices": 445,
+              "fraction": 0.7416666746139526,
+              "mean_log_successful_probability": -1.1381478293961462
+            },
+            "local_heldout": {
+              "examples": 324,
+              "successful_choices": 294,
+              "fraction": 0.9074074029922485,
+              "mean_log_successful_probability": -1.120715168349182
+            }
+          },
+          "spell_restraint": {
+            "train": {
+              "examples": 52,
+              "successful_choices": 52,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.10461646529953403
+            },
+            "local_heldout": {
+              "examples": 28,
+              "successful_choices": 28,
+              "fraction": 1.0,
+              "mean_log_successful_probability": -0.07039351553444047
+            }
+          }
+        },
+        "by_decision_type": {
+          "wait": {
+            "train": {
+              "examples": 576,
+              "successful_choices": 435,
+              "fraction": 0.7552083134651184,
+              "mean_log_successful_probability": -1.105824500697128
+            },
+            "local_heldout": {
+              "examples": 312,
+              "successful_choices": 294,
+              "fraction": 0.942307710647583,
+              "mean_log_successful_probability": -0.9998951411096243
+            }
+          },
+          "deploy": {
+            "train": {
+              "examples": 96,
+              "successful_choices": 39,
+              "fraction": 0.40625,
+              "mean_log_successful_probability": -2.7700425045312635
+            },
+            "local_heldout": {
+              "examples": 47,
+              "successful_choices": 3,
+              "fraction": 0.06382978707551956,
+              "mean_log_successful_probability": -4.289706680682339
+            }
+          }
+        },
+        "scope": "Grouped local TRAIN-fixture action diagnostic; not game wins or acceptance"
+      }
+    }
+  ],
+  "paired_differences": [
+    {
+      "seed": 402,
+      "kl": 0.01,
+      "local_heldout_skill_deltas": {
+        "air_support_defense": -0.3333333432674408,
+        "fireball_group": -0.1428571343421936,
+        "onpolicy_defense_response": 0.0,
+        "safe_bank_sequence": -0.037037014961242676,
+        "spell_restraint": 0.0
+      }
+    },
+    {
+      "seed": 402,
+      "kl": 0.1,
+      "local_heldout_skill_deltas": {
+        "air_support_defense": -0.3333333432674408,
+        "fireball_group": 0.0,
+        "onpolicy_defense_response": 0.0,
+        "safe_bank_sequence": -0.0339505672454834,
+        "spell_restraint": 0.0
+      }
+    },
+    {
+      "seed": 403,
+      "kl": 0.01,
+      "local_heldout_skill_deltas": {
+        "air_support_defense": -0.3333333432674408,
+        "fireball_group": -0.0714285671710968,
+        "onpolicy_defense_response": 0.0,
+        "safe_bank_sequence": -0.018518507480621338,
+        "spell_restraint": 0.0
+      }
+    },
+    {
+      "seed": 403,
+      "kl": 0.1,
+      "local_heldout_skill_deltas": {
+        "air_support_defense": -0.3333333432674408,
+        "fireball_group": -0.071428582072258,
+        "onpolicy_defense_response": 0.0,
+        "safe_bank_sequence": -0.021604955196380615,
+        "spell_restraint": 0.0
+      }
+    }
+  ],
+  "common_data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+  "full_training_accepted": false,
+  "scope": "All policies scored on identical corrected curriculum; local labels are not full-match validation"
+}

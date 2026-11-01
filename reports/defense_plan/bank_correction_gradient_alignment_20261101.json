@@ -1,0 +1,676 @@
+{
+  "schema": "train-skill-gradient-alignment-v1",
+  "data_sha256": "b4ade33982922a1c9685ea10b4f9faaa4d2295ad963148a9add34cbfa14dbad2",
+  "source_sha256": "ce312eecfec5ede3d2eea2d1f731a9efef16ab023513d42a1a01d47f3eb2584d",
+  "heldout_seed_excluded": 354,
+  "batches": {
+    "air_support_defense": [
+      930,
+      930,
+      928,
+      925,
+      925,
+      928,
+      926,
+      926,
+      924,
+      928,
+      929,
+      927,
+      925,
+      925,
+      931,
+      930,
+      928,
+      925,
+      925,
+      929,
+      930,
+      926,
+      931,
+      925,
+      925,
+      928,
+      930,
+      925,
+      925,
+      927,
+      931,
+      927
+    ],
+    "fireball_group": [
+      942,
+      938,
+      974,
+      944,
+      970,
+      959,
+      938,
+      950,
+      943,
+      957,
+      972,
+      970,
+      969,
+      941,
+      956,
+      956,
+      945,
+      968,
+      941,
+      953,
+      972,
+      939,
+      950,
+      945,
+      957,
+      943,
+      938,
+      975,
+      953,
+      963,
+      969,
+      950
+    ],
+    "onpolicy_defense_response": [
+      1068,
+      1088,
+      1066,
+      1079,
+      1062,
+      1095,
+      1079,
+      1082,
+      1091,
+      1078,
+      1066,
+      1065,
+      1083,
+      1082,
+      1084,
+      1062,
+      1083,
+      1092,
+      1063,
+      1076,
+      1061,
+      1070,
+      1077,
+      1084,
+      1062,
+      1083,
+      1070,
+      1061,
+      1091,
+      1074,
+      1091,
+      1076
+    ],
+    "safe_bank_sequence": [
+      549,
+      199,
+      590,
+      34,
+      77,
+      584,
+      34,
+      507,
+      499,
+      295,
+      134,
+      49,
+      234,
+      134,
+      534,
+      434,
+      249,
+      519,
+      284,
+      141,
+      49,
+      34,
+      392,
+      284,
+      168,
+      449,
+      434,
+      447,
+      249,
+      267,
+      349,
+      599
+    ],
+    "spell_restraint": [
+      987,
+      997,
+      1014,
+      1016,
+      1029,
+      1032,
+      996,
+      983,
+      997,
+      981,
+      1011,
+      999,
+      1022,
+      1030,
+      1017,
+      997,
+      996,
+      1018,
+      1018,
+      1005,
+      1014,
+      999,
+      987,
+      1032,
+      1015,
+      983,
+      1026,
+      996,
+      997,
+      983,
+      1002,
+      983
+    ]
+  },
+  "models": [
+    {
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/dataset/parent.pt",
+      "checkpoint_sha256": "3a7eb5863c7e80203b1bbfef86ddac3428d2d6041a7e646adf8c47422e17e215",
+      "by_skill": {
+        "air_support_defense": {
+          "imitation_loss": 3.800222873687744,
+          "gradient_norms": {
+            "all_actor_parameters": 25.20581817626953,
+            "shared_encoder": 11.612099647521973
+          }
+        },
+        "fireball_group": {
+          "imitation_loss": 0.8444496393203735,
+          "gradient_norms": {
+            "all_actor_parameters": 52.832611083984375,
+            "shared_encoder": 17.701148986816406
+          }
+        },
+        "onpolicy_defense_response": {
+          "imitation_loss": 8.643759727478027,
+          "gradient_norms": {
+            "all_actor_parameters": 127.9349594116211,
+            "shared_encoder": 122.4837417602539
+          }
+        },
+        "safe_bank_sequence": {
+          "imitation_loss": 3.1645336151123047,
+          "gradient_norms": {
+            "all_actor_parameters": 38.67444610595703,
+            "shared_encoder": 30.305768966674805
+          }
+        },
+        "spell_restraint": {
+          "imitation_loss": 0.01990427076816559,
+          "gradient_norms": {
+            "all_actor_parameters": 2.1678755283355713,
+            "shared_encoder": 2.0497725009918213
+          }
+        }
+      },
+      "alignments": [
+        {
+          "left": "air_support_defense",
+          "right": "fireball_group",
+          "cosines": {
+            "all_actor_parameters": -0.04536274075508118,
+            "shared_encoder": 0.29995638132095337
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "onpolicy_defense_response",
+          "cosines": {
+            "all_actor_parameters": -0.32687750458717346,
+            "shared_encoder": -0.5617575645446777
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.28642788529396057,
+            "shared_encoder": -0.142185240983963
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.13575324416160583,
+            "shared_encoder": 0.5162044763565063
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "onpolicy_defense_response",
+          "cosines": {
+            "all_actor_parameters": -0.025517044588923454,
+            "shared_encoder": -0.20133066177368164
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.1467307060956955,
+            "shared_encoder": 0.12598848342895508
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.057733193039894104,
+            "shared_encoder": 0.22050033509731293
+          }
+        },
+        {
+          "left": "onpolicy_defense_response",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.5458692908287048,
+            "shared_encoder": 0.7767430543899536
+          }
+        },
+        {
+          "left": "onpolicy_defense_response",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.9546622037887573,
+            "shared_encoder": -0.9873268008232117
+          }
+        },
+        {
+          "left": "safe_bank_sequence",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.6330806612968445,
+            "shared_encoder": -0.7598497271537781
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/control_kl001_s402/policy.pt",
+      "checkpoint_sha256": "75f201e7cd04233cb1d16cd150b57bd984dc26770c7128aed121277123bf625c",
+      "by_skill": {
+        "air_support_defense": {
+          "imitation_loss": 2.929321527481079,
+          "gradient_norms": {
+            "all_actor_parameters": 30.08551597595215,
+            "shared_encoder": 16.517330169677734
+          }
+        },
+        "fireball_group": {
+          "imitation_loss": 0.0836087167263031,
+          "gradient_norms": {
+            "all_actor_parameters": 17.233421325683594,
+            "shared_encoder": 6.375373840332031
+          }
+        },
+        "onpolicy_defense_response": {
+          "imitation_loss": 11.30689811706543,
+          "gradient_norms": {
+            "all_actor_parameters": 280.36663818359375,
+            "shared_encoder": 274.37518310546875
+          }
+        },
+        "safe_bank_sequence": {
+          "imitation_loss": 1.2725656032562256,
+          "gradient_norms": {
+            "all_actor_parameters": 44.18916702270508,
+            "shared_encoder": 25.765426635742188
+          }
+        },
+        "spell_restraint": {
+          "imitation_loss": 0.00037020444869995117,
+          "gradient_norms": {
+            "all_actor_parameters": 0.09055087715387344,
+            "shared_encoder": 0.08614963293075562
+          }
+        }
+      },
+      "alignments": [
+        {
+          "left": "air_support_defense",
+          "right": "fireball_group",
+          "cosines": {
+            "all_actor_parameters": -0.10457401722669601,
+            "shared_encoder": -0.020136170089244843
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "onpolicy_defense_response",
+          "cosines": {
+            "all_actor_parameters": -0.2875939607620239,
+            "shared_encoder": -0.4495302140712738
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.4639582931995392,
+            "shared_encoder": 0.1721828132867813
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.044399842619895935,
+            "shared_encoder": 0.3143535554409027
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "onpolicy_defense_response",
+          "cosines": {
+            "all_actor_parameters": -0.10047310590744019,
+            "shared_encoder": -0.322761595249176
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.15700075030326843,
+            "shared_encoder": 0.15460318326950073
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.11253055185079575,
+            "shared_encoder": 0.3653562664985657
+          }
+        },
+        {
+          "left": "onpolicy_defense_response",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.2665240168571472,
+            "shared_encoder": 0.4701426029205322
+          }
+        },
+        {
+          "left": "onpolicy_defense_response",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.9499218463897705,
+            "shared_encoder": -0.9825059175491333
+          }
+        },
+        {
+          "left": "safe_bank_sequence",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.4093669652938843,
+            "shared_encoder": -0.49688464403152466
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl001_s402/policy.pt",
+      "checkpoint_sha256": "a2896b483c7d0ec48ab0364c821770e6be8fddccc1ae1d659f98683499c41943",
+      "by_skill": {
+        "air_support_defense": {
+          "imitation_loss": 3.3536951541900635,
+          "gradient_norms": {
+            "all_actor_parameters": 29.263362884521484,
+            "shared_encoder": 14.64457893371582
+          }
+        },
+        "fireball_group": {
+          "imitation_loss": 0.2668684720993042,
+          "gradient_norms": {
+            "all_actor_parameters": 22.04623031616211,
+            "shared_encoder": 18.43777847290039
+          }
+        },
+        "onpolicy_defense_response": {
+          "imitation_loss": 5.065968990325928,
+          "gradient_norms": {
+            "all_actor_parameters": 65.66081237792969,
+            "shared_encoder": 59.783687591552734
+          }
+        },
+        "safe_bank_sequence": {
+          "imitation_loss": 1.7347811460494995,
+          "gradient_norms": {
+            "all_actor_parameters": 51.65554428100586,
+            "shared_encoder": 45.152191162109375
+          }
+        },
+        "spell_restraint": {
+          "imitation_loss": 0.09849004447460175,
+          "gradient_norms": {
+            "all_actor_parameters": 14.229676246643066,
+            "shared_encoder": 13.607355117797852
+          }
+        }
+      },
+      "alignments": [
+        {
+          "left": "air_support_defense",
+          "right": "fireball_group",
+          "cosines": {
+            "all_actor_parameters": 0.0551479198038578,
+            "shared_encoder": -0.1266041249036789
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "onpolicy_defense_response",
+          "cosines": {
+            "all_actor_parameters": -0.06429428607225418,
+            "shared_encoder": 0.1910494714975357
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.25260767340660095,
+            "shared_encoder": -0.02293284237384796
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.17620091140270233,
+            "shared_encoder": -0.2592070698738098
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "onpolicy_defense_response",
+          "cosines": {
+            "all_actor_parameters": -0.7219913005828857,
+            "shared_encoder": -0.9440339207649231
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.8668023347854614,
+            "shared_encoder": 0.9576261639595032
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.7119057774543762,
+            "shared_encoder": 0.9244109392166138
+          }
+        },
+        {
+          "left": "onpolicy_defense_response",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": -0.8006875514984131,
+            "shared_encoder": -0.9415432214736938
+          }
+        },
+        {
+          "left": "onpolicy_defense_response",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.9004002809524536,
+            "shared_encoder": -0.9874184131622314
+          }
+        },
+        {
+          "left": "safe_bank_sequence",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.7731615304946899,
+            "shared_encoder": 0.9244961738586426
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint": "tmp/kaggle/bank_correction_pair_20261101/collected/corrections_kl001_s403/policy.pt",
+      "checkpoint_sha256": "b5633ca1fbf29a6f5ebfa844f803ab4743c91aa73ced56bd3c95095b7c068577",
+      "by_skill": {
+        "air_support_defense": {
+          "imitation_loss": 3.357754707336426,
+          "gradient_norms": {
+            "all_actor_parameters": 28.436765670776367,
+            "shared_encoder": 13.853699684143066
+          }
+        },
+        "fireball_group": {
+          "imitation_loss": 0.2401188760995865,
+          "gradient_norms": {
+            "all_actor_parameters": 19.888887405395508,
+            "shared_encoder": 15.580138206481934
+          }
+        },
+        "onpolicy_defense_response": {
+          "imitation_loss": 5.105329513549805,
+          "gradient_norms": {
+            "all_actor_parameters": 72.6043472290039,
+            "shared_encoder": 67.57313537597656
+          }
+        },
+        "safe_bank_sequence": {
+          "imitation_loss": 1.625846028327942,
+          "gradient_norms": {
+            "all_actor_parameters": 46.29771423339844,
+            "shared_encoder": 40.2054328918457
+          }
+        },
+        "spell_restraint": {
+          "imitation_loss": 0.0888601690530777,
+          "gradient_norms": {
+            "all_actor_parameters": 15.212038040161133,
+            "shared_encoder": 14.724922180175781
+          }
+        }
+      },
+      "alignments": [
+        {
+          "left": "air_support_defense",
+          "right": "fireball_group",
+          "cosines": {
+            "all_actor_parameters": 0.02623733878135681,
+            "shared_encoder": -0.05479593202471733
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "onpolicy_defense_response",
+          "cosines": {
+            "all_actor_parameters": -0.10242809355258942,
+            "shared_encoder": 0.09392213076353073
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.30686938762664795,
+            "shared_encoder": 0.07623935490846634
+          }
+        },
+        {
+          "left": "air_support_defense",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.12692539393901825,
+            "shared_encoder": -0.1710086315870285
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "onpolicy_defense_response",
+          "cosines": {
+            "all_actor_parameters": -0.6576613187789917,
+            "shared_encoder": -0.9405470490455627
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": 0.771586000919342,
+            "shared_encoder": 0.9453749656677246
+          }
+        },
+        {
+          "left": "fireball_group",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.6786167025566101,
+            "shared_encoder": 0.9283453822135925
+          }
+        },
+        {
+          "left": "onpolicy_defense_response",
+          "right": "safe_bank_sequence",
+          "cosines": {
+            "all_actor_parameters": -0.8074464797973633,
+            "shared_encoder": -0.9388167262077332
+          }
+        },
+        {
+          "left": "onpolicy_defense_response",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": -0.9277729988098145,
+            "shared_encoder": -0.9903644323348999
+          }
+        },
+        {
+          "left": "safe_bank_sequence",
+          "right": "spell_restraint",
+          "cosines": {
+            "all_actor_parameters": 0.7652950882911682,
+            "shared_encoder": 0.9177418947219849
+          }
+        }
+      ]
+    }
+  ],
+  "optimizer_updates": 0,
+  "environment_steps": 0,
+  "quality_accepted": false,
+  "scope": "One deterministic TRAIN batch per skill; instantaneous imitation gradients, without KL/value anchor. Negative cosine is local disagreement, not a causal game-performance result."
+}
