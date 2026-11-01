@@ -1,0 +1,38 @@
+{
+  "schema": "bank-correction-assembly-preflight-v1",
+  "actual_positive_context": 5,
+  "public_planes": [
+    20,
+    32,
+    18
+  ],
+  "public_scalars": 309,
+  "legal_successful_actions": [
+    1522,
+    1558
+  ],
+  "fold": 352,
+  "negative_checks": [
+    {
+      "case": "missing_delay",
+      "rejected": true,
+      "reason": "Replay branches incomplete"
+    },
+    {
+      "case": "changed_damage",
+      "rejected": true,
+      "reason": "Replayed outcomes differ"
+    },
+    {
+      "case": "changed_fold",
+      "rejected": true,
+      "reason": "Independent current replay required"
+    },
+    {
+      "case": "changed_context",
+      "rejected": true,
+      "reason": "Independent current replay required"
+    }
+  ],
+  "full_dataset_built": false
+}
