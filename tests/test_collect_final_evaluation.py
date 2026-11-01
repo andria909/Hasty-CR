@@ -40,6 +40,23 @@ def test_running_job_is_never_downloaded(tmp_path):
     assert not (tmp_path/'out').exists()
 
 
+def test_correction_pair_collects_only_the_eight_declared_weight_sets(monkeypatch,tmp_path):
+    prefix='bank_correction_pair/'
+    names=[f'{kind}_kl{kl}_s{seed}'for kind in ('control','corrections')for kl in ('001','01')for seed in (402,403)]
+    data={prefix+'result.json':b'{}'}
+    for name in names:
+        for artifact in ('result.json','updates.json','policy.pt'):data[prefix+name+'/'+artifact]=b'{}'
+    data[prefix+'control_kl001_s404/policy.pt']=b'not this study'
+    data[prefix+'private.txt']=b'never'
+    monkeypatch.setattr(collector,'list_outputs',lambda api,kernel:({name:NS(url=name)for name in data},[]))
+    monkeypatch.setattr(requests,'get',lambda url,**kw:NS(content=data[url],raise_for_status=lambda:None))
+    out=tmp_path/'collected'
+    result=collector.collect(NS(kernels_status=lambda k:'COMPLETE'),'owner/job',out,profile='bank-correction-pair')
+    assert result['complete']
+    assert len(list(out.glob('*/policy.pt')))==8
+    assert not(out/'control_kl001_s404').exists()and not(out/'private.txt').exists()
+
+
 def test_changed_remote_state_during_listing_is_rejected(monkeypatch,tmp_path):
     states=iter(['COMPLETE','RUNNING'])
     monkeypatch.setattr(collector,'list_outputs',lambda api,kernel:({},[]))

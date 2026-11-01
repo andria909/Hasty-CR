@@ -130,3 +130,14 @@ def test_bc_incremental_updates_never_count_as_ppo_steps():
     assert not record_initialization_event(progress,json.dumps(dict(event,updates=24)),11)
     assert not record_initialization_event(progress,json.dumps(dict(event,updates=50,actual_cuda=None)),12)
     assert record_initialization_event(progress,json.dumps(dict(event,event='INITIALIZATION_RUN_COMPLETE',updates=800)),20)
+
+
+def test_correction_pair_updates_exclude_cpu_wrong_budget_and_old_study():
+    from scripts.kaggle.stream_training import record_correction_event
+    p={};row=dict(event='CORRECTION_PROGRESS',id='corrections_kl001_s402',updates=25,target_updates=800,actual_cuda='Tesla T4')
+    assert record_correction_event(p,json.dumps(row),1)
+    assert p['corrections'][row['id']]['percent']==3.125
+    assert 'trials'not in p and 'initializations'not in p
+    for changed in (dict(updates=24),dict(actual_cuda=None),dict(id='retain001_s392'),dict(target_updates=1600)):
+        assert not record_correction_event(p,json.dumps(dict(row,**changed)),2)
+    assert record_correction_event(p,json.dumps(dict(event='CORRECTION_RUN_COMPLETE',id=row['id'],updates=800,actual_cuda='Tesla T4')),3)

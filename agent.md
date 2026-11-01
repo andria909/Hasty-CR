@@ -1,3 +1,13 @@
+## CURRENT paired BC training/package implemented; frozen null check PASS, not submitted
+
+Prior turn progress33871c2 pushed(auto correctionassembly). New train_bank_correction_pair.py pinscontrol4skills vsfull5skillcorrections,wholefolds352353/354,unchangedbasearrayprefix,sameparent/seed/update/KL. Casescontrol/corrections xKL.01/.1 x402403800=8runs6400BC0PPO;headsretained. ChosenparentoldBCretain001_s392 matchescounterfactualcontinuation. Technicalidentical protocolrequiresCPU--smoke; samebasecannotpassasrealcorrectiontreatment.
+
+New prepare_bank_correction_pair.py+preflight_bank_correction_pair.py buildfrozenactualcommand. Technicalroot tmp/kaggle/bank_pair_null_frozen_20261101 NOTSUBMITTED submission_allowedFalse. Actual4frozenCPUchildren/8updates;bothKLcontrol/treatment state_dict+histories BITEXACT. Directpreflight samePASS(root tmp/bank_pair_null_preflight_20261101). Proof reports/defense_plan/bank_correction_pair_null_preflight_20261101.json;negative unchangeddataasnewtreatment andtechnicalCUDAlaunch reject. ThisisNOT readyfive-skillpreflight/newmodelquality. Nextnewdatarequiredthenfreshrootrealpreflight.
+
+Collectorprofile bank-correction-pair capturesonly8(control|corrections)_kl(001|01)_s40[23]×result/updates/policy underbank_correction_pair;streamCORRECTION_PROGRESS/COMPLETE separatecorrectionsmapmonotonicactualCUDA,notPPO orinitializations.30collection/streamtestsPASS. NeedproductionpairedverifierandexplicitnewsubmitguardsbeforeGPUlaunch; existinginitializationverifierdoesnotapply. Report bank_correction_pair_plan_20261101.md.
+
+SearchPID16758 +post17010 live,~49/106and25preliminaryimprovements atlastcheck. DoNOTeditsearch/replay/verify_match/builder/physicswhileactive. Fullcorrectiondatasetnotready;observerwillverify/replay/assembleafter106. ThreecurrentGPUjobsstill>=25passiveSSE;noGPUrestart/livegame. GoalACTIVE,finishowncommit/push.
+
 ## CURRENT correction dataset assembly/postprocess wired; main search and observer live
 
 Prior turn progress f503041 pushed (counterfactualsearch+firstreplay). Currentturn adds build_match_correction_dataset.py and watch_bank_match_search.py. Actual context5 assembles20x32x18/309 inputs +legal1522/1558 mask,fold352;4tamperedreplay checksreject (missingdelay/damage/fold/context),proof bank_correction_assembly_preflight_20261101.json. Full dataset NOT yetbuilt; all106verification/allacceptedreplays required. Base1060 preserved; newskill onpolicy_defense_response gets equal1/5 mass afterassembly, groups352353train/354heldout, noinputoverlap, original4skillsretained. Novel skillrequiresall3folds; full_game_training_readyFalse.

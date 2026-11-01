@@ -1,0 +1,37 @@
+{
+  "schema": "bank-correction-pair-preflight-v1",
+  "bootstrap_sha256": "cfb74110e4908d361d71db942dd54611cafd0c73b1c92f707bc46a061d7e46a9",
+  "preparation_sha256": "47c47b734a1b27f0d59ed3c8ae04a53d6efff5053f28663f157cc6381ad53d17",
+  "result_sha256": "de0f316380cb6d3ece0c1f5338d6ba35d1d74f3d663240865a1c80a6aa6bbadb",
+  "frozen_sources_verified": true,
+  "smoke_runs": 4,
+  "supervised_updates": 8,
+  "environment_steps": 0,
+  "technical_identical": true,
+  "null_checks": [
+    {
+      "kl": "001",
+      "all_tensors_exact": true,
+      "update_history_exact": true
+    },
+    {
+      "kl": "01",
+      "all_tensors_exact": true,
+      "update_history_exact": true
+    }
+  ],
+  "full_training_accepted": false,
+  "submission_allowed": false,
+  "negative_checks": [
+    {
+      "case": "fake_treatment_rejected",
+      "reason": "Verified correction treatment covering all folds required"
+    },
+    {
+      "case": "technical_gpu_submission_rejected",
+      "reason": "Technical identical-data study is CPU preflight only"
+    }
+  ],
+  "root": "tmp/kaggle/bank_pair_null_frozen_20261101",
+  "full_correction_preflight_complete": false
+}

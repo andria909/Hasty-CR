@@ -62,6 +62,24 @@ def record_initialization_event(progress,line,remote_time):
     return True
 
 
+def record_correction_event(progress,line,remote_time):
+    """Keep paired correction updates distinct from earlier BC and PPO runs."""
+    try:row=json.loads(line)
+    except (ValueError,TypeError):return False
+    if not isinstance(row,dict)or row.get('event')not in ('CORRECTION_PROGRESS','CORRECTION_RUN_COMPLETE'):return False
+    complete=row['event']=='CORRECTION_RUN_COMPLETE';name=row.get('id');update=row.get('updates')
+    if (not isinstance(name,str)or not re.fullmatch(r'(?:control|corrections)_kl(?:001|01)_s40[23]',name)or
+            type(update)is not int or not 0<update<=800 or not row.get('actual_cuda')or
+            row.get('target_updates',800)!=800 or
+            (complete and update!=800)or(not complete and row.get('target_updates')!=800)):
+        return False
+    runs=progress.setdefault('corrections',{})
+    if update<=runs.get(name,{}).get('updates',0):return False
+    runs[name]=dict(updates=update,target_updates=800,percent=100*update/800,
+        actual_cuda=row['actual_cuda'],remote_log_seconds=remote_time)
+    return True
+
+
 def record_evaluation_event(progress,line,remote_time):
     """Track completed games only; this percentage is not quality acceptance."""
     try:row=json.loads(line)
@@ -144,6 +162,7 @@ def main():
                     line=event.get('data','')
                     if (record_trial_event(progress,line,event.get('time'))or
                             record_initialization_event(progress,line,event.get('time'))or
+                            record_correction_event(progress,line,event.get('time'))or
                             record_evaluation_event(progress,line,event.get('time'))):
                         progress['checked_host_ns']=time.time_ns()
                         (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
