@@ -419,6 +419,11 @@ def render_economy_experiments(reports,calibrated,adaptation):
                 '| Вариант | Победы | Пустые спеллы, эликсир / матч |','|---|---:|---:|']
         for row in summary['rows']:
             lines.append(f"| {row['id']} | {row['wins']}/{row['games']} | {row['mean_empty_spell_elixir']:.2f} |")
+    paired=read(reports/'bank_fit_depth_paired_behavior_20261102.json')
+    if paired and paired.get('schema')=='retrospective-fit-depth-paired-behavior-v1':
+        lines+=['','**Разбор прежних BC:** одинаковые 16 побед скрывали 8 новых и 8 потерянных; '
+                'у второго seed +4 победы в атаке, −2 в защите. '
+                '[Парное сравнение и Fireball](reports/bank_fit_depth_paired_behavior_20261102.md).']
     lines+=['','Большой бюджет — после сравнения побед по семействам, защиты и полезных спеллов. '
             'Реальные бои выключены; Kaggle проверяется раз в 20 минут.','',
             '[План](plan_2.md) · [Предыдущие 360 матчей](reports/bank_fit_depth_decisions_20261101.md)','']

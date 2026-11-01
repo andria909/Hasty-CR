@@ -1,0 +1,28 @@
+{
+  "studies": [
+    {
+      "root": "tmp/kaggle/policy_adaptation_20261101",
+      "proof": "reports/defense_plan/policy_adaptation_verified_20261101.json",
+      "output": "reports/defense_plan/policy_adaptation_paired_behavior_20261101.json",
+      "markdown": "reports/policy_adaptation_paired_behavior_20261101.md"
+    },
+    {
+      "root": "tmp/kaggle/calibrated_spell_20261102",
+      "proof": "reports/defense_plan/calibrated_spell_verified_20261102.json",
+      "output": "reports/defense_plan/calibrated_spell_paired_behavior_20261102.json",
+      "markdown": "reports/calibrated_spell_paired_behavior_20261102.md"
+    }
+  ],
+  "remote_queries": false,
+  "live_games": false,
+  "pid": 21300,
+  "command": [
+    "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+    "-u",
+    "-m",
+    "scripts.kaggle.watch_paired_pilots",
+    "--config",
+    "reports/defense_plan/paired_ppo_observer_20261102.json"
+  ],
+  "created_ns": 1793567723551100000
+}
