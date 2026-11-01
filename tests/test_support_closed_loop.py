@@ -28,6 +28,10 @@ def test_closed_loop_wait_controller_does_not_receive_teacher_commands():
     assert result['commands'] == result['rejected'] == []
     assert result['total_damage'] > 0
     assert result['wait_decisions'] > 0
+    assert result['decision_economy']['plays']==0
+    assert result['elixir_time']['observed_ms']==result['elapsed_ms']
+    assert result['natural_elixir_overflow']>0
+    assert 0<result['elixir_time']['under_threat_ms']<=result['elapsed_ms']
 
 
 @pytest.mark.parametrize('delay,delivery', [(1350, 1350), (2025, 2050)])
@@ -47,3 +51,21 @@ def test_opposite_wave_uses_existing_hand_and_pays_from_regenerated_enemy_bank()
     assert wave['at_ms']>=result['start_ms']+12000
     assert wave['elixir_after']>=0
     assert wave['elixir_before']-wave['elixir_after']==wave['cost']
+
+
+def test_empty_zap_is_counted_after_paid_cast_resolution():
+    class EmptyZap:
+        def __call__(self,planes,scalars):
+            logits=torch.full((len(planes),ACTIONS),-1.)
+            logits[:,0]=0
+            start=3+2*len(LANES)
+            for i,row in enumerate(scalars):
+                hand=row[start:start+32].reshape(4,8)
+                for slot,card in enumerate(hand):
+                    if card[DECK_26.index('zap')]==1:logits[i,1+slot*576+31*18]=10
+            return logits,torch.zeros(len(planes))
+    result=episode(EmptyZap(),dict(seed=352,lane='left',bank=6000,hand='musketeer'),1350)
+    assert result['cards']=={'zap':1}
+    assert result['spell_economy']['empty_spell_counts']=={'zap':1}
+    assert result['spell_economy']['empty_spell_elixir']==2
+    assert result['spell_economy']['unresolved_spell_counts']=={}

@@ -19,6 +19,8 @@ from sim.adapter import grid_to_point
 from sim.continuous_push import ContinuousPushEnv
 from sim.env import ClashEnv
 from sim.train_attack_ppo import initialize_attack_policy
+from sim.decision_economy import empty as empty_economy, record as record_economy
+from sim.spell_economy import SpellEconomyTracker
 
 
 def episode(network, context, delay, wave='none'):
@@ -35,6 +37,11 @@ def episode(network, context, delay, wave='none'):
     first_clear = None
     waits = 0
     enemy_wave=[]
+    economy=empty_economy()
+    spell_tracker=SpellEconomyTracker(env.match).attach()
+    initial_overflow=env.match.players[1].natural_elixir_overflow_milli
+    time_stats=dict(observed_ms=0,available_below4_ms=0,under_threat_ms=0,
+        under_threat_below4_ms=0,under_threat_full_bank_ms=0,under_threat_overflow_milli=0)
     while not env.match.finished and env.match.elapsed_ms < start + 60000:
         now = env.match.elapsed_ms
         if wave!='none'and not enemy_wave and now>=start+12000:
@@ -58,6 +65,10 @@ def episode(network, context, delay, wave='none'):
                 if not torch.isfinite(logits[0, mask]).all():
                     raise ValueError('Nonfinite legal logits')
                 action = int(logits[0].masked_fill(~torch.as_tensor(mask), -torch.inf).argmax())
+            native=env.match.players[1].elixir/1000
+            available=max(0.,native-sum(env.cards[e[1]].cost for e in env.pending))
+            record_economy(economy,hand=env.match.players[1].hand,mask=mask,action=action,
+                native_elixir=native,available_elixir=available)
             if action:
                 slot, x, y = ClashEnv.decode(action)
                 env.pending.append((now + delay, env.match.players[1].hand[slot], slot, x, y))
@@ -72,7 +83,18 @@ def episode(network, context, delay, wave='none'):
             (commands if accepted else rejected).append(row)
             env.slot_ready[slot] = now + EXECUTION['action_cooldown_ms']
             env.pending.remove(event)
+        native=env.match.players[1].elixir
+        available=max(0,native-sum(env.cards[e[1]].cost*1000 for e in env.pending))
+        threat=any(e.alive and e.side==-1 and not e.is_tower for e in env.match.battle.entities.values())
+        overflow=env.match.players[1].natural_elixir_overflow_milli
         env.match.step(50)
+        dt=env.match.elapsed_ms-now
+        time_stats['observed_ms']+=dt
+        time_stats['available_below4_ms']+=dt*(available<4000)
+        time_stats['under_threat_ms']+=dt*threat
+        time_stats['under_threat_below4_ms']+=dt*(threat and available<4000)
+        time_stats['under_threat_full_bank_ms']+=dt*(threat and native>=10000)
+        if threat:time_stats['under_threat_overflow_milli']+=env.match.players[1].natural_elixir_overflow_milli-overflow
         minimum_bank = min(minimum_bank, env.match.players[1].elixir)
         enemies = sum(e.alive and e.side == -1 and not e.is_tower for e in env.match.battle.entities.values())
         if not enemies and first_clear is None:
@@ -84,12 +106,18 @@ def episode(network, context, delay, wave='none'):
         tower_damage=damage, total_damage=sum(damage.values()), enemies_remaining=enemies,
         clear_without_damage=enemies == 0 and sum(damage.values()) == 0,
         minimum_elixir=minimum_bank / 1000, wait_decisions=waits,wave_mode=wave,enemy_wave=enemy_wave,
+        decision_economy=economy,elixir_time=time_stats,spell_economy=spell_tracker.metrics(),
+        natural_elixir_overflow=(env.match.players[1].natural_elixir_overflow_milli-initial_overflow)/1000,
         cards=dict(Counter(c['card'] for c in commands)), commands=commands, rejected=rejected)
 
 
 def evaluate(support, weights, output, wave='none'):
     torch.set_num_threads(1)
     pins = physics_pins()
+    source_sha=file_sha(__file__)
+    snapshot=Path(output).with_suffix('.source.py')
+    if snapshot.exists()and file_sha(snapshot)!=source_sha:raise ValueError('Source snapshot already differs')
+    if not snapshot.exists():snapshot.write_bytes(Path(__file__).read_bytes())
     contexts = [r for r in support_source(support) if r['seed'] == 354]
     if len(contexts) != 12:
         raise ValueError('Expected twelve complete heldout support contexts')
@@ -109,13 +137,18 @@ def evaluate(support, weights, output, wave='none'):
                 clear_without_damage=sum(r['clear_without_damage'] for r in part),
                 mean_tower_damage=float(np.mean([r['total_damage'] for r in part])),
                 rejected_commands=sum(len(r['rejected']) for r in part),
+                mean_empty_spell_elixir=float(np.mean([r['spell_economy']['empty_spell_elixir']for r in part])),
+                mean_elixir_overflow=float(np.mean([r['natural_elixir_overflow']for r in part])),
+                mean_under_threat_overflow=float(np.mean([r['elixir_time']['under_threat_overflow_milli']/1000 for r in part])),
+                available_below4_time_fraction=sum(r['elixir_time']['available_below4_ms']for r in part)/max(1,sum(r['elixir_time']['observed_ms']for r in part)),
+                under_threat_below4_time_fraction=sum(r['elixir_time']['under_threat_below4_ms']for r in part)/max(1,sum(r['elixir_time']['under_threat_ms']for r in part)),
                 cards_per_episode={c: sum(r['cards'].get(c, 0) for r in part)/len(part)
                     for c in sorted({c for r in part for c in r['cards']})})
                 for d in (1350, 2025) for part in [[r for r in rows if r['command_delay_ms'] == d]]]))
-    if pins != physics_pins():
-        raise ValueError('Physics changed during evaluation')
+    if pins != physics_pins()or source_sha!=file_sha(__file__)or source_sha!=file_sha(snapshot):
+        raise ValueError('Physics or driver changed during evaluation')
     result = dict(schema='support-closed-loop-development-v1', physics_pins=pins,
-        source_sha256=file_sha(__file__), models=models, quality_accepted=False, live_games_started=False,wave_mode=wave,
+        source_sha256=source_sha,source_snapshot=str(snapshot),models=models, quality_accepted=False, live_games_started=False,wave_mode=wave,
         scope='All twelve reused local heldout support contexts; 60-second closed-loop horizon. Optional one extra enemy troop after 12s uses the real hand and regenerated elixir. Actor continues after first clear. Not full-match wins or independent validation.')
     Path(output).write_text(json.dumps(result, indent=2) + '\n')
     return result
