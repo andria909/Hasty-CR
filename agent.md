@@ -1,3 +1,7 @@
+## LAST local384 v25 also COMPLETE; only19124 fullvalidation remains
+
+After65a85fb commit, confirmed v25local384finished andsummaryalreadyincluded inthatcommit: bestretain00111/96safe,meanownDamage1512,worstcondition0. Allthreecohorts local1152done: margin10/96,continued18/96,v2511/96best;notfullwinrates. PID19527exitednormally aftercompletedactionaudit+v25behavior. OnlyfullvalidationPID19124 remains, last276/360 completed. Refreshdoneafteroldimportedrendererwroteit. FullgoalstillACTIVE. Lastcode/tests/receipts allpushed65a85fb; thisfollowupjustfinalv25dashboard/docs.
+
 ## LATEST turn result: chosen-action audit COMPLETE, 360fullmatches still running
 
 Counterfactualaudit all30 choices completed; all30 independently repeated WAITcontrols EXACT. New tracked report bank_fit_depth_action_outcomes_20261101.json recomputes eachcomparison fromrawbranchmetrics+originalcontrols: mixed8000_s402 betterboth7/15,worseany7/15,atleastbestsearchedboth1/15; s4036/15,8/15,1/15. Thus0/15exactlabels isNOT0usefulactions, butabouthalfworseWAIT. Rawroot tmp/bank_fit_depth_action_outcomes_20261101 immutable. PID19527 nowsequentialv25behavior384 RUNNING, notactionreplay. Source evaluate_correction_choice_outcomes.py actualsmokeandfullbothpassed. DiagnosisMDupdated.
