@@ -1,3 +1,11 @@
+## CURRENT: future full test/tournament v4 matches current Hog physics;72testsPASS
+
+Found realnextstage mismatch: default old normal_range evaluation blueprintv3 requires CORRECTED withoutHogclip; newtrainingusesHOG_CLIPPED, so bindingwouldreject. Addedv4throughbinder/evaluator/verifier/preflight; NEW data/ppo_tuning/hog_clip_evaluation_20261102/protocol.json,90newseedblocks311021000/311022000/311023000,baselineSHAsunchanged,4200/6300games2/4candidates. Oldblueprints/defaultBLUEPRINTkept; MUST pass explicit --blueprint newpath whenbinding. queue_full_candidate_evaluation v2 pinsblueprintSHA/currentphysics andsupports1or2fullpairs;legacyv1unchanged.
+
+freeze_full_evaluation_source previously treatednew sim/group_entropy.py asphysicsdifference. NowexcludesONLYthatoptimizer-onlymoduleplusalreadyexcludedtrainer; stillrejectsinput/model/engine differences. Actualthree frozenbundles155simulationfiles IDENTICAL SHA4196b3da... verified report hog_clip_evaluation_readiness_20261102.json. No fullweightsbound/no testinference/newGPU.72testsPASS includingv4bindingwrongtrainingrejection,pergameHogmode/delayguards,queue2/4profiles,sourcecontracts andoldprotocolregression. Physics/currentGPUbundlesunchanged.
+
+Previous37a3398 confirmedthirdactual70/71% firstseed. All12observers unchanged; nextremote01:09/01:10/01:17. GoalACTIVE. Needfinishowncommitpush, then actual24pilotresults→2–4full→test+tournament. No extra claims ofgoodmodel. Preservev25/secrets/nolive.
+
 ## CURRENT 00:57 Nov2: third series actual PPO counters confirmed
 
 Scheduled collector andreiperelaiko/hastycr-group-entropy1102 RUNNING00:57:09; existingSSE reconnected, control432>=70%,spatial03432>=71%. Thusall3series actualPPOupdates confirmed, no resubmit. Spellcontrol/neutral423>=93%;adaptationlast62.25%total. Refreshed3states/donefromlocalstreams. Previous37ce73d wasactualrewarddiagnosticprogress; thisturnverifiedwait/newcounterevidence. Same12observerslive. Nextremotechecks01:09adaptation,01:10spell,01:17entropy. No newweightsverified/no winners. GoalACTIVE; waitresultsbeforefurthertrainingchanges, preservev25/secrets/nolive.

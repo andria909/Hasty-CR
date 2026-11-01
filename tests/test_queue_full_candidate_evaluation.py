@@ -44,15 +44,22 @@ def test_changed_code_prevents_submission(tmp_path):
     with pytest.raises(ValueError,match='implementation changed'):module.check_config(c)
 
 
-def test_ordered_pipeline_launches_once_then_starts_observers(tmp_path,monkeypatch):
+@pytest.mark.parametrize('version,pair_count',[(1,2),(2,1),(2,2)])
+def test_ordered_pipeline_launches_once_then_starts_observers(tmp_path,monkeypatch,version,pair_count):
     from scripts.attack import bind_full_candidate_evaluation as binder
     from scripts.kaggle import prepare_full_candidate_evaluation as packer
     from scripts.kaggle import preflight_full_candidate_evaluation as preflight
     from scripts.kaggle import start_full_evaluation_observers as observers
-    c=config(tmp_path);finish(c['full_pairs'][0]);finish(c['full_pairs'][1])
+    c=config(tmp_path);c['full_pairs']=c['full_pairs'][:pair_count]
+    for pair in c['full_pairs']:finish(pair)
+    if version==2:
+        blueprint=Path('data/ppo_tuning/hog_clip_evaluation_20261102/protocol.json')
+        c.update(schema='queued-full-candidate-evaluation-v2',blueprint=str(blueprint),blueprint_sha256=module.file_sha(blueprint))
     c.update(slug='hastycr-eval',report=str(tmp_path/'report.json'))
     calls=[];stages=[]
-    def bind(*args):calls.append('bind');return dict(candidates=4,total_games=6300)
+    def bind(*args,**kwargs):
+        assert kwargs==(dict(blueprint_path=c['blueprint'])if version==2 else{})
+        calls.append('bind');return dict(candidates=2*pair_count,total_games=4200 if pair_count==1 else 6300)
     monkeypatch.setattr(binder,'bind',bind)
     monkeypatch.setattr(packer,'prepare',lambda *args:calls.append('prepare'))
     monkeypatch.setattr(preflight,'preflight',lambda *args:calls.append('preflight'))

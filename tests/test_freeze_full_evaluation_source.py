@@ -60,3 +60,11 @@ def test_changed_training_archive_rejected(tmp_path):
 def test_existing_source_is_not_overwritten(tmp_path):
     root = source(tmp_path); output = tmp_path / 'output'; output.mkdir()
     with pytest.raises(ValueError, match='already exists'): module.freeze([root], output)
+
+
+def test_entropy_objective_can_differ_but_inference_and_physics_cannot():
+    files={'sim/engine.py':'same','sim/env.py':'same','sim/model_tokens.py':'same','sim/train_attack_ppo.py':'old'}
+    updated=dict(files,**{'sim/group_entropy.py':'new','sim/train_attack_ppo.py':'new'})
+    assert module.simulation_contract(files)==module.simulation_contract(updated)
+    for name in ('sim/engine.py','sim/env.py','sim/model_tokens.py'):
+        assert module.simulation_contract(files)!=module.simulation_contract(dict(updated,**{name:'changed'}))

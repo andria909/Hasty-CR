@@ -14,8 +14,17 @@ from scripts.kaggle.local_artifact_transfer import file_sha
 
 
 def check_config(config):
-    if config.get('schema')!='queued-full-candidate-evaluation-v1' or len(config['full_pairs'])!=2:
-        raise ValueError('Exactly two full pairs required')
+    version=config.get('schema')
+    if version not in ('queued-full-candidate-evaluation-v1','queued-full-candidate-evaluation-v2'):
+        raise ValueError('Versioned evaluation queue required')
+    if len(config['full_pairs']) not in ((2,)if version.endswith('-v1')else(1,2)):
+        raise ValueError('One or two complete full pairs required (v1 requires two)')
+    if version.endswith('-v2'):
+        if file_sha(config['blueprint'])!=config['blueprint_sha256']:
+            raise ValueError('Queued evaluation blueprint changed')
+        from scripts.attack.evaluation_execution import execution_for,HOG_CLIPPED
+        if execution_for(json.loads(Path(config['blueprint']).read_text()))!=HOG_CLIPPED:
+            raise ValueError('New evaluation queue requires current Hog physics')
     if config['owner']!='andriashadrin' or config['token_index']!=0:
         raise ValueError('Use the first full pair account after its completion')
     if file_sha(Path(config['source'])/'manifest.json')!=config['source_manifest_sha256']:
@@ -52,8 +61,10 @@ def execute(config, transition):
     from scripts.kaggle.preflight_full_candidate_evaluation import preflight,enable_submission
     from scripts.kaggle.start_full_evaluation_observers import start
     transition('binding_actual_full_weights')
-    result=bind([e['prepared'] for e in config['full_pairs']],config['binding'])
-    if result['candidates']!=4 or result['total_games']!=6300:raise ValueError('Precommitted four-candidate budget differs')
+    extra=dict(blueprint_path=config['blueprint'])if config['schema'].endswith('-v2')else{}
+    result=bind([e['prepared'] for e in config['full_pairs']],config['binding'],**extra)
+    candidates=2*len(config['full_pairs']);budget={2:4200,4:6300}[candidates]
+    if result['candidates']!=candidates or result['total_games']!=budget:raise ValueError('Precommitted candidate budget differs')
     transition('packaging')
     prepare(config['binding'],config['source'],config['prepared'],config['owner'],config['slug'])
     transition('exact_package_preflight')
@@ -77,7 +88,7 @@ def watch(config_path,state_path):
         state.update(stage=stage,checked_host_ns=time.time_ns(),**extra)
         state_path.write_text(json.dumps(state,indent=2)+'\n')
         print(json.dumps(state),flush=True)
-    transition('waiting_for_two_verified_full_pairs')
+    transition('waiting_for_verified_full_pairs',full_pairs=len(config['full_pairs']))
     deadline=time.monotonic()+172800
     try:
         while time.monotonic()<deadline:

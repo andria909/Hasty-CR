@@ -30,7 +30,7 @@ def bind(prepared_roots, output, *, blueprint_path=BLUEPRINT):
     blueprint_path = Path(blueprint_path)
     blueprint_digest = sha(blueprint_path)
     blueprint = json.loads(blueprint_path.read_text())
-    if blueprint.get('schema') not in ('precommitted-full-candidate-evaluation-v1','precommitted-full-candidate-evaluation-v2','precommitted-full-candidate-evaluation-v3'):
+    if blueprint.get('schema') not in ('precommitted-full-candidate-evaluation-v1','precommitted-full-candidate-evaluation-v2','precommitted-full-candidate-evaluation-v3','precommitted-full-candidate-evaluation-v4'):
         raise ValueError('Precommitted evaluation blueprint required')
     # Complete every expensive audit before creating the package. An unfinished
     # run or bad digest must not leave a seemingly usable bound protocol.
@@ -49,7 +49,7 @@ def bind(prepared_roots, output, *, blueprint_path=BLUEPRINT):
     seen = set()
     for _, proof in pairs:
         for model in proof['models']:
-            if blueprint['schema'].endswith('-v3'):
+            if blueprint['schema'].endswith(('-v3','-v4')):
                 from scripts.attack.evaluation_execution import execution_for,require_training_execution
                 require_training_execution(model,execution_for(blueprint))
             identity = (proof['kernel'], model['id'])
@@ -88,7 +88,7 @@ def bind(prepared_roots, output, *, blueprint_path=BLUEPRINT):
     protocol = dict(schema='bound-full-candidate-evaluation-v1', blueprint_sha256=blueprint_digest,
                     models=models, test_used_for_selection=False, quality_accepted=False,
                     live_checkpoint_changed=False)
-    if blueprint['schema'].endswith(('-v2','-v3')):
+    if blueprint['schema'].endswith(('-v2','-v3','-v4')):
         from scripts.attack.evaluation_execution import execution_for
         protocol.update(schema='bound-full-candidate-evaluation-'+blueprint['schema'].rsplit('-',1)[1],execution=execution_for(blueprint))
     validated = validate_protocol(protocol, weights)

@@ -1,0 +1,36 @@
+{
+  "schema": "hog-clip-full-evaluation-readiness-v1",
+  "blueprint": "data/ppo_tuning/hog_clip_evaluation_20261102/protocol.json",
+  "blueprint_sha256": "66d1b21bbf8ff9f555e383776d26065a3e34b785fed5d69a9708596d450aca10",
+  "frozen_training_sources": [
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "simulation_file_count": 155,
+      "simulation_sha256": "4196b3da16dbcea9342b1f54eaed6d201081370a9fe77793276a6a514abbc3a4"
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "simulation_file_count": 155,
+      "simulation_sha256": "4196b3da16dbcea9342b1f54eaed6d201081370a9fe77793276a6a514abbc3a4"
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "simulation_file_count": 155,
+      "simulation_sha256": "4196b3da16dbcea9342b1f54eaed6d201081370a9fe77793276a6a514abbc3a4"
+    }
+  ],
+  "contract_equal": true,
+  "ignored_optimization_only_modules": [
+    "sim/train_attack_ppo.py",
+    "sim/group_entropy.py"
+  ],
+  "test_inference_run": false,
+  "full_candidates_bound": false,
+  "submitted": false,
+  "next_steps": [
+    "Wait for verified pilots and select eligible profiles",
+    "Prepare and CPU-preflight selected full pairs; train 4096000 steps each",
+    "Bind every completed full candidate with explicit v4 blueprint, including failed final family guards",
+    "Freeze evaluation source from actual full packages; run exact-package preflight; submit test/tournament"
+  ]
+}

@@ -21,6 +21,13 @@ EVALUATORS = (
 )
 
 
+def simulation_contract(files):
+    # These two modules only form the optimization objective. Their differences
+    # must not hide differences in observations, combat, masks or model inference.
+    training_only={'sim/train_attack_ppo.py','sim/group_entropy.py'}
+    return {n:d for n,d in files.items()if not n.startswith('scripts/')and n not in training_only}
+
+
 def freeze(prepared_roots, output):
     output = Path(output)
     if output.exists():
@@ -40,7 +47,7 @@ def freeze(prepared_roots, output):
             files = dict(manifest['files']); files.update(config['extensions'])
             # Training-only scripts may legitimately differ; physics, public
             # observations and assets may not silently vary between contestants.
-            contract = {n: digest for n, digest in files.items() if not n.startswith('scripts/') and n not in ('sim/train_attack_ppo.py',)}
+            contract = simulation_contract(files)
             sources.append(dict(root=root, config=config, contract=contract, kernel=prep['kernel']))
     if not sources or any(s['contract'] != sources[0]['contract'] for s in sources):
         raise ValueError('Candidates do not share one frozen simulation contract')
