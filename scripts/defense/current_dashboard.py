@@ -206,6 +206,11 @@ def render_bank_campaign(reports,campaign):
         pct='100% проверено'if complete else f'≥{100*count/6400:.1f}%'if count else'—'
         status='результаты проверены'if complete else state.get('status','подготовлен')
         lines.append(f"| {item['label']} | {pct} | {status} |")
+    previous=read(reports/'bank_previous_behavior_summary_20261101.json')
+    if previous and previous.get('episodes_verified')==384:
+        row=previous['ranking'][0]
+        lines+=['',f"**Прежний BC, локальная проверка:** лучший вариант {row['case']} — {row['safe']}/{row['episodes']} защит без урона. "
+            '[Все варианты](reports/bank_previous_behavior_20261101.md). Полный validation запущен отдельно.']
     lines+=['','Каждая серия: 4 способа инициализации × 2 seed × 800 обновлений. '
         'Это BC на локальных демонстрациях, не PPO и не игровой винрейт. Проценты — только подтверждённые обновления.','',
         '**Проверка поведения:** замкнутая защита шара с поддержкой при 1350/2025 мс; '
