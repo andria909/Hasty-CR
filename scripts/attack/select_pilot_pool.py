@@ -14,12 +14,17 @@ import tarfile
 
 from scripts.attack.verify_continuous_focus import verify
 
-ECONOMY_VARIANTS = {'policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1'}
+LONG_VARIANTS = {'air_exposure_v1':'air_exposure', 'spell_interaction_v1':'spell_interaction'}
+ECONOMY_VARIANTS = {'policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1'} | set(LONG_VARIANTS)
 
 
 def verify_study(root, default_verifier=None):
     root = Path(root)
     protocol = json.loads((root/'dataset/protocol.json').read_text())
+    if protocol.get('study_variant') in LONG_VARIANTS:
+        from scripts.attack.verify_air_exposure_pilot import verify_exposure, verify_interaction
+        verifier = verify_interaction if protocol['study_variant']=='spell_interaction_v1' else verify_exposure
+        return verifier(root/'collected', root)
     if protocol.get('study_variant') == 'policy_adaptation_v1':
         from scripts.attack.verify_policy_adaptation_pilot import verify_adaptation
         return verify_adaptation(root/'collected', root)
@@ -61,7 +66,10 @@ def economy_identity(preparation, trial):
     model = next(m for m in preparation['config']['models'] if m['id']==trial['initial_id'])
     profile = {k:v for k,v in trial.items() if k not in ('id','initial_id')}
     profile.setdefault('spatial_entropy_weight',1.)
-    return dict(initial_sha256=model['sha256'],profile=profile)
+    identity=dict(initial_sha256=model['sha256'],profile=profile)
+    if preparation.get('study_variant') in LONG_VARIANTS:
+        identity['pilot_steps_each']=409600
+    return identity
 
 
 def economy_diagnostics(root, protocol, trial):
@@ -72,6 +80,9 @@ def economy_diagnostics(root, protocol, trial):
         after=json.loads((root/'collected'/f'{name}_summary.json').read_text())
         reference=(trial['initial_id']+'_reference' if protocol['study_variant']=='policy_adaptation_v1'
                    else f'pilot_control_s{seed}_summary')
+        if protocol.get('study_variant') in LONG_VARIANTS:
+            control=protocol['paired_controls'].get(trial['id'])
+            reference=f'pilot_{control}_s{seed}_summary' if control else 'parent_reference'
         before=json.loads((root/'collected'/f'{reference}.json').read_text())
         comparison=compare_records(before['validation']['records'],after['validation']['records'])
         rows.append(dict(seed=seed,reference=reference,comparison=comparison))
@@ -193,11 +204,18 @@ def select(prepared_roots,limit=2):
     mana_flags=[];mana_physics=None;economy_flags=[]
     for root in map(Path,prepared_roots):
         proof=verify_study(root)
-        if proof.get('promotion_blocked'):
-            raise ValueError('Pilot promotion blocked: '+proof['promotion_block_reason'])
+        protocol=json.loads((root/'dataset/protocol.json').read_text()) if (root/'dataset/protocol.json').exists() else {}
+        variant=protocol.get('study_variant')
+        long_prefix=LONG_VARIANTS.get(variant)
+        if proof.get('promotion_blocked') and not (long_prefix and
+                proof.get('promotion_block_reason')=='fewer_than_two_eligible_profiles'):
+            raise ValueError('Pilot promotion blocked: '+proof.get('promotion_block_reason','unspecified'))
+        if long_prefix and not proof.get(long_prefix+'_audit',{}).get('verified'):
+            raise ValueError('Specialized long-pilot audit required')
         if proof['kernel']in kernels:raise ValueError('Duplicate cohort cannot supply a second profile')
         kernels.add(proof['kernel'])
-        if proof['pilot_steps_verified']!=819200:raise ValueError('Complete verified pilot cohort required')
+        expected_steps=3276800 if long_prefix else 819200
+        if proof['pilot_steps_verified']!=expected_steps:raise ValueError('Complete verified pilot cohort required')
         identity=contract(root)
         if any(value is None for value in identity['core'].values()):raise ValueError('Missing core physics pin')
         if common is None:common=identity
@@ -238,6 +256,8 @@ def select(prepared_roots,limit=2):
                 item['quality_diagnostics']=economy_diagnostics(root,protocol,row['trial'])
                 item['family_eligible']=item['eligible']
                 item['eligible']=item['eligible']and item['quality_diagnostics']['nonregression_gate']
+                if long_prefix and item['eligible'] != (row['trial']['id'] in proof[long_prefix+'_selection']['eligible_profiles']):
+                    raise ValueError('Global and specialized long-pilot eligibility differ')
             if mana_flags[-1]:
                 records=[]
                 for seed in protocol['pilot_seeds']:
@@ -247,7 +267,7 @@ def select(prepared_roots,limit=2):
                     mean_own_fraction_loss=sum(r['own_fraction_loss']for r in records)/len(records),
                     mean_empty_spell_elixir=sum(r['empty_spell_elixir']for r in records)/len(records))
             ranking.append(item)
-        studies.append(dict(kernel=proof['kernel'],prepared=str(root),pilot_steps_verified=819200))
+        studies.append(dict(kernel=proof['kernel'],prepared=str(root),pilot_steps_verified=expected_steps))
     if not studies:raise ValueError('No verified cohorts')
     if any(economy_flags):
         if not all(economy_flags):raise ValueError('Do not mix paired economy studies with unpaired cohorts')

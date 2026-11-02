@@ -22,16 +22,25 @@ def variant_child_script(variant):
         'policy_adaptation_v1':'preflight_policy_adaptation_pilot.py',
         'calibrated_spell_cost_v1':'preflight_policy_adaptation_pilot.py',
         'group_entropy_v1':'preflight_group_entropy_pilot.py',
+        'air_exposure_v1':'preflight_long_economy_full.py',
+        'spell_interaction_v1':'preflight_long_economy_full.py',
     }.get(variant,Path(__file__).name)
     return Path(__file__).absolute().with_name(filename)
 
 
 def validate_specialized_preflight(entry,report,variant):
-    if variant not in ('policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1'):return
+    from scripts.attack.select_pilot_pool import ECONOMY_VARIANTS, LONG_VARIANTS
+    if variant not in ECONOMY_VARIANTS:return
     trial=entry['selected']['trial']
     expected=next(m for m in entry['config']['models']if m['id']==trial['initial_id'])
     if report.get('explicit_initial_model')!=expected or not report.get('economy_metrics_verified'):
         raise ValueError('Assigned policy and economy preflight required for full run')
+    if variant in LONG_VARIANTS and (not report.get('long_economy_full_verified') or
+            report.get('actual_focus')!=trial['focus'] or report.get('full_steps')!=4096000 or
+            report.get('actual_dormant_king_weight')!=trial['dormant_king_weight'] or
+            report.get('actual_spell_waste_weight')!=trial['spell_waste_weight'] or
+            report.get('crown_validation_games')!=12):
+        raise ValueError('Actual long-study full command and reward preflight required')
     if variant=='group_entropy_v1'and report.get('spatial_entropy_verified')!=trial['spatial_entropy_weight']:
         raise ValueError('Actual spatial entropy preflight required for full run')
 

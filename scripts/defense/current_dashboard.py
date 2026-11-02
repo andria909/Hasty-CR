@@ -549,8 +549,12 @@ def render_air_exposure(reports,state):
         'Пушка в центре; бонус своих башен 0,15; задержка 1350 мс.','',
         '[Опыт с воздухом](reports/economy_cycle_results_20261102.md) · '
         '[Опыт со спеллами](reports/spell_interaction_design_20261102.md) · '
-        '[Предыдущие 24 прогона](reports/economy_pilot_selection_20261102.md)','',
-        '**Предыдущий цикл — сравнение в симуляторе:**','']
+        '[Предыдущие 24 прогона](reports/economy_pilot_selection_20261102.md)','']
+    readiness=read(reports/'long_full_readiness_20261102.json')or{}
+    if readiness.get('all_full_commands_verified') and readiness.get('validation_games')==96:
+        lines+=['Переход на полный бюджет проверен для всех 8 профилей: CPU-resume и 96 технических игр. '
+                'Полные GPU-запуски ждут отбора кандидатов. [Проверка](reports/long_full_readiness_20261102.md).','']
+    lines+=['**Предыдущий цикл — сравнение в симуляторе:**','']
     prior=read(reports/'economy_pilot_selection_20261102.json')
     if prior:lines.extend(line for line in render_economy_results(reports,prior).splitlines()if line.startswith('|'))
     lines+=['','Предыдущие строки повторяют 72 сценария для разных seed. Частота карты и reward не заменяют победы и сохранение защиты.',

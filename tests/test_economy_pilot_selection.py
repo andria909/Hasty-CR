@@ -73,6 +73,8 @@ def test_regression_in_any_replica_survives_pooling():
     ('policy_adaptation_v1','verify_policy_adaptation_pilot','verify_adaptation'),
     ('calibrated_spell_cost_v1','verify_calibrated_spell_pilot','verify_calibrated'),
     ('group_entropy_v1','verify_group_entropy_pilot','verify_entropy'),
+    ('air_exposure_v1','verify_air_exposure_pilot','verify_exposure'),
+    ('spell_interaction_v1','verify_air_exposure_pilot','verify_interaction'),
 ])
 def test_global_selection_requires_variant_specific_audit(tmp_path,monkeypatch,variant,module_name,function):
     import importlib,json

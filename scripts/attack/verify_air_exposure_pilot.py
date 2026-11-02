@@ -72,6 +72,7 @@ def verify_exposure(collected,prepared,*,interaction=False):
         selected=ranked[:4]if len(eligible)>=2 else[],
         seed_comparisons=comparisons,automatic_full_training=False)
     result['promotion_blocked']=len(eligible)<2
+    result['promotion_block_reason']='fewer_than_two_eligible_profiles' if len(eligible)<2 else None
     return result
 
 

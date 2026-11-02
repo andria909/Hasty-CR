@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 
-def child(path):
+def child(path, *, full=False):
     import torch
     import sim.train_attack_ppo as trainer
     spec=json.loads(Path(path).read_text());trial=spec['trial'];evaluate=trainer.evaluate;checks=[]
@@ -24,13 +24,13 @@ def child(path):
     trainer.evaluate=configured
     source=Path(__file__).with_name('preflight_air_exposure_pilot.py')
     module_spec=importlib.util.spec_from_file_location('spell_interaction_shared',source)
-    module=importlib.util.module_from_spec(module_spec);module_spec.loader.exec_module(module);module.child(path)
+    module=importlib.util.module_from_spec(module_spec);module_spec.loader.exec_module(module);module.child(path,full=full)
     root=Path(spec['root']);blob=torch.load(root/'whole/update_000002.pt',map_location='cpu',weights_only=False)
     for key in ('crown_only_weight','dormant_king_weight'):
         if blob['config'][key]!=trial[key]or blob['environment_states'][0][key]!=trial[key]:
             raise ValueError('Actual optimizer/environment coefficient differs')
     if checks!=[12]:raise ValueError('Missing twelve validation games')
-    p=root/'child_preflight.json';r=json.loads(p.read_text());args=r['original_pilot_command']
+    p=root/'child_preflight.json';r=json.loads(p.read_text());args=r['original_full_command' if full else 'original_pilot_command']
     if float(args[args.index('--dormant-king-weight')+1])!=trial['dormant_king_weight']:
         raise ValueError('Frozen command king coefficient differs')
     r.update(spell_interaction_verified=True,actual_dormant_king_weight=trial['dormant_king_weight'],crown_validation_games=12)

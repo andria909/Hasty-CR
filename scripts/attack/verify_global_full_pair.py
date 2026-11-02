@@ -3,7 +3,7 @@ import argparse
 import json
 from pathlib import Path
 
-from scripts.attack.select_pilot_pool import select, verify_study, ECONOMY_VARIANTS
+from scripts.attack.select_pilot_pool import select, verify_study, ECONOMY_VARIANTS, LONG_VARIANTS
 from scripts.attack.verify_continuous_focus import verify as verify_pilot, audit_run, sha
 
 
@@ -19,6 +19,9 @@ def audit_full_economy(config,blob,metrics_path,trial,variant):
     keys=('crown_only_weight','dormant_king_weight','spell_waste_weight','tower_support_weight')
     if any(blob['config'].get(k)!=trial[k] or config.get(k)!=trial[k]for k in keys):
         raise ValueError('Full checkpoint reward coefficients differ')
+    if variant in LONG_VARIANTS and (config.get('continuous_focus')!=trial['focus'] or
+            blob['config'].get('continuous_focus')!=trial['focus']):
+        raise ValueError('Full checkpoint training focus differs')
     weight=trial.get('spatial_entropy_weight',1.)
     if config.get('spatial_entropy_weight',1.)!=weight or blob['config'].get('spatial_entropy_weight',1.)!=weight:
         raise ValueError('Full checkpoint spatial entropy differs')
