@@ -382,7 +382,47 @@ def render_policy_adaptation(reports,state):
     return '\n'.join(lines)
 
 
+def render_economy_results(reports,selection):
+    lines=['# Текущий этап','','**24 PPO-прогона завершены и проверены: 2 457 600 CUDA-шагов.**',
+        'Устойчивого кандидата для большого обучения пока нет. Следующий опыт: увеличенный пилотный бюджет и чаще воздух/голем, с контролем на обычной смеси.','',
+        '| Вариант | Победы | Победы в защите | Против воздуха | Пустые спеллы, эликсир/матч |',
+        '|---|---:|---:|---:|---:|']
+    names={'balanced':'Исходник balanced + PPO','bank':'Прежний BC + PPO','bc8000':'BC8000 + PPO',
+        'control':'BC800 + PPO, общий контроль (6 seed)','neutral':'BC800, штраф пустого спелла 0,3',
+        'medium':'BC800, штраф 0,5','strong':'BC800, штраф 1,0',
+        'spatial03':'BC800, энтропия клетки 0,3','spatial01':'BC800, энтропия клетки 0,1',
+        'group_only':'BC800, энтропия только карты'}
+    for row in selection['ranking']:
+        comparisons=[r['comparison']for r in row['quality_diagnostics']['seed_comparisons']]
+        def result(section):
+            records=[c['all']if section=='all'else c['tasks']['defense']if section=='defense'else c['families']['air']for c in comparisons]
+            return f"{sum(r['after_wins']for r in records)}/{sum(r['games']for r in records)}"
+        lines.append(f"| {names[row['trial']['id']]} | {result('all')} | {result('defense')} | {result('air')} | "
+                     f"{row['quality_diagnostics']['mean_empty_spell_elixir']:.2f} |")
+    lines+=['','Это development validation: те же 72 сценария повторяются для каждого seed. '
+        'Общий контроль объединяет все шесть запусков; парные сравнения коэффициентов — с контролем своего seed в подробных отчётах.',
+        'Защита — победа в полном сценарии защиты, а не отсутствие урона башням. Все проверки выполнены в симуляторе; это не реальные винрейты.','',
+        '**Вывод:** слабее всего воздух. Штраф 0,3 уменьшил пустой расход, но не дал устойчивого улучшения обоих seed. '
+        'Снижение пространственной энтропии не помогло.','',
+        '**Следующий опыт ещё не запущен:** BC800; 409 600 шагов на seed; обычная смесь / чаще воздух и голем × штраф 0,1 / 0,3. '
+        'Порог отбора сохраняется. Затем 2–4 прошедших варианта — длинное обучение и независимый test/турнир.','',
+        '[Разбор и следующий опыт](reports/economy_cycle_results_20261102.md) · '
+        '[Отбор всех вариантов](reports/economy_pilot_selection_20261102.md) · '
+        '[Штрафы](reports/calibrated_spell_results_20261102.md) · '
+        '[Энтропия](reports/group_entropy_results_20261102.md) · '
+        '[Исходники](reports/policy_adaptation_results_20261101.md)','',
+        '**Реальные бои выключены.** v25 сохранена. Нового полного обучения пока нет.','']
+    return '\n'.join(lines)
+
+
 def render_economy_experiments(reports,calibrated,adaptation):
+    selection=read(reports/'economy_pilot_selection_20261102.json')or{}
+    if (selection.get('schema')=='verified-global-pilot-profile-selection-v1'
+            and len(selection.get('ranking',[]))==10 and len(selection.get('studies',[]))==3
+            and all(s.get('pilot_steps_verified')==819200 for s in selection['studies'])
+            and {s['kernel']for s in selection['studies']}=={
+                'vertel0/hastycr-adapt-ppo1101','andriashadrin/hastycr-spell-cost1102','andreiperelaiko/hastycr-group-entropy1102'}):
+        return render_economy_results(reports,selection)
     lines=['# Текущий этап','',
         '**PPO: исправляем расход эликсира и сравниваем исходные веса.**','',
         '| Опыт | Вариант | Первый seed | Второй seed | Порог: первый / второй |','|---|---|---:|---:|---|']

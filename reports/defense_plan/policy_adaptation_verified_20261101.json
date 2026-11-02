@@ -1,0 +1,438 @@
+{
+  "schema": "verified-continuous-focus-cohort-v1",
+  "kernel": "vertel0/hastycr-adapt-ppo1101",
+  "pilot_steps_verified": 819200,
+  "pilot_selection": {
+    "ranking": [
+      {
+        "trial": {
+          "id": "bc8000",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.03,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1,
+          "crown_only_weight": 0.0,
+          "dormant_king_weight": 0.0,
+          "initial_id": "bc8000"
+        },
+        "score": 0.22916666666666666,
+        "minimum_family_points": 0.08333333333333333,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "bc800",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.03,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1,
+          "crown_only_weight": 0.0,
+          "dormant_king_weight": 0.0,
+          "initial_id": "bc800"
+        },
+        "score": 0.2170138888888889,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "bank",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.03,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1,
+          "crown_only_weight": 0.0,
+          "dormant_king_weight": 0.0,
+          "initial_id": "bank"
+        },
+        "score": 0.1701388888888889,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      },
+      {
+        "trial": {
+          "id": "balanced",
+          "warmstart_updates": 0,
+          "warmstart_kl_weight": 0.0,
+          "supervised_replay_weight": 0.0,
+          "history_frames": 1,
+          "focus": "uniform",
+          "entropy_coef": 0.01,
+          "gamma": 0.999,
+          "gae_lambda": 0.95,
+          "overflow_penalty": 0.3,
+          "card_balance_weight": 0.03,
+          "card_balance_target": "units",
+          "missed_fireball_penalty": 0.0,
+          "fireball_value_reward": 0.25,
+          "reserve_potential_weight": 0.1,
+          "own_hp_penalty": 6.0,
+          "barbarian_train_fraction": 0.35,
+          "lane_reflection_fraction": 0.5,
+          "action_delay_ms": 1350,
+          "validation_action_delay_ms": 1350,
+          "spell_waste_weight": 0.1,
+          "tower_support_weight": 0.15,
+          "action_cooldown_ms": 0,
+          "cannon_center_only": 1,
+          "tower_damage_all": 1,
+          "tactical_start_fraction": 0.0,
+          "source_radius_reach": 1,
+          "target_lock_in_range": 0,
+          "card_exploration_epsilon": 0.0,
+          "hog_sight_clipping": 1,
+          "crown_only_weight": 0.0,
+          "dormant_king_weight": 0.0,
+          "initial_id": "parent"
+        },
+        "score": 0.08333333333333334,
+        "minimum_family_points": 0.0,
+        "eligible": false
+      }
+    ],
+    "selected": [],
+    "gate_met": false,
+    "floor": 0.1,
+    "test_used_for_selection": false
+  },
+  "automatic_full_training": false,
+  "pilot_models": [
+    {
+      "id": "pilot_balanced_s412",
+      "checkpoint": "tmp/kaggle/policy_adaptation_20261101/collected/pilot_balanced_s412/update_000100.pt",
+      "checkpoint_sha256": "0872fe241aa794186bffde6898779131067e9dbea127263a3b356e0bf4e1b7ea",
+      "selection_score": 0.0625,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_balanced_s413",
+      "checkpoint": "tmp/kaggle/policy_adaptation_20261101/collected/pilot_balanced_s413/update_000050.pt",
+      "checkpoint_sha256": "2e4cbe12316fdcc584cf961f578c2964cf8855a2b6f36383ea900fb2480360e9",
+      "selection_score": 0.10416666666666667,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_bank_s412",
+      "checkpoint": "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bank_s412/update_000100.pt",
+      "checkpoint_sha256": "df776634d68b25895192472589202fef23636145a50fccc46b318cec29de81e3",
+      "selection_score": 0.14583333333333334,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_bank_s413",
+      "checkpoint": "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bank_s413/update_000100.pt",
+      "checkpoint_sha256": "d3d2dbc87c9c0f0cdc4f1868053ce3adf89f06d9d3df68bb877ce9734861de7d",
+      "selection_score": 0.19444444444444442,
+      "worst_family_points": 0.08333333333333333,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_bc800_s412",
+      "checkpoint": "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc800_s412/update_000050.pt",
+      "checkpoint_sha256": "2a1c68a1233acef350c31195083d01c1500badcb6131eae1a3db51e9047342d6",
+      "selection_score": 0.15625,
+      "worst_family_points": 0.0,
+      "family_guard": false
+    },
+    {
+      "id": "pilot_bc800_s413",
+      "checkpoint": "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc800_s413/update_000050.pt",
+      "checkpoint_sha256": "d04ccdde430fe3cdd8e434174beabddd968cacec29a116e3610414eb77c0da82",
+      "selection_score": 0.2777777777777778,
+      "worst_family_points": 0.16666666666666666,
+      "family_guard": true
+    },
+    {
+      "id": "pilot_bc8000_s412",
+      "checkpoint": "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc8000_s412/update_000100.pt",
+      "checkpoint_sha256": "45d2425d6b6f618cf47e3560cf194aefa04f45d9b012fb1fb4728bcdb31aa839",
+      "selection_score": 0.2847222222222222,
+      "worst_family_points": 0.16666666666666666,
+      "family_guard": true
+    },
+    {
+      "id": "pilot_bc8000_s413",
+      "checkpoint": "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc8000_s413/update_000050.pt",
+      "checkpoint_sha256": "6263b9fa3aaac8d2254baf085f2933b999afbc34132a39c883c5358eb2d40da3",
+      "selection_score": 0.1736111111111111,
+      "worst_family_points": 0.08333333333333333,
+      "family_guard": false
+    }
+  ],
+  "full_steps_verified": 0,
+  "full_gate_met": false,
+  "initial_selection": {
+    "selected": "bc8000",
+    "ranking": [
+      {
+        "id": "bc8000",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.1388888888888889,
+        "macro_archetype_points": 0.2777777777777778,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.5
+          },
+          "giant": {
+            "games": 12,
+            "points": 0.5833333333333334
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.08333333333333333
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.25
+          },
+          "swarm": {
+            "games": 12,
+            "points": 0.25
+          }
+        }
+      },
+      {
+        "id": "parent",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.10763888888888888,
+        "macro_archetype_points": 0.21527777777777776,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.25
+          },
+          "giant": {
+            "games": 12,
+            "points": 0.5416666666666666
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.25
+          },
+          "swarm": {
+            "games": 12,
+            "points": 0.25
+          }
+        }
+      },
+      {
+        "id": "bc800",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.08333333333333333,
+        "macro_archetype_points": 0.16666666666666666,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.0
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.4166666666666667
+          },
+          "giant": {
+            "games": 12,
+            "points": 0.08333333333333333
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.16666666666666666
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.16666666666666666
+          },
+          "swarm": {
+            "games": 12,
+            "points": 0.16666666666666666
+          }
+        }
+      },
+      {
+        "id": "bank",
+        "selection_metric": "half_macro_half_worst_archetype_points_v1",
+        "selection_score": 0.041666666666666664,
+        "macro_archetype_points": 0.08333333333333333,
+        "worst_archetype_points": 0.0,
+        "by_family": {
+          "air": {
+            "games": 12,
+            "points": 0.08333333333333333
+          },
+          "bridge": {
+            "games": 12,
+            "points": 0.25
+          },
+          "giant": {
+            "games": 12,
+            "points": 0.0
+          },
+          "golem": {
+            "games": 12,
+            "points": 0.0
+          },
+          "hog": {
+            "games": 12,
+            "points": 0.16666666666666666
+          },
+          "swarm": {
+            "games": 12,
+            "points": 0.0
+          }
+        }
+      }
+    ],
+    "test_used_for_selection": false
+  },
+  "models": [],
+  "ready_for_independent_evaluation": false,
+  "quality_accepted": false,
+  "test_used_for_selection": false,
+  "live_checkpoint_changed": false,
+  "policy_adaptation_audit": {
+    "verified": true,
+    "runs": [
+      {
+        "id": "pilot_balanced_s412",
+        "initial_id": "parent",
+        "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+        "geometry_records": 144
+      },
+      {
+        "id": "pilot_balanced_s413",
+        "initial_id": "parent",
+        "initial_sha256": "40d028fae25b30a23272d97bcc16d04c45f6e297c4f3b244a501d3bbd181aed9",
+        "geometry_records": 144
+      },
+      {
+        "id": "pilot_bank_s412",
+        "initial_id": "bank",
+        "initial_sha256": "3a7eb5863c7e80203b1bbfef86ddac3428d2d6041a7e646adf8c47422e17e215",
+        "geometry_records": 144
+      },
+      {
+        "id": "pilot_bank_s413",
+        "initial_id": "bank",
+        "initial_sha256": "3a7eb5863c7e80203b1bbfef86ddac3428d2d6041a7e646adf8c47422e17e215",
+        "geometry_records": 144
+      },
+      {
+        "id": "pilot_bc800_s412",
+        "initial_id": "bc800",
+        "initial_sha256": "9e7b5619b056d4ca9153bbadc90e3a856dc9957c1030d86cc857df18c10c373b",
+        "geometry_records": 144
+      },
+      {
+        "id": "pilot_bc800_s413",
+        "initial_id": "bc800",
+        "initial_sha256": "9e7b5619b056d4ca9153bbadc90e3a856dc9957c1030d86cc857df18c10c373b",
+        "geometry_records": 144
+      },
+      {
+        "id": "pilot_bc8000_s412",
+        "initial_id": "bc8000",
+        "initial_sha256": "c98003292b666afc79663413802780b014c61a8ef55eea7134971deae93ecf50",
+        "geometry_records": 144
+      },
+      {
+        "id": "pilot_bc8000_s413",
+        "initial_id": "bc8000",
+        "initial_sha256": "c98003292b666afc79663413802780b014c61a8ef55eea7134971deae93ecf50",
+        "geometry_records": 144
+      }
+    ]
+  }
+}

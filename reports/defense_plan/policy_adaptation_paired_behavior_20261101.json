@@ -1,0 +1,4480 @@
+{
+  "schema": "paired-ppo-behavior-comparison-v1",
+  "kernel": "vertel0/hastycr-adapt-ppo1101",
+  "proof_sha256": "7cc070f35f5e1c88a08a5d4e8003a9322b89ed100bb3a89c9cc61d93679018ab",
+  "collection_sha256": "87f63dffbe256df57296d32dfd4c4f56ec8e7931b0ede7f672c7296cb38a6709",
+  "protocol_sha256": "6a58a39333571b15f587e268db6dde166add48edc07c3400f4f56932fcd8472a",
+  "rows": [
+    {
+      "id": "pilot_balanced_s412",
+      "case": "balanced",
+      "seed": 412,
+      "reference": "parent",
+      "selected_update": 100,
+      "comparison": {
+        "all": {
+          "games": 72,
+          "before_wins": 15,
+          "after_wins": 9,
+          "gained_wins": 5,
+          "lost_wins": 11,
+          "wins_delta": -6,
+          "metrics": {
+            "own_fraction_loss": {
+              "before": 1.0036872984871033,
+              "after": 1.0893157474578374,
+              "delta": 0.08562844897073413
+            },
+            "empty_spell_elixir": {
+              "before": 21.694444444444443,
+              "after": 18.416666666666668,
+              "delta": -3.2777777777777777
+            },
+            "elixir_overflow": {
+              "before": 0.0,
+              "after": 0.0,
+              "delta": 0.0
+            },
+            "fireball_unit_hits": {
+              "before": 0.013888888888888888,
+              "after": 0.3472222222222222,
+              "delta": 0.3333333333333333
+            },
+            "cluster_fireballs": {
+              "before": 0.0,
+              "after": 0.013888888888888888,
+              "delta": 0.013888888888888888
+            },
+            "own_tower_damage": {
+              "before": 7255.833333333333,
+              "after": 7173.75,
+              "delta": -82.08333333333333
+            },
+            "duration_seconds": {
+              "before": 255.01944444444442,
+              "after": 243.74305555555554,
+              "delta": -11.276388888888874
+            },
+            "fireball_per_game": {
+              "before": 0.2361111111111111,
+              "after": 0.6111111111111112,
+              "delta": 0.37500000000000006
+            },
+            "unit_hits_per_minute": {
+              "before": 0.0032677246833030162,
+              "after": 0.08547252058463203,
+              "delta": 0.08220479590132902
+            },
+            "empty_spell_elixir_per_minute": {
+              "before": 5.104185955319312,
+              "after": 4.5334624918088835,
+              "delta": -0.5707234635104284
+            }
+          }
+        },
+        "families": {
+          "air": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 0,
+            "gained_wins": 0,
+            "lost_wins": 0,
+            "wins_delta": 0,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.5385606553819444,
+                "after": 1.454134502108135,
+                "delta": -0.08442615327380955
+              },
+              "empty_spell_elixir": {
+                "before": 13.333333333333334,
+                "after": 9.166666666666666,
+                "delta": -4.166666666666667
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.08333333333333333,
+                "after": 0.5833333333333334,
+                "delta": 0.5
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 14352.333333333334,
+                "after": 10431.333333333334,
+                "delta": -3921.0
+              },
+              "duration_seconds": {
+                "before": 247.75833333333335,
+                "after": 213.33333333333334,
+                "delta": -34.42500000000001
+              },
+              "fireball_per_game": {
+                "before": 0.16666666666666666,
+                "after": 0.5,
+                "delta": 0.33333333333333337
+              },
+              "unit_hits_per_minute": {
+                "before": 0.020180955904611348,
+                "after": 0.1640625,
+                "delta": 0.14388154409538864
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.2289529447378156,
+                "after": 2.578125,
+                "delta": -0.6508279447378156
+              }
+            }
+          },
+          "bridge": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 1,
+            "gained_wins": 1,
+            "lost_wins": 3,
+            "wins_delta": -2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.9449598524305555,
+                "after": 0.9463239397321429,
+                "delta": 0.0013640873015872967
+              },
+              "empty_spell_elixir": {
+                "before": 25.333333333333332,
+                "after": 27.333333333333332,
+                "delta": 2.0
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.25,
+                "delta": 0.25
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 5598.75,
+                "after": 6536.833333333333,
+                "delta": 938.0833333333334
+              },
+              "duration_seconds": {
+                "before": 248.03333333333333,
+                "after": 270.0,
+                "delta": 21.96666666666667
+              },
+              "fireball_per_game": {
+                "before": 0.25,
+                "after": 1.25,
+                "delta": 1.0
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.05555555555555555,
+                "delta": 0.05555555555555555
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 6.128208574116382,
+                "after": 6.074074074074074,
+                "delta": -0.054134500042307465
+              }
+            }
+          },
+          "giant": {
+            "games": 12,
+            "before_wins": 6,
+            "after_wins": 4,
+            "gained_wins": 1,
+            "lost_wins": 3,
+            "wins_delta": -2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.45782180059523814,
+                "after": 0.6101655505952381,
+                "delta": 0.15234375000000003
+              },
+              "empty_spell_elixir": {
+                "before": 32.0,
+                "after": 23.333333333333332,
+                "delta": -8.666666666666666
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.3333333333333333,
+                "delta": 0.3333333333333333
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 3008.25,
+                "after": 3419.4166666666665,
+                "delta": 411.1666666666667
+              },
+              "duration_seconds": {
+                "before": 290.0,
+                "after": 250.79999999999998,
+                "delta": -39.20000000000002
+              },
+              "fireball_per_game": {
+                "before": 0.25,
+                "after": 0.4166666666666667,
+                "delta": 0.16666666666666669
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.07974481658692185,
+                "delta": 0.07974481658692185
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 6.620689655172414,
+                "after": 5.58213716108453,
+                "delta": -1.0385524940878836
+              }
+            }
+          },
+          "golem": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 1,
+            "gained_wins": 1,
+            "lost_wins": 0,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.522313678075397,
+                "after": 1.2840421161954365,
+                "delta": -0.23827156187996032
+              },
+              "empty_spell_elixir": {
+                "before": 9.0,
+                "after": 8.666666666666666,
+                "delta": -0.3333333333333333
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.3333333333333333,
+                "delta": 0.3333333333333333
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 10950.666666666666,
+                "after": 11989.833333333334,
+                "delta": 1039.1666666666667
+              },
+              "duration_seconds": {
+                "before": 216.16250000000002,
+                "after": 230.0,
+                "delta": 13.837499999999977
+              },
+              "fireball_per_game": {
+                "before": 0.3333333333333333,
+                "after": 0.5,
+                "delta": 0.16666666666666669
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.08695652173913043,
+                "delta": 0.08695652173913043
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 2.498120626843231,
+                "after": 2.260869565217391,
+                "delta": -0.2372510616258401
+              }
+            }
+          },
+          "hog": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 1,
+            "gained_wins": 0,
+            "lost_wins": 2,
+            "wins_delta": -2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.7932477678571428,
+                "after": 1.0391671316964286,
+                "delta": 0.2459193638392857
+              },
+              "empty_spell_elixir": {
+                "before": 27.5,
+                "after": 22.333333333333332,
+                "delta": -5.166666666666667
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.25,
+                "delta": 0.25
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 5237.166666666667,
+                "after": 6029.833333333333,
+                "delta": 792.6666666666666
+              },
+              "duration_seconds": {
+                "before": 270.1958333333333,
+                "after": 246.33333333333334,
+                "delta": -23.862499999999983
+              },
+              "fireball_per_game": {
+                "before": 0.25,
+                "after": 0.5833333333333334,
+                "delta": 0.33333333333333337
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.06089309878213803,
+                "delta": 0.06089309878213803
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 6.106681881968325,
+                "after": 5.43978349120433,
+                "delta": -0.6668983907639952
+              }
+            }
+          },
+          "swarm": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 2,
+            "gained_wins": 2,
+            "lost_wins": 3,
+            "wins_delta": -1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.7652200365823413,
+                "after": 1.202061244419643,
+                "delta": 0.4368412078373016
+              },
+              "empty_spell_elixir": {
+                "before": 23.0,
+                "after": 19.666666666666668,
+                "delta": -3.3333333333333335
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.3333333333333333,
+                "delta": 0.3333333333333333
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.08333333333333333,
+                "delta": 0.08333333333333333
+              },
+              "own_tower_damage": {
+                "before": 4387.833333333333,
+                "after": 4635.25,
+                "delta": 247.41666666666666
+              },
+              "duration_seconds": {
+                "before": 257.96666666666664,
+                "after": 251.99166666666667,
+                "delta": -5.974999999999966
+              },
+              "fireball_per_game": {
+                "before": 0.16666666666666666,
+                "after": 0.4166666666666667,
+                "delta": 0.25
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.07936770395846424,
+                "delta": 0.07936770395846424
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.349528362837576,
+                "after": 4.68269453354939,
+                "delta": -0.6668338292881861
+              }
+            }
+          }
+        },
+        "tasks": {
+          "attack": {
+            "games": 36,
+            "before_wins": 8,
+            "after_wins": 6,
+            "gained_wins": 4,
+            "lost_wins": 6,
+            "wins_delta": -2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.968377330315807,
+                "after": 1.005666904348545,
+                "delta": 0.03728957403273809
+              },
+              "empty_spell_elixir": {
+                "before": 22.0,
+                "after": 17.833333333333332,
+                "delta": -4.166666666666667
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.3888888888888889,
+                "delta": 0.3888888888888889
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 6500.166666666667,
+                "after": 6431.361111111111,
+                "delta": -68.80555555555556
+              },
+              "duration_seconds": {
+                "before": 260.7611111111112,
+                "after": 239.77500000000003,
+                "delta": -20.986111111111143
+              },
+              "fireball_per_game": {
+                "before": 0.2777777777777778,
+                "after": 0.8055555555555556,
+                "delta": 0.5277777777777778
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.09731345358495812,
+                "delta": 0.09731345358495812
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.062104523084134,
+                "after": 4.462516942967365,
+                "delta": -0.5995875801167694
+              }
+            }
+          },
+          "defense": {
+            "games": 36,
+            "before_wins": 7,
+            "after_wins": 3,
+            "gained_wins": 1,
+            "lost_wins": 5,
+            "wins_delta": -4,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.0389972666583995,
+                "after": 1.1729645905671295,
+                "delta": 0.13396732390873017
+              },
+              "empty_spell_elixir": {
+                "before": 21.38888888888889,
+                "after": 19.0,
+                "delta": -2.388888888888889
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.027777777777777776,
+                "after": 0.3055555555555556,
+                "delta": 0.2777777777777778
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.027777777777777776,
+                "delta": 0.027777777777777776
+              },
+              "own_tower_damage": {
+                "before": 8011.5,
+                "after": 7916.138888888889,
+                "delta": -95.36111111111111
+              },
+              "duration_seconds": {
+                "before": 249.27777777777777,
+                "after": 247.7111111111111,
+                "delta": -1.5666666666666629
+              },
+              "fireball_per_game": {
+                "before": 0.19444444444444445,
+                "after": 0.4166666666666667,
+                "delta": 0.22222222222222224
+              },
+              "unit_hits_per_minute": {
+                "before": 0.006685981724983285,
+                "after": 0.07401094464878442,
+                "delta": 0.06732496292380113
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.14820592823713,
+                "after": 4.602135103615322,
+                "delta": -0.5460708246218076
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pilot_balanced_s413",
+      "case": "balanced",
+      "seed": 413,
+      "reference": "parent",
+      "selected_update": 50,
+      "comparison": {
+        "all": {
+          "games": 72,
+          "before_wins": 15,
+          "after_wins": 15,
+          "gained_wins": 6,
+          "lost_wins": 6,
+          "wins_delta": 0,
+          "metrics": {
+            "own_fraction_loss": {
+              "before": 1.0036872984871033,
+              "after": 0.9122834382233795,
+              "delta": -0.09140386026372355
+            },
+            "empty_spell_elixir": {
+              "before": 21.694444444444443,
+              "after": 21.52777777777778,
+              "delta": -0.16666666666666666
+            },
+            "elixir_overflow": {
+              "before": 0.0,
+              "after": 0.0,
+              "delta": 0.0
+            },
+            "fireball_unit_hits": {
+              "before": 0.013888888888888888,
+              "after": 0.05555555555555555,
+              "delta": 0.041666666666666664
+            },
+            "cluster_fireballs": {
+              "before": 0.0,
+              "after": 0.0,
+              "delta": 0.0
+            },
+            "own_tower_damage": {
+              "before": 7255.833333333333,
+              "after": 6773.388888888889,
+              "delta": -482.44444444444446
+            },
+            "duration_seconds": {
+              "before": 255.01944444444442,
+              "after": 259.04097222222225,
+              "delta": 4.021527777777834
+            },
+            "fireball_per_game": {
+              "before": 0.2361111111111111,
+              "after": 0.4027777777777778,
+              "delta": 0.16666666666666669
+            },
+            "unit_hits_per_minute": {
+              "before": 0.0032677246833030162,
+              "after": 0.012867977234403609,
+              "delta": 0.009600252551100592
+            },
+            "empty_spell_elixir_per_minute": {
+              "before": 5.104185955319312,
+              "after": 4.986341178331398,
+              "delta": -0.11784477698791385
+            }
+          }
+        },
+        "families": {
+          "air": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 0,
+            "gained_wins": 0,
+            "lost_wins": 0,
+            "wins_delta": 0,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.5385606553819444,
+                "after": 1.2839452349950398,
+                "delta": -0.25461542038690477
+              },
+              "empty_spell_elixir": {
+                "before": 13.333333333333334,
+                "after": 8.0,
+                "delta": -5.333333333333333
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.08333333333333333,
+                "after": 0.16666666666666666,
+                "delta": 0.08333333333333333
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 14352.333333333334,
+                "after": 11079.833333333334,
+                "delta": -3272.5
+              },
+              "duration_seconds": {
+                "before": 247.75833333333335,
+                "after": 237.88333333333333,
+                "delta": -9.875000000000028
+              },
+              "fireball_per_game": {
+                "before": 0.16666666666666666,
+                "after": 0.25,
+                "delta": 0.08333333333333334
+              },
+              "unit_hits_per_minute": {
+                "before": 0.020180955904611348,
+                "after": 0.04203741329783507,
+                "delta": 0.021856457393223724
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.2289529447378156,
+                "after": 2.0177958382960837,
+                "delta": -1.211157106441732
+              }
+            }
+          },
+          "bridge": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 3,
+            "gained_wins": 2,
+            "lost_wins": 2,
+            "wins_delta": 0,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.9449598524305555,
+                "after": 0.8492606026785715,
+                "delta": -0.09569924975198411
+              },
+              "empty_spell_elixir": {
+                "before": 25.333333333333332,
+                "after": 28.833333333333332,
+                "delta": 3.5
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 5598.75,
+                "after": 6049.333333333333,
+                "delta": 450.5833333333333
+              },
+              "duration_seconds": {
+                "before": 248.03333333333333,
+                "after": 268.40833333333336,
+                "delta": 20.37500000000003
+              },
+              "fireball_per_game": {
+                "before": 0.25,
+                "after": 0.6666666666666666,
+                "delta": 0.41666666666666663
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 6.128208574116382,
+                "after": 6.445403458660623,
+                "delta": 0.31719488454424116
+              }
+            }
+          },
+          "giant": {
+            "games": 12,
+            "before_wins": 6,
+            "after_wins": 8,
+            "gained_wins": 3,
+            "lost_wins": 1,
+            "wins_delta": 2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.45782180059523814,
+                "after": 0.4835611979166667,
+                "delta": 0.025739397321428558
+              },
+              "empty_spell_elixir": {
+                "before": 32.0,
+                "after": 32.0,
+                "delta": 0.0
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.08333333333333333,
+                "delta": 0.08333333333333333
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 3008.25,
+                "after": 2962.1666666666665,
+                "delta": -46.083333333333336
+              },
+              "duration_seconds": {
+                "before": 290.0,
+                "after": 289.5708333333333,
+                "delta": -0.42916666666667425
+              },
+              "fireball_per_game": {
+                "before": 0.25,
+                "after": 0.4166666666666667,
+                "delta": 0.16666666666666669
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.0172669323855706,
+                "delta": 0.0172669323855706
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 6.620689655172414,
+                "after": 6.63050203605911,
+                "delta": 0.009812380886696559
+              }
+            }
+          },
+          "golem": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 0,
+            "gained_wins": 0,
+            "lost_wins": 0,
+            "wins_delta": 0,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.522313678075397,
+                "after": 1.3060884021577381,
+                "delta": -0.21622527591765872
+              },
+              "empty_spell_elixir": {
+                "before": 9.0,
+                "after": 9.166666666666666,
+                "delta": 0.16666666666666666
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 10950.666666666666,
+                "after": 11564.5,
+                "delta": 613.8333333333334
+              },
+              "duration_seconds": {
+                "before": 216.16250000000002,
+                "after": 233.42083333333335,
+                "delta": 17.258333333333326
+              },
+              "fireball_per_game": {
+                "before": 0.3333333333333333,
+                "after": 0.5,
+                "delta": 0.16666666666666669
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 2.498120626843231,
+                "after": 2.3562592599203867,
+                "delta": -0.14186136692284457
+              }
+            }
+          },
+          "hog": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 2,
+            "gained_wins": 0,
+            "lost_wins": 1,
+            "wins_delta": -1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.7932477678571428,
+                "after": 0.7651715959821429,
+                "delta": -0.028076171874999983
+              },
+              "empty_spell_elixir": {
+                "before": 27.5,
+                "after": 26.333333333333332,
+                "delta": -1.1666666666666667
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 5237.166666666667,
+                "after": 4591.25,
+                "delta": -645.9166666666666
+              },
+              "duration_seconds": {
+                "before": 270.1958333333333,
+                "after": 264.96250000000003,
+                "delta": -5.233333333333292
+              },
+              "fireball_per_game": {
+                "before": 0.25,
+                "after": 0.25,
+                "delta": 0.0
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 6.106681881968325,
+                "after": 5.963107986979289,
+                "delta": -0.14357389498903572
+              }
+            }
+          },
+          "swarm": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 2,
+            "gained_wins": 1,
+            "lost_wins": 2,
+            "wins_delta": -1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.7652200365823413,
+                "after": 0.7856735956101191,
+                "delta": 0.020453559027777752
+              },
+              "empty_spell_elixir": {
+                "before": 23.0,
+                "after": 24.833333333333332,
+                "delta": 1.8333333333333333
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.08333333333333333,
+                "delta": 0.08333333333333333
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 4387.833333333333,
+                "after": 4393.25,
+                "delta": 5.416666666666667
+              },
+              "duration_seconds": {
+                "before": 257.96666666666664,
+                "after": 260.0,
+                "delta": 2.03333333333336
+              },
+              "fireball_per_game": {
+                "before": 0.16666666666666666,
+                "after": 0.3333333333333333,
+                "delta": 0.16666666666666666
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.019230769230769232,
+                "delta": 0.019230769230769232
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.349528362837576,
+                "after": 5.730769230769231,
+                "delta": 0.38124086793165457
+              }
+            }
+          }
+        },
+        "tasks": {
+          "attack": {
+            "games": 36,
+            "before_wins": 8,
+            "after_wins": 7,
+            "gained_wins": 2,
+            "lost_wins": 3,
+            "wins_delta": -1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.968377330315807,
+                "after": 0.8884290261243386,
+                "delta": -0.07994830419146827
+              },
+              "empty_spell_elixir": {
+                "before": 22.0,
+                "after": 21.38888888888889,
+                "delta": -0.6111111111111112
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 6500.166666666667,
+                "after": 6634.027777777777,
+                "delta": 133.86111111111111
+              },
+              "duration_seconds": {
+                "before": 260.7611111111112,
+                "after": 258.88472222222225,
+                "delta": -1.8763888888889255
+              },
+              "fireball_per_game": {
+                "before": 0.2777777777777778,
+                "after": 0.3888888888888889,
+                "delta": 0.1111111111111111
+              },
+              "unit_hits_per_minute": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.062104523084134,
+                "after": 4.957161327703772,
+                "delta": -0.10494319538036212
+              }
+            }
+          },
+          "defense": {
+            "games": 36,
+            "before_wins": 7,
+            "after_wins": 8,
+            "gained_wins": 4,
+            "lost_wins": 3,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.0389972666583995,
+                "after": 0.9361378503224207,
+                "delta": -0.10285941633597882
+              },
+              "empty_spell_elixir": {
+                "before": 21.38888888888889,
+                "after": 21.666666666666668,
+                "delta": 0.2777777777777778
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.027777777777777776,
+                "after": 0.1111111111111111,
+                "delta": 0.08333333333333333
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 8011.5,
+                "after": 6912.75,
+                "delta": -1098.75
+              },
+              "duration_seconds": {
+                "before": 249.27777777777777,
+                "after": 259.19722222222225,
+                "delta": 9.91944444444448
+              },
+              "fireball_per_game": {
+                "before": 0.19444444444444445,
+                "after": 0.4166666666666667,
+                "delta": 0.22222222222222224
+              },
+              "unit_hits_per_minute": {
+                "before": 0.006685981724983285,
+                "after": 0.025720440248202248,
+                "delta": 0.019034458523218962
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.14820592823713,
+                "after": 5.015485848399438,
+                "delta": -0.13272007983769196
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pilot_bank_s412",
+      "case": "bank",
+      "seed": 412,
+      "reference": "bank",
+      "selected_update": 100,
+      "comparison": {
+        "all": {
+          "games": 72,
+          "before_wins": 6,
+          "after_wins": 21,
+          "gained_wins": 19,
+          "lost_wins": 4,
+          "wins_delta": 15,
+          "metrics": {
+            "own_fraction_loss": {
+              "before": 1.517065300512566,
+              "after": 1.1650190403852514,
+              "delta": -0.3520462601273148
+            },
+            "empty_spell_elixir": {
+              "before": 4.666666666666667,
+              "after": 5.583333333333333,
+              "delta": 0.9166666666666666
+            },
+            "elixir_overflow": {
+              "before": 8.77148611111111,
+              "after": 2.2358194444444446,
+              "delta": -6.535666666666667
+            },
+            "fireball_unit_hits": {
+              "before": 8.63888888888889,
+              "after": 7.416666666666667,
+              "delta": -1.2222222222222223
+            },
+            "cluster_fireballs": {
+              "before": 0.8611111111111112,
+              "after": 0.7638888888888888,
+              "delta": -0.09722222222222222
+            },
+            "own_tower_damage": {
+              "before": 10348.333333333334,
+              "after": 9475.041666666666,
+              "delta": -873.2916666666666
+            },
+            "duration_seconds": {
+              "before": 205.53472222222223,
+              "after": 237.00416666666666,
+              "delta": 31.469444444444434
+            },
+            "fireball_per_game": {
+              "before": 5.277777777777778,
+              "after": 4.805555555555555,
+              "delta": -0.4722222222222223
+            },
+            "unit_hits_per_minute": {
+              "before": 2.5218772172855357,
+              "after": 1.877604120883951,
+              "delta": -0.6442730964015848
+            },
+            "empty_spell_elixir_per_minute": {
+              "before": 1.3623002331317362,
+              "after": 1.4134772595418508,
+              "delta": 0.05117702641011457
+            }
+          }
+        },
+        "families": {
+          "air": {
+            "games": 12,
+            "before_wins": 1,
+            "after_wins": 3,
+            "gained_wins": 3,
+            "lost_wins": 1,
+            "wins_delta": 2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.6237870473710316,
+                "after": 1.4149712456597223,
+                "delta": -0.2088158017113095
+              },
+              "empty_spell_elixir": {
+                "before": 6.166666666666667,
+                "after": 6.333333333333333,
+                "delta": 0.16666666666666666
+              },
+              "elixir_overflow": {
+                "before": 8.455,
+                "after": 2.4239166666666665,
+                "delta": -6.031083333333334
+              },
+              "fireball_unit_hits": {
+                "before": 7.916666666666667,
+                "after": 4.5,
+                "delta": -3.4166666666666665
+              },
+              "cluster_fireballs": {
+                "before": 1.25,
+                "after": 0.75,
+                "delta": -0.5
+              },
+              "own_tower_damage": {
+                "before": 11791.916666666666,
+                "after": 10986.25,
+                "delta": -805.6666666666666
+              },
+              "duration_seconds": {
+                "before": 205.92083333333335,
+                "after": 220.79999999999998,
+                "delta": 14.879166666666634
+              },
+              "fireball_per_game": {
+                "before": 4.25,
+                "after": 3.1666666666666665,
+                "delta": -1.0833333333333335
+              },
+              "unit_hits_per_minute": {
+                "before": 2.306711721737723,
+                "after": 1.2228260869565217,
+                "delta": -1.0838856347812011
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.7968070253535946,
+                "after": 1.7210144927536233,
+                "delta": -0.07579253259997132
+              }
+            }
+          },
+          "bridge": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 5,
+            "gained_wins": 4,
+            "lost_wins": 2,
+            "wins_delta": 2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.364232623387897,
+                "after": 1.1335216703869049,
+                "delta": -0.2307109530009921
+              },
+              "empty_spell_elixir": {
+                "before": 5.5,
+                "after": 4.833333333333333,
+                "delta": -0.6666666666666666
+              },
+              "elixir_overflow": {
+                "before": 2.31675,
+                "after": 0.3064166666666666,
+                "delta": -2.010333333333333
+              },
+              "fireball_unit_hits": {
+                "before": 6.0,
+                "after": 6.916666666666667,
+                "delta": 0.9166666666666666
+              },
+              "cluster_fireballs": {
+                "before": 0.4166666666666667,
+                "after": 0.5833333333333334,
+                "delta": 0.16666666666666666
+              },
+              "own_tower_damage": {
+                "before": 11352.0,
+                "after": 9474.416666666666,
+                "delta": -1877.5833333333333
+              },
+              "duration_seconds": {
+                "before": 195.70416666666665,
+                "after": 236.10416666666666,
+                "delta": 40.400000000000006
+              },
+              "fireball_per_game": {
+                "before": 5.5,
+                "after": 5.916666666666667,
+                "delta": 0.41666666666666696
+              },
+              "unit_hits_per_minute": {
+                "before": 1.8395111669398965,
+                "after": 1.7576987558457602,
+                "delta": -0.08181241109413628
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.6862185696949052,
+                "after": 1.2282714197476396,
+                "delta": -0.4579471499472656
+              }
+            }
+          },
+          "giant": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 8,
+            "gained_wins": 8,
+            "lost_wins": 0,
+            "wins_delta": 8,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.563025096106151,
+                "after": 0.8770732576884921,
+                "delta": -0.6859518384176587
+              },
+              "empty_spell_elixir": {
+                "before": 2.6666666666666665,
+                "after": 7.5,
+                "delta": 4.833333333333333
+              },
+              "elixir_overflow": {
+                "before": 16.156333333333333,
+                "after": 7.053999999999999,
+                "delta": -9.102333333333332
+              },
+              "fireball_unit_hits": {
+                "before": 6.333333333333333,
+                "after": 9.75,
+                "delta": 3.4166666666666665
+              },
+              "cluster_fireballs": {
+                "before": 0.5833333333333334,
+                "after": 1.1666666666666667,
+                "delta": 0.5833333333333334
+              },
+              "own_tower_damage": {
+                "before": 9737.583333333334,
+                "after": 7525.416666666667,
+                "delta": -2212.1666666666665
+              },
+              "duration_seconds": {
+                "before": 194.76666666666665,
+                "after": 250.73333333333335,
+                "delta": 55.9666666666667
+              },
+              "fireball_per_game": {
+                "before": 4.583333333333333,
+                "after": 6.5,
+                "delta": 1.916666666666667
+              },
+              "unit_hits_per_minute": {
+                "before": 1.9510525415026527,
+                "after": 2.3331560755118317,
+                "delta": 0.38210353400917896
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 0.8214958069484853,
+                "after": 1.794735442701409,
+                "delta": 0.9732396357529237
+              }
+            }
+          },
+          "golem": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 0,
+            "gained_wins": 0,
+            "lost_wins": 0,
+            "wins_delta": 0,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.6681450737847223,
+                "after": 1.2557721819196428,
+                "delta": -0.41237289186507936
+              },
+              "empty_spell_elixir": {
+                "before": 3.5,
+                "after": 2.5,
+                "delta": -1.0
+              },
+              "elixir_overflow": {
+                "before": 11.733333333333334,
+                "after": 3.362833333333333,
+                "delta": -8.3705
+              },
+              "fireball_unit_hits": {
+                "before": 7.333333333333333,
+                "after": 2.1666666666666665,
+                "delta": -5.166666666666667
+              },
+              "cluster_fireballs": {
+                "before": 0.75,
+                "after": 0.25,
+                "delta": -0.5
+              },
+              "own_tower_damage": {
+                "before": 10770.25,
+                "after": 12087.083333333334,
+                "delta": 1316.8333333333333
+              },
+              "duration_seconds": {
+                "before": 185.0583333333333,
+                "after": 225.8416666666667,
+                "delta": 40.78333333333339
+              },
+              "fireball_per_game": {
+                "before": 3.8333333333333335,
+                "after": 1.75,
+                "delta": -2.0833333333333335
+              },
+              "unit_hits_per_minute": {
+                "before": 2.3776286756428155,
+                "after": 0.5756245157005276,
+                "delta": -1.802004159942288
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.1347773224658892,
+                "after": 0.6641821335006088,
+                "delta": -0.4705951889652804
+              }
+            }
+          },
+          "hog": {
+            "games": 12,
+            "before_wins": 2,
+            "after_wins": 4,
+            "gained_wins": 3,
+            "lost_wins": 1,
+            "wins_delta": 2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.237455822172619,
+                "after": 0.9495675223214285,
+                "delta": -0.28788829985119047
+              },
+              "empty_spell_elixir": {
+                "before": 6.333333333333333,
+                "after": 8.166666666666666,
+                "delta": 1.8333333333333333
+              },
+              "elixir_overflow": {
+                "before": 11.335333333333333,
+                "after": 0.26775,
+                "delta": -11.067583333333333
+              },
+              "fireball_unit_hits": {
+                "before": 10.0,
+                "after": 7.5,
+                "delta": -2.5
+              },
+              "cluster_fireballs": {
+                "before": 0.5,
+                "after": 0.16666666666666666,
+                "delta": -0.3333333333333333
+              },
+              "own_tower_damage": {
+                "before": 10056.0,
+                "after": 8997.833333333334,
+                "delta": -1058.1666666666667
+              },
+              "duration_seconds": {
+                "before": 264.3125,
+                "after": 263.68333333333334,
+                "delta": -0.6291666666666629
+              },
+              "fireball_per_game": {
+                "before": 8.833333333333334,
+                "after": 7.333333333333333,
+                "delta": -1.5000000000000009
+              },
+              "unit_hits_per_minute": {
+                "before": 2.2700401986285175,
+                "after": 1.70659250363441,
+                "delta": -0.5634476949941074
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.437692125798061,
+                "after": 1.8582896150685797,
+                "delta": 0.42059748927051865
+              }
+            }
+          },
+          "swarm": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 1,
+            "gained_wins": 1,
+            "lost_wins": 0,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.6457461402529763,
+                "after": 1.3592083643353174,
+                "delta": -0.28653777591765867
+              },
+              "empty_spell_elixir": {
+                "before": 3.8333333333333335,
+                "after": 4.166666666666667,
+                "delta": 0.3333333333333333
+              },
+              "elixir_overflow": {
+                "before": 2.632166666666667,
+                "after": 0.0,
+                "delta": -2.632166666666667
+              },
+              "fireball_unit_hits": {
+                "before": 14.25,
+                "after": 13.666666666666666,
+                "delta": -0.5833333333333334
+              },
+              "cluster_fireballs": {
+                "before": 1.6666666666666667,
+                "after": 1.6666666666666667,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 8382.25,
+                "after": 7779.25,
+                "delta": -603.0
+              },
+              "duration_seconds": {
+                "before": 187.44583333333335,
+                "after": 224.86249999999998,
+                "delta": 37.41666666666663
+              },
+              "fireball_per_game": {
+                "before": 4.666666666666667,
+                "after": 4.166666666666667,
+                "delta": -0.5
+              },
+              "unit_hits_per_minute": {
+                "before": 4.561317714006268,
+                "after": 3.646672966813053,
+                "delta": -0.9146447471932153
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.2270211394402826,
+                "after": 1.111790538662516,
+                "delta": -0.11523060077776659
+              }
+            }
+          }
+        },
+        "tasks": {
+          "attack": {
+            "games": 36,
+            "before_wins": 4,
+            "after_wins": 8,
+            "gained_wins": 7,
+            "lost_wins": 3,
+            "wins_delta": 4,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.527172593212632,
+                "after": 1.1860480737433863,
+                "delta": -0.341124519469246
+              },
+              "empty_spell_elixir": {
+                "before": 5.388888888888889,
+                "after": 5.666666666666667,
+                "delta": 0.2777777777777778
+              },
+              "elixir_overflow": {
+                "before": 9.712305555555556,
+                "after": 2.354111111111111,
+                "delta": -7.358194444444444
+              },
+              "fireball_unit_hits": {
+                "before": 8.13888888888889,
+                "after": 7.583333333333333,
+                "delta": -0.5555555555555556
+              },
+              "cluster_fireballs": {
+                "before": 0.8055555555555556,
+                "after": 0.7222222222222222,
+                "delta": -0.08333333333333333
+              },
+              "own_tower_damage": {
+                "before": 9957.916666666666,
+                "after": 9872.305555555555,
+                "delta": -85.61111111111111
+              },
+              "duration_seconds": {
+                "before": 203.70694444444445,
+                "after": 239.02916666666664,
+                "delta": 35.322222222222194
+              },
+              "fireball_per_game": {
+                "before": 5.083333333333333,
+                "after": 5.0,
+                "delta": -0.08333333333333304
+              },
+              "unit_hits_per_minute": {
+                "before": 2.3972345894497136,
+                "after": 1.90353339027664,
+                "delta": -0.49370119917307353
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.5872474756083426,
+                "after": 1.4224205553715552,
+                "delta": -0.16482692023678736
+              }
+            }
+          },
+          "defense": {
+            "games": 36,
+            "before_wins": 2,
+            "after_wins": 13,
+            "gained_wins": 12,
+            "lost_wins": 1,
+            "wins_delta": 11,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.5069580078125,
+                "after": 1.1439900070271163,
+                "delta": -0.3629680007853836
+              },
+              "empty_spell_elixir": {
+                "before": 3.9444444444444446,
+                "after": 5.5,
+                "delta": 1.5555555555555556
+              },
+              "elixir_overflow": {
+                "before": 7.830666666666667,
+                "after": 2.1175277777777777,
+                "delta": -5.7131388888888885
+              },
+              "fireball_unit_hits": {
+                "before": 9.13888888888889,
+                "after": 7.25,
+                "delta": -1.8888888888888888
+              },
+              "cluster_fireballs": {
+                "before": 0.9166666666666666,
+                "after": 0.8055555555555556,
+                "delta": -0.1111111111111111
+              },
+              "own_tower_damage": {
+                "before": 10738.75,
+                "after": 9077.777777777777,
+                "delta": -1660.9722222222222
+              },
+              "duration_seconds": {
+                "before": 207.3625,
+                "after": 234.97916666666666,
+                "delta": 27.616666666666646
+              },
+              "fireball_per_game": {
+                "before": 5.472222222222222,
+                "after": 4.611111111111111,
+                "delta": -0.8611111111111116
+              },
+              "unit_hits_per_minute": {
+                "before": 2.644322543050616,
+                "after": 1.8512279457398704,
+                "delta": -0.7930945973107455
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.141318544416983,
+                "after": 1.4043798209061087,
+                "delta": 0.2630612764891256
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pilot_bank_s413",
+      "case": "bank",
+      "seed": 413,
+      "reference": "bank",
+      "selected_update": 100,
+      "comparison": {
+        "all": {
+          "games": 72,
+          "before_wins": 6,
+          "after_wins": 22,
+          "gained_wins": 22,
+          "lost_wins": 6,
+          "wins_delta": 16,
+          "metrics": {
+            "own_fraction_loss": {
+              "before": 1.517065300512566,
+              "after": 1.1543792240203374,
+              "delta": -0.36268607649222884
+            },
+            "empty_spell_elixir": {
+              "before": 4.666666666666667,
+              "after": 9.36111111111111,
+              "delta": 4.694444444444445
+            },
+            "elixir_overflow": {
+              "before": 8.77148611111111,
+              "after": 2.066375,
+              "delta": -6.705111111111112
+            },
+            "fireball_unit_hits": {
+              "before": 8.63888888888889,
+              "after": 6.875,
+              "delta": -1.7638888888888888
+            },
+            "cluster_fireballs": {
+              "before": 0.8611111111111112,
+              "after": 0.75,
+              "delta": -0.1111111111111111
+            },
+            "own_tower_damage": {
+              "before": 10348.333333333334,
+              "after": 10002.569444444445,
+              "delta": -345.7638888888889
+            },
+            "duration_seconds": {
+              "before": 205.53472222222223,
+              "after": 245.31666666666666,
+              "delta": 39.781944444444434
+            },
+            "fireball_per_game": {
+              "before": 5.277777777777778,
+              "after": 4.916666666666667,
+              "delta": -0.3611111111111107
+            },
+            "unit_hits_per_minute": {
+              "before": 2.5218772172855357,
+              "after": 1.6815001019090972,
+              "delta": -0.8403771153764386
+            },
+            "empty_spell_elixir_per_minute": {
+              "before": 1.3623002331317362,
+              "after": 2.2895577145186494,
+              "delta": 0.9272574813869132
+            }
+          }
+        },
+        "families": {
+          "air": {
+            "games": 12,
+            "before_wins": 1,
+            "after_wins": 1,
+            "gained_wins": 1,
+            "lost_wins": 1,
+            "wins_delta": 0,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.6237870473710316,
+                "after": 1.277830093625992,
+                "delta": -0.3459569537450397
+              },
+              "empty_spell_elixir": {
+                "before": 6.166666666666667,
+                "after": 8.0,
+                "delta": 1.8333333333333333
+              },
+              "elixir_overflow": {
+                "before": 8.455,
+                "after": 2.7407500000000002,
+                "delta": -5.71425
+              },
+              "fireball_unit_hits": {
+                "before": 7.916666666666667,
+                "after": 2.75,
+                "delta": -5.166666666666667
+              },
+              "cluster_fireballs": {
+                "before": 1.25,
+                "after": 0.5,
+                "delta": -0.75
+              },
+              "own_tower_damage": {
+                "before": 11791.916666666666,
+                "after": 12080.0,
+                "delta": 288.0833333333333
+              },
+              "duration_seconds": {
+                "before": 205.92083333333335,
+                "after": 227.89166666666665,
+                "delta": 21.970833333333303
+              },
+              "fireball_per_game": {
+                "before": 4.25,
+                "after": 2.4166666666666665,
+                "delta": -1.8333333333333335
+              },
+              "unit_hits_per_minute": {
+                "before": 2.306711721737723,
+                "after": 0.7240282297875452,
+                "delta": -1.5826834919501778
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.7968070253535946,
+                "after": 2.106263941200132,
+                "delta": 0.30945691584653723
+              }
+            }
+          },
+          "bridge": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 5,
+            "gained_wins": 5,
+            "lost_wins": 3,
+            "wins_delta": 2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.364232623387897,
+                "after": 1.1950799851190477,
+                "delta": -0.16915263826884921
+              },
+              "empty_spell_elixir": {
+                "before": 5.5,
+                "after": 11.333333333333334,
+                "delta": 5.833333333333333
+              },
+              "elixir_overflow": {
+                "before": 2.31675,
+                "after": 0.13683333333333333,
+                "delta": -2.1799166666666667
+              },
+              "fireball_unit_hits": {
+                "before": 6.0,
+                "after": 4.166666666666667,
+                "delta": -1.8333333333333333
+              },
+              "cluster_fireballs": {
+                "before": 0.4166666666666667,
+                "after": 0.25,
+                "delta": -0.16666666666666666
+              },
+              "own_tower_damage": {
+                "before": 11352.0,
+                "after": 10199.416666666666,
+                "delta": -1152.5833333333333
+              },
+              "duration_seconds": {
+                "before": 195.70416666666665,
+                "after": 239.84583333333333,
+                "delta": 44.14166666666668
+              },
+              "fireball_per_game": {
+                "before": 5.5,
+                "after": 5.333333333333333,
+                "delta": -0.16666666666666696
+              },
+              "unit_hits_per_minute": {
+                "before": 1.8395111669398965,
+                "after": 1.0423362229209736,
+                "delta": -0.7971749440189229
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.6862185696949052,
+                "after": 2.835154526345048,
+                "delta": 1.148935956650143
+              }
+            }
+          },
+          "giant": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 6,
+            "gained_wins": 6,
+            "lost_wins": 0,
+            "wins_delta": 6,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.563025096106151,
+                "after": 0.8682803199404763,
+                "delta": -0.6947447761656745
+              },
+              "empty_spell_elixir": {
+                "before": 2.6666666666666665,
+                "after": 8.166666666666666,
+                "delta": 5.5
+              },
+              "elixir_overflow": {
+                "before": 16.156333333333333,
+                "after": 6.768000000000001,
+                "delta": -9.388333333333334
+              },
+              "fireball_unit_hits": {
+                "before": 6.333333333333333,
+                "after": 9.833333333333334,
+                "delta": 3.5
+              },
+              "cluster_fireballs": {
+                "before": 0.5833333333333334,
+                "after": 1.5,
+                "delta": 0.9166666666666666
+              },
+              "own_tower_damage": {
+                "before": 9737.583333333334,
+                "after": 5823.25,
+                "delta": -3914.3333333333335
+              },
+              "duration_seconds": {
+                "before": 194.76666666666665,
+                "after": 252.0375,
+                "delta": 57.27083333333334
+              },
+              "fireball_per_game": {
+                "before": 4.583333333333333,
+                "after": 6.666666666666667,
+                "delta": 2.083333333333334
+              },
+              "unit_hits_per_minute": {
+                "before": 1.9510525415026527,
+                "after": 2.34092148985766,
+                "delta": 0.3898689483550073
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 0.8214958069484853,
+                "after": 1.9441551356444975,
+                "delta": 1.1226593286960123
+              }
+            }
+          },
+          "golem": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 1,
+            "gained_wins": 1,
+            "lost_wins": 0,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.6681450737847223,
+                "after": 1.4448087177579365,
+                "delta": -0.22333635602678573
+              },
+              "empty_spell_elixir": {
+                "before": 3.5,
+                "after": 7.333333333333333,
+                "delta": 3.8333333333333335
+              },
+              "elixir_overflow": {
+                "before": 11.733333333333334,
+                "after": 2.4610833333333333,
+                "delta": -9.272250000000001
+              },
+              "fireball_unit_hits": {
+                "before": 7.333333333333333,
+                "after": 5.75,
+                "delta": -1.5833333333333333
+              },
+              "cluster_fireballs": {
+                "before": 0.75,
+                "after": 0.9166666666666666,
+                "delta": 0.16666666666666666
+              },
+              "own_tower_damage": {
+                "before": 10770.25,
+                "after": 14382.5,
+                "delta": 3612.25
+              },
+              "duration_seconds": {
+                "before": 185.0583333333333,
+                "after": 243.7125,
+                "delta": 58.6541666666667
+              },
+              "fireball_per_game": {
+                "before": 3.8333333333333335,
+                "after": 3.1666666666666665,
+                "delta": -0.666666666666667
+              },
+              "unit_hits_per_minute": {
+                "before": 2.3776286756428155,
+                "after": 1.4156024003692875,
+                "delta": -0.962026275273528
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.1347773224658892,
+                "after": 1.8054059598912653,
+                "delta": 0.670628637425376
+              }
+            }
+          },
+          "hog": {
+            "games": 12,
+            "before_wins": 2,
+            "after_wins": 5,
+            "gained_wins": 5,
+            "lost_wins": 2,
+            "wins_delta": 3,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.237455822172619,
+                "after": 1.0410853794642858,
+                "delta": -0.19637044270833334
+              },
+              "empty_spell_elixir": {
+                "before": 6.333333333333333,
+                "after": 14.833333333333334,
+                "delta": 8.5
+              },
+              "elixir_overflow": {
+                "before": 11.335333333333333,
+                "after": 0.2915833333333333,
+                "delta": -11.043750000000001
+              },
+              "fireball_unit_hits": {
+                "before": 10.0,
+                "after": 5.833333333333333,
+                "delta": -4.166666666666667
+              },
+              "cluster_fireballs": {
+                "before": 0.5,
+                "after": 0.08333333333333333,
+                "delta": -0.4166666666666667
+              },
+              "own_tower_damage": {
+                "before": 10056.0,
+                "after": 7898.583333333333,
+                "delta": -2157.4166666666665
+              },
+              "duration_seconds": {
+                "before": 264.3125,
+                "after": 256.3541666666667,
+                "delta": -7.958333333333314
+              },
+              "fireball_per_game": {
+                "before": 8.833333333333334,
+                "after": 7.083333333333333,
+                "delta": -1.7500000000000009
+              },
+              "unit_hits_per_minute": {
+                "before": 2.2700401986285175,
+                "after": 1.365298659081674,
+                "delta": -0.9047415395468434
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.437692125798061,
+                "after": 3.4717594473791142,
+                "delta": 2.034067321581053
+              }
+            }
+          },
+          "swarm": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 4,
+            "gained_wins": 4,
+            "lost_wins": 0,
+            "wins_delta": 4,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.6457461402529763,
+                "after": 1.0991908482142858,
+                "delta": -0.5465552920386905
+              },
+              "empty_spell_elixir": {
+                "before": 3.8333333333333335,
+                "after": 6.5,
+                "delta": 2.6666666666666665
+              },
+              "elixir_overflow": {
+                "before": 2.632166666666667,
+                "after": 0.0,
+                "delta": -2.632166666666667
+              },
+              "fireball_unit_hits": {
+                "before": 14.25,
+                "after": 12.916666666666666,
+                "delta": -1.3333333333333333
+              },
+              "cluster_fireballs": {
+                "before": 1.6666666666666667,
+                "after": 1.25,
+                "delta": -0.4166666666666667
+              },
+              "own_tower_damage": {
+                "before": 8382.25,
+                "after": 9631.666666666666,
+                "delta": 1249.4166666666667
+              },
+              "duration_seconds": {
+                "before": 187.44583333333335,
+                "after": 252.05833333333337,
+                "delta": 64.61250000000001
+              },
+              "fireball_per_game": {
+                "before": 4.666666666666667,
+                "after": 4.833333333333333,
+                "delta": 0.16666666666666607
+              },
+              "unit_hits_per_minute": {
+                "before": 4.561317714006268,
+                "after": 3.0746850927364697,
+                "delta": -1.4866326212697984
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.2270211394402826,
+                "after": 1.5472608853770622,
+                "delta": 0.3202397459367796
+              }
+            }
+          }
+        },
+        "tasks": {
+          "attack": {
+            "games": 36,
+            "before_wins": 4,
+            "after_wins": 13,
+            "gained_wins": 13,
+            "lost_wins": 4,
+            "wins_delta": 9,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.527172593212632,
+                "after": 1.0890932436342593,
+                "delta": -0.43807934957837297
+              },
+              "empty_spell_elixir": {
+                "before": 5.388888888888889,
+                "after": 9.333333333333334,
+                "delta": 3.9444444444444446
+              },
+              "elixir_overflow": {
+                "before": 9.712305555555556,
+                "after": 2.077361111111111,
+                "delta": -7.634944444444445
+              },
+              "fireball_unit_hits": {
+                "before": 8.13888888888889,
+                "after": 7.472222222222222,
+                "delta": -0.6666666666666666
+              },
+              "cluster_fireballs": {
+                "before": 0.8055555555555556,
+                "after": 0.8611111111111112,
+                "delta": 0.05555555555555555
+              },
+              "own_tower_damage": {
+                "before": 9957.916666666666,
+                "after": 10110.25,
+                "delta": 152.33333333333334
+              },
+              "duration_seconds": {
+                "before": 203.70694444444445,
+                "after": 248.97499999999997,
+                "delta": 45.26805555555552
+              },
+              "fireball_per_game": {
+                "before": 5.083333333333333,
+                "after": 4.916666666666667,
+                "delta": -0.16666666666666607
+              },
+              "unit_hits_per_minute": {
+                "before": 2.3972345894497136,
+                "after": 1.8007162700404995,
+                "delta": -0.5965183194092141
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.5872474756083426,
+                "after": 2.2492218094186165,
+                "delta": 0.6619743338102739
+              }
+            }
+          },
+          "defense": {
+            "games": 36,
+            "before_wins": 2,
+            "after_wins": 9,
+            "gained_wins": 9,
+            "lost_wins": 2,
+            "wins_delta": 7,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.5069580078125,
+                "after": 1.2196652044064153,
+                "delta": -0.2872928034060847
+              },
+              "empty_spell_elixir": {
+                "before": 3.9444444444444446,
+                "after": 9.38888888888889,
+                "delta": 5.444444444444445
+              },
+              "elixir_overflow": {
+                "before": 7.830666666666667,
+                "after": 2.055388888888889,
+                "delta": -5.775277777777777
+              },
+              "fireball_unit_hits": {
+                "before": 9.13888888888889,
+                "after": 6.277777777777778,
+                "delta": -2.861111111111111
+              },
+              "cluster_fireballs": {
+                "before": 0.9166666666666666,
+                "after": 0.6388888888888888,
+                "delta": -0.2777777777777778
+              },
+              "own_tower_damage": {
+                "before": 10738.75,
+                "after": 9894.888888888889,
+                "delta": -843.8611111111111
+              },
+              "duration_seconds": {
+                "before": 207.3625,
+                "after": 241.65833333333336,
+                "delta": 34.29583333333335
+              },
+              "fireball_per_game": {
+                "before": 5.472222222222222,
+                "after": 4.916666666666667,
+                "delta": -0.5555555555555554
+              },
+              "unit_hits_per_minute": {
+                "before": 2.644322543050616,
+                "after": 1.5586744370495533,
+                "delta": -1.0856481060010625
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 1.141318544416983,
+                "after": 2.331114866029863,
+                "delta": 1.1897963216128797
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pilot_bc800_s412",
+      "case": "bc800",
+      "seed": 412,
+      "reference": "bc800",
+      "selected_update": 50,
+      "comparison": {
+        "all": {
+          "games": 72,
+          "before_wins": 12,
+          "after_wins": 22,
+          "gained_wins": 18,
+          "lost_wins": 8,
+          "wins_delta": 10,
+          "metrics": {
+            "own_fraction_loss": {
+              "before": 1.3836188745246363,
+              "after": 1.0272510669849537,
+              "delta": -0.35636780753968256
+            },
+            "empty_spell_elixir": {
+              "before": 13.25,
+              "after": 15.472222222222221,
+              "delta": 2.2222222222222223
+            },
+            "elixir_overflow": {
+              "before": 8.388930555555556,
+              "after": 1.1417777777777778,
+              "delta": -7.247152777777777
+            },
+            "fireball_unit_hits": {
+              "before": 7.527777777777778,
+              "after": 4.833333333333333,
+              "delta": -2.6944444444444446
+            },
+            "cluster_fireballs": {
+              "before": 0.6805555555555556,
+              "after": 0.375,
+              "delta": -0.3055555555555556
+            },
+            "own_tower_damage": {
+              "before": 12365.444444444445,
+              "after": 9052.569444444445,
+              "delta": -3312.875
+            },
+            "duration_seconds": {
+              "before": 232.42847222222224,
+              "after": 252.42152777777775,
+              "delta": 19.993055555555515
+            },
+            "fireball_per_game": {
+              "before": 6.013888888888889,
+              "after": 4.444444444444445,
+              "delta": -1.5694444444444446
+            },
+            "unit_hits_per_minute": {
+              "before": 1.9432501635807908,
+              "after": 1.1488718991325688,
+              "delta": -0.794378264448222
+            },
+            "empty_spell_elixir_per_minute": {
+              "before": 3.420407114494602,
+              "after": 3.677710619637016,
+              "delta": 0.25730350514241396
+            }
+          }
+        },
+        "families": {
+          "air": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 0,
+            "gained_wins": 0,
+            "lost_wins": 0,
+            "wins_delta": 0,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.3407428075396826,
+                "after": 1.518103221106151,
+                "delta": 0.17736041356646826
+              },
+              "empty_spell_elixir": {
+                "before": 16.666666666666668,
+                "after": 14.0,
+                "delta": -2.6666666666666665
+              },
+              "elixir_overflow": {
+                "before": 6.947583333333333,
+                "after": 0.6904166666666667,
+                "delta": -6.2571666666666665
+              },
+              "fireball_unit_hits": {
+                "before": 4.5,
+                "after": 1.6666666666666667,
+                "delta": -2.8333333333333335
+              },
+              "cluster_fireballs": {
+                "before": 0.75,
+                "after": 0.25,
+                "delta": -0.5
+              },
+              "own_tower_damage": {
+                "before": 14529.916666666666,
+                "after": 13887.833333333334,
+                "delta": -642.0833333333334
+              },
+              "duration_seconds": {
+                "before": 219.1583333333333,
+                "after": 216.07083333333333,
+                "delta": -3.0874999999999773
+              },
+              "fireball_per_game": {
+                "before": 3.9166666666666665,
+                "after": 2.0833333333333335,
+                "delta": -1.833333333333333
+              },
+              "unit_hits_per_minute": {
+                "before": 1.2319860070725124,
+                "after": 0.46281119231733425,
+                "delta": -0.7691748147551781
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 4.562911137305601,
+                "after": 3.8876140154656076,
+                "delta": -0.6752971218399937
+              }
+            }
+          },
+          "bridge": {
+            "games": 12,
+            "before_wins": 5,
+            "after_wins": 5,
+            "gained_wins": 2,
+            "lost_wins": 2,
+            "wins_delta": 0,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.4363839285714286,
+                "after": 0.8698149181547619,
+                "delta": -0.5665690104166666
+              },
+              "empty_spell_elixir": {
+                "before": 9.666666666666666,
+                "after": 15.5,
+                "delta": 5.833333333333333
+              },
+              "elixir_overflow": {
+                "before": 4.708583333333333,
+                "after": 0.3735,
+                "delta": -4.335083333333333
+              },
+              "fireball_unit_hits": {
+                "before": 7.833333333333333,
+                "after": 5.083333333333333,
+                "delta": -2.75
+              },
+              "cluster_fireballs": {
+                "before": 0.25,
+                "after": 0.08333333333333333,
+                "delta": -0.16666666666666666
+              },
+              "own_tower_damage": {
+                "before": 13314.0,
+                "after": 8609.333333333334,
+                "delta": -4704.666666666667
+              },
+              "duration_seconds": {
+                "before": 229.82500000000002,
+                "after": 276.325,
+                "delta": 46.49999999999997
+              },
+              "fireball_per_game": {
+                "before": 7.75,
+                "after": 6.333333333333333,
+                "delta": -1.416666666666667
+              },
+              "unit_hits_per_minute": {
+                "before": 2.045034265201784,
+                "after": 1.1037727313851442,
+                "delta": -0.9412615338166397
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 2.5236593059936907,
+                "after": 3.365602098977653,
+                "delta": 0.8419427929839625
+              }
+            }
+          },
+          "giant": {
+            "games": 12,
+            "before_wins": 1,
+            "after_wins": 8,
+            "gained_wins": 7,
+            "lost_wins": 0,
+            "wins_delta": 7,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.330694289434524,
+                "after": 0.6286504836309524,
+                "delta": -0.7020438058035715
+              },
+              "empty_spell_elixir": {
+                "before": 13.166666666666666,
+                "after": 20.0,
+                "delta": 6.833333333333333
+              },
+              "elixir_overflow": {
+                "before": 14.643583333333334,
+                "after": 2.983916666666667,
+                "delta": -11.659666666666666
+              },
+              "fireball_unit_hits": {
+                "before": 7.416666666666667,
+                "after": 8.083333333333334,
+                "delta": 0.6666666666666666
+              },
+              "cluster_fireballs": {
+                "before": 0.6666666666666666,
+                "after": 0.9166666666666666,
+                "delta": 0.25
+              },
+              "own_tower_damage": {
+                "before": 10655.083333333334,
+                "after": 6865.75,
+                "delta": -3789.3333333333335
+              },
+              "duration_seconds": {
+                "before": 244.60416666666666,
+                "after": 270.5625,
+                "delta": 25.958333333333343
+              },
+              "fireball_per_game": {
+                "before": 6.583333333333333,
+                "after": 6.916666666666667,
+                "delta": 0.3333333333333339
+              },
+              "unit_hits_per_minute": {
+                "before": 1.8192658206285666,
+                "after": 1.7925617925617927,
+                "delta": -0.026704028066773855
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.2297078613406014,
+                "after": 4.435204435204436,
+                "delta": 1.2054965738638344
+              }
+            }
+          },
+          "golem": {
+            "games": 12,
+            "before_wins": 2,
+            "after_wins": 1,
+            "gained_wins": 1,
+            "lost_wins": 2,
+            "wins_delta": -1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.559359111483135,
+                "after": 1.4797247023809526,
+                "delta": -0.0796344091021825
+              },
+              "empty_spell_elixir": {
+                "before": 16.333333333333332,
+                "after": 11.0,
+                "delta": -5.333333333333333
+              },
+              "elixir_overflow": {
+                "before": 9.873083333333334,
+                "after": 1.7081666666666668,
+                "delta": -8.164916666666667
+              },
+              "fireball_unit_hits": {
+                "before": 3.0833333333333335,
+                "after": 0.8333333333333334,
+                "delta": -2.25
+              },
+              "cluster_fireballs": {
+                "before": 0.3333333333333333,
+                "after": 0.0,
+                "delta": -0.3333333333333333
+              },
+              "own_tower_damage": {
+                "before": 14377.333333333334,
+                "after": 11044.0,
+                "delta": -3333.3333333333335
+              },
+              "duration_seconds": {
+                "before": 220.44166666666663,
+                "after": 202.7541666666667,
+                "delta": -17.687499999999943
+              },
+              "fireball_per_game": {
+                "before": 3.4166666666666665,
+                "after": 1.25,
+                "delta": -2.1666666666666665
+              },
+              "unit_hits_per_minute": {
+                "before": 0.8392242845801989,
+                "after": 0.24660405663673166,
+                "delta": -0.5926202279434672
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 4.445620534532946,
+                "after": 3.255173547604858,
+                "delta": -1.1904469869280878
+              }
+            }
+          },
+          "hog": {
+            "games": 12,
+            "before_wins": 2,
+            "after_wins": 5,
+            "gained_wins": 5,
+            "lost_wins": 2,
+            "wins_delta": 3,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.184721447172619,
+                "after": 0.6102585565476191,
+                "delta": -0.574462890625
+              },
+              "empty_spell_elixir": {
+                "before": 14.5,
+                "after": 21.5,
+                "delta": 7.0
+              },
+              "elixir_overflow": {
+                "before": 11.411166666666666,
+                "after": 1.0946666666666667,
+                "delta": -10.3165
+              },
+              "fireball_unit_hits": {
+                "before": 6.916666666666667,
+                "after": 3.5833333333333335,
+                "delta": -3.3333333333333335
+              },
+              "cluster_fireballs": {
+                "before": 0.25,
+                "after": 0.0,
+                "delta": -0.25
+              },
+              "own_tower_damage": {
+                "before": 10803.416666666666,
+                "after": 7416.083333333333,
+                "delta": -3387.3333333333335
+              },
+              "duration_seconds": {
+                "before": 255.71249999999998,
+                "after": 297.2708333333333,
+                "delta": 41.55833333333334
+              },
+              "fireball_per_game": {
+                "before": 7.75,
+                "after": 6.25,
+                "delta": -1.5
+              },
+              "unit_hits_per_minute": {
+                "before": 1.6229163611477735,
+                "after": 0.7232461980517205,
+                "delta": -0.899670163096053
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.402258395659188,
+                "after": 4.339477188310323,
+                "delta": 0.9372187926511355
+              }
+            }
+          },
+          "swarm": {
+            "games": 12,
+            "before_wins": 2,
+            "after_wins": 3,
+            "gained_wins": 3,
+            "lost_wins": 2,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.4498116629464286,
+                "after": 1.0569545200892858,
+                "delta": -0.39285714285714285
+              },
+              "empty_spell_elixir": {
+                "before": 9.166666666666666,
+                "after": 10.833333333333334,
+                "delta": 1.6666666666666667
+              },
+              "elixir_overflow": {
+                "before": 2.7495833333333333,
+                "after": 0.0,
+                "delta": -2.7495833333333333
+              },
+              "fireball_unit_hits": {
+                "before": 15.416666666666666,
+                "after": 9.75,
+                "delta": -5.666666666666667
+              },
+              "cluster_fireballs": {
+                "before": 1.8333333333333333,
+                "after": 1.0,
+                "delta": -0.8333333333333334
+              },
+              "own_tower_damage": {
+                "before": 10512.916666666666,
+                "after": 6492.416666666667,
+                "delta": -4020.5
+              },
+              "duration_seconds": {
+                "before": 224.82916666666668,
+                "after": 251.54583333333335,
+                "delta": 26.71666666666667
+              },
+              "fireball_per_game": {
+                "before": 6.666666666666667,
+                "after": 3.8333333333333335,
+                "delta": -2.8333333333333335
+              },
+              "unit_hits_per_minute": {
+                "before": 4.114234882040067,
+                "after": 2.3256199168474927,
+                "delta": -1.7886149651925747
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 2.4463018217535533,
+                "after": 2.5840221298305477,
+                "delta": 0.13772030807699442
+              }
+            }
+          }
+        },
+        "tasks": {
+          "attack": {
+            "games": 36,
+            "before_wins": 8,
+            "after_wins": 12,
+            "gained_wins": 9,
+            "lost_wins": 5,
+            "wins_delta": 4,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.3425796750992065,
+                "after": 1.0239083426339286,
+                "delta": -0.3186713324652778
+              },
+              "empty_spell_elixir": {
+                "before": 13.777777777777779,
+                "after": 15.88888888888889,
+                "delta": 2.111111111111111
+              },
+              "elixir_overflow": {
+                "before": 9.125777777777778,
+                "after": 1.0669444444444445,
+                "delta": -8.058833333333332
+              },
+              "fireball_unit_hits": {
+                "before": 7.722222222222222,
+                "after": 4.333333333333333,
+                "delta": -3.388888888888889
+              },
+              "cluster_fireballs": {
+                "before": 0.75,
+                "after": 0.25,
+                "delta": -0.5
+              },
+              "own_tower_damage": {
+                "before": 11993.027777777777,
+                "after": 9074.083333333334,
+                "delta": -2918.9444444444443
+              },
+              "duration_seconds": {
+                "before": 234.82638888888889,
+                "after": 250.95694444444442,
+                "delta": 16.13055555555553
+              },
+              "fireball_per_game": {
+                "before": 6.055555555555555,
+                "after": 4.583333333333333,
+                "delta": -1.4722222222222223
+              },
+              "unit_hits_per_minute": {
+                "before": 1.9730888658879193,
+                "after": 1.036034290964032,
+                "delta": -0.9370545749238872
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.5203312139583023,
+                "after": 3.7987924002014513,
+                "delta": 0.278461186243149
+              }
+            }
+          },
+          "defense": {
+            "games": 36,
+            "before_wins": 4,
+            "after_wins": 10,
+            "gained_wins": 9,
+            "lost_wins": 3,
+            "wins_delta": 6,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.424658073950066,
+                "after": 1.0305937913359788,
+                "delta": -0.39406428261408727
+              },
+              "empty_spell_elixir": {
+                "before": 12.722222222222221,
+                "after": 15.055555555555555,
+                "delta": 2.3333333333333335
+              },
+              "elixir_overflow": {
+                "before": 7.652083333333334,
+                "after": 1.216611111111111,
+                "delta": -6.435472222222222
+              },
+              "fireball_unit_hits": {
+                "before": 7.333333333333333,
+                "after": 5.333333333333333,
+                "delta": -2.0
+              },
+              "cluster_fireballs": {
+                "before": 0.6111111111111112,
+                "after": 0.5,
+                "delta": -0.1111111111111111
+              },
+              "own_tower_damage": {
+                "before": 12737.861111111111,
+                "after": 9031.055555555555,
+                "delta": -3706.8055555555557
+              },
+              "duration_seconds": {
+                "before": 230.03055555555557,
+                "after": 253.88611111111115,
+                "delta": 23.855555555555583
+              },
+              "fireball_per_game": {
+                "before": 5.972222222222222,
+                "after": 4.305555555555555,
+                "delta": -1.666666666666667
+              },
+              "unit_hits_per_minute": {
+                "before": 1.9127893637318711,
+                "after": 1.260407663103535,
+                "delta": -0.6523817006283361
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.318399729504534,
+                "after": 3.558025798969354,
+                "delta": 0.23962606946482
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pilot_bc800_s413",
+      "case": "bc800",
+      "seed": 413,
+      "reference": "bc800",
+      "selected_update": 50,
+      "comparison": {
+        "all": {
+          "games": 72,
+          "before_wins": 12,
+          "after_wins": 28,
+          "gained_wins": 21,
+          "lost_wins": 5,
+          "wins_delta": 16,
+          "metrics": {
+            "own_fraction_loss": {
+              "before": 1.3836188745246363,
+              "after": 0.9633598529472552,
+              "delta": -0.42025902157738093
+            },
+            "empty_spell_elixir": {
+              "before": 13.25,
+              "after": 12.222222222222221,
+              "delta": -1.0277777777777777
+            },
+            "elixir_overflow": {
+              "before": 8.388930555555556,
+              "after": 3.0405555555555552,
+              "delta": -5.348375
+            },
+            "fireball_unit_hits": {
+              "before": 7.527777777777778,
+              "after": 8.083333333333334,
+              "delta": 0.5555555555555556
+            },
+            "cluster_fireballs": {
+              "before": 0.6805555555555556,
+              "after": 0.8611111111111112,
+              "delta": 0.18055555555555555
+            },
+            "own_tower_damage": {
+              "before": 12365.444444444445,
+              "after": 10832.138888888889,
+              "delta": -1533.3055555555557
+            },
+            "duration_seconds": {
+              "before": 232.42847222222224,
+              "after": 263.3333333333333,
+              "delta": 30.904861111111074
+            },
+            "fireball_per_game": {
+              "before": 6.013888888888889,
+              "after": 5.75,
+              "delta": -0.2638888888888893
+            },
+            "unit_hits_per_minute": {
+              "before": 1.9432501635807908,
+              "after": 1.8417721518987342,
+              "delta": -0.10147801168205661
+            },
+            "empty_spell_elixir_per_minute": {
+              "before": 3.420407114494602,
+              "after": 2.7848101265822787,
+              "delta": -0.6355969879123236
+            }
+          }
+        },
+        "families": {
+          "air": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 2,
+            "gained_wins": 2,
+            "lost_wins": 0,
+            "wins_delta": 2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.3407428075396826,
+                "after": 1.2184729197668651,
+                "delta": -0.12226988777281744
+              },
+              "empty_spell_elixir": {
+                "before": 16.666666666666668,
+                "after": 11.833333333333334,
+                "delta": -4.833333333333333
+              },
+              "elixir_overflow": {
+                "before": 6.947583333333333,
+                "after": 1.8062500000000001,
+                "delta": -5.141333333333333
+              },
+              "fireball_unit_hits": {
+                "before": 4.5,
+                "after": 2.25,
+                "delta": -2.25
+              },
+              "cluster_fireballs": {
+                "before": 0.75,
+                "after": 0.3333333333333333,
+                "delta": -0.4166666666666667
+              },
+              "own_tower_damage": {
+                "before": 14529.916666666666,
+                "after": 13001.083333333334,
+                "delta": -1528.8333333333333
+              },
+              "duration_seconds": {
+                "before": 219.1583333333333,
+                "after": 220.04166666666666,
+                "delta": 0.8833333333333542
+              },
+              "fireball_per_game": {
+                "before": 3.9166666666666665,
+                "after": 2.3333333333333335,
+                "delta": -1.583333333333333
+              },
+              "unit_hits_per_minute": {
+                "before": 1.2319860070725124,
+                "after": 0.613520166635107,
+                "delta": -0.6184658404374054
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 4.562911137305601,
+                "after": 3.22666161711797,
+                "delta": -1.3362495201876312
+              }
+            }
+          },
+          "bridge": {
+            "games": 12,
+            "before_wins": 5,
+            "after_wins": 6,
+            "gained_wins": 3,
+            "lost_wins": 2,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.4363839285714286,
+                "after": 1.0559198288690477,
+                "delta": -0.38046409970238093
+              },
+              "empty_spell_elixir": {
+                "before": 9.666666666666666,
+                "after": 10.833333333333334,
+                "delta": 1.1666666666666667
+              },
+              "elixir_overflow": {
+                "before": 4.708583333333333,
+                "after": 1.1495833333333334,
+                "delta": -3.5589999999999997
+              },
+              "fireball_unit_hits": {
+                "before": 7.833333333333333,
+                "after": 7.833333333333333,
+                "delta": 0.0
+              },
+              "cluster_fireballs": {
+                "before": 0.25,
+                "after": 0.5833333333333334,
+                "delta": 0.3333333333333333
+              },
+              "own_tower_damage": {
+                "before": 13314.0,
+                "after": 11044.416666666666,
+                "delta": -2269.5833333333335
+              },
+              "duration_seconds": {
+                "before": 229.82500000000002,
+                "after": 263.6375,
+                "delta": 33.81249999999997
+              },
+              "fireball_per_game": {
+                "before": 7.75,
+                "after": 7.416666666666667,
+                "delta": -0.33333333333333304
+              },
+              "unit_hits_per_minute": {
+                "before": 2.045034265201784,
+                "after": 1.7827509364183776,
+                "delta": -0.2622833287834063
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 2.5236593059936907,
+                "after": 2.4655066141956286,
+                "delta": -0.05815269179806215
+              }
+            }
+          },
+          "giant": {
+            "games": 12,
+            "before_wins": 1,
+            "after_wins": 6,
+            "gained_wins": 5,
+            "lost_wins": 0,
+            "wins_delta": 5,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.330694289434524,
+                "after": 0.662721664186508,
+                "delta": -0.6679726252480158
+              },
+              "empty_spell_elixir": {
+                "before": 13.166666666666666,
+                "after": 11.5,
+                "delta": -1.6666666666666667
+              },
+              "elixir_overflow": {
+                "before": 14.643583333333334,
+                "after": 8.602416666666667,
+                "delta": -6.041166666666666
+              },
+              "fireball_unit_hits": {
+                "before": 7.416666666666667,
+                "after": 10.0,
+                "delta": 2.5833333333333335
+              },
+              "cluster_fireballs": {
+                "before": 0.6666666666666666,
+                "after": 1.1666666666666667,
+                "delta": 0.5
+              },
+              "own_tower_damage": {
+                "before": 10655.083333333334,
+                "after": 7766.5,
+                "delta": -2888.5833333333335
+              },
+              "duration_seconds": {
+                "before": 244.60416666666666,
+                "after": 273.9916666666667,
+                "delta": 29.387500000000017
+              },
+              "fireball_per_game": {
+                "before": 6.583333333333333,
+                "after": 7.333333333333333,
+                "delta": 0.75
+              },
+              "unit_hits_per_minute": {
+                "before": 1.8192658206285666,
+                "after": 2.1898476231028923,
+                "delta": 0.3705818024743257
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.2297078613406014,
+                "after": 2.5183247665683264,
+                "delta": -0.711383094772275
+              }
+            }
+          },
+          "golem": {
+            "games": 12,
+            "before_wins": 2,
+            "after_wins": 7,
+            "gained_wins": 5,
+            "lost_wins": 0,
+            "wins_delta": 5,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.559359111483135,
+                "after": 0.8957325768849206,
+                "delta": -0.6636265345982143
+              },
+              "empty_spell_elixir": {
+                "before": 16.333333333333332,
+                "after": 9.0,
+                "delta": -7.333333333333333
+              },
+              "elixir_overflow": {
+                "before": 9.873083333333334,
+                "after": 4.413250000000001,
+                "delta": -5.459833333333333
+              },
+              "fireball_unit_hits": {
+                "before": 3.0833333333333335,
+                "after": 5.666666666666667,
+                "delta": 2.5833333333333335
+              },
+              "cluster_fireballs": {
+                "before": 0.3333333333333333,
+                "after": 0.8333333333333334,
+                "delta": 0.5
+              },
+              "own_tower_damage": {
+                "before": 14377.333333333334,
+                "after": 16167.25,
+                "delta": 1789.9166666666667
+              },
+              "duration_seconds": {
+                "before": 220.44166666666663,
+                "after": 273.41249999999997,
+                "delta": 52.97083333333333
+              },
+              "fireball_per_game": {
+                "before": 3.4166666666666665,
+                "after": 3.5833333333333335,
+                "delta": 0.16666666666666696
+              },
+              "unit_hits_per_minute": {
+                "before": 0.8392242845801989,
+                "after": 1.2435422667215288,
+                "delta": 0.40431798214132986
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 4.445620534532946,
+                "after": 1.975037717734193,
+                "delta": -2.470582816798753
+              }
+            }
+          },
+          "hog": {
+            "games": 12,
+            "before_wins": 2,
+            "after_wins": 4,
+            "gained_wins": 4,
+            "lost_wins": 2,
+            "wins_delta": 2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.184721447172619,
+                "after": 0.9101097470238094,
+                "delta": -0.2746117001488096
+              },
+              "empty_spell_elixir": {
+                "before": 14.5,
+                "after": 19.333333333333332,
+                "delta": 4.833333333333333
+              },
+              "elixir_overflow": {
+                "before": 11.411166666666666,
+                "after": 1.806,
+                "delta": -9.605166666666667
+              },
+              "fireball_unit_hits": {
+                "before": 6.916666666666667,
+                "after": 6.75,
+                "delta": -0.16666666666666666
+              },
+              "cluster_fireballs": {
+                "before": 0.25,
+                "after": 0.4166666666666667,
+                "delta": 0.16666666666666666
+              },
+              "own_tower_damage": {
+                "before": 10803.416666666666,
+                "after": 9077.166666666666,
+                "delta": -1726.25
+              },
+              "duration_seconds": {
+                "before": 255.71249999999998,
+                "after": 297.99583333333334,
+                "delta": 42.28333333333336
+              },
+              "fireball_per_game": {
+                "before": 7.75,
+                "after": 8.166666666666666,
+                "delta": 0.4166666666666661
+              },
+              "unit_hits_per_minute": {
+                "before": 1.6229163611477735,
+                "after": 1.3590794054726716,
+                "delta": -0.2638369556751019
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.402258395659188,
+                "after": 3.8926718774032074,
+                "delta": 0.49041348174401955
+              }
+            }
+          },
+          "swarm": {
+            "games": 12,
+            "before_wins": 2,
+            "after_wins": 3,
+            "gained_wins": 2,
+            "lost_wins": 1,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.4498116629464286,
+                "after": 1.037202380952381,
+                "delta": -0.4126092819940476
+              },
+              "empty_spell_elixir": {
+                "before": 9.166666666666666,
+                "after": 10.833333333333334,
+                "delta": 1.6666666666666667
+              },
+              "elixir_overflow": {
+                "before": 2.7495833333333333,
+                "after": 0.4658333333333333,
+                "delta": -2.28375
+              },
+              "fireball_unit_hits": {
+                "before": 15.416666666666666,
+                "after": 16.0,
+                "delta": 0.5833333333333334
+              },
+              "cluster_fireballs": {
+                "before": 1.8333333333333333,
+                "after": 1.8333333333333333,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 10512.916666666666,
+                "after": 7936.416666666667,
+                "delta": -2576.5
+              },
+              "duration_seconds": {
+                "before": 224.82916666666668,
+                "after": 250.92083333333335,
+                "delta": 26.09166666666667
+              },
+              "fireball_per_game": {
+                "before": 6.666666666666667,
+                "after": 5.666666666666667,
+                "delta": -1.0
+              },
+              "unit_hits_per_minute": {
+                "before": 4.114234882040067,
+                "after": 3.8259079058800083,
+                "delta": -0.2883269761600591
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 2.4463018217535533,
+                "after": 2.590458477939589,
+                "delta": 0.1441566561860359
+              }
+            }
+          }
+        },
+        "tasks": {
+          "attack": {
+            "games": 36,
+            "before_wins": 8,
+            "after_wins": 13,
+            "gained_wins": 8,
+            "lost_wins": 3,
+            "wins_delta": 5,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.3425796750992065,
+                "after": 0.9864424448164681,
+                "delta": -0.35613723028273814
+              },
+              "empty_spell_elixir": {
+                "before": 13.777777777777779,
+                "after": 13.88888888888889,
+                "delta": 0.1111111111111111
+              },
+              "elixir_overflow": {
+                "before": 9.125777777777778,
+                "after": 3.16925,
+                "delta": -5.956527777777778
+              },
+              "fireball_unit_hits": {
+                "before": 7.722222222222222,
+                "after": 7.972222222222222,
+                "delta": 0.25
+              },
+              "cluster_fireballs": {
+                "before": 0.75,
+                "after": 0.9166666666666666,
+                "delta": 0.16666666666666666
+              },
+              "own_tower_damage": {
+                "before": 11993.027777777777,
+                "after": 10704.416666666666,
+                "delta": -1288.611111111111
+              },
+              "duration_seconds": {
+                "before": 234.82638888888889,
+                "after": 267.65416666666664,
+                "delta": 32.827777777777754
+              },
+              "fireball_per_game": {
+                "before": 6.055555555555555,
+                "after": 6.305555555555555,
+                "delta": 0.25
+              },
+              "unit_hits_per_minute": {
+                "before": 1.9730888658879193,
+                "after": 1.7871320267135762,
+                "delta": -0.18595683917434314
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.5203312139583023,
+                "after": 3.1134704298145928,
+                "delta": -0.4068607841437095
+              }
+            }
+          },
+          "defense": {
+            "games": 36,
+            "before_wins": 4,
+            "after_wins": 15,
+            "gained_wins": 13,
+            "lost_wins": 2,
+            "wins_delta": 11,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.424658073950066,
+                "after": 0.9402772610780423,
+                "delta": -0.48438081287202384
+              },
+              "empty_spell_elixir": {
+                "before": 12.722222222222221,
+                "after": 10.555555555555555,
+                "delta": -2.1666666666666665
+              },
+              "elixir_overflow": {
+                "before": 7.652083333333334,
+                "after": 2.911861111111111,
+                "delta": -4.740222222222222
+              },
+              "fireball_unit_hits": {
+                "before": 7.333333333333333,
+                "after": 8.194444444444445,
+                "delta": 0.8611111111111112
+              },
+              "cluster_fireballs": {
+                "before": 0.6111111111111112,
+                "after": 0.8055555555555556,
+                "delta": 0.19444444444444445
+              },
+              "own_tower_damage": {
+                "before": 12737.861111111111,
+                "after": 10959.861111111111,
+                "delta": -1778.0
+              },
+              "duration_seconds": {
+                "before": 230.03055555555557,
+                "after": 259.01250000000005,
+                "delta": 28.98194444444448
+              },
+              "fireball_per_game": {
+                "before": 5.972222222222222,
+                "after": 5.194444444444445,
+                "delta": -0.7777777777777777
+              },
+              "unit_hits_per_minute": {
+                "before": 1.9127893637318711,
+                "after": 1.898235284654859,
+                "delta": -0.014554079077012227
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.318399729504534,
+                "after": 2.445184434470666,
+                "delta": -0.8732152950338681
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pilot_bc8000_s412",
+      "case": "bc8000",
+      "seed": 412,
+      "reference": "bc8000",
+      "selected_update": 100,
+      "comparison": {
+        "all": {
+          "games": 72,
+          "before_wins": 20,
+          "after_wins": 29,
+          "gained_wins": 20,
+          "lost_wins": 11,
+          "wins_delta": 9,
+          "metrics": {
+            "own_fraction_loss": {
+              "before": 0.7783048115079365,
+              "after": 0.6351466910548942,
+              "delta": -0.14315812045304233
+            },
+            "empty_spell_elixir": {
+              "before": 24.38888888888889,
+              "after": 16.666666666666668,
+              "delta": -7.722222222222222
+            },
+            "elixir_overflow": {
+              "before": 1.0395555555555556,
+              "after": 0.0,
+              "delta": -1.0395555555555556
+            },
+            "fireball_unit_hits": {
+              "before": 0.9861111111111112,
+              "after": 0.5277777777777778,
+              "delta": -0.4583333333333333
+            },
+            "cluster_fireballs": {
+              "before": 0.08333333333333333,
+              "after": 0.05555555555555555,
+              "delta": -0.027777777777777776
+            },
+            "own_tower_damage": {
+              "before": 10140.638888888889,
+              "after": 8414.138888888889,
+              "delta": -1726.5
+            },
+            "duration_seconds": {
+              "before": 278.75347222222223,
+              "after": 274.24305555555554,
+              "delta": -4.510416666666686
+            },
+            "fireball_per_game": {
+              "before": 1.75,
+              "after": 0.8055555555555556,
+              "delta": -0.9444444444444444
+            },
+            "unit_hits_per_minute": {
+              "before": 0.2122544562225184,
+              "after": 0.11546934744625359,
+              "delta": -0.09678510877626481
+            },
+            "empty_spell_elixir_per_minute": {
+              "before": 5.249560917278061,
+              "after": 3.646400445671166,
+              "delta": -1.6031604716068952
+            }
+          }
+        },
+        "families": {
+          "air": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 2,
+            "gained_wins": 2,
+            "lost_wins": 0,
+            "wins_delta": 2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.0551292782738095,
+                "after": 0.9004138764880952,
+                "delta": -0.1547154017857143
+              },
+              "empty_spell_elixir": {
+                "before": 26.0,
+                "after": 13.0,
+                "delta": -13.0
+              },
+              "elixir_overflow": {
+                "before": 1.2096666666666667,
+                "after": 0.0,
+                "delta": -1.2096666666666667
+              },
+              "fireball_unit_hits": {
+                "before": 1.75,
+                "after": 0.5,
+                "delta": -1.25
+              },
+              "cluster_fireballs": {
+                "before": 0.3333333333333333,
+                "after": 0.08333333333333333,
+                "delta": -0.25
+              },
+              "own_tower_damage": {
+                "before": 19053.0,
+                "after": 14979.666666666666,
+                "delta": -4073.3333333333335
+              },
+              "duration_seconds": {
+                "before": 299.45416666666665,
+                "after": 254.6875,
+                "delta": -44.76666666666665
+              },
+              "fireball_per_game": {
+                "before": 2.1666666666666665,
+                "after": 0.75,
+                "delta": -1.4166666666666665
+              },
+              "unit_hits_per_minute": {
+                "before": 0.3506379662997955,
+                "after": 0.11779141104294479,
+                "delta": -0.23284655525685072
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.209478356454104,
+                "after": 3.0625766871165645,
+                "delta": -2.14690166933754
+              }
+            }
+          },
+          "bridge": {
+            "games": 12,
+            "before_wins": 6,
+            "after_wins": 7,
+            "gained_wins": 4,
+            "lost_wins": 3,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.5264369419642857,
+                "after": 0.47646949404761907,
+                "delta": -0.049967447916666664
+              },
+              "empty_spell_elixir": {
+                "before": 24.666666666666668,
+                "after": 16.166666666666668,
+                "delta": -8.5
+              },
+              "elixir_overflow": {
+                "before": 0.35408333333333336,
+                "after": 0.0,
+                "delta": -0.35408333333333336
+              },
+              "fireball_unit_hits": {
+                "before": 0.9166666666666666,
+                "after": 0.3333333333333333,
+                "delta": -0.5833333333333334
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 5850.916666666667,
+                "after": 6028.333333333333,
+                "delta": 177.41666666666666
+              },
+              "duration_seconds": {
+                "before": 284.31666666666666,
+                "after": 290.0,
+                "delta": 5.683333333333337
+              },
+              "fireball_per_game": {
+                "before": 1.75,
+                "after": 0.9166666666666666,
+                "delta": -0.8333333333333334
+              },
+              "unit_hits_per_minute": {
+                "before": 0.19344627469371006,
+                "after": 0.06896551724137931,
+                "delta": -0.12448075745233075
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.205463391758016,
+                "after": 3.3448275862068964,
+                "delta": -1.8606358055511198
+              }
+            }
+          },
+          "giant": {
+            "games": 12,
+            "before_wins": 7,
+            "after_wins": 9,
+            "gained_wins": 5,
+            "lost_wins": 3,
+            "wins_delta": 2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.5422014508928571,
+                "after": 0.39364769345238093,
+                "delta": -0.1485537574404762
+              },
+              "empty_spell_elixir": {
+                "before": 25.833333333333332,
+                "after": 22.666666666666668,
+                "delta": -3.1666666666666665
+              },
+              "elixir_overflow": {
+                "before": 1.4581666666666668,
+                "after": 0.0,
+                "delta": -1.4581666666666668
+              },
+              "fireball_unit_hits": {
+                "before": 0.5,
+                "after": 0.4166666666666667,
+                "delta": -0.08333333333333333
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 5899.083333333333,
+                "after": 3957.0833333333335,
+                "delta": -1942.0
+              },
+              "duration_seconds": {
+                "before": 290.0,
+                "after": 290.0,
+                "delta": 0.0
+              },
+              "fireball_per_game": {
+                "before": 1.6666666666666667,
+                "after": 1.1666666666666667,
+                "delta": -0.5
+              },
+              "unit_hits_per_minute": {
+                "before": 0.10344827586206896,
+                "after": 0.08620689655172414,
+                "delta": -0.01724137931034482
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.344827586206897,
+                "after": 4.689655172413793,
+                "delta": -0.6551724137931041
+              }
+            }
+          },
+          "golem": {
+            "games": 12,
+            "before_wins": 1,
+            "after_wins": 2,
+            "gained_wins": 2,
+            "lost_wins": 1,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.1536748976934523,
+                "after": 0.9739428323412698,
+                "delta": -0.17973206535218256
+              },
+              "empty_spell_elixir": {
+                "before": 17.0,
+                "after": 10.166666666666666,
+                "delta": -6.833333333333333
+              },
+              "elixir_overflow": {
+                "before": 2.6367499999999997,
+                "after": 0.0,
+                "delta": -2.6367499999999997
+              },
+              "fireball_unit_hits": {
+                "before": 1.3333333333333333,
+                "after": 0.9166666666666666,
+                "delta": -0.4166666666666667
+              },
+              "cluster_fireballs": {
+                "before": 0.08333333333333333,
+                "after": 0.16666666666666666,
+                "delta": 0.08333333333333333
+              },
+              "own_tower_damage": {
+                "before": 16292.833333333334,
+                "after": 15314.5,
+                "delta": -978.3333333333334
+              },
+              "duration_seconds": {
+                "before": 255.4083333333333,
+                "after": 240.77083333333334,
+                "delta": -14.63749999999996
+              },
+              "fireball_per_game": {
+                "before": 1.5,
+                "after": 0.8333333333333334,
+                "delta": -0.6666666666666666
+              },
+              "unit_hits_per_minute": {
+                "before": 0.3132239224770792,
+                "after": 0.22843298433849615,
+                "delta": -0.08479093813858304
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.9936050115827597,
+                "after": 2.5335294626633207,
+                "delta": -1.460075548919439
+              }
+            }
+          },
+          "hog": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 6,
+            "gained_wins": 5,
+            "lost_wins": 2,
+            "wins_delta": 3,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.6729213169642857,
+                "after": 0.40959821428571436,
+                "delta": -0.2633231026785714
+              },
+              "empty_spell_elixir": {
+                "before": 30.833333333333332,
+                "after": 24.5,
+                "delta": -6.333333333333333
+              },
+              "elixir_overflow": {
+                "before": 0.5786666666666667,
+                "after": 0.0,
+                "delta": -0.5786666666666667
+              },
+              "fireball_unit_hits": {
+                "before": 0.6666666666666666,
+                "after": 0.4166666666666667,
+                "delta": -0.25
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 7935.333333333333,
+                "after": 5133.916666666667,
+                "delta": -2801.4166666666665
+              },
+              "duration_seconds": {
+                "before": 293.3416666666667,
+                "after": 300.0,
+                "delta": 6.658333333333303
+              },
+              "fireball_per_game": {
+                "before": 1.8333333333333333,
+                "after": 0.75,
+                "delta": -1.0833333333333333
+              },
+              "unit_hits_per_minute": {
+                "before": 0.13635976250674697,
+                "after": 0.08333333333333333,
+                "delta": -0.053026429173413644
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 6.306639015937047,
+                "after": 4.9,
+                "delta": -1.4066390159370465
+              }
+            }
+          },
+          "swarm": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 3,
+            "gained_wins": 2,
+            "lost_wins": 2,
+            "wins_delta": 0,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.7194649832589285,
+                "after": 0.6568080357142857,
+                "delta": -0.06265694754464284
+              },
+              "empty_spell_elixir": {
+                "before": 22.0,
+                "after": 13.5,
+                "delta": -8.5
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.75,
+                "after": 0.5833333333333334,
+                "delta": -0.16666666666666666
+              },
+              "cluster_fireballs": {
+                "before": 0.08333333333333333,
+                "after": 0.08333333333333333,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 5812.666666666667,
+                "after": 5071.333333333333,
+                "delta": -741.3333333333334
+              },
+              "duration_seconds": {
+                "before": 250.0,
+                "after": 270.0,
+                "delta": 20.0
+              },
+              "fireball_per_game": {
+                "before": 1.5833333333333333,
+                "after": 0.4166666666666667,
+                "delta": -1.1666666666666665
+              },
+              "unit_hits_per_minute": {
+                "before": 0.18,
+                "after": 0.12962962962962962,
+                "delta": -0.05037037037037037
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.28,
+                "after": 3.0,
+                "delta": -2.2800000000000002
+              }
+            }
+          }
+        },
+        "tasks": {
+          "attack": {
+            "games": 36,
+            "before_wins": 9,
+            "after_wins": 14,
+            "gained_wins": 10,
+            "lost_wins": 5,
+            "wins_delta": 5,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.824475162243717,
+                "after": 0.6281789951223545,
+                "delta": -0.19629616712136244
+              },
+              "empty_spell_elixir": {
+                "before": 23.77777777777778,
+                "after": 18.27777777777778,
+                "delta": -5.5
+              },
+              "elixir_overflow": {
+                "before": 1.48,
+                "after": 0.0,
+                "delta": -1.48
+              },
+              "fireball_unit_hits": {
+                "before": 0.6944444444444444,
+                "after": 0.4166666666666667,
+                "delta": -0.2777777777777778
+              },
+              "cluster_fireballs": {
+                "before": 0.05555555555555555,
+                "after": 0.027777777777777776,
+                "delta": -0.027777777777777776
+              },
+              "own_tower_damage": {
+                "before": 9928.722222222223,
+                "after": 8268.305555555555,
+                "delta": -1660.4166666666667
+              },
+              "duration_seconds": {
+                "before": 273.2555555555556,
+                "after": 275.15277777777777,
+                "delta": 1.897222222222183
+              },
+              "fireball_per_game": {
+                "before": 1.5833333333333333,
+                "after": 0.8055555555555556,
+                "delta": -0.7777777777777777
+              },
+              "unit_hits_per_minute": {
+                "before": 0.15248241369495383,
+                "after": 0.09085861390136793,
+                "delta": -0.0616237997935859
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.220997844915219,
+                "after": 3.985664529806673,
+                "delta": -1.2353333151085462
+              }
+            }
+          },
+          "defense": {
+            "games": 36,
+            "before_wins": 11,
+            "after_wins": 15,
+            "gained_wins": 10,
+            "lost_wins": 6,
+            "wins_delta": 4,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.7321344607721562,
+                "after": 0.642114386987434,
+                "delta": -0.0900200737847222
+              },
+              "empty_spell_elixir": {
+                "before": 25.0,
+                "after": 15.055555555555555,
+                "delta": -9.944444444444445
+              },
+              "elixir_overflow": {
+                "before": 0.5991111111111111,
+                "after": 0.0,
+                "delta": -0.5991111111111111
+              },
+              "fireball_unit_hits": {
+                "before": 1.2777777777777777,
+                "after": 0.6388888888888888,
+                "delta": -0.6388888888888888
+              },
+              "cluster_fireballs": {
+                "before": 0.1111111111111111,
+                "after": 0.08333333333333333,
+                "delta": -0.027777777777777776
+              },
+              "own_tower_damage": {
+                "before": 10352.555555555555,
+                "after": 8559.972222222223,
+                "delta": -1792.5833333333333
+              },
+              "duration_seconds": {
+                "before": 284.2513888888889,
+                "after": 273.3333333333333,
+                "delta": -10.918055555555611
+              },
+              "fireball_per_game": {
+                "before": 1.9166666666666667,
+                "after": 0.8055555555555556,
+                "delta": -1.1111111111111112
+              },
+              "unit_hits_per_minute": {
+                "before": 0.2697143080508744,
+                "after": 0.1402439024390244,
+                "delta": -0.12947040561184997
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.277019070560585,
+                "after": 3.3048780487804876,
+                "delta": -1.9721410217800974
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pilot_bc8000_s413",
+      "case": "bc8000",
+      "seed": 413,
+      "reference": "bc8000",
+      "selected_update": 50,
+      "comparison": {
+        "all": {
+          "games": 72,
+          "before_wins": 20,
+          "after_wins": 19,
+          "gained_wins": 9,
+          "lost_wins": 10,
+          "wins_delta": -1,
+          "metrics": {
+            "own_fraction_loss": {
+              "before": 0.7783048115079365,
+              "after": 0.8226231166294643,
+              "delta": 0.04431830512152777
+            },
+            "empty_spell_elixir": {
+              "before": 24.38888888888889,
+              "after": 18.22222222222222,
+              "delta": -6.166666666666667
+            },
+            "elixir_overflow": {
+              "before": 1.0395555555555556,
+              "after": 0.6234583333333333,
+              "delta": -0.41609722222222223
+            },
+            "fireball_unit_hits": {
+              "before": 0.9861111111111112,
+              "after": 2.3333333333333335,
+              "delta": 1.3472222222222223
+            },
+            "cluster_fireballs": {
+              "before": 0.08333333333333333,
+              "after": 0.2361111111111111,
+              "delta": 0.1527777777777778
+            },
+            "own_tower_damage": {
+              "before": 10140.638888888889,
+              "after": 8962.097222222223,
+              "delta": -1178.5416666666667
+            },
+            "duration_seconds": {
+              "before": 278.75347222222223,
+              "after": 274.5375,
+              "delta": -4.215972222222206
+            },
+            "fireball_per_game": {
+              "before": 1.75,
+              "after": 2.3194444444444446,
+              "delta": 0.5694444444444446
+            },
+            "unit_hits_per_minute": {
+              "before": 0.2122544562225184,
+              "after": 0.5099485498338114,
+              "delta": 0.29769409361129306
+            },
+            "empty_spell_elixir_per_minute": {
+              "before": 5.249560917278061,
+              "after": 3.982455341559289,
+              "delta": -1.2671055757187721
+            }
+          }
+        },
+        "families": {
+          "air": {
+            "games": 12,
+            "before_wins": 0,
+            "after_wins": 1,
+            "gained_wins": 1,
+            "lost_wins": 0,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.0551292782738095,
+                "after": 0.958560035342262,
+                "delta": -0.0965692429315476
+              },
+              "empty_spell_elixir": {
+                "before": 26.0,
+                "after": 12.833333333333334,
+                "delta": -13.166666666666666
+              },
+              "elixir_overflow": {
+                "before": 1.2096666666666667,
+                "after": 0.6011666666666667,
+                "delta": -0.6085
+              },
+              "fireball_unit_hits": {
+                "before": 1.75,
+                "after": 1.9166666666666667,
+                "delta": 0.16666666666666666
+              },
+              "cluster_fireballs": {
+                "before": 0.3333333333333333,
+                "after": 0.16666666666666666,
+                "delta": -0.16666666666666666
+              },
+              "own_tower_damage": {
+                "before": 19053.0,
+                "after": 15140.416666666666,
+                "delta": -3912.5833333333335
+              },
+              "duration_seconds": {
+                "before": 299.45416666666665,
+                "after": 276.675,
+                "delta": -22.77916666666664
+              },
+              "fireball_per_game": {
+                "before": 2.1666666666666665,
+                "after": 1.5833333333333333,
+                "delta": -0.5833333333333333
+              },
+              "unit_hits_per_minute": {
+                "before": 0.3506379662997955,
+                "after": 0.41565013102014997,
+                "delta": 0.06501216472035448
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.209478356454104,
+                "after": 2.783048703352309,
+                "delta": -2.4264296531017955
+              }
+            }
+          },
+          "bridge": {
+            "games": 12,
+            "before_wins": 6,
+            "after_wins": 6,
+            "gained_wins": 2,
+            "lost_wins": 2,
+            "wins_delta": 0,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.5264369419642857,
+                "after": 0.5938895089285715,
+                "delta": 0.06745256696428573
+              },
+              "empty_spell_elixir": {
+                "before": 24.666666666666668,
+                "after": 23.666666666666668,
+                "delta": -1.0
+              },
+              "elixir_overflow": {
+                "before": 0.35408333333333336,
+                "after": 0.13683333333333333,
+                "delta": -0.21725000000000003
+              },
+              "fireball_unit_hits": {
+                "before": 0.9166666666666666,
+                "after": 3.25,
+                "delta": 2.3333333333333335
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.3333333333333333,
+                "delta": 0.3333333333333333
+              },
+              "own_tower_damage": {
+                "before": 5850.916666666667,
+                "after": 7286.0,
+                "delta": 1435.0833333333333
+              },
+              "duration_seconds": {
+                "before": 284.31666666666666,
+                "after": 300.0,
+                "delta": 15.683333333333337
+              },
+              "fireball_per_game": {
+                "before": 1.75,
+                "after": 3.3333333333333335,
+                "delta": 1.5833333333333335
+              },
+              "unit_hits_per_minute": {
+                "before": 0.19344627469371006,
+                "after": 0.65,
+                "delta": 0.45655372530628996
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.205463391758016,
+                "after": 4.733333333333333,
+                "delta": -0.4721300584246828
+              }
+            }
+          },
+          "giant": {
+            "games": 12,
+            "before_wins": 7,
+            "after_wins": 4,
+            "gained_wins": 1,
+            "lost_wins": 4,
+            "wins_delta": -3,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.5422014508928571,
+                "after": 0.7112862723214285,
+                "delta": 0.1690848214285714
+              },
+              "empty_spell_elixir": {
+                "before": 25.833333333333332,
+                "after": 19.0,
+                "delta": -6.833333333333333
+              },
+              "elixir_overflow": {
+                "before": 1.4581666666666668,
+                "after": 1.33625,
+                "delta": -0.12191666666666663
+              },
+              "fireball_unit_hits": {
+                "before": 0.5,
+                "after": 2.8333333333333335,
+                "delta": 2.3333333333333335
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.25,
+                "delta": 0.25
+              },
+              "own_tower_damage": {
+                "before": 5899.083333333333,
+                "after": 5562.833333333333,
+                "delta": -336.25
+              },
+              "duration_seconds": {
+                "before": 290.0,
+                "after": 280.0,
+                "delta": -10.0
+              },
+              "fireball_per_game": {
+                "before": 1.6666666666666667,
+                "after": 2.75,
+                "delta": 1.0833333333333333
+              },
+              "unit_hits_per_minute": {
+                "before": 0.10344827586206896,
+                "after": 0.6071428571428571,
+                "delta": 0.5036945812807881
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.344827586206897,
+                "after": 4.071428571428571,
+                "delta": -1.2733990147783256
+              }
+            }
+          },
+          "golem": {
+            "games": 12,
+            "before_wins": 1,
+            "after_wins": 2,
+            "gained_wins": 1,
+            "lost_wins": 0,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 1.1536748976934523,
+                "after": 1.1700090680803572,
+                "delta": 0.016334170386904757
+              },
+              "empty_spell_elixir": {
+                "before": 17.0,
+                "after": 10.833333333333334,
+                "delta": -6.166666666666667
+              },
+              "elixir_overflow": {
+                "before": 2.6367499999999997,
+                "after": 1.5296666666666667,
+                "delta": -1.1070833333333334
+              },
+              "fireball_unit_hits": {
+                "before": 1.3333333333333333,
+                "after": 3.25,
+                "delta": 1.9166666666666667
+              },
+              "cluster_fireballs": {
+                "before": 0.08333333333333333,
+                "after": 0.3333333333333333,
+                "delta": 0.25
+              },
+              "own_tower_damage": {
+                "before": 16292.833333333334,
+                "after": 13410.25,
+                "delta": -2882.5833333333335
+              },
+              "duration_seconds": {
+                "before": 255.4083333333333,
+                "after": 233.23749999999998,
+                "delta": -22.17083333333332
+              },
+              "fireball_per_game": {
+                "before": 1.5,
+                "after": 2.0833333333333335,
+                "delta": 0.5833333333333335
+              },
+              "unit_hits_per_minute": {
+                "before": 0.3132239224770792,
+                "after": 0.8360576665416153,
+                "delta": 0.5228337440645361
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 3.9936050115827597,
+                "after": 2.786858888472051,
+                "delta": -1.2067461231107086
+              }
+            }
+          },
+          "hog": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 4,
+            "gained_wins": 3,
+            "lost_wins": 2,
+            "wins_delta": 1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.6729213169642857,
+                "after": 0.4833984375,
+                "delta": -0.1895228794642857
+              },
+              "empty_spell_elixir": {
+                "before": 30.833333333333332,
+                "after": 27.666666666666668,
+                "delta": -3.1666666666666665
+              },
+              "elixir_overflow": {
+                "before": 0.5786666666666667,
+                "after": 0.13683333333333333,
+                "delta": -0.4418333333333333
+              },
+              "fireball_unit_hits": {
+                "before": 0.6666666666666666,
+                "after": 0.5833333333333334,
+                "delta": -0.08333333333333333
+              },
+              "cluster_fireballs": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "own_tower_damage": {
+                "before": 7935.333333333333,
+                "after": 5612.416666666667,
+                "delta": -2322.9166666666665
+              },
+              "duration_seconds": {
+                "before": 293.3416666666667,
+                "after": 300.0,
+                "delta": 6.658333333333303
+              },
+              "fireball_per_game": {
+                "before": 1.8333333333333333,
+                "after": 2.0,
+                "delta": 0.16666666666666674
+              },
+              "unit_hits_per_minute": {
+                "before": 0.13635976250674697,
+                "after": 0.11666666666666667,
+                "delta": -0.019693095840080305
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 6.306639015937047,
+                "after": 5.533333333333333,
+                "delta": -0.7733056826037137
+              }
+            }
+          },
+          "swarm": {
+            "games": 12,
+            "before_wins": 3,
+            "after_wins": 2,
+            "gained_wins": 1,
+            "lost_wins": 2,
+            "wins_delta": -1,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.7194649832589285,
+                "after": 1.0185953776041667,
+                "delta": 0.2991303943452381
+              },
+              "empty_spell_elixir": {
+                "before": 22.0,
+                "after": 15.333333333333334,
+                "delta": -6.666666666666667
+              },
+              "elixir_overflow": {
+                "before": 0.0,
+                "after": 0.0,
+                "delta": 0.0
+              },
+              "fireball_unit_hits": {
+                "before": 0.75,
+                "after": 2.1666666666666665,
+                "delta": 1.4166666666666667
+              },
+              "cluster_fireballs": {
+                "before": 0.08333333333333333,
+                "after": 0.3333333333333333,
+                "delta": 0.25
+              },
+              "own_tower_damage": {
+                "before": 5812.666666666667,
+                "after": 6760.666666666667,
+                "delta": 948.0
+              },
+              "duration_seconds": {
+                "before": 250.0,
+                "after": 257.3125,
+                "delta": 7.3125
+              },
+              "fireball_per_game": {
+                "before": 1.5833333333333333,
+                "after": 2.1666666666666665,
+                "delta": 0.5833333333333333
+              },
+              "unit_hits_per_minute": {
+                "before": 0.18,
+                "after": 0.5052222492105902,
+                "delta": 0.32522224921059023
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.28,
+                "after": 3.575418994413408,
+                "delta": -1.7045810055865922
+              }
+            }
+          }
+        },
+        "tasks": {
+          "attack": {
+            "games": 36,
+            "before_wins": 9,
+            "after_wins": 11,
+            "gained_wins": 6,
+            "lost_wins": 4,
+            "wins_delta": 2,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.824475162243717,
+                "after": 0.7576943049355159,
+                "delta": -0.06678085730820109
+              },
+              "empty_spell_elixir": {
+                "before": 23.77777777777778,
+                "after": 17.0,
+                "delta": -6.777777777777778
+              },
+              "elixir_overflow": {
+                "before": 1.48,
+                "after": 0.9329722222222223,
+                "delta": -0.5470277777777777
+              },
+              "fireball_unit_hits": {
+                "before": 0.6944444444444444,
+                "after": 1.9722222222222223,
+                "delta": 1.2777777777777777
+              },
+              "cluster_fireballs": {
+                "before": 0.05555555555555555,
+                "after": 0.25,
+                "delta": 0.19444444444444445
+              },
+              "own_tower_damage": {
+                "before": 9928.722222222223,
+                "after": 8676.944444444445,
+                "delta": -1251.7777777777778
+              },
+              "duration_seconds": {
+                "before": 273.2555555555556,
+                "after": 271.2375,
+                "delta": -2.018055555555577
+              },
+              "fireball_per_game": {
+                "before": 1.5833333333333333,
+                "after": 1.8333333333333333,
+                "delta": 0.25
+              },
+              "unit_hits_per_minute": {
+                "before": 0.15248241369495383,
+                "after": 0.4362720248244927,
+                "delta": 0.2837896111295388
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.220997844915219,
+                "after": 3.7605419604590073,
+                "delta": -1.4604558844562119
+              }
+            }
+          },
+          "defense": {
+            "games": 36,
+            "before_wins": 11,
+            "after_wins": 8,
+            "gained_wins": 3,
+            "lost_wins": 6,
+            "wins_delta": -3,
+            "metrics": {
+              "own_fraction_loss": {
+                "before": 0.7321344607721562,
+                "after": 0.8875519283234127,
+                "delta": 0.15541746755125663
+              },
+              "empty_spell_elixir": {
+                "before": 25.0,
+                "after": 19.444444444444443,
+                "delta": -5.555555555555555
+              },
+              "elixir_overflow": {
+                "before": 0.5991111111111111,
+                "after": 0.3139444444444444,
+                "delta": -0.2851666666666667
+              },
+              "fireball_unit_hits": {
+                "before": 1.2777777777777777,
+                "after": 2.6944444444444446,
+                "delta": 1.4166666666666667
+              },
+              "cluster_fireballs": {
+                "before": 0.1111111111111111,
+                "after": 0.2222222222222222,
+                "delta": 0.1111111111111111
+              },
+              "own_tower_damage": {
+                "before": 10352.555555555555,
+                "after": 9247.25,
+                "delta": -1105.3055555555557
+              },
+              "duration_seconds": {
+                "before": 284.2513888888889,
+                "after": 277.8375,
+                "delta": -6.413888888888948
+              },
+              "fireball_per_game": {
+                "before": 1.9166666666666667,
+                "after": 2.8055555555555554,
+                "delta": 0.8888888888888886
+              },
+              "unit_hits_per_minute": {
+                "before": 0.2697143080508744,
+                "after": 0.5818748968971672,
+                "delta": 0.31216058884629283
+              },
+              "empty_spell_elixir_per_minute": {
+                "before": 5.277019070560585,
+                "after": 4.199097194103268,
+                "delta": -1.0779218764573173
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "groups": [
+    {
+      "case": "balanced",
+      "wins_delta_by_seed": [
+        -6,
+        0
+      ],
+      "mixed_seed_direction": false,
+      "wins_non_decreasing_both": false,
+      "sum_wins_delta": -6
+    },
+    {
+      "case": "bank",
+      "wins_delta_by_seed": [
+        15,
+        16
+      ],
+      "mixed_seed_direction": false,
+      "wins_non_decreasing_both": true,
+      "sum_wins_delta": 31
+    },
+    {
+      "case": "bc800",
+      "wins_delta_by_seed": [
+        10,
+        16
+      ],
+      "mixed_seed_direction": false,
+      "wins_non_decreasing_both": true,
+      "sum_wins_delta": 26
+    },
+    {
+      "case": "bc8000",
+      "wins_delta_by_seed": [
+        9,
+        -1
+      ],
+      "mixed_seed_direction": true,
+      "wins_non_decreasing_both": false,
+      "sum_wins_delta": 8
+    }
+  ],
+  "quality_accepted": false,
+  "automatic_full_training": false,
+  "scope": "Descriptive paired development validation; selected checkpoints reuse these contexts; no independent significance claim",
+  "unique_contexts": 72,
+  "independent_training_seeds": 2
+}

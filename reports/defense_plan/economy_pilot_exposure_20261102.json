@@ -1,0 +1,2725 @@
+{
+  "schema": "economy-pilot-exposure-audit-v1",
+  "rows": [
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_balanced_s412",
+      "metrics_sha256": "7d5c458fd928a80db879f7dd90b5158547987d25a533aa10834e0692117d2d10",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 93,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 1
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 9,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 0
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 9,
+          "wins": 4
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 5
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 1
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 2
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 7,
+          "defense_wins": 4,
+          "families": {
+            "air": 0,
+            "bridge": 0,
+            "giant": 5,
+            "golem": 0,
+            "hog": 1,
+            "swarm": 1
+          }
+        },
+        {
+          "update": 100,
+          "wins": 9,
+          "defense_wins": 3,
+          "families": {
+            "air": 0,
+            "bridge": 1,
+            "giant": 4,
+            "golem": 1,
+            "hog": 1,
+            "swarm": 2
+          }
+        }
+      ],
+      "win_change_50_to_100": 2,
+      "defense_change_50_to_100": -1
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_balanced_s413",
+      "metrics_sha256": "d5de81651fc401f5b6c29033ffefc7fc78c3efe4bf108d77315b79a29adf4a4c",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 90,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 1
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 1
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 5
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 1
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 3
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 0
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 1
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 15,
+          "defense_wins": 8,
+          "families": {
+            "air": 0,
+            "bridge": 3,
+            "giant": 8,
+            "golem": 0,
+            "hog": 2,
+            "swarm": 2
+          }
+        },
+        {
+          "update": 100,
+          "wins": 11,
+          "defense_wins": 6,
+          "families": {
+            "air": 0,
+            "bridge": 2,
+            "giant": 5,
+            "golem": 1,
+            "hog": 1,
+            "swarm": 2
+          }
+        }
+      ],
+      "win_change_50_to_100": -4,
+      "defense_change_50_to_100": -2
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bank_s412",
+      "metrics_sha256": "4757988eebbf76b4039f38d28c14a2b1245107dca7d024b5c0c19e235c5a984c",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 88,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 9,
+          "wins": 3
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 5
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 2
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 5
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 2
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 1
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 9,
+          "defense_wins": 5,
+          "families": {
+            "air": 2,
+            "bridge": 4,
+            "giant": 2,
+            "golem": 0,
+            "hog": 0,
+            "swarm": 1
+          }
+        },
+        {
+          "update": 100,
+          "wins": 21,
+          "defense_wins": 13,
+          "families": {
+            "air": 3,
+            "bridge": 5,
+            "giant": 8,
+            "golem": 0,
+            "hog": 4,
+            "swarm": 1
+          }
+        }
+      ],
+      "win_change_50_to_100": 12,
+      "defense_change_50_to_100": 8
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bank_s413",
+      "metrics_sha256": "8c78041d5dc118f2eb44239ed4e55e8b22cdbf2582d312643d617967465a0178",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 86,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 5
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 3
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 6
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 5
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 4
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 6
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 1
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 18,
+          "defense_wins": 7,
+          "families": {
+            "air": 0,
+            "bridge": 5,
+            "giant": 6,
+            "golem": 1,
+            "hog": 6,
+            "swarm": 0
+          }
+        },
+        {
+          "update": 100,
+          "wins": 22,
+          "defense_wins": 9,
+          "families": {
+            "air": 1,
+            "bridge": 5,
+            "giant": 6,
+            "golem": 1,
+            "hog": 5,
+            "swarm": 4
+          }
+        }
+      ],
+      "win_change_50_to_100": 4,
+      "defense_change_50_to_100": 2
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc800_s412",
+      "metrics_sha256": "82ae04bd8ebaa6f3af69b7a1067dbe069193fd0c0469a02b1061f7f5a5f74d97",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 80,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 5
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 1
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 22,
+          "defense_wins": 10,
+          "families": {
+            "air": 0,
+            "bridge": 5,
+            "giant": 8,
+            "golem": 1,
+            "hog": 5,
+            "swarm": 3
+          }
+        },
+        {
+          "update": 100,
+          "wins": 19,
+          "defense_wins": 8,
+          "families": {
+            "air": 0,
+            "bridge": 3,
+            "giant": 10,
+            "golem": 1,
+            "hog": 3,
+            "swarm": 2
+          }
+        }
+      ],
+      "win_change_50_to_100": -3,
+      "defense_change_50_to_100": -2
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc800_s413",
+      "metrics_sha256": "2ef2bea15993070dab893e5128e2280a526d46405a4935560ecc331602f2a397",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 82,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 3
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 2
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 4
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 28,
+          "defense_wins": 15,
+          "families": {
+            "air": 2,
+            "bridge": 6,
+            "giant": 6,
+            "golem": 7,
+            "hog": 4,
+            "swarm": 3
+          }
+        },
+        {
+          "update": 100,
+          "wins": 29,
+          "defense_wins": 14,
+          "families": {
+            "air": 0,
+            "bridge": 8,
+            "giant": 7,
+            "golem": 3,
+            "hog": 6,
+            "swarm": 5
+          }
+        }
+      ],
+      "win_change_50_to_100": 1,
+      "defense_change_50_to_100": -1
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc8000_s412",
+      "metrics_sha256": "3bbfba4dfe8f13365b70c961c40aea1ee2cb29a66f79ef54ad7e002fd0c26c55",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 77,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 5,
+          "wins": 3
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 3
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 14,
+          "defense_wins": 8,
+          "families": {
+            "air": 0,
+            "bridge": 5,
+            "giant": 5,
+            "golem": 1,
+            "hog": 2,
+            "swarm": 1
+          }
+        },
+        {
+          "update": 100,
+          "wins": 29,
+          "defense_wins": 15,
+          "families": {
+            "air": 2,
+            "bridge": 7,
+            "giant": 9,
+            "golem": 2,
+            "hog": 6,
+            "swarm": 3
+          }
+        }
+      ],
+      "win_change_50_to_100": 15,
+      "defense_change_50_to_100": 7
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc8000_s413",
+      "metrics_sha256": "190ae65c261b92f6f8533624149cbf56c9725b4c31662bad52330dc45ab20487",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 80,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 5
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 5
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 4
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 19,
+          "defense_wins": 8,
+          "families": {
+            "air": 1,
+            "bridge": 6,
+            "giant": 4,
+            "golem": 2,
+            "hog": 4,
+            "swarm": 2
+          }
+        },
+        {
+          "update": 100,
+          "wins": 20,
+          "defense_wins": 11,
+          "families": {
+            "air": 0,
+            "bridge": 5,
+            "giant": 7,
+            "golem": 1,
+            "hog": 6,
+            "swarm": 1
+          }
+        }
+      ],
+      "win_change_50_to_100": 1,
+      "defense_change_50_to_100": 3
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_control_s422",
+      "metrics_sha256": "5acd947a06c5434c4a66b289986da4a86285b9b8c37ceb3fd5d6bad3a69fd67f",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 79,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 5
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 0
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 18,
+          "defense_wins": 10,
+          "families": {
+            "air": 1,
+            "bridge": 6,
+            "giant": 4,
+            "golem": 0,
+            "hog": 5,
+            "swarm": 2
+          }
+        },
+        {
+          "update": 100,
+          "wins": 29,
+          "defense_wins": 12,
+          "families": {
+            "air": 1,
+            "bridge": 7,
+            "giant": 11,
+            "golem": 2,
+            "hog": 5,
+            "swarm": 3
+          }
+        }
+      ],
+      "win_change_50_to_100": 11,
+      "defense_change_50_to_100": 2
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_control_s423",
+      "metrics_sha256": "e9a9f79662a9b6449e127eebc9b34411f05a8e8d9bee37c36a79b7fb0a15bcea",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 82,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 4
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 1
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 2
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 20,
+          "defense_wins": 10,
+          "families": {
+            "air": 0,
+            "bridge": 6,
+            "giant": 4,
+            "golem": 2,
+            "hog": 6,
+            "swarm": 2
+          }
+        },
+        {
+          "update": 100,
+          "wins": 21,
+          "defense_wins": 10,
+          "families": {
+            "air": 0,
+            "bridge": 6,
+            "giant": 5,
+            "golem": 1,
+            "hog": 7,
+            "swarm": 2
+          }
+        }
+      ],
+      "win_change_50_to_100": 1,
+      "defense_change_50_to_100": 0
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_neutral_s422",
+      "metrics_sha256": "045023ac163c433875c6f384f65130859ad2d9d978805be1c96956d2f837b6d8",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 78,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 5
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 6
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 24,
+          "defense_wins": 11,
+          "families": {
+            "air": 1,
+            "bridge": 6,
+            "giant": 8,
+            "golem": 1,
+            "hog": 7,
+            "swarm": 1
+          }
+        },
+        {
+          "update": 100,
+          "wins": 27,
+          "defense_wins": 14,
+          "families": {
+            "air": 0,
+            "bridge": 9,
+            "giant": 9,
+            "golem": 0,
+            "hog": 4,
+            "swarm": 5
+          }
+        }
+      ],
+      "win_change_50_to_100": 3,
+      "defense_change_50_to_100": 3
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_neutral_s423",
+      "metrics_sha256": "77e7d93a046246356ddcea369e22684e27dfeeecf72cd8bde051e58d47339e05",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 84,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 4
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 5
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 2
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 1
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 13,
+          "defense_wins": 10,
+          "families": {
+            "air": 2,
+            "bridge": 2,
+            "giant": 5,
+            "golem": 0,
+            "hog": 3,
+            "swarm": 1
+          }
+        },
+        {
+          "update": 100,
+          "wins": 29,
+          "defense_wins": 14,
+          "families": {
+            "air": 2,
+            "bridge": 6,
+            "giant": 11,
+            "golem": 2,
+            "hog": 4,
+            "swarm": 4
+          }
+        }
+      ],
+      "win_change_50_to_100": 16,
+      "defense_change_50_to_100": 4
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_medium_s422",
+      "metrics_sha256": "167bfedea670712b83a0ebf06023c2355853e70fbbeb9983c153cc73a4ae4f73",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 82,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 5
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 3
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 2
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 24,
+          "defense_wins": 11,
+          "families": {
+            "air": 1,
+            "bridge": 9,
+            "giant": 6,
+            "golem": 4,
+            "hog": 2,
+            "swarm": 2
+          }
+        },
+        {
+          "update": 100,
+          "wins": 26,
+          "defense_wins": 13,
+          "families": {
+            "air": 4,
+            "bridge": 7,
+            "giant": 4,
+            "golem": 4,
+            "hog": 4,
+            "swarm": 3
+          }
+        }
+      ],
+      "win_change_50_to_100": 2,
+      "defense_change_50_to_100": 2
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_medium_s423",
+      "metrics_sha256": "428d56a887c2cd9c0948140514f86190b959686af590f4184750dfa8c21b785a",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 81,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 1
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 5
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 15,
+          "defense_wins": 6,
+          "families": {
+            "air": 2,
+            "bridge": 6,
+            "giant": 2,
+            "golem": 3,
+            "hog": 1,
+            "swarm": 1
+          }
+        },
+        {
+          "update": 100,
+          "wins": 24,
+          "defense_wins": 13,
+          "families": {
+            "air": 1,
+            "bridge": 4,
+            "giant": 6,
+            "golem": 1,
+            "hog": 8,
+            "swarm": 4
+          }
+        }
+      ],
+      "win_change_50_to_100": 9,
+      "defense_change_50_to_100": 7
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_strong_s422",
+      "metrics_sha256": "122b7e50a6a9aa11604ad51fdc2cfa7109e39f9dca125bd73955d35b35e9c02f",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 80,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 5
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 1
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 0
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 14,
+          "defense_wins": 10,
+          "families": {
+            "air": 0,
+            "bridge": 5,
+            "giant": 3,
+            "golem": 0,
+            "hog": 5,
+            "swarm": 1
+          }
+        },
+        {
+          "update": 100,
+          "wins": 24,
+          "defense_wins": 13,
+          "families": {
+            "air": 0,
+            "bridge": 7,
+            "giant": 7,
+            "golem": 1,
+            "hog": 7,
+            "swarm": 2
+          }
+        }
+      ],
+      "win_change_50_to_100": 10,
+      "defense_change_50_to_100": 3
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_strong_s423",
+      "metrics_sha256": "5679211fa5fdb1076ea4af9f9f6a04f4cbb53f7492fa5b7751215e927c4ad53d",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 81,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 3
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 5
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 0
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 2
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 21,
+          "defense_wins": 8,
+          "families": {
+            "air": 0,
+            "bridge": 7,
+            "giant": 7,
+            "golem": 0,
+            "hog": 7,
+            "swarm": 0
+          }
+        },
+        {
+          "update": 100,
+          "wins": 26,
+          "defense_wins": 13,
+          "families": {
+            "air": 1,
+            "bridge": 7,
+            "giant": 9,
+            "golem": 1,
+            "hog": 5,
+            "swarm": 3
+          }
+        }
+      ],
+      "win_change_50_to_100": 5,
+      "defense_change_50_to_100": 5
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_control_s432",
+      "metrics_sha256": "a7c7732c1bc90e6c8d5da506eb4cc99d070c3c821e0abaf5b6aee6b68b3b5551",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 81,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 5
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 6
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 6
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 2
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 26,
+          "defense_wins": 14,
+          "families": {
+            "air": 1,
+            "bridge": 10,
+            "giant": 5,
+            "golem": 3,
+            "hog": 4,
+            "swarm": 3
+          }
+        },
+        {
+          "update": 100,
+          "wins": 27,
+          "defense_wins": 15,
+          "families": {
+            "air": 1,
+            "bridge": 6,
+            "giant": 7,
+            "golem": 3,
+            "hog": 6,
+            "swarm": 4
+          }
+        }
+      ],
+      "win_change_50_to_100": 1,
+      "defense_change_50_to_100": 1
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_control_s433",
+      "metrics_sha256": "ae20200d1ac19828fa4159fcc31c93c34eae5f1c63c4d0312542ccf53eac9bff",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 78,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 30,
+          "defense_wins": 18,
+          "families": {
+            "air": 2,
+            "bridge": 6,
+            "giant": 8,
+            "golem": 5,
+            "hog": 5,
+            "swarm": 4
+          }
+        },
+        {
+          "update": 100,
+          "wins": 27,
+          "defense_wins": 16,
+          "families": {
+            "air": 2,
+            "bridge": 4,
+            "giant": 8,
+            "golem": 3,
+            "hog": 7,
+            "swarm": 3
+          }
+        }
+      ],
+      "win_change_50_to_100": -3,
+      "defense_change_50_to_100": -2
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial03_s432",
+      "metrics_sha256": "e9ebd5b2dcfa6329fbdf2ca9849cbd62650e66fa111534907e286cd6940b02df",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 80,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 5
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 27,
+          "defense_wins": 15,
+          "families": {
+            "air": 2,
+            "bridge": 7,
+            "giant": 9,
+            "golem": 1,
+            "hog": 5,
+            "swarm": 3
+          }
+        },
+        {
+          "update": 100,
+          "wins": 27,
+          "defense_wins": 16,
+          "families": {
+            "air": 1,
+            "bridge": 7,
+            "giant": 9,
+            "golem": 1,
+            "hog": 7,
+            "swarm": 2
+          }
+        }
+      ],
+      "win_change_50_to_100": 0,
+      "defense_change_50_to_100": 1
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial03_s433",
+      "metrics_sha256": "08f9129eddada2fcd01efba262f5cf405dccb75c1ac6ba29dcdb515f820c2839",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 83,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 3
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 0
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 2
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 5
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 3
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 19,
+          "defense_wins": 10,
+          "families": {
+            "air": 0,
+            "bridge": 8,
+            "giant": 2,
+            "golem": 3,
+            "hog": 4,
+            "swarm": 2
+          }
+        },
+        {
+          "update": 100,
+          "wins": 22,
+          "defense_wins": 13,
+          "families": {
+            "air": 1,
+            "bridge": 4,
+            "giant": 8,
+            "golem": 0,
+            "hog": 6,
+            "swarm": 3
+          }
+        }
+      ],
+      "win_change_50_to_100": 3,
+      "defense_change_50_to_100": 3
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial01_s432",
+      "metrics_sha256": "a26c83f40460bfaaf2f6864c38054fb1c28ae48fce61938a975e1477e5b23986",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 83,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 4
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 8,
+          "wins": 5
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 6
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 5
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 25,
+          "defense_wins": 13,
+          "families": {
+            "air": 0,
+            "bridge": 5,
+            "giant": 7,
+            "golem": 2,
+            "hog": 7,
+            "swarm": 4
+          }
+        },
+        {
+          "update": 100,
+          "wins": 29,
+          "defense_wins": 13,
+          "families": {
+            "air": 1,
+            "bridge": 9,
+            "giant": 8,
+            "golem": 1,
+            "hog": 5,
+            "swarm": 5
+          }
+        }
+      ],
+      "win_change_50_to_100": 4,
+      "defense_change_50_to_100": 0
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial01_s433",
+      "metrics_sha256": "0716036a071602fbf11efb0f95fb5f5c8d88ec8b0c3f6492a116c2421d67a013",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 79,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 6
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 5
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 0
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 0
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 24,
+          "defense_wins": 14,
+          "families": {
+            "air": 0,
+            "bridge": 12,
+            "giant": 4,
+            "golem": 1,
+            "hog": 3,
+            "swarm": 4
+          }
+        },
+        {
+          "update": 100,
+          "wins": 21,
+          "defense_wins": 10,
+          "families": {
+            "air": 1,
+            "bridge": 7,
+            "giant": 7,
+            "golem": 1,
+            "hog": 3,
+            "swarm": 2
+          }
+        }
+      ],
+      "win_change_50_to_100": -3,
+      "defense_change_50_to_100": -4
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_group_only_s432",
+      "metrics_sha256": "0ca039f6684151a35552ab4fadae9b05c83c23e4cc5f73a69e761faffd4ae58b",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 82,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 3
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 5
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 7
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 3
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 2
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 16,
+          "defense_wins": 7,
+          "families": {
+            "air": 1,
+            "bridge": 4,
+            "giant": 4,
+            "golem": 1,
+            "hog": 5,
+            "swarm": 1
+          }
+        },
+        {
+          "update": 100,
+          "wins": 26,
+          "defense_wins": 10,
+          "families": {
+            "air": 0,
+            "bridge": 5,
+            "giant": 6,
+            "golem": 7,
+            "hog": 3,
+            "swarm": 5
+          }
+        }
+      ],
+      "win_change_50_to_100": 10,
+      "defense_change_50_to_100": 3
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_group_only_s433",
+      "metrics_sha256": "f5aca2efec33bf48b7d287d91ea61d1d4cc165ad4482acc4a4415366cdcd6aa2",
+      "actor_updates": 80,
+      "warmup_updates": 20,
+      "actor_episode_completions": 79,
+      "family_tasks": [
+        {
+          "family": "air",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "air",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "bridge",
+          "task": "attack",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "bridge",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 1
+        },
+        {
+          "family": "giant",
+          "task": "attack",
+          "episodes": 8,
+          "wins": 6
+        },
+        {
+          "family": "giant",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "golem",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 1
+        },
+        {
+          "family": "golem",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 0
+        },
+        {
+          "family": "hog",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 4
+        },
+        {
+          "family": "hog",
+          "task": "defense",
+          "episodes": 7,
+          "wins": 2
+        },
+        {
+          "family": "swarm",
+          "task": "attack",
+          "episodes": 6,
+          "wins": 2
+        },
+        {
+          "family": "swarm",
+          "task": "defense",
+          "episodes": 6,
+          "wins": 2
+        }
+      ],
+      "validation_checkpoints": [
+        {
+          "update": 50,
+          "wins": 18,
+          "defense_wins": 7,
+          "families": {
+            "air": 0,
+            "bridge": 5,
+            "giant": 6,
+            "golem": 1,
+            "hog": 3,
+            "swarm": 3
+          }
+        },
+        {
+          "update": 100,
+          "wins": 24,
+          "defense_wins": 13,
+          "families": {
+            "air": 2,
+            "bridge": 5,
+            "giant": 7,
+            "golem": 0,
+            "hog": 5,
+            "swarm": 5
+          }
+        }
+      ],
+      "win_change_50_to_100": 6,
+      "defense_change_50_to_100": 6
+    }
+  ],
+  "sources": {
+    "reports/defense_plan/policy_adaptation_verified_20261101.json": "7cc070f35f5e1c88a08a5d4e8003a9322b89ed100bb3a89c9cc61d93679018ab",
+    "tmp/kaggle/policy_adaptation_20261101/collected/collection_receipt.json": "87f63dffbe256df57296d32dfd4c4f56ec8e7931b0ede7f672c7296cb38a6709",
+    "reports/defense_plan/calibrated_spell_verified_20261102.json": "f8017472268788f8db3e5c261a61000e160dc96ed95d8f542b328f08ff122b8f",
+    "tmp/kaggle/calibrated_spell_20261102/collected/collection_receipt.json": "d304614a9f8446fe84dc423e9655e6e70e85ced051beef1b78821303f64ee19c",
+    "reports/defense_plan/group_entropy_verified_20261102.json": "dcedf556569bf8cae5ba57319e8b404bf8dca24978ad0302b59cabae762780be",
+    "tmp/kaggle/group_entropy_20261102/collected/collection_receipt.json": "28976eeb5ba7aa83d265dcc96ffb4237c7c3f7898d155b094a58c6ed2a5712f5"
+  },
+  "config_sha256": "32951a7abf868bf3629b1f7afa86fc7be295e0cf4cf5573558b096e69673deac",
+  "source_sha256": "fb7b3438f7bbc3b8718ae729f8cab27f321a5bb8914377b5455427fb216024df",
+  "actor_episode_range": [
+    77,
+    93
+  ],
+  "air_defense_episode_range": [
+    6,
+    9
+  ],
+  "validation_win_direction": {
+    "improved": 19,
+    "unchanged": 1,
+    "worse": 4
+  },
+  "limitations": [
+    "Episodes counted by completion update; some started during critic warmup",
+    "Training episodes use changing sampled policies; counts are exposure, not evaluation win rates",
+    "50/100 validation contexts are reused development data; no causal proof that a larger budget will help",
+    "A family combines different pushes; number of episodes is not number of distinct tactical decisions"
+  ],
+  "remote_queries": false,
+  "training_changed": false,
+  "live_games": false
+}
