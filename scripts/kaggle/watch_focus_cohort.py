@@ -32,7 +32,10 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             except (ValueError,OSError):continue
             if not r.get('complete'):continue
             prep=json.loads((root/'preparation.json').read_text())
-            if prep.get('study_variant')=='spell_interaction_v1':
+            if prep.get('study_variant')=='tower_credit_v1':
+                from scripts.attack.verify_air_exposure_pilot import verify_tower_credit
+                report=verify_tower_credit(receipt.parent,root)
+            elif prep.get('study_variant')=='spell_interaction_v1':
                 from scripts.attack.verify_air_exposure_pilot import verify_interaction
                 report=verify_interaction(receipt.parent,root)
             elif prep.get('study_variant')=='air_exposure_v1':

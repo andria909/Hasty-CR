@@ -515,6 +515,11 @@ def render_air_exposure(reports,state):
         studies.append(('spell_interaction',interaction,'Спеллы: '+interaction['kernel'].split('/')[0],(452,453),
             [('control01','Пустой 0,1; спящий король 0'),('control03','Пустой 0,3; спящий король 0'),
              ('king01','Пустой 0,1; спящий король 0,4'),('king03','Пустой 0,3; спящий король 0,4')]))
+    tower=read(reports/'tower_credit_training_20261102.json')
+    if tower:
+        studies.append(('tower_credit',tower,'Бонус башен: '+tower['kernel'].split('/')[0],(462,463),
+            [('control01','Башни 0,15; пустой спелл 0,1'),('control03','Башни 0,15; пустой спелл 0,3'),
+             ('tower05_01','Башни 0,05; пустой спелл 0,1'),('tower05_03','Башни 0,05; пустой спелл 0,3')]))
     lines=['# Текущий этап','','**PPO: защита, накопление эликсира и полезные спеллы.**','']
     for stem,current,title,seeds,cases in studies:
         stream=read(Path(current['root'])/'live_stream/progress.json')or{}
@@ -546,9 +551,10 @@ def render_air_exposure(reports,state):
             lines+=['','Прошли оба seed и защитный контроль: '+(', '.join(selection['eligible_profiles'])or'нет')+'.',
                     'Это reused validation, не независимый test и не реальные бои.','']
     lines+=['409 600 шагов на прогон; 20 480 только для critic. Все типы пушей перемешаны. '
-        'Пушка в центре; бонус своих башен 0,15; задержка 1350 мс.','',
+        'Пушка в центре; задержка 1350 мс. Бонус башен указан у каждого опыта (первые два — 0,15).','',
         '[Опыт с воздухом](reports/economy_cycle_results_20261102.md) · '
         '[Опыт со спеллами](reports/spell_interaction_design_20261102.md) · '
+        '[Бонус башен](reports/pilot_reward_alignment_20261102.md) · '
         '[Предыдущие 24 прогона](reports/economy_pilot_selection_20261102.md)','']
     alignment=read(reports/'pilot_reward_alignment_20261102.json')or{}
     if alignment.get('train_returns_verified')==2401:
@@ -556,7 +562,9 @@ def render_air_exposure(reports,state):
                 '[Разбор и следующий опыт](reports/pilot_reward_alignment_20261102.md).','']
     readiness=read(reports/'long_full_readiness_20261102.json')or{}
     if readiness.get('all_full_commands_verified') and readiness.get('validation_games')==96:
-        lines+=['Переход на полный бюджет проверен для всех 8 профилей: CPU-resume и 96 технических игр. '
+        tower_ready=read(reports/'tower_credit_full_readiness_20261102.json')or{}
+        scope='12 профилей, 144 технические игры' if tower_ready.get('all_full_commands_verified') and tower_ready.get('validation_games')==48 else 'первые 8 профилей, 96 технических игр'
+        lines+=[f'Переход на полный бюджет проверен на CPU: {scope}. '
                 'Полные GPU-запуски ждут отбора кандидатов. [Проверка](reports/long_full_readiness_20261102.md).','']
     lines+=['**Предыдущий цикл — сравнение в симуляторе:**','']
     prior=read(reports/'economy_pilot_selection_20261102.json')

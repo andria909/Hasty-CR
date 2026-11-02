@@ -75,6 +75,7 @@ def test_regression_in_any_replica_survives_pooling():
     ('group_entropy_v1','verify_group_entropy_pilot','verify_entropy'),
     ('air_exposure_v1','verify_air_exposure_pilot','verify_exposure'),
     ('spell_interaction_v1','verify_air_exposure_pilot','verify_interaction'),
+    ('tower_credit_v1','verify_air_exposure_pilot','verify_tower_credit'),
 ])
 def test_global_selection_requires_variant_specific_audit(tmp_path,monkeypatch,variant,module_name,function):
     import importlib,json

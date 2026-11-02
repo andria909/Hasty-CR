@@ -84,7 +84,7 @@ def test_study_pairs_each_candidate_with_same_seed_and_rejects_changed_artifact(
 
 
 @pytest.mark.parametrize('variant,prefix',[
-    ('air_exposure_v1','air_exposure'),('spell_interaction_v1','spell_interaction')])
+    ('air_exposure_v1','air_exposure'),('spell_interaction_v1','spell_interaction'),('tower_credit_v1','tower_credit')])
 def test_long_study_baseline_measures_learning_against_parent_not_itself(tmp_path,variant,prefix):
     import json
     from pathlib import Path

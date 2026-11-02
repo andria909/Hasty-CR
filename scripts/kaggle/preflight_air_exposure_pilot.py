@@ -19,10 +19,12 @@ def child(path, *, full=False):
             args[args.index('--continuous-focus')+1]!=trial['focus']or
             float(args[args.index('--spell-waste-weight')+1])!=trial['spell_waste_weight']or
             blob['config']['continuous_focus']!=trial['focus']or
-            blob['config']['spell_waste_weight']!=trial['spell_waste_weight']):
+            blob['config']['spell_waste_weight']!=trial['spell_waste_weight']or
+            blob['config']['tower_support_weight']!=trial['tower_support_weight']or
+            blob['environment_states'][0]['tower_support_weight']!=trial['tower_support_weight']):
         raise ValueError('Actual longer pilot treatment differs')
     report.update(air_exposure_verified=True,pilot_steps=None if full else target,full_steps=target if full else None,actual_focus=trial['focus'],
-                  actual_spell_waste_weight=trial['spell_waste_weight'])
+                  actual_spell_waste_weight=trial['spell_waste_weight'],actual_tower_support_weight=trial['tower_support_weight'])
     p.write_text(json.dumps(report,indent=2)+'\n')
 
 

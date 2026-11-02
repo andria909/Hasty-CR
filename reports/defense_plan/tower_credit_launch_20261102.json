@@ -1,0 +1,89 @@
+{
+  "kernel": "vertel0/hastycr-tower-credit1102",
+  "accepted": true,
+  "launch_receipt": {
+    "ref": "/code/vertel0/hastycr-tower-credit1102",
+    "url": "https://www.kaggle.com/code/vertel0/hastycr-tower-credit1102",
+    "versionNumber": 1,
+    "kernelId": 142292575
+  },
+  "root": "tmp/kaggle/tower_credit_20261102_reuse",
+  "local_observers": {
+    "stream": {
+      "pid": 33161,
+      "command": [
+        "/Users/andriashadrin/.local/share/hastycr-kaggle-cli/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.run_observer",
+        "--token-index",
+        "1",
+        "--mode",
+        "stream",
+        "--",
+        "--kernel",
+        "vertel0/hastycr-tower-credit1102",
+        "--output",
+        "tmp/kaggle/tower_credit_20261102_reuse/live_stream",
+        "--api-user",
+        "vertel0",
+        "--reconnect-seconds",
+        "1200",
+        "--reconnects",
+        "100"
+      ]
+    },
+    "collector": {
+      "pid": 33162,
+      "command": [
+        "/Users/andriashadrin/.local/share/hastycr-kaggle-cli/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.run_observer",
+        "--token-index",
+        "1",
+        "--mode",
+        "collect",
+        "--",
+        "--kernel",
+        "vertel0/hastycr-tower-credit1102",
+        "--output",
+        "tmp/kaggle/tower_credit_20261102_reuse/collected",
+        "--profile",
+        "tower-credit-pilot",
+        "--api-user",
+        "vertel0",
+        "--poll-seconds",
+        "1200"
+      ]
+    },
+    "postprocess": {
+      "pid": 33163,
+      "command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.watch_focus_cohort",
+        "--root",
+        "tmp/kaggle/tower_credit_20261102_reuse",
+        "--status-report",
+        "reports/defense_plan/tower_credit_training_20261102.json",
+        "--verified-report",
+        "reports/defense_plan/tower_credit_verified_20261102.json",
+        "--summary-report",
+        "reports/defense_plan/tower_credit_summary_20261102.json",
+        "--markdown-report",
+        "reports/tower_credit_results_20261102.md"
+      ]
+    }
+  },
+  "paired_observer": "reports/defense_plan/paired_tower_credit_observer_20261102.json",
+  "reused_dataset": "vertel0/hastycr-adapt-ppo1101-inputs",
+  "new_dataset_upload": false,
+  "total_pilot_steps": 3276800,
+  "pilot_steps_each": 409600,
+  "remote_job_restarted": false,
+  "automatic_full_training": false,
+  "live_games": false,
+  "preflight_report": "reports/defense_plan/tower_credit_preflight_20261102.json"
+}

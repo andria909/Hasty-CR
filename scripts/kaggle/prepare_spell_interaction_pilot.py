@@ -27,33 +27,33 @@ def validate_protocol(p):
         common=fixed;validate_shared_trial(row,dormant_king_weight=king)
 
 
-def prepare(source,output,design):
+def prepare(source,output,design,*,variant=VARIANT,validator=validate_protocol,experiment='spell_interaction',slug='hastycr-spell-pair1102'):
     source,root,design=Path(source),Path(output),Path(design);planned=json.loads(design.read_text())
     if sha(source/'dataset/protocol.json')!=planned['source_protocol_sha256']:raise ValueError('Designed source changed')
-    clone(source,root,'hastycr-spell-pair1102')
+    clone(source,root,slug)
     prep=json.loads((root/'preparation.json').read_text());c=prep['config']
     if prep['study_variant']!='air_exposure_v1'or len(c['models'])!=1 or c['models'][0]['sha256']!=planned['initial_sha256']:
         raise ValueError('Verified exposure controller and BC800 initial required')
     c.update(owner='vertel0',allow_full_training=False)
     p=json.loads((root/'dataset/protocol.json').read_text());p.update(planned)
-    p.update(schema='continuous-spell-interaction-pilot-v1',study_variant=VARIANT,
-        experiment='spell_interaction',status='prepared',design_sha256=sha(design))
-    validate_protocol(p)
+    p.update(schema='continuous-'+experiment.replace('_','-')+'-pilot-v1',study_variant=variant,
+        experiment=experiment,status='prepared',design_sha256=sha(design))
+    validator(p)
     (root/'dataset/protocol.json').write_text(json.dumps(p,indent=2)+'\n');c['pins']['protocol.json']=sha(root/'dataset/protocol.json')
     tree=ast.parse((root/'job/train.py').read_text())
-    # The400-update controller and imported selector are unchanged; only its signed inputs differ.
+    # The400-update controller and imported selector are unchanged; only its hash-pinned inputs differ.
     execute=next(n for n in tree.body if isinstance(n,ast.FunctionDef)and n.name=='execute')
     run=next(n for n in execute.body if isinstance(n,ast.FunctionDef)and n.name=='run')
     budget=next(n.value for n in run.body if isinstance(n,ast.Assign)and any(isinstance(t,ast.Name)and t.id=='steps'for t in n.targets))
     if not isinstance(budget,ast.IfExp)or budget.orelse.value!=STEPS:raise ValueError('Expected400-update pilot branch')
     tree.body[-1].value.args=[ast.parse(repr(c),mode='eval').body];ast.fix_missing_locations(tree)
     (root/'job/train.py').write_text(ast.unparse(tree)+'\n')
-    kernel=c['owner']+'/hastycr-spell-pair1102'
+    kernel=c['owner']+'/'+slug
     for file,identity in [('dataset/dataset-metadata.json',c['owner']+'/'+c['slug']),('job/kernel-metadata.json',kernel)]:
         path=root/file;row=json.loads(path.read_text());row.update(id=identity,title=identity.split('/')[-1])
         if file.startswith('job/'):row['dataset_sources']=[c['owner']+'/'+c['slug']]
         path.write_text(json.dumps(row,indent=2)+'\n')
-    prep.update(kernel=kernel,study_variant=VARIANT,experiment='spell_interaction',bootstrap_sha256=sha(root/'job/train.py'),design_sha256=sha(design))
+    prep.update(kernel=kernel,study_variant=variant,experiment=experiment,bootstrap_sha256=sha(root/'job/train.py'),design_sha256=sha(design))
     (root/'preparation.json').write_text(json.dumps(prep,indent=2)+'\n')
     return dict(kernel=kernel,submitted=False,pilot_steps=8*STEPS)
 

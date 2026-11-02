@@ -9,11 +9,25 @@ from scripts.attack.evaluation_execution import HOG_CLIPPED
 from scripts.kaggle.prepare_air_exposure_pilot import validate_protocol,VARIANT
 
 
-def verify_exposure(collected,prepared,*,interaction=False):
+def audit_checkpoint_rewards(config,blob,trial):
+    states=blob.get('environment_states',[])
+    if not states:raise ValueError('Actual reward environment states required')
+    for name in ('tower_support_weight','spell_waste_weight','crown_only_weight','dormant_king_weight'):
+        expected=trial[name]
+        if (config.get(name)!=expected or blob['config'].get(name)!=expected or
+                any(state.get(name)!=expected for state in states)):
+            raise ValueError('Checkpoint/environment reward differs: '+name)
+
+
+def verify_exposure(collected,prepared,*,interaction=False,tower_credit=False):
     root,prepared=Path(collected),Path(prepared)
     prep=json.loads((prepared/'preparation.json').read_text());p=json.loads((prepared/'dataset/protocol.json').read_text())
     validator=validate_protocol;variant=VARIANT;report_prefix='air_exposure'
-    if interaction:
+    if interaction and tower_credit:raise ValueError('One study variant required')
+    if tower_credit:
+        from scripts.kaggle.prepare_tower_credit_pilot import validate_protocol as validator,VARIANT as variant
+        report_prefix='tower_credit'
+    elif interaction:
         from scripts.kaggle.prepare_spell_interaction_pilot import validate_protocol as validator,VARIANT as variant
         report_prefix='spell_interaction'
     validator(p)
@@ -39,6 +53,7 @@ def verify_exposure(collected,prepared,*,interaction=False):
                 if episodes:audit_rewards(config,episodes,trial);audit_reward(config,episodes,trial['spell_waste_weight'])
             selected=next(m for m in result['pilot_models']if m['id']==name)
             blob=torch.load(selected['checkpoint'],map_location='cpu',weights_only=False)
+            audit_checkpoint_rewards(config,blob,trial)
             execution,count=audit_training_execution(config,blob,run/'metrics.jsonl')
             if execution!=HOG_CLIPPED:raise ValueError('Exposure execution mode differs')
             final=torch.load(run/'update_000400.pt',map_location='cpu',weights_only=False)
@@ -78,3 +93,7 @@ def verify_exposure(collected,prepared,*,interaction=False):
 
 def verify_interaction(collected,prepared):
     return verify_exposure(collected,prepared,interaction=True)
+
+
+def verify_tower_credit(collected,prepared):
+    return verify_exposure(collected,prepared,tower_credit=True)
