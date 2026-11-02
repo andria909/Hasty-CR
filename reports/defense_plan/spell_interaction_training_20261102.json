@@ -2,7 +2,7 @@
   "schema": "spell-interaction-training-v1",
   "root": "tmp/kaggle/spell_interaction_20261102_reuse",
   "kernel": "andreiperelaiko/hastycr-spell-pair1102",
-  "status": "training_steps_observed",
+  "status": "pilot_complete_budgets_verified",
   "submitted": true,
   "pilot_target_steps": 3276800,
   "pilot_steps_each": 409600,
@@ -15,7 +15,7 @@
     "owner": "vertel0",
     "error": "StartBlobUpload404 on both official routes; CreateDataset and kernel submission not reached"
   },
-  "last_local_sync_ns": 1793632873669508000,
+  "last_local_sync_ns": 1793648062663525000,
   "reused_dataset": "andreiperelaiko/hastycr-group-entropy1102-inputs",
   "new_dataset_upload_required": false,
   "launch_receipt": {
@@ -29,27 +29,70 @@
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
-    "reconnect_attempt": 2,
-    "checked_host_ns": 1793624406577297000,
+    "reconnect_attempt": 7,
+    "checked_host_ns": 1793639582133771000,
     "trials": {
       "pilot_control01_s452": {
-        "update": 199,
-        "steps": 203776,
+        "update": 400,
+        "steps": 409600,
         "target_steps": 409600,
-        "percent": 49.75,
-        "remote_log_seconds": 2671.362001067
+        "percent": 100.0,
+        "remote_log_seconds": 5852.37527852
       },
       "pilot_control03_s452": {
-        "update": 199,
-        "steps": 203776,
+        "update": 400,
+        "steps": 409600,
         "target_steps": 409600,
-        "percent": 49.75,
-        "remote_log_seconds": 2724.397566778
+        "percent": 100.0,
+        "remote_log_seconds": 5914.507693555
+      },
+      "pilot_control01_s453": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 11318.807219861
+      },
+      "pilot_control03_s453": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 11491.248151101
+      },
+      "pilot_king01_s452": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 16772.367530363
+      },
+      "pilot_king03_s452": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 16995.643996669
+      },
+      "pilot_king01_s453": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 409600,
+        "percent": 24.75,
+        "remote_log_seconds": 17669.24791236
+      },
+      "pilot_king03_s453": {
+        "update": 94,
+        "steps": 96256,
+        "target_steps": 409600,
+        "percent": 23.5,
+        "remote_log_seconds": 17900.868315749
       }
     },
     "error_type": "SSLError",
     "http_status": null
   },
   "actual_training_steps_confirmed": true,
-  "cuda_observed_report": "reports/defense_plan/spell_interaction_cuda_observed_20261102.json"
+  "cuda_observed_report": "reports/defense_plan/spell_interaction_cuda_observed_20261102.json",
+  "verified_report": "reports/defense_plan/spell_interaction_verified_20261102.json"
 }

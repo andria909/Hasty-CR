@@ -521,6 +521,17 @@ def render_air_exposure(reports,state):
             [('control01','Башни 0,15; пустой спелл 0,1'),('control03','Башни 0,15; пустой спелл 0,3'),
              ('tower05_01','Башни 0,05; пустой спелл 0,1'),('tower05_03','Башни 0,05; пустой спелл 0,3')]))
     lines=['# Текущий этап','','**PPO: защита, накопление эликсира и полезные спеллы.**','']
+    live_report=reports.parent/'live_tower015_rewards_20261102.json'
+    if live_report.exists():
+        report=json.loads(live_report.read_text())
+        live=report['comparison']['real']
+        outcomes=live['outcomes']
+        lines += [f"**Реальные бои · бонус башен 0,15:** учтено {live['matches']}/5; "
+                  f"{outcomes.get('win',0)} побед, {outcomes.get('loss',0)} поражений, "
+                  f"{outcomes.get('unknown',0)} неизвестно. Статус: `{report.get('series_status','не указан')}`. "
+                  '[Награда: реальные бои и симулятор](reports/live_tower015_rewards_20261102.md).', '',
+                  'Парсер адаптирован к 160635007: проверены HP, рука, время и расход эликсира. '
+                  '[Проверка](reports/parser_160635007_20261102.json).', '']
     for stem,current,title,seeds,cases in studies:
         stream=read(Path(current['root'])/'live_stream/progress.json')or{}
         runs=stream.get('trials',{})if stream.get('kernel')==current['kernel']else{}
@@ -574,8 +585,43 @@ def render_air_exposure(reports,state):
     return '\n'.join(lines)
 
 
+def render_completed_long_economy(reports, selection):
+    lines=['# Текущий этап','',
+        '**24 новых PPO-модели обучены; 9 830 400 CUDA-шагов проверены.** '
+        f"Устойчиво прошли отбор: {selection['eligible_profiles']} профилей. Большое продолжение не запущено.",'',
+        '| Опыт | Вариант | Победы validation | Против воздуха | Пустые спеллы, эликсир/матч |',
+        '|---|---|---:|---:|---:|']
+    names={'uniform01':'обычная смесь, штраф 0,1','uniform03':'обычная смесь, штраф 0,3',
+           'focus01':'чаще воздух/голем, штраф 0,1','focus03':'чаще воздух/голем, штраф 0,3',
+           'control01':'башни 0,15; спелл 0,1','control03':'башни 0,15; спелл 0,3',
+           'tower05_01':'башни 0,05; спелл 0,1','tower05_03':'башни 0,05; спелл 0,3',
+           'king01':'штраф короля 0,4; спелл 0,1','king03':'штраф короля 0,4; спелл 0,3'}
+    for stem,label in [('air_exposure','Смесь пушей'),('spell_interaction','Спеллы'),('tower_credit','Бонус башен')]:
+        summary=read(reports/f'{stem}_summary_20261102.json')
+        for row in summary['rows']:
+            air=row['by_family']['air']
+            lines.append(f"| {label} | {names[row['id']]} | {row['wins']}/{row['games']} | "
+                         f"{air['wins']}/{air['games']} | {row['mean_empty_spell_elixir']:.2f} |")
+    lines+=['','Каждая строка — два seed на тех же 72 сценариях: 144 повтора, а не 144 независимых теста. '
+            'Повторные контрольные профили объединены перед отбором. '
+            '[Отбор](reports/long_economy_results_20261103.md).','']
+    live=read(reports.parent/'live_tower015_rewards_20261102.json')
+    if live:
+        r=live['comparison']['real'];o=r['outcomes']
+        lines += [f"**Реальная серия 0,15:** {o.get('win',0)} побед, {o.get('loss',0)} поражений, "
+                  f"{o.get('unknown',0)} неизвестно; учтено {r['matches']}/5. Бои остановлены. "
+                  '[Награды и разрыв связи](reports/live_tower015_rewards_20261102.md).','']
+    lines+=['**Код:** парсер 160635007 адаптирован; устаревшие наблюдения блокируют нажатия. '
+            'После разрыва активный бой отмечается прерванным.','',
+            '**Следующий этап:** проверить, почему дешёвый цикл не оставляет эликсира на защиту; '
+            'сравнить причинные варианты на TRAIN перед следующим PPO. v25 сохранена.']
+    return '\n'.join(lines)+'\n'
+
+
 def render(reports):
     reports=Path(reports)
+    completed=read(reports/'long_economy_selection_20261103.json')
+    if completed:return render_completed_long_economy(reports,completed)
     exposure=read(reports/'air_exposure_training_20261102.json')
     if exposure:return render_air_exposure(reports,exposure)
     adaptation=read(reports/'policy_adaptation_training_20261101.json')

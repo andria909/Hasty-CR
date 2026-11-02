@@ -1,0 +1,134 @@
+{
+  "series": "tmp/live/tower015_control433_20261102_live5/series/series.json",
+  "series_status": "stopped_error",
+  "requested": 5,
+  "checkpoint_sha256": "adb8c2eb3b88f7d627e07344b3a5ff1524e064abb4dfc0cf49fb5996b0393ad5",
+  "coefficients": {
+    "own_hp_penalty": 6.0,
+    "enemy_hp_reward": 3.0,
+    "win_reward": 20.0,
+    "loss_penalty": 20.0
+  },
+  "real": [
+    {
+      "number": 1,
+      "outcome": "loss",
+      "common_reward": -26.653674019645905,
+      "own_fraction_loss": 1.2879422685804398,
+      "enemy_fraction_damage": 0.35799319727891155,
+      "confirmed_cards": {
+        "knight": 8,
+        "musketeer": 1,
+        "electro_spirit": 7,
+        "skeletons": 7,
+        "cannon": 7,
+        "zap": 7
+      },
+      "input_attempts": 39,
+      "mean_read_to_input_return_ms": 123.19266666666667,
+      "initial_tick": 0,
+      "final_tick": 3690
+    },
+    {
+      "number": 2,
+      "outcome": "loss",
+      "common_reward": -24.90427331153456,
+      "own_fraction_loss": 1.09629044988161,
+      "enemy_fraction_damage": 0.5578231292517006,
+      "confirmed_cards": {
+        "fireball": 3,
+        "musketeer": 1,
+        "knight": 8,
+        "zap": 8,
+        "cannon": 6,
+        "skeletons": 7,
+        "electro_spirit": 7
+      },
+      "input_attempts": 41,
+      "mean_read_to_input_return_ms": 124.54575609756097,
+      "initial_tick": 0,
+      "final_tick": 3690
+    },
+    {
+      "number": 3,
+      "outcome": "loss",
+      "common_reward": -29.363992558349306,
+      "own_fraction_loss": 1.6720599842146804,
+      "enemy_fraction_damage": 0.22278911564625847,
+      "confirmed_cards": {
+        "electro_spirit": 8,
+        "musketeer": 1,
+        "hog_rider": 1,
+        "skeletons": 8,
+        "knight": 7,
+        "cannon": 7,
+        "zap": 7,
+        "fireball": 1
+      },
+      "input_attempts": 41,
+      "mean_read_to_input_return_ms": 114.83292682926829,
+      "initial_tick": 0,
+      "final_tick": 3690
+    },
+    {
+      "number": 4,
+      "outcome": "unknown",
+      "common_reward": null,
+      "own_fraction_loss": null,
+      "enemy_fraction_damage": null,
+      "confirmed_cards": {},
+      "input_attempts": 3,
+      "mean_read_to_input_return_ms": 123.194,
+      "initial_tick": 0,
+      "final_tick": 239
+    }
+  ],
+  "comparison": {
+    "real": {
+      "matches": 4,
+      "measured": 3,
+      "outcomes": {
+        "loss": 3,
+        "unknown": 1
+      },
+      "mean_common_reward": -26.97397996317659,
+      "common_reward_min": -29.363992558349306,
+      "common_reward_max": -24.90427331153456
+    },
+    "selected_validation": {
+      "matches": 72,
+      "measured": 72,
+      "outcomes": {
+        "loss": 42,
+        "win": 30
+      },
+      "mean_common_reward": -6.457980685763889,
+      "common_reward_min": -31.324776785714285,
+      "common_reward_max": 21.39453125
+    },
+    "training_up_to_selected_update": {
+      "matches": 45,
+      "measured": 45,
+      "outcomes": {
+        "loss": 28,
+        "win": 17
+      },
+      "mean_common_reward": -9.909928385416666,
+      "common_reward_min": -38.0,
+      "common_reward_max": 23.4990234375
+    }
+  },
+  "unavailable_live_terms": [
+    "tower_damage_attribution_bonus",
+    "spell_value_and_waste",
+    "reserve_shaping",
+    "overflow_full_return",
+    "illegal_action_penalty"
+  ],
+  "limitations": [
+    "Partial undiscounted score only: tower HP fractions plus outcome; not total PPO reward.",
+    "Training episodes use changing stochastic policies, not evaluation of the selected checkpoint.",
+    "Real opponents, levels and durations differ from simulator development validation.",
+    "PLAY_ACK proves hand rotation, not spell impact or uncontaminated manual control."
+  ]
+}

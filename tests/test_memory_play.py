@@ -46,6 +46,36 @@ def test_calibrated_tap_points_are_scaled_to_actual_android_resolution():
         tap_points(4,9,21,1440,2560)
 
 
+def test_execute_stale_snapshot_stops_without_android_taps(monkeypatch, tmp_path):
+    import json
+    import sys
+    import time
+    from types import SimpleNamespace
+    from scripts.gamestate import memory_play
+    from scripts.gamestate.observation_freshness import ObservationInterrupted
+    _, snapshot, _ = fixture()
+    now=time.time_ns()
+    snapshot.update(request_host_ns=now-2_000_000_000, received_host_ns=now-1_900_000_000,
+        round_trip_ms=100., frame=dict(battle_tick=1, read_us=1),
+        own_state=dict(status='ok', world='test_world', tick=1, own_side=0,
+            elixir_raw=100000, hand_indices=[0,1,2,3], cycle_indices=[4,5,6,7]))
+    policy=SimpleNamespace(coordinate_mode='physical_live_cells_v2',geometry='legacy_v1',joint=False,
+        decide=lambda view, capture=None:dict(placement=dict(slot=0,grid_x=9,grid_y=21)))
+    checkpoint=tmp_path/'fake.pt';checkpoint.write_bytes(b'injected policy')
+    monkeypatch.setattr(memory_play,'MemoryPolicy',lambda _:policy)
+    monkeypatch.setattr(memory_play,'CurrentStateReader',lambda *a,**k:SimpleNamespace(query=lambda:snapshot))
+    def forbidden(*a,**k):raise AssertionError('Stale observation reached Android')
+    monkeypatch.setattr(memory_play.subprocess,'run',forbidden)
+    monkeypatch.setattr(memory_play.subprocess,'check_output',forbidden)
+    monkeypatch.setattr(sys,'argv',['memory_play','--serial','offline','--checkpoint',str(checkpoint),
+        '--max-matches','1','--output',str(tmp_path/'run'),'--execute'])
+    with pytest.raises(ObservationInterrupted):memory_play.main()
+    report=json.loads((tmp_path/'run/summary.json').read_text())
+    assert report['finished']==0
+    assert report['interrupted_match']['reason']=='ObservationInterrupted'
+    assert report['matches'][0]['plays']==[]
+
+
 def test_trial_unknown_profile_retains_measured_hp_and_marks_missing_traits():
     _, snapshot, own = fixture()
     snapshot['units'][-1]['name'] = 'GoblinHut_Rework'

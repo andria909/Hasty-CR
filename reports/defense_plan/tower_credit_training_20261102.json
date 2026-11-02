@@ -2,7 +2,7 @@
   "schema": "tower-credit-training-v1",
   "root": "tmp/kaggle/tower_credit_20261102_reuse",
   "kernel": "vertel0/hastycr-tower-credit1102",
-  "status": "accepted",
+  "status": "pilot_complete_budgets_verified",
   "submitted": true,
   "pilot_target_steps": 3276800,
   "pilot_steps_each": 409600,
@@ -18,16 +18,74 @@
     "versionNumber": 1,
     "kernelId": 142292575
   },
-  "last_local_sync_ns": 1793633430125898000,
+  "last_local_sync_ns": 1793649819646415000,
   "progress_snapshot": {
     "kernel": "vertel0/hastycr-tower-credit1102",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
-    "error_type": "ConnectionError",
-    "http_status": null,
-    "reconnect_attempt": 0,
-    "checked_host_ns": 1793626913302953000
+    "stream_state": "ended",
+    "reconnect_attempt": 5,
+    "checked_host_ns": 1793648642551746000,
+    "trials": {
+      "pilot_control01_s462": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 6336.949288441
+      },
+      "pilot_control03_s462": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 6403.83192173
+      },
+      "pilot_control01_s463": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 12107.29778972
+      },
+      "pilot_control03_s463": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 12284.819535143
+      },
+      "pilot_tower05_01_s462": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 17727.59898226
+      },
+      "pilot_tower05_03_s462": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 18161.902675856
+      },
+      "pilot_tower05_01_s463": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 23650.130225917
+      },
+      "pilot_tower05_03_s463": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 23910.251270229
+      }
+    }
   },
-  "cuda_observed_report": "reports/defense_plan/tower_credit_cuda_observed_20261102.json"
+  "cuda_observed_report": "reports/defense_plan/tower_credit_cuda_observed_20261102.json",
+  "actual_training_steps_confirmed": true,
+  "verified_report": "reports/defense_plan/tower_credit_verified_20261102.json"
 }

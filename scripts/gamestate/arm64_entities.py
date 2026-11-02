@@ -25,6 +25,11 @@ BUILD_PROFILES = {
         "vtable_offset": 0x1a4f778,
         "binary": "/data/local/tmp/hasty_arm64_entities_160635001_v9",
     },
+    "160635007": {
+        "sha256": "e31590aeffacf475147096bd11f30667d7f8a7218ae7bbf86926e0fd20274222",
+        "vtable_offset": 0x1a4e378,
+        "binary": "/data/local/tmp/hasty_arm64_entities_160635007_v10",
+    },
 }
 PTR_MASK = 0x00FFFFFFFFFFFFFF
 

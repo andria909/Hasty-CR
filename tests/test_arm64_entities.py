@@ -62,7 +62,7 @@ def test_names_fail_closed_for_non_names():
         Memory.decode_name(b"Knight\x00reused")
 
 
-@pytest.mark.parametrize('version', ['160402020', '160635001'])
+@pytest.mark.parametrize('version', ['160402020', '160635001', '160635007'])
 def test_each_supported_build_keeps_its_exact_hash_guard(monkeypatch, version):
     from scripts.gamestate.arm64_entities import BUILD_PROFILES
     digest = BUILD_PROFILES[version]['sha256']

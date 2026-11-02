@@ -21,6 +21,7 @@ from scripts.gamestate.query_arm64 import CurrentStateReader
 from sim.env import DECK_26
 from scripts.gamestate.placement_budget import PlacementBudget
 from scripts.gamestate.hand_readiness import HandReadiness
+from scripts.gamestate.observation_freshness import check_poll_gap, check_input_age
 
 # Explicit deck-screen order, visually checked on this account, slot 1.
 # This is NOT the seen-card list at KingTower+0x288, which is play-history order.
@@ -148,6 +149,7 @@ def main():
     deadline = time.monotonic() + args.seconds
     result_reference=args.result_reference.read_bytes()if args.result_reference else None
     last_result_check=0.;result_visible=False
+    last_poll_host_ns = None
     def frozen_result_confirmed():
         nonlocal last_result_check,result_visible
         if result_reference is None:return True
@@ -161,12 +163,18 @@ def main():
     try:
         while time.monotonic() < deadline and report['finished'] < args.max_matches:
             began = time.monotonic()
+            poll_host_ns = time.time_ns()
+            if args.execute and active is not None:
+                check_poll_gap(last_poll_host_ns, poll_host_ns)
+            last_poll_host_ns = poll_host_ns
             if capture_job is not None and capture_job.done():
                 try: capture_job.result()
                 except Exception as exc: emit('SCREENSHOT_ERROR',detail=str(exc))
                 capture_job=None
             snapshot = reader.query()
             frames.write(json.dumps(snapshot) + '\n'); frames.flush()
+            if args.execute and active is not None:
+                check_poll_gap(poll_host_ns, time.time_ns())
             private = snapshot.get('own_state', {})
             if active is not None and snapshot['status'] == 'ok':
                 dead_kings = [u['side'] for u in snapshot['units']
@@ -344,9 +352,11 @@ def main():
             sample_name=f"m{active['number']:02d}_p{active['plays']+1:03d}"
             if args.execute:
                 # Only Android input, exactly two taps. No Battle/menu actions.
+                check_input_age(snapshot, time.time_ns())
                 select_start=time.perf_counter_ns()
                 subprocess.run(adb+['shell', 'input', 'tap', str(select[0]), str(select[1])],check=True,timeout=3)
                 timing['adb_select_ms']=(time.perf_counter_ns()-select_start)/1e6
+                check_input_age(snapshot, time.time_ns())
                 target_start=time.perf_counter_ns()
                 target_request_ns=time.time_ns()
                 subprocess.run(adb+['shell', 'input', 'tap', str(target[0]), str(target[1])],check=True,timeout=3)
@@ -370,6 +380,10 @@ def main():
             time.sleep(max(0,.1-(time.monotonic()-began)))
         emit('STOP', reason='max_matches' if report['finished'] >= args.max_matches else 'time_limit', finished=report['finished'])
     except (Exception, KeyboardInterrupt) as exc:
+        if active is not None:
+            report['interrupted_match'] = {'number': active['number'],
+                                           'last_tick': active['last_tick'],
+                                           'reason': type(exc).__name__}
         emit('STOP', reason=type(exc).__name__, detail=str(exc), finished=report['finished'])
         raise
     finally:
