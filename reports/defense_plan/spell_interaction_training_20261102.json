@@ -2,7 +2,7 @@
   "schema": "spell-interaction-training-v1",
   "root": "tmp/kaggle/spell_interaction_20261102_reuse",
   "kernel": "andreiperelaiko/hastycr-spell-pair1102",
-  "status": "accepted",
+  "status": "training_steps_observed",
   "submitted": true,
   "pilot_target_steps": 3276800,
   "pilot_steps_each": 409600,
@@ -15,7 +15,7 @@
     "owner": "vertel0",
     "error": "StartBlobUpload404 on both official routes; CreateDataset and kernel submission not reached"
   },
-  "last_local_sync_ns": 1793621817191973000,
+  "last_local_sync_ns": 1793623188981190000,
   "reused_dataset": "andreiperelaiko/hastycr-group-entropy1102-inputs",
   "new_dataset_upload_required": false,
   "launch_receipt": {
@@ -23,5 +23,33 @@
     "url": "https://www.kaggle.com/code/andreiperelaiko/hastycr-spell-pair1102",
     "versionNumber": 1,
     "kernelId": 142286006
-  }
+  },
+  "progress_snapshot": {
+    "kernel": "andreiperelaiko/hastycr-spell-pair1102",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "reconnect_attempt": 1,
+    "checked_host_ns": 1793623139064910000,
+    "trials": {
+      "pilot_control01_s452": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 409600,
+        "percent": 24.75,
+        "remote_log_seconds": 1304.554642519
+      },
+      "pilot_control03_s452": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 409600,
+        "percent": 24.75,
+        "remote_log_seconds": 1316.37993466
+      }
+    },
+    "error_type": "ConnectionError",
+    "http_status": null
+  },
+  "actual_training_steps_confirmed": true,
+  "cuda_observed_report": "reports/defense_plan/spell_interaction_cuda_observed_20261102.json"
 }
