@@ -1,3 +1,13 @@
+## CURRENT Nov2: second long pilot accepted using owned existing dataset
+
+Air-exposure kernel142281170 RUNNING at 15:20 Moscow; actual PPO uniform01/uniform03 seed442 each99/400 updates (24.75%), >=6.1875% whole3276800. SSE temporarily404/interrupted; collector independentlyRUNNING, existing1200s retries retained. Do not restart GPU for logs.
+
+Second study accepted andreiperelaiko/hastycr-spell-pair1102 VERSION1 kernel142286006, root tmp/kaggle/spell_interaction_20261102_reuse. tokenindex2; observer31308stream/31309collector/31310post/31311paired, all1200sremote. RUNNING observed, CUDA/PPO counters NOT yet confirmed. Same BC800_s402; control01/control03/king01/king03 =empty .1/.3 x dormantking0/.4, seeds452/453,409600each/3276800total. No live games/automaticfull. Canonical launch/state/preflight/pairedconfig in reports/defense_plan/spell_interaction_*20261102 and paired_spell_interaction_observer_20261102.
+
+Preserved failed pre-submission packages: spell_interaction_20261102 (vertel0 blob404 bothroutes) and _account3 (blobtimeout). Neither reached CreateDataset/kernelpush. New reuse_frozen_dataset.py reuses PRIVATE owned completed group-entropy inputs; only protocol/extensions inline, all SHA verified, training run AST unchanged. Actual four-command16→32resume+48technicalgames preflight rerun on finaltransport. submit_prepared_pilot validates reuse proof and skips upload. No secret changes. Source tests125/22/114 passed during development. Old verifier budgets and source contracts preserved.
+
+Next inspect passive new CUDA/INPUTS_VERIFIED/steps; collect all16 actualweights then selection, not merely SSEscores. Full4m preparer/verifier still need support for new air_exposure/spell_interaction variants if qualified; no relaxation of gates. Old24pilots0eligible. GoalACTIVE; no qualified new models/test wins yet. Preserve v25/unrelatedartifacts, no livegames. Finish own commit/push and continue results.
+
 ## CURRENT Nov2: larger air-exposure PPO accepted, actual2T4 confirmed
 
 New `andriashadrin/hastycr-air-exposure1102` VERSION1 kernel142281170, roottmp/kaggle/air_exposure_20261102. Fourcasesuniform01/uniform03/focus01/focus03 =uniform/air_golem xempty.1/.3, seeds442443,409600each,total3276800. BC800_s402same9e7b5619 init,freshoptimizer,critic20480,8env128rollout,currentphysics1350ms/globalcooldown0/centralCannon/tower.15 unchanged. Allfamilies shuffled, focusair/golemweight3. CurrentgoalACTIVE; nofullcandidatesyet.

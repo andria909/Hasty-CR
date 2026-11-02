@@ -74,7 +74,10 @@ def compare_study(root, proof_path):
     prep = json.loads((root/'preparation.json').read_text())
     protocol = json.loads((root/'dataset/protocol.json').read_text())
     variant = protocol['study_variant']
-    if variant == 'air_exposure_v1':
+    if variant == 'spell_interaction_v1':
+        from scripts.kaggle.prepare_spell_interaction_pilot import validate_protocol
+        accepted = proof.get('spell_interaction_audit',{}).get('verified') is True
+    elif variant == 'air_exposure_v1':
         from scripts.kaggle.prepare_air_exposure_pilot import validate_protocol
         accepted = proof.get('air_exposure_audit',{}).get('verified') is True
     elif variant == 'group_entropy_v1':
@@ -89,7 +92,7 @@ def compare_study(root, proof_path):
     else:
         raise ValueError('Unsupported paired PPO study')
     validate_protocol(protocol)
-    if not accepted or proof['pilot_steps_verified'] != (3276800 if variant=='air_exposure_v1'else 819200) or proof['kernel'] != prep['kernel']:
+    if not accepted or proof['pilot_steps_verified'] != (3276800 if variant in ('air_exposure_v1','spell_interaction_v1')else 819200) or proof['kernel'] != prep['kernel']:
         raise ValueError('Completed independent CUDA verification required')
     collected = root/'collected'
     receipt = json.loads((collected/'collection_receipt.json').read_text())
@@ -114,7 +117,7 @@ def compare_study(root, proof_path):
     for case in protocol['cases']:
         for seed in protocol['pilot_seeds']:
             name = f"pilot_{case['id']}_s{seed}"
-            if variant == 'air_exposure_v1':
+            if variant in ('air_exposure_v1','spell_interaction_v1'):
                 reference = f"pilot_{protocol['paired_controls'].get(case['id'],case['id'])}_s{seed}"
                 baseline = summaries[reference]
             elif variant in ('calibrated_spell_cost_v1','group_entropy_v1'):

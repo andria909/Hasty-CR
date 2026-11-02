@@ -62,8 +62,10 @@ def submit(root,token_index,*,evaluation=False):
             from scripts.attack.verify_bank_correction_pair import verify
             checked=verify(root,technical_smoke=True)
             (root/'preflight_independent_verification.json').write_text(json.dumps(checked,indent=2)+'\n')
-        elif prepared.get('study_variant')in ('policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1','air_exposure_v1'):
-            if prepared['study_variant']=='air_exposure_v1':
+        elif prepared.get('study_variant')in ('policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1','air_exposure_v1','spell_interaction_v1'):
+            if prepared['study_variant']=='spell_interaction_v1':
+                from scripts.kaggle.prepare_spell_interaction_pilot import validate_protocol
+            elif prepared['study_variant']=='air_exposure_v1':
                 from scripts.kaggle.prepare_air_exposure_pilot import validate_protocol
             elif prepared['study_variant']=='group_entropy_v1':
                 from scripts.kaggle.prepare_group_entropy_pilot import validate_protocol
@@ -81,10 +83,13 @@ def submit(root,token_index,*,evaluation=False):
                 expected=next(m for m in prepared['config']['models']if m['id']==trial['initial_id'])
                 if child.get('explicit_initial_model')!=expected or not child.get('exact_resume_16_to_32'):
                     raise ValueError('Preflight assigned initialization differs')
-                if prepared['study_variant']=='air_exposure_v1'and (not child.get('air_exposure_verified')or
+                if prepared['study_variant']in ('air_exposure_v1','spell_interaction_v1')and (not child.get('air_exposure_verified')or
                         child.get('pilot_steps')!=409600 or child.get('actual_focus')!=trial['focus']or
                         child.get('actual_spell_waste_weight')!=trial['spell_waste_weight']):
                     raise ValueError('Actual400-update pilot preflight required')
+                if prepared['study_variant']=='spell_interaction_v1'and (not child.get('spell_interaction_verified')or
+                        child.get('actual_dormant_king_weight')!=trial['dormant_king_weight']or child.get('crown_validation_games')!=12):
+                    raise ValueError('Actual dormant-king accounting preflight required')
                 if prepared['study_variant']=='group_entropy_v1'and child.get('spatial_entropy_verified')!=trial['spatial_entropy_weight']:
                     raise ValueError('Actual entropy preflight required')
         elif not preflight.get('exact_resume_16_to_32')or not preflight.get('frozen_sources_verified'):
@@ -99,6 +104,10 @@ def submit(root,token_index,*,evaluation=False):
     r=json.loads((Path.home()/'.kaggle/access_tokens.json').read_text())['tokens'][index]
     os.environ['KAGGLE_API_TOKEN']=(r if isinstance(r,str)else r['token']).strip()
     configure_http_timeout();api=make_api_client(owner)
+    reused=prepared.get('reused_dataset')
+    if reused:
+        from scripts.kaggle.reuse_frozen_dataset import validate_reuse
+        validate_reuse(root,prepared)
     try:
      recent=api.kernels_list(mine=True,page_size=1,sort_by='dateRun')
      for row in recent or []:
@@ -108,12 +117,12 @@ def submit(root,token_index,*,evaluation=False):
      (root/'authentication_status.json').write_text(json.dumps(dict(owner=owner,ok=False,http_status=getattr(getattr(exc,'response',None),'status_code',None),error_type=type(exc).__name__),indent=2)+'\n')
      raise
     (root/'authentication_status.json').write_text(json.dumps(dict(owner=owner,ok=True),indent=2)+'\n')
-    if not(root/'dataset_submission.json').exists():
+    if not reused and not(root/'dataset_submission.json').exists():
      (root/'dataset_submission.json').write_text(json.dumps(dict(requested=True)))
      r=api.dataset_create_new(str(upload),public=False,quiet=True,convert_to_csv=False,dir_mode='tar')
      result=r.to_dict()if hasattr(r,'to_dict')else str(r)
      (root/'dataset_create.json').write_text(json.dumps(result,indent=2)+'\n')
-    slug=owner+'/'+prepared['config']['slug']
+    slug=reused or owner+'/'+prepared['config']['slug']
     wait_for_dataset(api,slug)
     if(root/'kernel_push_requested.json').exists():raise RuntimeError('Existing push request; inspect exact handle, do not duplicate')
     (root/'kernel_push_requested.json').write_text(json.dumps(dict(kernel=kernel,requested=True)))

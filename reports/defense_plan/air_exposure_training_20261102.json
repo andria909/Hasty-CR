@@ -2,7 +2,7 @@
   "schema": "air-exposure-training-v1",
   "root": "tmp/kaggle/air_exposure_20261102",
   "kernel": "andriashadrin/hastycr-air-exposure1102",
-  "status": "cuda_ready",
+  "status": "training_steps_observed",
   "submitted": true,
   "pilot_target_steps": 3276800,
   "pilot_steps_each": 409600,
@@ -16,12 +16,39 @@
     "versionNumber": 1,
     "kernelId": 142281170
   },
-  "last_local_sync_ns": 1793619621895521000,
+  "last_local_sync_ns": 1793622022379728000,
   "cuda_observed": {
     "event": "CUDA_READY",
     "gpus": [
       "Tesla T4",
       "Tesla T4"
     ]
-  }
+  },
+  "progress_snapshot": {
+    "kernel": "andriashadrin/hastycr-air-exposure1102",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "stream_state": "interrupted",
+    "reconnect_attempt": 1,
+    "checked_host_ns": 1793621009824603000,
+    "trials": {
+      "pilot_uniform03_s442": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 409600,
+        "percent": 24.75,
+        "remote_log_seconds": 1461.657708493
+      },
+      "pilot_uniform01_s442": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 409600,
+        "percent": 24.75,
+        "remote_log_seconds": 1437.062207196
+      }
+    },
+    "error_type": "SSLError",
+    "http_status": null
+  },
+  "actual_training_steps_confirmed": true
 }

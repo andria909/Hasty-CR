@@ -9,12 +9,16 @@ from scripts.attack.evaluation_execution import HOG_CLIPPED
 from scripts.kaggle.prepare_air_exposure_pilot import validate_protocol,VARIANT
 
 
-def verify_exposure(collected,prepared):
+def verify_exposure(collected,prepared,*,interaction=False):
     root,prepared=Path(collected),Path(prepared)
     prep=json.loads((prepared/'preparation.json').read_text());p=json.loads((prepared/'dataset/protocol.json').read_text())
-    validate_protocol(p)
+    validator=validate_protocol;variant=VARIANT;report_prefix='air_exposure'
+    if interaction:
+        from scripts.kaggle.prepare_spell_interaction_pilot import validate_protocol as validator,VARIANT as variant
+        report_prefix='spell_interaction'
+    validator(p)
     models=prep['config']['models']
-    if (prep['study_variant']!=VARIANT or len(models)!=1 or models[0]['id']!='parent'or
+    if (prep['study_variant']!=variant or len(models)!=1 or models[0]['id']!='parent'or
             models[0]['sha256']!=p['initial_sha256']or
             sha(prepared/'dataset'/models[0]['file'])!=p['initial_sha256']):
         raise ValueError('Assigned BC800 initializer differs')
@@ -62,10 +66,14 @@ def verify_exposure(collected,prepared):
             stable=stable and passed
             comparisons.append(dict(id=name,reference=reference,passed=passed,comparison=compared))
         if stable:eligible.append(trial['id'])
-    result['air_exposure_audit']=dict(verified=True,runs=audited)
+    result[report_prefix+'_audit']=dict(verified=True,runs=audited)
     ranked=[r for r in result['pilot_selection']['ranking']if r['trial']['id']in eligible]
-    result['air_exposure_selection']=dict(eligible_profiles=eligible,gate_met=len(eligible)>=2,
+    result[report_prefix+'_selection']=dict(eligible_profiles=eligible,gate_met=len(eligible)>=2,
         selected=ranked[:4]if len(eligible)>=2 else[],
         seed_comparisons=comparisons,automatic_full_training=False)
     result['promotion_blocked']=len(eligible)<2
     return result
+
+
+def verify_interaction(collected,prepared):
+    return verify_exposure(collected,prepared,interaction=True)

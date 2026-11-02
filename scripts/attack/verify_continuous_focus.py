@@ -143,8 +143,11 @@ def verify(collected,prepared):
         if sha(name)!=c['extensions'][name]:raise ValueError('Use the frozen selector version to verify this cohort')
     protocol=json.loads((prepared/'dataset/protocol.json').read_text());result=json.loads((root/'result.json').read_text())
     pilot_steps=102400;profile_selector=select_profiles
-    if cfg.get('study_variant')=='air_exposure_v1':
-        from scripts.kaggle.prepare_air_exposure_pilot import validate_protocol
+    if cfg.get('study_variant')in ('air_exposure_v1','spell_interaction_v1'):
+        if cfg['study_variant']=='spell_interaction_v1':
+            from scripts.kaggle.prepare_spell_interaction_pilot import validate_protocol
+        else:
+            from scripts.kaggle.prepare_air_exposure_pilot import validate_protocol
         from scripts.attack.select_air_exposure import select_profiles as profile_selector
         validate_protocol(protocol);pilot_steps=409600
         if sha('scripts/attack/select_air_exposure.py')!=c['extensions']['scripts/attack/select_air_exposure.py']:

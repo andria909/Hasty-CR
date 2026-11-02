@@ -1,0 +1,88 @@
+{
+  "kernel": "andreiperelaiko/hastycr-spell-pair1102",
+  "accepted": true,
+  "launch_receipt": {
+    "ref": "/code/andreiperelaiko/hastycr-spell-pair1102",
+    "url": "https://www.kaggle.com/code/andreiperelaiko/hastycr-spell-pair1102",
+    "versionNumber": 1,
+    "kernelId": 142286006
+  },
+  "root": "tmp/kaggle/spell_interaction_20261102_reuse",
+  "remote_job_restarted": false,
+  "preflight_report": "reports/defense_plan/spell_interaction_preflight_20261102.json",
+  "local_observers": {
+    "stream": {
+      "pid": 31308,
+      "command": [
+        "/Users/andriashadrin/.local/share/hastycr-kaggle-cli/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.run_observer",
+        "--token-index",
+        "2",
+        "--mode",
+        "stream",
+        "--",
+        "--kernel",
+        "andreiperelaiko/hastycr-spell-pair1102",
+        "--output",
+        "tmp/kaggle/spell_interaction_20261102_reuse/live_stream",
+        "--api-user",
+        "andreiperelaiko",
+        "--reconnect-seconds",
+        "1200",
+        "--reconnects",
+        "100"
+      ]
+    },
+    "collector": {
+      "pid": 31309,
+      "command": [
+        "/Users/andriashadrin/.local/share/hastycr-kaggle-cli/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.run_observer",
+        "--token-index",
+        "2",
+        "--mode",
+        "collect",
+        "--",
+        "--kernel",
+        "andreiperelaiko/hastycr-spell-pair1102",
+        "--output",
+        "tmp/kaggle/spell_interaction_20261102_reuse/collected",
+        "--profile",
+        "spell-interaction-pilot",
+        "--api-user",
+        "andreiperelaiko",
+        "--poll-seconds",
+        "1200"
+      ]
+    },
+    "postprocess": {
+      "pid": 31310,
+      "command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.watch_focus_cohort",
+        "--root",
+        "tmp/kaggle/spell_interaction_20261102_reuse",
+        "--status-report",
+        "reports/defense_plan/spell_interaction_training_20261102.json",
+        "--verified-report",
+        "reports/defense_plan/spell_interaction_verified_20261102.json",
+        "--summary-report",
+        "reports/defense_plan/spell_interaction_summary_20261102.json",
+        "--markdown-report",
+        "reports/spell_interaction_results_20261102.md"
+      ]
+    }
+  },
+  "reused_dataset": "andreiperelaiko/hastycr-group-entropy1102-inputs",
+  "new_dataset_upload": false,
+  "total_pilot_steps": 3276800,
+  "pilot_steps_each": 409600,
+  "automatic_full_training": false,
+  "live_games": false
+}

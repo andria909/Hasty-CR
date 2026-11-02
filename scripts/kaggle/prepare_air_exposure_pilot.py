@@ -15,6 +15,15 @@ CASES=(('uniform01','uniform',.1),('uniform03','uniform',.3),
        ('focus01','air_golem',.1),('focus03','air_golem',.3))
 
 
+def validate_shared_trial(row,*,dormant_king_weight=0.):
+    required=dict(overflow_penalty=.3,tower_support_weight=.15,crown_only_weight=0.,dormant_king_weight=dormant_king_weight,
+        action_delay_ms=1350,validation_action_delay_ms=1350,action_cooldown_ms=0,cannon_center_only=1,
+        tower_damage_all=1,source_radius_reach=1,hog_sight_clipping=1,target_lock_in_range=0,
+        tactical_start_fraction=0.,warmstart_updates=0,supervised_replay_weight=0.,card_balance_weight=.03,
+        history_frames=1,entropy_coef=.01,gamma=.999,missed_fireball_penalty=0.)
+    if any(row.get(k)!=v for k,v in required.items()):raise ValueError('Frozen execution/reward contract differs')
+
+
 def validate_protocol(p):
     if (p.get('study_variant')!=VARIANT or p.get('pilot_seeds')!=SEEDS or
             p.get('pilot_steps_each')!=STEPS or p.get('total_pilot_steps')!=8*STEPS or len(p['cases'])!=4):
@@ -28,12 +37,7 @@ def validate_protocol(p):
         fixed={k:v for k,v in row.items()if k not in ('id','focus','spell_waste_weight')}
         if common is not None and fixed!=common:raise ValueError('Only focus and empty cost may vary')
         common=fixed
-        required=dict(overflow_penalty=.3,tower_support_weight=.15,crown_only_weight=0.,dormant_king_weight=0.,
-            action_delay_ms=1350,validation_action_delay_ms=1350,action_cooldown_ms=0,cannon_center_only=1,
-            tower_damage_all=1,source_radius_reach=1,hog_sight_clipping=1,target_lock_in_range=0,
-            tactical_start_fraction=0.,warmstart_updates=0,supervised_replay_weight=0.,card_balance_weight=.03,
-            history_frames=1,entropy_coef=.01,gamma=.999,missed_fireball_penalty=0.)
-        if any(row.get(k)!=v for k,v in required.items()):raise ValueError('Frozen execution/reward contract differs')
+        validate_shared_trial(row)
 
 
 def prepare(source,output,design):
