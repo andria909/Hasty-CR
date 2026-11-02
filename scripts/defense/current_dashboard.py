@@ -550,6 +550,10 @@ def render_air_exposure(reports,state):
         '[Опыт с воздухом](reports/economy_cycle_results_20261102.md) · '
         '[Опыт со спеллами](reports/spell_interaction_design_20261102.md) · '
         '[Предыдущие 24 прогона](reports/economy_pilot_selection_20261102.md)','']
+    alignment=read(reports/'pilot_reward_alignment_20261102.json')or{}
+    if alignment.get('train_returns_verified')==2401:
+        lines+=['Аудит награды: 2401 эпизод проверен; найден конфликт бонуса башен с сохранением HP. '
+                '[Разбор и следующий опыт](reports/pilot_reward_alignment_20261102.md).','']
     readiness=read(reports/'long_full_readiness_20261102.json')or{}
     if readiness.get('all_full_commands_verified') and readiness.get('validation_games')==96:
         lines+=['Переход на полный бюджет проверен для всех 8 профилей: CPU-resume и 96 технических игр. '

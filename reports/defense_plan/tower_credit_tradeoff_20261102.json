@@ -1,0 +1,53 @@
+{
+  "source": "reports/defense_plan/pilot_reward_alignment_20261102.json",
+  "source_sha256": "0d462d1b0af164e2699af9b0f0bfc1997c6723f1f35312a674cd0dde71cd1498",
+  "example": {
+    "context": [
+      "defense::hog/heldout_push",
+      900140,
+      1000900140,
+      "defense",
+      "hog"
+    ],
+    "before_outcome": "win",
+    "after_outcome": "win",
+    "before_elapsed_ms": 300000,
+    "after_elapsed_ms": 300000,
+    "return_delta": -0.8241924913346811,
+    "component_deltas": {
+      "enemy_damage": 0.046247209821428714,
+      "own_damage": 0.36495535714285676,
+      "overflow": 0.0,
+      "illegal": 0.0,
+      "missed_fireball": 0.0,
+      "board": 0.0,
+      "reserve": 0.0,
+      "fireball": 0.0,
+      "terminal": 0.0,
+      "tower": -1.4353950582989663,
+      "empty_spell": 0.19999999999999973,
+      "crown_spell": 0.0
+    },
+    "before_metrics": {
+      "own_fraction_loss": 0.2433035714285714,
+      "enemy_fraction_damage": 0.2511858258928571,
+      "empty_spell_elixir": 30,
+      "elixir_overflow": 0.0
+    },
+    "after_metrics": {
+      "own_fraction_loss": 0.1824776785714286,
+      "enemy_fraction_damage": 0.2666015625,
+      "empty_spell_elixir": 28,
+      "elixir_overflow": 0.0
+    },
+    "higher_return_policy": "before",
+    "same_duration": true
+  },
+  "tower_paid_value_delta": -9.569300388659777,
+  "other_reward_delta": 0.6112025669642852,
+  "break_even_tower_weight": 0.06387118620381055,
+  "return_delta_at_015": -0.8241924913346813,
+  "return_delta_at_005": 0.13273754753129635,
+  "interpretation": "Endpoint return rescore on one observed equal-duration winning pair; not a training effect",
+  "training_changed": false
+}

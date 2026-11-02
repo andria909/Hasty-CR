@@ -1,0 +1,1381 @@
+{
+  "schema": "pilot-reward-alignment-v1",
+  "runs": [
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_balanced_s412",
+      "actor_episode_completions": 93,
+      "spell_waste_weight": 0.1,
+      "mean_return": -15.067659026025646,
+      "mean_components": {
+        "enemy_damage": 1.7785460769489247,
+        "own_damage": -7.248555407546083,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.5769609344086004,
+        "fireball": 0.0013669224344921183,
+        "terminal": -10.96774193548387,
+        "tower": 3.1198798004165895,
+        "empty_spell": -1.1741935483870969,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 8.932231903076172,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_balanced_s413",
+      "actor_episode_completions": 90,
+      "spell_waste_weight": 0.1,
+      "mean_return": -14.718774179913552,
+      "mean_components": {
+        "enemy_damage": 1.9683051215277778,
+        "own_damage": -7.14677734375,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.5885447233333316,
+        "fireball": -0.0022611053600184038,
+        "terminal": -10.666666666666666,
+        "tower": 3.066059426557576,
+        "empty_spell": -1.348888888888889,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 9.099362850189209,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bank_s412",
+      "actor_episode_completions": 88,
+      "spell_waste_weight": 0.1,
+      "mean_return": -7.6056771231723745,
+      "mean_components": {
+        "enemy_damage": 2.7143729073660716,
+        "own_damage": -7.051667448762175,
+        "overflow": -0.08874886363636364,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6340069761363629,
+        "fireball": 0.21528880792190278,
+        "terminal": -5.454545454545454,
+        "tower": 3.964084450074551,
+        "empty_spell": -1.2704545454545455,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 13,
+      "gradient_norm_last_batch": {
+        "median": 11.21672010421753,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bank_s413",
+      "actor_episode_completions": 86,
+      "spell_waste_weight": 0.1,
+      "mean_return": -2.604016279705829,
+      "mean_components": {
+        "enemy_damage": 3.06971066497093,
+        "own_damage": -6.915699296615449,
+        "overflow": -0.1552220930232558,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6338503593023248,
+        "fireball": 0.12389694275334028,
+        "terminal": -0.9302325581395349,
+        "tower": 4.025752512673718,
+        "empty_spell": -1.188372093023256,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 10,
+      "gradient_norm_last_batch": {
+        "median": 15.37279224395752,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc800_s412",
+      "actor_episode_completions": 80,
+      "spell_waste_weight": 0.1,
+      "mean_return": -7.31556233567933,
+      "mean_components": {
+        "enemy_damage": 1.8720633370535715,
+        "own_damage": -5.761213030133929,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6329201362499987,
+        "fireball": 0.06374280248471484,
+        "terminal": -5.0,
+        "tower": 4.0752646911663115,
+        "empty_spell": -1.9325,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 13.57388162612915,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc800_s413",
+      "actor_episode_completions": 82,
+      "spell_waste_weight": 0.1,
+      "mean_return": -9.83364434580087,
+      "mean_components": {
+        "enemy_damage": 2.0242609429442506,
+        "own_damage": -6.1464571537456445,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.622516990243901,
+        "fireball": 0.07031013228567236,
+        "terminal": -7.317073170731708,
+        "tower": 3.9846611619831425,
+        "empty_spell": -1.826829268292683,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 14.133740901947021,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc8000_s412",
+      "actor_episode_completions": 77,
+      "spell_waste_weight": 0.1,
+      "mean_return": -8.68714386081939,
+      "mean_components": {
+        "enemy_damage": 1.6078077893089056,
+        "own_damage": -5.293838416048238,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6309090558441541,
+        "fireball": 0.01558282284373398,
+        "terminal": -6.753246753246753,
+        "tower": 4.029797414504778,
+        "empty_spell": -1.6623376623376624,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 27.137592315673828,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc8000_s413",
+      "actor_episode_completions": 80,
+      "spell_waste_weight": 0.1,
+      "mean_return": -5.02903588223745,
+      "mean_components": {
+        "enemy_damage": 1.9790230887276785,
+        "own_damage": -5.215577915736607,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6199818574999985,
+        "fireball": 0.08078705374706592,
+        "terminal": -3.5,
+        "tower": 3.709213748524412,
+        "empty_spell": -1.4625000000000001,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 30.632575035095215,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_control_s422",
+      "actor_episode_completions": 79,
+      "spell_waste_weight": 0.1,
+      "mean_return": -10.984776373531519,
+      "mean_components": {
+        "enemy_damage": 1.795939054023508,
+        "own_damage": -5.6130322530515375,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.633643263291138,
+        "fireball": 0.04095657365957506,
+        "terminal": -8.860759493670885,
+        "tower": 4.136395920191366,
+        "empty_spell": -1.8506329113924052,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 9.312872409820557,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_control_s423",
+      "actor_episode_completions": 82,
+      "spell_waste_weight": 0.1,
+      "mean_return": -8.530051756869701,
+      "mean_components": {
+        "enemy_damage": 2.108823769599303,
+        "own_damage": -6.294362137957317,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6299510304878035,
+        "fireball": 0.0060591504597735275,
+        "terminal": -5.853658536585366,
+        "tower": 4.279378491516343,
+        "empty_spell": -2.1463414634146343,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 11.580935955047607,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_neutral_s422",
+      "actor_episode_completions": 78,
+      "spell_waste_weight": 0.3,
+      "mean_return": -13.213818432896993,
+      "mean_components": {
+        "enemy_damage": 1.8021897536057692,
+        "own_damage": -5.9734915149954215,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6372276294871779,
+        "fireball": 0.03743707079125585,
+        "terminal": -7.17948717948718,
+        "tower": 4.298299528214226,
+        "empty_spell": -5.561538461538461,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 11.537868022918701,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_neutral_s423",
+      "actor_episode_completions": 84,
+      "spell_waste_weight": 0.3,
+      "mean_return": -9.999651549943415,
+      "mean_components": {
+        "enemy_damage": 2.2974363573554424,
+        "own_damage": -6.250634433460885,
+        "overflow": -0.019257142857142855,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6290337226190467,
+        "fireball": 0.15362946809520156,
+        "terminal": -4.761904761904762,
+        "tower": 3.931541256876352,
+        "empty_spell": -4.7214285714285715,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 3,
+      "gradient_norm_last_batch": {
+        "median": 10.617058753967285,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_medium_s422",
+      "actor_episode_completions": 82,
+      "spell_waste_weight": 0.5,
+      "mean_return": -16.75582843183243,
+      "mean_components": {
+        "enemy_damage": 1.8987020565657666,
+        "own_damage": -6.344758887739547,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6269219999999986,
+        "fireball": 0.0005447023547113272,
+        "terminal": -7.804878048780488,
+        "tower": 4.145873989669572,
+        "empty_spell": -8.024390243902438,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 11.253087997436523,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_medium_s423",
+      "actor_episode_completions": 81,
+      "spell_waste_weight": 0.5,
+      "mean_return": -17.30130319973277,
+      "mean_components": {
+        "enemy_damage": 1.9729404348544974,
+        "own_damage": -6.058843488205468,
+        "overflow": -0.0019814814814814816,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6287461567901221,
+        "fireball": -0.009292671374840532,
+        "terminal": -6.666666666666667,
+        "tower": 4.153015224993043,
+        "empty_spell": -10.061728395061728,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 1,
+      "gradient_norm_last_batch": {
+        "median": 13.483819484710693,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_strong_s422",
+      "actor_episode_completions": 80,
+      "spell_waste_weight": 1.0,
+      "mean_return": -24.17876286760814,
+      "mean_components": {
+        "enemy_damage": 2.001936558314732,
+        "own_damage": -5.993514578683036,
+        "overflow": -0.0084225,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6411446374999987,
+        "fireball": 0.14489076645917154,
+        "terminal": -7.5,
+        "tower": 4.2924915238009795,
+        "empty_spell": -16.475,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 2,
+      "gradient_norm_last_batch": {
+        "median": 9.715816020965576,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_strong_s423",
+      "actor_episode_completions": 81,
+      "spell_waste_weight": 1.0,
+      "mean_return": -30.130528683907635,
+      "mean_components": {
+        "enemy_damage": 1.862731825947972,
+        "own_damage": -5.845465443121693,
+        "overflow": -0.0066074074074074065,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6193220209876529,
+        "fireball": 0.05248729530228916,
+        "terminal": -7.901234567901234,
+        "tower": 4.030585337963778,
+        "empty_spell": -21.703703703703702,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 3,
+      "gradient_norm_last_batch": {
+        "median": 13.625146865844727,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_control_s432",
+      "actor_episode_completions": 81,
+      "spell_waste_weight": 0.1,
+      "mean_return": -4.631334510332251,
+      "mean_components": {
+        "enemy_damage": 1.9229402626212522,
+        "own_damage": -5.238648106812169,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6315278901234554,
+        "fireball": 0.004047005640063839,
+        "terminal": -2.7160493827160495,
+        "tower": 4.008150514638354,
+        "empty_spell": -1.980246913580247,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 10.192293167114258,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_control_s433",
+      "actor_episode_completions": 78,
+      "spell_waste_weight": 0.1,
+      "mean_return": -9.354447684843047,
+      "mean_components": {
+        "enemy_damage": 1.938487293956044,
+        "own_damage": -6.16912595867674,
+        "overflow": -0.006699999999999999,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6408596948717936,
+        "fireball": 0.07523749601376571,
+        "terminal": -6.666666666666667,
+        "tower": 4.166461896684396,
+        "empty_spell": -2.0512820512820515,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 1,
+      "gradient_norm_last_batch": {
+        "median": 11.27748727798462,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial03_s432",
+      "actor_episode_completions": 80,
+      "spell_waste_weight": 0.1,
+      "mean_return": -10.776426427681294,
+      "mean_components": {
+        "enemy_damage": 1.8235081263950894,
+        "own_damage": -5.715771484375,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6342279974999986,
+        "fireball": 0.021436262196160055,
+        "terminal": -8.5,
+        "tower": 4.033628665602456,
+        "empty_spell": -1.8050000000000002,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 13.049816131591797,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial03_s433",
+      "actor_episode_completions": 83,
+      "spell_waste_weight": 0.1,
+      "mean_return": -7.848612300583666,
+      "mean_components": {
+        "enemy_damage": 2.2579738597246126,
+        "own_damage": -6.514476992792599,
+        "overflow": -0.04733493975903614,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6331731626506013,
+        "fireball": 0.014228366392658218,
+        "terminal": -5.0602409638554215,
+        "tower": 4.105495869706118,
+        "empty_spell": -1.9710843373493978,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 6,
+      "gradient_norm_last_batch": {
+        "median": 12.690031051635742,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial01_s432",
+      "actor_episode_completions": 83,
+      "spell_waste_weight": 0.1,
+      "mean_return": -5.9239545771244595,
+      "mean_components": {
+        "enemy_damage": 2.294755472783993,
+        "own_damage": -5.684965307659208,
+        "overflow": -0.008269879518072289,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6363964554216855,
+        "fireball": 0.030549124505179492,
+        "terminal": -4.096385542168675,
+        "tower": 3.8659146368600323,
+        "empty_spell": -1.6891566265060243,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 2,
+      "gradient_norm_last_batch": {
+        "median": 11.628157615661621,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial01_s433",
+      "actor_episode_completions": 79,
+      "spell_waste_weight": 0.1,
+      "mean_return": -11.678298742655844,
+      "mean_components": {
+        "enemy_damage": 1.6780381159584086,
+        "own_damage": -6.037937598892405,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6313003126582263,
+        "fireball": 0.07596399118620754,
+        "terminal": -8.354430379746836,
+        "tower": 3.991367441497009,
+        "empty_spell": -2.4,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 13.348859786987305,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_group_only_s432",
+      "actor_episode_completions": 82,
+      "spell_waste_weight": 0.1,
+      "mean_return": -9.123135109630086,
+      "mean_components": {
+        "enemy_damage": 1.77158815603223,
+        "own_damage": -5.968421643619338,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6361898085365841,
+        "fireball": 0.04491724406005002,
+        "terminal": -6.341463414634147,
+        "tower": 3.889361186335995,
+        "empty_spell": -1.8829268292682928,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 12.907187461853027,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_group_only_s433",
+      "actor_episode_completions": 79,
+      "spell_waste_weight": 0.1,
+      "mean_return": -8.727116630854503,
+      "mean_components": {
+        "enemy_damage": 1.8931767772377939,
+        "own_damage": -5.793788144213382,
+        "overflow": 0.0,
+        "illegal": 0.0,
+        "missed_fireball": 0.0,
+        "board": 0.0,
+        "reserve": -0.6325558189873405,
+        "fireball": 0.19412703032787998,
+        "terminal": -6.329113924050633,
+        "tower": 3.7967336513628234,
+        "empty_spell": -1.8556962025316457,
+        "crown_spell": 0.0
+      },
+      "overflow_affected": 0,
+      "gradient_norm_last_batch": {
+        "median": 11.386142253875732,
+        "configured_clip": 0.5
+      },
+      "limitations": "Episode completions during actor phase may have begun during critic warmup; not a checkpoint win rate"
+    }
+  ],
+  "paired_validation": [
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_balanced_s412",
+      "reference": "parent_reference.json",
+      "comparisons": 72,
+      "changed_outcomes": 16,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 11,
+      "higher_return_worse_on_four_metrics": [
+        {
+          "context": [
+            "attack::golem/heldout_push",
+            900127,
+            1000900127,
+            "attack",
+            "golem"
+          ],
+          "before_outcome": "loss",
+          "after_outcome": "loss",
+          "before_elapsed_ms": 223900,
+          "after_elapsed_ms": 180000,
+          "return_delta": -0.07445203798003042,
+          "component_deltas": {
+            "enemy_damage": 0.1690848214285714,
+            "own_damage": 0.0,
+            "overflow": 0.0,
+            "illegal": 0.0,
+            "missed_fireball": 0.0,
+            "board": 0.0,
+            "reserve": 0.03926639999999981,
+            "fireball": 0.0,
+            "terminal": 0.0,
+            "tower": -0.2828032594086016,
+            "empty_spell": 0.0,
+            "crown_spell": 0.0
+          },
+          "before_metrics": {
+            "own_fraction_loss": 1.7712053571428572,
+            "enemy_fraction_damage": 0.3384486607142858,
+            "empty_spell_elixir": 0,
+            "elixir_overflow": 0.0
+          },
+          "after_metrics": {
+            "own_fraction_loss": 1.7712053571428572,
+            "enemy_fraction_damage": 0.3948102678571429,
+            "empty_spell_elixir": 0,
+            "elixir_overflow": 0.0
+          },
+          "higher_return_policy": "before",
+          "same_duration": false
+        }
+      ]
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_balanced_s413",
+      "reference": "parent_reference.json",
+      "comparisons": 72,
+      "changed_outcomes": 12,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 11,
+      "higher_return_worse_on_four_metrics": [
+        {
+          "context": [
+            "attack::air/heldout_push",
+            900106,
+            1000900106,
+            "attack",
+            "air"
+          ],
+          "before_outcome": "loss",
+          "after_outcome": "loss",
+          "before_elapsed_ms": 267800,
+          "after_elapsed_ms": 180000,
+          "return_delta": -1.2246093902388935,
+          "component_deltas": {
+            "enemy_damage": 0.00920758928571419,
+            "own_damage": 2.1238839285714297,
+            "overflow": 0.0,
+            "illegal": 0.0,
+            "missed_fireball": 0.0,
+            "board": 0.0,
+            "reserve": 0.08649189999999973,
+            "fireball": 0.0,
+            "terminal": 0.0,
+            "tower": -3.8441928080960373,
+            "empty_spell": 0.40000000000000013,
+            "crown_spell": 0.0
+          },
+          "before_metrics": {
+            "own_fraction_loss": 1.6866629464285714,
+            "enemy_fraction_damage": 0.3094308035714286,
+            "empty_spell_elixir": 14,
+            "elixir_overflow": 0.0
+          },
+          "after_metrics": {
+            "own_fraction_loss": 1.3326822916666665,
+            "enemy_fraction_damage": 0.3125,
+            "empty_spell_elixir": 10,
+            "elixir_overflow": 0.0
+          },
+          "higher_return_policy": "before",
+          "same_duration": false
+        },
+        {
+          "context": [
+            "defense::hog/heldout_push",
+            900140,
+            1000900140,
+            "defense",
+            "hog"
+          ],
+          "before_outcome": "win",
+          "after_outcome": "win",
+          "before_elapsed_ms": 300000,
+          "after_elapsed_ms": 300000,
+          "return_delta": -0.8241924913346811,
+          "component_deltas": {
+            "enemy_damage": 0.046247209821428714,
+            "own_damage": 0.36495535714285676,
+            "overflow": 0.0,
+            "illegal": 0.0,
+            "missed_fireball": 0.0,
+            "board": 0.0,
+            "reserve": 0.0,
+            "fireball": 0.0,
+            "terminal": 0.0,
+            "tower": -1.4353950582989663,
+            "empty_spell": 0.19999999999999973,
+            "crown_spell": 0.0
+          },
+          "before_metrics": {
+            "own_fraction_loss": 0.2433035714285714,
+            "enemy_fraction_damage": 0.2511858258928571,
+            "empty_spell_elixir": 30,
+            "elixir_overflow": 0.0
+          },
+          "after_metrics": {
+            "own_fraction_loss": 0.1824776785714286,
+            "enemy_fraction_damage": 0.2666015625,
+            "empty_spell_elixir": 28,
+            "elixir_overflow": 0.0
+          },
+          "higher_return_policy": "before",
+          "same_duration": true
+        },
+        {
+          "context": [
+            "defense::air/heldout_push",
+            900142,
+            1000900142,
+            "defense",
+            "air"
+          ],
+          "before_outcome": "loss",
+          "after_outcome": "loss",
+          "before_elapsed_ms": 300000,
+          "after_elapsed_ms": 187200,
+          "return_delta": -4.687282963940069,
+          "component_deltas": {
+            "enemy_damage": 0.1950334821428571,
+            "own_damage": 1.143415178571428,
+            "overflow": 0.0,
+            "illegal": 0.0,
+            "missed_fireball": 0.0,
+            "board": 0.0,
+            "reserve": 0.11893689999999957,
+            "fireball": 0.0,
+            "terminal": 0.0,
+            "tower": -6.344668524654353,
+            "empty_spell": 0.19999999999999996,
+            "crown_spell": 0.0
+          },
+          "before_metrics": {
+            "own_fraction_loss": 1.3244977678571428,
+            "enemy_fraction_damage": 0.2251674107142857,
+            "empty_spell_elixir": 14,
+            "elixir_overflow": 0.0
+          },
+          "after_metrics": {
+            "own_fraction_loss": 1.1339285714285714,
+            "enemy_fraction_damage": 0.2901785714285714,
+            "empty_spell_elixir": 12,
+            "elixir_overflow": 0.0
+          },
+          "higher_return_policy": "before",
+          "same_duration": false
+        }
+      ]
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bank_s412",
+      "reference": "bank_reference.json",
+      "comparisons": 72,
+      "changed_outcomes": 23,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 14,
+      "higher_return_worse_on_four_metrics": []
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bank_s413",
+      "reference": "bank_reference.json",
+      "comparisons": 72,
+      "changed_outcomes": 28,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 13,
+      "higher_return_worse_on_four_metrics": []
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc800_s412",
+      "reference": "bc800_reference.json",
+      "comparisons": 72,
+      "changed_outcomes": 27,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 14,
+      "higher_return_worse_on_four_metrics": []
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc800_s413",
+      "reference": "bc800_reference.json",
+      "comparisons": 72,
+      "changed_outcomes": 26,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 11,
+      "higher_return_worse_on_four_metrics": []
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc8000_s412",
+      "reference": "bc8000_reference.json",
+      "comparisons": 72,
+      "changed_outcomes": 31,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 10,
+      "higher_return_worse_on_four_metrics": []
+    },
+    {
+      "kernel": "vertel0/hastycr-adapt-ppo1101",
+      "id": "pilot_bc8000_s413",
+      "reference": "bc8000_reference.json",
+      "comparisons": 72,
+      "changed_outcomes": 19,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 13,
+      "higher_return_worse_on_four_metrics": [
+        {
+          "context": [
+            "attack::air/heldout_push",
+            900100,
+            1000900100,
+            "attack",
+            "air"
+          ],
+          "before_outcome": "loss",
+          "after_outcome": "loss",
+          "before_elapsed_ms": 299900,
+          "after_elapsed_ms": 300000,
+          "return_delta": -0.8257181070986995,
+          "component_deltas": {
+            "enemy_damage": 0.15401785714285676,
+            "own_damage": 0.7667410714285721,
+            "overflow": 0.0,
+            "illegal": 0.0,
+            "missed_fireball": 0.0,
+            "board": 0.0,
+            "reserve": 0.017431400000000874,
+            "fireball": -0.6202575051759834,
+            "terminal": 0.0,
+            "tower": -1.343650930494146,
+            "empty_spell": 0.20000000000000018,
+            "crown_spell": 0.0
+          },
+          "before_metrics": {
+            "own_fraction_loss": 1.1305803571428572,
+            "enemy_fraction_damage": 0.027622767857142905,
+            "empty_spell_elixir": 24,
+            "elixir_overflow": 0.0
+          },
+          "after_metrics": {
+            "own_fraction_loss": 1.0027901785714286,
+            "enemy_fraction_damage": 0.07896205357142849,
+            "empty_spell_elixir": 22,
+            "elixir_overflow": 0.0
+          },
+          "higher_return_policy": "before",
+          "same_duration": false
+        }
+      ]
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_neutral_s422",
+      "reference": "pilot_control_s422_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 21,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 16,
+      "higher_return_worse_on_four_metrics": []
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_neutral_s423",
+      "reference": "pilot_control_s423_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 32,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 14,
+      "higher_return_worse_on_four_metrics": [
+        {
+          "context": [
+            "attack::hog/heldout_push",
+            900104,
+            1000900104,
+            "attack",
+            "hog"
+          ],
+          "before_outcome": "loss",
+          "after_outcome": "loss",
+          "before_elapsed_ms": 240050,
+          "after_elapsed_ms": 300000,
+          "return_delta": -0.5821766445836698,
+          "component_deltas": {
+            "enemy_damage": 0.2653459821428571,
+            "own_damage": 0.6763392857142847,
+            "overflow": 0.0,
+            "illegal": 0.0,
+            "missed_fireball": 0.0,
+            "board": 0.0,
+            "reserve": -0.0592471,
+            "fireball": -1.9408954859408962,
+            "terminal": 0.0,
+            "tower": -0.7237193264999155,
+            "empty_spell": 1.2000000000000002,
+            "crown_spell": 0.0
+          },
+          "before_metrics": {
+            "own_fraction_loss": 1.2938058035714286,
+            "enemy_fraction_damage": 0.2661830357142857,
+            "empty_spell_elixir": 14,
+            "elixir_overflow": 0.0
+          },
+          "after_metrics": {
+            "own_fraction_loss": 1.1810825892857144,
+            "enemy_fraction_damage": 0.3546316964285714,
+            "empty_spell_elixir": 10,
+            "elixir_overflow": 0.0
+          },
+          "higher_return_policy": "before",
+          "same_duration": false
+        }
+      ]
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_medium_s422",
+      "reference": "pilot_control_s422_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 29,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 22,
+      "higher_return_worse_on_four_metrics": []
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_medium_s423",
+      "reference": "pilot_control_s423_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 23,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 22,
+      "higher_return_worse_on_four_metrics": []
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_strong_s422",
+      "reference": "pilot_control_s422_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 27,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 20,
+      "higher_return_worse_on_four_metrics": []
+    },
+    {
+      "kernel": "andriashadrin/hastycr-spell-cost1102",
+      "id": "pilot_strong_s423",
+      "reference": "pilot_control_s423_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 25,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 30,
+      "higher_return_worse_on_four_metrics": []
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial03_s432",
+      "reference": "pilot_control_s432_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 25,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 7,
+      "higher_return_worse_on_four_metrics": [
+        {
+          "context": [
+            "attack::hog/heldout_push",
+            900134,
+            1000900134,
+            "attack",
+            "hog"
+          ],
+          "before_outcome": "loss",
+          "after_outcome": "loss",
+          "before_elapsed_ms": 300000,
+          "after_elapsed_ms": 300000,
+          "return_delta": -2.005019038505284,
+          "component_deltas": {
+            "enemy_damage": 0.1975446428571429,
+            "own_damage": 1.23046875,
+            "overflow": 0.0,
+            "illegal": 0.0,
+            "missed_fireball": 0.0,
+            "board": 0.0,
+            "reserve": -0.018148000000001385,
+            "fireball": -1.6584952983418055,
+            "terminal": 0.0,
+            "tower": -1.7563891330206203,
+            "empty_spell": 0.0,
+            "crown_spell": 0.0
+          },
+          "before_metrics": {
+            "own_fraction_loss": 0.583984375,
+            "enemy_fraction_damage": 0.1774553571428571,
+            "empty_spell_elixir": 16,
+            "elixir_overflow": 0.0
+          },
+          "after_metrics": {
+            "own_fraction_loss": 0.37890625,
+            "enemy_fraction_damage": 0.2433035714285714,
+            "empty_spell_elixir": 16,
+            "elixir_overflow": 0.0
+          },
+          "higher_return_policy": "before",
+          "same_duration": true
+        }
+      ]
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial03_s433",
+      "reference": "pilot_control_s433_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 30,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 18,
+      "higher_return_worse_on_four_metrics": [
+        {
+          "context": [
+            "defense::golem/heldout_push",
+            900151,
+            1000900151,
+            "defense",
+            "golem"
+          ],
+          "before_outcome": "loss",
+          "after_outcome": "loss",
+          "before_elapsed_ms": 180000,
+          "after_elapsed_ms": 219800,
+          "return_delta": 0.26244601950984614,
+          "component_deltas": {
+            "enemy_damage": -0.7014508928571429,
+            "own_damage": -0.5400390625,
+            "overflow": 0.0,
+            "illegal": 0.0,
+            "missed_fireball": 0.0,
+            "board": 0.0,
+            "reserve": -0.03432889999999922,
+            "fireball": 0.0,
+            "terminal": 0.0,
+            "tower": 1.9382648748669884,
+            "empty_spell": -0.40000000000000013,
+            "crown_spell": 0.0
+          },
+          "before_metrics": {
+            "own_fraction_loss": 1.5520135788690477,
+            "enemy_fraction_damage": 0.2338169642857143,
+            "empty_spell_elixir": 18,
+            "elixir_overflow": 5.571
+          },
+          "after_metrics": {
+            "own_fraction_loss": 1.6420200892857144,
+            "enemy_fraction_damage": 0.0,
+            "empty_spell_elixir": 22,
+            "elixir_overflow": 5.571
+          },
+          "higher_return_policy": "after",
+          "same_duration": false
+        }
+      ]
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial01_s432",
+      "reference": "pilot_control_s432_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 26,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 10,
+      "higher_return_worse_on_four_metrics": [
+        {
+          "context": [
+            "defense::golem/heldout_push",
+            900163,
+            1000900163,
+            "defense",
+            "golem"
+          ],
+          "before_outcome": "loss",
+          "after_outcome": "loss",
+          "before_elapsed_ms": 244500,
+          "after_elapsed_ms": 180000,
+          "return_delta": -1.0055191724788763,
+          "component_deltas": {
+            "enemy_damage": 0.7943638392857144,
+            "own_damage": 0.5612444196428577,
+            "overflow": 0.0,
+            "illegal": 0.0,
+            "missed_fireball": 0.0,
+            "board": 0.0,
+            "reserve": 0.0468250999999984,
+            "fireball": 0.03868385976702515,
+            "terminal": 0.0,
+            "tower": -3.246636391174472,
+            "empty_spell": 0.8,
+            "crown_spell": 0.0
+          },
+          "before_metrics": {
+            "own_fraction_loss": 1.6941964285714286,
+            "enemy_fraction_damage": 0.9045758928571429,
+            "empty_spell_elixir": 14,
+            "elixir_overflow": 0.0
+          },
+          "after_metrics": {
+            "own_fraction_loss": 1.6006556919642856,
+            "enemy_fraction_damage": 1.1693638392857144,
+            "empty_spell_elixir": 6,
+            "elixir_overflow": 0.0
+          },
+          "higher_return_policy": "before",
+          "same_duration": false
+        }
+      ]
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_spatial01_s433",
+      "reference": "pilot_control_s433_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 27,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 12,
+      "higher_return_worse_on_four_metrics": []
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_group_only_s432",
+      "reference": "pilot_control_s432_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 29,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 6,
+      "higher_return_worse_on_four_metrics": [
+        {
+          "context": [
+            "defense::air/heldout_push",
+            900142,
+            1000900142,
+            "defense",
+            "air"
+          ],
+          "before_outcome": "loss",
+          "after_outcome": "loss",
+          "before_elapsed_ms": 300000,
+          "after_elapsed_ms": 180000,
+          "return_delta": -4.658118920212114,
+          "component_deltas": {
+            "enemy_damage": 0.0,
+            "own_damage": 0.08872767857142971,
+            "overflow": 0.0,
+            "illegal": 0.0,
+            "missed_fireball": 0.0,
+            "board": 0.0,
+            "reserve": 0.1078543999999999,
+            "fireball": 1.1345817621224308,
+            "terminal": 0.0,
+            "tower": -5.989282760905974,
+            "empty_spell": 0.0,
+            "crown_spell": 0.0
+          },
+          "before_metrics": {
+            "own_fraction_loss": 1.0147879464285716,
+            "enemy_fraction_damage": 0.0,
+            "empty_spell_elixir": 18,
+            "elixir_overflow": 0.0
+          },
+          "after_metrics": {
+            "own_fraction_loss": 1.0,
+            "enemy_fraction_damage": 0.0,
+            "empty_spell_elixir": 18,
+            "elixir_overflow": 0.0
+          },
+          "higher_return_policy": "before",
+          "same_duration": false
+        }
+      ]
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-group-entropy1102",
+      "id": "pilot_group_only_s433",
+      "reference": "pilot_control_s433_summary.json",
+      "comparisons": 72,
+      "changed_outcomes": 32,
+      "outcome_inversions": [],
+      "same_outcome_hp_tradeoff_count": 2,
+      "higher_return_worse_on_four_metrics": []
+    }
+  ],
+  "train_returns_verified": 2401,
+  "max_return_error": 1.9184653865522705e-13,
+  "paired_comparisons": 1440,
+  "changed_outcomes": 508,
+  "outcome_inversions": 0,
+  "higher_return_worse_on_four_metrics": 10,
+  "sources": {
+    "reports/defense_plan/economy_pilot_selection_20261102.json": "cd94685d0ff989c861cd8c5251485d9574e1604a262ba6ad6599b4dfe7a0b606",
+    "tmp/kaggle/policy_adaptation_20261101/collected/collection_receipt.json": "87f63dffbe256df57296d32dfd4c4f56ec8e7931b0ede7f672c7296cb38a6709",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_balanced_s412/config.json": "a7f6cb67449b7f68d7b0e98b7993942922dbb95d848e82f0e54b064552901e89",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_balanced_s412/metrics.jsonl": "7d5c458fd928a80db879f7dd90b5158547987d25a533aa10834e0692117d2d10",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_balanced_s412_summary.json": "9bca3f2e4168e63c00290b7e4c8c57cd12047aed3711b49a93785ba2638c6e45",
+    "tmp/kaggle/policy_adaptation_20261101/collected/parent_reference.json": "83dee0be04f512ce43a7e8b404a335e51fe497ad957bdcc59dd9c342ea1f49b6",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_balanced_s413/config.json": "4d34e4379a37253e1de91241715238eeeda7fda102877365ea56a2d63788adcd",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_balanced_s413/metrics.jsonl": "d5de81651fc401f5b6c29033ffefc7fc78c3efe4bf108d77315b79a29adf4a4c",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_balanced_s413_summary.json": "f1159db0935afe48816aab62986ec71c474d131a94f384d13ccd06b7c8624d82",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bank_s412/config.json": "0d5d2cd11fcd6a66122234459b334ccea9bc5ae3a04177b33138b8a8b3cef042",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bank_s412/metrics.jsonl": "4757988eebbf76b4039f38d28c14a2b1245107dca7d024b5c0c19e235c5a984c",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bank_s412_summary.json": "c3c206a3485c86265acc377ab4de6345b6f2a6b11c702a7304ca5e9e7304312b",
+    "tmp/kaggle/policy_adaptation_20261101/collected/bank_reference.json": "ca7dd468e1c3c03a17ab0f4ebf9fdf4080e4fbb0a0b2dd0f1b2482c4f777e508",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bank_s413/config.json": "d36900ab29934d6645619d5df02529f621ae0cc8c0bf127b23d94b40a81dc56d",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bank_s413/metrics.jsonl": "8c78041d5dc118f2eb44239ed4e55e8b22cdbf2582d312643d617967465a0178",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bank_s413_summary.json": "d829807f369b2d06671bab8e9882ac43225d6c93f74a9d887beb7f6ac0cdb9bb",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc800_s412/config.json": "fcfba9e1ca83a09ab5313d4ada48fb035d2d4ec38abfff2a29b760dc98ebcf7e",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc800_s412/metrics.jsonl": "82ae04bd8ebaa6f3af69b7a1067dbe069193fd0c0469a02b1061f7f5a5f74d97",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc800_s412_summary.json": "57a02d0689be4faccd6e0852282bc4929a4a025f423f38e13e36a10f3876f094",
+    "tmp/kaggle/policy_adaptation_20261101/collected/bc800_reference.json": "d56f12b2bdb753e2470e08e6f9627384dd5d8764cb630cb8bdb25321852a4e17",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc800_s413/config.json": "b1d1228866265c2bbdf17a44ff14d401cb5bba66084ba35d0dae3128bc150cbe",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc800_s413/metrics.jsonl": "2ef2bea15993070dab893e5128e2280a526d46405a4935560ecc331602f2a397",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc800_s413_summary.json": "dc8d46d10050b47ffa0ccefd022eb5ebb7e8e6ba9392e3117dd89a59febea021",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc8000_s412/config.json": "0e44c928337d8d199f4075ddb01b8f667a7b1f9b04fc815bc48b83e9bdadd14f",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc8000_s412/metrics.jsonl": "3bbfba4dfe8f13365b70c961c40aea1ee2cb29a66f79ef54ad7e002fd0c26c55",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc8000_s412_summary.json": "cb34e8f33c362f3dc671ebe28586b2bcb6d21c3b4ec52d54550d5ab3c1cfe0a3",
+    "tmp/kaggle/policy_adaptation_20261101/collected/bc8000_reference.json": "00f48bb9042822fdf62150ccd5edd607a83d56d50c1505c07755af9ac36bda91",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc8000_s413/config.json": "1b5c6d5f13dca1310d049d6e7be3a47bff1ec3aadac38f7918c4ee3cccb94b07",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc8000_s413/metrics.jsonl": "190ae65c261b92f6f8533624149cbf56c9725b4c31662bad52330dc45ab20487",
+    "tmp/kaggle/policy_adaptation_20261101/collected/pilot_bc8000_s413_summary.json": "e247927cdaac94bab659d3180e7122a418a6043cc0f834799df05cd2e8523cdb",
+    "tmp/kaggle/calibrated_spell_20261102/collected/collection_receipt.json": "d304614a9f8446fe84dc423e9655e6e70e85ced051beef1b78821303f64ee19c",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_control_s422/config.json": "b9dfbf850d027bd1b96ee396d67ff661760b1555738ef05d25e2bd8fa090ad09",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_control_s422/metrics.jsonl": "5acd947a06c5434c4a66b289986da4a86285b9b8c37ceb3fd5d6bad3a69fd67f",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_control_s422_summary.json": "acbe2531867d459d494cbabd4fb562a570fc43f2761740b65efb54e09e0c65d6",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_control_s423/config.json": "d269bc7777239a1c91d97d6ba025d3501ff267dbe65af044693b420e7fe42231",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_control_s423/metrics.jsonl": "e9a9f79662a9b6449e127eebc9b34411f05a8e8d9bee37c36a79b7fb0a15bcea",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_control_s423_summary.json": "3182745f389387b74aff84ecfc7e0d66d8ec673f409acb69c59128893d5ea886",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_neutral_s422/config.json": "8f7fafde91f0bc10e88886edeae0aed5e9f292e5f029850c61c64e2def7b2c25",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_neutral_s422/metrics.jsonl": "045023ac163c433875c6f384f65130859ad2d9d978805be1c96956d2f837b6d8",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_neutral_s422_summary.json": "c7e219893a03e9f4f3cab79ecdb72cdc2ddd5295e393cc73599ff70fb5c76313",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_neutral_s423/config.json": "f8075b079af093efb3f0ce2bdbab06b64efca78dd3380a992856ccb3fe6f6748",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_neutral_s423/metrics.jsonl": "77e7d93a046246356ddcea369e22684e27dfeeecf72cd8bde051e58d47339e05",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_neutral_s423_summary.json": "f35978cda5894c773889061313d062fc62a7f352278ae09c8476e5e4b3fd285d",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_medium_s422/config.json": "9dce6ecb115c4f80e510b68ae9308f8bd817062c63762fdc83fc6bc2ebf7c710",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_medium_s422/metrics.jsonl": "167bfedea670712b83a0ebf06023c2355853e70fbbeb9983c153cc73a4ae4f73",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_medium_s422_summary.json": "9784344c5bb172c62687947d1dda8b6b683d03078f1d5039b65c5b813e8dcef9",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_medium_s423/config.json": "9f7ba9033a2c0c1a19adeb70b612878558f2aad75ebd59299aa3edcf77f81b8e",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_medium_s423/metrics.jsonl": "428d56a887c2cd9c0948140514f86190b959686af590f4184750dfa8c21b785a",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_medium_s423_summary.json": "9a39f55088cbe556bc42b78167a7ae419463f99f42950c6deb121260d8d76d33",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_strong_s422/config.json": "1c9bbf0877eeff14fbea304954c1145c9a13def5a801322daecc8194c333e99d",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_strong_s422/metrics.jsonl": "122b7e50a6a9aa11604ad51fdc2cfa7109e39f9dca125bd73955d35b35e9c02f",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_strong_s422_summary.json": "be99bb4a3a84d101d58307effd18c3106b820a4452bf8a573c7f164bab74e8c4",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_strong_s423/config.json": "3826599304824cdfeaad3e02e6dee771054a35942003035c503f90d4a92cd24c",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_strong_s423/metrics.jsonl": "5679211fa5fdb1076ea4af9f9f6a04f4cbb53f7492fa5b7751215e927c4ad53d",
+    "tmp/kaggle/calibrated_spell_20261102/collected/pilot_strong_s423_summary.json": "ea1e43218ae3a7d00186bb0d0057f238c847af846a34fcb6ac32d9f7aca3225a",
+    "tmp/kaggle/group_entropy_20261102/collected/collection_receipt.json": "28976eeb5ba7aa83d265dcc96ffb4237c7c3f7898d155b094a58c6ed2a5712f5",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_control_s432/config.json": "6502a2bd2b147dd9349d506677d9d4fb8fe03b30d6ac4e5dda79bef759313bf0",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_control_s432/metrics.jsonl": "a7c7732c1bc90e6c8d5da506eb4cc99d070c3c821e0abaf5b6aee6b68b3b5551",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_control_s432_summary.json": "e727609451dd80801b9b5b774be7ac21baee56d89499abe39a0b02ae34969141",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_control_s433/config.json": "84094b79bc87815eb3fa1b6a2a8ab10a3c9842e55ab68d70f310157cfb330201",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_control_s433/metrics.jsonl": "ae20200d1ac19828fa4159fcc31c93c34eae5f1c63c4d0312542ccf53eac9bff",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_control_s433_summary.json": "c59daacb3fafa966c56b414d6622369fef9129032ad360f18ab1329fbf73e5f8",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial03_s432/config.json": "bb94eb0e85e9162f789f105dbd1735db51c134393705ffb0b88feb62447f3125",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial03_s432/metrics.jsonl": "e9ebd5b2dcfa6329fbdf2ca9849cbd62650e66fa111534907e286cd6940b02df",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial03_s432_summary.json": "cfa8370cea8febe351f9ad4beced82f7ab3e9391523029e0f3555259491fb03b",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial03_s433/config.json": "cf2df02097619c09ab2426739584a830410314be03859ab5d6a8938fa38b2ec3",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial03_s433/metrics.jsonl": "08f9129eddada2fcd01efba262f5cf405dccb75c1ac6ba29dcdb515f820c2839",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial03_s433_summary.json": "c121143d3f4bc2ad4b3fad6a9c2f299bb909c10f9b50875741aa26675f05125a",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial01_s432/config.json": "92d3d097b57fbb701ef9bfa88c66b27620ae6e8895f7760356ed73d786d2137d",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial01_s432/metrics.jsonl": "a26c83f40460bfaaf2f6864c38054fb1c28ae48fce61938a975e1477e5b23986",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial01_s432_summary.json": "00d5d88c5168aaf1d8bb3e0004f48e891efc58bcad7fdcbdba9348f7129c0dfe",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial01_s433/config.json": "8b4c85f6a1bcce6c17426e93e767d3145d6f37c1d262c2d6d15491dee95c5967",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial01_s433/metrics.jsonl": "0716036a071602fbf11efb0f95fb5f5c8d88ec8b0c3f6492a116c2421d67a013",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_spatial01_s433_summary.json": "8d0e81858461da7cbcbb74be6f142f88c81cfa4a75d596fff114a4538e4f64c6",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_group_only_s432/config.json": "b6994c96a438a95fc1053943faaa3b2b4c217b48e9b1710458de23c91a19c770",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_group_only_s432/metrics.jsonl": "0ca039f6684151a35552ab4fadae9b05c83c23e4cc5f73a69e761faffd4ae58b",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_group_only_s432_summary.json": "fe121906599d91de17303fe59de463052fa147c38de2d9ebe56c88641e41fcc7",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_group_only_s433/config.json": "a64521aaab2e493cf6a9b307fa02fd08146c15448e4af523ea58a1d378b55294",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_group_only_s433/metrics.jsonl": "f5aca2efec33bf48b7d287d91ea61d1d4cc165ad4482acc4a4415366cdcd6aa2",
+    "tmp/kaggle/group_entropy_20261102/collected/pilot_group_only_s433_summary.json": "d7ce015568bf9973efed9a8ad01d770da874d84a9282d80a1afe475ab3c3cb66"
+  },
+  "source_sha256": "556232815b52f315fea6a04ccfffb2620d1c9263e68be4a3c999d8cbf60f17d8",
+  "remote_queries": false,
+  "training_changed": false,
+  "live_games": false,
+  "limitations": [
+    "Undiscounted episode sums, not PPO advantages or discounted temporal credit",
+    "Each comparison rescores baseline wrapper coefficients under the candidate recipe; base return accounting must match",
+    "Same outcome/less HP is not the whole objective; survival duration and useful troop damage can differ",
+    "Repeated development contexts; flags are diagnostics, not independent statistical evidence or reward prescriptions"
+  ]
+}
