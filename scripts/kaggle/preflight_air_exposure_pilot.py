@@ -1,0 +1,33 @@
+"""Exercise the actual400-update pilot branch with real PPO and exact resume."""
+import argparse
+import importlib.util
+import json
+from pathlib import Path
+
+
+def child(path):
+    path=Path(path);spec=json.loads(path.read_text())
+    spec.update(controller_full=False,pilot_steps=409600);path.write_text(json.dumps(spec,indent=2)+'\n')
+    source=Path(__file__).with_name('preflight_policy_adaptation_pilot.py')
+    module_spec=importlib.util.spec_from_file_location('exposure_shared',source)
+    module=importlib.util.module_from_spec(module_spec);module_spec.loader.exec_module(module);module.child(str(path))
+    import torch
+    root=Path(spec['root']);trial=spec['trial'];p=root/'child_preflight.json';report=json.loads(p.read_text())
+    args=report['original_pilot_command'];blob=torch.load(root/'whole/update_000002.pt',map_location='cpu',weights_only=False)
+    if (args[args.index('--target-environment-steps')+1]!='409600'or args[args.index('--updates')+1]!='400'or
+            args[args.index('--continuous-focus')+1]!=trial['focus']or
+            float(args[args.index('--spell-waste-weight')+1])!=trial['spell_waste_weight']or
+            blob['config']['continuous_focus']!=trial['focus']or
+            blob['config']['spell_waste_weight']!=trial['spell_waste_weight']):
+        raise ValueError('Actual longer pilot treatment differs')
+    report.update(air_exposure_verified=True,pilot_steps=409600,actual_focus=trial['focus'],
+                  actual_spell_waste_weight=trial['spell_waste_weight'])
+    p.write_text(json.dumps(report,indent=2)+'\n')
+
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--prepared');p.add_argument('--child');a=p.parse_args()
+    if a.child:child(a.child)
+    else:
+        from scripts.kaggle.preflight_sequence_pilot import preflight
+        preflight(a.prepared,child_script=__file__)

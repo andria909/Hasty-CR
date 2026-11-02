@@ -74,7 +74,10 @@ def compare_study(root, proof_path):
     prep = json.loads((root/'preparation.json').read_text())
     protocol = json.loads((root/'dataset/protocol.json').read_text())
     variant = protocol['study_variant']
-    if variant == 'group_entropy_v1':
+    if variant == 'air_exposure_v1':
+        from scripts.kaggle.prepare_air_exposure_pilot import validate_protocol
+        accepted = proof.get('air_exposure_audit',{}).get('verified') is True
+    elif variant == 'group_entropy_v1':
         from scripts.kaggle.prepare_group_entropy_pilot import validate_protocol
         accepted = proof.get('group_entropy_audit',{}).get('verified') is True
     elif variant == 'calibrated_spell_cost_v1':
@@ -86,7 +89,7 @@ def compare_study(root, proof_path):
     else:
         raise ValueError('Unsupported paired PPO study')
     validate_protocol(protocol)
-    if not accepted or proof['pilot_steps_verified'] != 819200 or proof['kernel'] != prep['kernel']:
+    if not accepted or proof['pilot_steps_verified'] != (3276800 if variant=='air_exposure_v1'else 819200) or proof['kernel'] != prep['kernel']:
         raise ValueError('Completed independent CUDA verification required')
     collected = root/'collected'
     receipt = json.loads((collected/'collection_receipt.json').read_text())
@@ -111,7 +114,10 @@ def compare_study(root, proof_path):
     for case in protocol['cases']:
         for seed in protocol['pilot_seeds']:
             name = f"pilot_{case['id']}_s{seed}"
-            if variant in ('calibrated_spell_cost_v1','group_entropy_v1'):
+            if variant == 'air_exposure_v1':
+                reference = f"pilot_{protocol['paired_controls'].get(case['id'],case['id'])}_s{seed}"
+                baseline = summaries[reference]
+            elif variant in ('calibrated_spell_cost_v1','group_entropy_v1'):
                 reference = f'pilot_control_s{seed}'
                 baseline = summaries[reference]
             else:
@@ -139,8 +145,8 @@ def compare_study(root, proof_path):
 
 def render(result):
     lines = ['# Парное сравнение PPO', '',
-             'Одни и те же 72 сценария. Каждый seed показан отдельно. Для коэффициентов контроль — '
-             'PPO-профиль control с тем же seed; для исходников — соответствующие веса до PPO. '
+             'Одни и те же 72 сценария. Каждый seed показан отдельно. Контроль указан в JSON: '
+             'парный PPO-профиль с тем же seed или соответствующие исходные веса. '
              'Это использованный при выборе чекпойнтов validation, не независимый test.', '',
              '| Вариант | Seed | Контроль → кандидат | Новые / потерянные победы | Δ HP потерь | Δ пустого эликсира |',
              '|---|---:|---:|---:|---:|---:|']

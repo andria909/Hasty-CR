@@ -142,6 +142,15 @@ def verify(collected,prepared):
     for name in('scripts/attack/select_continuous_focus.py','sim/continuous_validation.py'):
         if sha(name)!=c['extensions'][name]:raise ValueError('Use the frozen selector version to verify this cohort')
     protocol=json.loads((prepared/'dataset/protocol.json').read_text());result=json.loads((root/'result.json').read_text())
+    pilot_steps=102400;profile_selector=select_profiles
+    if cfg.get('study_variant')=='air_exposure_v1':
+        from scripts.kaggle.prepare_air_exposure_pilot import validate_protocol
+        from scripts.attack.select_air_exposure import select_profiles as profile_selector
+        validate_protocol(protocol);pilot_steps=409600
+        if sha('scripts/attack/select_air_exposure.py')!=c['extensions']['scripts/attack/select_air_exposure.py']:
+            raise ValueError('Frozen exposure selector changed')
+        if c.get('allow_full_training',True)or result.get('pilot_steps')!=3276800:
+            raise ValueError('Exposure budget or manual continuation differs')
     if any(t.get('history_frames',1)==2 for t in protocol['cases']):
         for name in ('sim/public_frame_history.py','sim/continuous_history.py'):
             if sha(name)!=c['extensions'][name]:raise ValueError('Use frozen history adapter version')
@@ -178,8 +187,8 @@ def verify(collected,prepared):
         if allow_full:raise ValueError('Initialization comparison does not automatically launch full training')
     for trial in protocol['cases']:
         initial_for_trial=(next(m for m in c['models']if m['id']==trial['initial_id'])if assigned_initials else selected_initial)
-        for seed in seeds:pilots.append(audit_run(root,c,initial_for_trial,initial_contexts,f"pilot_{trial['id']}_s{seed}",trial,seed,102400))
-    selection=select_profiles(pilots,seeds=seeds)
+        for seed in seeds:pilots.append(audit_run(root,c,initial_for_trial,initial_contexts,f"pilot_{trial['id']}_s{seed}",trial,seed,pilot_steps))
+    selection=profile_selector(pilots,seeds=seeds)
     if selection!=json.loads((root/'selection.json').read_text())or result['full_gate_met']!=selection['gate_met']:
         raise ValueError('Pilot profile selection differs')
     expected_status=('pilot_complete'if not allow_full else
@@ -199,7 +208,7 @@ def verify(collected,prepared):
         if(blob['state_dict']['scalar.0.weight'].shape[1]!=309 or
                 blob['state_dict']['conv.0.weight'].shape[1]!=(41 if row['trial'].get('history_frames',1)==2 else 20)or
                 not all(torch.isfinite(t).all()for t in blob['state_dict'].values())):raise ValueError('Invalid final weights')
-    return dict(schema='verified-continuous-focus-cohort-v1',kernel=cfg['kernel'],pilot_steps_verified=819200,
+    return dict(schema='verified-continuous-focus-cohort-v1',kernel=cfg['kernel'],pilot_steps_verified=pilot_steps*len(pilots),
         pilot_selection=selection,automatic_full_training=allow_full,
         pilot_models=[dict(id=r['id'],checkpoint=str(root/r['checkpoint']),checkpoint_sha256=r['checkpoint_sha256'],
             selection_score=r['validation']['selection_score'],worst_family_points=r['validation']['worst_archetype_points'],

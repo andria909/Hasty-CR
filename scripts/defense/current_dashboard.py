@@ -506,8 +506,52 @@ def render_economy_experiments(reports,calibrated,adaptation):
     return '\n'.join(lines)
 
 
+def render_air_exposure(reports,state):
+    stream=read(Path(state['root'])/'live_stream/progress.json')or{}
+    runs=stream.get('trials',{})if stream.get('kernel')==state['kernel']else{}
+    proof=read(reports/'air_exposure_verified_20261102.json')or{}
+    complete=(proof.get('kernel')==state['kernel']and proof.get('pilot_steps_verified')==3276800
+              and proof.get('air_exposure_audit',{}).get('verified')is True)
+    pct,note=progress(state)
+    lines=['# Текущий этап','',
+        '**PPO: больше практики против воздуха и тяжёлых пушей.**',
+        ('Все 8 прогонов и 3 276 800 CUDA-шагов проверены.'if complete else f'Общий прогресс: {pct} — {note}.'),'',
+        '| Смесь TRAIN | Штраф пустого спелла | Seed 442 | Seed 443 |','|---|---:|---:|---:|']
+    for name,label,cost in [('uniform01','Обычная',.1),('uniform03','Обычная',.3),
+                            ('focus01','Чаще воздух + голем',.1),('focus03','Чаще воздух + голем',.3)]:
+        cells=[]
+        for seed in (442,443):
+            row=runs.get(f'pilot_{name}_s{seed}',{})
+            valid=row.get('target_steps')==409600 and 0<=row.get('steps',-1)<=409600
+            cells.append('100% проверено'if complete else f"≥{100*row['steps']/409600:.1f}%"if valid else'нет счётчика')
+        lines.append(f"| {label} | {cost:.1f} | {' | '.join(cells)} |")
+    lines+=['','409 600 шагов на прогон, из них 20 480 только для critic. Все типы пушей перемешаны. '
+        'Пушка только в центре; бонус своих башен 0,15; задержка 1350 мс.','']
+    summary=read(reports/'air_exposure_summary_20261102.json')or{}
+    if complete and summary.get('kernel')==state['kernel']:
+        lines+=['| Профиль | Выбранные веса: победы | Последние веса (400): победы | Пустой эликсир/матч |',
+                '|---|---:|---:|---:|']
+        for row in summary['rows']:
+            audits=[r for r in proof['air_exposure_audit']['runs']if r['id'].startswith('pilot_'+row['id']+'_s')]
+            final=sum(r['final_wins']for r in audits)
+            lines.append(f"| {row['id']} | {row['wins']}/{row['games']} | {final}/144 | {row['mean_empty_spell_elixir']:.2f} |")
+        selection=proof['air_exposure_selection']
+        lines+=['','Прошли оба seed и защитный контроль: '+(', '.join(selection['eligible_profiles'])or'нет')+'.',
+                'Это reused validation, не независимый test и не реальные бои.','']
+    lines+=['[Дизайн и причины опыта](reports/economy_cycle_results_20261102.md) · '
+        '[Предыдущие 24 прогона](reports/economy_pilot_selection_20261102.md)','',
+        '**Предыдущий цикл — сравнение в симуляторе:**','']
+    prior=read(reports/'economy_pilot_selection_20261102.json')
+    if prior:lines.extend(line for line in render_economy_results(reports,prior).splitlines()if line.startswith('|'))
+    lines+=['','Предыдущие строки повторяют 72 сценария для разных seed. Частота карты и reward не заменяют победы и сохранение защиты.',
+        '**Реальные бои выключены.** Наблюдение Kaggle раз в 20 минут. v25 сохранена.','']
+    return '\n'.join(lines)
+
+
 def render(reports):
     reports=Path(reports)
+    exposure=read(reports/'air_exposure_training_20261102.json')
+    if exposure:return render_air_exposure(reports,exposure)
     adaptation=read(reports/'policy_adaptation_training_20261101.json')
     calibrated=read(reports/'calibrated_spell_training_20261102.json')
     if calibrated:return render_economy_experiments(reports,calibrated,adaptation)

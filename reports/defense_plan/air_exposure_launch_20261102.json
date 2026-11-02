@@ -1,0 +1,86 @@
+{
+  "kernel": "andriashadrin/hastycr-air-exposure1102",
+  "accepted": true,
+  "launch_receipt": {
+    "ref": "/code/andriashadrin/hastycr-air-exposure1102",
+    "url": "https://www.kaggle.com/code/andriashadrin/hastycr-air-exposure1102",
+    "versionNumber": 1,
+    "kernelId": 142281170
+  },
+  "root": "tmp/kaggle/air_exposure_20261102",
+  "remote_job_restarted": false,
+  "preflight_report": "reports/defense_plan/air_exposure_preflight_20261102.json",
+  "local_observers": {
+    "stream": {
+      "pid": 26292,
+      "command": [
+        "/Users/andriashadrin/.local/share/hastycr-kaggle-cli/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.run_observer",
+        "--token-index",
+        "0",
+        "--mode",
+        "stream",
+        "--",
+        "--kernel",
+        "andriashadrin/hastycr-air-exposure1102",
+        "--output",
+        "tmp/kaggle/air_exposure_20261102/live_stream",
+        "--api-user",
+        "andriashadrin",
+        "--reconnect-seconds",
+        "1200",
+        "--reconnects",
+        "100"
+      ]
+    },
+    "collector": {
+      "pid": 26293,
+      "command": [
+        "/Users/andriashadrin/.local/share/hastycr-kaggle-cli/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.run_observer",
+        "--token-index",
+        "0",
+        "--mode",
+        "collect",
+        "--",
+        "--kernel",
+        "andriashadrin/hastycr-air-exposure1102",
+        "--output",
+        "tmp/kaggle/air_exposure_20261102/collected",
+        "--profile",
+        "air-exposure-pilot",
+        "--api-user",
+        "andriashadrin",
+        "--poll-seconds",
+        "1200"
+      ]
+    },
+    "postprocess": {
+      "pid": 26294,
+      "command": [
+        "/Users/andriashadrin/projects/Hasty-CR/.venv-live/bin/python",
+        "-u",
+        "-m",
+        "scripts.kaggle.watch_focus_cohort",
+        "--root",
+        "tmp/kaggle/air_exposure_20261102",
+        "--status-report",
+        "reports/defense_plan/air_exposure_training_20261102.json",
+        "--verified-report",
+        "reports/defense_plan/air_exposure_verified_20261102.json",
+        "--summary-report",
+        "reports/defense_plan/air_exposure_summary_20261102.json",
+        "--markdown-report",
+        "reports/air_exposure_results_20261102.md"
+      ]
+    }
+  },
+  "total_pilot_steps": 3276800,
+  "pilot_steps_each": 409600,
+  "automatic_full_training": false,
+  "live_games": false
+}

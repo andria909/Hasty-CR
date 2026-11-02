@@ -62,8 +62,10 @@ def submit(root,token_index,*,evaluation=False):
             from scripts.attack.verify_bank_correction_pair import verify
             checked=verify(root,technical_smoke=True)
             (root/'preflight_independent_verification.json').write_text(json.dumps(checked,indent=2)+'\n')
-        elif prepared.get('study_variant')in ('policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1'):
-            if prepared['study_variant']=='group_entropy_v1':
+        elif prepared.get('study_variant')in ('policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1','air_exposure_v1'):
+            if prepared['study_variant']=='air_exposure_v1':
+                from scripts.kaggle.prepare_air_exposure_pilot import validate_protocol
+            elif prepared['study_variant']=='group_entropy_v1':
                 from scripts.kaggle.prepare_group_entropy_pilot import validate_protocol
             elif prepared['study_variant']=='calibrated_spell_cost_v1':
                 from scripts.kaggle.prepare_calibrated_spell_pilot import validate_protocol
@@ -79,6 +81,10 @@ def submit(root,token_index,*,evaluation=False):
                 expected=next(m for m in prepared['config']['models']if m['id']==trial['initial_id'])
                 if child.get('explicit_initial_model')!=expected or not child.get('exact_resume_16_to_32'):
                     raise ValueError('Preflight assigned initialization differs')
+                if prepared['study_variant']=='air_exposure_v1'and (not child.get('air_exposure_verified')or
+                        child.get('pilot_steps')!=409600 or child.get('actual_focus')!=trial['focus']or
+                        child.get('actual_spell_waste_weight')!=trial['spell_waste_weight']):
+                    raise ValueError('Actual400-update pilot preflight required')
                 if prepared['study_variant']=='group_entropy_v1'and child.get('spatial_entropy_verified')!=trial['spatial_entropy_weight']:
                     raise ValueError('Actual entropy preflight required')
         elif not preflight.get('exact_resume_16_to_32')or not preflight.get('frozen_sources_verified'):

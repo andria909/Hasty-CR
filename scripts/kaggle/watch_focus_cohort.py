@@ -32,7 +32,10 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             except (ValueError,OSError):continue
             if not r.get('complete'):continue
             prep=json.loads((root/'preparation.json').read_text())
-            if prep.get('study_variant')=='group_entropy_v1':
+            if prep.get('study_variant')=='air_exposure_v1':
+                from scripts.attack.verify_air_exposure_pilot import verify_exposure
+                report=verify_exposure(receipt.parent,root)
+            elif prep.get('study_variant')=='group_entropy_v1':
                 from scripts.attack.verify_group_entropy_pilot import verify_entropy
                 report=verify_entropy(receipt.parent,root)
             elif prep.get('study_variant')=='calibrated_spell_cost_v1':

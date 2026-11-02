@@ -84,13 +84,15 @@ def collect(api,kernel,destination,profile='defense',cache=None):
         for name in files:
             if name.startswith(prefix)and re.fullmatch(pattern+r'/(?:result\.json|updates\.json|policy\.pt)',name[len(prefix):]):
                 allowed.add(name[len(prefix):])
-    elif profile in ('continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','policy-adaptation-pilot','calibrated-spell-pilot','group-entropy-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'):
+    elif profile in ('continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','policy-adaptation-pilot','calibrated-spell-pilot','group-entropy-pilot','air-exposure-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'):
         import re
         import requests
         prefix='continuous_focus/';result_file='result.json'
         allowed={result_file,'selection.json','initial_selection.json','parent_reference.json'}
         if profile=='policy-adaptation-pilot':allowed.update(name+'_reference.json'for name in ('bank','bc800','bc8000'))
-        run_pattern=(r'pilot_(?:control|spatial03|spatial01|group_only)_s43[23]'
+        pilot_update_limit=400 if profile=='air-exposure-pilot'else 100
+        run_pattern=(r'pilot_(?:uniform01|uniform03|focus01|focus03)_s44[23]'
+            if profile=='air-exposure-pilot'else r'pilot_(?:control|spatial03|spatial01|group_only)_s43[23]'
             if profile=='group-entropy-pilot'else r'pilot_(?:control|neutral|medium|strong)_s42[23]'
             if profile=='calibrated-spell-pilot'else r'pilot_(?:balanced|bank|bc800|bc8000)_s41[23]'
             if profile=='policy-adaptation-pilot'else r'pilot_(?:control|low|medium|high)_s38[23]'
@@ -135,10 +137,10 @@ def collect(api,kernel,destination,profile='defense',cache=None):
                 selected=row.get('checkpoint')
                 if row.get('id')!=run or not isinstance(selected,str)or not re.fullmatch(re.escape(run)+r'/update_\d{6}\.pt',selected):
                     raise ValueError('Focus summary checkpoint path differs')
-                if int(selected[-9:-3])>(100 if run.startswith('pilot_')else 4000):raise ValueError('Focus checkpoint exceeds declared budget')
+                if int(selected[-9:-3])>(pilot_update_limit if run.startswith('pilot_')else 4000):raise ValueError('Focus checkpoint exceeds declared budget')
                 if prefix+selected not in files:raise ValueError('Focus selected checkpoint absent')
                 prefetched[relative]=raw;allowed.add(selected)
-        if profile in('air-warmstart-pilot','air-retention-pilot','joint-skills-pilot','selected-continuous-full','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','policy-adaptation-pilot','calibrated-spell-pilot','group-entropy-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'):
+        if profile in('air-warmstart-pilot','air-retention-pilot','joint-skills-pilot','selected-continuous-full','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','policy-adaptation-pilot','calibrated-spell-pilot','group-entropy-pilot','air-exposure-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'):
             for name in files:
                 if name.startswith(prefix)and re.fullmatch(run_pattern+r'_warmstart/(?:policy\.pt|result\.json|updates\.json)',name[len(prefix):]):allowed.add(name[len(prefix):])
         latest={}
@@ -146,7 +148,7 @@ def collect(api,kernel,destination,profile='defense',cache=None):
             match=re.fullmatch(re.escape(prefix)+'('+run_pattern+r')/update_(\d{6})\.pt',name)
             if match:
                 key,update=match.group(1),int(match.group(2))
-                if update>(100 if key.startswith('pilot_')else 4000):continue
+                if update>(pilot_update_limit if key.startswith('pilot_')else 4000):continue
                 if key not in latest or update>latest[key][0]:latest[key]=(update,name[len(prefix):])
         allowed.update(v[1]for v in latest.values())
     elif profile=='continuous-pool':
@@ -296,7 +298,7 @@ def main():
     parser.add_argument('--once',action='store_true')
     parser.add_argument('--cache',type=Path,help='Reuse only SHA-verified files from a preserved partial collection')
     parser.add_argument('--api-user',help='Known owner with bearer token supplied only through environment')
-    parser.add_argument('--profile',choices=('bank-fit-depth','bank-correction-pair','bank-initialization','defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','policy-adaptation-pilot','calibrated-spell-pilot','group-entropy-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'),default='defense')
+    parser.add_argument('--profile',choices=('bank-fit-depth','bank-correction-pair','bank-initialization','defense','strategy','train','fireball','fireball-evaluation','fireball-selectivity','fireball-balanced','balanced-match-validation','native-fireball-evaluation','card-usage','card-balance-study','continuous-ppo','continuous-ppo-selected','continuous-pool','continuous-focus','clock-fireball-pilot','history-pilot','board-potential-pilot','bank-conservation-pilot','selected-continuous-full','air-warmstart-pilot','temperature-pilot','air-retention-pilot','live-tactical-pilot','joint-skills-pilot','card-exploration-pilot','native-latency-pilot','sequence-pilot','pending-inputs-pilot','pending-sequence-pilot','pending-diversity-pilot','native-fireball-slot-pilot','fireball-reward-pilot','combined-reward-pilot','central-tower-pilot','tactical-starts-pilot','mana-decision-pilot','bank-teacher-pilot','policy-adaptation-pilot','calibrated-spell-pilot','group-entropy-pilot','air-exposure-pilot','crown-economy-pilot','tower-support-pilot','spell-waste-pilot'),default='defense')
     args=parser.parse_args()
     if args.poll_seconds<1:parser.error('poll-seconds must be positive')
     # The installed SDK sends requests without a default timeout. Bound only

@@ -100,12 +100,15 @@ def child(spec_path):
         print=lambda *a,**kw:None,
         subprocess=SimpleNamespace(run=warm_dry_run,Popen=popen,PIPE=subprocess.PIPE,STDOUT=subprocess.STDOUT))
     exec(compile(ast.Module(body=[run],type_ignores=[]),'exact_frozen_full_run.py','exec'),namespace)
-    try:namespace['run'](trial,'cpu',64,True)
+    controller_full=spec.get('controller_full',True)
+    expected_steps=4096000 if controller_full else spec['pilot_steps']
+    try:namespace['run'](trial,'cpu',64,controller_full)
     except Captured:pass
     if len(captured)!=1:raise ValueError('Exactly one original PPO command required')
     args=captured[0]
-    if args[args.index('--target-environment-steps')+1]!='4096000' or args[args.index('--updates')+1]!='4000':
-        raise ValueError('Captured controller is not the full-budget branch')
+    if (int(args[args.index('--target-environment-steps')+1])!=expected_steps or
+            int(args[args.index('--updates')+1])!=expected_steps//1024):
+        raise ValueError('Captured controller has the wrong budget branch')
     # These are real shortened optimizer runs, with the actual frozen data.
     first=smoke_args(args,root/'first',16);whole=smoke_args(args,root/'whole',32)
     resumed=smoke_args(args,root/'resumed',32,root/'first/update_000001.pt')
@@ -115,14 +118,17 @@ def child(spec_path):
     if not all(equal_state(a[key],b[key])for key in('state_dict','optimiser','rng')):
         raise ValueError('Exact resume changed weights, optimizer or random state')
     net,_,_=initialize_attack_policy(a,device='cpu',num_scalars=309,observation_contract=CONTRACT)
-    profile=json.loads((output/f"full_{trial['id']}_s64_profile.json").read_text())
+    prefix='full'if controller_full else'pilot'
+    profile=json.loads((output/f"{prefix}_{trial['id']}_s64_profile.json").read_text())
     validation=evaluate(net,'cpu',episodes=6,seed=900100,task_mode='joint',env_options=dict(
         curriculum='continuous_v1',validation_selection='worst_family',continuous_profile=profile,
         geometry='native_anchors_candidate_v1',coordinate_mode='physical_live_cells_v2',
         action_delay_ms=trial.get('validation_action_delay_ms',trial.get('action_delay_ms',225)),max_ms=310000))
     if len(validation['records'])!=12:raise ValueError('Full-game preflight coverage missing')
     result=dict(frozen_run_ast_sha256=hashlib.sha256(ast.dump(run).encode()).hexdigest(),
-        original_full_command=args,original_warm_commands=warm_commands,actual_supervised_updates=warm_updates,
+        original_full_command=args if controller_full else None,
+        original_pilot_command=args if not controller_full else None,
+        original_warm_commands=warm_commands,actual_supervised_updates=warm_updates,
         actual_smoke_target_steps=32,exact_resume_16_to_32=True,optimizer_and_rng_equal=True,
         validation_games=12,actual_cuda=False,quality_accepted=False,
         technical_fixture=spec.get('technical_fixture',False))
