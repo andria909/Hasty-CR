@@ -118,8 +118,9 @@ def compare_study(root, proof_path):
         for seed in protocol['pilot_seeds']:
             name = f"pilot_{case['id']}_s{seed}"
             if variant in ('air_exposure_v1','spell_interaction_v1'):
-                reference = f"pilot_{protocol['paired_controls'].get(case['id'],case['id'])}_s{seed}"
-                baseline = summaries[reference]
+                control = protocol['paired_controls'].get(case['id'])
+                reference = f'pilot_{control}_s{seed}' if control else case['initial_id']
+                baseline = summaries[reference] if control else read(reference+'_reference.json')
             elif variant in ('calibrated_spell_cost_v1','group_entropy_v1'):
                 reference = f'pilot_control_s{seed}'
                 baseline = summaries[reference]

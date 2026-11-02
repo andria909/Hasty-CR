@@ -1,3 +1,7 @@
+## CURRENT Nov2: paired long-study report baseline fixed
+
+Previous04bee6e actualfull-readiness progress. This turn compare_ppo_pilot_behavior.py now uses parent_reference for baseuniform01/control01, same as specializedverifier/globalpool, instead of selfcomparisonwhichalwayszero. Othercases keepfixedsame-seedPPOcontrols. Bothnewvariants testedend-to-end; parentreceiptSHAcorruptionrejected.20paired+longpooltestsPASS. Existingpostprocessors import updatedreportmodule in subprocess whenweightsready, noGPUchanges. Live observers confirmed; secondnext15:37status/15:39SSE, air15:40. GoalACTIVE; no newqualityresults. Preservev25/secrets/nolive.
+
 ## CURRENT Nov2 15:31: full transition supports both long studies, actual8 commands verified
 
 Previous2633eb2 pushed secondstudy launch. This turn progress: select_pilot_pool dispatches specialized long verifiers, strict3276800 budget, paired-controls/parentreference and defense+total nonregression. LONG_VARIANTS extend ECONOMY_VARIANTS so assignedinitial/fullrewardaudit apply. budgetpartoflong trainingidentity prevents pooling short+long. Same-budget identical controls pooled conservatively. Local <2eligible only may contribute singleton to globalpair; other promotionblocks stayhard; verifier adds explicit fewer_than_two_eligible_profiles reason. Pool asserts same per-profile eligibility as specializedverifier. Old3cohort2,457,600steps reverified, exactpreviousselection unchanged (0eligible).

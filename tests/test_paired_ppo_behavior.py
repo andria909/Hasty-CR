@@ -81,3 +81,39 @@ def test_study_pairs_each_candidate_with_same_seed_and_rejects_changed_artifact(
     changed = collected/'pilot_medium_s422_summary.json'
     changed.write_text(changed.read_text()+' ')
     with pytest.raises(ValueError, match='measurements changed'): compare_study(tmp_path, proof_path)
+
+
+@pytest.mark.parametrize('variant,prefix',[
+    ('air_exposure_v1','air_exposure'),('spell_interaction_v1','spell_interaction')])
+def test_long_study_baseline_measures_learning_against_parent_not_itself(tmp_path,variant,prefix):
+    import json
+    from pathlib import Path
+    from scripts.kaggle.local_artifact_transfer import file_sha
+    from scripts.attack.compare_ppo_pilot_behavior import compare_study
+    p=json.loads(Path(f'data/ppo_tuning/{prefix}_design_20261102.json').read_text())
+    p['study_variant']=variant;kernel='owner/long-fixture'
+    (tmp_path/'dataset').mkdir();collected=tmp_path/'collected';collected.mkdir()
+    (tmp_path/'preparation.json').write_text(json.dumps(dict(kernel=kernel)))
+    (tmp_path/'dataset/protocol.json').write_text(json.dumps(p))
+    files={};models=[]
+    def write(name,data):
+        path=collected/name;path.write_text(json.dumps(data));files[name]=dict(sha256=file_sha(path))
+    write('parent_reference.json',dict(validation=dict(records=records())))
+    for case in p['cases']:
+        for seed in p['pilot_seeds']:
+            name=f"pilot_{case['id']}_s{seed}";(collected/name).mkdir()
+            weight=collected/name/'policy.pt';weight.write_bytes(b'technical-test-only')
+            rows=records();rows[0]['outcome']='win'
+            write(name+'_summary.json',dict(id=name,checkpoint=name+'/policy.pt',selected_update=200,validation=dict(records=rows)))
+            models.append(dict(id=name,checkpoint=str(weight),checkpoint_sha256=file_sha(weight)))
+    write('collection_receipt.json',dict(complete=True,kernel=kernel,files=dict(files)))
+    proof=tmp_path/'proof.json';proof.write_text(json.dumps(dict(kernel=kernel,pilot_steps_verified=3276800,
+        pilot_models=models,**{prefix+'_audit':dict(verified=True)})))
+    result=compare_study(tmp_path,proof)
+    for row in result['rows']:
+        control=p['paired_controls'].get(row['case'])
+        assert row['reference']==(f"pilot_{control}_s{row['seed']}" if control else 'parent')
+        assert row['comparison']['all']['wins_delta']==(0 if control else 1)
+    # The shared parent is also receipt-verified, not an unchecked baseline.
+    path=collected/'parent_reference.json';path.write_text(path.read_text()+' ')
+    with pytest.raises(ValueError,match='measurements changed'):compare_study(tmp_path,proof)
