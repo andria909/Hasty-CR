@@ -30,6 +30,10 @@ def child(path, *, full=False):
         if float(args[args.index(flag)+1])!=expected or blob['config'][key]!=expected:
             raise ValueError('Actual credit-assignment configuration differs: '+key)
         report['actual_'+key]=expected
+    if 'value_coef'in trial:
+        if float(args[args.index('--value-coef')+1])!=trial['value_coef']or blob['config']['value_coef']!=trial['value_coef']:
+            raise ValueError('Actual critic coefficient differs')
+        report['actual_value_coef']=trial['value_coef']
     p.write_text(json.dumps(report,indent=2)+'\n')
 
 

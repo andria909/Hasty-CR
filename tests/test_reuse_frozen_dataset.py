@@ -59,3 +59,40 @@ def test_reused_dataset_submission_never_calls_upload(monkeypatch,tmp_path):
     assert calls==['owner/existing']and not(root/'dataset_submission.json').exists()
     changed=dict(prep,reused_dataset='other/existing')
     with pytest.raises(ValueError):validate_reuse(root,changed)
+
+
+def test_nested_reuse_follows_verified_actual_mount_not_unpublished_staging(monkeypatch,tmp_path):
+    import shutil
+    from scripts.kaggle import reuse_frozen_dataset as module
+    source=tmp_path/'new';old=tmp_path/'previous'
+    for root,slug in((source,'new-stage'),(old,'unpublished-stage')):
+        (root/'dataset').mkdir(parents=True);(root/'job').mkdir()
+        for name in('source.tar.gz','protocol.json','extensions.tar.gz'):
+            (root/'dataset'/name).write_bytes(b'base'if name=='source.tar.gz'else slug.encode())
+        code="def execute(config):\n def mount(slug): return slug\n def run(): return None\nexecute({})\n"
+        (root/'job/train.py').write_text(code)
+        cfg=dict(owner='owner',slug=slug,pins={p.name:file_sha(p)for p in(root/'dataset').iterdir()})
+        prep=dict(kernel='owner/'+slug,config=cfg,bootstrap_sha256=file_sha(root/'job/train.py'))
+        if root==old:
+            cfg.update(source_slug='actual-existing',inline_inputs={name:base64.b64encode((root/'dataset'/name).read_bytes()).decode()
+                for name in('protocol.json','extensions.tar.gz')})
+            prep['reused_dataset']='owner/actual-existing'
+        (root/'preparation.json').write_text(json.dumps(prep))
+        (root/'job/kernel-metadata.json').write_text(json.dumps(dict(dataset_sources=['owner/actual-existing'])))
+    oldprep=json.loads((old/'preparation.json').read_text())
+    (old/'transport_preflight.json').write_text(json.dumps(dict(all_input_pins_verified=True,training_run_ast_unchanged=True,
+        bootstrap_sha256=oldprep['bootstrap_sha256'],preparation_sha256=file_sha(old/'preparation.json'))))
+    (old/'collected').mkdir();(old/'collected/collection_receipt.json').write_text(json.dumps(dict(
+        kernel=oldprep['kernel'],complete=True,remote_status='COMPLETE')))
+    def rebind(src,dst,owner):
+        shutil.copytree(src,dst);return json.loads((dst/'preparation.json').read_text())
+    monkeypatch.setattr(module,'rebind',rebind)
+    result=module.prepare(source,tmp_path/'prepared',old)
+    assert result['reused_dataset']=='owner/actual-existing'
+    prep=json.loads((tmp_path/'prepared/preparation.json').read_text())
+    module.validate_reuse(tmp_path/'prepared',prep)
+    assert prep['config']['source_slug']=='actual-existing'
+    # A nested source is accepted only with its original transport proof intact.
+    (old/'transport_preflight.json').write_text('{}')
+    with pytest.raises(ValueError,match='reuse proof'):
+        module.prepare(source,tmp_path/'bad',old)

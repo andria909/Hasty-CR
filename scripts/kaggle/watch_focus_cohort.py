@@ -32,7 +32,10 @@ def watch(root,status_report,verified_report,summary_report=None,markdown_report
             except (ValueError,OSError):continue
             if not r.get('complete'):continue
             prep=json.loads((root/'preparation.json').read_text())
-            if prep.get('study_variant')=='policy_choice_v1':
+            if prep.get('study_variant')=='critic_weight_v1':
+                from scripts.attack.verify_air_exposure_pilot import verify_critic_weight
+                report=verify_critic_weight(receipt.parent,root)
+            elif prep.get('study_variant')=='policy_choice_v1':
                 from scripts.attack.verify_air_exposure_pilot import verify_policy_choice
                 report=verify_policy_choice(receipt.parent,root)
             elif prep.get('study_variant')=='credit_assignment_v1':

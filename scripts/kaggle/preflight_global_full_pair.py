@@ -27,6 +27,7 @@ def variant_child_script(variant):
         'tower_credit_v1':'preflight_long_economy_full.py',
         'credit_assignment_v1':'preflight_long_economy_full.py',
         'policy_choice_v1':'preflight_policy_choice_full.py',
+        'critic_weight_v1':'preflight_long_economy_full.py',
     }.get(variant,Path(__file__).name)
     return Path(__file__).absolute().with_name(filename)
 
@@ -44,8 +45,10 @@ def validate_specialized_preflight(entry,report,variant):
             report.get('actual_spell_waste_weight')!=trial['spell_waste_weight'] or
             report.get('crown_validation_games')!=12):
         raise ValueError('Actual long-study full command and reward preflight required')
-    if variant in ('tower_credit_v1','credit_assignment_v1','policy_choice_v1')and report.get('actual_tower_support_weight')!=trial['tower_support_weight']:
+    if variant in ('tower_credit_v1','credit_assignment_v1','policy_choice_v1','critic_weight_v1')and report.get('actual_tower_support_weight')!=trial['tower_support_weight']:
         raise ValueError('Actual positive tower coefficient preflight required')
+    if variant=='critic_weight_v1'and report.get('actual_value_coef')!=trial['value_coef']:
+        raise ValueError('Actual full critic coefficient differs')
     if variant=='credit_assignment_v1':
         for key in ('gae_lambda','card_balance_weight'):
             if report.get('actual_'+key)!=trial[key]:

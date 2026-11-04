@@ -78,7 +78,10 @@ def compare_study(root, proof_path):
     prep = json.loads((root/'preparation.json').read_text())
     protocol = json.loads((root/'dataset/protocol.json').read_text())
     variant = protocol['study_variant']
-    if variant == 'policy_choice_v1':
+    if variant == 'critic_weight_v1':
+        from scripts.kaggle.prepare_critic_weight_pilot import validate_protocol
+        accepted = proof.get('critic_weight_audit',{}).get('verified') is True
+    elif variant == 'policy_choice_v1':
         from scripts.kaggle.prepare_policy_choice_pilot import validate_protocol
         accepted = proof.get('policy_choice_audit',{}).get('verified') is True
     elif variant == 'credit_assignment_v1':
@@ -105,7 +108,7 @@ def compare_study(root, proof_path):
     else:
         raise ValueError('Unsupported paired PPO study')
     validate_protocol(protocol)
-    if not accepted or proof['pilot_steps_verified'] != (3276800 if variant in ('air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1','policy_choice_v1')else 819200) or proof['kernel'] != prep['kernel']:
+    if not accepted or proof['pilot_steps_verified'] != (3276800 if variant in ('air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1','policy_choice_v1','critic_weight_v1')else 819200) or proof['kernel'] != prep['kernel']:
         raise ValueError('Completed independent CUDA verification required')
     collected = root/'collected'
     receipt = json.loads((collected/'collection_receipt.json').read_text())
@@ -130,7 +133,7 @@ def compare_study(root, proof_path):
     for case in protocol['cases']:
         for seed in protocol['pilot_seeds']:
             name = f"pilot_{case['id']}_s{seed}"
-            if variant in ('air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1','policy_choice_v1'):
+            if variant in ('air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1','policy_choice_v1','critic_weight_v1'):
                 control = protocol['paired_controls'].get(case['id'])
                 reference = f'pilot_{control}_s{seed}' if control else case['initial_id']
                 baseline = summaries[reference] if control else read(reference+'_reference.json')

@@ -10,6 +10,7 @@ from scripts.kaggle.prepare_spell_interaction_pilot import CASES as SPELL_CASES
 from scripts.kaggle.prepare_tower_credit_pilot import CASES as TOWER_CASES
 from scripts.kaggle.prepare_credit_assignment_pilot import CASES as CREDIT_CASES
 from scripts.kaggle.prepare_policy_choice_pilot import CASES as CHOICE_CASES
+from scripts.kaggle.prepare_critic_weight_pilot import CASES as CRITIC_CASES
 from scripts.attack.select_air_exposure import select_profiles
 from scripts.kaggle import collect_final_evaluation as collector
 from tests.test_select_continuous_focus import validation
@@ -47,10 +48,12 @@ def test_floor_and_both_seeds_still_required_after_increasing_budget():
     ('spell-interaction-pilot',SPELL_CASES,(452,453),'pilot_king01_s454'),
     ('tower-credit-pilot',TOWER_CASES,(462,463),'pilot_tower05_01_s464'),
     ('credit-assignment-pilot',CREDIT_CASES,(472,473),'pilot_longer_s474'),
-    ('policy-choice-pilot',CHOICE_CASES,(482,483),'pilot_choice_loss_s484')])
+    ('policy-choice-pilot',CHOICE_CASES,(482,483),'pilot_choice_loss_s484'),
+    ('critic-weight-pilot',CRITIC_CASES,(492,493),'pilot_value005_s494')])
 def test_collector_gets_selected150_and_last400_not_wrong_seed_or_overbudget(monkeypatch,tmp_path,profile,cases,seeds,wrong):
     prefix='continuous_focus/';data={prefix+'result.json':b'{}'}
-    for name,_,_ in cases:
+    for case in cases:
+        name=case[0]
         for seed in seeds:
             run=f'pilot_{name}_s{seed}'
             data[prefix+run+'_summary.json']=json.dumps(dict(id=run,checkpoint=run+'/update_000150.pt')).encode()

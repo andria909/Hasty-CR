@@ -22,6 +22,8 @@ def audit_full_economy(config,blob,metrics_path,trial,variant):
     if variant in LONG_VARIANTS and (config.get('continuous_focus')!=trial['focus'] or
             blob['config'].get('continuous_focus')!=trial['focus']):
         raise ValueError('Full checkpoint training focus differs')
+    if variant=='critic_weight_v1'and (config.get('value_coef')!=trial['value_coef']or blob['config'].get('value_coef')!=trial['value_coef']):
+        raise ValueError('Full checkpoint critic coefficient differs')
     if variant=='credit_assignment_v1':
         for key in ('gae_lambda','card_balance_weight','gamma'):
             if config.get(key)!=trial[key] or blob['config'].get(key)!=trial[key]:

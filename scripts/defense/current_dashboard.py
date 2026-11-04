@@ -647,6 +647,30 @@ def policy_choice_progress(reports):
     return lines
 
 
+def critic_weight_progress(reports):
+    state=read(reports/'critic_weight_training_20261104.json')
+    if not state:return []
+    proof=read(reports/'critic_weight_verified_20261104.json')or{}
+    complete=(proof.get('kernel')==state['kernel']and proof.get('pilot_steps_verified')==3276800
+              and proof.get('critic_weight_audit',{}).get('verified')is True)
+    stream=read(Path(state['root'])/'live_stream/progress.json')or{}
+    runs=stream.get('trials',{})if stream.get('kernel')==state['kernel']else{}
+    lines=['','**Третий опыт: вес обучения critic.**',
+        '8 бюджетов проверены.'if complete else 'Две Tesla T4 подтверждены.'if state.get('actual_cuda_ready')else
+        'Kaggle принял задачу; CUDA ещё не подтверждена.','',
+        '| Коэффициент critic | Seed 492 | Seed 493 |','|---|---:|---:|']
+    for name,label in [('control','0,5 — контроль'),('value025','0,25'),('value010','0,1'),('value005','0,05')]:
+        cells=[]
+        for seed in (492,493):
+            row=runs.get(f'pilot_{name}_s{seed}',{})
+            valid=row.get('target_steps')==409600 and 0<=row.get('steps',-1)<=409600
+            cells.append('100% проверено'if complete else f"≥{100*row['steps']/409600:.1f}%"if valid else'нет счётчика')
+        lines.append(f"| {label} | {' | '.join(cells)} |")
+    if complete:lines+=['','Прошли отбор: '+(', '.join(proof['critic_weight_selection']['eligible_profiles'])or'нет')+'.']
+    lines+=['','409 600 шагов на прогон; награды прежние. [Обоснование и запуск](reports/critic_weight_launch_20261104.md).']
+    return lines
+
+
 def render_credit_assignment(reports,state):
     stream=read(Path(state['root'])/'live_stream/progress.json')or{}
     runs=stream.get('trials',{})if stream.get('kernel')==state['kernel']else{}
@@ -736,6 +760,7 @@ def render_credit_assignment(reports,state):
         lines+=['','**Подготовка следующего опыта:** четыре режима PPO прошли точный перезапуск и '
                 '48 технических игр; контроль воспроизводит прежние веса. '
                 'Новый GPU-опыт пока не запущен. [Проверка](reports/policy_choice_algorithm_20261104.md).']
+    lines+=critic_weight_progress(reports)
     return '\n'.join(lines)+'\n'
 
 

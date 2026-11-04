@@ -1,0 +1,171 @@
+{
+  "schema": "ppo-objective-gradient-summary-v1",
+  "raw_result": "tmp/ppo_objective_gradients_20261104_v2/result.json",
+  "raw_sha256": "ff786507c3b5320c5d3f56d9c2f9a8eb2b52b16b5796cd672e4ba0a3ec925dc1",
+  "models": [
+    {
+      "seed": 462,
+      "kind": "selected",
+      "update": 150,
+      "choice_steps": 85,
+      "rollout_steps": 1024,
+      "shared_value_actor_median": 9.587836980819702,
+      "modes": [
+        {
+          "mode": "full",
+          "value_coef": 0.5,
+          "mean_actor_objective_change": -0.0005523959262063727,
+          "mean_value_objective_change": -0.0015187859535217285,
+          "actor_worsening_batches": 0
+        },
+        {
+          "mode": "value_01",
+          "value_coef": 0.1,
+          "mean_actor_objective_change": -0.001806916407076642,
+          "mean_value_objective_change": 9.812414646148682e-05,
+          "actor_worsening_batches": 0
+        },
+        {
+          "mode": "value_005",
+          "value_coef": 0.05,
+          "mean_actor_objective_change": -0.0022903649223735556,
+          "mean_value_objective_change": 0.0016544908285140991,
+          "actor_worsening_batches": 0
+        },
+        {
+          "mode": "actor_only",
+          "value_coef": 0.0,
+          "mean_actor_objective_change": -0.0027032805664930493,
+          "mean_value_objective_change": 0.006504163146018982,
+          "actor_worsening_batches": 0
+        }
+      ]
+    },
+    {
+      "seed": 462,
+      "kind": "latest",
+      "update": 400,
+      "choice_steps": 73,
+      "rollout_steps": 1024,
+      "shared_value_actor_median": 52.30272674560547,
+      "modes": [
+        {
+          "mode": "full",
+          "value_coef": 0.5,
+          "mean_actor_objective_change": -0.0001266787148779258,
+          "mean_value_objective_change": -0.006071150302886963,
+          "actor_worsening_batches": 2
+        },
+        {
+          "mode": "value_01",
+          "value_coef": 0.1,
+          "mean_actor_objective_change": -0.0004928446433041245,
+          "mean_value_objective_change": -0.006105214357376099,
+          "actor_worsening_batches": 1
+        },
+        {
+          "mode": "value_005",
+          "value_coef": 0.05,
+          "mean_actor_objective_change": -0.0009008665365399793,
+          "mean_value_objective_change": -0.006035178899765015,
+          "actor_worsening_batches": 0
+        },
+        {
+          "mode": "actor_only",
+          "value_coef": 0.0,
+          "mean_actor_objective_change": -0.0026689188816817477,
+          "mean_value_objective_change": 0.00497773289680481,
+          "actor_worsening_batches": 0
+        }
+      ]
+    },
+    {
+      "seed": 463,
+      "kind": "selected",
+      "update": 250,
+      "choice_steps": 85,
+      "rollout_steps": 1024,
+      "shared_value_actor_median": 10.035459995269775,
+      "modes": [
+        {
+          "mode": "full",
+          "value_coef": 0.5,
+          "mean_actor_objective_change": -0.0002515787273296155,
+          "mean_value_objective_change": 0.0037399232387542725,
+          "actor_worsening_batches": 0
+        },
+        {
+          "mode": "value_01",
+          "value_coef": 0.1,
+          "mean_actor_objective_change": -0.0012016054934065323,
+          "mean_value_objective_change": 0.004078581929206848,
+          "actor_worsening_batches": 0
+        },
+        {
+          "mode": "value_005",
+          "value_coef": 0.05,
+          "mean_actor_objective_change": -0.00170745767900371,
+          "mean_value_objective_change": 0.004812292754650116,
+          "actor_worsening_batches": 0
+        },
+        {
+          "mode": "actor_only",
+          "value_coef": 0.0,
+          "mean_actor_objective_change": -0.002029008755926043,
+          "mean_value_objective_change": 0.008040308952331543,
+          "actor_worsening_batches": 0
+        }
+      ]
+    },
+    {
+      "seed": 463,
+      "kind": "latest",
+      "update": 400,
+      "choice_steps": 101,
+      "rollout_steps": 1024,
+      "shared_value_actor_median": 34.41284465789795,
+      "modes": [
+        {
+          "mode": "full",
+          "value_coef": 0.5,
+          "mean_actor_objective_change": -0.0011547128087840974,
+          "mean_value_objective_change": -0.021126091480255127,
+          "actor_worsening_batches": 0
+        },
+        {
+          "mode": "value_01",
+          "value_coef": 0.1,
+          "mean_actor_objective_change": -0.0017867245333036408,
+          "mean_value_objective_change": -0.020409822463989258,
+          "actor_worsening_batches": 0
+        },
+        {
+          "mode": "value_005",
+          "value_coef": 0.05,
+          "mean_actor_objective_change": -0.002322282249224372,
+          "mean_value_objective_change": -0.019151270389556885,
+          "actor_worsening_batches": 0
+        },
+        {
+          "mode": "actor_only",
+          "value_coef": 0.0,
+          "mean_actor_objective_change": -0.0038345061475411057,
+          "mean_value_objective_change": -0.004269957542419434,
+          "actor_worsening_batches": 0
+        }
+      ]
+    }
+  ],
+  "actual_cpu_train_steps": 4096,
+  "virtual_optimizer_steps": 64,
+  "persistent_optimizer_updates": 0,
+  "models_saved": 0,
+  "quality_accepted": false,
+  "baseline_reproduced_exactly": true,
+  "limitations": [
+    "One CPU rollout per checkpoint, not an exact CUDA replay",
+    "Four independent minibatches per saved Adam boundary, not sequential training",
+    "Actor surrogate improvement is not a win-rate measurement",
+    "Smaller critic weight can worsen value fitting; confirm on full matches"
+  ]
+}

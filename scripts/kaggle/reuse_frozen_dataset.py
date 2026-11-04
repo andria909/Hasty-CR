@@ -43,8 +43,12 @@ def prepare(source,output,reuse):
         if file_sha(reuse/'dataset'/name)!=digest:raise ValueError('Predecessor local input changed')
     if file_sha(source/'dataset/source.tar.gz')!=file_sha(reuse/'dataset/source.tar.gz'):
         raise ValueError('Base source archive differs')
+    # A predecessor may itself have reused inputs without ever publishing its
+    # staging dataset. Follow its verified actual mount, not that staging slug.
+    if old.get('reused_dataset'):validate_reuse(reuse,old)
+    actual_source_slug=old['config']['source_slug']if old.get('reused_dataset')else old['config']['slug']
     prep=rebind(source,root,p['config']['owner']);c=prep['config']
-    c['source_slug']=old['config']['slug']
+    c['source_slug']=actual_source_slug
     if c['source_slug']==c['slug']:raise ValueError('Distinct staging and predecessor dataset required')
     c['inline_inputs']={name:base64.b64encode((root/'dataset'/name).read_bytes()).decode()for name in sorted(differences)}
     if sum(len(v)for v in c['inline_inputs'].values())>2_000_000:raise ValueError('Inline transport too large')

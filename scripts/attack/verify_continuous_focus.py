@@ -34,6 +34,7 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps,*
     row=json.loads((root/(run_id+'_summary.json')).read_text())
     boundary=json.loads((root/run_id/'training_result.json').read_text())
     config=json.loads((root/run_id/'config.json').read_text())
+    if config.get('value_coef',.5)!=trial.get('value_coef',.5):raise ValueError('Critic coefficient differs')
     expected_initial=selected_initial
     if trial.get('warmstart_updates',0):
         warm=root/(run_id+'_warmstart');w=json.loads((warm/'result.json').read_text())
@@ -145,8 +146,10 @@ def verify(collected,prepared):
         if sha(name)!=c['extensions'][name]:raise ValueError('Use the frozen selector version to verify this cohort')
     protocol=json.loads((prepared/'dataset/protocol.json').read_text());result=json.loads((root/'result.json').read_text())
     pilot_steps=102400;profile_selector=select_profiles
-    if cfg.get('study_variant')in ('air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1','policy_choice_v1'):
-        if cfg['study_variant']=='policy_choice_v1':
+    if cfg.get('study_variant')in ('air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1','policy_choice_v1','critic_weight_v1'):
+        if cfg['study_variant']=='critic_weight_v1':
+            from scripts.kaggle.prepare_critic_weight_pilot import validate_protocol
+        elif cfg['study_variant']=='policy_choice_v1':
             from scripts.kaggle.prepare_policy_choice_pilot import validate_protocol
         elif cfg['study_variant']=='credit_assignment_v1':
             from scripts.kaggle.prepare_credit_assignment_pilot import validate_protocol

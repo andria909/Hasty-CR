@@ -14,7 +14,7 @@ import tarfile
 
 from scripts.attack.verify_continuous_focus import verify
 
-LONG_VARIANTS = {'air_exposure_v1':'air_exposure', 'spell_interaction_v1':'spell_interaction', 'tower_credit_v1':'tower_credit', 'credit_assignment_v1':'credit_assignment', 'policy_choice_v1':'policy_choice'}
+LONG_VARIANTS = {'air_exposure_v1':'air_exposure', 'spell_interaction_v1':'spell_interaction', 'tower_credit_v1':'tower_credit', 'credit_assignment_v1':'credit_assignment', 'policy_choice_v1':'policy_choice', 'critic_weight_v1':'critic_weight'}
 ECONOMY_VARIANTS = {'policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1'} | set(LONG_VARIANTS)
 
 
@@ -22,8 +22,8 @@ def verify_study(root, default_verifier=None):
     root = Path(root)
     protocol = json.loads((root/'dataset/protocol.json').read_text())
     if protocol.get('study_variant') in LONG_VARIANTS:
-        from scripts.attack.verify_air_exposure_pilot import verify_exposure, verify_interaction, verify_tower_credit, verify_credit_assignment, verify_policy_choice
-        verifier = {'air_exposure_v1':verify_exposure,'spell_interaction_v1':verify_interaction,'tower_credit_v1':verify_tower_credit,'credit_assignment_v1':verify_credit_assignment,'policy_choice_v1':verify_policy_choice}[protocol['study_variant']]
+        from scripts.attack.verify_air_exposure_pilot import verify_exposure, verify_interaction, verify_tower_credit, verify_credit_assignment, verify_policy_choice, verify_critic_weight
+        verifier = {'air_exposure_v1':verify_exposure,'spell_interaction_v1':verify_interaction,'tower_credit_v1':verify_tower_credit,'credit_assignment_v1':verify_credit_assignment,'policy_choice_v1':verify_policy_choice,'critic_weight_v1':verify_critic_weight}[protocol['study_variant']]
         return verifier(root/'collected', root)
     if protocol.get('study_variant') == 'policy_adaptation_v1':
         from scripts.attack.verify_policy_adaptation_pilot import verify_adaptation
@@ -66,6 +66,7 @@ def economy_identity(preparation, trial):
     model = next(m for m in preparation['config']['models'] if m['id']==trial['initial_id'])
     profile = {k:v for k,v in trial.items() if k not in ('id','initial_id')}
     profile.setdefault('spatial_entropy_weight',1.)
+    if profile.get('value_coef',.5)==.5:profile.pop('value_coef',None)
     # Explicit opt-in defaults are the same control as older trials without
     # these fields. Do not hide their unsuccessful replicas behind a new name.
     for key in ('policy_reduction','advantage_normalization'):

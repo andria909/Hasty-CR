@@ -19,12 +19,15 @@ def audit_checkpoint_rewards(config,blob,trial):
             raise ValueError('Checkpoint/environment reward differs: '+name)
 
 
-def verify_exposure(collected,prepared,*,interaction=False,tower_credit=False,credit_assignment=False,policy_choice=False):
+def verify_exposure(collected,prepared,*,interaction=False,tower_credit=False,credit_assignment=False,policy_choice=False,critic_weight=False):
     root,prepared=Path(collected),Path(prepared)
     prep=json.loads((prepared/'preparation.json').read_text());p=json.loads((prepared/'dataset/protocol.json').read_text())
     validator=validate_protocol;variant=VARIANT;report_prefix='air_exposure'
-    if sum((interaction,tower_credit,credit_assignment,policy_choice))>1:raise ValueError('One study variant required')
-    if policy_choice:
+    if sum((interaction,tower_credit,credit_assignment,policy_choice,critic_weight))>1:raise ValueError('One study variant required')
+    if critic_weight:
+        from scripts.kaggle.prepare_critic_weight_pilot import validate_protocol as validator,VARIANT as variant
+        report_prefix='critic_weight'
+    elif policy_choice:
         from scripts.kaggle.prepare_policy_choice_pilot import validate_protocol as validator,VARIANT as variant
         report_prefix='policy_choice'
     elif credit_assignment:
@@ -66,6 +69,8 @@ def verify_exposure(collected,prepared,*,interaction=False,tower_credit=False,cr
                 if episodes:audit_rewards(config,episodes,trial);audit_reward(config,episodes,trial['spell_waste_weight'])
             selected=next(m for m in result['pilot_models']if m['id']==name)
             blob=torch.load(selected['checkpoint'],map_location='cpu',weights_only=False)
+            if critic_weight and (config.get('value_coef')!=trial['value_coef']or blob['config'].get('value_coef')!=trial['value_coef']):
+                raise ValueError('Selected critic coefficient differs')
             if policy_choice:
                 from scripts.attack.policy_choice_accounting import audit_checkpoint
                 audit_checkpoint(config,blob,trial)
@@ -140,3 +145,7 @@ def verify_credit_assignment(collected,prepared):
 
 def verify_policy_choice(collected,prepared):
     return verify_exposure(collected,prepared,policy_choice=True)
+
+
+def verify_critic_weight(collected,prepared):
+    return verify_exposure(collected,prepared,critic_weight=True)
