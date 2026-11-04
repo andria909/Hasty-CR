@@ -18,7 +18,7 @@
     "versionNumber": 1,
     "kernelId": 142689429
   },
-  "last_local_sync_ns": 1793803352971516000,
+  "last_local_sync_ns": 1793804553223947000,
   "actual_cuda_ready": true,
   "actual_training_steps_confirmed": true,
   "progress_snapshot": {
@@ -26,8 +26,8 @@
     "source": "kaggle_live_log_stream",
     "trainers": {},
     "stream_state": "interrupted",
-    "reconnect_attempt": 5,
-    "checked_host_ns": 1793802395080676000,
+    "reconnect_attempt": 6,
+    "checked_host_ns": 1793803660576957000,
     "trials": {
       "pilot_control_s472": {
         "update": 400,
@@ -44,22 +44,36 @@
         "remote_log_seconds": 6286.938362279
       },
       "pilot_longer_s473": {
-        "update": 399,
-        "steps": 408576,
+        "update": 400,
+        "steps": 409600,
         "target_steps": 409600,
-        "percent": 99.75,
-        "remote_log_seconds": 11621.481802873
+        "percent": 100.0,
+        "remote_log_seconds": 12088.519994426
       },
       "pilot_control_s473": {
-        "update": 399,
-        "steps": 408576,
+        "update": 400,
+        "steps": 409600,
         "target_steps": 409600,
-        "percent": 99.75,
-        "remote_log_seconds": 11783.384262722
+        "percent": 100.0,
+        "remote_log_seconds": 12201.7755379
+      },
+      "pilot_longer_no_balance_s472": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 409600,
+        "percent": 24.75,
+        "remote_log_seconds": 13066.604234983
+      },
+      "pilot_no_balance_s472": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 409600,
+        "percent": 24.75,
+        "remote_log_seconds": 13181.430828611
       }
     },
-    "connection_started_host_ns": 1793802273871832000,
-    "error_type": "ConnectionError",
+    "connection_started_host_ns": 1793803474084880000,
+    "error_type": "SSLError",
     "http_status": null
   }
 }

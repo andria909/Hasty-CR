@@ -642,6 +642,15 @@ def policy_choice_progress(reports):
         lines.append(f"| {label} | {' | '.join(cells)} |")
     if complete:
         lines+=['','Прошли отбор: '+(', '.join(proof['policy_choice_selection']['eligible_profiles'])or'нет')+'.']
+    observed=read(reports/'policy_choice_first_trials_observed_20261104.json')or{}
+    if not complete and observed.get('kernel')==state['kernel']:
+        scores={r['id']:r for r in observed.get('trials',[])if r.get('steps')==409600}
+        a=scores.get('pilot_control_s482');b=scores.get('pilot_choice_loss_s482')
+        if a and b:
+            lines+=['',f"**Первый seed, по логам:** контроль {a['logged_score']:.4f}, "
+                    f"PPO по выборам {b['logged_score']:.4f} составного балла. "
+                    'Это не винрейт; веса ещё проверяются. '
+                    '[Сравнение](reports/policy_choice_first_results_20261104.md).']
     lines+=['','По 409 600 шагов. Награды и физика одинаковы. '
             '[Запуск и причина параллельного опыта](reports/policy_choice_launch_20261104.md).']
     return lines
