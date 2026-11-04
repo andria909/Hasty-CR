@@ -651,10 +651,20 @@ def render_credit_assignment(reports,state):
                          f"{air['wins']}/{air['games']} | {row['mean_empty_spell_elixir']:.2f} |")
         lines+=['','Прошли отбор: '+(', '.join(proof['credit_assignment_selection']['eligible_profiles'])or'нет')+'. '
                 'Это validation на повторяемых сценариях, не независимый test.']
+    curves=read(reports/'learning_curves_with_opportunities_20261104.json')or{}
+    diagnostic=('**Диагностика:** исходная модель 3/12, ожидание эликсира 3/12, ожидание + мушкетёр 1/12. '
+                'Жёсткий запрет дешёвых карт не помог. [Подробности](reports/cheap_cycle_diagnostic_20261104.md).')
+    if curves.get('schema')=='verified-learning-curves-v1':
+        runs=[r for s in curves['studies']for r in s['runs']]
+        if len(runs)==24:
+            first=sum(r['curve'][0]['card_plays_per_game']['musketeer']for r in runs)/24
+            last=sum(r['curve'][-1]['card_plays_per_game']['musketeer']for r in runs)/24
+            diagnostic=(f'**Диагностика 24 прошлых моделей:** мушкетёр {first:.2f} → {last:.2f} постановки/матч '
+                        'по мере обучения; дорогие карты всё реже доступны из-за расхода эликсира. '
+                        '[Кривые и ограничения](reports/learning_curves_20261104.md).')
     lines+=['','По 409 600 шагов; суммарно 3 276 800. Бонус башен 0,15, пушка в центре, '
             'задержка 1350 мс. Контроль каждые 20 минут.', '',
-            '**Диагностика:** исходная модель 3/12, ожидание эликсира 3/12, ожидание + мушкетёр 1/12. '
-            'Жёсткий запрет дешёвых карт не помог. [Подробности](reports/cheap_cycle_diagnostic_20261104.md).','',
+            diagnostic,'',
             '**Предыдущий цикл:** 24 модели обучены, устойчиво прошедших отбор нет. '
             '[Все результаты](reports/long_economy_results_20261103.md).','',
             '**Дальше:** проверить оба seed, защиту по семействам и фактические постановки карт; '

@@ -1,6 +1,7 @@
 """Record live Kaggle training progress without exposing authentication data."""
 import argparse
 import json
+import math
 from pathlib import Path
 import re
 import time
@@ -43,6 +44,15 @@ def record_trial_event(progress,line,remote_time):
 
 def reconnect_delay(interval,started):
     return max(0,interval-int(time.monotonic()-started))
+
+
+def resume_delay(progress,interval,now_ns=None):
+    """Keep the remote polling interval when replacing an exited local observer."""
+    previous=progress.get('connection_started_host_ns',progress.get('checked_host_ns'))
+    if type(previous)is not int or previous<=0:return interval
+    now=time.time_ns()if now_ns is None else now_ns
+    elapsed=max(0,(now-previous)/1_000_000_000)
+    return max(0,math.ceil(interval-elapsed))
 
 
 def record_initialization_event(progress,line,remote_time):
@@ -168,8 +178,15 @@ def main():
     api=make_api_client(args.api_user)
     progress,stream=open_progress_output(args.output,args.kernel,args.resume)
     with stream:
+        if args.resume:
+            delay=resume_delay(progress,args.reconnect_seconds)
+            print(json.dumps(dict(event='OBSERVER_RESUME_WAIT',kernel=args.kernel,seconds=delay)),flush=True)
+            time.sleep(delay)
         for attempt in range(args.reconnects+1):
             connection_started=time.monotonic()
+            progress['connection_started_host_ns']=time.time_ns()
+            progress['reconnect_attempt']=attempt
+            (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
             try:
                 progress['stream_state']='connected'
                 progress.pop('error_type',None);progress.pop('http_status',None)
@@ -212,7 +229,7 @@ def main():
                 progress['checked_host_ns']=time.time_ns()
                 (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
                 print(json.dumps(progress),flush=True)
-                transient=(type(error).__name__ in ('SSLError','ConnectionError','ReadTimeout','Timeout')
+                transient=(type(error).__name__ in ('SSLError','ConnectionError','ReadTimeout','Timeout','ChunkedEncodingError')
                            or progress['http_status'] in (404,429,500,502,503,504))
                 if not transient or attempt>=args.reconnects:
                     break

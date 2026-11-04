@@ -23,7 +23,7 @@ def test_resume_preserves_raw_events_and_saved_counters(tmp_path):
     assert (root/'events.jsonl').read_text()=='first event\nsecond event\n'
 
 
-@pytest.mark.parametrize('error_name,status', [('SSLError', None), ('HTTPError', 404)])
+@pytest.mark.parametrize('error_name,status', [('SSLError', None), ('HTTPError', 404), ('ChunkedEncodingError', None)])
 def test_transient_stream_failure_reconnects_without_losing_or_regressing_progress(
         tmp_path, monkeypatch, error_name, status):
     error_type = type(error_name, (Exception,), {})
@@ -108,6 +108,41 @@ def test_twenty_minute_reconnect_counts_from_connection_start_not_end(monkeypatc
     assert reconnect_delay(1200,100)==900  # Five-minute stream, then fifteen-minute wait.
     monkeypatch.setattr('time.monotonic',lambda:1500)
     assert reconnect_delay(1200,100)==0
+
+
+def test_resumed_observer_preserves_twenty_minute_interval():
+    from scripts.kaggle.stream_training import resume_delay
+    assert resume_delay(dict(connection_started_host_ns=100_000_000_000),1200,400_000_000_000)==900
+    assert resume_delay(dict(checked_host_ns=100_000_000_000),1200,400_000_000_000)==900
+    assert resume_delay(dict(checked_host_ns=100_000_000_000),1200,1300_000_000_000)==0
+    assert resume_delay(dict(checked_host_ns=100_000_000_000),1200,99_000_000_000)==1200
+    assert resume_delay({},1200,400_000_000_000)==1200
+
+
+def test_resume_waits_before_remote_call_and_retains_existing_events(tmp_path,monkeypatch):
+    from scripts.kaggle.stream_training import open_progress_output
+    output=tmp_path/'stream';state,stream=open_progress_output(output,'owner/job')
+    state.update(connection_started_host_ns=100_000_000_000,trainers={'ppo':dict(update=2,steps=2048)})
+    (output/'progress.json').write_text(json.dumps(state))
+    with stream:stream.write('{"old":true}\n')
+    actions=[]
+    class API:
+        def authenticate(self):pass
+        def kernels_logs_stream(self,kernel):
+            actions.append(('remote',kernel))
+            yield dict(data='ppo: {"update": 1, "step": 1024}',time=1)
+            yield dict(data='ppo: {"update": 3, "step": 3072}',time=3)
+    module=types.ModuleType('kaggle.api.kaggle_api_extended');module.KaggleApi=API
+    monkeypatch.setitem(sys.modules,module.__name__,module)
+    monkeypatch.setattr('time.time_ns',lambda:400_000_000_000)
+    monkeypatch.setattr('time.sleep',lambda seconds:actions.append(('sleep',seconds)))
+    monkeypatch.setattr(sys,'argv',['stream_training.py','--kernel','owner/job','--output',str(output),'--resume','--reconnects','0'])
+    runpy.run_path(str(Path(__file__).resolve().parents[1]/'scripts/kaggle/stream_training.py'),run_name='__main__')
+    assert actions==[('sleep',900),('remote','owner/job')]
+    result=json.loads((output/'progress.json').read_text())
+    assert result['trainers']['ppo']['steps']==3072
+    assert result['connection_started_host_ns']==400_000_000_000
+    assert (output/'events.jsonl').read_text().startswith('{"old":true}\n')
 def test_bc_updates_are_not_counted_as_ppo_environment_steps():
     import json
     from scripts.kaggle.stream_training import record_initialization_event

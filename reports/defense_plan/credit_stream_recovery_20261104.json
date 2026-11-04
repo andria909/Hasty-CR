@@ -1,0 +1,35 @@
+{
+  "schema": "observer-recovery-v1",
+  "kernel": "vertel0/hastycr-credit1104",
+  "cause": "ChunkedEncodingError treated as permanent in stream observer",
+  "old_observer_pid": 50846,
+  "old_observer_missing_verified": true,
+  "new_observer_pid": 52062,
+  "new_observer_live_verified_host_ns": 1793795650069220000,
+  "resume": true,
+  "existing_events_preserved": true,
+  "gpu_job_restarted": false,
+  "poll_interval_seconds": 1200,
+  "resume_wait_logged_seconds": 1032,
+  "remote_status_snapshot": {
+    "kernel": "vertel0/hastycr-credit1104",
+    "remote_status": "RUNNING",
+    "checked_host_ns": 1793794061582316000,
+    "remote_job_changed": false
+  },
+  "tests": {
+    "passed": 23,
+    "log": "tmp/observer_curves_final_tests_20261104.log",
+    "sha256": "f45d543b12d2c6cff965f73c61374f00ccd4d88266b4483358289f228f6eebcc"
+  },
+  "collector_stack_sample": {
+    "pid": 50847,
+    "state": "time_sleep/nanosleep",
+    "path": "tmp/credit_collector_stack_20261104.txt",
+    "scope": "Confirms live local waiting process; does not establish current remote training status"
+  },
+  "combined_tests": {
+    "passed": 32,
+    "log": "tmp/observer_curves_dashboard_tests_20261104.log"
+  }
+}
