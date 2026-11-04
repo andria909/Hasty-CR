@@ -1,6 +1,6 @@
 # Новый PPO-опыт: коэффициент critic
 
-Kaggle принял **andreiperelaiko/hastycr-critic1104**, версия1, kernel142714627. Удалённый статус `RUNNING` подтверждён; CUDA и фактические PPO-шаги пока ожидаются в логах. [Задача Kaggle](https://www.kaggle.com/code/andreiperelaiko/hastycr-critic1104).
+Kaggle принял **andreiperelaiko/hastycr-critic1104**, версия1, kernel142714627. Удалённый статус `RUNNING` подтверждён. В логах подтверждены две Tesla T4 и SHA входного протокола; фактические PPO-шаги ещё не видны. [Подтверждение CUDA](defense_plan/critic_weight_cuda_observed_20261104.json). [Задача Kaggle](https://www.kaggle.com/code/andreiperelaiko/hastycr-critic1104).
 
 | Профиль | Коэффициент critic | Seed | Шагов на seed |
 |---|---:|---|---:|

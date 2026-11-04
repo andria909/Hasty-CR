@@ -1,7 +1,7 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "andreiperelaiko/hastycr-critic1104",
-  "status": "submitted_pending_cuda_proof",
+  "status": "cuda_ready_pending_ppo_steps",
   "progress_snapshot": {},
   "pilot_target_steps": 3276800,
   "conditional_full_steps": 0,
@@ -16,8 +16,9 @@
     "kernelId": 142714627
   },
   "observer_poll_seconds": 1200,
-  "actual_cuda_ready": false,
+  "actual_cuda_ready": true,
   "created_ns": 1793800992662399000,
   "frozen_bootstrap_sha256": "3e49b375f5a8293a311f2284b6fc1380bf071e5e665e79847a7955fdf4931866",
-  "last_local_sync_ns": 1793800992692430000
+  "last_local_sync_ns": 1793800992692430000,
+  "cuda_evidence": "reports/defense_plan/critic_weight_cuda_observed_20261104.json"
 }
