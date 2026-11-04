@@ -1,0 +1,93 @@
+{
+  "schema": "full-runtime-from-complete-pilot-log-v1",
+  "kernel": "vertel0/hastycr-credit1104",
+  "runs": [
+    {
+      "observed_pilot_seconds": 5975.951100872,
+      "initial_interval_seconds": 14.54549859499997,
+      "regular_update_mean_seconds": 5.921911823861894,
+      "evaluation_update_mean_seconds": 455.742259893375,
+      "evaluation_update_seconds": [
+        426.716400819,
+        439.106188343,
+        481.33308358199974,
+        461.48013587399964,
+        484.348620537,
+        463.28396917899954,
+        449.8224304530004,
+        439.84725036000054
+      ],
+      "regular_block_means_seconds": [
+        5.763494555250001,
+        5.976982179061224,
+        5.688121575102045,
+        6.428488622367351,
+        5.631513481897966,
+        6.1747721976530645,
+        5.965111628061225,
+        5.743577346020397
+      ],
+      "full_updates": 4000,
+      "full_evaluations": 16,
+      "estimated_full_seconds": 30893.396451330922,
+      "slowest_observed_blocks_full_seconds": 33368.79361007616,
+      "id": "pilot_control_s472",
+      "full_wallclock_seconds": 34000,
+      "logged_score": 0.20138888888888887,
+      "logged_family_guard": false,
+      "complete_weights_verified": false,
+      "slow_scenario_headroom_seconds": 631.2063899238419
+    },
+    {
+      "observed_pilot_seconds": 5869.340440439,
+      "initial_interval_seconds": 14.548675325999966,
+      "regular_update_mean_seconds": 5.946970865161127,
+      "evaluation_update_mean_seconds": 441.19076960437496,
+      "evaluation_update_seconds": [
+        431.22348432800004,
+        430.21732815899986,
+        421.7307465859999,
+        440.3255516199997,
+        476.39377350999985,
+        469.9313481469999,
+        428.772511485,
+        430.93141300000025
+      ],
+      "regular_block_means_seconds": [
+        5.647765393,
+        5.9174663414897966,
+        5.817407855571427,
+        6.243893825122457,
+        5.806387476367351,
+        6.187011332306119,
+        6.075185856755116,
+        5.87454260655101
+      ],
+      "full_updates": 4000,
+      "full_evaluations": 16,
+      "estimated_full_seconds": 30760.38594493277,
+      "slowest_observed_blocks_full_seconds": 32506.278156948745,
+      "id": "pilot_longer_s472",
+      "full_wallclock_seconds": 34000,
+      "logged_score": 0.2777777777777778,
+      "logged_family_guard": true,
+      "complete_weights_verified": false,
+      "slow_scenario_headroom_seconds": 1493.7218430512548
+    }
+  ],
+  "raw_log": "tmp/kaggle/credit_assignment_20261104_reuse/runtime_log_snapshots/23cb0d50d6da3b91c34c5ae40013dde5c28080c95dc16128ee217f321b35c99b.jsonl",
+  "original_live_log": "tmp/kaggle/credit_assignment_20261104_reuse/live_stream/events.jsonl",
+  "raw_log_sha256": "23cb0d50d6da3b91c34c5ae40013dde5c28080c95dc16128ee217f321b35c99b",
+  "full_preflight": "reports/defense_plan/credit_assignment_full_readiness_20261104.json",
+  "full_preflight_sha256": "90e98abb65982b25a1be5c83ac65c332b9bafb2c33c2d58d1d7b5273736364d7",
+  "training_modified": false,
+  "quality_accepted": false,
+  "scope": "Forecast from logged complete pilot counters; full weights not yet downloaded",
+  "limitations": [
+    "Remote logs may be buffered; intervals are not direct profiler measurements",
+    "Evaluation blocks also include checkpoint I/O and one PPO update",
+    "Future match complexity and hardware contention can change the observed rate",
+    "Slow-block scenario is a sensitivity estimate, not a bound or confidence interval",
+    "Kernel setup, final export and transfer are outside trainer forecast"
+  ]
+}
