@@ -15,11 +15,11 @@ CASES=(('uniform01','uniform',.1),('uniform03','uniform',.3),
        ('focus01','air_golem',.1),('focus03','air_golem',.3))
 
 
-def validate_shared_trial(row,*,dormant_king_weight=0.,tower_support_weight=.15):
+def validate_shared_trial(row,*,dormant_king_weight=0.,tower_support_weight=.15,card_balance_weight=.03):
     required=dict(overflow_penalty=.3,tower_support_weight=tower_support_weight,crown_only_weight=0.,dormant_king_weight=dormant_king_weight,
         action_delay_ms=1350,validation_action_delay_ms=1350,action_cooldown_ms=0,cannon_center_only=1,
         tower_damage_all=1,source_radius_reach=1,hog_sight_clipping=1,target_lock_in_range=0,
-        tactical_start_fraction=0.,warmstart_updates=0,supervised_replay_weight=0.,card_balance_weight=.03,
+        tactical_start_fraction=0.,warmstart_updates=0,supervised_replay_weight=0.,card_balance_weight=card_balance_weight,
         history_frames=1,entropy_coef=.01,gamma=.999,missed_fireball_penalty=0.)
     if any(row.get(k)!=v for k,v in required.items()):raise ValueError('Frozen execution/reward contract differs')
 

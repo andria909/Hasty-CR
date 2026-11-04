@@ -12,7 +12,9 @@ def summarize(root,verified=None):
     protocol=json.loads((root/'dataset/protocol.json').read_text());rows=[]
     if verified is None:
         variant=protocol.get('study_variant')
-        if variant=='tower_credit_v1':
+        if variant=='credit_assignment_v1':
+            from scripts.attack.verify_air_exposure_pilot import verify_credit_assignment as verify_study
+        elif variant=='tower_credit_v1':
             from scripts.attack.verify_air_exposure_pilot import verify_tower_credit as verify_study
         elif variant=='spell_interaction_v1':
             from scripts.attack.verify_air_exposure_pilot import verify_interaction as verify_study
@@ -91,11 +93,13 @@ def summarize(root,verified=None):
                     after=score_checkpoint(root/'collected'/r['checkpoint'],root/'dataset')))
 
         row=dict(id=trial['id'],**stats(records))
+        if protocol.get('study_variant')=='credit_assignment_v1':
+            row.update(gae_lambda=trial['gae_lambda'],card_balance_weight=trial['card_balance_weight'])
         if protocol.get('study_variant')=='group_entropy_v1':row['spatial_entropy_weight']=trial['spatial_entropy_weight']
         if protocol.get('study_variant')=='policy_adaptation_v1':
             before=json.loads((root/'collected'/f"{trial['initial_id']}_reference.json").read_text())
             row.update(initial_id=trial['initial_id'],initial_reference=stats(before['validation']['records']))
-        if protocol.get('study_variant') in ('mana_decision_v1','bank_counterfactual_v1','crown_economy_v1','policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1','air_exposure_v1','spell_interaction_v1','tower_credit_v1'):
+        if protocol.get('study_variant') in ('mana_decision_v1','bank_counterfactual_v1','crown_economy_v1','policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1','air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1'):
             totals=Counter()
             opportunities={}
             for record in records:
@@ -115,7 +119,7 @@ def summarize(root,verified=None):
                 mean_crown_only_elixir=sum(r['nonlethal_crown_only_elixir']for r in records)/len(records),
                 mean_dormant_king_only_elixir=sum(r['dormant_at_request_king_only_elixir']for r in records)/len(records),
                 mean_crown_finishes=sum(sum(r['crown_finishing_spell_counts'].values())for r in records)/len(records))
-        if protocol.get('study_variant') in ('tower_credit_v1','spell_interaction_v1','air_exposure_v1','group_entropy_v1','calibrated_spell_cost_v1','spell_waste_reward_v1','combined_tower_spell_reward_v1',
+        if protocol.get('study_variant') in ('credit_assignment_v1','tower_credit_v1','spell_interaction_v1','air_exposure_v1','group_entropy_v1','calibrated_spell_cost_v1','spell_waste_reward_v1','combined_tower_spell_reward_v1',
                                             'central_tower_damage_v1','paid_tactical_fullgame_starts_v1','edge_to_edge_paid_tactical_v1'):
             known=all('empty_spell_counts' in r for r in records)
             minutes=sum(r['elapsed_ms'] for r in records)/60000
@@ -155,7 +159,7 @@ def summarize(root,verified=None):
                     for phase in('before','after')}for skill in local[0]['before']['by_skill']}
         if temperature:row.update(policy_temperature=trial['policy_temperature'])
         if exploration:row.update(policy_temperature=trial['policy_temperature'],card_exploration_epsilon=trial['card_exploration_epsilon'])
-        if tactical or jointskills or exploration or protocol.get('study_variant') in ('calibrated_spell_cost_v1','group_entropy_v1','air_exposure_v1','spell_interaction_v1','tower_credit_v1'):
+        if tactical or jointskills or exploration or protocol.get('study_variant') in ('calibrated_spell_cost_v1','group_entropy_v1','air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1'):
             row.update(coefficients={k:trial[k]for k in('fireball_value_reward','reserve_potential_weight','own_hp_penalty','overflow_penalty','missed_fireball_penalty')},
                 mean_cluster_fireballs=sum(r['cluster_fireballs']for r in records)/len(records),
                 mean_fireball_unit_hits=sum(r['fireball_unit_hits']for r in records)/len(records))
@@ -166,7 +170,8 @@ def summarize(root,verified=None):
     if initial!='parent':
         source=json.loads((root/'collected'/f'{initial}_reference.json').read_text())
         initial_reference=dict(id=initial,**stats(source['validation']['records']))
-    return dict(schema='verified-tower-credit-pilot-summary-v1'if protocol.get('study_variant')=='tower_credit_v1'else
+    return dict(schema='verified-credit-assignment-pilot-summary-v1'if protocol.get('study_variant')=='credit_assignment_v1'else
+                'verified-tower-credit-pilot-summary-v1'if protocol.get('study_variant')=='tower_credit_v1'else
         'verified-spell-interaction-pilot-summary-v1'if protocol.get('study_variant')=='spell_interaction_v1'else
         'verified-air-exposure-pilot-summary-v1'if protocol.get('study_variant')=='air_exposure_v1'else
         'verified-group-entropy-pilot-summary-v1'if protocol.get('study_variant')=='group_entropy_v1'else

@@ -618,8 +618,54 @@ def render_completed_long_economy(reports, selection):
     return '\n'.join(lines)+'\n'
 
 
+def render_credit_assignment(reports,state):
+    stream=read(Path(state['root'])/'live_stream/progress.json')or{}
+    runs=stream.get('trials',{})if stream.get('kernel')==state['kernel']else{}
+    proof=read(reports/'credit_assignment_verified_20261104.json')or{}
+    complete=(proof.get('kernel')==state['kernel'] and proof.get('pilot_steps_verified')==3276800
+              and proof.get('credit_assignment_audit',{}).get('verified')is True)
+    labels={'control':'Контроль: GAE 0,95; баланс 0,03',
+            'longer':'GAE 0,98; баланс 0,03',
+            'no_balance':'GAE 0,95; баланс выключен',
+            'longer_no_balance':'GAE 0,98; баланс выключен'}
+    lines=['# Текущий этап','','**PPO: отложенная польза действий и баланс карт.**',
+           ('8 моделей: полный бюджет проверен.'if complete else
+            'Kaggle: две Tesla T4 подтверждены; проценты ниже из фактических счётчиков.'if state.get('actual_cuda_ready') else
+            'Kaggle принял запуск; проценты ниже только из фактических счётчиков.'if state.get('submitted') else
+            'Пакет готовится; GPU-обучение пока не запущено.'),'',
+           '| Вариант | Seed 472 | Seed 473 |','|---|---:|---:|']
+    for name,label in labels.items():
+        cells=[]
+        for seed in (472,473):
+            row=runs.get(f'pilot_{name}_s{seed}',{})
+            valid=row.get('target_steps')==409600 and 0<=row.get('steps',-1)<=409600
+            cells.append('100% проверено'if complete else f"≥{100*row['steps']/409600:.1f}%"if valid else'нет счётчика')
+        lines.append(f"| {label} | {' | '.join(cells)} |")
+    summary=read(reports/'credit_assignment_summary_20261104.json')or{}
+    if complete and summary.get('kernel')==state['kernel']:
+        lines+=['','| Вариант | Победы validation | Против воздуха | Пустой эликсир/матч |',
+                '|---|---:|---:|---:|']
+        for row in summary['rows']:
+            air=row['by_family']['air']
+            lines.append(f"| {labels[row['id']]} | {row['wins']}/{row['games']} | "
+                         f"{air['wins']}/{air['games']} | {row['mean_empty_spell_elixir']:.2f} |")
+        lines+=['','Прошли отбор: '+(', '.join(proof['credit_assignment_selection']['eligible_profiles'])or'нет')+'. '
+                'Это validation на повторяемых сценариях, не независимый test.']
+    lines+=['','По 409 600 шагов; суммарно 3 276 800. Бонус башен 0,15, пушка в центре, '
+            'задержка 1350 мс. Контроль каждые 20 минут.', '',
+            '**Диагностика:** исходная модель 3/12, ожидание эликсира 3/12, ожидание + мушкетёр 1/12. '
+            'Жёсткий запрет дешёвых карт не помог. [Подробности](reports/cheap_cycle_diagnostic_20261104.md).','',
+            '**Предыдущий цикл:** 24 модели обучены, устойчиво прошедших отбор нет. '
+            '[Все результаты](reports/long_economy_results_20261103.md).','',
+            '**Дальше:** проверить оба seed, защиту по семействам и фактические постановки карт; '
+            'отобрать 2–4 устойчивых профиля для полного обучения. Бои остановлены, v25 сохранена.']
+    return '\n'.join(lines)+'\n'
+
+
 def render(reports):
     reports=Path(reports)
+    credit=read(reports/'credit_assignment_training_20261104.json')
+    if credit:return render_credit_assignment(reports,credit)
     completed=read(reports/'long_economy_selection_20261103.json')
     if completed:return render_completed_long_economy(reports,completed)
     exposure=read(reports/'air_exposure_training_20261102.json')

@@ -25,6 +25,7 @@ def variant_child_script(variant):
         'air_exposure_v1':'preflight_long_economy_full.py',
         'spell_interaction_v1':'preflight_long_economy_full.py',
         'tower_credit_v1':'preflight_long_economy_full.py',
+        'credit_assignment_v1':'preflight_long_economy_full.py',
     }.get(variant,Path(__file__).name)
     return Path(__file__).absolute().with_name(filename)
 
@@ -42,8 +43,12 @@ def validate_specialized_preflight(entry,report,variant):
             report.get('actual_spell_waste_weight')!=trial['spell_waste_weight'] or
             report.get('crown_validation_games')!=12):
         raise ValueError('Actual long-study full command and reward preflight required')
-    if variant=='tower_credit_v1'and report.get('actual_tower_support_weight')!=trial['tower_support_weight']:
+    if variant in ('tower_credit_v1','credit_assignment_v1')and report.get('actual_tower_support_weight')!=trial['tower_support_weight']:
         raise ValueError('Actual positive tower coefficient preflight required')
+    if variant=='credit_assignment_v1':
+        for key in ('gae_lambda','card_balance_weight'):
+            if report.get('actual_'+key)!=trial[key]:
+                raise ValueError('Actual credit-assignment coefficient preflight required')
     if variant=='group_entropy_v1'and report.get('spatial_entropy_verified')!=trial['spatial_entropy_weight']:
         raise ValueError('Actual spatial entropy preflight required for full run')
 

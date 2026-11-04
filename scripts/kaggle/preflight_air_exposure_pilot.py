@@ -25,6 +25,11 @@ def child(path, *, full=False):
         raise ValueError('Actual longer pilot treatment differs')
     report.update(air_exposure_verified=True,pilot_steps=None if full else target,full_steps=target if full else None,actual_focus=trial['focus'],
                   actual_spell_waste_weight=trial['spell_waste_weight'],actual_tower_support_weight=trial['tower_support_weight'])
+    for key in ('gae_lambda','card_balance_weight'):
+        flag='--'+key.replace('_','-');expected=trial[key]
+        if float(args[args.index(flag)+1])!=expected or blob['config'][key]!=expected:
+            raise ValueError('Actual credit-assignment configuration differs: '+key)
+        report['actual_'+key]=expected
     p.write_text(json.dumps(report,indent=2)+'\n')
 
 

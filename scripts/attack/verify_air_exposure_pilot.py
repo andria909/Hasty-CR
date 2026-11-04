@@ -19,12 +19,15 @@ def audit_checkpoint_rewards(config,blob,trial):
             raise ValueError('Checkpoint/environment reward differs: '+name)
 
 
-def verify_exposure(collected,prepared,*,interaction=False,tower_credit=False):
+def verify_exposure(collected,prepared,*,interaction=False,tower_credit=False,credit_assignment=False):
     root,prepared=Path(collected),Path(prepared)
     prep=json.loads((prepared/'preparation.json').read_text());p=json.loads((prepared/'dataset/protocol.json').read_text())
     validator=validate_protocol;variant=VARIANT;report_prefix='air_exposure'
-    if interaction and tower_credit:raise ValueError('One study variant required')
-    if tower_credit:
+    if sum((interaction,tower_credit,credit_assignment))>1:raise ValueError('One study variant required')
+    if credit_assignment:
+        from scripts.kaggle.prepare_credit_assignment_pilot import validate_protocol as validator,VARIANT as variant
+        report_prefix='credit_assignment'
+    elif tower_credit:
         from scripts.kaggle.prepare_tower_credit_pilot import validate_protocol as validator,VARIANT as variant
         report_prefix='tower_credit'
     elif interaction:
@@ -53,6 +56,10 @@ def verify_exposure(collected,prepared,*,interaction=False,tower_credit=False):
                 if episodes:audit_rewards(config,episodes,trial);audit_reward(config,episodes,trial['spell_waste_weight'])
             selected=next(m for m in result['pilot_models']if m['id']==name)
             blob=torch.load(selected['checkpoint'],map_location='cpu',weights_only=False)
+            if credit_assignment:
+                for key in ('gae_lambda','card_balance_weight','gamma'):
+                    if config.get(key)!=trial[key] or blob['config'].get(key)!=trial[key]:
+                        raise ValueError('Selected credit-assignment coefficient differs: '+key)
             audit_checkpoint_rewards(config,blob,trial)
             execution,count=audit_training_execution(config,blob,run/'metrics.jsonl')
             if execution!=HOG_CLIPPED:raise ValueError('Exposure execution mode differs')
@@ -86,6 +93,15 @@ def verify_exposure(collected,prepared,*,interaction=False,tower_credit=False):
     result[report_prefix+'_selection']=dict(eligible_profiles=eligible,gate_met=len(eligible)>=2,
         selected=ranked[:4]if len(eligible)>=2 else[],
         seed_comparisons=comparisons,automatic_full_training=False)
+    if credit_assignment:
+        secondary=[]
+        for candidate,control in p.get('secondary_comparisons',{}).items():
+            for seed in p['pilot_seeds']:
+                before=json.loads((root/f'pilot_{control}_s{seed}_summary.json').read_text())
+                after=json.loads((root/f'pilot_{candidate}_s{seed}_summary.json').read_text())
+                secondary.append(dict(candidate=candidate,control=control,seed=seed,
+                    comparison=compare_records(before['validation']['records'],after['validation']['records'])))
+        result['credit_assignment_secondary_comparisons']=secondary
     result['promotion_blocked']=len(eligible)<2
     result['promotion_block_reason']='fewer_than_two_eligible_profiles' if len(eligible)<2 else None
     return result
@@ -97,3 +113,7 @@ def verify_interaction(collected,prepared):
 
 def verify_tower_credit(collected,prepared):
     return verify_exposure(collected,prepared,tower_credit=True)
+
+
+def verify_credit_assignment(collected,prepared):
+    return verify_exposure(collected,prepared,credit_assignment=True)

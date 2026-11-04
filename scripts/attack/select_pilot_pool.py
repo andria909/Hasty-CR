@@ -14,7 +14,7 @@ import tarfile
 
 from scripts.attack.verify_continuous_focus import verify
 
-LONG_VARIANTS = {'air_exposure_v1':'air_exposure', 'spell_interaction_v1':'spell_interaction', 'tower_credit_v1':'tower_credit'}
+LONG_VARIANTS = {'air_exposure_v1':'air_exposure', 'spell_interaction_v1':'spell_interaction', 'tower_credit_v1':'tower_credit', 'credit_assignment_v1':'credit_assignment'}
 ECONOMY_VARIANTS = {'policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1'} | set(LONG_VARIANTS)
 
 
@@ -22,8 +22,8 @@ def verify_study(root, default_verifier=None):
     root = Path(root)
     protocol = json.loads((root/'dataset/protocol.json').read_text())
     if protocol.get('study_variant') in LONG_VARIANTS:
-        from scripts.attack.verify_air_exposure_pilot import verify_exposure, verify_interaction, verify_tower_credit
-        verifier = {'air_exposure_v1':verify_exposure,'spell_interaction_v1':verify_interaction,'tower_credit_v1':verify_tower_credit}[protocol['study_variant']]
+        from scripts.attack.verify_air_exposure_pilot import verify_exposure, verify_interaction, verify_tower_credit, verify_credit_assignment
+        verifier = {'air_exposure_v1':verify_exposure,'spell_interaction_v1':verify_interaction,'tower_credit_v1':verify_tower_credit,'credit_assignment_v1':verify_credit_assignment}[protocol['study_variant']]
         return verifier(root/'collected', root)
     if protocol.get('study_variant') == 'policy_adaptation_v1':
         from scripts.attack.verify_policy_adaptation_pilot import verify_adaptation

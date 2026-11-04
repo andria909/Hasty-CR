@@ -22,6 +22,10 @@ def audit_full_economy(config,blob,metrics_path,trial,variant):
     if variant in LONG_VARIANTS and (config.get('continuous_focus')!=trial['focus'] or
             blob['config'].get('continuous_focus')!=trial['focus']):
         raise ValueError('Full checkpoint training focus differs')
+    if variant=='credit_assignment_v1':
+        for key in ('gae_lambda','card_balance_weight','gamma'):
+            if config.get(key)!=trial[key] or blob['config'].get(key)!=trial[key]:
+                raise ValueError('Full checkpoint credit-assignment coefficient differs: '+key)
     weight=trial.get('spatial_entropy_weight',1.)
     if config.get('spatial_entropy_weight',1.)!=weight or blob['config'].get('spatial_entropy_weight',1.)!=weight:
         raise ValueError('Full checkpoint spatial entropy differs')

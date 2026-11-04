@@ -62,8 +62,10 @@ def submit(root,token_index,*,evaluation=False):
             from scripts.attack.verify_bank_correction_pair import verify
             checked=verify(root,technical_smoke=True)
             (root/'preflight_independent_verification.json').write_text(json.dumps(checked,indent=2)+'\n')
-        elif prepared.get('study_variant')in ('policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1','air_exposure_v1','spell_interaction_v1','tower_credit_v1'):
-            if prepared['study_variant']=='tower_credit_v1':
+        elif prepared.get('study_variant')in ('policy_adaptation_v1','calibrated_spell_cost_v1','group_entropy_v1','air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1'):
+            if prepared['study_variant']=='credit_assignment_v1':
+                from scripts.kaggle.prepare_credit_assignment_pilot import validate_protocol
+            elif prepared['study_variant']=='tower_credit_v1':
                 from scripts.kaggle.prepare_tower_credit_pilot import validate_protocol
             elif prepared['study_variant']=='spell_interaction_v1':
                 from scripts.kaggle.prepare_spell_interaction_pilot import validate_protocol
@@ -85,15 +87,19 @@ def submit(root,token_index,*,evaluation=False):
                 expected=next(m for m in prepared['config']['models']if m['id']==trial['initial_id'])
                 if child.get('explicit_initial_model')!=expected or not child.get('exact_resume_16_to_32'):
                     raise ValueError('Preflight assigned initialization differs')
-                if prepared['study_variant']in ('air_exposure_v1','spell_interaction_v1','tower_credit_v1')and (not child.get('air_exposure_verified')or
+                if prepared['study_variant']in ('air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1')and (not child.get('air_exposure_verified')or
                         child.get('pilot_steps')!=409600 or child.get('actual_focus')!=trial['focus']or
                         child.get('actual_spell_waste_weight')!=trial['spell_waste_weight']):
                     raise ValueError('Actual400-update pilot preflight required')
-                if prepared['study_variant']in ('spell_interaction_v1','tower_credit_v1')and (not child.get('spell_interaction_verified')or
+                if prepared['study_variant']in ('spell_interaction_v1','tower_credit_v1','credit_assignment_v1')and (not child.get('spell_interaction_verified')or
                         child.get('actual_dormant_king_weight')!=trial['dormant_king_weight']or child.get('crown_validation_games')!=12):
                     raise ValueError('Actual dormant-king accounting preflight required')
-                if prepared['study_variant']=='tower_credit_v1'and child.get('actual_tower_support_weight')!=trial['tower_support_weight']:
+                if prepared['study_variant']in ('tower_credit_v1','credit_assignment_v1')and child.get('actual_tower_support_weight')!=trial['tower_support_weight']:
                     raise ValueError('Actual tower coefficient preflight required')
+                if prepared['study_variant']=='credit_assignment_v1':
+                    for key in ('gae_lambda','card_balance_weight'):
+                        if child.get('actual_'+key)!=trial[key]:
+                            raise ValueError('Actual credit-assignment coefficient preflight required')
                 if prepared['study_variant']=='group_entropy_v1'and child.get('spatial_entropy_verified')!=trial['spatial_entropy_weight']:
                     raise ValueError('Actual entropy preflight required')
         elif not preflight.get('exact_resume_16_to_32')or not preflight.get('frozen_sources_verified'):

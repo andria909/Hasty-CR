@@ -22,7 +22,9 @@ def audit(roots,output):
         origin=origin.absolute();prep=json.loads((origin/'preparation.json').read_text());c=prep['config']
         if file_sha(origin/'job/train.py')!=prep['bootstrap_sha256']:raise ValueError('Frozen controller changed')
         protocol=json.loads((origin/'dataset/protocol.json').read_text());variant=protocol['study_variant']
-        if variant=='tower_credit_v1':
+        if variant=='credit_assignment_v1':
+            from scripts.kaggle.prepare_credit_assignment_pilot import validate_protocol
+        elif variant=='tower_credit_v1':
             from scripts.kaggle.prepare_tower_credit_pilot import validate_protocol
         elif variant=='air_exposure_v1':
             from scripts.kaggle.prepare_air_exposure_pilot import validate_protocol
