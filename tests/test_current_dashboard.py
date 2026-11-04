@@ -113,3 +113,14 @@ def test_launched_choice_study_has_separate_progress_and_no_invented_cuda(tmp_pa
     progress.write_text(json.dumps(dict(kernel='owner/choice',trials={'pilot_control_s482':dict(steps=102400,target_steps=409600)})))
     content='\n'.join(policy_choice_progress(tmp_path))
     assert '≥25.0%'in content and '100% проверено'not in content
+
+
+def test_decoding_diagnostic_is_labelled_train_and_does_not_promote_policy(tmp_path):
+    from scripts.defense.current_dashboard import render_credit_assignment
+    state=dict(root=str(tmp_path/'job'),kernel='owner/credit',submitted=True)
+    (tmp_path/'action_decoding_diagnostic_20261104.json').write_text(json.dumps(dict(
+        complete=True,baseline_exact_replays=12,groups=[dict(mode=m,wins=w,games=12)
+        for m,w in [('joint_greedy',3),('card_greedy',2),('sample',3)]])))
+    content=render_credit_assignment(tmp_path,state)
+    assert 'TRAIN' in content and '3/12 / 2/12 / 3/12' in content
+    assert 'Способ выбора сохранён' in content

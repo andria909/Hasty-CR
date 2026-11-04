@@ -33,6 +33,16 @@ def test_pairing_uses_context_identity_not_file_order():
     assert result['all']['metrics']['empty_spell_elixir']['delta'] == pytest.approx(4/72)
 
 
+def test_attack_wins_do_not_hide_zero_defense_wins_within_a_family():
+    before=records();after=deepcopy(before)
+    after[0]['outcome']=after[1]['outcome']='win'
+    result=compare_records(before,after)
+    assert result['families']['air']['after_wins']==2
+    assert result['task_families']['attack']['air']['after_wins']==2
+    assert result['task_families']['defense']['air']['after_wins']==0
+    assert result['task_families']['defense']['air']['games']==6
+
+
 @pytest.mark.parametrize('mutation', ['duplicate', 'seed', 'split', 'nonfinite', 'task', 'outcome'])
 def test_unpaired_or_invalid_evidence_is_rejected(mutation):
     a = records(); b = deepcopy(a)

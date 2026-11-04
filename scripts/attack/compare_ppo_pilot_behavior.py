@@ -67,7 +67,9 @@ def compare_records(before, after):
         return result
     return dict(all=summarize(pairs),
                 families={f:summarize([(a,b) for a,b in pairs if a['family_id'] == f]) for f in FAMILIES},
-                tasks={t:summarize([(a,b) for a,b in pairs if a['task'] == t]) for t in ('attack', 'defense')})
+                tasks={t:summarize([(a,b) for a,b in pairs if a['task'] == t]) for t in ('attack', 'defense')},
+                task_families={t:{f:summarize([(a,b)for a,b in pairs if a['task']==t and a['family_id']==f])
+                                  for f in FAMILIES}for t in ('attack','defense')})
 
 
 def compare_study(root, proof_path):
@@ -204,6 +206,18 @@ def render(result):
               'Шаги без доступных карт учитываются отдельно как вынужденное ожидание. '
               'В JSON — все карты на матч/минуту, доступность и выбор каждой карты, отдельно по атаке, защите и семействам. '
               'Выбранная команда и фактически принятая постановка — разные счётчики; команда может ещё ждать исполнения.', '']
+    if result['rows'] and all('task_families'in row['comparison']for row in result['rows']):
+        lines+=['| Защита: вариант | Seed | Воздух | Мост | Гигант | Голем | Хог | Рой |',
+                '|---|---:|---:|---:|---:|---:|---:|---:|']
+        for row in result['rows']:
+            cells=[]
+            for family in FAMILIES:
+                c=row['comparison']['task_families']['defense'][family]
+                cells.append(f"{c['before_wins']} → {c['after_wins']} / {c['games']}")
+            lines.append(f"| {row['case']} | {row['seed']} | {' | '.join(cells)} |")
+        lines+=['','Контроль → кандидат на тех же шести защитных сценариях каждого семейства. '
+                'Победы в атаке не включены в эту таблицу. Это дополнительная диагностика; '
+                'закреплённые правила отбора текущих опытов не изменены.','']
     return '\n'.join(lines)
 
 

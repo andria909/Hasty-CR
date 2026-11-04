@@ -699,7 +699,15 @@ def render_credit_assignment(reports,state):
             '**Дальше:** проверить оба seed, защиту по семействам и фактические постановки карт; '
             'отобрать 2–4 устойчивых профиля для полного обучения. Бои остановлены, v25 сохранена.']
     short=read(reports/'short_wait_diagnostic_20261104.json')
-    if short and short.get('complete'):
+    decoding=read(reports/'action_decoding_diagnostic_20261104.json')or{}
+    if decoding.get('complete')and decoding.get('baseline_exact_replays')==12:
+        groups={r['mode']:r for r in decoding['groups']}
+        scores=[f"{groups[m]['wins']}/{groups[m]['games']}"for m in ('joint_greedy','card_greedy','sample')]
+        lines+=['','**Проверка выбора действий, TRAIN:** нынешний / по карте / случайный — '+
+                ' / '.join(scores)+'. Способ выбора сохранён. '
+                '[36 симуляций](reports/action_decoding_diagnostic_20261104.md). '
+                '[Защита теперь видна по каждому семейству](reports/task_family_coverage_20261104.md).']
+    elif short and short.get('complete'):
         one=next(r for r in short['groups']if r['wait_ms']==1000)
         lines+=['',f"**Уточнение диагностики:** разовая пауза 1 с — {one['wins']}/{one['games']}; "
                 'дополнительные победы только на одном seed, мушкетёр не стал чаще. '
