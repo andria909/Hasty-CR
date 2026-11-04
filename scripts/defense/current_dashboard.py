@@ -671,6 +671,15 @@ def render_credit_assignment(reports,state):
             cells.append('100% проверено'if complete else f"≥{100*row['steps']/409600:.1f}%"if valid else'нет счётчика')
         lines.append(f"| {label} | {' | '.join(cells)} |")
     summary=read(reports/'credit_assignment_summary_20261104.json')or{}
+    observed=read(reports/'credit_assignment_first_trials_observed_20261104.json')or{}
+    if not complete and observed.get('kernel')==state['kernel']:
+        scores={r['id']:r for r in observed.get('trials',[])if r.get('steps')==409600}
+        a=scores.get('pilot_control_s472');b=scores.get('pilot_longer_s472')
+        if a and b:
+            lines+=['',f"**Первый seed, предварительно по логам:** контроль {a['logged_score']:.3f}, "
+                f"GAE 0,98 — {b['logged_score']:.3f} составного validation-балла. "
+                'Это не винрейт; итоговые веса и второй seed ещё проверяются. '
+                '[Как читать результат](reports/credit_assignment_first_results_20261104.md).']
     if complete and summary.get('kernel')==state['kernel']:
         lines+=['','| Вариант | Победы validation | Против воздуха | Пустой эликсир/матч |',
                 '|---|---:|---:|---:|']
