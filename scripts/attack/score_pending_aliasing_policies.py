@@ -18,6 +18,42 @@ from sim.runner import resolve_deck
 from sim.train_attack_ppo import initialize_attack_policy
 
 
+def probability_diagnostic(logits, mask, hand, context, worlds):
+    """Exact distribution sums, not sampled wins or an alternative decoder."""
+    masked = logits.double().masked_fill(~mask, -torch.inf)
+    logp = masked - torch.logsumexp(masked, dim=0)
+    prob = logp.exp()
+    if not torch.isfinite(prob).all() or abs(float(prob.sum())-1) > 1e-10:
+        raise ValueError('Invalid masked action distribution')
+    good = context['common_minimum_damage_actions']
+    if not good or any(not bool(mask[a]) for a in good):
+        raise ValueError('Shared good actions must be nonempty and legal')
+    best_good = max(good, key=lambda a: float(masked[a]))
+    cards = {'WAIT': float(prob[0])}
+    spatial = {}
+    for slot, card in enumerate(hand):
+        start, end = 1+slot*576, 1+(slot+1)*576
+        cards[card] = float(prob[start:end].sum())
+        group_good = [a for a in good if start <= a < end]
+        log_total = torch.logsumexp(logp[start:end], dim=0)
+        spatial[card] = dict(shared_good_cells=len(group_good),
+                            legal_cells=int(mask[start:end].sum()),
+                            conditional_good_probability=(float(torch.exp(torch.logsumexp(logp[group_good], dim=0)-log_total))
+                                                          if group_good and torch.isfinite(log_total) else 0.))
+    expected = []
+    for i, world in enumerate(worlds):
+        expected.append(sum(float(prob[a])*(row['outcome']['total_damage']-context['minimum_damage'][i])
+                            for a, row in world.items()))
+    return dict(probability_arithmetic='float64 log-softmax of unchanged float32 model logits',
+                card_probabilities=cards, conditional_spatial=spatial,
+                shared_minimum_hp_probability=float(prob[good].sum()),
+                best_shared_hp_action=best_good,
+                best_shared_hp_action_rank=1+int((masked > masked[best_good]).sum()),
+                best_shared_hp_logit_gap=float(masked.max()-masked[best_good]),
+                expected_one_command_hp_regret=expected,
+                expected_is_exact_distribution_sum_not_sampled_games=True)
+
+
 def evaluate(root, checkpoints, output):
     root = Path(root)
     report = json.loads((root/'result.json').read_text())
@@ -72,7 +108,9 @@ def evaluate(root, checkpoints, output):
                                   hp_regret=[o['total_damage']-context['minimum_damage'][i]
                                              for i, o in enumerate(outcomes)],
                                   optimal_in_local_search=[tuple(rank(o)) == tuple(context['best_rank'][i])
-                                                           for i, o in enumerate(outcomes)]))
+                                                           for i, o in enumerate(outcomes)],
+                                  probability_diagnostic=probability_diagnostic(
+                                      logits[0], mask[0], envs[0].match.players[1].hand, context, worlds)))
     if any(file_sha(path) != sha for path, sha, _ in models):
         raise ValueError('Checkpoint changed during inference')
     result = dict(schema='pending-aliasing-policy-diagnostic-v1', search=str(root),

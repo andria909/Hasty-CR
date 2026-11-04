@@ -1,0 +1,1763 @@
+{
+  "schema": "pending-aliasing-policy-diagnostic-v1",
+  "search": "tmp/pending_action_aliasing_20261104",
+  "search_sha256": "9893b8a5e99bfbd8bb975f1564cdc5fca9195f49c35cb85f498f95fb6e450329",
+  "source_sha256": "7fd532f40fc04028bb7dbd96194fadbacb1b347f60cbe0926e5a1ff65e1720bd",
+  "decisions": [
+    {
+      "context": "left_support0",
+      "checkpoint": "tmp/kaggle/air_exposure_20261102/dataset/adapt_bc800.pt",
+      "checkpoint_sha256": "9e7b5619b056d4ca9153bbadc90e3a856dc9957c1030d86cc857df18c10c373b",
+      "action": 1500,
+      "helper": {
+        "card": "fireball",
+        "cell": [
+          5,
+          19
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                5,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": true
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                8,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                5,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": true
+        }
+      ],
+      "hp_regret": [
+        0,
+        0
+      ],
+      "optimal_in_local_search": [
+        false,
+        false
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 0.04018626018606851,
+          "musketeer": 0.0,
+          "knight": 0.1516156408557817,
+          "fireball": 0.8046697132207927,
+          "electro_spirit": 0.0035283857373570697
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 24,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.4043415869406588
+          },
+          "electro_spirit": {
+            "shared_good_cells": 1,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0002629962593917132
+          }
+        },
+        "shared_minimum_hp_probability": 0.32536235675903075,
+        "best_shared_hp_action": 1500,
+        "best_shared_hp_action_rank": 1,
+        "best_shared_hp_logit_gap": 0.0,
+        "expected_one_command_hp_regret": [
+          0.0,
+          431.7680916742204
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    },
+    {
+      "context": "left_support0",
+      "checkpoint": "tmp/kaggle/tower_credit_20261102_reuse/collected/pilot_control03_s462/update_000150.pt",
+      "checkpoint_sha256": "cc238e5fb0969206733ff6672de9a0447bea9ad920224ac9678985c84134f7c5",
+      "action": 923,
+      "helper": {
+        "card": "knight",
+        "cell": [
+          4,
+          19
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "knight",
+              "slot": 1,
+              "cell": [
+                4,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 3,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                8,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "knight",
+              "slot": 1,
+              "cell": [
+                4,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 3,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 640,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": false
+        }
+      ],
+      "hp_regret": [
+        0,
+        640
+      ],
+      "optimal_in_local_search": [
+        false,
+        false
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 1.1434746385448356e-09,
+          "musketeer": 0.0,
+          "knight": 0.9871155268586005,
+          "fireball": 0.01264653035353422,
+          "electro_spirit": 0.0002379416443897752
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 24,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.9090716626447998
+          },
+          "electro_spirit": {
+            "shared_good_cells": 1,
+            "legal_cells": 288,
+            "conditional_good_probability": 1.2483912123962432e-06
+          }
+        },
+        "shared_minimum_hp_probability": 0.011496602672219539,
+        "best_shared_hp_action": 1500,
+        "best_shared_hp_action_rank": 9,
+        "best_shared_hp_logit_gap": 4.1893310546875,
+        "expected_one_command_hp_regret": [
+          0.0,
+          632.642174289779
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    },
+    {
+      "context": "left_support0",
+      "checkpoint": "tmp/kaggle/tower_credit_20261102_reuse/collected/pilot_control03_s463/update_000250.pt",
+      "checkpoint_sha256": "ec8c5e7f1c24c83749b45895f32c3816c85f1c5820d8983b93b0146f5e7a4543",
+      "action": 1462,
+      "helper": {
+        "card": "fireball",
+        "cell": [
+          3,
+          17
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                3,
+                17
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": true
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                8,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                3,
+                17
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": true
+        }
+      ],
+      "hp_regret": [
+        0,
+        0
+      ],
+      "optimal_in_local_search": [
+        false,
+        false
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 7.752875875592635e-07,
+          "musketeer": 0.0,
+          "knight": 0.001814333313435159,
+          "fireball": 0.9979834472336695,
+          "electro_spirit": 0.00020144416530944414
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 24,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.8521806111316567
+          },
+          "electro_spirit": {
+            "shared_good_cells": 1,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0032938720472783342
+          }
+        },
+        "shared_minimum_hp_probability": 0.850462807494171,
+        "best_shared_hp_action": 1462,
+        "best_shared_hp_action_rank": 1,
+        "best_shared_hp_logit_gap": 0.0,
+        "expected_one_command_hp_regret": [
+          0.0,
+          95.70380320373148
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    },
+    {
+      "context": "left_support1",
+      "checkpoint": "tmp/kaggle/air_exposure_20261102/dataset/adapt_bc800.pt",
+      "checkpoint_sha256": "9e7b5619b056d4ca9153bbadc90e3a856dc9957c1030d86cc857df18c10c373b",
+      "action": 1501,
+      "helper": {
+        "card": "fireball",
+        "cell": [
+          6,
+          19
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                6,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 1280,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": false
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                8,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                6,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 1600,
+          "own_tower_damage": {
+            "left": 1600,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": false
+        }
+      ],
+      "hp_regret": [
+        1280,
+        1120
+      ],
+      "optimal_in_local_search": [
+        false,
+        false
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 0.005872745904338318,
+          "musketeer": 0.0,
+          "knight": 0.28581036343391175,
+          "fireball": 0.695036571063953,
+          "electro_spirit": 0.013280319597797862
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 11,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.07951996657018785
+          },
+          "electro_spirit": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          }
+        },
+        "shared_minimum_hp_probability": 0.055269284896063545,
+        "best_shared_hp_action": 1534,
+        "best_shared_hp_action_rank": 8,
+        "best_shared_hp_logit_gap": 0.7692890167236328,
+        "expected_one_command_hp_regret": [
+          1092.9355644214925,
+          736.3825342180313
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    },
+    {
+      "context": "left_support1",
+      "checkpoint": "tmp/kaggle/tower_credit_20261102_reuse/collected/pilot_control03_s462/update_000150.pt",
+      "checkpoint_sha256": "cc238e5fb0969206733ff6672de9a0447bea9ad920224ac9678985c84134f7c5",
+      "action": 923,
+      "helper": {
+        "card": "knight",
+        "cell": [
+          4,
+          19
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "knight",
+              "slot": 1,
+              "cell": [
+                4,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 3,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 1280,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": false
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                8,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "knight",
+              "slot": 1,
+              "cell": [
+                4,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 3,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 640,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": false
+        }
+      ],
+      "hp_regret": [
+        1280,
+        160
+      ],
+      "optimal_in_local_search": [
+        false,
+        false
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 1.0172250820176125e-08,
+          "musketeer": 0.0,
+          "knight": 0.9832213738298665,
+          "fireball": 0.008700908998666657,
+          "electro_spirit": 0.008077706999216547
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 11,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.6610661131587857
+          },
+          "electro_spirit": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          }
+        },
+        "shared_minimum_hp_probability": 0.005751876092696868,
+        "best_shared_hp_action": 1500,
+        "best_shared_hp_action_rank": 9,
+        "best_shared_hp_logit_gap": 4.160299301147461,
+        "expected_one_command_hp_regret": [
+          1268.5170219007673,
+          167.09397168660138
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    },
+    {
+      "context": "left_support1",
+      "checkpoint": "tmp/kaggle/tower_credit_20261102_reuse/collected/pilot_control03_s463/update_000250.pt",
+      "checkpoint_sha256": "ec8c5e7f1c24c83749b45895f32c3816c85f1c5820d8983b93b0146f5e7a4543",
+      "action": 1483,
+      "helper": {
+        "card": "fireball",
+        "cell": [
+          6,
+          18
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                1,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                6,
+                18
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 1280,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": false
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                8,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                6,
+                18
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 1600,
+          "own_tower_damage": {
+            "left": 1600,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": false
+        }
+      ],
+      "hp_regret": [
+        1280,
+        1120
+      ],
+      "optimal_in_local_search": [
+        false,
+        false
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 1.707939413339865e-05,
+          "musketeer": 0.0,
+          "knight": 0.03326169403487886,
+          "fireball": 0.9540910174186846,
+          "electro_spirit": 0.01263020915230283
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 11,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.2163370730838094
+          },
+          "electro_spirit": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          }
+        },
+        "shared_minimum_hp_probability": 0.20640525816391198,
+        "best_shared_hp_action": 1500,
+        "best_shared_hp_action_rank": 3,
+        "best_shared_hp_logit_gap": 0.8744401931762695,
+        "expected_one_command_hp_regret": [
+          987.8521571139622,
+          831.4341904040134
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    },
+    {
+      "context": "right_support0",
+      "checkpoint": "tmp/kaggle/air_exposure_20261102/dataset/adapt_bc800.pt",
+      "checkpoint_sha256": "9e7b5619b056d4ca9153bbadc90e3a856dc9957c1030d86cc857df18c10c373b",
+      "action": 1488,
+      "helper": {
+        "card": "fireball",
+        "cell": [
+          11,
+          18
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                11,
+                18
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": true
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                9,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                11,
+                18
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 640,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": false
+        }
+      ],
+      "hp_regret": [
+        0,
+        640
+      ],
+      "optimal_in_local_search": [
+        false,
+        false
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 0.03882114173495154,
+          "musketeer": 0.0,
+          "knight": 0.15729492603116343,
+          "fireball": 0.799111293154527,
+          "electro_spirit": 0.004772639079358003
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 24,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.11671896960752032
+          },
+          "electro_spirit": {
+            "shared_good_cells": 1,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.00029163850305173134
+          }
+        },
+        "shared_minimum_hp_probability": 0.09327283862404621,
+        "best_shared_hp_action": 1507,
+        "best_shared_hp_action_rank": 4,
+        "best_shared_hp_logit_gap": 1.4571537971496582,
+        "expected_one_command_hp_regret": [
+          0.0,
+          580.3053832806104
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    },
+    {
+      "context": "right_support0",
+      "checkpoint": "tmp/kaggle/tower_credit_20261102_reuse/collected/pilot_control03_s462/update_000150.pt",
+      "checkpoint_sha256": "cc238e5fb0969206733ff6672de9a0447bea9ad920224ac9678985c84134f7c5",
+      "action": 933,
+      "helper": {
+        "card": "knight",
+        "cell": [
+          14,
+          19
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "knight",
+              "slot": 1,
+              "cell": [
+                14,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 3,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": true
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                9,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "knight",
+              "slot": 1,
+              "cell": [
+                14,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 3,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 640,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": false
+        }
+      ],
+      "hp_regret": [
+        0,
+        640
+      ],
+      "optimal_in_local_search": [
+        false,
+        false
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 3.106019474947435e-10,
+          "musketeer": 0.0,
+          "knight": 0.9986722551649744,
+          "fireball": 0.0007994972294285147,
+          "electro_spirit": 0.0005282472949961175
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 24,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.8762302270991705
+          },
+          "electro_spirit": {
+            "shared_good_cells": 1,
+            "legal_cells": 288,
+            "conditional_good_probability": 3.1905913695837775e-07
+          }
+        },
+        "shared_minimum_hp_probability": 0.0007005438074494314,
+        "best_shared_hp_action": 1509,
+        "best_shared_hp_action_rank": 12,
+        "best_shared_hp_logit_gap": 7.640691757202148,
+        "expected_one_command_hp_regret": [
+          0.0,
+          639.551651963233
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    },
+    {
+      "context": "right_support0",
+      "checkpoint": "tmp/kaggle/tower_credit_20261102_reuse/collected/pilot_control03_s463/update_000250.pt",
+      "checkpoint_sha256": "ec8c5e7f1c24c83749b45895f32c3816c85f1c5820d8983b93b0146f5e7a4543",
+      "action": 1507,
+      "helper": {
+        "card": "fireball",
+        "cell": [
+          12,
+          19
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                12,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": true
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                9,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                12,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": true
+        }
+      ],
+      "hp_regret": [
+        0,
+        0
+      ],
+      "optimal_in_local_search": [
+        false,
+        false
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 1.6065781922412916e-06,
+          "musketeer": 0.0,
+          "knight": 0.09304344894792979,
+          "fireball": 0.9064381854809795,
+          "electro_spirit": 0.0005167589928967277
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 24,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.5522482356690593
+          },
+          "electro_spirit": {
+            "shared_good_cells": 1,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0022688157779395942
+          }
+        },
+        "shared_minimum_hp_probability": 0.5005800611058907,
+        "best_shared_hp_action": 1507,
+        "best_shared_hp_action_rank": 1,
+        "best_shared_hp_logit_gap": 0.0,
+        "expected_one_command_hp_regret": [
+          0.0,
+          319.62876089222874
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    },
+    {
+      "context": "right_support1",
+      "checkpoint": "tmp/kaggle/air_exposure_20261102/dataset/adapt_bc800.pt",
+      "checkpoint_sha256": "9e7b5619b056d4ca9153bbadc90e3a856dc9957c1030d86cc857df18c10c373b",
+      "action": 1506,
+      "helper": {
+        "card": "fireball",
+        "cell": [
+          11,
+          19
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                11,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1280,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": false
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                9,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                11,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 1600,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1600,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": false
+        }
+      ],
+      "hp_regret": [
+        1280,
+        1120
+      ],
+      "optimal_in_local_search": [
+        false,
+        false
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 0.0024869260713432013,
+          "musketeer": 0.0,
+          "knight": 0.3316472064308401,
+          "fireball": 0.6456626927118598,
+          "electro_spirit": 0.020203174785957234
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 11,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.06844814478447525
+          },
+          "electro_spirit": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          }
+        },
+        "shared_minimum_hp_probability": 0.044194413472675526,
+        "best_shared_hp_action": 1545,
+        "best_shared_hp_action_rank": 9,
+        "best_shared_hp_logit_gap": 1.001460075378418,
+        "expected_one_command_hp_regret": [
+          1125.8329198926237,
+          755.369202424463
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    },
+    {
+      "context": "right_support1",
+      "checkpoint": "tmp/kaggle/tower_credit_20261102_reuse/collected/pilot_control03_s462/update_000150.pt",
+      "checkpoint_sha256": "cc238e5fb0969206733ff6672de9a0447bea9ad920224ac9678985c84134f7c5",
+      "action": 897,
+      "helper": {
+        "card": "knight",
+        "cell": [
+          14,
+          17
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "knight",
+              "slot": 1,
+              "cell": [
+                14,
+                17
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 3,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 1280,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 1280,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": false
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                9,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "knight",
+              "slot": 1,
+              "cell": [
+                14,
+                17
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 3,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 640,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 640,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 7,
+          "clear_without_damage": false
+        }
+      ],
+      "hp_regret": [
+        1280,
+        160
+      ],
+      "optimal_in_local_search": [
+        false,
+        false
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 1.915894674406143e-09,
+          "musketeer": 0.0,
+          "knight": 0.9839629005214807,
+          "fireball": 0.0007367695569050074,
+          "electro_spirit": 0.015300328005718247
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 11,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.496954763884528
+          },
+          "electro_spirit": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          }
+        },
+        "shared_minimum_hp_probability": 0.00036614114118903605,
+        "best_shared_hp_action": 1507,
+        "best_shared_hp_action_rank": 22,
+        "best_shared_hp_logit_gap": 7.277734756469727,
+        "expected_one_command_hp_regret": [
+          1276.0103067009557,
+          171.87262461460026
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    },
+    {
+      "context": "right_support1",
+      "checkpoint": "tmp/kaggle/tower_credit_20261102_reuse/collected/pilot_control03_s463/update_000250.pt",
+      "checkpoint_sha256": "ec8c5e7f1c24c83749b45895f32c3816c85f1c5820d8983b93b0146f5e7a4543",
+      "action": 1507,
+      "helper": {
+        "card": "fireball",
+        "cell": [
+          12,
+          19
+        ],
+        "offset_ms": 250
+      },
+      "same_logits": true,
+      "outcomes": [
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                16,
+                18
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                12,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 0,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 0,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": true
+        },
+        {
+          "valid": true,
+          "invalid_reasons": [],
+          "commands": [
+            {
+              "card": "musketeer",
+              "slot": 0,
+              "cell": [
+                9,
+                28
+              ],
+              "requested_ms": 2000,
+              "due_ms": 3350,
+              "cost": 4,
+              "placed_ms": 3350
+            },
+            {
+              "card": "fireball",
+              "slot": 2,
+              "cell": [
+                12,
+                19
+              ],
+              "requested_ms": 2250,
+              "due_ms": 3600,
+              "cost": 4,
+              "placed_ms": 3600
+            }
+          ],
+          "total_damage": 480,
+          "own_tower_damage": {
+            "left": 0,
+            "right": 480,
+            "king": 0
+          },
+          "own_king_dead": false,
+          "remaining_enemies": 0,
+          "elixir_spent": 8,
+          "clear_without_damage": false
+        }
+      ],
+      "hp_regret": [
+        0,
+        0
+      ],
+      "optimal_in_local_search": [
+        true,
+        true
+      ],
+      "probability_diagnostic": {
+        "probability_arithmetic": "float64 log-softmax of unchanged float32 model logits",
+        "card_probabilities": {
+          "WAIT": 4.03975193269055e-06,
+          "musketeer": 0.0,
+          "knight": 0.043564505920166766,
+          "fireball": 0.9530819798954262,
+          "electro_spirit": 0.0033494744324746753
+        },
+        "conditional_spatial": {
+          "musketeer": {
+            "shared_good_cells": 0,
+            "legal_cells": 0,
+            "conditional_good_probability": 0.0
+          },
+          "knight": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          },
+          "fireball": {
+            "shared_good_cells": 11,
+            "legal_cells": 576,
+            "conditional_good_probability": 0.3030106403019117
+          },
+          "electro_spirit": {
+            "shared_good_cells": 0,
+            "legal_cells": 288,
+            "conditional_good_probability": 0.0
+          }
+        },
+        "shared_minimum_hp_probability": 0.28879398098832687,
+        "best_shared_hp_action": 1507,
+        "best_shared_hp_action_rank": 1,
+        "best_shared_hp_logit_gap": 0.0,
+        "expected_one_command_hp_regret": [
+          903.6615221712201,
+          746.4605262312414
+        ],
+        "expected_is_exact_distribution_sum_not_sampled_games": true
+      }
+    }
+  ],
+  "quality_accepted": false,
+  "scope": "One command in four constructed TRAIN situations followed by WAIT; not autonomous games or win rates.",
+  "original_decisions_exactly_reproduced": 12
+}
