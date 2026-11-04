@@ -1,0 +1,75 @@
+{
+  "kernel": "andriashadrin/hastycr-choice1104",
+  "observed_host_ns": 1793797419173073000,
+  "progress_snapshot": {
+    "kernel": "andriashadrin/hastycr-choice1104",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "connection_started_host_ns": 1793797356261806000,
+    "reconnect_attempt": 1,
+    "stream_state": "connected",
+    "checked_host_ns": 1793797357157448000,
+    "trials": {
+      "pilot_control_s482": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 409600,
+        "percent": 12.25,
+        "remote_log_seconds": 897.770060992
+      },
+      "pilot_choice_loss_s482": {
+        "update": 49,
+        "steps": 50176,
+        "target_steps": 409600,
+        "percent": 12.25,
+        "remote_log_seconds": 897.418963549
+      }
+    }
+  },
+  "remote_status_snapshot": {
+    "kernel": "andriashadrin/hastycr-choice1104",
+    "remote_status": "RUNNING",
+    "checked_host_ns": 1793797356135016000,
+    "remote_job_changed": false
+  },
+  "last_cuda_progress_events": [
+    {
+      "event": "TRIAL_PROGRESS",
+      "trial_id": "pilot_control_s482",
+      "step": 49152,
+      "update": 48,
+      "target_steps": 409600,
+      "percent": 12.0,
+      "actual_cuda": "Tesla T4"
+    },
+    {
+      "event": "TRIAL_PROGRESS",
+      "trial_id": "pilot_choice_loss_s482",
+      "step": 49152,
+      "update": 48,
+      "target_steps": 409600,
+      "percent": 12.0,
+      "actual_cuda": "Tesla T4"
+    },
+    {
+      "event": "TRIAL_PROGRESS",
+      "trial_id": "pilot_choice_loss_s482",
+      "step": 50176,
+      "update": 49,
+      "target_steps": 409600,
+      "percent": 12.25,
+      "actual_cuda": "Tesla T4"
+    },
+    {
+      "event": "TRIAL_PROGRESS",
+      "trial_id": "pilot_control_s482",
+      "step": 50176,
+      "update": 49,
+      "target_steps": 409600,
+      "percent": 12.25,
+      "actual_cuda": "Tesla T4"
+    }
+  ],
+  "actual_ppo_steps_observed": true,
+  "final_weights_verified": false
+}
