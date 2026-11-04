@@ -62,6 +62,8 @@ def compare_records(before, after):
                         empty_spell_elixir_per_minute=sum(r['empty_spell_elixir'] for r in records)/minutes)
         first, last = rates(0), rates(1)
         result['metrics'].update({k:dict(before=first[k],after=last[k],delta=last[k]-first[k]) for k in first})
+        from scripts.attack.decision_behavior import compare
+        result['decision_behavior']=compare([a for a,b in rows],[b for a,b in rows])
         return result
     return dict(all=summarize(pairs),
                 families={f:summarize([(a,b) for a,b in pairs if a['family_id'] == f]) for f in FAMILIES},
@@ -184,6 +186,21 @@ def render(result):
                   ('fireball_per_game','unit_hits_per_minute','duration_seconds')]
         lines.append(f"| {row['case']} | {row['seed']} | {' | '.join(values)} |")
     lines += ['', 'Нормировка по минутам учитывает разную длительность матчей; число попаданий не равно полезности каждого из них.', '']
+    lines += ['| Вариант | Seed | Мушкетёр/матч | Пушка/матч | Hog/матч | Добровольное ожидание при доступной карте |',
+              '|---|---:|---:|---:|---:|---:|']
+    for row in result['rows']:
+        behavior=row['comparison']['all']['decision_behavior']
+        cards=[f"{behavior['before']['cards'][c]['per_game']:.2f} → {behavior['after']['cards'][c]['per_game']:.2f}"
+               for c in ('musketeer','cannon','hog_rider')]
+        rates=[]
+        for side in ('before','after'):
+            value=behavior[side]['economy'].get('voluntary_wait_given_choice')
+            rates.append('неизвестно' if value is None else f'{100*value:.1f}%')
+        lines.append(f"| {row['case']} | {row['seed']} | {' | '.join(cards)} | {' → '.join(rates)} |")
+    lines += ['', 'Добровольное ожидание считается только среди корректных решений, где доступна постановка. '
+              'Шаги без доступных карт учитываются отдельно как вынужденное ожидание. '
+              'В JSON — все карты на матч/минуту, доступность и выбор каждой карты, отдельно по атаке, защите и семействам. '
+              'Выбранная команда и фактически принятая постановка — разные счётчики; команда может ещё ждать исполнения.', '']
     return '\n'.join(lines)
 
 

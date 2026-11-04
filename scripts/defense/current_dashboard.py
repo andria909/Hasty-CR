@@ -659,6 +659,14 @@ def render_credit_assignment(reports,state):
             '[Все результаты](reports/long_economy_results_20261103.md).','',
             '**Дальше:** проверить оба seed, защиту по семействам и фактические постановки карт; '
             'отобрать 2–4 устойчивых профиля для полного обучения. Бои остановлены, v25 сохранена.']
+    short=read(reports/'short_wait_diagnostic_20261104.json')
+    if short and short.get('complete'):
+        one=next(r for r in short['groups']if r['wait_ms']==1000)
+        lines+=['',f"**Уточнение диагностики:** разовая пауза 1 с — {one['wins']}/{one['games']}; "
+                'дополнительные победы только на одном seed, мушкетёр не стал чаще. '
+                '[Короткие паузы](reports/short_wait_diagnostic_20261104.md). '
+                'Новый тестируемый вопрос — вес шагов без выбора в PPO; '
+                '[аудит обучения](reports/policy_choice_exposure_20261104.md).']
     return '\n'.join(lines)+'\n'
 
 
