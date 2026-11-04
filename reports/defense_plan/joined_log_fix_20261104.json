@@ -147,7 +147,18 @@
       "backup": "tmp/kaggle/credit_assignment_20261104_reuse/stream_before_joined_json_fix_20261104.json",
       "replacement_live": true,
       "counters_unchanged_before_scheduled_reconnect": true,
-      "raw_events_unchanged": true
+      "raw_events_unchanged": true,
+      "scheduled_connection_observed": true,
+      "actual_connection_interval_seconds": 1200.86066,
+      "counters_did_not_regress": true,
+      "latest_percent": {
+        "pilot_control_s472": 100.0,
+        "pilot_longer_s472": 100.0,
+        "pilot_longer_s473": 100.0,
+        "pilot_control_s473": 100.0,
+        "pilot_longer_no_balance_s472": 62.25,
+        "pilot_no_balance_s472": 62.25
+      }
     },
     {
       "kernel": "andriashadrin/hastycr-choice1104",
@@ -157,7 +168,16 @@
       "backup": "tmp/kaggle/policy_choice_20261104_reuse/stream_before_joined_json_fix_20261104.json",
       "replacement_live": true,
       "counters_unchanged_before_scheduled_reconnect": true,
-      "raw_events_unchanged": true
+      "raw_events_unchanged": true,
+      "scheduled_connection_observed": true,
+      "actual_connection_interval_seconds": 1200.862038,
+      "counters_did_not_regress": true,
+      "latest_percent": {
+        "pilot_control_s482": 100.0,
+        "pilot_choice_loss_s482": 100.0,
+        "pilot_choice_loss_s483": 35.5,
+        "pilot_control_s483": 34.5
+      }
     },
     {
       "kernel": "andreiperelaiko/hastycr-critic1104",
@@ -167,7 +187,14 @@
       "backup": "tmp/kaggle/critic_weight_20261104_reuse_v2/stream_before_joined_json_fix_20261104.json",
       "replacement_live": true,
       "counters_unchanged_before_scheduled_reconnect": true,
-      "raw_events_unchanged": true
+      "raw_events_unchanged": true,
+      "scheduled_connection_observed": true,
+      "actual_connection_interval_seconds": 1200.929746,
+      "counters_did_not_regress": true,
+      "latest_percent": {
+        "pilot_control_s492": 74.75,
+        "pilot_value025_s492": 74.75
+      }
     }
   ],
   "unique_recovered_events": 2,
@@ -175,5 +202,6 @@
   "replayed_copies_not_new_runs": true,
   "remote_training_restarted": false,
   "remote_schedule_seconds": 1200,
-  "tests_passed": 23
+  "tests_passed": 23,
+  "post_reconnect_verified_ns": 1793805976152527000
 }
