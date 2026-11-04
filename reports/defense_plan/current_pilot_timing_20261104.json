@@ -1,0 +1,272 @@
+{
+  "schema": "active-pilot-runtime-estimate-v1",
+  "created_ns": 1793805201598079000,
+  "studies": [
+    {
+      "kernel": "vertel0/hastycr-credit1104",
+      "snapshot": "tmp/kaggle/credit_assignment_20261104_reuse/runtime_log_snapshots/0aa92b84ae51643af043209f6c5aa5a3f111ce2b998efd5ccc724be194fd545a.jsonl",
+      "snapshot_sha256": "0aa92b84ae51643af043209f6c5aa5a3f111ce2b998efd5ccc724be194fd545a",
+      "protocol_sha256": "2b9cb48ea3bd6798d60e826de7f55ecd9e1f19f40d044d65a07b9235a0299fef",
+      "actual_worker_schedule": "def pilots(index):\n        return [run(trial, f'cuda:{index}', seed) for trial in protocol['cases'][index::2] for seed in protocol.get('pilot_seeds', (62, 63))]",
+      "bootstrap_sha256": "2c524a918ef9058366de60c094d9e2599ac19be463b2b681a23a330c76fd7958",
+      "completed_pilot_seconds": {
+        "pilot_longer_s472": 5873.533873228001,
+        "pilot_control_s472": 5977.186517872,
+        "pilot_longer_s473": 5798.426441150001,
+        "pilot_control_s473": 5808.0209337119995
+      },
+      "workers": [
+        {
+          "device": "cuda:0",
+          "trials": [
+            "pilot_control_s472",
+            "pilot_control_s473",
+            "pilot_no_balance_s472",
+            "pilot_no_balance_s473"
+          ],
+          "duration_samples_seconds": [
+            5977.186517872,
+            5808.0209337119995
+          ],
+          "duration_basis": "completed_whole_pilots",
+          "forecast_end_remote_seconds": 23988.012600553
+        },
+        {
+          "device": "cuda:1",
+          "trials": [
+            "pilot_longer_s472",
+            "pilot_longer_s473",
+            "pilot_longer_no_balance_s472",
+            "pilot_longer_no_balance_s473"
+          ],
+          "duration_samples_seconds": [
+            5873.533873228001,
+            5798.426441150001
+          ],
+          "duration_basis": "completed_whole_pilots",
+          "forecast_end_remote_seconds": 23761.518550596
+        }
+      ],
+      "last_progress_remote_seconds": 14424.712552104,
+      "estimated_remaining_hours_at_last_logged_step": 2.656472235680278,
+      "latest_progress": {
+        "kernel": "vertel0/hastycr-credit1104",
+        "source": "kaggle_live_log_stream",
+        "trainers": {},
+        "stream_state": "interrupted",
+        "reconnect_attempt": 7,
+        "checked_host_ns": 1793804860997696000,
+        "trials": {
+          "pilot_control_s472": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 6393.548798257
+          },
+          "pilot_longer_s472": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 6286.938362279
+          },
+          "pilot_longer_s473": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 12088.519994426
+          },
+          "pilot_control_s473": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 12201.7755379
+          },
+          "pilot_longer_no_balance_s472": {
+            "update": 182,
+            "steps": 186368,
+            "target_steps": 409600,
+            "percent": 45.5,
+            "remote_log_seconds": 14424.712552104
+          },
+          "pilot_no_balance_s472": {
+            "update": 165,
+            "steps": 168960,
+            "target_steps": 409600,
+            "percent": 41.25,
+            "remote_log_seconds": 14419.846358545
+          }
+        },
+        "connection_started_host_ns": 1793804674613159000,
+        "error_type": "SSLError",
+        "http_status": null
+      }
+    },
+    {
+      "kernel": "andriashadrin/hastycr-choice1104",
+      "snapshot": "tmp/kaggle/policy_choice_20261104_reuse/runtime_log_snapshots/56ab97492fb528ba7b12eeb5ecb96c7a8476f71d5e7ca6d31540180140658000.jsonl",
+      "snapshot_sha256": "56ab97492fb528ba7b12eeb5ecb96c7a8476f71d5e7ca6d31540180140658000",
+      "protocol_sha256": "e63c8eda82066750d28f8e13db2fc9ab8abd3f8fc501880d7c4a29c08826056f",
+      "actual_worker_schedule": "def pilots(index):\n        return [run(trial, f'cuda:{index}', seed) for trial in protocol['cases'][index::2] for seed in protocol.get('pilot_seeds', (62, 63))]",
+      "bootstrap_sha256": "161b0a7dafedb71a1314f3a0081920231418e1fd8f8f7f568d2f079c2dbcaa9e",
+      "completed_pilot_seconds": {
+        "pilot_choice_loss_s482": 7208.947751263,
+        "pilot_control_s482": 7257.690435191
+      },
+      "workers": [
+        {
+          "device": "cuda:0",
+          "trials": [
+            "pilot_control_s482",
+            "pilot_control_s483",
+            "pilot_choice_advantages_s482",
+            "pilot_choice_advantages_s483"
+          ],
+          "duration_samples_seconds": [
+            7257.690435191
+          ],
+          "duration_basis": "completed_whole_pilots",
+          "forecast_end_remote_seconds": 29578.836297453
+        },
+        {
+          "device": "cuda:1",
+          "trials": [
+            "pilot_choice_loss_s482",
+            "pilot_choice_loss_s483",
+            "pilot_choice_both_s482",
+            "pilot_choice_both_s483"
+          ],
+          "duration_samples_seconds": [
+            7208.947751263
+          ],
+          "duration_basis": "completed_whole_pilots",
+          "forecast_end_remote_seconds": 29383.865030015
+        }
+      ],
+      "last_progress_remote_seconds": 8140.177497901,
+      "estimated_remaining_hours_at_last_logged_step": 5.955182999875555,
+      "latest_progress": {
+        "kernel": "andriashadrin/hastycr-choice1104",
+        "source": "kaggle_live_log_stream",
+        "trainers": {},
+        "connection_started_host_ns": 1793804560794056000,
+        "reconnect_attempt": 7,
+        "stream_state": "interrupted",
+        "checked_host_ns": 1793804681983775000,
+        "trials": {
+          "pilot_control_s482": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 7804.204747384
+          },
+          "pilot_choice_loss_s482": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 7746.677329523
+          },
+          "pilot_choice_loss_s483": {
+            "update": 49,
+            "steps": 50176,
+            "target_steps": 409600,
+            "percent": 12.25,
+            "remote_log_seconds": 8088.941800914
+          },
+          "pilot_control_s483": {
+            "update": 49,
+            "steps": 50176,
+            "target_steps": 409600,
+            "percent": 12.25,
+            "remote_log_seconds": 8140.177497901
+          }
+        },
+        "error_type": "ConnectionError",
+        "http_status": null
+      }
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-critic1104",
+      "snapshot": "tmp/kaggle/critic_weight_20261104_reuse_v2/runtime_log_snapshots/5995ec4d10eb86bf43294d13ca311d186eeeddcb35ca1dae42cb4a35b68203d0.jsonl",
+      "snapshot_sha256": "5995ec4d10eb86bf43294d13ca311d186eeeddcb35ca1dae42cb4a35b68203d0",
+      "protocol_sha256": "ff03e7799628b2489d75a4e484295f4ea248f868cc24705316adb0ba49aa9581",
+      "actual_worker_schedule": "def pilots(index):\n        return [run(trial, f'cuda:{index}', seed) for trial in protocol['cases'][index::2] for seed in protocol.get('pilot_seeds', (62, 63))]",
+      "bootstrap_sha256": "3e49b375f5a8293a311f2284b6fc1380bf071e5e665e79847a7955fdf4931866",
+      "completed_pilot_seconds": {},
+      "workers": [
+        {
+          "device": "cuda:0",
+          "trials": [
+            "pilot_control_s492",
+            "pilot_control_s493",
+            "pilot_value010_s492",
+            "pilot_value010_s493"
+          ],
+          "duration_samples_seconds": [
+            6232.434831842
+          ],
+          "duration_basis": "partial_complete_50_update_blocks_extrapolated_to400",
+          "forecast_end_remote_seconds": 25375.688740539998
+        },
+        {
+          "device": "cuda:1",
+          "trials": [
+            "pilot_value025_s492",
+            "pilot_value025_s493",
+            "pilot_value005_s492",
+            "pilot_value005_s493"
+          ],
+          "duration_samples_seconds": [
+            5998.543593724
+          ],
+          "duration_basis": "partial_complete_50_update_blocks_extrapolated_to400",
+          "forecast_end_remote_seconds": 24440.123788068
+        }
+      ],
+      "last_progress_remote_seconds": 3809.671803428,
+      "estimated_remaining_hours_at_last_logged_step": 5.9905602603088886,
+      "latest_progress": {
+        "kernel": "andreiperelaiko/hastycr-critic1104",
+        "source": "kaggle_live_log_stream",
+        "trainers": {},
+        "connection_started_host_ns": 1793804595674772000,
+        "reconnect_attempt": 3,
+        "stream_state": "interrupted",
+        "checked_host_ns": 1793804782186431000,
+        "trials": {
+          "pilot_control_s492": {
+            "update": 241,
+            "steps": 246784,
+            "target_steps": 409600,
+            "percent": 60.25,
+            "remote_log_seconds": 3809.671803428
+          },
+          "pilot_value025_s492": {
+            "update": 249,
+            "steps": 254976,
+            "target_steps": 409600,
+            "percent": 62.25,
+            "remote_log_seconds": 3738.277636892
+          }
+        },
+        "error_type": "SSLError",
+        "http_status": null
+      }
+    }
+  ],
+  "remote_queries": false,
+  "training_changed": false,
+  "limitations": [
+    "Not a confidence interval or guaranteed finish time",
+    "Remaining time is measured from last logged remote step, not current host clock",
+    "Future profiles and match complexities can change duration",
+    "Critic has no completed pilot; estimate uses completed50-update blocks",
+    "Export, download and verification time excluded",
+    "Does not imply quality or successful full-budget completion"
+  ]
+}

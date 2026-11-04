@@ -8,6 +8,38 @@ import time
 import sys
 
 
+def iter_log_objects(data):
+    """Decode complete JSON objects, including adjacent parallel print calls.
+
+    Do not fish nested objects out of malformed/prefixed text. Legacy trainer
+    prefixes still use their existing explicit parser in main().
+    """
+    if not isinstance(data,str):return
+    decoder=json.JSONDecoder()
+    for line in data.splitlines():
+        position=0
+        while position<len(line):
+            while position<len(line)and line[position].isspace():position+=1
+            if position==len(line):break
+            try:row,end=decoder.raw_decode(line,position)
+            except ValueError:break
+            if isinstance(row,dict):yield row
+            position=end
+
+
+def record_structured_events(progress,data,remote_time):
+    changed=False
+    for row in iter_log_objects(data):
+        line=json.dumps(row)
+        if (record_trial_event(progress,line,remote_time)or
+                record_initialization_event(progress,line,remote_time)or
+                record_correction_event(progress,line,remote_time)or
+                record_fit_depth_event(progress,line,remote_time)or
+                record_evaluation_event(progress,line,remote_time)):
+            changed=True
+    return changed
+
+
 def open_progress_output(output,kernel,resume=False):
     """Resume only a matching observer, preserving counters and every raw event."""
     output=Path(output)
@@ -157,7 +189,8 @@ def replay_evaluation_progress(path):
     progress={'source':'saved_kaggle_live_log_stream'}
     for line in Path(path).read_text().splitlines():
         event=json.loads(line)
-        record_evaluation_event(progress,event.get('data',''),event.get('time'))
+        for row in iter_log_objects(event.get('data','')):
+            record_evaluation_event(progress,json.dumps(row),event.get('time'))
     return progress
 
 
@@ -193,11 +226,7 @@ def main():
                 for event in api.kernels_logs_stream(args.kernel):
                     stream.write(json.dumps(event)+'\n');stream.flush()
                     line=event.get('data','')
-                    if (record_trial_event(progress,line,event.get('time'))or
-                            record_initialization_event(progress,line,event.get('time'))or
-                            record_correction_event(progress,line,event.get('time'))or
-                            record_fit_depth_event(progress,line,event.get('time'))or
-                            record_evaluation_event(progress,line,event.get('time'))):
+                    if record_structured_events(progress,line,event.get('time')):
                         progress['checked_host_ns']=time.time_ns()
                         (args.output/'progress.json').write_text(json.dumps(progress,indent=2)+'\n')
                     for name in ('ppo','grpo'):

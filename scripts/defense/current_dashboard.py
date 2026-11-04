@@ -783,6 +783,11 @@ def render_credit_assignment(reports,state):
                 '48 технических игр; контроль воспроизводит прежние веса. '
                 'Новый GPU-опыт пока не запущен. [Проверка](reports/policy_choice_algorithm_20261104.md).']
     lines+=critic_weight_progress(reports)
+    timing=read(reports/'current_pilot_timing_20261104.json')or{}
+    if not complete and timing.get('schema')=='active-pilot-runtime-estimate-v1':
+        lines+=['','**Оценка остатка на 4 ноября, 18:05 МСК:** GAE ≈3 ч, PPO-choice и critic ≈6 ч; '
+                'скачивание/проверка сверх этого, срок не гарантирован. '
+                '[Фактический темп и исправление логов](reports/pilot_timing_and_log_fix_20261104.md).']
     return '\n'.join(lines)+'\n'
 
 

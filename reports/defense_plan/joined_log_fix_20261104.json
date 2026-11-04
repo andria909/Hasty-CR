@@ -1,0 +1,179 @@
+{
+  "schema": "joined-json-observer-fix-v1",
+  "verified_ns": 1793805313917449000,
+  "offline_replay": [
+    {
+      "root": "tmp/kaggle/credit_assignment_20261104_reuse",
+      "joined_packets": [],
+      "newly_decoded_counts": {},
+      "replayed_progress": {
+        "trials": {
+          "pilot_control_s472": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 6393.548798257
+          },
+          "pilot_longer_s472": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 6286.938362279
+          },
+          "pilot_longer_s473": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 12088.519994426
+          },
+          "pilot_control_s473": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 12201.7755379
+          },
+          "pilot_longer_no_balance_s472": {
+            "update": 182,
+            "steps": 186368,
+            "target_steps": 409600,
+            "percent": 45.5,
+            "remote_log_seconds": 14424.712552104
+          },
+          "pilot_no_balance_s472": {
+            "update": 165,
+            "steps": 168960,
+            "target_steps": 409600,
+            "percent": 41.25,
+            "remote_log_seconds": 14419.846358545
+          }
+        }
+      }
+    },
+    {
+      "root": "tmp/kaggle/policy_choice_20261104_reuse",
+      "joined_packets": [],
+      "newly_decoded_counts": {},
+      "replayed_progress": {
+        "trials": {
+          "pilot_control_s482": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 7804.204747384
+          },
+          "pilot_choice_loss_s482": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 7746.677329523
+          },
+          "pilot_choice_loss_s483": {
+            "update": 49,
+            "steps": 50176,
+            "target_steps": 409600,
+            "percent": 12.25,
+            "remote_log_seconds": 8088.941800914
+          },
+          "pilot_control_s483": {
+            "update": 49,
+            "steps": 50176,
+            "target_steps": 409600,
+            "percent": 12.25,
+            "remote_log_seconds": 8140.177497901
+          }
+        }
+      }
+    },
+    {
+      "root": "tmp/kaggle/critic_weight_20261104_reuse_v2",
+      "joined_packets": [
+        {
+          "remote_time": 445.949413172,
+          "events": [
+            "TRIAL_START",
+            "TRIAL_START"
+          ]
+        },
+        {
+          "remote_time": 445.949413172,
+          "events": [
+            "TRIAL_START",
+            "TRIAL_START"
+          ]
+        },
+        {
+          "remote_time": 445.949413172,
+          "events": [
+            "TRIAL_START",
+            "TRIAL_START"
+          ]
+        }
+      ],
+      "newly_decoded_counts": {
+        "TRIAL_START": 6
+      },
+      "replayed_progress": {
+        "trials": {
+          "pilot_control_s492": {
+            "update": 241,
+            "steps": 246784,
+            "target_steps": 409600,
+            "percent": 60.25,
+            "remote_log_seconds": 3809.671803428
+          },
+          "pilot_value025_s492": {
+            "update": 249,
+            "steps": 254976,
+            "target_steps": 409600,
+            "percent": 62.25,
+            "remote_log_seconds": 3738.277636892
+          }
+        }
+      }
+    }
+  ],
+  "reloads": [
+    {
+      "kernel": "vertel0/hastycr-credit1104",
+      "old_pid": 52062,
+      "new_pid": 58499,
+      "scheduled_wait_seconds": 782,
+      "backup": "tmp/kaggle/credit_assignment_20261104_reuse/stream_before_joined_json_fix_20261104.json",
+      "replacement_live": true,
+      "counters_unchanged_before_scheduled_reconnect": true,
+      "raw_events_unchanged": true
+    },
+    {
+      "kernel": "andriashadrin/hastycr-choice1104",
+      "old_pid": 52598,
+      "new_pid": 58503,
+      "scheduled_wait_seconds": 668,
+      "backup": "tmp/kaggle/policy_choice_20261104_reuse/stream_before_joined_json_fix_20261104.json",
+      "replacement_live": true,
+      "counters_unchanged_before_scheduled_reconnect": true,
+      "raw_events_unchanged": true
+    },
+    {
+      "kernel": "andreiperelaiko/hastycr-critic1104",
+      "old_pid": 56513,
+      "new_pid": 58507,
+      "scheduled_wait_seconds": 703,
+      "backup": "tmp/kaggle/critic_weight_20261104_reuse_v2/stream_before_joined_json_fix_20261104.json",
+      "replacement_live": true,
+      "counters_unchanged_before_scheduled_reconnect": true,
+      "raw_events_unchanged": true
+    }
+  ],
+  "unique_recovered_events": 2,
+  "recovered_kind": "TRIAL_START",
+  "replayed_copies_not_new_runs": true,
+  "remote_training_restarted": false,
+  "remote_schedule_seconds": 1200,
+  "tests_passed": 23
+}

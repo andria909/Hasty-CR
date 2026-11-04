@@ -7,6 +7,41 @@ import types
 import pytest
 
 
+def test_adjacent_parallel_json_messages_preserve_both_trials_and_replay_rules():
+    from scripts.kaggle.stream_training import record_structured_events
+    rows=[dict(event='TRIAL_PROGRESS',trial_id=name,step=1024,update=1,target_steps=409600)
+          for name in ('pilot_control_s492','pilot_value025_s492')]
+    packet=''.join(json.dumps(row)for row in rows)+'\n'
+    progress={}
+    assert record_structured_events(progress,packet,1.5)
+    assert set(progress['trials'])=={row['trial_id']for row in rows}
+    assert all(row['steps']==1024 for row in progress['trials'].values())
+    assert not record_structured_events(progress,packet,1.5)
+    assert not record_structured_events(progress,'{"event":"TRIAL_PROGRESS"}',2)
+
+
+def test_log_objects_handle_real_joined_start_shape_without_mining_malformed_text():
+    from scripts.kaggle.stream_training import iter_log_objects
+    a=dict(event='TRIAL_START',trial_id='pilot_value025_s492',device='cuda:1')
+    b=dict(event='TRIAL_START',trial_id='pilot_control_s492',device='cuda:0')
+    assert list(iter_log_objects(json.dumps(a)+json.dumps(b)+'\n'))==[a,b]
+    text=dict(note='braces }{ and escaped quote " are ordinary string content')
+    assert list(iter_log_objects(json.dumps(text)+'\n'+json.dumps(a)))==[text,a]
+    assert list(iter_log_objects('warning: '+json.dumps(a)))==[]
+    assert list(iter_log_objects('{"broken": '+json.dumps(a)))==[]
+    assert list(iter_log_objects(None))==[]
+
+
+def test_offline_evaluation_replay_processes_multiple_events_in_one_packet(tmp_path):
+    from scripts.kaggle.stream_training import replay_evaluation_progress
+    rows=[dict(event='heldout_game_progress',completed=i,total=2)for i in (1,2)]
+    path=tmp_path/'events.jsonl'
+    path.write_text(json.dumps(dict(data=''.join(json.dumps(r)for r in rows),time=10))+'\n')
+    state=replay_evaluation_progress(path)
+    assert state['evaluation']['games']['completed']==2
+    assert state['evaluation']['games']['quality_verified']is False
+
+
 def test_resume_preserves_raw_events_and_saved_counters(tmp_path):
     from scripts.kaggle.stream_training import open_progress_output
     root=tmp_path/'observer'

@@ -7,6 +7,7 @@ from pathlib import Path
 from statistics import mean
 
 from scripts.kaggle.local_artifact_transfer import file_sha
+from scripts.kaggle.stream_training import iter_log_objects
 
 
 def project(start,points,*,pilot_updates=400,pilot_eval_every=50,full_updates=4000,full_eval_every=250):
@@ -45,20 +46,19 @@ def audit(root,full_preflight):
     starts={};points={};completed={};inputs=False
     for line in raw.decode().splitlines():
         event=json.loads(line)
-        try:row=json.loads(event.get('data',''))
-        except ValueError:continue
-        kind=row.get('event');name=row.get('trial_id');t=event.get('time')
-        if kind=='INPUTS_VERIFIED':inputs|=row['protocol_sha256']==file_sha(root/'dataset/protocol.json')
-        elif kind=='TRIAL_START':
-            if name in starts and starts[name]!=t:raise ValueError('Repeated execution of one trial identity')
-            starts[name]=t
-        elif kind=='TRIAL_PROGRESS':
-            if row['actual_cuda']!='Tesla T4' or row['step']!=row['update']*1024 or row['target_steps']!=409600:
-                raise ValueError('Actual expected T4 pilot counters required')
-            values=points.setdefault(name,{})
-            if row['update']in values and values[row['update']]!=t:raise ValueError('Conflicting replay timestamp')
-            values[row['update']]=t
-        elif kind=='FOCUS_TRIAL_COMPLETE':completed[name]=row
+        for row in iter_log_objects(event.get('data','')):
+            kind=row.get('event');name=row.get('trial_id');t=event.get('time')
+            if kind=='INPUTS_VERIFIED':inputs|=row['protocol_sha256']==file_sha(root/'dataset/protocol.json')
+            elif kind=='TRIAL_START':
+                if name in starts and starts[name]!=t:raise ValueError('Repeated execution of one trial identity')
+                starts[name]=t
+            elif kind=='TRIAL_PROGRESS':
+                if row['actual_cuda']!='Tesla T4' or row['step']!=row['update']*1024 or row['target_steps']!=409600:
+                    raise ValueError('Actual expected T4 pilot counters required')
+                values=points.setdefault(name,{})
+                if row['update']in values and values[row['update']]!=t:raise ValueError('Conflicting replay timestamp')
+                values[row['update']]=t
+            elif kind=='FOCUS_TRIAL_COMPLETE':completed[name]=row
     if not inputs:raise ValueError('Matching frozen inputs not observed')
     preflight=json.loads(Path(full_preflight).read_text());runs=[]
     for check in preflight['checks']:
