@@ -1,6 +1,6 @@
 {
   "schema": "policy-choice-study-proposal-v1",
-  "status": "frozen_gpu_pipeline_verified_not_submitted",
+  "status": "gpu_submitted_cuda_confirmed",
   "submitted": false,
   "live_games": false,
   "initial_sha256": "9e7b5619b056d4ca9153bbadc90e3a856dc9957c1030d86cc857df18c10c373b",
@@ -172,7 +172,7 @@
     "Default all/all must preserve frozen control boundaries",
     "Pool explicit all/all controls with older implicit defaults, not as a new successful profile"
   ],
-  "decision": "Frozen GPU pipeline verified; compare current GAE/card-balance cohort before submitting this additional study.",
+  "decision": "Run unchanged fixed study independently in parallel, supported by subsequent native-bank/learning-curve audit; see explicit scheduling decision",
   "algorithm_preflight": "reports/defense_plan/policy_choice_algorithm_preflight_20261104.json",
   "algorithm_preflight_sha256": "06efa3e04cf59b66b6707ffe374cddb460d1efc9a774884fe1a80e12e0573279",
   "algorithm_flags": [
@@ -180,5 +180,7 @@
     "--advantage-normalization"
   ],
   "prepared_root": "tmp/kaggle/policy_choice_20261104_reuse",
-  "preparation_report": "reports/defense_plan/policy_choice_preparation_20261104.json"
+  "preparation_report": "reports/defense_plan/policy_choice_preparation_20261104.json",
+  "launch_report": "reports/defense_plan/policy_choice_launch_20261104.json",
+  "operational_decision": "reports/defense_plan/policy_choice_launch_decision_20261104.json"
 }

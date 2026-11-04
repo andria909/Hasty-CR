@@ -1,0 +1,23 @@
+{
+  "schema": "policy-choice-operational-launch-decision-v1",
+  "created_ns": 1793796095308138000,
+  "kernel": "andriashadrin/hastycr-choice1104",
+  "root": "tmp/kaggle/policy_choice_20261104_reuse",
+  "decision": "Run the independent fixed policy-choice pilot in parallel with current credit-assignment pilot",
+  "supersedes_scheduling_condition": "Compare current credit-assignment cohort before deciding to submit; preparation is not a submission",
+  "scope": "Scheduling only; all frozen scientific parameters, controls, seeds, selection gates, training sources and input hashes unchanged",
+  "reason": "New192-checkpoint audit confirms expensive-card opportunity collapse across24long pilots; native bank below4 on95.77%final steps excludes pending reservation alone as explanation. Independent choice-reduction experiment has its own unchanged all/all control and does not need current GAE results to start.",
+  "evidence": [
+    "reports/defense_plan/learning_curves_with_opportunities_20261104.json",
+    "reports/defense_plan/native_vs_reserved_economy_20261104.json"
+  ],
+  "evidence_sha256": {
+    "reports/defense_plan/learning_curves_with_opportunities_20261104.json": "ab2ba4918e1f2b4d1cce471ac57b4b21a7232f03df0e47613403005d8c5b624c",
+    "reports/defense_plan/native_vs_reserved_economy_20261104.json": "3a2a5a90748cffa82e3ab100a627c2ce466ba11def03f3fb6fe26fd867e69c1f"
+  },
+  "prior_active_job_unchanged": "vertel0/hastycr-credit1104",
+  "protocol_sha256": "e63c8eda82066750d28f8e13db2fc9ab8abd3f8fc501880d7c4a29c08826056f",
+  "bootstrap_sha256": "161b0a7dafedb71a1314f3a0081920231418e1fd8f8f7f568d2f079c2dbcaa9e",
+  "full_training_allowed_only_after_selection": true,
+  "live_games": false
+}

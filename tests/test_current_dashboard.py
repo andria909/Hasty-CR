@@ -99,3 +99,17 @@ def test_choice_preparation_does_not_claim_gpu_training(tmp_path):
     assert 'Следующий опыт подготовлен' in content
     assert 'проверены на CPU' in content and 'Запуск после сравнения текущей серии' in content
     assert content.count('нет счётчика')==8
+
+
+def test_launched_choice_study_has_separate_progress_and_no_invented_cuda(tmp_path):
+    from scripts.defense.current_dashboard import policy_choice_progress
+    root=tmp_path/'job';(root/'live_stream').mkdir(parents=True)
+    state=dict(root=str(root),kernel='owner/choice',submitted=True,actual_cuda_ready=False)
+    (tmp_path/'policy_choice_training_20261104.json').write_text(json.dumps(state))
+    progress=root/'live_stream/progress.json'
+    progress.write_text(json.dumps(dict(kernel='owner/credit',trials={'pilot_control_s482':dict(steps=409600,target_steps=409600)})))
+    content='\n'.join(policy_choice_progress(tmp_path))
+    assert 'CUDA ещё не подтверждена' in content and content.count('нет счётчика')==8
+    progress.write_text(json.dumps(dict(kernel='owner/choice',trials={'pilot_control_s482':dict(steps=102400,target_steps=409600)})))
+    content='\n'.join(policy_choice_progress(tmp_path))
+    assert '≥25.0%'in content and '100% проверено'not in content

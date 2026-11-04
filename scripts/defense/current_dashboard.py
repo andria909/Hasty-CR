@@ -618,6 +618,35 @@ def render_completed_long_economy(reports, selection):
     return '\n'.join(lines)+'\n'
 
 
+def policy_choice_progress(reports):
+    state=read(reports/'policy_choice_training_20261104.json')
+    if not state:return []
+    proof=read(reports/'policy_choice_verified_20261104.json')or{}
+    complete=(proof.get('kernel')==state['kernel']and proof.get('pilot_steps_verified')==3276800
+              and proof.get('policy_choice_audit',{}).get('verified')is True)
+    stream=read(Path(state['root'])/'live_stream/progress.json')or{}
+    runs=stream.get('trials',{})if stream.get('kernel')==state['kernel']else{}
+    lines=['','**Параллельный опыт: PPO по шагам с выбором действия.**',
+           '8 полных бюджетов проверены.'if complete else
+           'Две Tesla T4 подтверждены.'if state.get('actual_cuda_ready')else
+           'Kaggle принял задачу; CUDA ещё не подтверждена.','',
+           '| Режим | Seed 482 | Seed 483 |','|---|---:|---:|']
+    labels=dict(control='Прежний PPO',choice_loss='Actor/entropy/KL по выборам',
+                choice_advantages='Нормализация advantage по выборам',choice_both='Оба изменения')
+    for name,label in labels.items():
+        cells=[]
+        for seed in (482,483):
+            row=runs.get(f'pilot_{name}_s{seed}',{})
+            valid=row.get('target_steps')==409600 and 0<=row.get('steps',-1)<=409600
+            cells.append('100% проверено'if complete else f"≥{100*row['steps']/409600:.1f}%"if valid else'нет счётчика')
+        lines.append(f"| {label} | {' | '.join(cells)} |")
+    if complete:
+        lines+=['','Прошли отбор: '+(', '.join(proof['policy_choice_selection']['eligible_profiles'])or'нет')+'.']
+    lines+=['','По 409 600 шагов. Награды и физика одинаковы. '
+            '[Запуск и причина параллельного опыта](reports/policy_choice_launch_20261104.md).']
+    return lines
+
+
 def render_credit_assignment(reports,state):
     stream=read(Path(state['root'])/'live_stream/progress.json')or{}
     runs=stream.get('trials',{})if stream.get('kernel')==state['kernel']else{}
@@ -679,7 +708,10 @@ def render_credit_assignment(reports,state):
                 '[аудит обучения](reports/policy_choice_exposure_20261104.md).']
     algorithm=read(reports/'policy_choice_algorithm_preflight_20261104.json')
     prepared=read(reports/'policy_choice_preparation_20261104.json')or{}
-    if prepared.get('frozen_pipeline_verified') and prepared.get('submitted')is False:
+    choice=policy_choice_progress(reports)
+    if choice:
+        lines+=choice
+    elif prepared.get('frozen_pipeline_verified') and prepared.get('submitted')is False:
         lines+=['','**Следующий опыт подготовлен:** PPO по шагам с реальным выбором; '
                 'четыре режима, два seed. Пакет Kaggle и переход на полный бюджет проверены на CPU. '
                 'Запуск после сравнения текущей серии. [Проверка](reports/policy_choice_preparation_20261104.md).']
