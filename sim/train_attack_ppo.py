@@ -21,6 +21,7 @@ from sim.train_ppo import (build_network, checkpoint_architecture, load_policy_s
                            masked_distribution, COMPACT_ARCHITECTURE)
 from sim.train_defense_ppo import (generalized_advantage,normalize_advantages,require_finite,
     tensor_observations,action_masks,rng_state,restore_rng,validate_transition)
+from sim.policy_choice import choices,normalized_advantages,reduce_actor,validate_modes
 
 
 def tempered_logits(logits,temperature=1.):
@@ -301,7 +302,7 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
     if pending_inputs:names+=('sim/pending_inputs.py','sim/continuous_pending.py')
     if history_frames==2:names+=('sim/public_frame_history.py','sim/continuous_history.py')
     if tactical_start_fraction is not None:names+=('sim/continuous_tactical_starts.py',)
-    names+=('sim/group_entropy.py',)
+    names+=('sim/group_entropy.py','sim/policy_choice.py','sim/train_defense_ppo.py')
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
                                      for name in names},sort_keys=True).encode()).hexdigest()
 
@@ -315,9 +316,9 @@ def validate_resume(blob,config):
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
           'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes','policy_temperature',
-          'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon','validation_action_delay_ms','tower_support_weight','spell_waste_weight','tactical_start_fraction','crown_only_weight','dormant_king_weight','spatial_entropy_weight')
+          'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon','validation_action_delay_ms','tower_support_weight','spell_waste_weight','tactical_start_fraction','crown_only_weight','dormant_king_weight','spatial_entropy_weight','policy_reduction','advantage_normalization')
     for key in keys:
-        default=1. if key=='spatial_entropy_weight'else 0. if key in('supervised_replay_weight','card_exploration_epsilon')else None
+        default='all'if key in ('policy_reduction','advantage_normalization')else 1. if key=='spatial_entropy_weight'else 0. if key in('supervised_replay_weight','card_exploration_epsilon')else None
         if blob['config'].get(key,default)!=config.get(key,default):
             raise ValueError(f'Attack resume configuration mismatch: {key}')
     required=('optimiser','rng','sampler','environment_states','observations','infos',
@@ -335,6 +336,9 @@ def validation_options(options, delay=None):
 
 
 def train(args):
+    policy_reduction=getattr(args,'policy_reduction','all')
+    advantage_normalization=getattr(args,'advantage_normalization','all')
+    validate_modes(policy_reduction,advantage_normalization)
     exploration=getattr(args,'card_exploration_epsilon',0.)
     if not np.isfinite(exploration)or not 0<=exploration<=.5:raise ValueError('Invalid card exploration share')
     replay_weight=getattr(args,'supervised_replay_weight',0.)
@@ -433,6 +437,7 @@ def train(args):
         replay=SuccessfulActionReplay(replay_data,device,**(dict(pending_inputs=True) if pending_inputs else {}))
     config=dict(vars(args),architecture=architecture,num_scalars=num_scalars,num_planes=num_planes,history_frames=history_frames,policy_temperature=temperature,
         reward_profile=reward_profile,reward_profile_sha256=reward_sha,spatial_entropy_weight=spatial_entropy_weight,
+        policy_reduction=policy_reduction,advantage_normalization=advantage_normalization,
         observation_contract=contract,source_code_sha256=code_fingerprint(args.task_mode,curriculum,balance_weight,history_frames,pending_inputs,tower_support_weight,spell_waste_weight,tactical_start_fraction,crown_only_weight,dormant_king_weight,spatial_entropy_weight),
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
         initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
@@ -501,11 +506,14 @@ def train(args):
             step+=args.envs
         planes,scalars,masks,actions,old_log,values,rewards,next_values,terminals,truncations=[torch.stack(x)for x in zip(*rows)]
         advantages,returns=generalized_advantage(rewards,values,next_values,terminals,truncations,args.gamma,args.gae_lambda)
-        advantages=normalize_advantages(advantages).flatten()
+        choice=choices(masks)
+        advantages=normalized_advantages(advantages,choice,advantage_normalization).flatten()
+        choice=choice.flatten()
         require_finite(advantages=advantages,returns=returns)
         planes,scalars=planes.flatten(0,1),scalars.flatten(0,1)
         masks,actions,old_log,returns=masks.flatten(0,1),actions.flatten(),old_log.flatten(),returns.flatten()
         losses=[];balance_losses=[];kl_values=[];kl_stopped=False;replay_losses=[];entropy_logs=[]
+        choice_samples=optimizer_samples=no_choice_batches=0
         warmup=step<=getattr(args,'value_warmup_steps',0)
         for name,parameter in network.named_parameters():
             parameter.requires_grad_(not warmup or name.startswith('value'))
@@ -516,18 +524,19 @@ def train(args):
                 dist=training_distribution(logits,masks[indices],exploration)
                 ratio=(dist.log_prob(actions[indices])-old_log[indices]).exp()
                 log_ratio=dist.log_prob(actions[indices])-old_log[indices]
-                kl=float(((ratio-1)-log_ratio).mean().detach())
+                batch_choice=choice[indices]
+                kl=float(reduce_actor((ratio-1)-log_ratio,batch_choice,policy_reduction).detach())
                 kl_values.append(kl)
                 if not warmup and getattr(args,'target_kl',0)>0 and kl>args.target_kl:
                     kl_stopped=True
                     break
-                policy=-torch.minimum(ratio*advantages[indices],ratio.clamp(1-args.clip,1+args.clip)*advantages[indices]).mean()
+                policy=reduce_actor(-torch.minimum(ratio*advantages[indices],ratio.clamp(1-args.clip,1+args.clip)*advantages[indices]),batch_choice,policy_reduction)
                 from sim.group_entropy import weighted_entropy,entropy_components
                 entropy=weighted_entropy(dist,spatial_entropy_weight)
                 with torch.no_grad():
                     full_entropy,group_entropy=entropy_components(dist)
-                    entropy_logs.append((float(full_entropy.mean()),float(group_entropy.mean()),float(entropy.mean())))
-                loss=policy+args.value_coef*(predicted.reshape(-1)-returns[indices]).square().mean()-args.entropy_coef*entropy.mean()
+                    entropy_logs.append(tuple(float(reduce_actor(e,batch_choice,policy_reduction))for e in (full_entropy,group_entropy,entropy)))
+                loss=policy+args.value_coef*(predicted.reshape(-1)-returns[indices]).square().mean()-args.entropy_coef*reduce_actor(entropy,batch_choice,policy_reduction)
                 if balance_weight and not warmup:
                     from sim.card_balance import card_balance_loss
                     balance=card_balance_loss(logits,scalars[indices],masks[indices],balance_target)
@@ -541,6 +550,8 @@ def train(args):
                 optimizer.zero_grad(set_to_none=True);loss.backward()
                 norm=torch.nn.utils.clip_grad_norm_(network.parameters(),args.max_grad_norm,error_if_nonfinite=True)
                 optimizer.step();losses.append(float(loss.detach()))
+                n_choice=int(batch_choice.sum());choice_samples+=n_choice;optimizer_samples+=len(indices)
+                no_choice_batches+=int(n_choice==0)
             if kl_stopped:break
         record=dict(update=update,step=step,target_environment_steps=args.target_environment_steps,policy_temperature=temperature,
             card_exploration_epsilon=exploration,
@@ -551,6 +562,10 @@ def train(args):
             target=balance_target,mean_balance_js=float(np.mean(balance_losses))if balance_losses else 0.)
         record['optimizer_controls']=dict(value_only_warmup=warmup,kl_stopped=kl_stopped,
             mean_approximate_kl=float(np.mean(kl_values)))
+        record['policy_decisions']=dict(reduction=policy_reduction,advantage_normalization=advantage_normalization,
+            rollout_steps=len(actions),choice_steps=int(choice.sum()),forced_steps=int((~choice).sum()),
+            optimizer_samples=optimizer_samples,choice_samples=choice_samples,
+            no_choice_minibatches=no_choice_batches,optimizer_batches=len(losses),actor_updates_enabled=not warmup)
         record['entropy_components']=dict(spatial_weight=spatial_entropy_weight,
             full=float(np.mean([r[0]for r in entropy_logs]))if entropy_logs else None,
             group=float(np.mean([r[1]for r in entropy_logs]))if entropy_logs else None,
@@ -619,6 +634,8 @@ def parser():
     p.add_argument('--card-balance-target',choices=('all_cards','units'),default='all_cards')
     p.add_argument('--policy-temperature',type=float,default=1.)
     p.add_argument('--spatial-entropy-weight',type=float,default=1.,help='Weight of conditional cell entropy; 1 preserves original full-action entropy')
+    p.add_argument('--policy-reduction',choices=('all','choice'),default='all',help='Actor, entropy and KL averaging; critic and physical-time GAE always use all steps')
+    p.add_argument('--advantage-normalization',choices=('all','choice'),default='all',help='Normalize actor advantages on all steps or only states with multiple legal actions')
     p.add_argument('--card-exploration-epsilon',type=float,default=0.)
     p.add_argument('--supervised-replay-data',help='Pinned TRAIN successful-action labels; grouped holdout excluded')
     p.add_argument('--supervised-replay-weight',type=float,default=0.)

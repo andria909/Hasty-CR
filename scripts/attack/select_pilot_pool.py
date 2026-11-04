@@ -66,6 +66,10 @@ def economy_identity(preparation, trial):
     model = next(m for m in preparation['config']['models'] if m['id']==trial['initial_id'])
     profile = {k:v for k,v in trial.items() if k not in ('id','initial_id')}
     profile.setdefault('spatial_entropy_weight',1.)
+    # Explicit opt-in defaults are the same control as older trials without
+    # these fields. Do not hide their unsuccessful replicas behind a new name.
+    for key in ('policy_reduction','advantage_normalization'):
+        if profile.get(key,'all')=='all':profile.pop(key,None)
     identity=dict(initial_sha256=model['sha256'],profile=profile)
     if preparation.get('study_variant') in LONG_VARIANTS:
         identity['pilot_steps_each']=409600

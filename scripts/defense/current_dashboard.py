@@ -667,6 +667,11 @@ def render_credit_assignment(reports,state):
                 '[Короткие паузы](reports/short_wait_diagnostic_20261104.md). '
                 'Новый тестируемый вопрос — вес шагов без выбора в PPO; '
                 '[аудит обучения](reports/policy_choice_exposure_20261104.md).']
+    algorithm=read(reports/'policy_choice_algorithm_preflight_20261104.json')
+    if algorithm and algorithm.get('frozen_default_boundary_exact') and len(algorithm.get('checks',[]))==4:
+        lines+=['','**Подготовка следующего опыта:** четыре режима PPO прошли точный перезапуск и '
+                '48 технических игр; контроль воспроизводит прежние веса. '
+                'Новый GPU-опыт пока не запущен. [Проверка](reports/policy_choice_algorithm_20261104.md).']
     return '\n'.join(lines)+'\n'
 
 
