@@ -1,8 +1,32 @@
 {
   "schema": "continuous-focus-training-status-v1",
   "kernel": "andreiperelaiko/hastycr-critic1104",
-  "status": "cuda_ready_pending_ppo_steps",
-  "progress_snapshot": {},
+  "status": "training_steps_observed",
+  "progress_snapshot": {
+    "kernel": "andreiperelaiko/hastycr-critic1104",
+    "source": "kaggle_live_log_stream",
+    "trainers": {},
+    "connection_started_host_ns": 1793802194186688000,
+    "reconnect_attempt": 1,
+    "stream_state": "connected",
+    "checked_host_ns": 1793802332347188000,
+    "trials": {
+      "pilot_control_s492": {
+        "update": 75,
+        "steps": 76800,
+        "target_steps": 409600,
+        "percent": 18.75,
+        "remote_log_seconds": 1361.673064562
+      },
+      "pilot_value025_s492": {
+        "update": 73,
+        "steps": 74752,
+        "target_steps": 409600,
+        "percent": 18.25,
+        "remote_log_seconds": 1361.7501015
+      }
+    }
+  },
   "pilot_target_steps": 3276800,
   "conditional_full_steps": 0,
   "quality_accepted": false,
@@ -19,6 +43,7 @@
   "actual_cuda_ready": true,
   "created_ns": 1793800992662399000,
   "frozen_bootstrap_sha256": "3e49b375f5a8293a311f2284b6fc1380bf071e5e665e79847a7955fdf4931866",
-  "last_local_sync_ns": 1793800992692430000,
-  "cuda_evidence": "reports/defense_plan/critic_weight_cuda_observed_20261104.json"
+  "last_local_sync_ns": 1793802337011042000,
+  "cuda_evidence": "reports/defense_plan/critic_weight_cuda_observed_20261104.json",
+  "actual_training_steps_confirmed": true
 }
