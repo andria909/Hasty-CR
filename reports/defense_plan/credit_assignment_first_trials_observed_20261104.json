@@ -1,8 +1,8 @@
 {
   "kernel": "vertel0/hastycr-credit1104",
-  "captured_ns": 1793798090681910000,
-  "raw_snapshot": "tmp/kaggle/credit_assignment_20261104_reuse/runtime_log_snapshots/23cb0d50d6da3b91c34c5ae40013dde5c28080c95dc16128ee217f321b35c99b.jsonl",
-  "raw_snapshot_sha256": "23cb0d50d6da3b91c34c5ae40013dde5c28080c95dc16128ee217f321b35c99b",
+  "captured_ns": 1793803566610488000,
+  "raw_snapshot": "tmp/kaggle/credit_assignment_20261104_reuse/runtime_log_snapshots/3021628dff723299196834ad2d1195b2f4fb2bd8558bfb3fa858c52af4ce065c.jsonl",
+  "raw_snapshot_sha256": "3021628dff723299196834ad2d1195b2f4fb2bd8558bfb3fa858c52af4ce065c",
   "trials": [
     {
       "id": "pilot_control_s472",
@@ -15,6 +15,18 @@
       "steps": 409600,
       "logged_score": 0.2777777777777778,
       "logged_family_guard": true
+    },
+    {
+      "id": "pilot_control_s473",
+      "steps": 409600,
+      "logged_score": 0.2222222222222222,
+      "logged_family_guard": false
+    },
+    {
+      "id": "pilot_longer_s473",
+      "steps": 409600,
+      "logged_score": 0.2326388888888889,
+      "logged_family_guard": true
     }
   ],
   "final_weights_verified": false,
@@ -23,9 +35,9 @@
     "kernel": "vertel0/hastycr-credit1104",
     "source": "kaggle_live_log_stream",
     "trainers": {},
-    "stream_state": "interrupted",
-    "reconnect_attempt": 1,
-    "checked_host_ns": 1793797658437866000,
+    "stream_state": "connected",
+    "reconnect_attempt": 6,
+    "checked_host_ns": 1793803560996220000,
     "trials": {
       "pilot_control_s472": {
         "update": 400,
@@ -42,28 +54,40 @@
         "remote_log_seconds": 6286.938362279
       },
       "pilot_longer_s473": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 12088.519994426
+      },
+      "pilot_control_s473": {
+        "update": 400,
+        "steps": 409600,
+        "target_steps": 409600,
+        "percent": 100.0,
+        "remote_log_seconds": 12201.7755379
+      },
+      "pilot_longer_no_balance_s472": {
+        "update": 99,
+        "steps": 101376,
+        "target_steps": 409600,
+        "percent": 24.75,
+        "remote_log_seconds": 13066.604234983
+      },
+      "pilot_no_balance_s472": {
         "update": 90,
         "steps": 92160,
         "target_steps": 409600,
         "percent": 22.5,
-        "remote_log_seconds": 7219.77332588
-      },
-      "pilot_control_s473": {
-        "update": 66,
-        "steps": 67584,
-        "target_steps": 409600,
-        "percent": 16.5,
-        "remote_log_seconds": 7219.011371287
+        "remote_log_seconds": 13126.851929628
       }
     },
-    "connection_started_host_ns": 1793797472083716000,
-    "error_type": "SSLError",
-    "http_status": null
+    "connection_started_host_ns": 1793803474084880000
   },
   "remote_status_snapshot": {
     "kernel": "vertel0/hastycr-credit1104",
     "remote_status": "RUNNING",
-    "checked_host_ns": 1793797328882607000,
+    "checked_host_ns": 1793803332275141000,
     "remote_job_changed": false
   }
 }

@@ -699,7 +699,15 @@ def render_credit_assignment(reports,state):
     if not complete and observed.get('kernel')==state['kernel']:
         scores={r['id']:r for r in observed.get('trials',[])if r.get('steps')==409600}
         a=scores.get('pilot_control_s472');b=scores.get('pilot_longer_s472')
-        if a and b:
+        c=scores.get('pilot_control_s473');d=scores.get('pilot_longer_s473')
+        if a and b and c and d:
+            lines+=['','**Предварительно по логам, оба seed:**',
+                '| Seed | Контроль GAE 0,95 | GAE 0,98 |','|---|---:|---:|',
+                f"| 472 | {a['logged_score']:.4f} | {b['logged_score']:.4f} |",
+                f"| 473 | {c['logged_score']:.4f} | {d['logged_score']:.4f} |",'',
+                'Это составной validation-балл, не винрейт. Веса и отдельная защита ещё проверяются. '
+                '[Результат и ограничения](reports/credit_assignment_first_results_20261104.md).']
+        elif a and b:
             lines+=['',f"**Первый seed, предварительно по логам:** контроль {a['logged_score']:.3f}, "
                 f"GAE 0,98 — {b['logged_score']:.3f} составного validation-балла. "
                 'Это не винрейт; итоговые веса и второй seed ещё проверяются. '
@@ -733,7 +741,12 @@ def render_credit_assignment(reports,state):
             'отобрать 2–4 устойчивых профиля для полного обучения. Бои остановлены, v25 сохранена.']
     short=read(reports/'short_wait_diagnostic_20261104.json')
     decoding=read(reports/'action_decoding_diagnostic_20261104.json')or{}
-    if decoding.get('complete')and decoding.get('baseline_exact_replays')==12:
+    aliasing=read(reports/'pending_action_aliasing_20261104.json')or{}
+    if aliasing.get('complete')and aliasing.get('verification',{}).get('rows_verified')==9224:
+        lines+=['','**Диагностика защиты, TRAIN:** 9224 продолжения; во всех4сценах есть общий '
+                'ответ с минимальным уроном, но старые PPO ошибаются в карте/координате. '
+                'Одной памяти недостаточно. [Решения моделей и ограничения](reports/pending_action_aliasing_20261104.md).']
+    elif decoding.get('complete')and decoding.get('baseline_exact_replays')==12:
         groups={r['mode']:r for r in decoding['groups']}
         scores=[f"{groups[m]['wins']}/{groups[m]['games']}"for m in ('joint_greedy','card_greedy','sample')]
         lines+=['','**Проверка выбора действий, TRAIN:** нынешний / по карте / случайный — '+
