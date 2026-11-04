@@ -1,0 +1,66 @@
+{
+  "schema": "full-recovery-collection-preflight-v1",
+  "technical_fixture": true,
+  "simulated_transport": true,
+  "actual_cuda": false,
+  "training_submitted": false,
+  "submission_allowed": false,
+  "quality_accepted": false,
+  "children": [
+    {
+      "case": "/Users/andriashadrin/projects/Hasty-CR/tmp/policy_choice_full_readiness_20261104/policy_choice_v1/control",
+      "checkpoint_sha256": "3c600ae793a98232e5fb42ae2391263b00e1326911ded52aa39072692501f309",
+      "actual_wallclock_interruption": true,
+      "combined_updates": [
+        1,
+        2
+      ],
+      "equal": {
+        "state_dict": true,
+        "optimiser": true,
+        "rng": true,
+        "sampler": true,
+        "environment_states": true,
+        "observations": true,
+        "infos": true,
+        "episode_returns": true,
+        "episode_counters": true,
+        "best_validation": true,
+        "step": true,
+        "update": true
+      },
+      "budget_unchanged": true,
+      "steps_before": 16,
+      "steps_after": 32
+    },
+    {
+      "case": "/Users/andriashadrin/projects/Hasty-CR/tmp/policy_choice_full_readiness_20261104/policy_choice_v1/choice_loss",
+      "checkpoint_sha256": "517e1f36e754fc675ffc00b4e57866cac3a9ea387e7b0528021927f8765b9234",
+      "actual_wallclock_interruption": true,
+      "combined_updates": [
+        1,
+        2
+      ],
+      "equal": {
+        "state_dict": true,
+        "optimiser": true,
+        "rng": true,
+        "sampler": true,
+        "environment_states": true,
+        "observations": true,
+        "infos": true,
+        "episode_returns": true,
+        "episode_counters": true,
+        "best_validation": true,
+        "step": true,
+        "update": true
+      },
+      "budget_unchanged": true,
+      "steps_before": 16,
+      "steps_after": 32
+    }
+  ],
+  "scope": "CPU 32-step proof; does not prove Kaggle terminal outputs exist or GPU exactness",
+  "artifact_root": "tmp/full_recovery_collection_preflight_20261104",
+  "pipeline_tests_passed": 40
+}

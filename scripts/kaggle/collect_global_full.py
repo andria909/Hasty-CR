@@ -99,7 +99,13 @@ if __name__ == '__main__':
             print(json.dumps(status),flush=True)
             if state in TERMINAL:
                 if state != 'COMPLETE':
-                    raise ValueError('Full job ended unsuccessfully; inspect outputs')
+                    from scripts.kaggle.collect_global_full_recovery import collect as collect_recovery
+                    recovery=Path(args.output).with_name(Path(args.output).name+'_recovery')
+                    recovery_cache=preserve_partial(recovery,kernel,state)if recovery.exists()else None
+                    receipt=collect_recovery(api,args.prepared,recovery,cache=recovery_cache)
+                    print(json.dumps(dict(recovery_artifacts_saved=receipt['artifacts_complete'],
+                        destination=str(recovery),training_budget_verified=False,automatic_resume=False)),flush=True)
+                    break
                 if Path(args.output).exists():
                     cache = preserve_partial(args.output,kernel,state)
                 receipt = collect(api,args.prepared,args.output,cache=cache)
@@ -107,7 +113,7 @@ if __name__ == '__main__':
                 break
         except Exception as error:
             status = getattr(getattr(error,'response',None),'status_code',None)
-            if type(error).__name__ not in ('ConnectionError','SSLError','ReadTimeout','Timeout') and status not in (404,408,429,500,502,503,504):
+            if type(error).__name__ not in ('ConnectionError','SSLError','ReadTimeout','Timeout','ChunkedEncodingError') and status not in (404,408,429,500,502,503,504):
                 raise
             print(json.dumps(dict(observation_error=type(error).__name__,remote_job_changed=False)),flush=True)
         time.sleep(args.poll_seconds)
