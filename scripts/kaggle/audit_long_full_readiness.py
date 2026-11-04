@@ -11,7 +11,7 @@ import subprocess
 import sys
 
 from scripts.kaggle.prepare_global_full_pair import isolated_child
-from scripts.kaggle.preflight_global_full_pair import unpack,validate_specialized_preflight
+from scripts.kaggle.preflight_global_full_pair import unpack,validate_specialized_preflight,variant_child_script
 from scripts.kaggle.local_artifact_transfer import file_sha
 
 
@@ -22,7 +22,9 @@ def audit(roots,output):
         origin=origin.absolute();prep=json.loads((origin/'preparation.json').read_text());c=prep['config']
         if file_sha(origin/'job/train.py')!=prep['bootstrap_sha256']:raise ValueError('Frozen controller changed')
         protocol=json.loads((origin/'dataset/protocol.json').read_text());variant=protocol['study_variant']
-        if variant=='credit_assignment_v1':
+        if variant=='policy_choice_v1':
+            from scripts.kaggle.prepare_policy_choice_pilot import validate_protocol
+        elif variant=='credit_assignment_v1':
             from scripts.kaggle.prepare_credit_assignment_pilot import validate_protocol
         elif variant=='tower_credit_v1':
             from scripts.kaggle.prepare_tower_credit_pilot import validate_protocol
@@ -47,7 +49,7 @@ def audit(roots,output):
             spec=dict(root=str(target),inputs=str(origin/'dataset'),trial=trial,config=c,
                 initial_selection=dict(selected=c['models'][0]['id']),bootstrap=str(bootstrap),technical_fixture=True)
             path=target/'spec.json';path.write_text(json.dumps(spec,indent=2)+'\n')
-            script=Path(__file__).absolute().with_name('preflight_long_economy_full.py')
+            script=variant_child_script(variant)
             with(target/'run.log').open('x')as log:
                 subprocess.run([sys.executable,str(script),'--child',str(path)],cwd=project,
                     env=dict(os.environ,PYTHONPATH=str(project)),stdout=log,stderr=subprocess.STDOUT,check=True)

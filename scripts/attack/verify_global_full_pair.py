@@ -26,12 +26,16 @@ def audit_full_economy(config,blob,metrics_path,trial,variant):
         for key in ('gae_lambda','card_balance_weight','gamma'):
             if config.get(key)!=trial[key] or blob['config'].get(key)!=trial[key]:
                 raise ValueError('Full checkpoint credit-assignment coefficient differs: '+key)
+    if variant=='policy_choice_v1':
+        from scripts.attack.policy_choice_accounting import audit_update,audit_checkpoint
+        audit_checkpoint(config,blob,trial)
     weight=trial.get('spatial_entropy_weight',1.)
     if config.get('spatial_entropy_weight',1.)!=weight or blob['config'].get('spatial_entropy_weight',1.)!=weight:
         raise ValueError('Full checkpoint spatial entropy differs')
     episodes=updates=0
     for line in Path(metrics_path).read_text().splitlines():
         metric=json.loads(line);updates+=1
+        if variant=='policy_choice_v1':audit_update(metric,config,trial)
         if variant=='group_entropy_v1':audit_entropy(metric['entropy_components'],weight)
         rows=metric['episodes']+metric.get('validation',{}).get('records',[])
         if rows:

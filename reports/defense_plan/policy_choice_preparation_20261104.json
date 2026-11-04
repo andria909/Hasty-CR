@@ -1,0 +1,40 @@
+{
+  "schema": "policy-choice-preparation-v1",
+  "status": "prepared_not_submitted",
+  "root": "tmp/kaggle/policy_choice_20261104_reuse",
+  "kernel": "andriashadrin/hastycr-choice1104",
+  "submitted": false,
+  "actual_cuda": false,
+  "quality_accepted": false,
+  "frozen_pipeline_verified": true,
+  "pilot_runs": 8,
+  "pilot_steps_each": 409600,
+  "total_pilot_steps": 3276800,
+  "technical_pilot_games": 48,
+  "technical_full_branch_games": 48,
+  "full_gpu_training_performed": false,
+  "preparation_sha256": "bbaedfc8b2977038dcfe75f15e7364918521ba2a5efe9386d3f78066d07d453a",
+  "bootstrap_sha256": "161b0a7dafedb71a1314f3a0081920231418e1fd8f8f7f568d2f079c2dbcaa9e",
+  "protocol_sha256": "e63c8eda82066750d28f8e13db2fc9ab8abd3f8fc501880d7c4a29c08826056f",
+  "preflight": "reports/defense_plan/policy_choice_preflight_20261104.json",
+  "preflight_sha256": "09e6407397f288ff3465401c5bd32b07838cfd7bd75937fc8fb2bf202c0e92af",
+  "full_readiness": "reports/defense_plan/policy_choice_full_readiness_20261104.json",
+  "full_readiness_sha256": "0188ecdf4ec9e4d5e2840d1c4416f37f1d528bac2a3696c2602b7c37b660bec7",
+  "training_sources": {
+    "sim/train_attack_ppo.py": "aae88b2fc85d4c20c2cab03ed6089bf7365efda2c9d25ae1eafd7fab552edec2",
+    "sim/policy_choice.py": "ab0effc676870b4f24ae143940b7eefd7f2b9fa40b2a7519d7f64cb3f4e28191",
+    "sim/train_defense_ppo.py": "9d3b7ea4fb50f3aa898d1ca6df09e80287b8170c20db466a280d78198d573b31",
+    "sim/group_entropy.py": "64ac91a9696367b925139c35245a4fc0a418cc07b9ef1ef625498745b761f507"
+  },
+  "reused_dataset": "andriashadrin/hastycr-air-exposure1102-inputs",
+  "launch_condition": "Compare current credit-assignment cohort before deciding to submit; preparation is not a submission",
+  "current_credit_job_unchanged": true,
+  "live_games": false,
+  "initial_failed_preflight": "tmp/kaggle/policy_choice_20261104",
+  "failure": "Missing sim/group_entropy.py in initial frozen package; added dependency pin and rebuilt in a new directory",
+  "regression_tests": {
+    "passed": 100,
+    "log": "tmp/policy_choice_pipeline_final_tests_20261104.log",
+    "sha256": "5a9218b6a17a5e9e955a97b5f0dd6c8923d33a88d7d349a606598dac33b65924"
+  }
+}

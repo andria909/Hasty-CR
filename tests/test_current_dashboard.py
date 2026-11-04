@@ -88,3 +88,14 @@ def test_correction_dashboard_does_not_count_old_or_cpu_updates(tmp_path):
     snapshot['kernel']='owner/other'
     (job/'live_stream/progress.json').write_text(json.dumps(snapshot))
     assert '| Исправления защиты: с примерами / без | — | RUNNING |'in render_bank_campaign(tmp_path,dict(studies=[]))
+
+
+def test_choice_preparation_does_not_claim_gpu_training(tmp_path):
+    from scripts.defense.current_dashboard import render_credit_assignment
+    state=dict(root=str(tmp_path/'job'),kernel='owner/credit',submitted=True)
+    (tmp_path/'policy_choice_preparation_20261104.json').write_text(json.dumps(dict(
+        frozen_pipeline_verified=True,submitted=False)))
+    content=render_credit_assignment(tmp_path,state)
+    assert 'Следующий опыт подготовлен' in content
+    assert 'проверены на CPU' in content and 'Запуск после сравнения текущей серии' in content
+    assert content.count('нет счётчика')==8

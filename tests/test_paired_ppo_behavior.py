@@ -85,13 +85,13 @@ def test_study_pairs_each_candidate_with_same_seed_and_rejects_changed_artifact(
 
 @pytest.mark.parametrize('variant,prefix',[
     ('air_exposure_v1','air_exposure'),('spell_interaction_v1','spell_interaction'),('tower_credit_v1','tower_credit'),
-    ('credit_assignment_v1','credit_assignment')])
+    ('credit_assignment_v1','credit_assignment'),('policy_choice_v1','policy_choice')])
 def test_long_study_baseline_measures_learning_against_parent_not_itself(tmp_path,variant,prefix):
     import json
     from pathlib import Path
     from scripts.kaggle.local_artifact_transfer import file_sha
     from scripts.attack.compare_ppo_pilot_behavior import compare_study
-    date='20261104'if variant=='credit_assignment_v1'else'20261102'
+    date='20261104'if variant in ('credit_assignment_v1','policy_choice_v1')else'20261102'
     p=json.loads(Path(f'data/ppo_tuning/{prefix}_design_{date}.json').read_text())
     p['study_variant']=variant;kernel='owner/long-fixture'
     (tmp_path/'dataset').mkdir();collected=tmp_path/'collected';collected.mkdir()

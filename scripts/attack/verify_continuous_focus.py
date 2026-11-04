@@ -78,6 +78,8 @@ def audit_run(root,c,selected_initial,initial_contexts,run_id,trial,seed,steps,*
         config.get('card_exploration_epsilon',0.)!=trial.get('card_exploration_epsilon',0.)or
         config['continuous_profile']['overflow_penalty']!=trial['overflow_penalty']or
         config['gamma']!=trial.get('gamma',.999)or config['gae_lambda']!=trial.get('gae_lambda',.95)or
+        config.get('policy_reduction','all')!=trial.get('policy_reduction','all')or
+        config.get('advantage_normalization','all')!=trial.get('advantage_normalization','all')or
         config['continuous_profile'].get('missed_fireball_penalty',0.)!=trial.get('missed_fireball_penalty',0.)):
         raise ValueError('Focus run configuration differs')
     if config['continuous_profile'].get('board_potential_weight',0.)!=trial.get('board_potential_weight',0.):
@@ -143,8 +145,10 @@ def verify(collected,prepared):
         if sha(name)!=c['extensions'][name]:raise ValueError('Use the frozen selector version to verify this cohort')
     protocol=json.loads((prepared/'dataset/protocol.json').read_text());result=json.loads((root/'result.json').read_text())
     pilot_steps=102400;profile_selector=select_profiles
-    if cfg.get('study_variant')in ('air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1'):
-        if cfg['study_variant']=='credit_assignment_v1':
+    if cfg.get('study_variant')in ('air_exposure_v1','spell_interaction_v1','tower_credit_v1','credit_assignment_v1','policy_choice_v1'):
+        if cfg['study_variant']=='policy_choice_v1':
+            from scripts.kaggle.prepare_policy_choice_pilot import validate_protocol
+        elif cfg['study_variant']=='credit_assignment_v1':
             from scripts.kaggle.prepare_credit_assignment_pilot import validate_protocol
         elif cfg['study_variant']=='tower_credit_v1':
             from scripts.kaggle.prepare_tower_credit_pilot import validate_protocol

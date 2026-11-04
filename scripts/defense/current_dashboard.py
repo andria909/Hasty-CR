@@ -668,7 +668,12 @@ def render_credit_assignment(reports,state):
                 'Новый тестируемый вопрос — вес шагов без выбора в PPO; '
                 '[аудит обучения](reports/policy_choice_exposure_20261104.md).']
     algorithm=read(reports/'policy_choice_algorithm_preflight_20261104.json')
-    if algorithm and algorithm.get('frozen_default_boundary_exact') and len(algorithm.get('checks',[]))==4:
+    prepared=read(reports/'policy_choice_preparation_20261104.json')or{}
+    if prepared.get('frozen_pipeline_verified') and prepared.get('submitted')is False:
+        lines+=['','**Следующий опыт подготовлен:** PPO по шагам с реальным выбором; '
+                'четыре режима, два seed. Пакет Kaggle и переход на полный бюджет проверены на CPU. '
+                'Запуск после сравнения текущей серии. [Проверка](reports/policy_choice_preparation_20261104.md).']
+    elif algorithm and algorithm.get('frozen_default_boundary_exact') and len(algorithm.get('checks',[]))==4:
         lines+=['','**Подготовка следующего опыта:** четыре режима PPO прошли точный перезапуск и '
                 '48 технических игр; контроль воспроизводит прежние веса. '
                 'Новый GPU-опыт пока не запущен. [Проверка](reports/policy_choice_algorithm_20261104.md).']
