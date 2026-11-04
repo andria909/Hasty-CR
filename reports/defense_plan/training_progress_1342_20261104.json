@@ -1,0 +1,91 @@
+{
+  "observed_ns": 1793799800344777000,
+  "studies": [
+    {
+      "root": "tmp/kaggle/credit_assignment_20261104_reuse",
+      "remote_status": {
+        "kernel": "vertel0/hastycr-credit1104",
+        "remote_status": "RUNNING",
+        "checked_host_ns": 1793799730184663000,
+        "remote_job_changed": false
+      },
+      "progress": {
+        "kernel": "vertel0/hastycr-credit1104",
+        "source": "kaggle_live_log_stream",
+        "trainers": {},
+        "stream_state": "interrupted",
+        "reconnect_attempt": 2,
+        "checked_host_ns": 1793798793828420000,
+        "trials": {
+          "pilot_control_s472": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 6393.548798257
+          },
+          "pilot_longer_s472": {
+            "update": 400,
+            "steps": 409600,
+            "target_steps": 409600,
+            "percent": 100.0,
+            "remote_log_seconds": 6286.938362279
+          },
+          "pilot_longer_s473": {
+            "update": 149,
+            "steps": 152576,
+            "target_steps": 409600,
+            "percent": 37.25,
+            "remote_log_seconds": 8000.113551348
+          },
+          "pilot_control_s473": {
+            "update": 149,
+            "steps": 152576,
+            "target_steps": 409600,
+            "percent": 37.25,
+            "remote_log_seconds": 8130.500964248
+          }
+        },
+        "connection_started_host_ns": 1793798672454869000,
+        "error_type": "ConnectionError",
+        "http_status": null
+      }
+    },
+    {
+      "root": "tmp/kaggle/policy_choice_20261104_reuse",
+      "remote_status": {
+        "kernel": "andriashadrin/hastycr-choice1104",
+        "remote_status": "RUNNING",
+        "checked_host_ns": 1793799757146896000,
+        "remote_job_changed": false
+      },
+      "progress": {
+        "kernel": "andriashadrin/hastycr-choice1104",
+        "source": "kaggle_live_log_stream",
+        "trainers": {},
+        "connection_started_host_ns": 1793799757681888000,
+        "reconnect_attempt": 3,
+        "stream_state": "connected",
+        "checked_host_ns": 1793799758528901000,
+        "trials": {
+          "pilot_control_s482": {
+            "update": 199,
+            "steps": 203776,
+            "target_steps": 409600,
+            "percent": 49.75,
+            "remote_log_seconds": 3630.600378402
+          },
+          "pilot_choice_loss_s482": {
+            "update": 199,
+            "steps": 203776,
+            "target_steps": 409600,
+            "percent": 49.75,
+            "remote_log_seconds": 3520.834580974
+          }
+        }
+      }
+    }
+  ],
+  "quality_accepted": false,
+  "remote_jobs_changed": false
+}
