@@ -1,0 +1,137 @@
+{
+  "root": "tmp/kaggle/entity_architecture_20261108_v2",
+  "preflight": {
+    "technical_only": true,
+    "quality_claim": false,
+    "proof": [
+      {
+        "model": "cnn",
+        "steps": 32,
+        "exact_resume_keys": [
+          "state_dict",
+          "optimiser",
+          "rng",
+          "sampler",
+          "observations",
+          "infos",
+          "episode_counters",
+          "episode_returns"
+        ],
+        "validation_games": 2,
+        "architecture": "factorized_spatial_v3_conditioned",
+        "checkpoint_sha256": "854263d3da49bf9057f0cd22fde95cb969d48de0d6e20d992f798ee0438460ac"
+      },
+      {
+        "model": "entity64",
+        "steps": 32,
+        "exact_resume_keys": [
+          "state_dict",
+          "optimiser",
+          "rng",
+          "sampler",
+          "observations",
+          "infos",
+          "episode_counters",
+          "episode_returns"
+        ],
+        "validation_games": 2,
+        "architecture": "entity_transformer_d64_l2_v1",
+        "checkpoint_sha256": "df814e9d8dcd4eeb84d16ab49c8f5972421b2a399600a729ee26592d88eef621"
+      },
+      {
+        "model": "entity96",
+        "steps": 32,
+        "exact_resume_keys": [
+          "state_dict",
+          "optimiser",
+          "rng",
+          "sampler",
+          "observations",
+          "infos",
+          "episode_counters",
+          "episode_returns"
+        ],
+        "validation_games": 2,
+        "architecture": "entity_transformer_d96_l2_v1",
+        "checkpoint_sha256": "fc055185fbff9a20de302abc9ca3ace38843eff5ac7578a71aba040191b63319"
+      }
+    ],
+    "pins": {
+      "source.tar.gz": "bb0021467843d94d15a937fb32416f17c745fc9a9303cc7c448da36c0f6b9054",
+      "manifest.json": "4f9f65f6611f5d9e0595de8ca1b150d8cae1ce0c979610faf62888bf34f9b714",
+      "protocol.json": "9749f2a436b9792754c69f4e8532cab5a8c31c7a00b54c3d709e94332c1195b1",
+      "profile.json": "4961ed9d8f8c30f17fdb477842f41b127bd0983589344cdd1cdd030922fa339a"
+    }
+  },
+  "launches": {
+    "cnn": {
+      "kernel": "andriashadrin/hastycr-cnn-1108",
+      "version": 2,
+      "status": {
+        "kernel": "andriashadrin/hastycr-cnn-1108",
+        "status": "COMPLETE",
+        "checked_host_ns": 1794154692513713000,
+        "poll_seconds": 1200
+      },
+      "repair": {
+        "kernel": "andriashadrin/hastycr-cnn-1108",
+        "previous_status": "ERROR",
+        "reason": "Kaggle expanded source archive; no PPO started",
+        "old_bootstrap_sha256": "6219ec6d649db7031b744598213529b4cda25d510d934664aba9fca1d997e60d",
+        "new_bootstrap_sha256": "2bbc0514ccffe2d0cf63e20bf0e1d45c162c54ee4baa9c4719efe71452d16ae9"
+      },
+      "source_pins": {
+        "source.tar.gz": "bb0021467843d94d15a937fb32416f17c745fc9a9303cc7c448da36c0f6b9054",
+        "manifest.json": "4f9f65f6611f5d9e0595de8ca1b150d8cae1ce0c979610faf62888bf34f9b714",
+        "protocol.json": "9749f2a436b9792754c69f4e8532cab5a8c31c7a00b54c3d709e94332c1195b1",
+        "profile.json": "4961ed9d8f8c30f17fdb477842f41b127bd0983589344cdd1cdd030922fa339a"
+      }
+    },
+    "entity64": {
+      "kernel": "vertel0/hastycr-entity64-1108",
+      "version": 2,
+      "status": {
+        "kernel": "vertel0/hastycr-entity64-1108",
+        "status": "COMPLETE",
+        "checked_host_ns": 1794154695685513000,
+        "poll_seconds": 1200
+      },
+      "repair": {
+        "kernel": "vertel0/hastycr-entity64-1108",
+        "previous_status": "ERROR",
+        "reason": "Kaggle expanded source archive; no PPO started",
+        "old_bootstrap_sha256": "454671b1d9ff771dd48874b0858ef78789d87097200df625ca4d0ea695e01f71",
+        "new_bootstrap_sha256": "dfbb159cb23b394a39d25b650b8d0b1c505780debd905c35613e5372814cdcfa"
+      },
+      "source_pins": {
+        "source.tar.gz": "bb0021467843d94d15a937fb32416f17c745fc9a9303cc7c448da36c0f6b9054",
+        "manifest.json": "4f9f65f6611f5d9e0595de8ca1b150d8cae1ce0c979610faf62888bf34f9b714",
+        "protocol.json": "9749f2a436b9792754c69f4e8532cab5a8c31c7a00b54c3d709e94332c1195b1",
+        "profile.json": "4961ed9d8f8c30f17fdb477842f41b127bd0983589344cdd1cdd030922fa339a"
+      }
+    },
+    "entity96": {
+      "kernel": "andreiperelaiko/hastycr-entity96-1108",
+      "version": 2,
+      "status": {
+        "kernel": "andreiperelaiko/hastycr-entity96-1108",
+        "status": "COMPLETE",
+        "checked_host_ns": 1794154693040428000,
+        "poll_seconds": 1200
+      },
+      "repair": {
+        "kernel": "andreiperelaiko/hastycr-entity96-1108",
+        "previous_status": "QUEUED",
+        "reason": "Kaggle expanded source archive; initial run queued or failed before PPO",
+        "old_bootstrap_sha256": "40478e18a4bb103a8d526e644b76e463e5ed9e9fff1ca8453c99dd69c60a6e29",
+        "new_bootstrap_sha256": "145f74cec0b61f5ac6d658d43f11c7367cc342579ac081995255afa4fb6060d7"
+      },
+      "source_pins": {
+        "source.tar.gz": "bb0021467843d94d15a937fb32416f17c745fc9a9303cc7c448da36c0f6b9054",
+        "manifest.json": "4f9f65f6611f5d9e0595de8ca1b150d8cae1ce0c979610faf62888bf34f9b714",
+        "protocol.json": "9749f2a436b9792754c69f4e8532cab5a8c31c7a00b54c3d709e94332c1195b1",
+        "profile.json": "4961ed9d8f8c30f17fdb477842f41b127bd0983589344cdd1cdd030922fa339a"
+      }
+    }
+  }
+}

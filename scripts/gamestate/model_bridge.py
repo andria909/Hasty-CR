@@ -75,7 +75,7 @@ class NativeModelAdapter:
                  allow_unknown_profiles: bool = False,
                  coordinate_mode: str = 'legacy_training',
                  geometry=None, action_mask_mode: str | None = None,
-                 cannon_placement_mode='unrestricted'):
+                 cannon_placement_mode='unrestricted', entity_inputs=False):
         if own_side not in (0, 1):
             raise ValueError('Own engine side must be explicitly supplied as 0 or 1')
         self.own_side, self.stats_level = own_side, stats_level
@@ -84,6 +84,9 @@ class NativeModelAdapter:
         if coordinate_mode not in ('legacy_training', 'physical_live', 'physical_live_cells_v2'):
             raise ValueError('Unknown coordinate mode')
         self.coordinate_mode = coordinate_mode
+        self.entity_inputs = entity_inputs
+        if entity_inputs and coordinate_mode != 'physical_live_cells_v2':
+            raise ValueError('Entity inputs require physical cell coordinates')
         from sim.cannon_placement import MODES
         if cannon_placement_mode not in MODES:raise ValueError('Unknown Cannon placement contract')
         if cannon_placement_mode!='unrestricted'and coordinate_mode!='physical_live_cells_v2':
@@ -247,6 +250,9 @@ class NativeModelAdapter:
         encoding = ('physical_live_cells_v2' if self.coordinate_mode == 'physical_live_cells_v2'
                     else 'legacy_training')
         observation = observe(encoder_match, side=1, coordinate_mode=encoding)
+        if self.entity_inputs:
+            from sim.entity_policy import encode_entities
+            observation['entities'] = encode_entities(encoder_match)
         mask = legal_mask(encoder_match, self.cards, side=1,
                           strategic=self.action_mask_mode == 'legacy_strategic')
         from sim.cannon_placement import restrict_cannon
@@ -307,6 +313,11 @@ class MemoryPolicy:
                                      checkpoint_architecture(blob))
         self.network.load_state_dict(blob['state_dict'], strict=True)
         self.network.eval()
+        self.entity_inputs = getattr(self.network, 'entity_inputs', False)
+        if self.entity_inputs:
+            from sim.entity_policy import CONTRACT, vocabulary_sha
+            if config.get('observation_contract') != CONTRACT or config.get('entity_vocabulary_sha256') != vocabulary_sha():
+                raise MissingModelInput('Entity checkpoint contract/vocabulary mismatch')
 
     def validate_view_contract(self, view: ModelView):
         """Historical weights remain compatible; explicit new metadata is binding."""
@@ -320,7 +331,10 @@ class MemoryPolicy:
             return {'action': 0, 'placement': None, 'blockers': view.metadata['blockers']}
         torch = self.torch
         with torch.inference_mode():
-            planes = torch.from_numpy(view.observation['planes']).unsqueeze(0)
+            key = 'entities' if getattr(self, 'entity_inputs', False) else 'planes'
+            if key not in view.observation:
+                raise MissingModelInput('Policy requires public entity observations')
+            planes = torch.from_numpy(view.observation[key]).unsqueeze(0)
             scalars = torch.from_numpy(view.observation['scalars']).unsqueeze(0)
             if self.joint:
                 if scalars.shape[1] != NUM_SCALARS:

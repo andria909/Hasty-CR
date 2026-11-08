@@ -131,6 +131,9 @@ WIDE_ARCHITECTURE = "factorized_spatial_v4_wide"
 def checkpoint_architecture(blob: dict) -> str:
     """Return a supported architecture name for old and new checkpoints."""
     name = str(blob.get("architecture", COMPACT_ARCHITECTURE))
+    from sim.entity_policy import ARCHITECTURES
+    if name in ARCHITECTURES:
+        return name
     return WIDE_ARCHITECTURE if name == WIDE_ARCHITECTURE else COMPACT_ARCHITECTURE
 
 
@@ -138,6 +141,10 @@ def build_network(num_planes: int, num_scalars: int, num_actions: int,
                   architecture: str = COMPACT_ARCHITECTURE):
     import torch
     import torch.nn as nn
+
+    from sim.entity_policy import ARCHITECTURES, EntityTransformer
+    if architecture in ARCHITECTURES:
+        return EntityTransformer(num_scalars, num_actions, architecture)
 
     if architecture in {"compact", COMPACT_ARCHITECTURE}:
         architecture = COMPACT_ARCHITECTURE

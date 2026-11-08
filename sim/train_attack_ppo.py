@@ -43,6 +43,14 @@ def build_attack_network(architecture=COMPACT_ARCHITECTURE,device='cpu',*,num_sc
 
 
 def load_attack_state(network,blob,*,exact=False,observation_contract=OBSERVATION_CONTRACT):
+    if getattr(network, 'entity_inputs', False):
+        from sim.entity_policy import CONTRACT, vocabulary_sha
+        if (checkpoint_architecture(blob) != network.architecture or
+                blob.get('config', {}).get('observation_contract') != CONTRACT or
+                blob.get('config', {}).get('entity_vocabulary_sha256') != vocabulary_sha()):
+            raise ValueError('Entity checkpoint/input vocabulary differs')
+        network.load_state_dict(blob['state_dict'], strict=True)
+        return dict(exact_weight_shape=True, observation_contract=CONTRACT)
     incoming=blob['state_dict']['scalar.0.weight'].shape[1]
     target=network.state_dict()['scalar.0.weight'].shape[1]
     pending_transfer=(not exact and incoming==309 and target==313
@@ -94,7 +102,9 @@ def make_attack_env(*,split='train',seed=0,deadline_scale=1.,**options):
     return env
 
 
-def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',validation_selection='overall',continuous_focus='uniform',history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None,tactical_start_fraction=None,crown_only_weight=None,dormant_king_weight=None,**options):
+def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='classic',validation_selection='overall',continuous_focus='uniform',history_frames=1,pending_inputs=False,tower_support_weight=None,spell_waste_weight=None,tactical_start_fraction=None,crown_only_weight=None,dormant_king_weight=None,entity_inputs=False,**options):
+    if entity_inputs and (curriculum!='continuous_v1' or task_mode!='joint' or history_frames!=1 or pending_inputs):
+        raise ValueError('Entity inputs require continuous single-frame joint environment')
     economy=crown_only_weight is not None or dormant_king_weight is not None
     if economy and (crown_only_weight is None or dormant_king_weight is None or spell_waste_weight is None or
                     tower_support_weight is None or tactical_start_fraction not in (None,0.) or
@@ -137,6 +147,9 @@ def make_training_env(*,task_mode='joint',split='train',seed=0,curriculum='class
             env=HistoryContinuousPushEnv(split=split,seed=seed,**options)
         else:env=ContinuousPushEnv(split=split,seed=seed,**options)
         env.continuous_focus=continuous_focus
+        if entity_inputs:
+            from sim.entity_policy import EntityObservationEnv
+            env=EntityObservationEnv(env)
         return env
     if curriculum=='tactical_v1':
         if task_mode!='joint':raise ValueError('Tactical curriculum requires joint policy')
@@ -302,7 +315,8 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
     if pending_inputs:names+=('sim/pending_inputs.py','sim/continuous_pending.py')
     if history_frames==2:names+=('sim/public_frame_history.py','sim/continuous_history.py')
     if tactical_start_fraction is not None:names+=('sim/continuous_tactical_starts.py',)
-    names+=('sim/group_entropy.py','sim/policy_choice.py','sim/train_defense_ppo.py')
+    names+=('sim/group_entropy.py','sim/policy_choice.py','sim/train_defense_ppo.py',
+            'sim/train_ppo.py','sim/entity_policy.py','data/entity_policy_vocab.json')
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
                                      for name in names},sort_keys=True).encode()).hexdigest()
 
@@ -416,6 +430,14 @@ def train(args):
     defense_rewards,attack_rewards=reward_objects(reward_profile)
     if args.task_mode=='joint':options.update(defense_rewards=defense_rewards,attack_rewards=attack_rewards)
     else:options['rewards']=attack_rewards
+    from sim.entity_policy import ARCHITECTURES, CONTRACT as ENTITY_CONTRACT, vocabulary_sha
+    blob=torch.load(args.resume or args.init,map_location='cpu',weights_only=False)if args.resume or args.init else None
+    architecture=checkpoint_architecture(blob)if blob else args.architecture
+    entity_inputs=architecture in ARCHITECTURES
+    if entity_inputs:
+        if replay_data:
+            raise ValueError('Raster replay data cannot train an entity policy')
+        options['entity_inputs']=True
     eval_options=validation_options(options,getattr(args,'validation_action_delay_ms',None))
     envs=[make_training_env(task_mode=args.task_mode,split='train',seed=args.seed+i,**options)for i in range(args.envs)]
     sampler=training_sampler(envs[0],seed=args.seed,initial_hand_mode=args.initial_hand_mode,task_mode=args.task_mode)
@@ -426,7 +448,7 @@ def train(args):
         raise ValueError('Attack timer feature dimension mismatch')
     blob=torch.load(args.resume or args.init,map_location='cpu',weights_only=False)if args.resume or args.init else None
     architecture=checkpoint_architecture(blob)if blob else args.architecture
-    contract=observation_contract(args.task_mode,curriculum,history_frames,pending_inputs)
+    contract=ENTITY_CONTRACT if entity_inputs else observation_contract(args.task_mode,curriculum,history_frames,pending_inputs)
     num_planes=observations[0]['planes'].shape[0]
     network=build_attack_network(architecture,device,num_scalars=num_scalars,num_planes=num_planes)
     initialization=load_attack_state(network,blob,exact=bool(args.resume),observation_contract=contract)if blob else {'fresh_initialization':True}
@@ -442,6 +464,8 @@ def train(args):
         catalog_sha256=sampler.catalog_sha256,geometry_sha256=envs[0].geometry.fingerprint,
         initialization=initialization,init_sha256=(blob['config'].get('init_sha256')if args.resume else
             hashlib.sha256(Path(args.init).read_bytes()).hexdigest()if args.init else None))
+    if entity_inputs:
+        config['entity_vocabulary_sha256']=vocabulary_sha()
     config.update(supervised_replay_weight=replay_weight,supervised_replay_metadata=replay.metadata if replay else None,
         card_exploration_epsilon=exploration)
     if curriculum=='continuous_v1':config['continuous_profile']=envs[0].profile

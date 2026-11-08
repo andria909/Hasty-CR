@@ -224,7 +224,8 @@ def main():
                 report['started'] += 1
                 adapter = NativeModelAdapter(own_side=private['own_side'], allow_incomplete_history=True,
                                              allow_unknown_profiles=True, coordinate_mode=policy.coordinate_mode,
-                                             geometry=policy.geometry,cannon_placement_mode=CENTRAL_MODE)
+                                             geometry=policy.geometry,cannon_placement_mode=CENTRAL_MODE,
+                                             entity_inputs=getattr(policy, 'entity_inputs', False))
                 active = {'number': report['started'], 'world': private['world'], 'last_tick': -1,
                           'last_progress': now, 'last_decide': -100, 'last_idle': now,
                           'plays': 0, 'cards': {}, 'seen_towers': set(), 'missing_towers': {},
