@@ -1,0 +1,84 @@
+{
+  "technical_only": true,
+  "quality_claim": false,
+  "proof": [
+    {
+      "model": "decode64",
+      "steps": 32,
+      "exact_resume_keys": [
+        "state_dict",
+        "optimiser",
+        "rng",
+        "sampler",
+        "observations",
+        "infos",
+        "episode_counters",
+        "episode_returns"
+      ],
+      "validation_games": 2,
+      "architecture": "entity_transformer_d64_l2_v1",
+      "checkpoint_sha256": "ee177731ed918a86f3b537596209c5fd7cfef0761fbe1a9ea56dff1261937d9c"
+    },
+    {
+      "model": "relative64",
+      "steps": 32,
+      "exact_resume_keys": [
+        "state_dict",
+        "optimiser",
+        "rng",
+        "sampler",
+        "observations",
+        "infos",
+        "episode_counters",
+        "episode_returns"
+      ],
+      "validation_games": 2,
+      "architecture": "entity_transformer_d64_l2_relative_v1",
+      "checkpoint_sha256": "849561a1706f923d09cbf889b73cd4f0caf7091884d6c2be60cb21a7fece9e4e"
+    },
+    {
+      "model": "sharp64",
+      "steps": 32,
+      "exact_resume_keys": [
+        "state_dict",
+        "optimiser",
+        "rng",
+        "sampler",
+        "observations",
+        "infos",
+        "episode_counters",
+        "episode_returns"
+      ],
+      "validation_games": 2,
+      "architecture": "entity_transformer_d64_l2_v1",
+      "checkpoint_sha256": "aa58287e6c83629330979daf01faa67640c51db8512e2e74082460e29a394ed2"
+    }
+  ],
+  "pins": {
+    "source.tar.gz": "330223a7e83445c749104655ea93819a8924de2ce167f478edddaaf7d261c8f4",
+    "manifest.json": "d6c6307466e38ef5fb0438f7272c5705af61a8b5ac6f96a53fc912abca664416",
+    "protocol.json": "edd34e392cd45c11e2ec55645a2a818f693b87ec984beb55caf39859164c640f",
+    "profile.json": "4961ed9d8f8c30f17fdb477842f41b127bd0983589344cdd1cdd030922fa339a"
+  },
+  "environment_state_checks": [
+    {
+      "case": "decode64",
+      "environment_state_attributes_and_rng_equal": true,
+      "source_code_sha256": "41ff77c3efc7a008353a3a81eb202de3edfea7e972e9b637806d53440fe8e587"
+    },
+    {
+      "case": "relative64",
+      "environment_state_attributes_and_rng_equal": true,
+      "source_code_sha256": "41ff77c3efc7a008353a3a81eb202de3edfea7e972e9b637806d53440fe8e587"
+    },
+    {
+      "case": "sharp64",
+      "environment_state_attributes_and_rng_equal": true,
+      "source_code_sha256": "41ff77c3efc7a008353a3a81eb202de3edfea7e972e9b637806d53440fe8e587"
+    }
+  ],
+  "environment_comparison": "Recursive object attributes with cycle pairs; Random.getstate; exact tensors/arrays; not identity equality",
+  "root": "tmp/kaggle/entity_decoder_20261110",
+  "tests_passed": 51,
+  "live_games": false
+}

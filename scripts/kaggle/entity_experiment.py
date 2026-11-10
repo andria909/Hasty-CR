@@ -21,6 +21,7 @@ ACCOUNTS = {'cnn': (0, 'andriashadrin'), 'entity64': (1, 'vertel0'),
             'entity96': (2, 'andreiperelaiko')}
 STEPS = 409600
 SEEDS = (512, 513)
+CASE_OPTIONS = {}
 PROFILE = dict(overflow_penalty=.3, missed_fireball_penalty=0., fireball_value_reward=.25,
                reserve_potential_weight=.1, own_hp_penalty=6., barbarian_train_fraction=.35,
                lane_reflection_fraction=.5, action_cooldown_ms=0, cannon_center_only=1,
@@ -33,7 +34,7 @@ def sha(path):
 
 
 def command(architecture, seed, output, profile, *, device='cuda:0', technical=False,
-            updates=None, resume=None, evaluation=False):
+            updates=None, resume=None, evaluation=False, case=None):
     total = 32 if technical else STEPS
     args = [sys.executable, '-c', "import torch,runpy;torch.set_num_threads(1);runpy.run_module('sim.train_attack_ppo',run_name='__main__')",
             '--output', str(output), '--device', device, '--architecture', architecture,
@@ -57,6 +58,7 @@ def command(architecture, seed, output, profile, *, device='cuda:0', technical=F
             '--wallclock-seconds', '2400' if technical else '30000']
     if resume:
         args += ['--resume', str(resume)]
+    args += CASE_OPTIONS.get(case, [])
     return args
 
 
@@ -101,7 +103,8 @@ def prepare(root):
         profile=PROFILE,value_coef=.25,lr=.00005,entity_vocabulary_sha256=sha('data/entity_policy_vocab.json'),
         selection='Same72validationgames; macro/worstfamily; report every seed, no automatic promotion',
         test_used=False,live_games=False,live_checkpoint_changed=False,
-        limits='Representation and architecture change together; this is not an isolated attention-only ablation.')
+        limits='Representation and architecture change together; this is not an isolated attention-only ablation.',
+        case_options=CASE_OPTIONS)
     (dataset/'protocol.json').write_text(json.dumps(protocol,indent=2)+'\n')
     (dataset/'profile.json').write_text(json.dumps(PROFILE,indent=2)+'\n')
     (root/'preparation.json').write_text(json.dumps(dict(
@@ -129,7 +132,7 @@ def preflight(root):
         for mode in ('whole','first','resume'):
             cmd=command(arch,SEEDS[0],paths[mode],profile,device='cpu',technical=True,
                 updates=1 if mode=='first'else 2,
-                resume=paths['first']/'update_000001.pt' if mode=='resume' else None,evaluation=True)
+                resume=paths['first']/'update_000001.pt' if mode=='resume' else None,evaluation=True,case=name)
             with (runs/(name+'_'+mode+'.log')).open('x')as out:
                 subprocess.run(cmd,cwd=source,stdout=out,stderr=subprocess.STDOUT,check=True)
         a=torch.load(paths['whole']/'update_000002.pt',map_location='cpu',weights_only=False)
@@ -158,7 +161,7 @@ def remote(root,case):
     def run(index,seed):
         identity=f'{case}_s{seed}';directory=out/identity
         print(json.dumps(dict(event='TRIAL_START',trial_id=identity,target_steps=STEPS,device=f'cuda:{index}')),flush=True)
-        cmd=command(ARCHS[case],seed,directory,root/'profile.json',device=f'cuda:{index}')
+        cmd=command(ARCHS[case],seed,directory,root/'profile.json',device=f'cuda:{index}',case=case)
         process=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
         with (out/(identity+'.log')).open('x')as log:
             for line in process.stdout:

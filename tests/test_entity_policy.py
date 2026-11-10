@@ -106,3 +106,19 @@ def test_live_loader_requires_entity_vocabulary_and_uses_entity_input(tmp_path):
     bad=tmp_path/'wrong_vocab.pt';torch.save(blob,bad)
     with pytest.raises(MissingModelInput,match='vocabulary'):
         MemoryPolicy(bad)
+
+
+def test_relative_geometry_has_same_parameters_and_changes_spatial_response():
+    torch.manual_seed(13)
+    old=EntityTransformer(309,ACTIONS,'entity_transformer_d64_l2_v1').eval()
+    torch.manual_seed(13)
+    new=EntityTransformer(309,ACTIONS,'entity_transformer_d64_l2_relative_v1').eval()
+    assert all(torch.equal(p,new.state_dict()[k])for k,p in old.state_dict().items())
+    m,_,_=fixture()
+    entities=torch.from_numpy(encode_entities(m))[None]
+    scalars=torch.zeros(1,309)
+    a,va=old(entities,scalars);b,vb=new(entities,scalars)
+    torch.testing.assert_close(va,vb,atol=0,rtol=0)
+    assert not torch.allclose(a[:,1:2305],b[:,1:2305])
+    (b.square().mean()+vb.square().mean()).backward()
+    assert all(p.grad is None or torch.isfinite(p.grad).all()for p in new.parameters())

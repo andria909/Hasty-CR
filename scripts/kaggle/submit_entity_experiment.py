@@ -68,10 +68,10 @@ def check_preflight(root):
     return prep
 
 
-def submit(root,case):
+def submit(root,case,*,slug_suffix='1108',remote_module='scripts.kaggle.entity_experiment'):
     from scripts.kaggle.submit_prepared_pilot import wait_for_dataset, validate_launch_receipt
     root=Path(root).resolve();prep=check_preflight(root)
-    _,owner=ACCOUNTS[case];slug='hastycr-'+case+'-1108';kernel=owner+'/'+slug
+    _,owner=ACCOUNTS[case];slug='hastycr-'+case+'-'+slug_suffix;kernel=owner+'/'+slug
     launch=root/case;launch.mkdir(exist_ok=True)
     if (launch/'kernel_push_requested.json').exists():raise RuntimeError('Existing request; inspect exact kernel, never duplicate')
     dataset=launch/'dataset';job=launch/'job'
@@ -80,7 +80,8 @@ def submit(root,case):
         (dataset/'dataset-metadata.json').write_text(json.dumps(dict(id=owner+'/'+slug+'-inputs',title=slug+'-inputs',licenses=[{'name':'CC0-1.0'}]),indent=2)+'\n')
     job.mkdir(exist_ok=True)
     cfg=dict(pins=prep['pins'],slug=slug+'-inputs',case=case)
-    (job/'train.py').write_text(BOOTSTRAP.replace('CONFIG',repr(cfg)))
+    (job/'train.py').write_text(BOOTSTRAP.replace('CONFIG',repr(cfg)).replace(
+        'from scripts.kaggle.entity_experiment import remote', 'from '+remote_module+' import remote'))
     (job/'kernel-metadata.json').write_text(json.dumps(dict(id=kernel,title=slug,code_file='train.py',language='python',
         kernel_type='script',is_private=True,enable_gpu=True,enable_internet=False,
         dataset_sources=[owner+'/'+slug+'-inputs'],competition_sources=[],kernel_sources=[]),indent=2)+'\n')

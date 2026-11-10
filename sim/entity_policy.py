@@ -14,7 +14,8 @@ from torch import nn
 
 CONTRACT = 'joint_public_entities_v1'
 ARCHITECTURES = {'entity_transformer_d64_l2_v1': (64, 2, 4),
-                 'entity_transformer_d96_l2_v1': (96, 2, 4)}
+                 'entity_transformer_d96_l2_v1': (96, 2, 4),
+                 'entity_transformer_d64_l2_relative_v1': (64, 2, 4)}
 MAX_ENTITIES, FEATURES = 128, 20
 VOCAB = Path(__file__).resolve().parents[1] / 'data/entity_policy_vocab.json'
 
@@ -106,6 +107,7 @@ class EntityTransformer(nn.Module):
         d, layers, heads = ARCHITECTURES[architecture]
         self.architecture = architecture
         self.entity_inputs = True
+        self.relative_cells = architecture == 'entity_transformer_d64_l2_relative_v1'
         self.identity = nn.Embedding(len(vocabulary()) + 2, d, padding_idx=0)
         self.features = nn.Linear(FEATURES - 2, d)
         self.scalar = nn.Sequential(nn.Linear(num_scalars, d), nn.GELU())
@@ -152,7 +154,21 @@ class EntityTransformer(nn.Module):
         pad = torch.cat((prefix, ~valid), dim=1)
         h = self.norm(self.encoder(torch.cat((state, hand, body), dim=1), src_key_padding_mask=pad))
         cells = self.cell(self.cell_features)[None].expand(len(entities), -1, -1)
-        context, _ = self.cell_attention(cells, h, h, key_padding_mask=pad, need_weights=False)
+        if self.relative_cells:
+            # Per-head Gaussian distance bias in actual arena tiles. Prefixes
+            # retain global context; nearby bodies supply local placement cues.
+            # No trainable parameters added: initialization matches the control.
+            delta = (self.cell_features[None, :, None, :2] - entities[:, None, :, 2:4])
+            delta = delta * entities.new_tensor([18., 32.])
+            distance2 = delta.square().sum(-1)
+            radii = entities.new_tensor([1.5, 3., 6., 12.])
+            bias = (-.5 * distance2[:, None] / radii[None, :, None, None].square()).clamp_min(-50.)
+            bias = torch.cat((bias.new_zeros(len(entities), 4, 576, 5), bias), -1)
+            bias = bias.masked_fill(pad[:, None, None, :], -torch.inf)
+            context, _ = self.cell_attention(cells, h, h,
+                attn_mask=bias.flatten(0, 1), need_weights=False)
+        else:
+            context, _ = self.cell_attention(cells, h, h, key_padding_mask=pad, need_weights=False)
         spatial = cells + context
         maps = torch.einsum('bkd,bnd->bkn', self.query(h[:, 1:5]), spatial) / h.shape[-1]**.5
         maps = maps + self.card_bias(h[:, 1:5])

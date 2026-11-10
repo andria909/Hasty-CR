@@ -223,7 +223,9 @@ def summarize_attack(records):
     return result
 
 
-def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode='attack'):
+def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode='attack',action_mode='flat_argmax'):
+    from sim.action_decoding import greedy_actions, MODES
+    if action_mode not in MODES:raise ValueError('Unknown evaluation action mode')
     if episodes<1:raise ValueError('Positive validation episode count required')
     worst_family=(env_options or {}).get('validation_selection')=='worst_family'
     if worst_family and (episodes<6 or episodes%6):raise ValueError('Family validation requires a multiple of six games per task')
@@ -260,7 +262,7 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
                     logits,_=network(*tensor_observations([obs],device))
                     mask=action_masks([info],device)
                     require_finite(logits=logits)
-                    action=int(logits.masked_fill(~mask,-torch.inf).argmax(-1).item())
+                    action=int(greedy_actions(logits,mask,action_mode).item())
                     obs,reward,terminal,truncated,info=env.step(action)
                     total+=reward
                     if terminal or truncated:
@@ -272,6 +274,7 @@ def evaluate(network,device,*,episodes=32,seed=900000,env_options=None,task_mode
                 records=records,summary=summarize_attack(records),by_task=summarize_tasks(records),
                 split='validation',seed=seed,episodes_per_task=episodes,
                 selection_metric='equal_task_mean_episode_return_provisional')
+    if action_mode!='flat_argmax':result['action_mode']=action_mode
     if (env_options or {}).get('curriculum')=='continuous_v1':
         wins=sum(r['outcome']=='win'for r in records)
         draws=sum(r['outcome']=='draw'for r in records)
@@ -316,7 +319,7 @@ def code_fingerprint(task_mode='attack',curriculum='classic',card_balance_weight
     if history_frames==2:names+=('sim/public_frame_history.py','sim/continuous_history.py')
     if tactical_start_fraction is not None:names+=('sim/continuous_tactical_starts.py',)
     names+=('sim/group_entropy.py','sim/policy_choice.py','sim/train_defense_ppo.py',
-            'sim/train_ppo.py','sim/entity_policy.py','data/entity_policy_vocab.json')
+            'sim/train_ppo.py','sim/entity_policy.py','sim/action_decoding.py','data/entity_policy_vocab.json')
     return hashlib.sha256(json.dumps({name:hashlib.sha256((root/name).read_bytes()).hexdigest()
                                      for name in names},sort_keys=True).encode()).hexdigest()
 
@@ -329,10 +332,10 @@ def validate_resume(blob,config):
           'visible_fraction','initial_hand_mode','geometry','geometry_sha256','coordinate_mode',
           'task_mode','observation_contract','num_scalars','source_code_sha256','catalog_sha256','device',
           'reward_profile','reward_profile_sha256','curriculum','card_balance_weight','card_balance_target','continuous_profile',
-          'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','history_frames','num_planes','policy_temperature',
+          'value_warmup_steps','target_kl','validation_selection','continuous_focus','validation_seed','evaluation_action_mode','history_frames','num_planes','policy_temperature',
           'supervised_replay_weight','supervised_replay_metadata','card_exploration_epsilon','validation_action_delay_ms','tower_support_weight','spell_waste_weight','tactical_start_fraction','crown_only_weight','dormant_king_weight','spatial_entropy_weight','policy_reduction','advantage_normalization')
     for key in keys:
-        default='all'if key in ('policy_reduction','advantage_normalization')else 1. if key=='spatial_entropy_weight'else 0. if key in('supervised_replay_weight','card_exploration_epsilon')else None
+        default='flat_argmax'if key=='evaluation_action_mode'else 'all'if key in ('policy_reduction','advantage_normalization')else 1. if key=='spatial_entropy_weight'else 0. if key in('supervised_replay_weight','card_exploration_epsilon')else None
         if blob['config'].get(key,default)!=config.get(key,default):
             raise ValueError(f'Attack resume configuration mismatch: {key}')
     required=('optimiser','rng','sampler','environment_states','observations','infos',
@@ -601,7 +604,8 @@ def train(args):
         is_best=False
         if args.eval_every>0 and update%args.eval_every==0:
             record['validation']=evaluate(network,device,episodes=args.eval_episodes,
-                seed=getattr(args,'validation_seed',900000),env_options=eval_options,task_mode=args.task_mode)
+                seed=getattr(args,'validation_seed',900000),env_options=eval_options,task_mode=args.task_mode,
+                action_mode=getattr(args,'evaluation_action_mode','flat_argmax'))
             score=record['validation'].get('selection_score',record['validation']['mean_reward']);is_best=score>best;best=max(best,score)
         budget_stop=time.monotonic()-started>=args.wallclock_seconds
         stop=budget_stop or step>=args.target_environment_steps or update==args.updates
@@ -652,6 +656,8 @@ def parser():
     p.add_argument('--validation-selection',choices=('overall','worst_family'),default='overall')
     p.add_argument('--continuous-focus',choices=('uniform','air_golem'),default='uniform')
     p.add_argument('--validation-seed',type=int,default=900000)
+    from sim.action_decoding import MODES
+    p.add_argument('--evaluation-action-mode',choices=MODES,default='flat_argmax')
     p.add_argument('--validation-action-delay-ms',type=float,default=None,
                    help='Common validation delay for training-delay ablations; defaults to training delay')
     p.add_argument('--card-balance-weight',type=float,default=0.)

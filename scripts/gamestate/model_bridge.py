@@ -294,6 +294,8 @@ class NativeModelAdapter:
 
 class MemoryPolicy:
     """Read-only v25 inference on encoded memory; independent of the CV runner."""
+    action_mode = 'flat_argmax'
+
     def __init__(self, checkpoint: Path):
         import torch
         from sim.train_ppo import build_network, checkpoint_architecture
@@ -301,6 +303,10 @@ class MemoryPolicy:
         # Checkpoints are trusted local project files. No architecture migration.
         blob = torch.load(checkpoint, map_location='cpu', weights_only=False)
         config = blob.get('config', {})
+        from sim.action_decoding import MODES
+        self.action_mode = config.get('evaluation_action_mode', 'flat_argmax')
+        if self.action_mode not in MODES:
+            raise MissingModelInput('Unknown checkpoint action decoding mode')
         self.joint = config.get('task_mode') == 'joint'
         self.coordinate_mode = config.get('coordinate_mode', 'physical_live')
         self.geometry = config.get('geometry', 'legacy_v1')
@@ -346,8 +352,9 @@ class MemoryPolicy:
                 task = float(not bool(view.metadata.get('enemy_bodies_present')))
                 scalars = torch.cat((scalars, torch.tensor([[0., 0., task]], dtype=scalars.dtype)), dim=1)
             logits, value = self.network(planes, scalars)
-            logits[0, ~torch.from_numpy(view.action_mask)] = -torch.inf
-            action = int(logits.argmax(dim=-1)[0])
+            from sim.action_decoding import greedy_actions
+            mask = torch.from_numpy(view.action_mask).unsqueeze(0)
+            action = int(greedy_actions(logits, mask, self.action_mode)[0])
         decision = {'action': action, 'placement': view.placement_world(action),
                     'value': float(value[0]), 'blockers': []}
         if capture is not None:

@@ -71,6 +71,8 @@ def test_real_cpu_optimizer_update_exact_resume_and_timer_checkpoint(tmp_path):
     assert a['infos'][0]['metrics']==b['infos'][0]['metrics']
     bad=deepcopy(first['config']);bad['initial_hand_mode']='scenario'
     with pytest.raises(ValueError,match='initial_hand_mode'):validate_resume(first,bad)
+    bad=deepcopy(first['config']);bad['evaluation_action_mode']='grouped_argmax'
+    with pytest.raises(ValueError,match='evaluation_action_mode'):validate_resume(first,bad)
 
 
 def test_empty_partial_summary_and_visibility_breakdown():

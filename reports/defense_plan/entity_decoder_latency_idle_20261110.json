@@ -1,0 +1,73 @@
+{
+  "platform": "macOS-26.5.1-arm64-arm-64bit",
+  "torch": "2.14.1",
+  "threads": 1,
+  "batch": 1,
+  "source": "tmp/live/best_20261107_live3/final_new/frames.jsonl",
+  "frames": 30,
+  "rejected_frames": 2,
+  "note": "Random weights measure architecture cost, not quality; dense stress is synthetic.",
+  "models": {
+    "factorized_spatial_v3_conditioned": {
+      "parameters": 408402,
+      "real_frames": {
+        "median_ms": 0.9598960000000001,
+        "p95_ms": 1.8279107500000003,
+        "max_ms": 3.700792,
+        "n": 300
+      },
+      "dense_stress": {
+        "median_ms": 0.798,
+        "p95_ms": 1.20385385,
+        "max_ms": 2.43025,
+        "n": 100
+      }
+    },
+    "entity_transformer_d64_l2_v1": {
+      "parameters": 133203,
+      "real_frames": {
+        "median_ms": 0.7300835,
+        "p95_ms": 0.9046729,
+        "max_ms": 1.116541,
+        "n": 300
+      },
+      "dense_stress": {
+        "median_ms": 2.068167,
+        "p95_ms": 2.19750415,
+        "max_ms": 2.348292,
+        "n": 100
+      }
+    },
+    "entity_transformer_d96_l2_v1": {
+      "parameters": 270451,
+      "real_frames": {
+        "median_ms": 0.719333,
+        "p95_ms": 0.8789146000000001,
+        "max_ms": 1.186667,
+        "n": 300
+      },
+      "dense_stress": {
+        "median_ms": 2.0047705000000002,
+        "p95_ms": 2.2296791999999996,
+        "max_ms": 2.379458,
+        "n": 100
+      }
+    },
+    "entity_transformer_d64_l2_relative_v1": {
+      "parameters": 133203,
+      "real_frames": {
+        "median_ms": 0.781146,
+        "p95_ms": 1.5207541500000001,
+        "max_ms": 2.829542,
+        "n": 300
+      },
+      "dense_stress": {
+        "median_ms": 5.755853999999999,
+        "p95_ms": 9.953460399999999,
+        "max_ms": 11.508917,
+        "n": 100
+      }
+    }
+  },
+  "adapter_encode_median_ms": 1.5044374999999999
+}
