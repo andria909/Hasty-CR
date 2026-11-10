@@ -67,7 +67,21 @@ def load(entry,weights,device):
     count=blob['state_dict']['scalar.0.weight'].shape[1]
     if count!=entry['scalars']:raise ValueError('Declared input count differs')
     net=build_network(NUM_PLANES,count,ACTIONS,checkpoint_architecture(blob)).to(device)
-    load_policy_state(net,blob['state_dict'])
+    config=blob.get('config',{})
+    from sim.action_decoding import MODES
+    net.evaluation_action_mode=config.get('evaluation_action_mode','flat_argmax')
+    if net.evaluation_action_mode not in MODES:raise ValueError('Unknown checkpoint action decoding mode')
+    if 'evaluation_action_mode'in entry and entry['evaluation_action_mode']!=net.evaluation_action_mode:
+        raise ValueError('Declared action decoding differs from checkpoint')
+    if getattr(net,'entity_inputs',False):
+        from sim.entity_policy import CONTRACT,vocabulary_sha
+        if (count!=309 or entry['mode']!=JOINT_MODE or config.get('task_mode')!='joint' or
+                config.get('coordinate_mode')!='physical_live_cells_v2' or
+                config.get('observation_contract')!=CONTRACT or
+                config.get('entity_vocabulary_sha256')!=vocabulary_sha()):
+            raise ValueError('Entity evaluation input contract/vocabulary differs')
+        net.load_state_dict(blob['state_dict'],strict=True)
+    else:load_policy_state(net,blob['state_dict'])
     return net.eval().requires_grad_(False)
 
 
@@ -76,12 +90,17 @@ def choose(network,match,side,mode,mask,device,reserved_milli=0):
     obs=policy_observation(match,side,mode)
     obs['scalars']=obs['scalars'].copy()
     obs['scalars'][0]=max(0,obs['scalars'][0]-reserved_milli/10000)
+    if getattr(network,'entity_inputs',False):
+        from sim.entity_policy import encode_entities
+        if mode!=JOINT_MODE:raise ValueError('Entity policy requires joint public observation mode')
+        obs['planes']=encode_entities(match,side=side)
     with torch.inference_mode():
         logits,_=network(torch.as_tensor(obs['planes'],device=device)[None],
                          torch.as_tensor(obs['scalars'],device=device)[None])
         support=torch.as_tensor(mask,device=device)
         if not torch.isfinite(logits[0,support]).all():raise ValueError('Nonfinite legal logits')
-        return int(logits[0].masked_fill(~support,-torch.inf).argmax())
+        from sim.action_decoding import greedy_actions
+        return int(greedy_actions(logits,support[None],getattr(network,'evaluation_action_mode','flat_argmax'))[0])
 
 
 def duel(a,b,device,seed,seat,cards,spells,*,on_complete=None,execution=None,on_command=None):
