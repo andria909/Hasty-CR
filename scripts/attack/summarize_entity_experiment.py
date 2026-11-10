@@ -7,14 +7,44 @@ import statistics
 from scripts.kaggle.entity_experiment import ARCHS, SEEDS, STEPS, PROFILE, sha
 
 
+def paired_decoder_report(records,control='decode64'):
+    """Descriptive same-context comparisons; never changes checkpoint selection."""
+    from scripts.attack.compare_ppo_pilot_behavior import compare_records
+    if control not in records or len(records[control])!=2:
+        raise ValueError('Two control training seeds required')
+    seeds=sorted(records[control]);rows=[];directions=[]
+    def compact(part):
+        return {k:v for k,v in part.items()if k!='decision_behavior'}
+    for case,by_seed in records.items():
+        if sorted(by_seed)!=seeds:raise ValueError('Matched training seeds required')
+        if case==control:continue
+        case_rows=[]
+        for seed in seeds:
+            for phase in ('selected','final'):
+                paired=compare_records(records[control][seed][phase],by_seed[seed][phase])
+                row=dict(case=case,control=control,seed=seed,phase=phase,
+                    all=compact(paired['all']),
+                    tasks={t:compact(x)for t,x in paired['tasks'].items()},
+                    task_families={t:{f:compact(x)for f,x in families.items()}
+                                   for t,families in paired['task_families'].items()})
+                rows.append(row);case_rows.append(row)
+        directions.append(dict(case=case,
+            selected_wins_delta_by_seed=[x['all']['wins_delta']for x in case_rows if x['phase']=='selected'],
+            selected_defense_delta_by_seed=[x['tasks']['defense']['wins_delta']for x in case_rows if x['phase']=='selected'],
+            final_wins_delta_by_seed=[x['all']['wins_delta']for x in case_rows if x['phase']=='final']))
+    return dict(rows=rows,directions=directions,descriptive_only=True,selection_changed=False,
+        caveat='Two training seeds repeat the same72validation contexts; neither144 independent scenes nor held-out test.')
+
+
 def summarize(root,study='architecture'):
     architectures,seeds=ARCHS,SEEDS
     if study=='decoder':
         from scripts.kaggle.entity_decoder_experiment import ARCHS as architectures, SEEDS as seeds
     elif study!='architecture':raise ValueError('Unknown entity study')
-    root=Path(root);results={};contexts=None;proof=[]
+    root=Path(root);results={};contexts=None;proof=[];paired_records={}
     expected_source=json.loads((root/f'preflight/{next(iter(architectures))}_whole/config.json').read_text())['source_code_sha256']
     for case,arch in architectures.items():
+        paired_records[case]={}
         folder=root/case/'collected';receipt=json.loads((folder/'collection_receipt.json').read_text())
         if receipt['steps']!=2*STEPS:raise ValueError('Wrong collected budget')
         for name,digest in receipt['files'].items():
@@ -55,6 +85,7 @@ def summarize(root,study='architecture'):
             wins=sum(r['outcome']=='win'for r in rows)
             if wins!=selected['validation']['wins']:raise ValueError('Win count differs')
             selected_records+=rows;final_records+=last
+            paired_records[case][seed]=dict(selected=rows,final=last)
             seed_results.append(dict(seed=seed,selected_update=winner['update'],wins=wins,games=len(rows),
                 last_update_wins=sum(r['outcome']=='win'for r in last),family_guard_met=bool(guarded),
                 checkpoint=str(checkpoint),sha256=sha(checkpoint),training_to_last_update_seconds=metrics[-1]['elapsed_seconds']))
@@ -69,10 +100,12 @@ def summarize(root,study='architecture'):
                 empty_spell_elixir_per_game=statistics.mean(r['empty_spell_elixir']for r in rows),
                 mean_overflow=statistics.mean(r['elixir_overflow']for r in rows))
         results[case]=dict(seeds=seed_results,selected=aggregate(selected_records),final=aggregate(final_records))
-    return dict(schema='entity-'+study+'-results-v1',root=str(root),models=results,proof=proof,
+    result=dict(schema='entity-'+study+'-results-v1',root=str(root),models=results,proof=proof,
         total_cuda_steps=6*STEPS,unique_validation_contexts=72,seed_repetitions=2,
         test_used=False,live_promoted=False,all_fresh_initialization=True,
         family_guard_passes=sum(s['family_guard_met']for r in results.values()for s in r['seeds']))
+    if study=='decoder':result['paired_comparison']=paired_decoder_report(paired_records)
+    return result
 
 
 if __name__=='__main__':
